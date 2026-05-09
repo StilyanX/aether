@@ -1,0 +1,77 @@
+name: Bug Report
+description: Something is broken or not working as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Fill in as much as you can. Screenshots help a lot.\n\n> Seen this bug too? Add a 👍 reaction to help us prioritize."
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where does the bug happen?
+      options:
+        - Home / Browse topics
+        - Learning a topic
+        - Practice / Flashcards
+        - Settings
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What went wrong?
+      description: Describe what you saw. Plain language is fine.
+      placeholder: "Example: I clicked on German Unit 2 and the page went blank."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: "1. Go to...\n2. Click...\n3. See error"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+      placeholder: "Example: I expected the lesson to open."
+  - type: textarea
+    id: console-errors
+    attributes:
+      label: Console errors or error messages
+      description: Open DevTools (F12) → Console tab. Paste any red errors here.
+      placeholder: "Paste errors here, or leave blank if none"
+  - type: dropdown
+    id: device
+    attributes:
+      label: What device are you on?
+      options:
+        - Desktop (Windows)
+        - Desktop (Mac)
+        - Desktop (Linux)
+        - Phone (iPhone)
+        - Phone (Android)
+        - Tablet
+        - I don't know
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Which browser?
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Edge
+        - Brave
+        - I don't know
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Quick checks
+      options:
+        - label: I refreshed the page and the bug still happens
+        - label: I tried a different browser and the bug still happens

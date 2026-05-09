@@ -1,0 +1,156 @@
+/* Learning view re-skin - editorial masthead, breadcrumb topbar, mode-switch bar.
+   Namespaced .lv-* so it composes on top of the existing .lt-* template styles. */
+
+.lv-topbar {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0;
+  border-bottom: 1px solid var(--border-default);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--bg);
+}
+.lv-crumb {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+  padding: 0 32px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.lv-crumb .sep {
+  opacity: 0.4;
+}
+.lv-crumb-link {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.lv-crumb-link:hover {
+  color: var(--text-primary);
+}
+.lv-crumb .active {
+  color: var(--ax-topbar);
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 560px;
+}
+
+.lv-topbar-actions {
+  display: flex;
+  align-items: stretch;
+  height: 100%;
+  border-left: 1px solid var(--border-default);
+}
+.lv-topbar-icon {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.lv-topbar-icon:last-child {
+  border-right: none;
+}
+.lv-topbar-icon:hover {
+  color: var(--ax-topbar);
+  background: color-mix(in srgb, var(--ax-topbar) 6%, transparent);
+}
+.lv-topbar-icon svg {
+  width: 16px;
+  height: 16px;
+}
+.lv-topbar-hint {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+}
+
+.lv-masthead {
+  padding: var(--d-mh-top, 48px) 10% 8px;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+}
+
+.lt main {
+  padding: 16px 10% 80px;
+}
+
+.lv-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.4rem, 5.6vw, 5rem);
+  line-height: 0.96;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+  color: var(--text-primary);
+  text-transform: none;
+}
+.lv-lead {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 0 32px;
+}
+
+.lv-mode.active {
+  color: var(--ax-topbar);
+}
+.lv-mode.active .lv-mode-s {
+  color: var(--text-secondary);
+}
+
+/* Suppress the original tab nav when the re-skinned shell is active; the masthead
+   carries the mode switch now, so the duplicate bar below would be redundant. */
+.lt[data-reskinned='true'] > .lt-nav {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .lv-masthead {
+    padding: 32px 6% 16px;
+  }
+  .lt main {
+    padding: 32px 6% 64px;
+  }
+}
+
+@media (max-width: 768px) {
+  .lv-topbar-actions {
+    display: none;
+  }
+  .lv-masthead {
+    padding: 24px 20px 12px;
+  }
+  .lt main {
+    padding: 24px 20px 80px;
+  }
+}

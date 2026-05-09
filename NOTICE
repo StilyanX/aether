@@ -1,0 +1,98 @@
+THIRD-PARTY NOTICES AND ATTRIBUTIONS
+
+This project incorporates materials from the sources listed below.
+
+================================================================================
+FONTS
+================================================================================
+
+D-DIN Font Family
+-----------------
+Copyright (c) 2017 Datto Inc.
+Licensed under the SIL Open Font License, Version 1.1
+https://scripts.sil.org/OFL
+
+Commissioned by Datto Inc. from Monotype and released as open source.
+
+OpenDyslexic Font Family
+------------------------
+Copyright (c) 2019 Abelardo Gonzalez
+Licensed under the SIL Open Font License, Version 1.1
+https://opendyslexic.org/
+
+================================================================================
+EXTERNAL RESOURCES (CDN)
+================================================================================
+
+MathJax
+-------
+Copyright (c) 2009-2024 The MathJax Consortium
+Licensed under Apache License 2.0
+https://www.mathjax.org/
+Loaded from: cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+
+Open Library Covers API
+-----------------------
+Book cover images are fetched from Open Library's Cover API.
+https://openlibrary.org/dev/docs/api/covers
+Open Library is a project of the Internet Archive.
+
+================================================================================
+EDUCATIONAL CONTENT ATTRIBUTIONS
+================================================================================
+
+The following educational content includes analysis and commentary on
+copyrighted works. This content is provided for educational purposes
+under fair use principles.
+
+Augustus: First Emperor of Rome - Adrian Goldsworthy
+-----------------------------------------------------
+Educational analysis of "Augustus: First Emperor of Rome" (2014) by Adrian Goldsworthy.
+Original work copyright Adrian Goldsworthy. Published by Yale University Press.
+ISBN: 978-0300178937
+
+================================================================================
+TEXTBOOK AND PAPER REFERENCES
+================================================================================
+
+The educational curriculum content in src/features/ is derived from and
+inspired by the following works. This content represents transformative
+educational material that teaches established academic concepts. All original
+works remain copyrighted by their respective authors and publishers.
+
+MATHEMATICS
+-----------
+- Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu
+
+PHYSICS
+-------
+- Mechanics (Course of Theoretical Physics Vol. 1) - L.D. Landau, E.M. Lifshitz
+- Mathematical Methods of Classical Mechanics - V.I. Arnold
+- An Introduction to Mechanics - Daniel Kleppner, Robert J. Kolenkow
+
+INFORMATION THEORY
+------------------
+- A Mathematical Theory of Communication - Claude E. Shannon (Bell System Technical Journal, 1948)
+
+LANGUAGES
+---------
+- Begegnungen Deutsch als Fremdsprache A1+ NEU (Integriertes Kurs- und Arbeitsbuch) - Anne Buscha, Szilvia Szita
+- Begegnungen A1+ Glossar Deutsch-Englisch - Anne Buscha, Szilvia Szita
+
+================================================================================
+DEPENDENCIES
+================================================================================
+
+All npm dependencies are MIT licensed unless otherwise noted.
+See package.json for the full list.
+
+Key dependencies:
+- React (MIT) - https://reactjs.org/
+- React Router DOM (MIT) - https://reactrouter.com/
+- Framer Motion (MIT) - https://www.framer.com/motion/
+- Mafs (MIT) - https://mafs.dev/
+- Vite (MIT) - https://vitejs.dev/
+
+================================================================================
+
+For licensing questions, please open an issue on the project's GitHub repository.
