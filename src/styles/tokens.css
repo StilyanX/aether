@@ -1,0 +1,153 @@
+/* Design Tokens */
+:root {
+  --reader-font-family: var(--reader-font-family);
+  --accent: #3b82f6;
+  --dur-multiplier: 1;
+
+  /* Backgrounds */
+  --bg: #18181b;
+  --bg-elevated: #1c1c1f;
+  --bg-surface: #202025;
+  --bg-overlay: #1a1a1e;
+  --bg-rgb: 24 24 27;
+
+  /* Base color (used by LearningTemplate color-mix system) */
+  --base-color: rgb(224 224 228);
+
+  /* Text */
+  --text-primary: rgba(224, 224, 228, 1);
+  --text-secondary: rgba(232, 232, 242, 0.55);
+  --text-tertiary: rgba(232, 232, 242, 0.28);
+  --text-disabled: rgba(232, 232, 242, 0.18);
+
+  /* Borders */
+  --border-subtle: rgba(232, 232, 242, 0.06);
+  --border-default: rgba(232, 232, 242, 0.1);
+  --border-interactive: rgba(232, 232, 242, 0.25);
+  --border-active: rgba(232, 232, 242, 0.55);
+
+  /* Domain colors */
+  --domain-mathematics: #ffd700;
+  --domain-physics: #7f00ff;
+  --domain-chemistry: #50c878;
+  --domain-biology: #228b22;
+  --domain-medicine: #006400;
+  --domain-engineering: #848789;
+  --domain-cs: #0074d9;
+  --domain-earth-sciences: #8b6914;
+  --domain-agriculture: #6b8e23;
+  --domain-neuroscience: #da70d6;
+  --domain-economics: #b87333;
+  --domain-business: #967117;
+  --domain-law: #4b0082;
+  --domain-military: #4b5320;
+  --domain-political-science: #33a1c9;
+  --domain-philosophy: #00008b;
+  --domain-psychology: #4169e1;
+  --domain-sociology: #9fa91f;
+  --domain-education: #add8e6;
+  --domain-communication: #dc143c;
+  --domain-linguistics: #e6e6fa;
+  --domain-literature: #c4a882;
+  --domain-history: #faebd7;
+  --domain-geography: #40e0d0;
+  --domain-architecture: #c9ae5d;
+  --domain-art: #8b4513;
+  --domain-music: #f4c430;
+  --domain-books: #9e2a2a;
+  --domain-papers: #c8cdd2;
+  --domain-videos: #ff1f1f;
+  --domain-podcasts: #8b5cf6;
+  --domain-theology: #191970;
+  --domain-anthropology: #cd853f;
+
+  /* Book genre colors */
+  --book-biography: #c49102;
+  --book-science: #ffd700;
+  --book-history: #faebd7;
+  --book-philosophy: #00008b;
+  --book-psychology: #4169e1;
+  --book-fiction: #722f37;
+  --book-economics: #b87333;
+  --book-systems: #e5e4e2;
+  --book-management: #967117;
+  --book-strategy-war: #4b5320;
+  --book-technology-ai: #0074d9;
+  --book-law: #4b0082;
+  --book-finance-wealth: #c9ae5d;
+  --book-health-fitness: #9dc183;
+  --book-architecture-design: #8b4513;
+  --book-communication-rhetoric: #dc143c;
+  --book-religion-spirituality: #f4c430;
+  --book-family-relationships: #bc8f8f;
+  --book-security-risk: #1b2a4a;
+
+  /* Error UI tokens (shared with design-lab/error-ui mockups) */
+  --warn: #d4a017;
+  --tip: #4a90e2;
+  --line: rgba(240, 240, 250, 0.12);
+  --line-2: rgba(240, 240, 250, 0.06);
+  --line-3: rgba(240, 240, 250, 0.28);
+  --fg-3: rgba(240, 240, 250, 0.45);
+  --fg-4: rgba(240, 240, 250, 0.28);
+  --t: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Difficulty - Okabe-Ito */
+  --difficulty-1: #009e73;
+  --difficulty-2: #f0e442;
+  --difficulty-3: #e69f00;
+  --difficulty-4: #d55e00;
+
+  /* Spacing - 8px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+
+  /* Layout */
+  --sidebar-width: 220px;
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-entrance: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-micro: calc(120ms * var(--dur-multiplier, 1));
+  --dur-fast: calc(200ms * var(--dur-multiplier, 1));
+  --dur-base: calc(300ms * var(--dur-multiplier, 1));
+
+  /* Platform UI kit - accent + focus */
+  --accent-weak: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-contrast: var(--bg);
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 3px var(--accent);
+
+  /* CJK fallback chain - system CJK fonts first (more reliable per-glyph
+     selection than Noto webfonts in Chromium) then Noto webfonts, then generic. */
+  --font-cjk:
+    'Noto Sans JP', 'Noto Sans SC', 'Hiragino Sans', 'Hiragino Kaku Gothic Pro', 'Yu Gothic UI',
+    'Yu Gothic', Meiryo, 'Microsoft YaHei', 'PingFang SC', 'Source Han Sans CN',
+    'Source Han Sans JP', 'Noto Sans CJK JP', 'Noto Sans CJK SC';
+
+  /* Platform UI kit - font tokens (aliases over existing stacks) */
+  --font-sans:
+    var(--reader-font-family, 'D-DIN'), 'Noto Sans JP', 'Noto Sans SC', 'Hiragino Sans',
+    'Yu Gothic', 'Microsoft YaHei', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display:
+    'D-DIN-Bold', 'Noto Sans JP', 'Noto Sans SC', 'Hiragino Sans', 'Yu Gothic', 'Microsoft YaHei',
+    'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:
+    var(--reader-code-font, ui-monospace, 'JetBrains Mono', 'Fira Code', Menlo), 'Noto Sans JP',
+    'Noto Sans SC', 'Hiragino Sans', 'Yu Gothic', 'Microsoft YaHei', 'PingFang SC', monospace;
+  --font-dyslexic: 'OpenDyslexic', sans-serif;
+
+  /* Platform UI kit - typography */
+  --tracking-button: 0.2em;
+  --fs-eyebrow: 0.6875rem;
+}

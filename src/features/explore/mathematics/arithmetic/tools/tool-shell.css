@@ -1,0 +1,78 @@
+.ts-root {
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text-primary);
+  font-family: var(--reader-font-family);
+}
+
+.ts-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(var(--bg-rgb), 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-default);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 56px;
+}
+
+.ts-back-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--base-color) 45%, transparent);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+  flex-shrink: 0;
+}
+.ts-back-btn:hover {
+  background: color-mix(in srgb, var(--base-color) 8%, transparent);
+  color: color-mix(in srgb, var(--base-color) 75%, transparent);
+}
+.ts-back-btn:focus-visible {
+  outline: 1px solid var(--border-interactive);
+  outline-offset: 2px;
+}
+
+.ts-title {
+  flex: 1;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: color-mix(in srgb, var(--base-color) 70%, transparent);
+}
+
+.ts-reset-btn {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  text-transform: uppercase;
+  min-height: 36px;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+.ts-reset-btn:hover {
+  border-color: var(--border-interactive);
+  color: var(--text-secondary);
+}
+.ts-reset-btn:focus-visible {
+  outline: 1px solid var(--border-interactive);
+  outline-offset: 2px;
+}

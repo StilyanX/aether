@@ -1,0 +1,79 @@
+.pmd-panel {
+  position: fixed;
+  top: 56px;
+  right: 0;
+  z-index: 50;
+  width: 280px;
+  background: var(--bg);
+  border: 1px solid var(--border-default);
+  border-top: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.pmd-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 1s linear;
+}
+
+.pmd-panel[data-phase='break'] .pmd-progress {
+  background: #50c878;
+}
+
+.pmd-phase {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.pmd-time {
+  margin: 12px 0 28px;
+  font-family: var(--font-mono);
+  font-size: 52px;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.pmd-btn {
+  margin: 0 24px 28px;
+  width: calc(100% - 48px);
+  padding: 13px;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.pmd-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .pmd-panel {
+    top: 56px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    border-left: none;
+    border-right: none;
+  }
+}

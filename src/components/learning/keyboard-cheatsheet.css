@@ -1,0 +1,122 @@
+.kbcs-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: kbcs-fade 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes kbcs-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.kbcs-panel {
+  background: #0a0a0a;
+  color: rgba(240, 240, 250, 1);
+  border: 1px solid rgba(240, 240, 250, 0.4);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 480px;
+  font-family: 'D-DIN', system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.kbcs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(240, 240, 250, 0.15);
+}
+
+.kbcs-title {
+  font-family: 'D-DIN-Bold', 'D-DIN', system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.kbcs-close {
+  background: none;
+  border: 1px solid rgba(240, 240, 250, 0.15);
+  color: inherit;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.15s;
+}
+
+.kbcs-close:hover {
+  border-color: rgba(240, 240, 250, 0.35);
+}
+
+.kbcs-close svg {
+  width: 12px;
+  height: 12px;
+}
+
+.kbcs-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.kbcs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 24px;
+}
+
+.kbcs-row + .kbcs-row {
+  border-top: 1px solid rgba(240, 240, 250, 0.06);
+}
+
+.kbcs-label {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: rgba(240, 240, 250, 0.85);
+}
+
+.kbcs-keys {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kbcs-key {
+  font-family: 'D-DIN-Bold', 'D-DIN', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid rgba(240, 240, 250, 0.25);
+  padding: 2px 6px;
+  min-width: 22px;
+  text-align: center;
+  color: rgba(240, 240, 250, 1);
+}
+
+.kbcs-then {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(240, 240, 250, 0.5);
+  padding: 0 2px;
+}

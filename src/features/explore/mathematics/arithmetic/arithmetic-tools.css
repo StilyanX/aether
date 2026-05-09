@@ -1,0 +1,201 @@
+.at-root {
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.at-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(var(--bg-rgb), 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-default);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 56px;
+}
+
+.at-back-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--base-color) 45%, transparent);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+  flex-shrink: 0;
+}
+.at-back-btn:hover {
+  background: color-mix(in srgb, var(--base-color) 8%, transparent);
+  color: color-mix(in srgb, var(--base-color) 75%, transparent);
+}
+
+.at-nav-crumb {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: color-mix(in srgb, var(--base-color) 40%, transparent);
+}
+
+.at-header {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px 0;
+}
+
+.at-header-kicker {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+
+.at-header-title {
+  font-size: clamp(32px, 3.5vw, 56px);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin: 0 0 12px;
+}
+
+.at-header-sub {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+.at-search-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 32px;
+}
+
+.at-search-inner {
+  position: relative;
+}
+
+.at-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.at-search-input {
+  width: 100%;
+  background: color-mix(in srgb, var(--base-color) 4%, transparent);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  padding: 12px 16px 12px 40px;
+  outline: none;
+  letter-spacing: 0.02em;
+  transition: border-color 0.15s ease;
+}
+.at-search-input::placeholder {
+  color: var(--text-tertiary);
+}
+.at-search-input:focus {
+  border-color: var(--border-interactive);
+}
+
+.at-search-count {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 8px;
+}
+
+.at-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.at-section {
+  margin-bottom: 40px;
+}
+
+.at-section-name {
+  font-size: 12px;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: color-mix(in srgb, var(--base-color) 35%, transparent);
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.at-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--border-subtle);
+}
+
+.at-card {
+  background: var(--bg);
+  border: none;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+.at-card:hover {
+  background: color-mix(in srgb, var(--base-color) 4%, transparent);
+}
+.at-card:focus-visible {
+  outline: 2px solid var(--border-interactive);
+  outline-offset: -2px;
+}
+
+.at-card-name {
+  font-size: 13px;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-primary);
+}
+
+.at-card-desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.at-empty {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}

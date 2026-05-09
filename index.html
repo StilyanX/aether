@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000">
+    <title>Aether</title>
+    <link rel="icon" type="image/png" href="/logo.png">
+
+    <!-- Theme detection — MUST run before any rendering -->
+    <script>
+      (function() {
+        var t = localStorage.getItem('aether-theme');
+        if (!t) {
+          if (window.matchMedia('(prefers-contrast: more)').matches) t = 'high-contrast';
+          else if (window.matchMedia('(prefers-color-scheme: light)').matches) t = 'light';
+          else t = 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+
+    <!-- Instant theme colors — applied immediately via data-theme set above -->
+    <style>
+      html, body { margin: 0; }
+      html[data-theme="dark"], html[data-theme="dark"] body { background: #18181b; color: #e0e0e4; }
+      html[data-theme="light"], html[data-theme="light"] body { background: #fafaf8; color: #1a1a1e; }
+      html[data-theme="sepia"], html[data-theme="sepia"] body { background: #f4ecd8; color: #3b2f1e; }
+      html[data-theme="high-contrast"], html[data-theme="high-contrast"] body { background: #000; color: #fff; }
+    </style>
+
+    <!-- Preconnect to MathJax CDN for faster math rendering -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Preconnect to Open Library CDN for faster book cover loading -->
+    <link rel="preconnect" href="https://covers.openlibrary.org" crossorigin>
+    <link rel="dns-prefetch" href="https://covers.openlibrary.org">
+
+    <!-- Preload critical fonts for faster text rendering -->
+    <link rel="preload" href="/assets/fonts/D-DIN.e58c68e58b09fc0e.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/D-DIN-Bold.9a5ce67e997fd030.woff2" as="font" type="font/woff2" crossorigin>
+
+    <!-- Google Fonts fallback -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
