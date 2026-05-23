@@ -1,37 +1,66 @@
-import { useState, useMemo, useEffect, lazy, Suspense } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import {
+  TenFrame,
+  Rekenrek,
+  NumberBonds,
+  NumberPairDecomposer,
+  MakeATen,
+  BaseTenBlocks,
+  PlaceValueDisks,
+  HundredsChart,
+  ExplodingDots,
+  NumberLine,
+  TwoColorCounters,
+  BalanceScale,
+  ArrayBuilder,
+  AreaModel,
+  FactorTree,
+  SieveOfEratosthenes,
+  MultiplicationGames,
+  FractionStrips,
+  FractionCircles,
+  CuisenaireRods,
+  BarModel,
+  FunctionMachine,
+  Money,
+  Clock,
+  TargetNumber,
+  VennDiagram,
+  VisualPuzzles,
+  AnimatedConcepts
+} from '../../../../components/viz/tools/arithmetic-tools'
 import './arithmetic-tools.css'
 
-// Lazy-loaded tool components
 export const TOOL_COMPONENTS = {
-  'ten-frame': lazy(() => import('./tools/ten-frame')),
-  rekenrek: lazy(() => import('./tools/rekenrek')),
-  'number-bonds': lazy(() => import('./tools/number-bonds')),
-  'number-pair-decomposer': lazy(() => import('./tools/number-pair-decomposer')),
-  'make-a-ten': lazy(() => import('./tools/make-a-ten')),
-  'base-ten-blocks': lazy(() => import('./tools/base-ten-blocks')),
-  'place-value-disks': lazy(() => import('./tools/place-value-disks')),
-  'hundreds-chart': lazy(() => import('./tools/hundreds-chart')),
-  'exploding-dots': lazy(() => import('./tools/exploding-dots')),
-  'number-line': lazy(() => import('./tools/number-line')),
-  'two-color-counters': lazy(() => import('./tools/two-color-counters')),
-  'balance-scale': lazy(() => import('./tools/balance-scale')),
-  'array-builder': lazy(() => import('./tools/array-builder')),
-  'area-model': lazy(() => import('./tools/area-model')),
-  'factor-tree': lazy(() => import('./tools/factor-tree')),
-  'sieve-of-eratosthenes': lazy(() => import('./tools/sieve-of-eratosthenes')),
-  'multiplication-games': lazy(() => import('./tools/multiplication-games')),
-  'fraction-strips': lazy(() => import('./tools/fraction-strips')),
-  'fraction-circles': lazy(() => import('./tools/fraction-circles')),
-  'cuisenaire-rods': lazy(() => import('./tools/cuisenaire-rods')),
-  'bar-model': lazy(() => import('./tools/bar-model')),
-  'function-machine': lazy(() => import('./tools/function-machine')),
-  money: lazy(() => import('./tools/money')),
-  clock: lazy(() => import('./tools/clock')),
-  'target-number': lazy(() => import('./tools/target-number')),
-  'venn-diagram': lazy(() => import('./tools/venn-diagram')),
-  'visual-puzzles': lazy(() => import('./tools/visual-puzzles')),
-  'animated-concepts': lazy(() => import('./tools/animated-concepts'))
+  'ten-frame': TenFrame,
+  rekenrek: Rekenrek,
+  'number-bonds': NumberBonds,
+  'number-pair-decomposer': NumberPairDecomposer,
+  'make-a-ten': MakeATen,
+  'base-ten-blocks': BaseTenBlocks,
+  'place-value-disks': PlaceValueDisks,
+  'hundreds-chart': HundredsChart,
+  'exploding-dots': ExplodingDots,
+  'number-line': NumberLine,
+  'two-color-counters': TwoColorCounters,
+  'balance-scale': BalanceScale,
+  'array-builder': ArrayBuilder,
+  'area-model': AreaModel,
+  'factor-tree': FactorTree,
+  'sieve-of-eratosthenes': SieveOfEratosthenes,
+  'multiplication-games': MultiplicationGames,
+  'fraction-strips': FractionStrips,
+  'fraction-circles': FractionCircles,
+  'cuisenaire-rods': CuisenaireRods,
+  'bar-model': BarModel,
+  'function-machine': FunctionMachine,
+  money: Money,
+  clock: Clock,
+  'target-number': TargetNumber,
+  'venn-diagram': VennDiagram,
+  'visual-puzzles': VisualPuzzles,
+  'animated-concepts': AnimatedConcepts
 }
 
 // Tool Data
@@ -238,22 +267,6 @@ function ArithmeticToolsContent() {
     document.title = 'Arithmetic Tools - AETHER'
   }, [])
 
-  // Tool view
-  if (selectedTool) {
-    const toolMeta = ALL_TOOLS.find(t => t.id === selectedTool)
-    const ToolComponent = TOOL_COMPONENTS[selectedTool]
-    if (ToolComponent) {
-      return (
-        <Suspense fallback={<div className="at-root" />}>
-          <ToolComponent
-            toolName={toolMeta?.name || selectedTool}
-            onBack={() => setSelectedTool(null)}
-          />
-        </Suspense>
-      )
-    }
-  }
-
   const filtered = useMemo(() => {
     const q = query.toLowerCase().trim()
     if (!q) return CATEGORIES
@@ -267,6 +280,20 @@ function ArithmeticToolsContent() {
       )
     })).filter(cat => cat.tools.length > 0)
   }, [query])
+
+  // Tool view
+  if (selectedTool) {
+    const toolMeta = ALL_TOOLS.find(t => t.id === selectedTool)
+    const ToolComponent = TOOL_COMPONENTS[selectedTool]
+    if (ToolComponent) {
+      return (
+        <ToolComponent
+          toolName={toolMeta?.name || selectedTool}
+          onBack={() => setSelectedTool(null)}
+        />
+      )
+    }
+  }
 
   const filteredCount = filtered.reduce((sum, c) => sum + c.tools.length, 0)
 

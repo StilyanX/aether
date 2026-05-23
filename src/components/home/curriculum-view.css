@@ -1,8 +1,6 @@
-/* ==========================================================
-   CURRICULUM VIEW - Arithmetic
+/* CURRICULUM VIEW - Arithmetic
    Ported from aether-design-system/project/ui_kits/platform/curriculum.css
-   Scoped under .cc-page so it cannot leak into other routes.
-   ========================================================== */
+   Scoped under .cc-page so it cannot leak into other routes. */
 
 .cc-page {
   position: relative;
@@ -21,7 +19,7 @@
   transform: none;
 }
 
-/* -------- Topbar -------- */
+/* Topbar */
 .cc-page .cc-topbar {
   display: flex;
   align-items: center;
@@ -95,16 +93,14 @@
   color: var(--text-primary);
 }
 
-/* -------- Shell -------- */
+/* Shell */
 .cc-shell {
   max-width: 1320px;
   margin: 0 auto;
   padding: 0 56px;
 }
 
-/* ==========================================================
-   MASTHEAD
-   ========================================================== */
+/* MASTHEAD */
 .cc-masthead {
   position: relative;
   padding: var(--d-mh-top, 60px) 0 48px;
@@ -125,7 +121,8 @@
 }
 
 .cc-mh-title {
-  font-family: var(--font-display, 'D-DIN-Bold', sans-serif);
+  font-family: var(--font-display, 'D-DIN', sans-serif);
+  font-weight: 700;
   font-size: clamp(5rem, 11vw, 11.5rem);
   line-height: 0.86;
   letter-spacing: -0.04em;
@@ -209,7 +206,8 @@
   text-transform: uppercase;
 }
 .cc-mh-progress-label .pct {
-  font-family: var(--font-display, 'D-DIN-Bold', sans-serif);
+  font-family: var(--font-display, 'D-DIN', sans-serif);
+  font-weight: 700;
   font-size: 32px;
   letter-spacing: -0.02em;
   line-height: 1;
@@ -294,9 +292,7 @@
   letter-spacing: 0;
 }
 
-/* ==========================================================
-   UNITS
-   ========================================================== */
+/* UNITS */
 .cc-units {
   display: flex;
   flex-direction: column;
@@ -326,7 +322,8 @@
   gap: 4px;
 }
 .cc-unit-n {
-  font-family: var(--font-display, 'D-DIN-Bold', sans-serif);
+  font-family: var(--font-display, 'D-DIN', sans-serif);
+  font-weight: 700;
   font-size: clamp(5.5rem, 10vw, 9rem);
   line-height: 0.82;
   letter-spacing: -0.05em;
@@ -356,7 +353,8 @@
   padding-top: 18px;
 }
 .cc-unit-title {
-  font-family: var(--font-display, 'D-DIN-Bold', sans-serif);
+  font-family: var(--font-display, 'D-DIN', sans-serif);
+  font-weight: 700;
   font-size: clamp(1.75rem, 3.2vw, 2.75rem);
   line-height: 1.04;
   letter-spacing: -0.01em;
@@ -408,9 +406,7 @@
   margin: -1px;
 }
 
-/* ==========================================================
-   MODULE CARD
-   ========================================================== */
+/* MODULE CARD */
 .cc-mod {
   position: relative;
   display: grid;
@@ -519,7 +515,8 @@
   justify-content: space-between;
 }
 .cc-cover-code {
-  font-family: var(--font-display, 'D-DIN-Bold', sans-serif);
+  font-family: var(--font-display, 'D-DIN', sans-serif);
+  font-weight: 700;
   font-size: 20px;
   letter-spacing: -0.02em;
   color: var(--text-primary);
@@ -685,9 +682,7 @@
   opacity: 0.6;
 }
 
-/* ==========================================================
-   CAPSTONE CARD
-   ========================================================== */
+/* CAPSTONE CARD */
 .cc-capstone {
   position: relative;
   grid-column: 1 / -1;
@@ -760,7 +755,8 @@
 .cc-capstone-title {
   grid-column: 1;
   grid-row: 2;
-  font-family: var(--font-display, 'D-DIN-Bold', sans-serif);
+  font-family: var(--font-display, 'D-DIN', sans-serif);
+  font-weight: 700;
   font-size: clamp(1.5rem, 2.6vw, 2rem);
   line-height: 1.08;
   letter-spacing: -0.01em;
@@ -799,9 +795,7 @@
   z-index: 1;
 }
 
-/* ==========================================================
-   SOURCES
-   ========================================================== */
+/* SOURCES */
 .cc-sources {
   border-top: 1px solid var(--border-subtle);
   padding: 40px 0 0;
@@ -816,7 +810,8 @@
   margin-bottom: 24px;
 }
 .cc-sources-n {
-  font-family: var(--font-display, 'D-DIN-Bold', sans-serif);
+  font-family: var(--font-display, 'D-DIN', sans-serif);
+  font-weight: 700;
   font-size: 26px;
   color: var(--text-primary);
   line-height: 1;
@@ -871,9 +866,7 @@
   text-align: right;
 }
 
-/* ==========================================================
-   TOOL LIBRARY
-   ========================================================== */
+/* TOOL LIBRARY */
 .cc-toolib {
   margin: 100px 0 80px;
   padding-top: 60px;
@@ -899,7 +892,8 @@
   margin-bottom: 18px;
 }
 .cc-toolib-title {
-  font-family: var(--font-display, 'D-DIN-Bold', sans-serif);
+  font-family: var(--font-display, 'D-DIN', sans-serif);
+  font-weight: 700;
   font-size: clamp(2.8rem, 5vw, 4.25rem);
   letter-spacing: -0.02em;
   line-height: 1;
@@ -1160,9 +1154,7 @@
   text-wrap: pretty;
 }
 
-/* ==========================================================
-   RESPONSIVE
-   ========================================================== */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
   .cc-mod-grid {
     grid-template-columns: repeat(2, 1fr);

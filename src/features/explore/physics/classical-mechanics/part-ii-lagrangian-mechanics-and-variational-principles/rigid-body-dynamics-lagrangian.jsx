@@ -13,8 +13,8 @@ import {
   DragHandle as DH7,
   OPACITY as O7,
   VizCard
-} from '../../../../../components/viz/physics-viz/primitives'
-import { rk4Step as rk47 } from '../../../../../components/viz/physics-viz/physics-core'
+} from '../../../../../components/viz/primitives'
+import { rk4Step as rk47 } from '../../../../../components/viz/physics'
 
 function EulerGimbals() {
   const [phi, setPhi] = React.useState(0.4)
@@ -359,11 +359,9 @@ function TennisRacket() {
 export default function RigidBodyDynamicsLagrangian() {
   const config = {
     cssPrefix: 'rbl',
-    source:
-      'Mechanics (Course of Theoretical Physics, Vol. 1) - Landau & Lifshitz; Mathematical Methods of Classical Mechanics - Arnold',
     documentTitle: 'Rigid-Body Dynamics (Lagrangian / Geometric Treatment) - AETHER',
     learning: {
-      groupTitle: 'Part II: Lagrangian Mechanics and Variational Principles',
+      groupTitle: 'Lagrangian Mechanics and Variational Principles',
       category: 'Classical Mechanics',
       title: 'Rigid-Body Dynamics (Lagrangian / Geometric Treatment)',
       subtitle:

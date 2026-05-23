@@ -11,7 +11,7 @@ import {
   MomentumVsForce,
   DragCenterOfMass,
   ElasticCollisionCalc
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 export default function MomentumAndSystemsOfParticles() {
   const SEC1 = (
@@ -2066,11 +2066,10 @@ export default function MomentumAndSystemsOfParticles() {
 
   const config = {
     cssPrefix: 'msp',
-    source: 'An Introduction to Mechanics - Kleppner & Kolenkow',
     documentTitle: 'Momentum and Systems of Particles - AETHER',
     learning: {
       category: 'Module 3',
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       title: 'Momentum and Systems of Particles',
       subtitle:
         'One simple idea, the product mv, lets you predict rockets, recoil, dikes, and gas pressure. You will also learn the trick that turns any cluster of particles into a single point: the center of mass.',

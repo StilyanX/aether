@@ -11,25 +11,49 @@ D-DIN Font Family
 Copyright (c) 2017 Datto Inc.
 Licensed under the SIL Open Font License, Version 1.1
 https://scripts.sil.org/OFL
-
+Bundled at public/assets/fonts/D-DIN.*.woff2.
 Commissioned by Datto Inc. from Monotype and released as open source.
 
 OpenDyslexic Font Family
 ------------------------
-Copyright (c) 2019 Abelardo Gonzalez
+Copyright (c) 2012-2019 Abbie Gonzalez
 Licensed under the SIL Open Font License, Version 1.1
 https://opendyslexic.org/
+Bundled at public/assets/fonts/OpenDyslexic-*.woff.
+
+Google Fonts (loaded via fonts.googleapis.com)
+----------------------------------------------
+All licensed under the SIL Open Font License, Version 1.1.
+
+- Inter           https://fonts.google.com/specimen/Inter
+- Atkinson Hyperlegible  https://fonts.google.com/specimen/Atkinson+Hyperlegible
+- JetBrains Mono  https://fonts.google.com/specimen/JetBrains+Mono
+- Fira Code       https://fonts.google.com/specimen/Fira+Code
+- Noto Sans JP    https://fonts.google.com/noto/specimen/Noto+Sans+JP
+- Noto Sans SC    https://fonts.google.com/noto/specimen/Noto+Sans+SC
 
 ================================================================================
 EXTERNAL RESOURCES (CDN)
 ================================================================================
 
-MathJax
--------
+MathJax v3
+----------
 Copyright (c) 2009-2024 The MathJax Consortium
 Licensed under Apache License 2.0
 https://www.mathjax.org/
-Loaded from: cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js
+Loaded from: cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js
+Fonts loaded from: cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2
+See src/hooks/use-mathjax.js.
+
+Prism.js
+--------
+Copyright (c) 2012 Lea Verou
+Licensed under the MIT License
+https://prismjs.com/
+Loaded from: cdn.jsdelivr.net/npm/prismjs@1/ (core, prism-tomorrow theme, and
+language components for python, javascript, typescript, jsx, css, bash, json,
+latex, cpp, c, rust, go).
+See src/hooks/use-prism.js.
 
 Open Library Covers API
 -----------------------
@@ -43,13 +67,41 @@ EDUCATIONAL CONTENT ATTRIBUTIONS
 
 The following educational content includes analysis and commentary on
 copyrighted works. This content is provided for educational purposes
-under fair use principles.
+under fair use principles. All original works remain copyrighted by their
+respective authors, publishers, and rights holders.
 
-Augustus: First Emperor of Rome - Adrian Goldsworthy
------------------------------------------------------
-Educational analysis of "Augustus: First Emperor of Rome" (2014) by Adrian Goldsworthy.
-Original work copyright Adrian Goldsworthy. Published by Yale University Press.
-ISBN: 978-0300178937
+Books
+-----
+- Augustus: First Emperor of Rome (2014). Adrian Goldsworthy.
+  Published by Yale University Press. ISBN: 978-0300178722 (hardcover).
+  File: src/features/explore/books/biography/Founders & Builders/augustus-first-emperor.jsx
+
+- The Book of the New Sun tetralogy (1980-1983). Gene Wolfe.
+  Published by Simon & Schuster (Vol. 1) and Timescape Books, a Simon &
+  Schuster imprint (Vols. 2-4). Later reissued by Tor Books.
+    * The Shadow of the Torturer (1980).      ISBN: 978-0671253257.
+    * The Claw of the Conciliator (1981).     ISBN: 978-0671413705.
+    * The Sword of the Lictor (1982).         ISBN: 978-0671435950.
+    * The Citadel of the Autarch (1983).      ISBN: 978-0671452513.
+  Files: src/features/explore/books/fantasy/Science Fantasy/the-*.jsx
+
+Films
+-----
+- Star Wars: Episode I - The Phantom Menace (1999). Written and directed by
+  George Lucas. Lucasfilm Ltd. / The Walt Disney Company.
+  File: src/features/explore/films/star-wars/the-phantom-menace.jsx
+
+Podcasts
+--------
+- Lex Fridman Podcast #310, "Andrew Bustamante: CIA Spy" (2022-08-08).
+  Copyright Lex Fridman. https://lexfridman.com/andrew-bustamante/
+  File: src/features/explore/podcasts/lex-fridman/andrew-bustamante.jsx
+
+Videos
+------
+- "How Switzerland Engineered the Perfect Country" (2025-12-11) by Johnny
+  Harris. Copyright Johnny Harris. https://www.youtube.com/@johnnyharris
+  File: src/features/explore/videos/johnny-harris/switzerland-engineering.jsx
 
 ================================================================================
 TEXTBOOK AND PAPER REFERENCES
@@ -62,36 +114,72 @@ works remain copyrighted by their respective authors and publishers.
 
 MATHEMATICS
 -----------
-- Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu
+- Understanding Numbers in Elementary School Mathematics (2011). Hung-Hsi Wu.
+  Published by the American Mathematical Society. ISBN: 978-0821852606.
+  (Arithmetic curriculum.)
+- Algebra (1993). I.M. Gelfand and Alexander Shen. Published by Birkhäuser.
+  ISBN: 978-0817636777.
+  (Algebra curriculum: arithmetic foundations, algebraic identities, the
+  binomial theorem, roots/powers/inequalities.)
+- Introduction to Algebra. Richard Rusczyk. Published by Art of Problem
+  Solving (AoPS). ISBN: 978-1934124147.
+  (Algebra curriculum: algebraic foundations, linear equations, ratios and
+  proportions, graphing lines and inequalities, quadratic equations,
+  functions, polynomials and exponential functions, sequences and series.)
 
 PHYSICS
 -------
-- Mechanics (Course of Theoretical Physics Vol. 1) - L.D. Landau, E.M. Lifshitz
-- Mathematical Methods of Classical Mechanics - V.I. Arnold
-- An Introduction to Mechanics - Daniel Kleppner, Robert J. Kolenkow
+- Mechanics (Course of Theoretical Physics, Vol. 1), 3rd edition (1976).
+  L.D. Landau, E.M. Lifshitz. Published by Butterworth-Heinemann.
+  ISBN: 978-0750628969.
+- Mathematical Methods of Classical Mechanics, 2nd edition (1989).
+  V.I. Arnold. Translated by K. Vogtmann and A. Weinstein.
+  Published by Springer (Graduate Texts in Mathematics, Vol. 60).
+  ISBN: 978-0387968902.
+- An Introduction to Mechanics, 2nd edition (2013). Daniel Kleppner,
+  Robert J. Kolenkow. Published by Cambridge University Press.
+  ISBN: 978-0521198110.
 
 INFORMATION THEORY
 ------------------
-- A Mathematical Theory of Communication - Claude E. Shannon (Bell System Technical Journal, 1948)
+- A Mathematical Theory of Communication. Claude E. Shannon.
+  Bell System Technical Journal, 1948.
 
 LANGUAGES
 ---------
-- Begegnungen Deutsch als Fremdsprache A1+ NEU (Integriertes Kurs- und Arbeitsbuch) - Anne Buscha, Szilvia Szita
-- Begegnungen A1+ Glossar Deutsch-Englisch - Anne Buscha, Szilvia Szita
+- Begegnungen Deutsch als Fremdsprache A1+ NEU
+  (Integriertes Kurs- und Arbeitsbuch). Anne Buscha, Szilvia Szita.
+  Published by Schubert-Verlag. ISBN: 978-3969150054.
+- Begegnungen A1+ Glossar Deutsch-Englisch. Anne Buscha, Szilvia Szita.
+  Published by Schubert-Verlag. ISBN: 978-3969150306.
 
 ================================================================================
 DEPENDENCIES
 ================================================================================
 
-All npm dependencies are MIT licensed unless otherwise noted.
-See package.json for the full list.
+See package.json for the authoritative list of npm dependencies and their
+versions. Individual licenses are available in each package's node_modules
+directory.
 
-Key dependencies:
-- React (MIT) - https://reactjs.org/
-- React Router DOM (MIT) - https://reactrouter.com/
-- Framer Motion (MIT) - https://www.framer.com/motion/
-- Mafs (MIT) - https://mafs.dev/
-- Vite (MIT) - https://vitejs.dev/
+Runtime dependencies:
+- @tanstack/react-virtual (MIT)  https://tanstack.com/virtual
+- framer-motion (MIT)            https://www.framer.com/motion/
+- idb (ISC)                      https://github.com/jakearchibald/idb
+- mafs (MIT)                     https://mafs.dev/
+- matter-js (MIT)                https://brm.io/matter-js/
+- react, react-dom (MIT)         https://react.dev/
+- react-compiler-runtime (MIT)   https://react.dev/learn/react-compiler
+- react-router-dom (MIT)         https://reactrouter.com/
+- ts-fsrs (MIT)                  https://github.com/open-spaced-repetition/ts-fsrs
+
+Notable transitive dependency:
+- KaTeX (MIT) is shipped via mafs and used inside Mafs <LaTeX> components.
+  https://katex.org/
+
+Build / tooling (devDependencies):
+- vite, @vitejs/plugin-react, babel-plugin-react-compiler, autoprefixer,
+  postcss, prettier, eslint (and plugins), @playwright/test, playwright.
+  All MIT-licensed unless otherwise noted.
 
 ================================================================================
 

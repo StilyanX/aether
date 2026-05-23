@@ -12,17 +12,15 @@ import {
   Lissajous,
   PendulumPhasePlane,
   InclineBlock
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 export default function NewtonsLawsAndIntegration() {
   const config = {
     cssPrefix: 'nli',
-    source:
-      'An Introduction to Mechanics (Kleppner & Kolenkow) + Mathematical Methods of Classical Mechanics (Arnold)',
     documentTitle: "Newton's Laws and Integration - AETHER",
     learning: {
       category: 'Module 2',
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       title: "Newton's Laws and Integration",
       subtitle:
         "Three laws that govern all motion, plus the mathematical framework for solving them: Newton's equation as a second-order ODE, phase space, phase flow, and energy conservation.",

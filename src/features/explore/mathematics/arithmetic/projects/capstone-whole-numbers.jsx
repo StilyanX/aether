@@ -1,7 +1,4 @@
-import ProjectTemplate, {
-  Stopwatch,
-  Answer
-} from '../../../../../components/project/project-template'
+import ProjectTemplate, { Answer } from '../../../../../components/project/project-template'
 
 function ProjectContent() {
   return (
@@ -41,12 +38,12 @@ function ProjectContent() {
           exactly where it appears in your example. For addition: place value lets you regroup any
           sum of ten ones as one ten (and so on up). For subtraction: trading preserves the total
           value of the number. For multiplication: the distributive law. For division: the
-          Division-with-Remainder Theorem. Naming the principle is not enough — point to the step in
+          Division-with-Remainder Theorem. Naming the principle is not enough; point to the step in
           your example where it does its work.
         </li>
         <li>
           <strong>Direction of travel.</strong> Explain why the algorithm runs right to left (or
-          left to right for division). Be specific — "because of carrying" is not an explanation.
+          left to right for division). Be specific: "because of carrying" is not an explanation.
           Show what breaks if you run it the other way.
         </li>
         <li>
@@ -452,8 +449,8 @@ function ExamContent() {
       <Answer>
         <p>
           Carries propagate leftward. Example: 867 + 594. Hundreds: 8 + 5 = 13, write 3. Tens: 6 + 9
-          = 15, carry 1 to hundreds. But hundreds was already written as 3 — must be corrected to 4.
-          Right-to-left avoids this because each carry is absorbed before the next column is
+          = 15, carry 1 to hundreds. But hundreds was already written as 3 and must be corrected to
+          4. Right-to-left avoids this because each carry is absorbed before the next column is
           processed.
         </p>
       </Answer>
@@ -547,8 +544,9 @@ function ExamContent() {
       </p>
       <Answer>
         <p>
-          Max dividend: 10(d − 1) + 9 = 10d − 1. Quotient q satisfies q × d ≤ 10d − 1, so q ≤ (10d −
-          1)/d = 10 − 1/d &lt; 10. Since q is a whole number, q ≤ 9.
+          Max dividend: 10(d − 1) + 9 = 10d − 1. Quotient q satisfies q × d ≤ 10d − 1, so{' '}
+          {`$q \\leq \\frac{10d - 1}{d} = 10 - \\frac{1}{d} < 10$`}. Since q is a whole number, q ≤
+          9.
         </p>
       </Answer>
 
@@ -583,13 +581,15 @@ function ExamContent() {
       </Answer>
 
       <p>
-        (b) 1/3 = 0.333... Each digit "narrows the location." Explain what this means precisely.
+        (b) {`$\\frac{1}{3} = 0.333\\ldots$`} Each digit "narrows the location." Explain what this
+        means precisely.
       </p>
       <Answer>
         <p>
-          0.3 places the number in [0.3, 0.4], length 1/10. 0.33 narrows to [0.33, 0.34], length
-          1/100. Each digit shrinks the segment by a factor of 10. After k digits: length 1/10^k. As
-          k grows, this approaches zero — a single point.
+          0.3 places the number in [0.3, 0.4], length {`$\\frac{1}{10}$`}. 0.33 narrows to [0.33,
+          0.34], length {`$\\frac{1}{100}$`}. Each digit shrinks the segment by a factor of 10.
+          After k digits: length {`$\\frac{1}{10^k}$`}. As k grows, this approaches zero: a single
+          point.
         </p>
       </Answer>
 
@@ -652,18 +652,18 @@ function ExamContent() {
         error.
       </p>
       <Answer>
-        <p>Absolute: |296 − 200| = 96. Relative: 96/296 ≈ 32.4%.</p>
+        <p>Absolute: |296 − 200| = 96. Relative: {`$\\frac{96}{296} \\approx 32.4\\%$`}.</p>
       </Answer>
 
       <p>(b) 1,490 + 1,470 rounded to nearest hundred: 3,000. Exact: 2,960. Compute errors.</p>
       <Answer>
-        <p>Absolute: |2,960 − 3,000| = 40. Relative: 40/2,960 ≈ 1.4%.</p>
+        <p>Absolute: |2,960 − 3,000| = 40. Relative: {`$\\frac{40}{2960} \\approx 1.4\\%$`}.</p>
       </Answer>
 
       <p>(c) Same digits, trailing zero. Why does rounding work far better in the second case?</p>
       <Answer>
         <p>
-          In the first case, the numbers sit near 150 — barely larger than the rounding unit of 100.
+          In the first case, the numbers sit near 150, barely larger than the rounding unit of 100.
           Rounding discards nearly half of each number's value. In the second, the numbers sit near
           1,500, which is fifteen times the rounding unit, so rounding discards only a small
           fraction.

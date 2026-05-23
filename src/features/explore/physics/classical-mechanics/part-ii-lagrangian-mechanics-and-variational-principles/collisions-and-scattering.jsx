@@ -4,16 +4,14 @@ import {
   Plot as P4,
   Axes as A4,
   Parametric as Pa4,
-  Polyline as Pl4,
   Dot as D4,
   CircleSh as C4,
   Arrow as Ar4,
   Tex as T4,
   Slider as Sl4,
-  DragHandle as DH4,
   OPACITY as O4,
   VizCard
-} from '../../../../../components/viz/physics-viz/primitives'
+} from '../../../../../components/viz/primitives'
 
 function ScatteringGeometry() {
   const R = 1.6
@@ -182,10 +180,9 @@ function CMvsLab() {
 
 const config = {
   cssPrefix: 'cas',
-  source: 'Mechanics (Course of Theoretical Physics, Vol. 1) - Landau & Lifshitz',
   documentTitle: 'Collisions and Scattering: AETHER',
   learning: {
-    groupTitle: 'Part II: Lagrangian Mechanics and Variational Principles',
+    groupTitle: 'Lagrangian Mechanics and Variational Principles',
     category: 'Classical Mechanics',
     title: 'Collisions and Scattering',
     subtitle:

@@ -84,7 +84,7 @@ class ErrorBoundary extends Component {
 
     if (this.props.fallback) return this.props.fallback
 
-    const { error, errorInfo, correlationId } = this.state
+    const { error, errorInfo } = this.state
     const level = this.props.level || 'app'
 
     if (isChunkError(error)) {

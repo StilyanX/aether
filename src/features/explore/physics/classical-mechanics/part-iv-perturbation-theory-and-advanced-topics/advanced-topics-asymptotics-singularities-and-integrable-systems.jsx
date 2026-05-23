@@ -2,10 +2,9 @@ import { LearningTemplate } from '../../../../../components/learning/learning-te
 
 const config = {
   cssPrefix: 'ats',
-  source: 'Mathematical Methods of Classical Mechanics - Arnold',
   documentTitle: 'Advanced Topics: Asymptotics, Singularities, and Integrable Systems - AETHER',
   learning: {
-    groupTitle: 'Part IV: Perturbation Theory and Advanced Topics',
+    groupTitle: 'Perturbation Theory and Advanced Topics',
     category: 'Classical Mechanics',
     title: 'Advanced Topics: Asymptotics, Singularities, and Integrable Systems',
     subtitle:

@@ -56,6 +56,7 @@ const DEFAULTS = {
   topbarShowFocusMode: true,
   topbarShowShortcuts: true,
   topbarShowDownload: true,
+  topbarShowCopy: true,
   topbarShowSettings: true,
   topbarShowHints: true,
 
@@ -394,7 +395,7 @@ function initSettings() {
       if (parsed.maxReviewsPerDay === 100) parsed.maxReviewsPerDay = Infinity
       settings = { ...DEFAULTS, ...parsed }
     }
-  } catch (_) {
+  } catch {
     // fall back to defaults
   }
   ensureProfiles(settings)
@@ -409,7 +410,7 @@ function persist() {
       SETTINGS_KEY,
       JSON.stringify(settings, (_, v) => (v === Infinity ? '__Infinity__' : v))
     )
-  } catch (_) {}
+  } catch {}
 }
 
 export function set(key, value) {

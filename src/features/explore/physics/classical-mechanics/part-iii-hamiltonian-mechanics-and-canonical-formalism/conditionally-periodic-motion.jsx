@@ -1,22 +1,18 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
-import { useVizColors } from '../../../../../hooks/use-viz-colors'
 import {
   ActionAngleConstruction,
   IntegrablePhasePortrait,
   TorusTrajectoryViz
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
 function ConditionallyPeriodicMotionContentInner() {
-  const C = useVizColors()
-
   const config = {
     cssPrefix: 'rbd',
-    source: 'Mechanics (Course of Theoretical Physics, Vol. 1) - Landau & Lifshitz',
     documentTitle: 'Conditionally Periodic Motion - AETHER',
     learning: {
-      groupTitle: 'Part III: Hamiltonian Mechanics and Canonical Formalism',
+      groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
       category: 'Physics',
       title: 'Conditionally Periodic Motion',
       subtitle: 'Exponential accuracy of adiabatic invariants and multi-frequency torus motion',

@@ -16,16 +16,14 @@ import {
   KeplerEqualAreas,
   EffectivePotentialPlot,
   PolarDecomp
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 export default function ConservativeForceFields() {
   const config = {
     cssPrefix: 'cff',
-    source:
-      'An Introduction to Mechanics - Kleppner & Kolenkow | Mathematical Methods of Classical Mechanics - Arnold',
     documentTitle: 'Conservative Force Fields - AETHER',
     learning: {
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       category: 'Classical Mechanics',
       title: 'Conservative Force Fields',
       subtitle:

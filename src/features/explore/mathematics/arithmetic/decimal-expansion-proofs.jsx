@@ -1,14 +1,10 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
 import { useVizColors } from '../../../../hooks/use-viz-colors'
 
-
-import {
-  FactorTreeVis, RepeatingDecimalVis, PigeonholeVis
-} from '../../../../components/viz/math-viz/modules'
+import { FactorTreeVis, RepeatingDecimalVis, PigeonholeVis } from '../../../../components/viz'
 
 const config = {
   cssPrefix: 'dep',
-  source: 'Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu',
   documentTitle: 'Decimal Expansion Proofs - AETHER',
   learning: {
     category: 'Arithmetic',
@@ -43,7 +39,7 @@ function DecimalExpansionProofsContent() {
         <p>{`If $m/n$ is a fraction where $n = 2^k$, how could you turn it into a fraction with a power-of-10 denominator?`}</p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
-          <p>{`Multiply numerator and denominator by $5^k$. Then $m/2^k = (m \\times 5^k)/(2^k \\times 5^k) = (m \\times 5^k)/10^k$. Now it is a finite decimal.`}</p>
+          <p>{`Multiply numerator and denominator by $5^k$. Then $\\frac{m}{2^k} = \\frac{m \\times 5^k}{2^k \\times 5^k} = \\frac{m \\times 5^k}{10^k}$. Now it is a finite decimal.`}</p>
         </details>
       </div>
 
@@ -59,7 +55,7 @@ function DecimalExpansionProofsContent() {
       <FactorTreeVis C={C} />
 
       <h3>The Proof</h3>
-      <p>{`Start with $m/2^k$. Perform long division of $m \\times 10^k$ by $2^k$.`}</p>
+      <p>{`Start with $\\frac{m}{2^k}$. Perform long division of $m \\times 10^k$ by $2^k$.`}</p>
       <div className="lrn-eq">{`$$m \\times 10^k = q \\cdot 2^k + r, \\quad 0 \\leq r < 2^k$$`}</div>
       <p>{`But $10^k = 2^k \\times 5^k$, so $2^k$ divides $m \\times 10^k$. This means $r = 0$.`}</p>
       <div className="lrn-eq lrn-eq-display">{`$$\\frac{m}{2^k} = \\frac{m \\times 10^k}{2^k} \\times \\frac{1}{10^k} = \\frac{q}{10^k}$$`}</div>
@@ -70,8 +66,8 @@ function DecimalExpansionProofsContent() {
         <p>{`The critical step: $2^k$ divides $m \\times 10^k$ because $10^k$ already contains $2^k$ as a factor. So dividing $m \\times 10^k$ by $2^k$ leaves no remainder. This is why the denominator must contain only 2s and 5s. They are the prime factors of 10.`}</p>
       </div>
 
-      <h3>Worked Example: 21/8</h3>
-      <p>{`$8 = 2^3$, so $k = 3$. Compute $21 \\times 10^3 / 2^3 = 21000 / 8 = 2625$.`}</p>
+      <h3>{`Worked Example: $\\frac{21}{8}$`}</h3>
+      <p>{`$8 = 2^3$, so $k = 3$. Compute $\\frac{21 \\times 10^3}{2^3} = \\frac{21000}{8} = 2625$.`}</p>
       <div className="lrn-eq">{`$$\\frac{21}{8} = \\frac{2625}{10^3} = 2.625$$`}</div>
       <p>You can verify: 2.625 x 8 = 21.</p>
 
@@ -85,26 +81,26 @@ function DecimalExpansionProofsContent() {
       </div>
 
       <h3>{`The Symmetric Case: Denominator $5^b$`}</h3>
-      <p>{`If $n = 5^b$, multiply top and bottom by $2^b$. Then $m/5^b = (m \\times 2^b)/(5^b \\times 2^b) = (m \\times 2^b)/10^b$.`}</p>
+      <p>{`If $n = 5^b$, multiply top and bottom by $2^b$. Then $\\frac{m}{5^b} = \\frac{m \\times 2^b}{5^b \\times 2^b} = \\frac{m \\times 2^b}{10^b}$.`}</p>
       <div className="lrn-eq">{`$$\\frac{m}{5^b} = \\frac{m \\times 2^b}{10^b}$$`}</div>
       <p>The logic is the same. Supply the missing factor to reach a power of 10.</p>
 
       <div className="lrn-faded">
         <div className="lrn-faded-phase">
           <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-          <p>{`Show 7/125 is a finite decimal. $125 = 5^3$. Multiply: $7/5^3 = (7 \\times 2^3)/(5^3 \\times 2^3) = 56/10^3 = 0.056$.`}</p>
+          <p>{`Show $\\frac{7}{125}$ is a finite decimal. $125 = 5^3$. Multiply: $\\frac{7}{5^3} = \\frac{7 \\times 2^3}{5^3 \\times 2^3} = \\frac{56}{10^3} = 0.056$.`}</p>
         </div>
         <div className="lrn-faded-phase">
           <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-          <p>{`Show $3/40$ is a finite decimal. Note: $40 = 2^3 \\times 5$.`}</p>
+          <p>{`Show $\\frac{3}{40}$ is a finite decimal. Note: $40 = 2^3 \\times 5$.`}</p>
           <ol className="lrn-list">
-            <li>{`Supply the missing factors: $3/40 = (3 \\times \\rule{1cm}{0.5pt})/(40 \\times \\rule{1cm}{0.5pt})$`}</li>
+            <li>{`Supply the missing factors: $\\frac{3}{40} = \\frac{3 \\times \\rule{1cm}{0.5pt}}{40 \\times \\rule{1cm}{0.5pt}}$`}</li>
             <li>{`Write the result: $\\rule{1cm}{0.5pt}/10^{\\rule{0.5cm}{0.5pt}}$`}</li>
           </ol>
         </div>
         <div className="lrn-faded-phase">
           <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
-          <p>{`Show 11/250 is a finite decimal. Factor 250. Supply the missing factors. Write the result.`}</p>
+          <p>{`Show $\\frac{11}{250}$ is a finite decimal. Factor 250. Supply the missing factors. Write the result.`}</p>
         </div>
       </div>
     </>,
@@ -145,7 +141,7 @@ function DecimalExpansionProofsContent() {
       <div className="lrn-eq">{`$$3 \\times 10^4 = 30000 = 4285 \\times 7 + 5 \\quad \\Rightarrow \\quad s_4 = 0.4285$$`}</div>
       <div className="lrn-eq">{`$$3 \\times 10^5 = 300000 = 42857 \\times 7 + 1 \\quad \\Rightarrow \\quad s_5 = 0.42857$$`}</div>
 
-      <h3>Why s = 3/7</h3>
+      <h3>{`Why $s = \\frac{3}{7}$`}</h3>
       <p>From the division-with-remainder equation for each n:</p>
       <div className="lrn-eq">{`$$3 \\times 10^n = q_n \\times 7 + r_n, \\quad 0 \\leq r_n < 7$$`}</div>
       <p>{`Divide everything by $7 \\times 10^n$.`}</p>
@@ -154,7 +150,7 @@ function DecimalExpansionProofsContent() {
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-        <p>{`The inequality says $s_n$ and $3/7$ differ by less than $1/10^n$. As $n$ grows, the gap shrinks to zero. Since the gap is always non-negative, $s_n$ approaches $3/7$ from below. The limit of the sequence is exactly $3/7$.`}</p>
+        <p>{`The inequality says $s_n$ and $\\frac{3}{7}$ differ by less than $\\frac{1}{10^n}$. As $n$ grows, the gap shrinks to zero. Since the gap is always non-negative, $s_n$ approaches $\\frac{3}{7}$ from below. The limit of the sequence is exactly $\\frac{3}{7}$.`}</p>
       </div>
 
       <h3>Why the Digits Repeat: The Pigeonhole Principle</h3>
@@ -162,7 +158,10 @@ function DecimalExpansionProofsContent() {
         When dividing by 7, each step produces a remainder between 0 and 6. There are only 7
         possible remainders.
       </p>
-      <p>If any remainder is 0, the decimal terminates (which does not happen for 3/7).</p>
+      <p>
+        If any remainder is 0, the decimal terminates (which does not happen for {`$\\frac{3}{7}$`}
+        ).
+      </p>
       <p>
         So the remainders range from 1 to 6. That is only 6 possibilities. After 7 steps, you have 7
         remainders. By the pigeonhole principle, at least two must be the same.
@@ -194,18 +193,18 @@ function DecimalExpansionProofsContent() {
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>Why does the period of 3/7 divide 6 (which is 7 - 1)?</p>
+        <p>Why does the period of {`$\\frac{3}{7}$`} divide 6 (which is 7 - 1)?</p>
         <details className="lrn-self-explain-reveal">
           <summary>Expert explanation</summary>
           <p>
             When dividing by 7, remainders cycle among 1 through 6. The cycle length must divide 6
             because any repeating pattern within a set of size 6 has length dividing 6. You can
-            verify this directly for 3/7: after 6 steps, the remainder returns to 3.
+            verify this directly for {`$\\frac{3}{7}$`}: after 6 steps, the remainder returns to 3.
           </p>
         </details>
       </div>
 
-      <h3>Extended Example: 1/28</h3>
+      <h3>{`Extended Example: $\\frac{1}{28}$`}</h3>
       <p>{`$28 = 2^2 \\times 7$. Since 7 appears, the decimal is not finite. It repeats.`}</p>
       <p>Compute via long division.</p>
       <div className="lrn-eq">{`$$1 \\times 10^3 = 1000 = 35 \\times 28 + 20 \\quad \\Rightarrow \\quad s_3 = 0.035$$`}</div>
@@ -223,7 +222,7 @@ function DecimalExpansionProofsContent() {
         </div>
         <div className="lrn-faded-phase">
           <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-          <p>{`Find the decimal expansion of $1/12$. Note: $12 = 2^2 \\times 3$.`}</p>
+          <p>{`Find the decimal expansion of $\\frac{1}{12}$. Note: $12 = 2^2 \\times 3$.`}</p>
           <ol className="lrn-list">
             <li>{`Predict the prefix length: $\\rule{1cm}{0.5pt}$`}</li>
             <li>{`Predict the period divides: $\\rule{1cm}{0.5pt}$`}</li>
@@ -233,16 +232,16 @@ function DecimalExpansionProofsContent() {
         <div className="lrn-faded-phase">
           <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
           <p>
-            Find the decimal expansion of 5/42. Factor 42. Predict prefix length and period bound.
-            Then verify by long division.
+            Find the decimal expansion of {`$\\frac{5}{42}$`}. Factor 42. Predict prefix length and
+            period bound. Then verify by long division.
           </p>
         </div>
       </div>
 
       <h3>Period of Decimal Expansions</h3>
       <p>For a prime p in the denominator, the period of the repeating block divides p - 1.</p>
-      <p>For 3/7, the period 6 divides 7 - 1 = 6.</p>
-      <p>For 2/11, the period 2 divides 11 - 1 = 10.</p>
+      <p>For {`$\\frac{3}{7}$`}, the period 6 divides 7 - 1 = 6.</p>
+      <p>For {`$\\frac{2}{11}$`}, the period 2 divides 11 - 1 = 10.</p>
       <p>This follows from the structure of remainders in long division by a prime.</p>
 
       <div className="lrn-compare">

@@ -57,16 +57,12 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
     goBack,
     liveText,
     reviewCount,
-    newCount,
     totalNewCount,
     nextDueDate,
     sessionStats
   } = useFSRS(topicSlug, cards)
 
   const [answerVisible, setAnswerVisible] = useState(false)
-  const [predictionCommitted, setPredictionCommitted] = useState(false)
-  const [selfExplainText, setSelfExplainText] = useState('')
-  const [selfExplainSubmitted, setSelfExplainSubmitted] = useState(false)
   const [importStatus, setImportStatus] = useState('')
   const [elapsed, setElapsed] = useState(0)
   const cardStartRef = useRef(Date.now())
@@ -80,6 +76,8 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
 
   useEffect(() => {
     if (totalCards > 0) onProgress?.({ index: sessionIndex, total: totalCards })
+    // onProgress is a parent callback; including it would refire on every parent render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionIndex, totalCards])
 
   useEffect(() => {
@@ -103,9 +101,6 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
   // Reset state on card change
   useEffect(() => {
     setAnswerVisible(false)
-    setPredictionCommitted(false)
-    setSelfExplainText('')
-    setSelfExplainSubmitted(false)
   }, [sessionIndex])
 
   // Auto-advance: auto-reveal answer after delay
@@ -137,9 +132,6 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
       if (!settings.keyboardShortcuts) return
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
 
-      const isPredict = currentCard?.type === 'predict'
-      const isSelfExplain = currentCard?.type === 'self-explain'
-
       if (e.key === 'ArrowLeft') {
         e.preventDefault()
         goBack()
@@ -147,8 +139,6 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
       }
 
       if ((e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') && !answerVisible) {
-        if (isPredict && !predictionCommitted) return
-        if (isSelfExplain && !selfExplainSubmitted) return
         e.preventDefault()
         setAnswerVisible(true)
         return
@@ -162,16 +152,7 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
 
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [
-    sessionStarted,
-    sessionComplete,
-    answerVisible,
-    rateCard,
-    goBack,
-    currentCard,
-    predictionCommitted,
-    selfExplainSubmitted
-  ])
+  }, [sessionStarted, sessionComplete, answerVisible, rateCard, goBack, settings.keyboardShortcuts])
 
   const handleExport = async () => {
     const exported = await exportTopic(topicSlug)
@@ -326,9 +307,6 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
     )
   }
 
-  const isPredict = currentCard?.type === 'predict'
-  const isSelfExplain = currentCard?.type === 'self-explain'
-
   return (
     <div className="slv-card-study" ref={containerRef} tabIndex={-1} data-card-study="">
       <div aria-live="polite" aria-atomic="true" className="sr-only">
@@ -348,54 +326,12 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
           </div>
         </div>
 
-        <div className="slv-card-question">
+        <div className="slv-card-question" key={`q-${sessionIndex}`}>
           {currentCard?.q}
           {settings.searchWeb && <SearchWebBtn query={currentCard?.q} />}
         </div>
 
-        {/* Self-explain: textarea gate */}
-        {isSelfExplain && !selfExplainSubmitted && (
-          <>
-            <textarea
-              className="slv-selfexplain-input"
-              placeholder="Write your explanation..."
-              value={selfExplainText}
-              onChange={e => setSelfExplainText(e.target.value)}
-              rows={4}
-            />
-            <button
-              className="slv-selfexplain-submit"
-              onClick={() => {
-                setSelfExplainSubmitted(true)
-                setAnswerVisible(true)
-              }}
-              disabled={selfExplainText.trim().length === 0}
-            >
-              Submit
-            </button>
-          </>
-        )}
-
-        {/* Predict gate */}
-        {isPredict && !predictionCommitted && !answerVisible && (
-          <button className="slv-predict-gate" onClick={() => setPredictionCommitted(true)}>
-            I've Made My Prediction
-          </button>
-        )}
-
-        {/* Normal reveal hint */}
-        {!answerVisible && !isPredict && !isSelfExplain && (
-          <button
-            className="slv-reveal-hint"
-            onClick={() => setAnswerVisible(true)}
-            aria-label="Reveal answer"
-          >
-            press space or tap to reveal
-          </button>
-        )}
-
-        {/* Predict reveal hint (after commit) */}
-        {isPredict && predictionCommitted && !answerVisible && (
+        {!answerVisible && (
           <button
             className="slv-reveal-hint"
             onClick={() => setAnswerVisible(true)}
@@ -407,24 +343,9 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
 
         {answerVisible && (
           <>
-            {/* Self-explain: side-by-side comparison */}
-            {isSelfExplain ? (
-              <div className="slv-selfexplain-comparison">
-                <div className="slv-selfexplain-panel">
-                  <div className="slv-selfexplain-label">Your Explanation</div>
-                  <div className="slv-selfexplain-text">{selfExplainText}</div>
-                </div>
-                <div className="slv-selfexplain-panel">
-                  <div className="slv-selfexplain-label">Expert Answer</div>
-                  <div className="slv-card-answer">{currentCard?.a}</div>
-                </div>
-              </div>
-            ) : (
-              <>
-                <div className="slv-card-answer">{currentCard?.a}</div>
-                {isPredict && <div className="slv-predict-label">Prediction Card</div>}
-              </>
-            )}
+            <div className="slv-card-answer" key={`a-${sessionIndex}`}>
+              {currentCard?.a}
+            </div>
             <div className="slv-rating-buttons">
               <div className="slv-nav-buttons">
                 <button
@@ -481,16 +402,22 @@ export default function SolvingMode({ config, topicSlug, hasMath, onProgress }) 
     if (progress.hasProgress && revealedCards.size === 0 && !showAll) {
       setRevealedCards(progress.revealed)
     }
+    // One-way init from stored progress; revealedCards/showAll are read as guards only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [progress.hasProgress, progress.revealed])
 
   useEffect(() => {
     if (revealedCards.size > 0) {
       progress.save([...revealedCards])
     }
+    // progress.save is a stable callback from useProgress; including progress would loop.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revealedCards])
 
   useEffect(() => {
     if (viewMode === 'grid') onProgress?.({ index: revealedCards.size, total: cards.length })
+    // onProgress is a parent callback; including it would refire on every parent render.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewMode, revealedCards.size, cards.length])
 
   useMathJax([revealedCards.size, showAll, resetKey], hasMath)
@@ -524,6 +451,8 @@ export default function SolvingMode({ config, topicSlug, hasMath, onProgress }) 
       if (progress < 1) requestAnimationFrame(animate)
     }
     requestAnimationFrame(animate)
+    // displayCount is read as the animation start point; re-running on each tick would restart the animation.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revealedCards.size, showAll, cards.length])
 
   const progressPercent = showAll ? 100 : (revealedCards.size / cards.length) * 100

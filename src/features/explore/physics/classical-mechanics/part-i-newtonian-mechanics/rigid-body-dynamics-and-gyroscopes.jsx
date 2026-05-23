@@ -12,15 +12,14 @@ import {
   OffsetSphere,
   DumbbellTensor,
   CycloidalNutation
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 export default function RigidBodyDynamicsAndGyroscopes() {
   const config = {
     cssPrefix: 'rbd',
-    source: 'An Introduction to Mechanics - Kleppner & Kolenkow',
     documentTitle: 'Rigid Body Dynamics and Gyroscopes - AETHER',
     learning: {
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       category: 'Module 9',
       title: 'Rigid Body Dynamics and Gyroscopes',
       subtitle:

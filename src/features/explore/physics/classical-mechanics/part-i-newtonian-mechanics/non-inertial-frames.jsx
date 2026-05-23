@@ -1,15 +1,14 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
-import { CoriolisDrop } from '../../../../../components/viz/physics-viz/modules'
+import { CoriolisDrop } from '../../../../../components/viz'
 
 function NonInertialFramesContentInner() {
 
 
   const config = {
     cssPrefix: 'rbd',
-    source: 'Mechanics (Course of Theoretical Physics, Vol. 1) - Landau & Lifshitz',
     documentTitle: 'Non-inertial Frames - AETHER',
     learning: {
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       category: 'Physics',
       title: 'Non-inertial Frames',
       subtitle:

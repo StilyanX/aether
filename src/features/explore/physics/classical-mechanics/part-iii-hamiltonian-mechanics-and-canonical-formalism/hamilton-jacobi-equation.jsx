@@ -1,10 +1,10 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
-import { HJWavefronts, ActionCoordinate } from '../../../../../components/viz/physics-viz/modules'
+import { HJWavefronts, ActionCoordinate } from '../../../../../components/viz'
 
 function HamiltonJacobiEquation() {
   const config = {
     learning: {
-      groupTitle: 'Part III: Hamiltonian Mechanics and Canonical Formalism',
+      groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
       category: 'Classical Mechanics',
       title: 'The Hamilton-Jacobi Equation',
       subtitle: "A single scalar function that encodes all of a system's dynamics"

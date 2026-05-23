@@ -1,10 +1,10 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
-import { PoissonBracketAlgebra } from '../../../../../components/viz/physics-viz/modules'
+import { PoissonBracketAlgebra } from '../../../../../components/viz'
 
 function PoissonBracketsAndFirstIntegrals() {
   const config = {
     learning: {
-      groupTitle: 'Part III: Hamiltonian Mechanics and Canonical Formalism',
+      groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
       category: 'Classical Mechanics',
       title: 'Poisson Brackets and First Integrals',
       subtitle: 'The algebraic structure of Hamiltonian mechanics and conserved quantities'

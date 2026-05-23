@@ -2,15 +2,17 @@ import { LearningTemplate } from '../../../../components/learning/learning-templ
 import { useVizColors } from '../../../../hooks/use-viz-colors'
 
 import {
-  OperationsOnNumberLine, NumberLineWithTypes, RoundingVisualization, BaseConversionVis
-} from '../../../../components/viz/math-viz/modules'
+  OperationsOnNumberLine,
+  NumberLineWithTypes,
+  RoundingVisualization,
+  BaseConversionVis
+} from '../../../../components/viz'
 
 export default function NumberLineAndNumberSystems() {
   const C = useVizColors()
 
   const config = {
     cssPrefix: 'whn',
-    source: 'Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu',
     documentTitle: 'Number Line and Number Systems - AETHER',
     learning: {
       category: 'Part 1',
@@ -391,12 +393,12 @@ export default function NumberLineAndNumberSystems() {
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Absolute Error</span>
               <p>{`Tells how far off you are in raw units.`}</p>
-              <p>{`A $100 error is $100 regardless of context.`}</p>
+              <p>{`A \\$100 error is \\$100 regardless of context.`}</p>
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Relative Error</span>
               <p>{`Tells how far off compared to the actual size.`}</p>
-              <p>{`$100 on $2000 (5%) matters less than $100 on $200 (50%).`}</p>
+              <p>{`\\$100 on \\$2000 (5%) matters less than \\$100 on \\$200 (50%).`}</p>
             </div>
           </div>
 
@@ -739,7 +741,7 @@ export default function NumberLineAndNumberSystems() {
       },
       {
         q: 'Compute the absolute and relative error when $4257 + 3461$ is estimated by rounding to the nearest hundred.',
-        a: 'Rounded: $4300 + 3500 = 7800$. Exact: $7718$. Absolute error: $7800 - 7718 = 82$. Relative error: $82 / 7718 \\approx 1.06\\%$.'
+        a: 'Rounded: $4300 + 3500 = 7800$. Exact: $7718$. Absolute error: $7800 - 7718 = 82$. Relative error: $\\frac{82}{7718} \\approx 1.06\\%$.'
       },
       {
         q: 'Round 20,245,386 to the nearest ten-thousand.',

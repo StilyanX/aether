@@ -6,19 +6,14 @@ import {
   Parametric as Pa5,
   Polyline as Pl5,
   Dot as D5,
-  CircleSh as C5,
-  Arrow as Ar5,
   Tex as T5,
   Slider as Sl5,
   DragHandle as DH5,
   PlayPause as PP5,
   OPACITY as O5,
   VizCard
-} from '../../../../../components/viz/physics-viz/primitives'
-import {
-  useSimulation as useSim5,
-  rk4Step as rk45
-} from '../../../../../components/viz/physics-viz/physics-core'
+} from '../../../../../components/viz/primitives'
+import { useSimulation as useSim5, rk4Step as rk45 } from '../../../../../components/viz/physics'
 
 function StableEquilibrium() {
   return (
@@ -368,10 +363,9 @@ function NormalModes() {
 
 const config = {
   cssPrefix: 'op2',
-  source: 'Mathematical Methods of Classical Mechanics - Arnold; Mechanics - Landau & Lifshitz',
   documentTitle: 'Oscillations (Part II) - AETHER',
   learning: {
-    groupTitle: 'Part II: Lagrangian Mechanics and Variational Principles',
+    groupTitle: 'Lagrangian Mechanics and Variational Principles',
     category: 'Classical Mechanics',
     title: 'Oscillations (Part II)',
     subtitle:

@@ -1,73 +1,11 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
-import 'mafs/core.css'
-import { Mafs, Coordinates, Plot, Text } from 'mafs'
-import { useVizColors } from '../../../../../hooks/use-viz-colors'
-import {
-  CoadjointOrbitSphere,
-  JacobiGeodesicDeviation
-} from '../../../../../components/viz/physics-viz/modules'
-
-// Jacobi equation: geodesic separation for different curvature signs
-function JacobiViz({ C }) {
-  return (
-    <div className="lrn-graph">
-      <Mafs viewBox={{ x: [-0.5, 7], y: [-3.5, 3.5] }} preserveAspectRatio={false} height={280}>
-        <Coordinates.Cartesian
-          xAxis={{ lines: false, labels: false }}
-          yAxis={{ lines: false, labels: false }}
-        />
-        {/* K > 0: oscillatory y(t) = sin(t), showing two converging geodesics */}
-        <Plot.OfX
-          y={x => 1.5 * Math.sin(Math.sqrt(0.8) * x)}
-          color={C.accent}
-          weight={2}
-          style="solid"
-        />
-        <Plot.OfX
-          y={x => -1.5 * Math.sin(Math.sqrt(0.8) * x)}
-          color={C.accent}
-          weight={2}
-          style="solid"
-        />
-        {/* K < 0: exponential y(t) = sinh(0.4t), capped */}
-        <Plot.Parametric
-          xy={t => [t, Math.min(3.2, 0.5 * Math.sinh(0.55 * t))]}
-          t={[0, 6.5]}
-          color={C.fg}
-          weight={2}
-          style="solid"
-        />
-        <Plot.Parametric
-          xy={t => [t, -Math.min(3.2, 0.5 * Math.sinh(0.55 * t))]}
-          t={[0, 6.5]}
-          color={C.fg}
-          weight={2}
-          style="solid"
-        />
-        {/* Labels */}
-        <Text x={1.8} y={3.0} size={24} color={C.fg}>
-          K &lt; 0: exponential
-        </Text>
-        <Text x={2.2} y={1.3} size={24} color={C.accent}>
-          K &gt; 0: oscillatory
-        </Text>
-        <Text x={0.3} y={-0.25} size={24} color={C.dim}>
-          t
-        </Text>
-        <Text x={-0.3} y={3.0} size={24} color={C.dim}>
-          y
-        </Text>
-      </Mafs>
-    </div>
-  )
-}
+import { CoadjointOrbitSphere, JacobiGeodesicDeviation } from '../../../../../components/viz'
 
 const config = {
   cssPrefix: 'mmr',
-  source: 'Mathematical Methods of Classical Mechanics - Arnold',
   documentTitle: 'Momentum Maps and Reduction - AETHER',
   learning: {
-    groupTitle: 'Part III: Hamiltonian Mechanics and Canonical Formalism',
+    groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
     category: 'Mathematical Methods of Classical Mechanics (Arnold)',
     title: 'Momentum Maps and Reduction',
     subtitle:
@@ -1518,6 +1456,5 @@ const config = {
 }
 
 export default function MomentumMapsAndReduction() {
-  const C = useVizColors()
   return <LearningTemplate config={config} />
 }

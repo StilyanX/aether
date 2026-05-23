@@ -12,6 +12,12 @@
   height: 100vh;
   overflow-y: auto;
   align-self: flex-start;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.lt-sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 .lt-sidebar-brand {

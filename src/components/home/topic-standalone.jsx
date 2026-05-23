@@ -114,10 +114,11 @@ function ErrorScreen({ word, detail, onReturn }) {
 }
 
 function TopicStandalone() {
-  const { domain, resource, module: mod, book } = useParams()
+  const { domain, resource, module: mod, book, topic } = useParams()
   let slug = null
   if (domain && resource && book && mod) slug = `explore/${domain}/${resource}/${book}/${mod}`
   else if (domain && resource && mod) slug = `explore/${domain}/${resource}/${mod}`
+  else if (!domain && resource && mod && topic) slug = `library/${resource}/${mod}/${topic}`
   else if (!domain && resource && mod) slug = `library/${resource}/${mod}`
   const navigate = useNavigate()
   const { toggleBookmark } = useBookmarks()

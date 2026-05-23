@@ -16,7 +16,7 @@ import './curriculum-view.css'
 // doesn't carry (depth, prereq, kicker, per-module codes/minutes, per-unit
 // ledes, and an optional Tool Library payload). Adding a new entry here is
 // the only step required to opt a resource into the curriculum template -
-// resource-detail.jsx gates rendering on the presence of an entry.
+// app.jsx's LibraryRoute gates rendering on the presence of an entry.
 export const RESOURCE_META = {
   'library/biography': {
     kicker: 'Library · Biography',
@@ -40,6 +40,40 @@ export const RESOURCE_META = {
     }
   },
 
+  'library/fantasy': {
+    kicker: 'Library · Fantasy',
+    depth: 1,
+    prereq: 'None',
+    description:
+      'Speculative fiction across dying earth, weird tale, science fantasy, and high fantasy. Each book is rebuilt as a chapter-by-chapter reading flow with practice cards and a quick reference.',
+    moduleMinutes: {
+      'The Shadow of the Torturer': 480,
+      'The Claw of the Conciliator': 480,
+      'The Sword of the Lictor': 480,
+      'The Citadel of the Autarch': 480
+    },
+    moduleCodes: {
+      'The Shadow of the Torturer': 'S.T',
+      'The Claw of the Conciliator': 'C.C',
+      'The Sword of the Lictor': 'S.L',
+      'The Citadel of the Autarch': 'C.A'
+    },
+    moduleThumbnails: {
+      'The Shadow of the Torturer':
+        'https://books.google.com/books/content?id=lAO7iHaw0EwC&printsec=frontcover&img=1&zoom=1',
+      'The Claw of the Conciliator':
+        'https://books.google.com/books/content?id=Oj6-5s3FOUEC&printsec=frontcover&img=1&zoom=1',
+      'The Sword of the Lictor':
+        'https://books.google.com/books/content?id=Ch1dp24RxYoC&printsec=frontcover&img=1&zoom=1',
+      'The Citadel of the Autarch':
+        'https://books.google.com/books/content?id=h3wSdakBjZwC&printsec=frontcover&img=1&zoom=1'
+    },
+    unitLedes: {
+      'Science Fantasy':
+        'Far-future Earth under a dying sun, where forgotten technology reads as sorcery.'
+    }
+  },
+
   'library/lex-fridman-podcast': {
     kicker: 'Library · Podcast',
     depth: 1,
@@ -60,6 +94,28 @@ export const RESOURCE_META = {
     unitLedes: {
       Episodes:
         'Long-form conversations with builders, scientists, and operators on how their world actually works.'
+    }
+  },
+
+  'library/films/science-fiction': {
+    kicker: 'Library · Films',
+    depth: 1,
+    prereq: 'None',
+    description:
+      'Films rebuilt as scene-by-scene viewing flows with practice cards and a quick reference. Each entry covers a full feature as one long studied watch.',
+    moduleMinutes: {
+      'Star Wars: Episode I - The Phantom Menace': 720
+    },
+    moduleCodes: {
+      'Star Wars: Episode I - The Phantom Menace': 'P.M'
+    },
+    moduleThumbnails: {
+      'Star Wars: Episode I - The Phantom Menace':
+        'https://upload.wikimedia.org/wikipedia/en/4/40/Star_Wars_Phantom_Menace_poster.jpg'
+    },
+    unitLedes: {
+      'Star Wars':
+        "George Lucas's nine-film arc, beginning with the Trade Federation blockade of Naboo and the boy who would become Vader."
     }
   },
 
@@ -113,6 +169,85 @@ export const RESOURCE_META = {
         title: cat.name,
         tools: cat.tools.map(t => ({ slug: t.id, title: t.name, desc: t.desc }))
       }))
+    }
+  },
+
+  'explore/mathematics/algebra': {
+    kicker: 'Mathematics · Algebra',
+    depth: 2,
+    prereq: 'Arithmetic',
+    description:
+      'The language of unknowns. Variables, equations, and functions that turn arithmetic into a general-purpose tool for describing any relationship between quantities.',
+    moduleMinutes: {
+      'Arithmetic Foundations': 40,
+      'Algebraic Foundations': 45,
+      'Algebraic Identities (Special Products)': 40,
+      'Linear Equations': 45,
+      'Quadratic Equations': 55,
+      'Fractions, Ratios and Proportions': 45,
+      'Exponents, Roots and Radicals': 50,
+      Polynomials: 50,
+      'Graphing Lines and Linear Inequalities': 50,
+      'Quadratic Functions and Polynomial Inequalities': 55,
+      Functions: 45,
+      'Exponential Functions': 50,
+      'Sequences and Series': 50,
+      'The Binomial Theorem': 45
+    },
+    moduleCodes: {
+      'Arithmetic Foundations': 'A.F',
+      'Algebraic Foundations': 'A.B',
+      'Algebraic Identities (Special Products)': 'A.I',
+      'Linear Equations': 'L.E',
+      'Quadratic Equations': 'Q.E',
+      'Fractions, Ratios and Proportions': 'F.R',
+      'Exponents, Roots and Radicals': 'E.R',
+      Polynomials: 'P.O',
+      'Graphing Lines and Linear Inequalities': 'G.L',
+      'Quadratic Functions and Polynomial Inequalities': 'Q.F',
+      Functions: 'FN',
+      'Exponential Functions': 'E.F',
+      'Sequences and Series': 'S.S',
+      'The Binomial Theorem': 'B.T'
+    },
+    unitLedes: {
+      Foundations: 'Variables, expressions, and the identities that make algebra computable.',
+      'Equations and Inequalities': 'Solving for unknowns: the core operation of all algebra.',
+      'Numbers and Expressions': 'Fractions, exponents, and polynomials as manipulable objects.',
+      'Coordinate Geometry and Functions':
+        'Equations as graphs and the function as the central object of modern mathematics.',
+      'Advanced Topics': 'Patterns that extend to infinity and the algebra of combinatorics.'
+    }
+  },
+
+  'explore/history/prehistory': {
+    kicker: 'History · Foundation',
+    depth: 1,
+    prereq: 'None',
+    description:
+      'The human story from the first stone tools to the end of the Ice Age. Six million years of evolution, dispersal, and the cognitive leap that produced art, language, and the transformation from foragers to the threshold of civilization.',
+    moduleMinutes: {
+      'Introduction: Studying the Human Past': 35,
+      'The Evolution of Humanity: 6 Million to 11,600 Years Ago': 60,
+      'From Foragers to Farmers: Origins of Agriculture': 55,
+      'Holocene Societies Across the World': 55,
+      'First Civilizations of the Old World': 60,
+      'Complex Societies of the Americas and Synthesis': 60
+    },
+    moduleCodes: {
+      'Introduction: Studying the Human Past': 'I.S',
+      'The Evolution of Humanity: 6 Million to 11,600 Years Ago': 'E.H',
+      'From Foragers to Farmers: Origins of Agriculture': 'F.F',
+      'Holocene Societies Across the World': 'H.S',
+      'First Civilizations of the Old World': 'F.C',
+      'Complex Societies of the Americas and Synthesis': 'C.S'
+    },
+    unitLedes: {
+      Introduction: 'What archaeology is, how it dates the past, and why prehistory matters.',
+      'The Evolution of Humanity':
+        'Six million years from the first hominins to the colonization of every habitable continent.',
+      'After the Ice Age':
+        'The post-glacial world: how foragers became farmers and farmers became states.'
     }
   },
 
@@ -386,7 +521,7 @@ function ToolLibrary({ topic, tools, onOpenTool }) {
             </svg>
             <span className="cc-toolib-empty-scan" />
           </div>
-          <h2 className="cc-toolib-empty-h">// no tools match your search</h2>
+          <h2 className="cc-toolib-empty-h">{'// no tools match your search'}</h2>
           <p className="cc-toolib-empty-typed">
             Searched <b>{query}</b> across <b>{totalTools} tools</b>
           </p>
@@ -518,7 +653,6 @@ function ModuleCard({
   module,
   idx,
   total,
-  section,
   onOpen,
   isDone,
   disabled,
@@ -619,8 +753,8 @@ function CurriculumView() {
   const slug = location.pathname.replace(/^\//, '').replace(/\/$/, '')
   const resourceIndex = slugToIndex[slug]
   const resource = resourceMetadata[resourceIndex]
-  const meta = RESOURCE_META[slug] || {}
-  const skipUnits = meta.skipUnits || []
+  const meta = useMemo(() => RESOURCE_META[slug] || {}, [slug])
+  const skipUnits = useMemo(() => meta.skipUnits || [], [meta])
 
   useEffect(() => {
     if (resource) document.title = `${resource.title}/Aether`
@@ -631,17 +765,6 @@ function CurriculumView() {
     [slug, meta, skipUnits]
   )
   const totalModules = useMemo(() => units.reduce((n, u) => n + u.modules.length, 0), [units])
-  const totalMinutes = useMemo(
-    () =>
-      units.reduce(
-        (n, u) =>
-          n +
-          u.modules.reduce((m, md) => m + (md.mins || 40), 0) +
-          (u.capstone ? u.capstone.mins || 90 : 0),
-        0
-      ),
-    [units]
-  )
 
   const progressKey = `aether-progress-${slug}`
   const [done, setDone] = useState(() => {
@@ -687,7 +810,7 @@ function CurriculumView() {
     if (first?.modules[0]) openModule(first.modules[0])
   }
 
-  const handleBack = () => navigate(-1)
+  const handleBack = () => navigate('/explore')
 
   if (!resource) {
     return (

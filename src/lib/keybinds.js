@@ -18,7 +18,8 @@ export const KEYBIND_ACTIONS = [
   { id: 'bookmark', label: 'Bookmark', defaultCombo: 'b' },
   { id: 'notes', label: 'Notes', defaultCombo: 'n' },
   { id: 'close-back', label: 'Close / back', defaultCombo: 'Escape', global: true },
-  { id: 'toggle-pomodoro', label: 'Pomodoro timer', defaultCombo: 'P' }
+  { id: 'toggle-pomodoro', label: 'Pomodoro timer', defaultCombo: 'P' },
+  { id: 'copy-markdown', label: 'Copy as Markdown', defaultCombo: 'c' }
 ]
 
 export const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform)

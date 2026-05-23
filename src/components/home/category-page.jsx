@@ -24,6 +24,7 @@ const DOMAIN_COLOR = {
   engineering: 'var(--domain-engineering)',
   law: 'var(--domain-law)',
   books: 'var(--domain-books)',
+  films: 'var(--domain-films)',
   papers: 'var(--domain-papers)',
   videos: 'var(--domain-videos)',
   podcasts: 'var(--domain-podcasts)'
@@ -40,13 +41,26 @@ const SIDEBAR_GROUPS = [
     label: 'HUMANITIES & ARTS',
     domains: ['philosophy', 'theology', 'history', 'linguistics', 'literature', 'music']
   },
-  { label: 'LIBRARY', domains: ['books', 'papers', 'videos', 'podcasts'] }
+  { label: 'LIBRARY', domains: ['books', 'films', 'papers', 'videos', 'podcasts'] }
 ]
 
 const DOMAIN_TO_GROUP = SIDEBAR_GROUPS.reduce((acc, g) => {
   g.domains.forEach(d => (acc[d] = g.label))
   return acc
 }, {})
+
+const DOMAIN_MAP_TITLE = {
+  all: 'the knowable',
+  mathematics: 'necessary truth',
+  physics: 'the moving world',
+  linguistics: 'how meaning travels',
+  history: 'what came before',
+  books: 'the written word',
+  films: 'light and time',
+  podcasts: 'thinking aloud',
+  videos: 'explained on screen',
+  papers: 'the original claim'
+}
 
 const PREVIEW_LIMIT = 5
 
@@ -184,68 +198,75 @@ function CategoryPage() {
     <div className="ep-layout">
       {/* Sidebar */}
       <aside className="ep-sidebar" aria-label="Domain navigation">
-        <div className="ep-sidebar-identity">
-          <svg className="ep-sidebar-mark" viewBox="0 0 480 140" role="img" aria-label="Aether">
-            <text
-              x="0"
-              y="115"
-              fill="#ededed"
-              fontFamily="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif"
-              fontSize="120"
-              fontWeight="700"
-              letterSpacing="2.4"
+        <div className="ep-sidebar-inner">
+          <div className="ep-sidebar-identity">
+            <svg
+              className="ep-sidebar-mark"
+              viewBox="0 0 480 140"
+              role="img"
+              aria-label="Aether"
             >
-              ÆTHER
-            </text>
-          </svg>
-        </div>
-        <div className="ep-sidebar-sep" />
-
-        <button
-          type="button"
-          className={`ep-nav-item ep-nav-all${activeFilter === 'all' ? ' active' : ''}`}
-          onClick={() => navigate('/explore')}
-          aria-pressed={activeFilter === 'all'}
-        >
-          <span className="ep-nav-name">ALL</span>
-          <span className="ep-nav-count">{totalTopics}</span>
-        </button>
-
-        <div className="ep-sidebar-sep" style={{ marginTop: '8px' }} />
-
-        {SIDEBAR_GROUPS.map(group => (
-          <div key={group.label} className="ep-nav-group">
-            <span className="ep-nav-group-label">{group.label}</span>
-            {group.domains.map(did => {
-              const sub = subcategories.find(s => s.id === did)
-              if (!sub) return null
-              const count = (resourcesByDomain[did] || []).length
-              if (!showEmptyDomains && count === 0) return null
-              const isActive = activeFilter === did
-              const color = DOMAIN_COLOR[did]
-              return (
-                <button
-                  key={did}
-                  type="button"
-                  className={`ep-nav-item${isActive ? ' active' : ''}`}
-                  onClick={() => navigate('/explore/' + did)}
-                  aria-pressed={isActive}
-                  style={
-                    isActive
-                      ? {
-                          borderLeftColor: color,
-                          background: `color-mix(in srgb, ${color} 10%, transparent)`
-                        }
-                      : undefined
-                  }
-                >
-                  <span className="ep-nav-name">{sub.name.toUpperCase()}</span>
-                  <span className="ep-nav-count">{count}</span>
-                </button>
-              )
-            })}
+              <text
+                x="0"
+                y="115"
+                fill="#ededed"
+                fontFamily="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif"
+                fontSize="120"
+                fontWeight="700"
+                letterSpacing="2.4"
+              >
+                ÆTHER
+              </text>
+            </svg>
           </div>
-        ))}
+          <div className="ep-sidebar-sep" />
+
+          <button
+            type="button"
+            className={`ep-nav-item ep-nav-all${activeFilter === 'all' ? ' active' : ''}`}
+            onClick={() => navigate('/explore')}
+            aria-pressed={activeFilter === 'all'}
+          >
+            <span className="ep-nav-name">ALL</span>
+            <span className="ep-nav-count">{totalTopics}</span>
+          </button>
+
+          <div className="ep-sidebar-sep" style={{ marginTop: '8px' }} />
+
+          {SIDEBAR_GROUPS.map(group => (
+            <div key={group.label} className="ep-nav-group">
+              <span className="ep-nav-group-label">{group.label}</span>
+              {group.domains.map(did => {
+                const sub = subcategories.find(s => s.id === did)
+                if (!sub) return null
+                const count = (resourcesByDomain[did] || []).length
+                if (!showEmptyDomains && count === 0) return null
+                const isActive = activeFilter === did
+                const color = DOMAIN_COLOR[did]
+                return (
+                  <button
+                    key={did}
+                    type="button"
+                    className={`ep-nav-item${isActive ? ' active' : ''}`}
+                    onClick={() => navigate('/explore/' + did)}
+                    aria-pressed={isActive}
+                    style={
+                      isActive
+                        ? {
+                            borderLeftColor: color,
+                            background: `color-mix(in srgb, ${color} 10%, transparent)`
+                          }
+                        : undefined
+                    }
+                  >
+                    <span className="ep-nav-name">{sub.name.toUpperCase()}</span>
+                    <span className="ep-nav-count">{count}</span>
+                  </button>
+                )
+              })}
+            </div>
+          ))}
+        </div>
       </aside>
 
       <main className="ep-main">
@@ -259,7 +280,10 @@ function CategoryPage() {
         <header className="ep-masthead">
           <h1 className="ep-masthead-title">
             <span className="ep-mh-l">The map of</span>
-            <span className="ep-mh-r">knowable things</span>
+            <span className="ep-mh-r">
+              {DOMAIN_MAP_TITLE[activeFilter] ||
+                (activeDomain ? activeDomain.name.toLowerCase() : 'knowable things')}
+            </span>
           </h1>
 
           <div className="ep-masthead-counter">

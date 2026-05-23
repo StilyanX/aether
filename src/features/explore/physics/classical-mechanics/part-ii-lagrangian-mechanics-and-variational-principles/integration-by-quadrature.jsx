@@ -4,14 +4,12 @@ import {
   Plot as P3,
   Axes as A3,
   Parametric as Pa3,
-  Polyline as Pl3,
   Dot as D3,
-  Arrow as Ar3,
   Tex as T3,
   Slider as Sl3,
   OPACITY as O3,
   VizCard
-} from '../../../../../components/viz/physics-viz/primitives'
+} from '../../../../../components/viz/primitives'
 
 function PotentialWell() {
   const [E, setE] = React.useState(1.0)
@@ -195,10 +193,9 @@ function PeriodFromU() {
 
 const config = {
   cssPrefix: 'ibq',
-  source: 'Mechanics (Course of Theoretical Physics, Vol. 1) - Landau & Lifshitz',
   documentTitle: 'Integration by Quadrature: AETHER',
   learning: {
-    groupTitle: 'Part II: Lagrangian Mechanics and Variational Principles',
+    groupTitle: 'Lagrangian Mechanics and Variational Principles',
     category: 'Classical Mechanics',
     title: 'Integration by Quadrature',
     subtitle:

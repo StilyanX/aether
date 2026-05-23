@@ -12,6 +12,20 @@ export const resourceMetadata = [
     url: '#'
   },
   {
+    title: 'Fantasy',
+    mainCategory: 'explore',
+    category: 'books',
+    slug: 'library/fantasy',
+    description:
+      'Speculative fiction across dying earth, weird tale, science fantasy, and high fantasy.',
+    url: '#',
+    source: [
+      { title: 'The Shadow of the Torturer', author: 'Gene Wolfe', year: '1980' },
+      { title: 'The Claw of the Conciliator', author: 'Gene Wolfe', year: '1981' },
+      { title: 'The Sword of the Lictor', author: 'Gene Wolfe', year: '1982' }
+    ]
+  },
+  {
     title: 'Lex Fridman Podcast',
     mainCategory: 'explore',
     category: 'podcasts',
@@ -45,6 +59,15 @@ export const resourceMetadata = [
     }
   },
   {
+    title: 'Algebra',
+    mainCategory: 'explore',
+    category: 'mathematics',
+    slug: 'explore/mathematics/algebra',
+    description:
+      'The language of unknowns. Variables, equations, and functions that turn arithmetic into a general-purpose tool for describing any relationship between quantities.',
+    url: '#'
+  },
+  {
     title: 'Information Theory',
     mainCategory: 'library',
     category: 'papers',
@@ -60,7 +83,18 @@ export const resourceMetadata = [
     description:
       'The language of Goethe, Kant, and Bach. Spoken by 100 million people across Central Europe.',
     url: '#',
-    source: 'Begegnungen A1+ — Buscha/Szita'
+    source: 'Begegnungen A1+, Buscha/Szita'
+  },
+  {
+    title: 'Science Fiction',
+    mainCategory: 'library',
+    category: 'films',
+    slug: 'library/films/science-fiction',
+    description: 'Films that explore science, technology, and speculative futures.',
+    url: '#',
+    source: [
+      { title: 'Star Wars: Episode I - The Phantom Menace', author: 'George Lucas', year: '1999' }
+    ]
   },
   {
     title: 'Classical Mechanics',
@@ -75,6 +109,19 @@ export const resourceMetadata = [
       'Mechanics (Course of Theoretical Physics, Vol. 1) - Landau & Lifshitz',
       'Mathematical Methods of Classical Mechanics - Arnold'
     ]
+  },
+  {
+    title: 'Prehistory',
+    mainCategory: 'explore',
+    category: 'history',
+    slug: 'explore/history/prehistory',
+    description:
+      'The human story from the first stone tools to the end of the Ice Age. Six million years of evolution, dispersal, and the cognitive leap that produced art, language, and the transformation from foragers to the threshold of civilization.',
+    url: '#',
+    source: {
+      title: 'The Human Past: World Prehistory and the Development of Human Societies',
+      author: 'Chris Scarre (ed.)'
+    }
   }
 ]
 
@@ -83,6 +130,7 @@ export const categoryStructure = {
     name: 'LIBRARY',
     subcategories: [
       { id: 'books', name: 'Books' },
+      { id: 'films', name: 'Films' },
       { id: 'podcasts', name: 'Podcasts' },
       { id: 'videos', name: 'Videos' },
       { id: 'papers', name: 'Papers' }
@@ -93,7 +141,8 @@ export const categoryStructure = {
     subcategories: [
       { id: 'mathematics', name: 'Mathematics' },
       { id: 'physics', name: 'Physics' },
-      { id: 'linguistics', name: 'Linguistics' }
+      { id: 'linguistics', name: 'Linguistics' },
+      { id: 'history', name: 'History' }
     ]
   }
 }
@@ -389,76 +438,205 @@ topicComponentMap['Asymptotics, Singularities and Integrable Systems'] = {
   parentSlug: 'explore/physics/classical-mechanics'
 }
 
+// Algebra modules
+// Part 1 - Foundations
+topicComponentMap['Arithmetic Foundations'] = {
+  component: 'ArithmeticFoundations',
+  filePath: 'explore/mathematics/algebra/arithmetic-foundations',
+  slug: 'explore/mathematics/algebra/arithmetic-foundations',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Algebraic Foundations'] = {
+  component: 'AlgebraicFoundations',
+  filePath: 'explore/mathematics/algebra/algebraic-foundations',
+  slug: 'explore/mathematics/algebra/algebraic-foundations',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Algebraic Identities (Special Products)'] = {
+  component: 'AlgebraicIdentities',
+  filePath: 'explore/mathematics/algebra/algebraic-identities',
+  slug: 'explore/mathematics/algebra/algebraic-identities',
+  parentSlug: 'explore/mathematics/algebra'
+}
+// Part 2 - Equations and Inequalities
+topicComponentMap['Linear Equations'] = {
+  component: 'LinearEquations',
+  filePath: 'explore/mathematics/algebra/linear-equations',
+  slug: 'explore/mathematics/algebra/linear-equations',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Quadratic Equations'] = {
+  component: 'QuadraticEquations',
+  filePath: 'explore/mathematics/algebra/quadratic-equations',
+  slug: 'explore/mathematics/algebra/quadratic-equations',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Roots, Powers and Inequalities'] = {
+  component: 'RootsPowersAndInequalities',
+  filePath: 'explore/mathematics/algebra/roots-powers-and-inequalities',
+  slug: 'explore/mathematics/algebra/roots-powers-and-inequalities',
+  parentSlug: 'explore/mathematics/algebra'
+}
+// Part 3 - Numbers and Expressions
+topicComponentMap['Fractions, Ratios and Proportions'] = {
+  component: 'FractionsRatiosAndProportions',
+  filePath: 'explore/mathematics/algebra/fractions-ratios-and-proportions',
+  slug: 'explore/mathematics/algebra/fractions-ratios-and-proportions',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Exponents, Roots and Radicals'] = {
+  component: 'ExponentsRootsAndRadicals',
+  filePath: 'explore/mathematics/algebra/exponents-roots-and-radicals',
+  slug: 'explore/mathematics/algebra/exponents-roots-and-radicals',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Polynomials'] = {
+  component: 'Polynomials',
+  filePath: 'explore/mathematics/algebra/polynomials',
+  slug: 'explore/mathematics/algebra/polynomials',
+  parentSlug: 'explore/mathematics/algebra'
+}
+// Part 4 - Coordinate Geometry and Functions
+topicComponentMap['Graphing Lines and Linear Inequalities'] = {
+  component: 'GraphingLinesAndLinearInequalities',
+  filePath: 'explore/mathematics/algebra/graphing-lines-and-linear-inequalities',
+  slug: 'explore/mathematics/algebra/graphing-lines-and-linear-inequalities',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Quadratic Functions and Polynomial Inequalities'] = {
+  component: 'QuadraticFunctionsAndPolynomialInequalities',
+  filePath: 'explore/mathematics/algebra/quadratic-functions-and-polynomial-inequalities',
+  slug: 'explore/mathematics/algebra/quadratic-functions-and-polynomial-inequalities',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Functions'] = {
+  component: 'Functions',
+  filePath: 'explore/mathematics/algebra/functions',
+  slug: 'explore/mathematics/algebra/functions',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['Exponential Functions'] = {
+  component: 'ExponentialFunctions',
+  filePath: 'explore/mathematics/algebra/exponential-functions',
+  slug: 'explore/mathematics/algebra/exponential-functions',
+  parentSlug: 'explore/mathematics/algebra'
+}
+// Part 5 - Advanced Topics
+topicComponentMap['Sequences and Series'] = {
+  component: 'SequencesAndSeries',
+  filePath: 'explore/mathematics/algebra/sequences-and-series',
+  slug: 'explore/mathematics/algebra/sequences-and-series',
+  parentSlug: 'explore/mathematics/algebra'
+}
+topicComponentMap['The Binomial Theorem'] = {
+  component: 'TheBinomialTheorem',
+  filePath: 'explore/mathematics/algebra/the-binomial-theorem',
+  slug: 'explore/mathematics/algebra/the-binomial-theorem',
+  parentSlug: 'explore/mathematics/algebra'
+}
+
+// History — Prehistory (The Human Past, modules 1–6)
+topicComponentMap['Introduction: Studying the Human Past'] = {
+  component: 'IntroductionStudyingTheHumanPast',
+  filePath: 'explore/history/prehistory/introduction-studying-the-human-past',
+  slug: 'explore/history/prehistory/introduction-studying-the-human-past',
+  parentSlug: 'explore/history/prehistory'
+}
+topicComponentMap['The Evolution of Humanity: 6 Million to 11,600 Years Ago'] = {
+  component: 'TheEvolutionOfHumanity',
+  filePath: 'explore/history/prehistory/the-evolution-of-humanity-6-million-to-11600-years-ago',
+  slug: 'explore/history/prehistory/the-evolution-of-humanity-6-million-to-11600-years-ago',
+  parentSlug: 'explore/history/prehistory'
+}
+topicComponentMap['From Foragers to Farmers: Origins of Agriculture'] = {
+  component: 'FromForagersToFarmersOriginsOfAgriculture',
+  filePath: 'explore/history/prehistory/from-foragers-to-farmers-origins-of-agriculture',
+  slug: 'explore/history/prehistory/from-foragers-to-farmers-origins-of-agriculture',
+  parentSlug: 'explore/history/prehistory'
+}
+topicComponentMap['Holocene Societies Across the World'] = {
+  component: 'HoloceneSocietiesAcrossTheWorld',
+  filePath: 'explore/history/prehistory/holocene-societies-across-the-world',
+  slug: 'explore/history/prehistory/holocene-societies-across-the-world',
+  parentSlug: 'explore/history/prehistory'
+}
+topicComponentMap['First Civilizations of the Old World'] = {
+  component: 'FirstCivilizationsOfTheOldWorld',
+  filePath: 'explore/history/prehistory/first-civilizations-of-the-old-world',
+  slug: 'explore/history/prehistory/first-civilizations-of-the-old-world',
+  parentSlug: 'explore/history/prehistory'
+}
+topicComponentMap['Complex Societies of the Americas and Synthesis'] = {
+  component: 'ComplexSocietiesOfTheAmericasAndSynthesis',
+  filePath: 'explore/history/prehistory/complex-societies-of-the-americas-and-synthesis',
+  slug: 'explore/history/prehistory/complex-societies-of-the-americas-and-synthesis',
+  parentSlug: 'explore/history/prehistory'
+}
+
 // German language modules
 topicComponentMap['Willkommen'] = {
   component: 'LanguageLevelsContent',
-  filePath:
-    'explore/languages/german/unit-0-language-levels-and-classroom-instructions/unit-0-language-levels-and-classroom-instructions',
+  filePath: 'explore/languages/german/A1/unit-0-language-levels-and-classroom-instructions',
   slug: 'explore/languages/german/unit-0-language-levels-and-classroom-instructions',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Begrüßungen und erste Kontakte'] = {
   component: 'GreetingsAndFirstContacts',
-  filePath:
-    'explore/languages/german/unit-2-greetings-and-first-contacts/unit-2-greetings-and-first-contacts',
+  filePath: 'explore/languages/german/A1/unit-2-greetings-and-first-contacts',
   slug: 'explore/languages/german/unit-2-greetings-and-first-contacts',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Menschen, Länder und Berufe'] = {
   component: 'PeopleCountriesAndProfessions',
-  filePath:
-    'explore/languages/german/unit-3-people-countries-and-professions/unit-3-people-countries-and-professions',
+  filePath: 'explore/languages/german/A1/unit-3-people-countries-and-professions',
   slug: 'explore/languages/german/unit-3-people-countries-and-professions',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Familie und Freunde'] = {
   component: 'FamilyAndFriends',
-  filePath: 'explore/languages/german/unit-4-family-and-friends/unit-4-family-and-friends',
+  filePath: 'explore/languages/german/A1/unit-4-family-and-friends',
   slug: 'explore/languages/german/unit-4-family-and-friends',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Essen, Trinken und Einkaufen'] = {
   component: 'FoodDrinkAndShopping',
-  filePath:
-    'explore/languages/german/unit-5-food-drink-and-shopping/unit-5-food-drink-and-shopping',
+  filePath: 'explore/languages/german/A1/unit-5-food-drink-and-shopping',
   slug: 'explore/languages/german/unit-5-food-drink-and-shopping',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Zuhause und Haushalt'] = {
   component: 'HomeAndHousehold',
-  filePath: 'explore/languages/german/unit-6-home-and-household/unit-6-home-and-household',
+  filePath: 'explore/languages/german/A1/unit-6-home-and-household',
   slug: 'explore/languages/german/unit-6-home-and-household',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Mein Tag und meine Woche'] = {
   component: 'MyDayAndMyWeek',
-  filePath: 'explore/languages/german/unit-7-my-day-and-my-week/unit-7-my-day-and-my-week',
+  filePath: 'explore/languages/german/A1/unit-7-my-day-and-my-week',
   slug: 'explore/languages/german/unit-7-my-day-and-my-week',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Freizeit, Wetter und Kleidung'] = {
   component: 'FreeTimeWeatherAndClothing',
-  filePath:
-    'explore/languages/german/unit-8-free-time-weather-and-clothing/unit-8-free-time-weather-and-clothing',
+  filePath: 'explore/languages/german/A1/unit-8-free-time-weather-and-clothing',
   slug: 'explore/languages/german/unit-8-free-time-weather-and-clothing',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Wegbeschreibung, Orte und Verkehr'] = {
   component: 'DirectionsPlacesAndTransport',
-  filePath:
-    'explore/languages/german/unit-9-directions-places-and-transport/unit-9-directions-places-and-transport',
+  filePath: 'explore/languages/german/A1/unit-9-directions-places-and-transport',
   slug: 'explore/languages/german/unit-9-directions-places-and-transport',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Reisen und Urlaub'] = {
   component: 'TravelAndHolidays',
-  filePath: 'explore/languages/german/unit-10-travel-and-holidays/unit-10-travel-and-holidays',
+  filePath: 'explore/languages/german/A1/unit-10-travel-and-holidays',
   slug: 'explore/languages/german/unit-10-travel-and-holidays',
   parentSlug: 'explore/languages/german'
 }
 topicComponentMap['Gesundheit und der Körper'] = {
   component: 'HealthAndTheBody',
-  filePath: 'explore/languages/german/unit-11-health-and-the-body/unit-11-health-and-the-body',
+  filePath: 'explore/languages/german/A1/unit-11-health-and-the-body',
   slug: 'explore/languages/german/unit-11-health-and-the-body',
   parentSlug: 'explore/languages/german'
 }
@@ -470,19 +648,69 @@ topicComponentMap['Project: Proving You Understand'] = {
   slug: 'explore/mathematics/arithmetic/capstone-whole-numbers',
   parentSlug: 'explore/mathematics/arithmetic'
 }
+topicComponentMap['Project: Proving You Understand Fractions'] = {
+  component: 'CapstoneFractions',
+  filePath: 'explore/mathematics/arithmetic/projects/capstone-fractions',
+  slug: 'explore/mathematics/arithmetic/capstone-fractions',
+  parentSlug: 'explore/mathematics/arithmetic'
+}
+topicComponentMap['Project: Proving You Understand Rational Numbers'] = {
+  component: 'CapstoneRationalNumbers',
+  filePath: 'explore/mathematics/arithmetic/projects/capstone-rational-numbers',
+  slug: 'explore/mathematics/arithmetic/capstone-rational-numbers',
+  parentSlug: 'explore/mathematics/arithmetic'
+}
+topicComponentMap['Project: Proving You Understand Number Theory'] = {
+  component: 'CapstoneNumberTheory',
+  filePath: 'explore/mathematics/arithmetic/projects/capstone-number-theory',
+  slug: 'explore/mathematics/arithmetic/capstone-number-theory',
+  parentSlug: 'explore/mathematics/arithmetic'
+}
+topicComponentMap['Project: Proving You Understand Decimals'] = {
+  component: 'CapstoneDecimals',
+  filePath: 'explore/mathematics/arithmetic/projects/capstone-decimals',
+  slug: 'explore/mathematics/arithmetic/capstone-decimals',
+  parentSlug: 'explore/mathematics/arithmetic'
+}
 
 // Biography book modules
 topicComponentMap['Augustus: First Emperor of Rome'] = {
   component: 'AugustusFirstEmperor',
-  filePath: 'explore/books/biography/augustus-first-emperor/augustus-first-emperor',
+  filePath: 'explore/books/biography/Founders & Builders/augustus-first-emperor',
   slug: 'library/biography/augustus-first-emperor',
   parentSlug: 'library/biography'
+}
+
+// Fantasy: The Book of the New Sun
+topicComponentMap['The Shadow of the Torturer'] = {
+  component: 'TheShadowOfTheTorturer',
+  filePath: 'explore/books/fantasy/Science Fantasy/the-shadow-of-the-torturer',
+  slug: 'library/fantasy/the-shadow-of-the-torturer',
+  parentSlug: 'library/fantasy'
+}
+topicComponentMap['The Claw of the Conciliator'] = {
+  component: 'TheClawOfTheConciliator',
+  filePath: 'explore/books/fantasy/Science Fantasy/the-claw-of-the-conciliator',
+  slug: 'library/fantasy/the-claw-of-the-conciliator',
+  parentSlug: 'library/fantasy'
+}
+topicComponentMap['The Sword of the Lictor'] = {
+  component: 'TheSwordOfTheLictor',
+  filePath: 'explore/books/fantasy/Science Fantasy/the-sword-of-the-lictor',
+  slug: 'library/fantasy/the-sword-of-the-lictor',
+  parentSlug: 'library/fantasy'
+}
+topicComponentMap['The Citadel of the Autarch'] = {
+  component: 'TheCitadelOfTheAutarch',
+  filePath: 'explore/books/fantasy/Science Fantasy/the-citadel-of-the-autarch',
+  slug: 'library/fantasy/the-citadel-of-the-autarch',
+  parentSlug: 'library/fantasy'
 }
 
 // Lex Fridman Podcast modules
 topicComponentMap['Andrew Bustamante: CIA Spy | Lex Fridman Podcast #310'] = {
   component: 'AndrewBustamanteContent',
-  filePath: 'explore/podcasts/lex-fridman/andrew-bustamante/andrew-bustamante',
+  filePath: 'explore/podcasts/lex-fridman/andrew-bustamante',
   slug: 'explore/podcasts/lex-fridman/andrew-bustamante',
   parentSlug: 'library/lex-fridman-podcast'
 }
@@ -490,7 +718,7 @@ topicComponentMap['Andrew Bustamante: CIA Spy | Lex Fridman Podcast #310'] = {
 // Johnny Harris video modules
 topicComponentMap['How Switzerland Engineered the Perfect Country'] = {
   component: 'SwitzerlandEngineeringContent',
-  filePath: 'explore/videos/johnny-harris/switzerland-engineering/switzerland-engineering',
+  filePath: 'explore/videos/johnny-harris/switzerland-engineering',
   slug: 'explore/videos/johnny-harris/switzerland-engineering',
   parentSlug: 'library/history-geopolitics'
 }
@@ -498,9 +726,17 @@ topicComponentMap['How Switzerland Engineered the Perfect Country'] = {
 // Papers modules
 topicComponentMap['Shannon Entropy and Information Theory'] = {
   component: 'ShannonEntropyContent',
-  filePath: 'explore/papers/information-theory/shannon-entropy/shannon-entropy',
+  filePath: 'explore/papers/information-theory/shannon-entropy',
   slug: 'library/papers/shannon-entropy',
   parentSlug: 'library/papers'
+}
+
+// Star Wars films modules
+topicComponentMap['Star Wars: Episode I - The Phantom Menace'] = {
+  component: 'ThePhantomMenace',
+  filePath: 'explore/films/star-wars/the-phantom-menace',
+  slug: 'library/films/science-fiction/star-wars-episode-i-the-phantom-menace',
+  parentSlug: 'library/films/science-fiction'
 }
 
 // Content structure for each resource
@@ -508,11 +744,11 @@ export const resourceContent = {
   'explore/mathematics/arithmetic': {
     units: [
       {
-        title: 'Part 1: Whole Numbers',
+        title: 'Whole Numbers',
         topics: ['Place Value and Algorithms', 'Number Line and Number Systems']
       },
       {
-        title: 'Part 2: Fractions',
+        title: 'Fractions',
         topics: [
           'Fraction Foundations',
           'Fraction Operations',
@@ -521,15 +757,15 @@ export const resourceContent = {
         ]
       },
       {
-        title: 'Part 3: Rational Numbers',
+        title: 'Rational Numbers',
         topics: ['Rational Numbers']
       },
       {
-        title: 'Part 4: Number Theory',
+        title: 'Number Theory',
         topics: ['Number Theory']
       },
       {
-        title: 'Part 5: Decimals',
+        title: 'Decimals',
         topics: [
           'Decimal Fundamentals',
           'Infinite and Repeating Decimals',
@@ -537,16 +773,83 @@ export const resourceContent = {
         ]
       },
       {
-        title: 'Part 6: Tools',
+        title: 'Tools',
         topics: ['Arithmetic Tools']
       }
     ],
-    projects: [{ title: 'Project: Proving You Understand', unit: 'Whole Numbers' }]
+    projects: [
+      { title: 'Project: Proving You Understand', unit: 'Whole Numbers' },
+      { title: 'Project: Proving You Understand Fractions', unit: 'Fractions' },
+      {
+        title: 'Project: Proving You Understand Rational Numbers',
+        unit: 'Rational Numbers'
+      },
+      { title: 'Project: Proving You Understand Number Theory', unit: 'Number Theory' },
+      { title: 'Project: Proving You Understand Decimals', unit: 'Decimals' }
+    ]
+  },
+  'explore/mathematics/algebra': {
+    units: [
+      {
+        title: 'Foundations',
+        topics: [
+          'Arithmetic Foundations',
+          'Algebraic Foundations',
+          'Algebraic Identities (Special Products)'
+        ]
+      },
+      {
+        title: 'Equations and Inequalities',
+        topics: ['Linear Equations', 'Quadratic Equations', 'Roots, Powers and Inequalities']
+      },
+      {
+        title: 'Numbers and Expressions',
+        topics: [
+          'Fractions, Ratios and Proportions',
+          'Exponents, Roots and Radicals',
+          'Polynomials'
+        ]
+      },
+      {
+        title: 'Coordinate Geometry and Functions',
+        topics: [
+          'Graphing Lines and Linear Inequalities',
+          'Quadratic Functions and Polynomial Inequalities',
+          'Functions',
+          'Exponential Functions'
+        ]
+      },
+      {
+        title: 'Advanced Topics',
+        topics: ['Sequences and Series', 'The Binomial Theorem']
+      }
+    ]
+  },
+  'explore/history/prehistory': {
+    units: [
+      {
+        title: 'Introduction',
+        topics: ['Introduction: Studying the Human Past']
+      },
+      {
+        title: 'The Evolution of Humanity',
+        topics: ['The Evolution of Humanity: 6 Million to 11,600 Years Ago']
+      },
+      {
+        title: 'After the Ice Age',
+        topics: [
+          'From Foragers to Farmers: Origins of Agriculture',
+          'Holocene Societies Across the World',
+          'First Civilizations of the Old World',
+          'Complex Societies of the Americas and Synthesis'
+        ]
+      }
+    ]
   },
   'explore/physics/classical-mechanics': {
     units: [
       {
-        title: 'Part I: Newtonian Mechanics',
+        title: 'Newtonian Mechanics',
         topics: [
           'Vectors, Kinematics and the Galilean Structure of Space-Time',
           "Newton's Laws and Equations of Motion",
@@ -561,7 +864,7 @@ export const resourceContent = {
         ]
       },
       {
-        title: 'Part II: Lagrangian Mechanics and Variational Principles',
+        title: 'Lagrangian Mechanics and Variational Principles',
         topics: [
           'The Principle of Least Action and the Euler-Lagrange Equations',
           "Symmetries and Conservation Laws (Noether's Theorem)",
@@ -573,7 +876,7 @@ export const resourceContent = {
         ]
       },
       {
-        title: 'Part III: Hamiltonian Mechanics and Canonical Formalism',
+        title: 'Hamiltonian Mechanics and Canonical Formalism',
         topics: [
           "Hamilton's Equations and the Legendre Transform",
           'Poisson Brackets and First Integrals',
@@ -585,7 +888,7 @@ export const resourceContent = {
         ]
       },
       {
-        title: 'Part IV: Perturbation Theory and Advanced Topics',
+        title: 'Perturbation Theory and Advanced Topics',
         topics: [
           'Adiabatic Invariants',
           'Canonical Perturbation Theory and Averaging',
@@ -601,6 +904,19 @@ export const resourceContent = {
       {
         title: 'Founders & Builders',
         topics: ['Augustus: First Emperor of Rome']
+      }
+    ]
+  },
+  'library/fantasy': {
+    units: [
+      {
+        title: 'Science Fantasy',
+        topics: [
+          'The Shadow of the Torturer',
+          'The Claw of the Conciliator',
+          'The Sword of the Lictor',
+          'The Citadel of the Autarch'
+        ]
       }
     ]
   },
@@ -643,6 +959,15 @@ export const resourceContent = {
       }
     ]
   }
+}
+
+resourceContent['library/films/science-fiction'] = {
+  units: [
+    {
+      title: 'Star Wars',
+      topics: ['Star Wars: Episode I - The Phantom Menace']
+    }
+  ]
 }
 
 // resourceContent is keyed by slug - no index drift possible.

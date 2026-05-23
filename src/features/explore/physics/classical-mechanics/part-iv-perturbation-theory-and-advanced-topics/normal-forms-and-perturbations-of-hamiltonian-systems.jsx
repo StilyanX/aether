@@ -7,7 +7,7 @@ import {
   FrequencyRepulsion,
   PoincareBirkhoff,
   ResonancePortrait
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 // ─── Visualization: Resonance-3 Phase Portrait ───────────────────────────────
 function ResonancePhasePortrait({ C }) {
@@ -21,7 +21,7 @@ function ResonancePhasePortrait({ C }) {
   const a = 1
 
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -57,7 +57,7 @@ function ResonancePhasePortrait({ C }) {
             const r = Math.abs(e) < 0.01 ? 0.8 : 0.6
             return [r * Math.cos(t), r * Math.sin(t)]
           }}
-          color={e < -0.05 ? C.accent : C.faint}
+          color={e < -0.05 ? C.accent : C.dim}
           strokeWidth={1.5}
         />
         {eps.element}
@@ -74,7 +74,7 @@ function ResonancePhasePortrait({ C }) {
 // ─── Visualization: Invariant Tori ───────────────────────────────────────────
 function InvariantToriDiagram({ C }) {
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -110,7 +110,7 @@ function InvariantToriDiagram({ C }) {
 // ─── Visualization: Frequency Repulsion ──────────────────────────────────────
 function FrequencyRepulsionDiagram({ C }) {
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -148,7 +148,7 @@ function FrequencyRepulsionDiagram({ C }) {
         <Text x={1.5} y={-2.2} size={24} color={C.dim}>
           2-parameter
         </Text>
-        <LaTeX at={[-4.8, 2.1]} tex={String.raw`\omega_i(\lambda)`} color={C.faint} />
+        <LaTeX at={[-4.8, 2.1]} tex={String.raw`\omega_i(\lambda)`} color={C.dim} />
       </Mafs>
     </div>
   )
@@ -160,10 +160,9 @@ export default function NormalFormsPerturbationsContent() {
 
   const config = {
     cssPrefix: 'nfp',
-    source: 'Mathematical Methods of Classical Mechanics - Arnold',
     documentTitle: 'Normal Forms and Perturbations of Hamiltonian Systems - AETHER',
     learning: {
-      groupTitle: 'Part IV: Perturbation Theory and Advanced Topics',
+      groupTitle: 'Perturbation Theory and Advanced Topics',
       category: 'Classical Mechanics',
       title: 'Normal Forms and Perturbations of Hamiltonian Systems',
       subtitle: 'Birkhoff normal forms, KAM theory, and the geometry of nearly-integrable systems',

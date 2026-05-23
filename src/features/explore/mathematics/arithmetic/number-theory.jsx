@@ -9,12 +9,11 @@ import {
   GcdLcmVennVis,
   PythagoreanTripleVis,
   PerfectSquareParityVis
-} from '../../../../components/viz/math-viz/modules'
+} from '../../../../components/viz'
 
 function useConfig(C) {
   return {
     cssPrefix: 'nth',
-    source: 'Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu',
     documentTitle: 'Number Theory - AETHER',
     learning: {
       category: 'Part 4',
@@ -1077,8 +1076,9 @@ function useConfig(C) {
           <h2>Applications of GCD and LCM</h2>
 
           <p>
-            The gcd is the tool that reduces fractions. To reduce 48/60 to 4/5, divide by gcd(48,
-            60) = 12. Every fraction simplification uses this idea.
+            The gcd is the tool that reduces fractions. To reduce {`$\\frac{48}{60}$`} to{' '}
+            {`$\\frac{4}{5}$`}, divide by gcd(48, 60) = 12. Every fraction simplification uses this
+            idea.
           </p>
 
           <div className="lrn-predict">
@@ -1250,7 +1250,7 @@ function useConfig(C) {
           </div>
 
           <p>{`Reducing fractions: divide numerator and denominator by common factors repeatedly, or use gcd directly.`}</p>
-          <p>{`Example: $81/54$. Common factor 3: $81/54 \\to 27/18 \\to 9/6 \\to 3/2$. Or: $\\gcd(81, 54) = 27$, so $81/54 = 3/2$ in one step.`}</p>
+          <p>{`Example: $\\frac{81}{54}$. Common factor 3: $\\frac{81}{54} \\to \\frac{27}{18} \\to \\frac{9}{6} \\to \\frac{3}{2}$. Or: $\\gcd(81, 54) = 27$, so $\\frac{81}{54} = \\frac{3}{2}$ in one step.`}</p>
 
           <div className="lrn-definition">
             <span className="lrn-definition-term">Reducing Fractions</span>
@@ -1287,13 +1287,13 @@ function useConfig(C) {
             to lowest terms).
           </p>
 
-          <p>{`Example: $0.5726 = 5726/10000$. Reduce: $\\gcd(5726, 10000) = 2$, so $5726/10000 = 2863/5000$. Since $5000 = 2^3 \\times 5^4$, the denominator has only factors of 2 and 5. So it is a finite decimal.`}</p>
+          <p>{`Example: $0.5726 = \\frac{5726}{10000}$. Reduce: $\\gcd(5726, 10000) = 2$, so $\\frac{5726}{10000} = \\frac{2863}{5000}$. Since $5000 = 2^3 \\times 5^4$, the denominator has only factors of 2 and 5. So it is a finite decimal.`}</p>
 
           <div className="lrn-proof">
             <span className="lrn-proof-header">Proof (both directions)</span>
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">1.</span>
-              <div className="lrn-proof-step-content">{`If $a/b$ is a finite decimal, then $a/b = N/10^k$ for some integers. So $b | 10^k = 2^k \\times 5^k$. By FTA, $b$ can only have prime factors 2 and 5.`}</div>
+              <div className="lrn-proof-step-content">{`If $\\frac{a}{b}$ is a finite decimal, then $\\frac{a}{b} = \\frac{N}{10^k}$ for some integers. So $b | 10^k = 2^k \\times 5^k$. By FTA, $b$ can only have prime factors 2 and 5.`}</div>
             </div>
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">2.</span>
@@ -1307,7 +1307,7 @@ function useConfig(C) {
             <p>{`Why must the fraction be in lowest terms before applying this test?`}</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
-              <p>{`$6/15$ has denominator 15 = 3 × 5, which has a factor of 3, so the test would say "not a finite decimal." But $6/15 = 2/5$, and 5 is $5^1$, so it IS a finite decimal ($0.4$). Reducing first removes factors that cancel with the numerator, giving the true denominator.`}</p>
+              <p>{`$\\frac{6}{15}$ has denominator 15 = 3 × 5, which has a factor of 3, so the test would say "not a finite decimal." But $\\frac{6}{15} = \\frac{2}{5}$, and 5 is $5^1$, so it IS a finite decimal ($0.4$). Reducing first removes factors that cancel with the numerator, giving the true denominator.`}</p>
             </details>
           </div>
 
@@ -1587,7 +1587,7 @@ function useConfig(C) {
       // LCM (Ch 36) - interleaved
       {
         q: 'Find lcm(18, 24) using prime decompositions.',
-        a: '18 = 2 × 3² and 24 = 2³ × 3. Take maximum exponents: 2³ × 3² = 8 × 9 = 72. Check: 72/18 = 4 (integer), 72/24 = 3 (integer), and no smaller common multiple exists. lcm(18, 24) = 72.'
+        a: '18 = 2 × 3² and 24 = 2³ × 3. Take maximum exponents: 2³ × 3² = 8 × 9 = 72. Check: $\\frac{72}{18} = 4$ (integer), $\\frac{72}{24} = 3$ (integer), and no smaller common multiple exists. lcm(18, 24) = 72.'
       },
 
       // Error detection
@@ -1947,7 +1947,7 @@ function useConfig(C) {
       // Elaborate: why the EA reduces by half
       {
         q: 'Why does the Euclidean Algorithm stop quickly? Approximately how many steps does it take?',
-        a: 'Each step reduces the larger number by at least half. If a = qb + r with r < b, then r < a/2 (because if q ≥ 2, r < b ≤ a/2; if q = 1, r = a − b < a/2 since b > a/2). After 2 steps, both numbers have halved. So the algorithm takes at most 2⌈log₂(max(a,b))⌉ steps, which is logarithmic in the input size. This makes it fast even for very large numbers.'
+        a: 'Each step reduces the larger number by at least half. If a = qb + r with r < b, then $r < \\frac{a}{2}$ (because if q ≥ 2, $r < b \\leq \\frac{a}{2}$; if q = 1, $r = a - b < \\frac{a}{2}$ since $b > \\frac{a}{2}$). After 2 steps, both numbers have halved. So the algorithm takes at most 2⌈log₂(max(a,b))⌉ steps, which is logarithmic in the input size. This makes it fast even for very large numbers.'
       }
     ],
 

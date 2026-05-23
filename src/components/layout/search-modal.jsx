@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { topicComponentMap } from '../../config/registry'
@@ -37,6 +37,14 @@ function SearchModal({ isOpen, onClose }) {
     }
   }, [isOpen])
 
+  const handleSelect = useCallback(
+    topic => {
+      navigate(`/topic/${topic.slug}`)
+      onClose()
+    },
+    [navigate, onClose]
+  )
+
   // Handle keyboard navigation
   useEffect(() => {
     if (!isOpen) return
@@ -58,17 +66,12 @@ function SearchModal({ isOpen, onClose }) {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, filteredTopics, selectedIndex, onClose])
+  }, [isOpen, filteredTopics, selectedIndex, onClose, handleSelect])
 
   // Reset selected index when search term changes
   useEffect(() => {
     setSelectedIndex(0)
   }, [searchTerm])
-
-  const handleSelect = topic => {
-    navigate(`/topic/${topic.slug}`)
-    onClose()
-  }
 
   if (!isOpen) return null
 

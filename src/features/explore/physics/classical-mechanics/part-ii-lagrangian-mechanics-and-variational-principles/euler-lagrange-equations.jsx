@@ -12,7 +12,7 @@ import {
   DragHandle as DH1,
   OPACITY as O1,
   VizCard
-} from '../../../../../components/viz/physics-viz/primitives'
+} from '../../../../../components/viz/primitives'
 
 // Visualizations
 
@@ -173,8 +173,12 @@ function Brachistochrone() {
       return us[lo] + f * (us[hi] - us[lo])
     }
   }
+  // cyc01/arc/straight are component-scope curve fns, stable across renders by construction.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const mCyc = React.useMemo(() => buildMap(cyc01), [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const mArc = React.useMemo(() => buildMap(arc), [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const mStr = React.useMemo(() => buildMap(straight), [])
   const [t, setT] = React.useState(0)
   const pCyc = cyc01(mCyc(Math.min(t, Tcyc)))
@@ -338,10 +342,9 @@ function GeodesicSphere() {
 export default function EulerLagrangeEquations() {
   const config = {
     cssPrefix: 'ele',
-    source: 'Mathematical Methods of Classical Mechanics - Arnold',
     documentTitle: 'Euler-Lagrange Equations - AETHER',
     learning: {
-      groupTitle: 'Part II: Lagrangian Mechanics and Variational Principles',
+      groupTitle: 'Lagrangian Mechanics and Variational Principles',
       category: 'Physics',
       title: 'Euler-Lagrange Equations',
       subtitle:

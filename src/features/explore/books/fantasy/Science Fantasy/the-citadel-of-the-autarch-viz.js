@@ -1,0 +1,37 @@
+// Per-book viz namespace for The Citadel of the Autarch.
+// BIV_* prefixed exports are aliased to flat Ch0X* names for this book's local namespace.
+// Names not aliased are already unique across all 4 books.
+export {
+  Ch01ResurrectionSequence,
+  Ch02AscianSpeechGrammar,
+  Ch02ClawParadox,
+  Ch03AscianStoryArc,
+  Ch03SlaveryPaths,
+  Ch03ThreeSuitorsRoutes,
+  Ch03LastHouseTime,
+  Ch04ChapterArc,
+  Ch04ThreeFactionStandoff,
+  Ch04BattleFormation,
+  Ch04AutarchIdentityWeb,
+  Ch05ThreeFactionCollapse,
+  Ch05AutarchIdentityStack,
+  Ch05AquastorProjection,
+  Ch05ThornBushClaw,
+  Ch06RouteMap,
+  Ch06ReturnsAndCallbacks,
+  Ch06TimeLoopDiagram,
+  Ch04AscianStructure,
+  Ch04SeverianFearArc,
+  Ch05ChapterArc,
+  Ch05TimeCorridor,
+  Ch06ClawMeditationTree,
+  Ch06StructureDiagram,
+  BIV_Ch01StructureDiagram as Ch01StructureDiagram,
+  BIV_Ch01EmotionalArc as Ch01EmotionalArc,
+  BIV_Ch01CharacterWeb as Ch01CharacterWeb,
+  BIV_Ch02StructureDiagram as Ch02StructureDiagram,
+  BIV_Ch02CharacterWeb as Ch02CharacterWeb,
+  BIV_Ch03StructureDiagram as Ch03StructureDiagram,
+  BIV_Ch03CharacterWeb as Ch03CharacterWeb,
+  BIV_Ch06CharacterWeb as Ch06CharacterWeb
+} from '../../../../../components/viz'

@@ -10,10 +10,6 @@ function isTyping(target) {
   return false
 }
 
-function scrollBy(dy) {
-  window.scrollBy({ top: dy, behavior: 'smooth' })
-}
-
 export function VimRouter() {
   const settings = useSettings()
   const navigate = useNavigate()

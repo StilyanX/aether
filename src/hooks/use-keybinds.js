@@ -148,12 +148,12 @@ export function Keybinds() {
       runAction('open-settings')
     }
 
+    const st = stateRef.current
     window.addEventListener('keydown', onKeyDown)
     window.addEventListener('keyup', onKeyUp)
     return () => {
       window.removeEventListener('keydown', onKeyDown)
       window.removeEventListener('keyup', onKeyUp)
-      const st = stateRef.current
       if (st.timer) clearTimeout(st.timer)
     }
   }, [])

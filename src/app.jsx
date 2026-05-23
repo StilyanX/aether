@@ -2,17 +2,20 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import { useEffect, useState, useMemo, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import CategoryPage from './components/home/category-page'
-import ResourceDetail from './components/home/resource-detail'
+import CurriculumView from './components/home/curriculum-view'
 import TopicStandalone from './components/home/topic-standalone'
 import ToolPlaceholder from './components/home/tool-placeholder'
 import ErrorBoundary from './components/layout/error-boundary'
-import LoadingScreen from './components/layout/loading-screen'
 import SearchModal from './components/layout/search-modal'
 import { resourceMetadata, slugToIndex, topicComponentMap } from './config/registry'
+
+function LibraryRoute() {
+  const { pathname } = useLocation()
+  const slug = pathname.replace(/^\//, '').replace(/\/$/, '')
+  return slugToIndex[slug] !== undefined ? <CurriculumView /> : <TopicStandalone />
+}
 import { useTheme } from './hooks/use-theme'
 import { useSettings } from './hooks/use-settings'
-import { lazy, Suspense } from 'react'
-const VizTest = lazy(() => import('./features/test/viz-test'))
 import Pomodoro from './components/chrome/pomodoro'
 import Notes from './components/chrome/notes'
 import { SettingsSheet } from './components/chrome/settings-sheet'
@@ -209,9 +212,10 @@ function AppContent() {
               <Route path="/polymath" element={<Navigate to="/explore" replace />} />
               <Route path="/library" element={<Navigate to="/explore" replace />} />
               <Route path="/explore/:filter" element={<CategoryPage category="explore" />} />
-              <Route path="/library/:resource" element={<ResourceDetail />} />
-              <Route path="/library/:resource/:module" element={<TopicStandalone />} />
-              <Route path="/explore/:domain/:resource" element={<ResourceDetail />} />
+              <Route path="/library/:resource" element={<CurriculumView />} />
+              <Route path="/library/:resource/:module" element={<LibraryRoute />} />
+              <Route path="/library/:resource/:module/:topic" element={<TopicStandalone />} />
+              <Route path="/explore/:domain/:resource" element={<CurriculumView />} />
               <Route
                 path="/explore/:domain/:resource/tool/:toolSlug"
                 element={<ToolPlaceholder />}
@@ -220,14 +224,6 @@ function AppContent() {
               <Route
                 path="/explore/:domain/:resource/:book/:module"
                 element={<TopicStandalone />}
-              />
-              <Route
-                path="/test"
-                element={
-                  <Suspense fallback={<LoadingScreen open />}>
-                    <VizTest />
-                  </Suspense>
-                }
               />
             </Routes>
           </motion.div>

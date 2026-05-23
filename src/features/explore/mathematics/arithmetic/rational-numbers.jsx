@@ -7,14 +7,13 @@ import {
   VectorAdditionDiagram,
   InequalityFlipDiagram,
   AbsoluteValueDiagram
-} from '../../../../components/viz/math-viz/modules'
+} from '../../../../components/viz'
 
 export default function RationalNumbers() {
   const C = useVizColors()
 
   const config = {
     cssPrefix: 'rtn',
-    source: 'Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu',
     documentTitle: 'Rational Numbers - AETHER',
     learning: {
       category: 'Arithmetic',
@@ -133,7 +132,7 @@ export default function RationalNumbers() {
           </div>
 
           <p>
-            Fractions let us solve equations like {`$7x = 5$`}, giving {`$x = 5/7$`}.
+            Fractions let us solve equations like {`$7x = 5$`}, giving {`$x = \\frac{5}{7}$`}.
           </p>
           <p>But the equation {`$7 + x = 5$`} has no solution among fractions.</p>
           <p>We need rational numbers to solve {`$a + x = b$`} for any rational a and b.</p>
@@ -361,17 +360,18 @@ export default function RationalNumbers() {
 
           <div className="lrn-steps">
             <div className="lrn-step">
-              <span className="lrn-step-title">Worked example: 15/4 + (5/3)*</span>
+              <span className="lrn-step-title">{`Worked example: $\\frac{15}{4} + \\left(\\frac{5}{3}\\right)^*$`}</span>
               <p className="lrn-step-content">
-                15/4 = 3.75 and 5/3 ≈ 1.67. Since 3.75 &gt; 1.67, use rule (27.2):{' '}
+                {`$\\frac{15}{4}$`} = 3.75 and {`$\\frac{5}{3}$`} ≈ 1.67. Since 3.75 &gt; 1.67, use
+                rule (27.2):{' '}
                 {`$\\frac{15}{4} - \\frac{5}{3} = \\frac{45}{12} - \\frac{20}{12} = \\frac{25}{12}$`}
                 .
               </p>
             </div>
             <div className="lrn-step">
-              <span className="lrn-step-title">Worked example: 7/6 + 2*</span>
+              <span className="lrn-step-title">{`Worked example: $\\frac{7}{6} + 2^*$`}</span>
               <p className="lrn-step-content">
-                7/6 ≈ 1.17 &lt; 2. Use rule (27.3):{' '}
+                {`$\\frac{7}{6}$`} ≈ 1.17 &lt; 2. Use rule (27.3):{' '}
                 {`$\\frac{7}{6} + 2^* = \\left(2 - \\frac{7}{6}\\right)^* = \\left(\\frac{5}{6}\\right)^*$`}
                 .
               </p>
@@ -857,7 +857,8 @@ export default function RationalNumbers() {
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>For y negative: write {`$y = -t$`} where t is positive.</p>
             <p>
-              Then {`$(-t) \\cdot (-1/t) = t/t = 1$`}, so {`$y^{-1} = -1/t$`}.
+              Then {`$(-t) \\cdot \\left(-\\frac{1}{t}\\right) = \\frac{t}{t} = 1$`}, so{' '}
+              {`$y^{-1} = -\\frac{1}{t}$`}.
             </p>
             <p>
               The inverse of a negative number is negative - same absolute value as the positive
@@ -919,10 +920,12 @@ export default function RationalNumbers() {
 
           <div className="lrn-steps">
             <div className="lrn-step">
-              <span className="lrn-step-title">Example: {`$(−3/5) \\div (2.4/(−7))$`}</span>
+              <span className="lrn-step-title">
+                Example: {`$\\left(-\\frac{3}{5}\\right) \\div \\left(\\frac{2.4}{-7}\\right)$`}
+              </span>
               <p className="lrn-step-content">
                 Apply (30.2):{' '}
-                {`$\\frac{-3/5}{2.4/(-7)} = \\frac{-3}{5} \\cdot \\frac{-7}{2.4} = \\frac{(-3)(-7)}{5 \\times 2.4} = \\frac{21}{12} = \\frac{7}{4}$`}
+                {`$\\frac{-\\frac{3}{5}}{\\frac{2.4}{-7}} = \\frac{-3}{5} \\cdot \\frac{-7}{2.4} = \\frac{(-3)(-7)}{5 \\times 2.4} = \\frac{21}{12} = \\frac{7}{4}$`}
                 .
               </p>
             </div>
@@ -989,7 +992,7 @@ export default function RationalNumbers() {
                   multiplier reverses order.
                 </li>
                 <li>
-                  <strong>(F)</strong> {`$x > 0 \\Leftrightarrow 1/x > 0$`}.
+                  <strong>(F)</strong> {`$x > 0 \\Leftrightarrow \\frac{1}{x} > 0$`}.
                 </li>
                 <li>
                   <strong>(G)</strong> Dividing by positive preserves order; dividing by negative
@@ -1055,7 +1058,7 @@ export default function RationalNumbers() {
               <ul className="lrn-list">
                 <li>{`$x^n = x \\cdot x \\cdots x$`} (n factors) for positive integer n.</li>
                 <li>{`$x^0 = 1$`} for any nonzero x.</li>
-                <li>{`$x^{-n} = 1/x^n$`} for nonzero x and positive integer n.</li>
+                <li>{`$x^{-n} = \\frac{1}{x^n}$`} for nonzero x and positive integer n.</li>
                 <li>{`$x^m \\cdot x^n = x^{m+n}$`} for all integers m, n (equation 31.1).</li>
               </ul>
             </div>
@@ -1430,7 +1433,7 @@ export default function RationalNumbers() {
               <p>(C): {`$x < y \\Leftrightarrow y-x > 0$`}</p>
               <p>(D): {`$x < y, z > 0 \\Rightarrow xz < yz$`}</p>
               <p>(E): {`$x < y, z < 0 \\Rightarrow xz > yz$`}</p>
-              <p>(F): {`$x > 0 \\Leftrightarrow 1/x > 0$`}</p>
+              <p>(F): {`$x > 0 \\Leftrightarrow \\frac{1}{x} > 0$`}</p>
               <p>(G): positive divisor → preserves; negative → reverses</p>
               <p>(H): {`$X/Y < Z/W \\Leftrightarrow XW < ZY$`} (Y, W &gt; 0 required)</p>
             </div>

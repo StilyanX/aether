@@ -62,6 +62,21 @@ body {
   padding-bottom: 32px;
 }
 
+a,
+a:link,
+a:visited {
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--base-color) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration-color: var(--text-primary);
+}
+
 /* Grid overlay - 50px baseline grid, toggled via data-grid-overlay */
 body::before {
   content: '';
@@ -92,59 +107,6 @@ body::-webkit-scrollbar {
   /* Chrome, Safari, Opera */
 }
 
-/* Scroll Progress */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  z-index: 10001;
-  pointer-events: none;
-}
-
-.scroll-progress-bar {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    90deg,
-    color-mix(in srgb, var(--ax-progress) 5%, transparent) 0%,
-    color-mix(in srgb, var(--ax-progress) 40%, transparent) 40%,
-    color-mix(in srgb, var(--ax-progress) 75%, transparent) 75%,
-    color-mix(in srgb, var(--ax-progress) 95%, transparent) 100%
-  );
-  box-shadow: 0 0 8px color-mix(in srgb, var(--ax-progress) 20%, transparent);
-  will-change: transform;
-}
-
-/* Leading-edge glow - pure light, no visible shape */
-.scroll-progress-glow {
-  position: absolute;
-  top: 0;
-  left: -1px;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: var(--ax-progress);
-  box-shadow:
-    0 0 3px 1px color-mix(in srgb, var(--ax-progress) 90%, transparent),
-    0 0 8px 3px color-mix(in srgb, var(--ax-progress) 30%, transparent);
-  will-change: transform, opacity;
-  transition: opacity 0.3s ease;
-}
-
-.scroll-progress-label {
-  position: fixed;
-  top: 6px;
-  right: 12px;
-  font-family: var(--reader-code-font, monospace);
-  font-size: 10px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.05em;
-  pointer-events: none;
-  z-index: 10001;
-}
-
 @keyframes page-enter {
   from {
     opacity: 0;
@@ -157,13 +119,9 @@ body::-webkit-scrollbar {
   }
 }
 
-/* ============================================
-   HUD DATE/TIME DISPLAY
-   ============================================ */
+/* HUD DATE/TIME DISPLAY */
 
-/* ============================================
-   TEXT DECODE EFFECT - Masked Y-Reveal + Shimmer
-   ============================================ */
+/* TEXT DECODE EFFECT - Masked Y-Reveal + Shimmer */
 
 @media (max-width: 961px) {
   header {
@@ -248,9 +206,7 @@ body::-webkit-scrollbar {
 
 }
 */
-/* ============================================
-   RESOURCE ENGINE 2.0 - DOCKING STATION
-   ============================================ */
+/* RESOURCE ENGINE 2.0 - DOCKING STATION */
 
 :root {
   --neon-cyan: #00f3ff;
@@ -270,7 +226,7 @@ body::-webkit-scrollbar {
   }
 }
 
-/* --- THE RADAR (Empty State) --- */
+/* THE RADAR (Empty State) */
 
 @keyframes radarPulse {
   0% {
@@ -292,9 +248,9 @@ body::-webkit-scrollbar {
   }
 }
 
-/* --- TITLE DECONSTRUCTION STYLES --- */
+/* TITLE DECONSTRUCTION STYLES */
 
-/* --- RESOURCE MODAL STYLES --- */
+/* RESOURCE MODAL STYLES */
 
 /* Search Modal */
 .search-modal-overlay {
@@ -669,9 +625,7 @@ body::-webkit-scrollbar {
   }
 }
 
-/* ============================================
-   HERO - MAJOR ANIMATION OVERHAUL
-   ============================================ */
+/* HERO - MAJOR ANIMATION OVERHAUL */
 
 @keyframes hud-datetime-appear {
   from {
@@ -952,8 +906,7 @@ html[data-reduced-motion='on'] *::after {
 }
 
 /* ─── Focus mode ─── */
-html[data-focus-mode='on'] .settings-trigger,
-html[data-focus-mode='on'] .scroll-progress {
+html[data-focus-mode='on'] .settings-trigger {
   opacity: 0;
   pointer-events: none;
 }

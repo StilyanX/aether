@@ -8,13 +8,12 @@ import {
   FractionDistributiveLaw as DistributiveLawVis,
   FractionOfNumberLine,
   FiniteDecimalVis
-} from '../../../../components/viz/math-viz/modules'
+} from '../../../../components/viz'
 
 function useConfig() {
   const C = useVizColors()
   const config = {
     cssPrefix: 'frc',
-    source: 'Understanding Numbers in Elementary School Mathematics: Hung-Hsi Wu',
     documentTitle: 'Fraction Operations - AETHER',
     learning: {
       category: 'Part 2',
@@ -160,7 +159,9 @@ function useConfig() {
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
-            <p>What is 7/9 minus 5/11?</p>
+            <p>
+              What is {`$\\frac{7}{9}$`} minus {`$\\frac{5}{11}$`}?
+            </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>{`$\\frac{7}{9} - \\frac{5}{11} = \\frac{77 - 45}{99} = \\frac{32}{99}$.`}</p>
@@ -291,7 +292,9 @@ function useConfig() {
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
-            <p>What is the area of a rectangle with sides 1/3 and 1/4?</p>
+            <p>
+              What is the area of a rectangle with sides {`$\\frac{1}{3}$`} and {`$\\frac{1}{4}$`}?
+            </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>{`$\\frac{1}{3} \\times \\frac{1}{4} = \\frac{1}{12}$.`}</p>
@@ -468,7 +471,7 @@ function useConfig() {
             <p>{`How many pieces of $\\frac{5}{3}$ meters fit in a $43\\frac{3}{8}$ meter rod?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`$\\frac{347/8}{5/3} = \\frac{347}{8} \\times \\frac{3}{5} = \\frac{1041}{40} = 26\\frac{1}{40}$. You get 26 complete pieces.`}</p>
+              <p>{`$\\frac{\\frac{347}{8}}{\\frac{5}{3}} = \\frac{347}{8} \\times \\frac{3}{5} = \\frac{1041}{40} = 26\\frac{1}{40}$. You get 26 complete pieces.`}</p>
             </details>
           </div>
 
@@ -479,22 +482,23 @@ function useConfig() {
           <div className="lrn-steps">
             <div className="lrn-step">
               <span className="lrn-step-title">Example 1</span>
-              <p className="lrn-step-content">{`$\\frac{1}{1/n} = n$. How many copies of $\\frac{1}{n}$ make 1? Answer: $n$.`}</p>
+              <p className="lrn-step-content">{`$\\frac{1}{\\frac{1}{n}} = n$. How many copies of $\\frac{1}{n}$ make 1? Answer: $n$.`}</p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Example 2</span>
-              <p className="lrn-step-content">{`$\\frac{5}{1/3} = 15$. Three copies of $\\frac{1}{3}$ make 1. So 15 copies make 5.`}</p>
+              <p className="lrn-step-content">{`$\\frac{5}{\\frac{1}{3}} = 15$. Three copies of $\\frac{1}{3}$ make 1. So 15 copies make 5.`}</p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Example 3</span>
-              <p className="lrn-step-content">{`$\\frac{15/4}{3/4} = 5$. In units of $\\frac{1}{4}$: 15 units / 3 units = 5.`}</p>
+              <p className="lrn-step-content">{`$\\frac{\\frac{15}{4}}{\\frac{3}{4}} = 5$. In units of $\\frac{1}{4}$: $\\frac{15 \\text{ units}}{3 \\text{ units}} = 5$.`}</p>
             </div>
           </div>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
-              In Example 3, why does using 1/4 as the unit reduce this to whole number division?
+              In Example 3, why does using {`$\\frac{1}{4}$`} as the unit reduce this to whole
+              number division?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
@@ -503,7 +507,7 @@ function useConfig() {
           </div>
 
           <h3>The Invert-and-Multiply Rule</h3>
-          <div className="lrn-eq lrn-eq-display">{`$$\\frac{m/n}{k/\\ell} = \\frac{m}{n} \\times \\frac{\\ell}{k}$$`}</div>
+          <div className="lrn-eq lrn-eq-display">{`$$\\frac{\\frac{m}{n}}{\\frac{k}{\\ell}} = \\frac{m}{n} \\times \\frac{\\ell}{k}$$`}</div>
           <p>To divide by a fraction, multiply by its reciprocal.</p>
 
           <h3>Derivation</h3>
@@ -532,12 +536,15 @@ function useConfig() {
             <strong>Cutting a rod.</strong>
             {` Rod is $43\\frac{3}{8}$ m. Pieces are $\\frac{5}{3}$ m each.`}
           </p>
-          <div className="lrn-eq">{`$$\\frac{347/8}{5/3} = \\frac{347}{8} \\times \\frac{3}{5} = \\frac{1041}{40} = 26\\frac{1}{40}$$`}</div>
+          <div className="lrn-eq">{`$$\\frac{\\frac{347}{8}}{\\frac{5}{3}} = \\frac{347}{8} \\times \\frac{3}{5} = \\frac{1041}{40} = 26\\frac{1}{40}$$`}</div>
           <p>{`26 complete pieces. The leftover is $\\frac{1}{40}$ of one piece length.`}</p>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does the fractional part 1/40 represent a fraction of the piece, not the rod?</p>
+            <p>
+              Why does the fractional part {`$\\frac{1}{40}$`} represent a fraction of the piece,
+              not the rod?
+            </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>{`$\\frac{A}{B} = 26\\frac{1}{40}$ means $A = 26\\frac{1}{40} \\times B$. The $\\frac{1}{40}$ multiplies $B$ (piece length), not $A$ (rod length).`}</p>
@@ -548,7 +555,7 @@ function useConfig() {
             <strong>Hiking.</strong>
             {` Trail is $12\\frac{1}{3}$ miles. Speed is $3\\frac{1}{2}$ mph.`}
           </p>
-          <div className="lrn-eq">{`$$T = \\frac{37/3}{7/2} = \\frac{37}{3} \\times \\frac{2}{7} = \\frac{74}{21} = 3\\frac{11}{21} \\text{ hours}$$`}</div>
+          <div className="lrn-eq">{`$$T = \\frac{\\frac{37}{3}}{\\frac{7}{2}} = \\frac{37}{3} \\times \\frac{2}{7} = \\frac{74}{21} = 3\\frac{11}{21} \\text{ hours}$$`}</div>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -567,10 +574,10 @@ function useConfig() {
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
-            <p>How would you simplify 2.0498 / 14.3?</p>
+            <p>How would you simplify {`$\\frac{2.0498}{14.3}$`}?</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`Convert to fractions: $\\frac{20498/10000}{143/10} = \\frac{20498}{143000}$.`}</p>
+              <p>{`Convert to fractions: $\\frac{\\frac{20498}{10000}}{\\frac{143}{10}} = \\frac{20498}{143000}$.`}</p>
             </details>
           </div>
 
@@ -601,17 +608,20 @@ function useConfig() {
         <>
           <h2>Finite vs. Infinite Decimals</h2>
           <p>
-            Your calculator shows 0.333... for 1/3 and never stops. Why? Because 3 is neither 2 nor
-            5. A reduced fraction {`$\\frac{m}{n}$`} is a finite decimal if and only if {`$n$`}
+            Your calculator shows 0.333... for {`$\\frac{1}{3}$`} and never stops. Why? Because 3 is
+            neither 2 nor 5. A reduced fraction {`$\\frac{m}{n}$`} is a finite decimal if and only
+            if {`$n$`}
             &rsquo;s only prime factors are 2 and 5.
           </p>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
-            <p>Is 7/12 a finite or infinite decimal? What about 7/40?</p>
+            <p>
+              Is {`$\\frac{7}{12}$`} a finite or infinite decimal? What about {`$\\frac{7}{40}$`}?
+            </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`7/12 is infinite ($12 = 2^2 \\times 3$, the 3 prevents it). 7/40 is finite ($40 = 2^3 \\times 5$, only 2s and 5s).`}</p>
+              <p>{`$\\frac{7}{12}$ is infinite ($12 = 2^2 \\times 3$, the 3 prevents it). $\\frac{7}{40}$ is finite ($40 = 2^3 \\times 5$, only 2s and 5s).`}</p>
             </details>
           </div>
 
@@ -631,12 +641,12 @@ function useConfig() {
           <p>
             <strong>{`Example: $\\frac{3}{8}$`}</strong>
           </p>
-          <p>{`$8 = 2^3$. Pick $k = 3$: $10^3 / 8 = 125$. So $\\frac{3}{8} = \\frac{3 \\times 125}{1000} = \\frac{375}{1000} = 0.375$.`}</p>
+          <p>{`$8 = 2^3$. Pick $k = 3$: $\\frac{10^3}{8} = 125$. So $\\frac{3}{8} = \\frac{3 \\times 125}{1000} = \\frac{375}{1000} = 0.375$.`}</p>
 
           <p>
             <strong>{`Example: $\\frac{15}{32}$`}</strong>
           </p>
-          <p>{`$32 = 2^5$. Pick $k = 5$: $10^5 / 32 = 3125$. So $\\frac{15}{32} = \\frac{15 \\times 3125}{100000} = \\frac{46875}{100000} = 0.46875$.`}</p>
+          <p>{`$32 = 2^5$. Pick $k = 5$: $\\frac{10^5}{32} = 3125$. So $\\frac{15}{32} = \\frac{15 \\times 3125}{100000} = \\frac{46875}{100000} = 0.46875$.`}</p>
 
           <div className="lrn-graph">
             <FiniteDecimalVis C={C} />
@@ -727,7 +737,7 @@ function useConfig() {
           <div className="lrn-warning">
             <p>
               Same circular reasoning as Doctrine 2, just disguised differently. It declares the
-              divisor the new unit, then computes in those new units — but computing in fractional
+              divisor the new unit, then computes in those new units, but computing in fractional
               units requires fraction multiplication, which requires fraction division to be already
               defined.
             </p>

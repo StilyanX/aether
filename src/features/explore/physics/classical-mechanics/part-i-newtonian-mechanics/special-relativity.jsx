@@ -10,15 +10,14 @@ import {
   TwinParadox,
   RelMass,
   LorentzBoostInteractive
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 export default function SpecialRelativityCoda() {
   const config = {
     cssPrefix: 'sr',
-    source: 'An Introduction to Mechanics - Kleppner & Kolenkow',
     documentTitle: 'Special Relativity - AETHER',
     learning: {
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       category: 'Module 10',
       title: 'Special Relativity (Coda)',
       subtitle:

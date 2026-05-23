@@ -9,12 +9,12 @@ import {
   FrequencyMap,
   InvariantToriDiagram as InvariantToriDiagramAether,
   KAMCantorSet
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 // ─── Visualization: Invariant Tori ───────────────────────────────────────────
 function InvariantToriDiagram({ C }) {
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -59,7 +59,7 @@ function KAMCantorDiagram({ C }) {
   }
 
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -78,7 +78,7 @@ function KAMCantorDiagram({ C }) {
             key={i}
             t={[-4.5, 4.5]}
             xy={t => [t, b.y + bandHeight / 2]}
-            color={b.survive ? C.accent : C.faint}
+            color={b.survive ? C.accent : C.dim}
             strokeWidth={b.survive ? 3 : 1}
             opacity={b.survive ? 1 : 0.3}
           />
@@ -90,7 +90,7 @@ function KAMCantorDiagram({ C }) {
         <Text x={0} y={2.1} size={24} color={C.dim}>
           Diophantine (survive)
         </Text>
-        <Text x={0} y={1.5} size={24} color={C.faint}>
+        <Text x={0} y={1.5} size={24} color={C.dim}>
           resonant (destroyed)
         </Text>
       </Mafs>
@@ -103,7 +103,7 @@ function ConditionallyPeriodicDiagram({ C }) {
   const omega1 = 1
   const omega2 = Math.sqrt(2)
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -140,7 +140,7 @@ function ConditionallyPeriodicDiagram({ C }) {
 // ─── Visualization: Arnold Diffusion Codimension ─────────────────────────────
 function ArnoldDiffusionDiagram({ C }) {
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -194,7 +194,7 @@ function ArnoldDiffusionDiagram({ C }) {
 // ─── Visualization: Poincaré-Birkhoff Annulus ────────────────────────────────
 function PoincareBirkhoffDiagram({ C }) {
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -251,7 +251,7 @@ function PoincareBirkhoffDiagram({ C }) {
 // ─── Visualization: Frequency Map ────────────────────────────────────────────
 function FrequencyMapDiagram({ C }) {
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -278,7 +278,7 @@ function FrequencyMapDiagram({ C }) {
         ))}
         <LaTeX at={[-3.5, 2.1]} tex={String.raw`I`} color={C.dim} />
         {/* Arrows */}
-        <Plot.Parametric t={[0, 1]} xy={t => [-1 + t * 2, 0]} color={C.faint} strokeWidth={2} />
+        <Plot.Parametric t={[0, 1]} xy={t => [-1 + t * 2, 0]} color={C.dim} strokeWidth={2} />
         <LaTeX
           at={[-0.5, -1.8]}
           tex={String.raw`\omega = \tfrac{\partial H_0}{\partial I}`}
@@ -303,7 +303,7 @@ function FrequencyMapDiagram({ C }) {
 // ─── Visualization: Frequency Repulsion ──────────────────────────────────────
 function FrequencyRepulsionDiagram({ C }) {
   return (
-    <div style={{ border: `1px solid ${C.faint}`, padding: '0 0 8px 0' }}>
+    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
       <p
         style={{
           fontSize: '0.75rem',
@@ -338,7 +338,7 @@ function FrequencyRepulsionDiagram({ C }) {
         <Text x={1.5} y={-2.2} size={24} color={C.dim}>
           2-parameter
         </Text>
-        <LaTeX at={[-4.8, 2.1]} tex={String.raw`\omega_i(\lambda)`} color={C.faint} />
+        <LaTeX at={[-4.8, 2.1]} tex={String.raw`\omega_i(\lambda)`} color={C.dim} />
       </Mafs>
     </div>
   )
@@ -350,10 +350,9 @@ export default function KAMPerturbationContent() {
 
   const config = {
     cssPrefix: 'kam',
-    source: 'Mathematical Methods of Classical Mechanics - Arnold',
     documentTitle: 'KAM Theory and Perturbation Methods - AETHER',
     learning: {
-      groupTitle: 'Part IV: Perturbation Theory and Advanced Topics',
+      groupTitle: 'Perturbation Theory and Advanced Topics',
       category: 'Classical Mechanics',
       title: 'KAM Theory and Perturbation Methods',
       subtitle:

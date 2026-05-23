@@ -24,6 +24,7 @@
 
 .notes-title {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;

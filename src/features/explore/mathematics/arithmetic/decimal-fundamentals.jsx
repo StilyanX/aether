@@ -7,11 +7,10 @@ import {
   DecimalComparisonVis,
   ScientificNotationVis,
   PlaceValueVis
-} from '../../../../components/viz/math-viz/modules'
+} from '../../../../components/viz'
 
 const config = {
   cssPrefix: 'dcf',
-  source: 'Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu',
   documentTitle: 'Decimal Fundamentals - AETHER',
   learning: {
     category: 'Arithmetic',
@@ -44,21 +43,22 @@ function DecimalFundamentalsContent() {
       <div className="lrn-predict">
         <span className="lrn-predict-label">PREDICT</span>
         <p>
-          You want to compare 2/9 and 3/11. Without finding a common denominator, how could decimals
-          help?
+          You want to compare {`$\\frac{2}{9}$`} and {`$\\frac{3}{11}$`}. Without finding a common
+          denominator, how could decimals help?
         </p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
           <p>
-            Convert each fraction to a decimal. 2/9 = 0.222... and 3/11 = 0.272... Compare digit by
-            digit. 0.22 &lt; 0.27, so 2/9 &lt; 3/11.
+            Convert each fraction to a decimal. {`$\\frac{2}{9}$`} = 0.222... and{' '}
+            {`$\\frac{3}{11}$`} = 0.272... Compare digit by digit. 0.22 &lt; 0.27, so{' '}
+            {`$\\frac{2}{9}$`} &lt; {`$\\frac{3}{11}$`}.
           </p>
         </details>
       </div>
 
       <p>
-        Have you ever tried to compare 2/9 and 3/11? Finding a common denominator takes work.
-        Decimals make it instant.
+        Have you ever tried to compare {`$\\frac{2}{9}$`} and {`$\\frac{3}{11}$`}? Finding a common
+        denominator takes work. Decimals make it instant.
       </p>
 
       <p>
@@ -68,7 +68,10 @@ function DecimalFundamentalsContent() {
 
       <h3>What Is a Finite Decimal?</h3>
       <p>A finite decimal is a fraction whose denominator is a power of 10.</p>
-      <p>The notation 2.87 means 287/100. The notation 0.00065 means 65/100000.</p>
+      <p>
+        The notation 2.87 means {`$\\frac{287}{100}$`}. The notation 0.00065 means{' '}
+        {`$\\frac{65}{100000}$`}.
+      </p>
       <div className="lrn-eq lrn-eq-display">{`$$2.87 = \\frac{287}{10^2}, \\qquad 0.00065 = \\frac{65}{10^5}$$`}</div>
 
       <div className="lrn-elaborate">
@@ -97,9 +100,17 @@ function DecimalFundamentalsContent() {
       </ol>
 
       <h3>Fat Content Example</h3>
-      <p>One food has 2/9 lb (about 0.1 kg) of fat. Another has 3/11 lb. Which has more fat?</p>
-      <p>Convert to decimals: 2/9 = 0.2222... and 3/11 = 0.2727...</p>
-      <p>Compare: 0.22 &lt; 0.27. So 2/9 &lt; 3/11. The second food has more fat.</p>
+      <p>
+        One food has {`$\\frac{2}{9}$`} lb (about 0.1 kg) of fat. Another has {`$\\frac{3}{11}$`}{' '}
+        lb. Which has more fat?
+      </p>
+      <p>
+        Convert to decimals: {`$\\frac{2}{9}$`} = 0.2222... and {`$\\frac{3}{11}$`} = 0.2727...
+      </p>
+      <p>
+        Compare: 0.22 &lt; 0.27. So {`$\\frac{2}{9}$`} &lt; {`$\\frac{3}{11}$`}. The second food has
+        more fat.
+      </p>
 
       <FractionToDecimalVis C={C} />
 
@@ -134,8 +145,9 @@ function DecimalFundamentalsContent() {
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
           <p>
-            Yes. Trailing zeros after the last nonzero digit do not change the value. 7.20 = 720/100
-            = 72/10 = 7.2. The same logic gives 0.0050 = 50/10000 = 5/1000 = 0.005.
+            Yes. Trailing zeros after the last nonzero digit do not change the value. 7.20 ={' '}
+            {`$\\frac{720}{100}$`} = {`$\\frac{72}{10}$`} = 7.2. The same logic gives 0.0050 ={' '}
+            {`$\\frac{50}{10000}$`} = {`$\\frac{5}{1000}$`} = 0.005.
           </p>
         </details>
       </div>
@@ -152,7 +164,10 @@ function DecimalFundamentalsContent() {
       </p>
 
       <h3>Decimal Notation and the Decimal Point</h3>
-      <p>The notation 7.20 means 720/100. The notation 0.0050 means 50/10000.</p>
+      <p>
+        The notation 7.20 means {`$\\frac{720}{100}$`}. The notation 0.0050 means{' '}
+        {`$\\frac{50}{10000}$`}.
+      </p>
       <div className="lrn-eq">{`$$7.20 = \\frac{720}{10^2}, \\qquad 0.0050 = \\frac{50}{10^4}$$`}</div>
 
       <p>
@@ -206,18 +221,18 @@ function DecimalFundamentalsContent() {
       <NumberLinePlacement C={C} />
 
       <p>
-        On the number line, 41.15 sits between 41 and 42. It sits 15/100 of the way from 41 toward
-        42.
+        On the number line, 41.15 sits between 41 and 42. It sits {`$\\frac{15}{100}$`} of the way
+        from 41 toward 42.
       </p>
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>Why does 41.15 sit exactly 15/100 of the way from 41 to 42?</p>
+        <p>Why does 41.15 sit exactly {`$\\frac{15}{100}$`} of the way from 41 to 42?</p>
         <details className="lrn-self-explain-reveal">
           <summary>Expert explanation</summary>
           <p>
-            Because 41.15 = 41 + 0.15 = 41 + 15/100. The gap from 41 to 42 is exactly 1. The decimal
-            part 15/100 tells you what fraction of that gap to travel.
+            Because 41.15 = 41 + 0.15 = 41 + {`$\\frac{15}{100}$`}. The gap from 41 to 42 is exactly
+            1. The decimal part {`$\\frac{15}{100}$`} tells you what fraction of that gap to travel.
           </p>
         </details>
       </div>
@@ -225,17 +240,20 @@ function DecimalFundamentalsContent() {
       <h3>Negative Exponents</h3>
       <p>We define negative powers of 10 as reciprocals.</p>
       <div className="lrn-eq lrn-eq-display">{`$$10^{-n} = \\frac{1}{10^n}$$`}</div>
-      <p>So 10^(-1) = 1/10, 10^(-2) = 1/100, and 10^(-5) = 1/100000.</p>
+      <p>
+        So {`$10^{-1} = \\frac{1}{10}$`}, {`$10^{-2} = \\frac{1}{100}$`}, and{' '}
+        {`$10^{-5} = \\frac{1}{100000}$`}.
+      </p>
       <p>This lets us rewrite any finite decimal compactly.</p>
       <div className="lrn-eq">{`$$41.15 = 4115 \\times 10^{-2}$$`}</div>
-      <p>In general, a/10^n = a x 10^(-n).</p>
+      <p>{`In general, $\\frac{a}{10^n} = a \\times 10^{-n}$.`}</p>
 
       <h3>Law of Exponents for Integers</h3>
       <div className="lrn-eq lrn-eq-display">{`$$10^m \\times 10^n = 10^{m+n} \\quad \\text{for all integers } m, n$$`}</div>
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-        <p>{`When both $m$ and $n$ are positive, this is repeated multiplication. When one is negative, say $m > 0$ and $n < 0$, you multiply $10^m$ by $1/10^{|n|}$. Factors of 10 cancel. You always get $10^{m+n}$. All cases give the same rule.`}</p>
+        <p>{`When both $m$ and $n$ are positive, this is repeated multiplication. When one is negative, say $m > 0$ and $n < 0$, you multiply $10^m$ by $\\frac{1}{10^{|n|}}$. Factors of 10 cancel. You always get $10^{m+n}$. All cases give the same rule.`}</p>
       </div>
     </>,
 
@@ -333,9 +351,9 @@ function DecimalFundamentalsContent() {
       <h3>Division of Finite Decimals</h3>
       <p>To divide finite decimals, convert to a fraction of whole numbers.</p>
       <div className="lrn-eq">{`$$\\frac{0.0045}{0.14} = \\frac{45 \\times 10^{-4}}{14 \\times 10^{-2}} = \\frac{45 \\times 10^{-4}}{14 \\times 10^{-2}} \\cdot \\frac{10^4}{10^4} = \\frac{45}{1400}$$`}</div>
-      <p>Now 45/1400 is a fraction of whole numbers. Simplify if possible.</p>
+      <p>Now {`$\\frac{45}{1400}$`} is a fraction of whole numbers. Simplify if possible.</p>
 
-      <p>But does 45/1400 produce a finite decimal? Factor the denominator.</p>
+      <p>But does {`$\\frac{45}{1400}$`} produce a finite decimal? Factor the denominator.</p>
       <div className="lrn-eq">{`$$\\frac{45}{1400} = \\frac{3^2}{2^3 \\times 5^2 \\times 7}$$`}</div>
       <p>
         The denominator contains 7. A prime factor is a prime number that divides evenly into
@@ -346,15 +364,15 @@ function DecimalFundamentalsContent() {
       <div className="lrn-faded">
         <div className="lrn-faded-phase">
           <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-          <p>{`$0.0045 / 0.14$: Multiply top and bottom by $10^4$: $45/1400$. Factor: $1400 = 2^3 \\times 5^2 \\times 7$. Since 7 appears, not a finite decimal. Simplify: $45/1400 = 9/280$.`}</p>
+          <p>{`$\\frac{0.0045}{0.14}$: Multiply top and bottom by $10^4$: $\\frac{45}{1400}$. Factor: $1400 = 2^3 \\times 5^2 \\times 7$. Since 7 appears, not a finite decimal. Simplify: $\\frac{45}{1400} = \\frac{9}{280}$.`}</p>
         </div>
         <div className="lrn-faded-phase">
           <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-          <p>{`$0.036 / 0.12$: Multiply top and bottom by $10^3$: $36 / \\rule{1cm}{0.5pt}$. Factor the denominator: $\\rule{2cm}{0.5pt}$. Is it a finite decimal?`}</p>
+          <p>{`$\\frac{0.036}{0.12}$: Multiply top and bottom by $10^3$: $\\frac{36}{\\rule{1cm}{0.5pt}}$. Factor the denominator: $\\rule{2cm}{0.5pt}$. Is it a finite decimal?`}</p>
         </div>
         <div className="lrn-faded-phase">
           <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
-          <p>{`Compute $0.0084 / 0.21$. Convert to a whole number fraction and determine if the result is a finite decimal.`}</p>
+          <p>{`Compute $\\frac{0.0084}{0.21}$. Convert to a whole number fraction and determine if the result is a finite decimal.`}</p>
         </div>
       </div>
 
@@ -363,7 +381,7 @@ function DecimalFundamentalsContent() {
         <p>Why does the prime factor 7 in the denominator prevent a finite decimal?</p>
         <details className="lrn-self-explain-reveal">
           <summary>Expert explanation</summary>
-          <p>{`A finite decimal equals $m/10^n$ for some integers. Since $10^n = 2^n \\times 5^n$, the only primes in the denominator can be 2 and 5. No power of 10 can absorb a factor of 7. So the fraction cannot equal any $m/10^n$.`}</p>
+          <p>{`A finite decimal equals $\\frac{m}{10^n}$ for some integers. Since $10^n = 2^n \\times 5^n$, the only primes in the denominator can be 2 and 5. No power of 10 can absorb a factor of 7. So the fraction cannot equal any $\\frac{m}{10^n}$.`}</p>
         </details>
       </div>
     </>,
@@ -446,7 +464,7 @@ function DecimalFundamentalsContent() {
         <p>Why can you stop comparing at the first digit that differs?</p>
         <details className="lrn-self-explain-reveal">
           <summary>Expert explanation</summary>
-          <p>{`The first differing digit sits in the $10^{-k}$ place. Its contribution is at least $1/10^k$. All later digits combined add up to less than $1/10^k$. So the later digits can never close the gap.`}</p>
+          <p>{`The first differing digit sits in the $10^{-k}$ place. Its contribution is at least $\\frac{1}{10^k}$. All later digits combined add up to less than $\\frac{1}{10^k}$. So the later digits can never close the gap.`}</p>
         </details>
       </div>
 
@@ -506,7 +524,7 @@ function DecimalFundamentalsContent() {
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-        <p>{`Start with the definition: $w.a_1a_2\\ldots a_n = w + a_1/10 + a_2/10^2 + \\ldots + a_n/10^n$. Each fraction $a_k/10^k$ equals $a_k \\times 10^{-k}$. The whole number part $w$ itself expands in positive powers. Combining both gives the complete form.`}</p>
+        <p>{`Start with the definition: $w.a_1a_2\\ldots a_n = w + \\frac{a_1}{10} + \\frac{a_2}{10^2} + \\ldots + \\frac{a_n}{10^n}$. Each fraction $\\frac{a_k}{10^k}$ equals $a_k \\times 10^{-k}$. The whole number part $w$ itself expands in positive powers. Combining both gives the complete form.`}</p>
       </div>
 
       <h3>Generalized Place Value</h3>
@@ -523,12 +541,12 @@ function DecimalFundamentalsContent() {
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
         <p>
-          Why does expanding 35.2647 into powers of 10 give the same result as the fraction
-          352647/10000?
+          Why does expanding 35.2647 into powers of 10 give the same result as the fraction{' '}
+          {`$\\frac{352647}{10000}$`}?
         </p>
         <details className="lrn-self-explain-reveal">
           <summary>Expert explanation</summary>
-          <p>{`$352647/10000 = (350000 + 2000 + 600 + 40 + 7)/10000$. Divide each term by 10000: $35 + 0.2 + 0.06 + 0.004 + 0.0007$. This is exactly the expanded form. The fraction and the expansion encode the same information.`}</p>
+          <p>{`$\\frac{352647}{10000} = \\frac{350000 + 2000 + 600 + 40 + 7}{10000}$. Divide each term by 10000: $35 + 0.2 + 0.06 + 0.004 + 0.0007$. This is exactly the expanded form. The fraction and the expansion encode the same information.`}</p>
         </details>
       </div>
 
@@ -761,7 +779,7 @@ function DecimalFundamentalsContent() {
       <div className="lrn-definition">
         <span className="lrn-definition-term">Finite Decimal</span>
         <div className="lrn-definition-desc">
-          <p>{`A fraction with denominator $10^n$. Example: $2.87 = 287/10^2$.`}</p>
+          <p>{`A fraction with denominator $10^n$. Example: $2.87 = \\frac{287}{10^2}$.`}</p>
         </div>
       </div>
 
@@ -773,7 +791,7 @@ function DecimalFundamentalsContent() {
       <div className="lrn-definition">
         <span className="lrn-definition-term">Negative Exponents</span>
         <div className="lrn-definition-desc">
-          <p>{`$10^{-n} = 1/10^n$. Allows compact notation: $41.15 = 4115 \\times 10^{-2}$.`}</p>
+          <p>{`$10^{-n} = \\frac{1}{10^n}$. Allows compact notation: $41.15 = 4115 \\times 10^{-2}$.`}</p>
         </div>
       </div>
 
@@ -803,12 +821,12 @@ function DecimalFundamentalsContent() {
           <tr>
             <td>Addition</td>
             <td>Match denominators, add numerators</td>
-            <td>{`$0.135 + 0.0486 = 1836/10^4 = 0.1836$`}</td>
+            <td>{`$0.135 + 0.0486 = \\frac{1836}{10^4} = 0.1836$`}</td>
           </tr>
           <tr>
             <td>Subtraction</td>
             <td>Match denominators, subtract numerators</td>
-            <td>{`$3.145 - 2.8675 = 2775/10^4 = 0.2775$`}</td>
+            <td>{`$3.145 - 2.8675 = \\frac{2775}{10^4} = 0.2775$`}</td>
           </tr>
           <tr>
             <td>Multiplication</td>
@@ -818,7 +836,7 @@ function DecimalFundamentalsContent() {
           <tr>
             <td>Division</td>
             <td>Convert to whole number fraction</td>
-            <td>{`$0.0045/0.14 = 45/1400$`}</td>
+            <td>{`$\\frac{0.0045}{0.14} = \\frac{45}{1400}$`}</td>
           </tr>
         </tbody>
       </table>

@@ -6,7 +6,7 @@ import { TopicMetaContext } from '../home/topic-meta-context'
 export default function LearningMode({ config, hasMath }) {
   useMathJax([], hasMath)
   useCodeBlockEnhancer()
-  const { category, title, subtitle, sections, cover, hero } = config.learning
+  const { category, title, sections, cover, hero } = config.learning
   const { moduleNumber } = useContext(TopicMetaContext)
   const labelText = moduleNumber != null ? `Module ${moduleNumber}` : category
 
@@ -54,40 +54,6 @@ export default function LearningMode({ config, hasMath }) {
           {section.content || section}
         </section>
       ))}
-
-      {config.source && (
-        <footer
-          style={{
-            marginTop: '48px',
-            padding: '24px 32px',
-            borderTop: '1px solid color-mix(in srgb, var(--base-color) 18%, transparent)',
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '10px'
-          }}
-        >
-          <span
-            style={{
-              fontSize: '10px',
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--text-ghost)',
-              flexShrink: 0
-            }}
-          >
-            Source
-          </span>
-          <span
-            style={{
-              fontSize: '13px',
-              color: 'var(--text-tertiary)',
-              fontStyle: 'italic'
-            }}
-          >
-            {config.source}
-          </span>
-        </footer>
-      )}
     </article>
   )
 }

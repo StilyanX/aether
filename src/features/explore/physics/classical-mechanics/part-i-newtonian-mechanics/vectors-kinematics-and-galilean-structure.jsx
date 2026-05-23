@@ -19,17 +19,15 @@ import {
   DragVector,
   DotProductInteractive,
   ProjectileLauncher
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 /* Config builder */
 function useConfig() {
   const config = {
     cssPrefix: 'vkg',
-    source:
-      'An Introduction to Mechanics (K&K) + Mathematical Methods of Classical Mechanics (Arnold)',
     documentTitle: 'Vectors, Kinematics, and Galilean Structure - AETHER',
     learning: {
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       category: 'Module 1',
       title: 'Vectors, Kinematics, and Galilean Structure',
       subtitle:

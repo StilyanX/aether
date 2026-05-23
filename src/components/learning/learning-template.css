@@ -499,6 +499,11 @@ ol.lrn-list li::before {
   background: color-mix(in srgb, var(--base-color) 65%, transparent);
 }
 
+.lrn-insight + .lrn-insight {
+  border-top: none;
+  margin-top: 0;
+}
+
 .lrn-insight-label {
   display: block;
   font-family: var(--reader-font-family);
@@ -1632,6 +1637,7 @@ ol.lrn-list li::before {
 .slv mjx-container {
   font-size: inherit !important;
   vertical-align: baseline;
+  text-transform: none;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -2316,6 +2322,14 @@ pre.lrn-code-block::-webkit-scrollbar-thumb:hover {
   background: color-mix(in srgb, var(--base-color) 2%, transparent);
 }
 
+.lrn-definition + .lrn-definition {
+  margin-top: 12px;
+}
+
+.lrn-header.lrn-chapter-divider {
+  border-bottom: none;
+}
+
 .lrn-definition-term {
   font-family: var(--reader-font-family);
   font-size: 1rem;
@@ -2965,7 +2979,6 @@ body {
   .lv-topbar,
   .lt-nav,
   .lt-nav-actions,
-  .scroll-progress,
   .lt-reader-panel,
   *,
   *::before,

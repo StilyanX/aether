@@ -11,13 +11,12 @@ import {
   DecimalFractionCompare,
   CompareFractionsVis,
   FFPVis
-} from '../../../../components/viz/math-viz/modules'
+} from '../../../../components/viz'
 
 function useConfig() {
   const C = useVizColors()
   const config = {
     cssPrefix: 'frc',
-    source: 'Understanding Numbers in Elementary School Mathematics: Hung-Hsi Wu',
     documentTitle: 'Fraction Foundations - AETHER',
     learning: {
       category: 'Part 2',
@@ -65,7 +64,7 @@ function useConfig() {
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              {`Every point on the number line has exactly one location. When you count $m$ copies of $\\frac{1}{n}$ from 0, you arrive at precisely one point — not approximately $\\frac{m}{n}$, but exactly $\\frac{m}{n}$. That precision is what makes this a definition you can build mathematics on.`}
+              {`Every point on the number line has exactly one location. When you count $m$ copies of $\\frac{1}{n}$ from 0, you arrive at precisely one point, not approximately $\\frac{m}{n}$, but exactly $\\frac{m}{n}$. That precision is what makes this a definition you can build mathematics on.`}
             </p>
           </div>
 
@@ -219,7 +218,8 @@ function useConfig() {
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
-              Why does multiplying by 125/125 work here? What property of fractions allows this?
+              Why does multiplying by {`$\\frac{125}{125}$`} work here? What property of fractions
+              allows this?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>

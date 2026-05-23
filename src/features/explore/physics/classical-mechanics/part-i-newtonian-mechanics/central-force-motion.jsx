@@ -7,7 +7,7 @@ import {
   HohmannTransfer,
   KeplerEA2,
   OrbitDesigner
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 // Learning sections
 
@@ -2076,10 +2076,9 @@ export default function CentralForceMotion() {
   const sections = buildLearningSections()
   const config = {
     cssPrefix: 'cf',
-    source: 'Kleppner & Kolenkow · Arnold',
     documentTitle: 'Central Force Motion and the Kepler Problem - AETHER',
     learning: {
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       category: 'Module 8',
       title: 'Central Force Motion and the Kepler Problem',
       subtitle:

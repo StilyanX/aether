@@ -1,15 +1,10 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
 import { useVizColors } from '../../../../hooks/use-viz-colors'
 
-import {
-  SqueezingVis,
-  MultiplySubtractVis,
-  LongDivisionVis
-} from '../../../../components/viz/math-viz/modules'
+import { SqueezingVis, MultiplySubtractVis, LongDivisionVis } from '../../../../components/viz'
 
 const config = {
   cssPrefix: 'idr',
-  source: 'Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu',
   documentTitle: 'Infinite and Repeating Decimals - AETHER',
   learning: {
     category: 'Arithmetic',
@@ -234,7 +229,7 @@ function InfiniteAndRepeatingDecimalsContent() {
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-        <p>{`Multiplying by $10^k$ multiplies the numerator by $10^k$ while keeping the denominator. By the law of exponents, $10^k \\times a/10^n = a/10^{n-k}$. This moves every digit $k$ places left relative to the decimal point, which is the same as moving the point $k$ places right.`}</p>
+        <p>{`Multiplying by $10^k$ multiplies the numerator by $10^k$ while keeping the denominator. By the law of exponents, $10^k \\times \\frac{a}{10^n} = \\frac{a}{10^{n-k}}$. This moves every digit $k$ places left relative to the decimal point, which is the same as moving the point $k$ places right.`}</p>
       </div>
 
       <h3>Every Positive Number Equals a Decimal</h3>
@@ -266,7 +261,7 @@ function InfiniteAndRepeatingDecimalsContent() {
         <p>{`If $0.\\overline{8} = 0.888\\ldots$, what fraction do you think it equals? Try to figure out the method before reading.`}</p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
-          <p>{`Multiply by 10: $10 \\times 0.\\overline{8} = 8.\\overline{8}$. Subtract the original: $8.\\overline{8} - 0.\\overline{8} = 8$. So $9 \\times 0.\\overline{8} = 8$, giving $0.\\overline{8} = 8/9$.`}</p>
+          <p>{`Multiply by 10: $10 \\times 0.\\overline{8} = 8.\\overline{8}$. Subtract the original: $8.\\overline{8} - 0.\\overline{8} = 8$. So $9 \\times 0.\\overline{8} = 8$, giving $0.\\overline{8} = \\frac{8}{9}$.`}</p>
         </details>
       </div>
 
@@ -365,7 +360,7 @@ function InfiniteAndRepeatingDecimalsContent() {
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-        <p>{`The sequence $0.9, 0.99, 0.999, \\ldots$ has terms $s_n = 1 - 1/10^n$. As $n$ grows, $1/10^n$ approaches 0. So $s_n$ approaches 1. The infinite decimal $0.\\overline{9}$ is defined as this limit. The limit is exactly 1.`}</p>
+        <p>{`The sequence $0.9, 0.99, 0.999, \\ldots$ has terms $s_n = 1 - \\frac{1}{10^n}$. As $n$ grows, $\\frac{1}{10^n}$ approaches 0. So $s_n$ approaches 1. The infinite decimal $0.\\overline{9}$ is defined as this limit. The limit is exactly 1.`}</p>
       </div>
 
       <p>
@@ -404,15 +399,15 @@ function InfiniteAndRepeatingDecimalsContent() {
       <div className="lrn-predict">
         <span className="lrn-predict-label">PREDICT</span>
         <p>
-          You know 1/4 = 0.25 (finite) and 1/3 = 0.333... (repeating). Can every fraction produce
-          one of these two patterns? What about 1/7?
+          You know {`$\\frac{1}{4}$`} = 0.25 (finite) and {`$\\frac{1}{3}$`} = 0.333... (repeating).
+          Can every fraction produce one of these two patterns? What about {`$\\frac{1}{7}$`}?
         </p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
           <p>
-            Yes. Every fraction is either a finite decimal or a repeating decimal. 1/7 =
-            0.142857142857... with period 6. Long division produces a finite set of possible
-            remainders, so a remainder must eventually repeat.
+            Yes. Every fraction is either a finite decimal or a repeating decimal.{' '}
+            {`$\\frac{1}{7}$`} = 0.142857142857... with period 6. Long division produces a finite
+            set of possible remainders, so a remainder must eventually repeat.
           </p>
         </details>
       </div>
@@ -424,8 +419,8 @@ function InfiniteAndRepeatingDecimalsContent() {
       </p>
 
       <p>
-        Your calculator shows 1/7 = 0.142857142857. Is the calculator rounding? No. The digits
-        really do repeat in a cycle of length 6. This section explains why.
+        Your calculator shows {`$\\frac{1}{7}$`} = 0.142857142857. Is the calculator rounding? No.
+        The digits really do repeat in a cycle of length 6. This section explains why.
       </p>
 
       <h3>The Main Theorem</h3>
@@ -434,17 +429,17 @@ function InfiniteAndRepeatingDecimalsContent() {
 
       <h3>The Finite Decimal Criterion</h3>
       <p>
-        Recall: a fraction m/n in lowest terms is a finite decimal if and only if n has no prime
-        factors other than 2 and 5.
+        Recall: a fraction {`$\\frac{m}{n}$`} in lowest terms is a finite decimal if and only if n
+        has no prime factors other than 2 and 5.
       </p>
       <div className="lrn-eq">{`$$\\frac{m}{n} \\text{ is a finite decimal} \\iff n = 2^a \\cdot 5^b \\text{ for some } a, b \\geq 0$$`}</div>
       <p>If n has any other prime factor, the decimal repeats.</p>
 
       <h3>Long Division Produces the Decimal Expansion</h3>
-      <p>The decimal expansion of m/n comes from long division of m by n.</p>
+      <p>The decimal expansion of {`$\\frac{m}{n}$`} comes from long division of m by n.</p>
 
       <p>
-        <strong>Example: 2/11</strong>
+        <strong>{`Example: $\\frac{2}{11}$`}</strong>
       </p>
       <p>Divide 2 by 11 using long division.</p>
 
@@ -468,8 +463,8 @@ function InfiniteAndRepeatingDecimalsContent() {
           <summary>Expert explanation</summary>
           <p>
             The next digit depends only on the current remainder. If the remainder is 9, the next
-            step is always 90 / 11 = 8 remainder 2. Then 20 / 11 = 1 remainder 9. Same remainders
-            produce same digits forever.
+            step is always {`$\\frac{90}{11} = 8$`} remainder 2. Then {`$\\frac{20}{11} = 1$`}{' '}
+            remainder 9. Same remainders produce same digits forever.
           </p>
         </details>
       </div>
@@ -607,12 +602,12 @@ function InfiniteAndRepeatingDecimalsContent() {
           <tr>
             <td>Simple repeating</td>
             <td>{`Multiply by $10^{\\text{period}}$, subtract`}</td>
-            <td>{`$0.\\overline{8}$: $9x = 8 \\Rightarrow x = 8/9$`}</td>
+            <td>{`$0.\\overline{8}$: $9x = 8 \\Rightarrow x = \\frac{8}{9}$`}</td>
           </tr>
           <tr>
             <td>Delayed repeating</td>
             <td>Split into non-repeating + repeating, combine</td>
-            <td>{`$16.419\\overline{76} = 1625557/99000$`}</td>
+            <td>{`$16.419\\overline{76} = \\frac{1625557}{99000}$`}</td>
           </tr>
         </tbody>
       </table>

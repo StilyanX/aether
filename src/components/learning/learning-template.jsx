@@ -3,17 +3,23 @@ import {
   Suspense,
   useContext,
   useEffect,
+  useLayoutEffect,
   useState,
   useRef,
   useCallback,
   useMemo,
   useTransition
 } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useMathJax } from '../../hooks/use-mathjax'
 import { useTheme } from '../../hooks/use-theme'
 import { useSettings } from '../../hooks/use-settings'
-import { resourceMetadata, slugToIndex, categoryStructure } from '../../config/registry'
+import {
+  resourceMetadata,
+  slugToIndex,
+  categoryStructure,
+  topicComponentMap
+} from '../../config/registry'
 import { TopicMetaContext } from '../home/topic-meta-context'
 import { effectiveCombo, comboTokens } from '../../lib/keybinds'
 import ErrorBoundary from '../layout/error-boundary'
@@ -82,6 +88,63 @@ function checkHasMath(config) {
   return true // default to true for safety
 }
 
+// JSX text nodes don't apply JS escape processing, so `<h3>$a \\cdot b$</h3>`
+// reaches the DOM as the literal sequence `\\cdot`, MathJax parses `\\` as a
+// newline command and renders the remaining letters as italic identifiers.
+// Authors who wrap content in template literals (`{`…`}`) collapse `\\` → `\`
+// before render, but the convention is easy to forget.
+//
+// We can't always catch this at the text-node stage: lazy-loaded content
+// (LearningMode is React.lazy) arrives AFTER our useLayoutEffect's first run
+// and may be auto-typeset by MathJax before we get a second chance. So we
+// run two passes: rewrite raw text nodes when we can, AND undo already-
+// rendered mjx-containers whose stored source TeX still has the bug.
+function normalizeLatexEscapes(root) {
+  if (!root) return false
+  let changed = false
+
+  // Pass 1: rewrite raw text nodes (works when we beat MathJax to the DOM).
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null)
+  const nodes = []
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n)
+  for (const node of nodes) {
+    const t = node.nodeValue
+    if (t.indexOf('$') < 0 || t.indexOf('\\\\') < 0) continue
+    const fixed = t
+      .replace(
+        /\$\$([\s\S]+?)\$\$/g,
+        (_, body) => '$$' + body.replace(/\\\\(?=[A-Za-z])/g, '\\') + '$$'
+      )
+      .replace(/\$([^$\n]+?)\$/g, (_, body) => '$' + body.replace(/\\\\(?=[A-Za-z])/g, '\\') + '$')
+    if (fixed !== t) {
+      node.nodeValue = fixed
+      changed = true
+    }
+  }
+
+  // Pass 2: rewind mjx-containers whose source still has `\\[A-Za-z]`.
+  // MathJax v3 stores every typeset math item on startup.document.math with
+  // the original TeX in `item.math` and the rendered DOM node in
+  // `item.typesetRoot`. Replacing the container with a fresh text node
+  // restores the delimited source so the next typeset re-renders it.
+  const mjDoc = window.MathJax?.startup?.document
+  const list = mjDoc?.math?.list ?? mjDoc?.math
+  if (list && typeof list[Symbol.iterator] === 'function') {
+    const items = Array.from(list)
+    for (const item of items) {
+      const node = item.typesetRoot
+      if (!node || !node.parentNode || !root.contains(node)) continue
+      if (typeof item.math !== 'string' || !/\\\\[A-Za-z]/.test(item.math)) continue
+      const fixed = item.math.replace(/\\\\(?=[A-Za-z])/g, '\\')
+      const delim = item.display ? '$$' : '$'
+      node.parentNode.replaceChild(document.createTextNode(delim + fixed + delim), node)
+      changed = true
+    }
+  }
+
+  return changed
+}
+
 export function LearningTemplate({ config }) {
   const { unitTitle } = useContext(TopicMetaContext)
   const ltSettings = useSettings()
@@ -121,33 +184,25 @@ export function LearningTemplate({ config }) {
   }, [])
   const readerRef = useRef(null)
 
-  const {
-    theme,
-    setTheme,
-    fontScale,
-    setFontScale,
-    lineHeight,
-    setLineHeight,
-    measure,
-    setMeasure
-  } = useTheme()
+  const { theme, setTheme, fontScale, setFontScale, lineHeight, setLineHeight } = useTheme()
   const navRef = useRef(null)
   const nav = useNavigate()
-  const routeParams = useParams()
   const { cssPrefix, documentTitle } = config
 
-  // Resolve domain info from the URL so the breadcrumb + masthead work generically.
-  const domainInfo = useMemo(() => resolveDomain(routeParams.domain), [routeParams.domain])
+  // Resolve breadcrumb crumbs from the registry: topic → parentSlug → resource → category.
+  // This produces a uniform 4-level path (EXPLORE / category / resource / topic) regardless
+  // of whether the URL is /explore/... or /library/..., URL params are not consulted.
+  const parentSlug = topicComponentMap[config.learning.title]?.parentSlug || null
   const resourceInfo = useMemo(() => {
-    if (!routeParams.domain || !routeParams.resource) return null
-    const slug = `explore/${routeParams.domain}/${routeParams.resource}`
-    const r = resourceMetadata[slugToIndex[slug]]
-    return r || null
-  }, [routeParams.domain, routeParams.resource])
+    if (!parentSlug) return null
+    return resourceMetadata[slugToIndex[parentSlug]] || null
+  }, [parentSlug])
+  const categoryId = resourceInfo?.category || null
+  const domainInfo = useMemo(() => resolveDomain(categoryId), [categoryId])
 
   const hasMath = useMemo(() => checkHasMath(config), []) // eslint-disable-line react-hooks/exhaustive-deps
   const topicSlug = config.learning.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
-  const { status: mathStatus } = useMathJax([], hasMath)
+  const { status: mathStatus, typeset, clear } = useMathJax([], hasMath)
   const fsrs = useFSRS(topicSlug, config.practice || [])
 
   useEffect(() => {
@@ -157,6 +212,22 @@ export function LearningTemplate({ config }) {
   useEffect(() => {
     requestAnimationFrame(() => setLoaded(true))
   }, [])
+
+  // Normalize literal `\\X` inside `$…$` BEFORE MathJax processes the DOM.
+  // useLayoutEffect fires synchronously after React commit and before the
+  // useEffect in use-mathjax that injects the script tag, so on initial mount
+  // MathJax sees corrected text and never produces italic "cdot". On state
+  // changes after MathJax is ready (e.g. tab switch reveals new content),
+  // re-normalize and force a re-typeset.
+  useLayoutEffect(() => {
+    if (!hasMath) return
+    const root = document.getElementById('main-content')
+    const changed = normalizeLatexEscapes(root)
+    if (changed && mathStatus === 'ready') {
+      clear(root)
+      typeset(root)
+    }
+  }, [hasMath, mathStatus, tab, typeset, clear])
 
   // Skip MathJax gate entirely when no math in content
   useEffect(() => {
@@ -201,11 +272,14 @@ export function LearningTemplate({ config }) {
     }
   }, [isReaderOpen])
 
-  const handleTabChange = newTab => {
-    if (newTab === tab) return
-    startTransition(() => setTab(newTab))
-    setDrawerOpen(false)
-  }
+  const handleTabChange = useCallback(
+    newTab => {
+      if (newTab === tab) return
+      startTransition(() => setTab(newTab))
+      setDrawerOpen(false)
+    },
+    [tab, startTransition]
+  )
 
   const handleSectionClick = i => {
     const el = document.getElementById(`lrn-section-${i}`)
@@ -307,7 +381,7 @@ export function LearningTemplate({ config }) {
     }
     document.addEventListener('keydown', handleGlobalKeyDown)
     return () => document.removeEventListener('keydown', handleGlobalKeyDown)
-  }, [availableTabs, handleTabChange, shortcuts, toggleShortcuts])
+  }, [availableTabs, handleTabChange, shortcuts, toggleShortcuts, ltSettings.keyboardShortcuts])
 
   const exportMarkdown = () => {
     const panel = document.querySelector(`#${tab}-panel`)
@@ -397,6 +471,12 @@ export function LearningTemplate({ config }) {
     })
   }
 
+  useEffect(() => {
+    const onCopyAction = () => exportMarkdown()
+    window.addEventListener('aether:action:copy-markdown', onCopyAction)
+    return () => window.removeEventListener('aether:action:copy-markdown', onCopyAction)
+  })
+
   const tabIcons = {
     learn: (
       <svg
@@ -471,7 +551,6 @@ export function LearningTemplate({ config }) {
 
   const resourceTitle = resourceInfo?.title || config.learning.title
   const moduleTitle = config.learning.title
-  const breadcrumbTail = resourceInfo ? resourceTitle.toUpperCase() : moduleTitle.toUpperCase()
 
   const sidebarProps = {
     tab,
@@ -523,47 +602,40 @@ export function LearningTemplate({ config }) {
             <button type="button" className="lv-crumb-link" onClick={() => nav('/explore')}>
               EXPLORE
             </button>
-            {domainInfo.name && routeParams.domain && (
+            {domainInfo.name && categoryId && (
               <>
                 <span className="sep">/</span>
                 <button
                   type="button"
                   className="lv-crumb-link"
-                  onClick={() => nav(`/explore/${routeParams.domain}`)}
+                  onClick={() => nav(`/explore/${categoryId}`)}
                 >
                   {domainInfo.name.toUpperCase()}
                 </button>
               </>
             )}
             <span className="sep">/</span>
-            {routeParams.module ? (
+            {resourceInfo && parentSlug && (
               <>
-                {resourceInfo && (
-                  <>
-                    <button
-                      type="button"
-                      className="lv-crumb-link"
-                      onClick={() => nav(`/explore/${routeParams.domain}/${routeParams.resource}`)}
-                    >
-                      {resourceTitle.toUpperCase()}
-                    </button>
-                    <span className="sep">/</span>
-                  </>
-                )}
-                <span className="active" title={moduleTitle}>
-                  {moduleTitle.toUpperCase()}
-                </span>
+                <button
+                  type="button"
+                  className="lv-crumb-link"
+                  onClick={() => nav(`/${parentSlug}`)}
+                >
+                  {resourceTitle.toUpperCase()}
+                </button>
+                <span className="sep">/</span>
               </>
-            ) : routeParams.domain && routeParams.resource ? (
-              <span className="active">{breadcrumbTail}</span>
-            ) : (
-              <span className="active">{breadcrumbTail}</span>
             )}
+            <span className="active" title={moduleTitle}>
+              {moduleTitle.toUpperCase()}
+            </span>
           </div>
           {(ltSettings.pomodoro ||
             ltSettings.topbarShowSearch ||
             ltSettings.topbarShowFocusMode ||
             ltSettings.topbarShowShortcuts ||
+            ltSettings.topbarShowCopy ||
             ltSettings.topbarShowDownload ||
             ltSettings.topbarShowSettings) && (
             <div className="lv-topbar-actions">
@@ -617,6 +689,30 @@ export function LearningTemplate({ config }) {
                   {ltSettings.topbarShowHints && <span className="lv-topbar-hint">?</span>}
                 </button>
               )}
+              {ltSettings.topbarShowCopy && (
+                <button
+                  type="button"
+                  className={`lv-topbar-icon${copied ? ' copied' : ''}`}
+                  onClick={exportMarkdown}
+                  aria-label="Copy as Markdown"
+                >
+                  {copied ? (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <rect x="9" y="9" width="13" height="13" rx="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                  )}
+                  {ltSettings.topbarShowHints && (
+                    <span className="lv-topbar-hint">
+                      {comboTokens(effectiveCombo('copy-markdown', ltSettings.keybinds)).join(' ')}
+                    </span>
+                  )}
+                </button>
+              )}
               {ltSettings.topbarShowDownload && (
                 <button
                   type="button"
@@ -635,7 +731,9 @@ export function LearningTemplate({ config }) {
                 <button
                   type="button"
                   className="lv-topbar-icon"
-                  onClick={() => window.dispatchEvent(new CustomEvent('aether:toggle-pomodoro'))}
+                  onClick={() =>
+                    window.dispatchEvent(new CustomEvent('aether:toggle-pomodoro'))
+                  }
                   aria-label="Pomodoro timer"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -654,7 +752,9 @@ export function LearningTemplate({ config }) {
                 <button
                   type="button"
                   className="lv-topbar-icon"
-                  onClick={() => window.dispatchEvent(new CustomEvent('aether:toggle-settings'))}
+                  onClick={() =>
+                    window.dispatchEvent(new CustomEvent('aether:toggle-settings'))
+                  }
                   aria-label="Open settings"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -808,37 +908,39 @@ export function LearningTemplate({ config }) {
                 </div>
               </div>
             )}
-            <button
-              onClick={exportMarkdown}
-              className={copied ? 'copied' : ''}
-              aria-label="Copy as Markdown"
-              title="Copy as Markdown"
-            >
-              {copied ? (
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              ) : (
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="9" y="9" width="13" height="13" rx="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
-              )}
-            </button>
+            {ltSettings.topbarShowCopy && (
+              <button
+                onClick={exportMarkdown}
+                className={copied ? 'copied' : ''}
+                aria-label="Copy as Markdown"
+                title="Copy as Markdown"
+              >
+                {copied ? (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="9" y="9" width="13" height="13" rx="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                )}
+              </button>
+            )}
             <button
               onClick={() => window.print()}
               aria-label="Export as PDF"

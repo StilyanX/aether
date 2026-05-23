@@ -409,26 +409,6 @@ function LabelRow({ label, children }) {
   )
 }
 
-function DayPicker({ value, onChange }) {
-  return (
-    <div className="stg-day">
-      {[1, 2, 3, 4, 5, 6, 7].map(n => (
-        <button
-          key={n}
-          type="button"
-          className={`stg-day-btn ${n <= value ? 'on' : ''}`}
-          onClick={() => onChange(n)}
-        >
-          {n}
-        </button>
-      ))}
-      <span className="stg-day-v">
-        {value} DAY{value === 1 ? '' : 'S'}/WEEK
-      </span>
-    </div>
-  )
-}
-
 // DIAL
 
 export function ProfileBadge() {
@@ -459,7 +439,9 @@ export function ProfileBadge() {
     setOpen(false)
   }
   const handleAdd = () => {
-    window.dispatchEvent(new CustomEvent('aether:toggle-settings', { detail: { tab: 'account' } }))
+    window.dispatchEvent(
+      new CustomEvent('aether:toggle-settings', { detail: { tab: 'account' } })
+    )
     setOpen(false)
   }
 
@@ -851,6 +833,8 @@ function hsv2hex(h, s, v) {
 }
 
 function ColorPicker({ value, onChange, onClose }) {
+  // Seed HSV from `value` on mount only; user edits drive HSV from here on.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const init = useMemo(() => hex2hsv(/^#[0-9a-fA-F]{6}$/.test(value) ? value : '#3b9eff'), [])
   const [h, setH] = useState(init.h)
   const [sv, setSv] = useState({ s: init.s, v: init.v })
@@ -1274,6 +1258,12 @@ function AppearancePane({ s, theme, setTheme, matches }) {
             sub="Arrow icon that prints the page as PDF."
             value={s.topbarShowDownload}
             onChange={v => set('topbarShowDownload', v)}
+          />
+          <ToggleRow
+            name="Copy as Markdown"
+            sub="Stacked-squares icon that copies the page content."
+            value={s.topbarShowCopy}
+            onChange={v => set('topbarShowCopy', v)}
           />
           <ToggleRow
             name="Settings"
@@ -1893,7 +1883,7 @@ function KeyboardPane({ s, matches }) {
   )
 }
 
-function PrivacyPane({ s, matches }) {
+function PrivacyPane({ matches }) {
   const sessions = useSessionsList()
   const currentId = getCurrentId()
   const hasOthers = sessions.some(x => x.id !== currentId)
@@ -2320,7 +2310,12 @@ function AboutPane() {
     <div className="stg-pane">
       <Group label="01" title="System">
         <div className="stg-about">
-          <svg className="stg-about-banner" viewBox="0 0 480 140" role="img" aria-label="Aether">
+          <svg
+            className="stg-about-banner"
+            viewBox="0 0 480 140"
+            role="img"
+            aria-label="Aether"
+          >
             <text
               x="0"
               y="115"
@@ -2498,7 +2493,7 @@ export function SettingsSheet({ open, onClose }) {
 
             {tab === 'notif' && <NotifPane s={settings} matches={matches} />}
             {tab === 'keyboard' && <KeyboardPane s={settings} matches={matches} />}
-            {tab === 'privacy' && <PrivacyPane s={settings} matches={matches} />}
+            {tab === 'privacy' && <PrivacyPane matches={matches} />}
             {tab === 'account' && <AccountPane s={settings} />}
             {tab === 'data' && <DataPane s={settings} />}
             {tab === 'about' && <AboutPane />}

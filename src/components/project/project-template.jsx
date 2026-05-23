@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useMathJax } from '../../hooks/use-mathjax'
 import { useSettings } from '../../hooks/use-settings'
@@ -10,44 +10,6 @@ import './project-template.css'
 import '../learning/learning-template.css'
 import '../learning/learning-sidebar.css'
 import '../learning/topic-page.css'
-
-// ── Stopwatch ─────────────────────────────────────────────────────────────────
-
-export function Stopwatch({ style }) {
-  const [running, setRunning] = useState(false)
-  const [elapsed, setElapsed] = useState(0)
-  const startRef = useRef(0)
-  const rafRef = useRef(null)
-
-  const tick = () => {
-    setElapsed(Date.now() - startRef.current)
-    rafRef.current = requestAnimationFrame(tick)
-  }
-
-  useEffect(() => {
-    if (running) {
-      rafRef.current = requestAnimationFrame(tick)
-    } else if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current)
-    }
-    return () => rafRef.current && cancelAnimationFrame(rafRef.current)
-  }, [running])
-
-  const hrs = Math.floor(elapsed / 3600000)
-  const mins = Math.floor((elapsed % 3600000) / 60000)
-  const secs = Math.floor((elapsed % 60000) / 1000)
-  const pad = n => String(n).padStart(2, '0')
-
-  return (
-    <button
-      className={`exam-stopwatch${running ? ' running' : ''}`}
-      style={style}
-      onClick={() => (running ? setRunning(false) : setRunning(true))}
-    >
-      {pad(hrs)}:{pad(mins)}:{pad(secs)}
-    </button>
-  )
-}
 
 // ── Answer collapsible ────────────────────────────────────────────────────────
 
@@ -113,8 +75,19 @@ function ProjectTemplate({ config }) {
   const [focusMode, setFocusMode] = useState(false)
   const [cheatsheetOpen, setCheatsheetOpen] = useState(false)
 
-  const hasMath = JSON.stringify(config.briefing).includes('$')
-  useMathJax([], hasMath)
+  const { status: mathStatus, typeset, clear } = useMathJax([], true)
+
+  // Force-typeset the content body on every tab switch and once MathJax reports
+  // ready. Project template renders <ExamContent/> and <ProjectContent/> as
+  // unrendered React elements; their math reaches the DOM only after the tab
+  // panel mounts, which can be after MathJax's initial auto-typeset has run.
+  useEffect(() => {
+    if (mathStatus !== 'ready') return
+    const root = document.querySelector('.project-content-body')
+    if (!root) return
+    clear(root)
+    typeset(root)
+  }, [activeTab, mathStatus, typeset, clear])
 
   useEffect(() => {
     document.title = config.documentTitle || 'Project / Aether'
@@ -212,6 +185,12 @@ function ProjectTemplate({ config }) {
     })
   }
 
+  useEffect(() => {
+    const onCopyAction = () => exportMarkdown()
+    window.addEventListener('aether:action:copy-markdown', onCopyAction)
+    return () => window.removeEventListener('aether:action:copy-markdown', onCopyAction)
+  })
+
   const sidebarProps = {
     tab: activeTab,
     availableTabs,
@@ -277,6 +256,7 @@ function ProjectTemplate({ config }) {
             settings.topbarShowSearch ||
             settings.topbarShowFocusMode ||
             settings.topbarShowShortcuts ||
+            settings.topbarShowCopy ||
             settings.topbarShowDownload ||
             settings.topbarShowSettings) && (
             <div className="lv-topbar-actions">
@@ -330,24 +310,31 @@ function ProjectTemplate({ config }) {
                   {settings.topbarShowHints && <span className="lv-topbar-hint">?</span>}
                 </button>
               )}
-              <button
-                type="button"
-                className={`lv-topbar-icon${copied ? ' copied' : ''}`}
-                onClick={exportMarkdown}
-                aria-label="Copy as Markdown"
-                title="Copy as Markdown"
-              >
-                {copied ? (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <rect x="9" y="9" width="13" height="13" rx="2" />
-                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                  </svg>
-                )}
-              </button>
+              {settings.topbarShowCopy && (
+                <button
+                  type="button"
+                  className={`lv-topbar-icon${copied ? ' copied' : ''}`}
+                  onClick={exportMarkdown}
+                  aria-label="Copy as Markdown"
+                  title="Copy as Markdown"
+                >
+                  {copied ? (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <rect x="9" y="9" width="13" height="13" rx="2" />
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                    </svg>
+                  )}
+                  {settings.topbarShowHints && (
+                    <span className="lv-topbar-hint">
+                      {comboTokens(effectiveCombo('copy-markdown', settings.keybinds)).join(' ')}
+                    </span>
+                  )}
+                </button>
+              )}
               {settings.topbarShowDownload && (
                 <button
                   type="button"
@@ -366,7 +353,9 @@ function ProjectTemplate({ config }) {
                 <button
                   type="button"
                   className="lv-topbar-icon"
-                  onClick={() => window.dispatchEvent(new CustomEvent('aether:toggle-pomodoro'))}
+                  onClick={() =>
+                    window.dispatchEvent(new CustomEvent('aether:toggle-pomodoro'))
+                  }
                   aria-label="Pomodoro timer"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -383,7 +372,9 @@ function ProjectTemplate({ config }) {
                 <button
                   type="button"
                   className="lv-topbar-icon"
-                  onClick={() => window.dispatchEvent(new CustomEvent('aether:toggle-settings'))}
+                  onClick={() =>
+                    window.dispatchEvent(new CustomEvent('aether:toggle-settings'))
+                  }
                   aria-label="Open settings"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -418,8 +409,7 @@ function ProjectTemplate({ config }) {
 
             {activeTab === 'exam' && config.examContent && (
               <>
-                <div className="project-briefing" style={{ position: 'relative' }}>
-                  <Stopwatch style={{ position: 'absolute', top: 0, right: 0 }} />
+                <div className="project-briefing">
                   <span className="project-tag">Exam</span>
                   <h1 className="project-title">{config.briefing.title}</h1>
                   <ConceptTags concepts={config.briefing.concepts} navigate={navigate} />

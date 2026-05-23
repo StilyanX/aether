@@ -55,6 +55,7 @@
   --domain-art: #8b4513;
   --domain-music: #f4c430;
   --domain-books: #9e2a2a;
+  --domain-films: #d4a017;
   --domain-papers: #c8cdd2;
   --domain-videos: #ff1f1f;
   --domain-podcasts: #8b5cf6;
@@ -140,7 +141,7 @@
     var(--reader-font-family, 'D-DIN'), 'Noto Sans JP', 'Noto Sans SC', 'Hiragino Sans',
     'Yu Gothic', 'Microsoft YaHei', 'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-display:
-    'D-DIN-Bold', 'Noto Sans JP', 'Noto Sans SC', 'Hiragino Sans', 'Yu Gothic', 'Microsoft YaHei',
+    'D-DIN', 'Noto Sans JP', 'Noto Sans SC', 'Hiragino Sans', 'Yu Gothic', 'Microsoft YaHei',
     'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono:
     var(--reader-code-font, ui-monospace, 'JetBrains Mono', 'Fira Code', Menlo), 'Noto Sans JP',

@@ -67,6 +67,7 @@
 .at-header-title {
   font-size: clamp(32px, 3.5vw, 56px);
   font-family: var(--font-display);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.1;
@@ -141,6 +142,7 @@
 .at-section-name {
   font-size: 12px;
   font-family: var(--font-display);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: color-mix(in srgb, var(--base-color) 35%, transparent);
@@ -178,6 +180,7 @@
 .at-card-name {
   font-size: 13px;
   font-family: var(--font-display);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   color: var(--text-primary);

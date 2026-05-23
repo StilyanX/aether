@@ -43,7 +43,8 @@
 }
 
 .kbcs-title {
-  font-family: 'D-DIN-Bold', 'D-DIN', system-ui, sans-serif;
+  font-family: 'D-DIN', system-ui, sans-serif;
+  font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -102,7 +103,8 @@
 }
 
 .kbcs-key {
-  font-family: 'D-DIN-Bold', 'D-DIN', monospace;
+  font-family: 'D-DIN', monospace;
+  font-weight: 700;
   font-size: 11px;
   letter-spacing: 0.04em;
   text-transform: uppercase;

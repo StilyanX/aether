@@ -160,7 +160,7 @@ export function AppErrorFallback({ error, errorInfo }) {
         </aside>
       </article>
 
-      {process.env.NODE_ENV === 'development' && errorInfo && (
+      {import.meta.env.DEV && errorInfo && (
         <details className="err-app-details">
           <summary>Component stack</summary>
           <pre>{errorInfo.componentStack}</pre>

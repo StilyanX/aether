@@ -105,7 +105,7 @@
 
 .lv-title {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 700;
   font-size: clamp(2.4rem, 5.6vw, 5rem);
   line-height: 0.96;
   letter-spacing: -0.02em;

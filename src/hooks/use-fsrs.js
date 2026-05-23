@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { createEmptyCard, fsrs, generatorParameters, Rating, State } from 'ts-fsrs'
-import { getCardsByTopic, saveCard, saveCards, getMeta, saveMeta } from '../lib/idb-store'
+import { getCardsByTopic, saveCard, saveCards } from '../lib/idb-store'
 import { useSettings } from './use-settings'
 
 const DIFFICULTY_PACING = {
@@ -199,7 +199,7 @@ export function useFSRS(topicSlug, cards) {
     settings.maxReviewsPerDay,
     settings.spacedRepetition,
     settings.interleave,
-    settings.difficulty
+    pacing.reviewMul
   ])
 
   const currentItem = sessionQueue?.[sessionIndex] ?? null

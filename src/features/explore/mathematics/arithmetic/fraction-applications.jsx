@@ -8,14 +8,13 @@ import {
   RateGraphVis,
   CoopWorkVis,
   ComplexFractionVis
-} from '../../../../components/viz/math-viz/modules'
+} from '../../../../components/viz'
 
 function useConfig() {
   const C = useVizColors()
   useMathJax([])
   const config = {
     cssPrefix: 'frc',
-    source: 'Understanding Numbers in Elementary School Mathematics: Hung-Hsi Wu',
     documentTitle: 'Fraction Applications - AETHER',
     learning: {
       category: 'Part 2',
@@ -200,7 +199,7 @@ function useConfig() {
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`After a $P\\%$ rise, the base grows. The same $P\\%$ of a bigger base is a bigger amount. So the decrease overshoots. The final price is always $(1 - (P/100)^2)$ of the original.`}</p>
+            <p>{`After a $P\\%$ rise, the base grows. The same $P\\%$ of a bigger base is a bigger amount. So the decrease overshoots. The final price is always $\\left(1 - \\left(\\frac{P}{100}\\right)^2\\right)$ of the original.`}</p>
           </div>
 
           <div className="lrn-compare">
@@ -401,7 +400,7 @@ function useConfig() {
             <p>{`A faucet fills $3\\frac{1}{2}$ cu ft in 25 sec. How long for $11\\frac{1}{2}$ cu ft?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`$82\\frac{1}{7}$ seconds. Rate = $\\frac{3.5}{25}$. Time = $\\frac{11.5}{3.5/25}$.`}</p>
+              <p>{`$82\\frac{1}{7}$ seconds. Rate = $\\frac{3.5}{25}$. Time = $\\frac{11.5}{\\frac{3.5}{25}}$.`}</p>
             </details>
           </div>
 
@@ -442,7 +441,7 @@ function useConfig() {
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`If rate drops by $N\\%$, new rate is $(1 - N/100)$ of the original. Time = work/rate. Smaller rate means more time: $\\frac{k \\times 100}{100 - N}$.`}</p>
+            <p>{`If rate drops by $N\\%$, new rate is $\\left(1 - \\frac{N}{100}\\right)$ of the original. Time = $\\frac{\\text{work}}{\\text{rate}}$. Smaller rate means more time: $\\frac{k \\times 100}{100 - N}$.`}</p>
           </div>
 
           <div className="lrn-compare">
@@ -482,7 +481,7 @@ function useConfig() {
             <li>{`Let $A$ = total work.`}</li>
             <li>{`Regina: $\\frac{A}{10}$. Eric: $\\frac{A}{12}$.`}</li>
             <li>{`Together: $\\frac{6A + 5A}{60} = \\frac{11A}{60}$.`}</li>
-            <li>{`Time: $\\frac{A}{11A/60} = \\frac{60}{11} = 5\\frac{5}{11}$ hours.`}</li>
+            <li>{`Time: $\\frac{A}{\\frac{11A}{60}} = \\frac{60}{11} = 5\\frac{5}{11}$ hours.`}</li>
           </ol>
 
           <div className="lrn-graph">
@@ -494,7 +493,7 @@ function useConfig() {
             <p>Why does the total area A cancel out?</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
-              <p>{`Both rates are proportional to $A$. Combined rate = $\\frac{11A}{60}$. Time = $\\frac{A}{11A/60} = \\frac{60}{11}$. The $A$ cancels, leaving a number independent of job size.`}</p>
+              <p>{`Both rates are proportional to $A$. Combined rate = $\\frac{11A}{60}$. Time = $\\frac{A}{\\frac{11A}{60}} = \\frac{60}{11}$. The $A$ cancels, leaving a number independent of job size.`}</p>
             </details>
           </div>
 
@@ -524,12 +523,12 @@ function useConfig() {
       },
       {
         q: 'Express $33\\frac{1}{3}\\%$ as a fraction.',
-        a: '$33\\frac{1}{3}\\% = \\frac{100/3}{100} = \\frac{1}{3}$.'
+        a: '$33\\frac{1}{3}\\% = \\frac{\\frac{100}{3}}{100} = \\frac{1}{3}$.'
       },
       { q: 'What is 45% of 70?', a: '$\\frac{45}{100} \\times 70 = \\frac{3150}{100} = 31.5$.' },
       {
         q: '70 is 45% of what number?',
-        a: '$\\frac{70}{45/100} = 70 \\times \\frac{100}{45} = \\frac{7000}{45} = 155\\frac{5}{9}$.'
+        a: '$\\frac{70}{\\frac{45}{100}} = 70 \\times \\frac{100}{45} = \\frac{7000}{45} = 155\\frac{5}{9}$.'
       },
       {
         q: 'A stock goes up 12% then down 12%. Final price as percent of original?',
@@ -541,7 +540,7 @@ function useConfig() {
       },
       {
         q: 'What is the relative error if you approximate $67\\frac{1}{2}\\%$ by $\\frac{2}{3}$?',
-        a: 'Less than 2%. Absolute error: $\\frac{5}{6}\\%$. Relative: $\\frac{5/6}{67.5} \\times 100 = 1\\frac{19}{81}\\%$.'
+        a: 'Less than 2%. Absolute error: $\\frac{5}{6}\\%$. Relative: $\\frac{\\frac{5}{6}}{67.5} \\times 100 = 1\\frac{19}{81}\\%$.'
       },
       {
         q: 'What is the FASM and why does it matter?',
@@ -561,7 +560,7 @@ function useConfig() {
       },
       {
         q: 'A faucet fills $3\\frac{1}{2}$ cu ft in 25 sec. How long for $11\\frac{1}{2}$ cu ft?',
-        a: 'Rate $= \\frac{7}{50}$. Time $= \\frac{23/2}{7/50} = \\frac{23}{2} \\times \\frac{50}{7} = \\frac{575}{7} = 82\\frac{1}{7}$ sec.'
+        a: 'Rate $= \\frac{7}{50}$. Time $= \\frac{\\frac{23}{2}}{\\frac{7}{50}} = \\frac{23}{2} \\times \\frac{50}{7} = \\frac{575}{7} = 82\\frac{1}{7}$ sec.'
       },
       {
         q: 'If a faucet fills a tub in 20 min and flow drops 25%, new time?',
@@ -653,7 +652,7 @@ function useConfig() {
       },
       {
         q: 'Explain why percent increase then same decrease never returns to original.',
-        a: 'The decrease applies to a larger base. Final $= (1 - (P/100)^2)$ times original, always less than 1.'
+        a: 'The decrease applies to a larger base. Final $= \\left(1 - \\left(\\frac{P}{100}\\right)^2\\right)$ times original, always less than 1.'
       }
     ],
 
@@ -695,8 +694,8 @@ function useConfig() {
           <div className="lrn-eq">{`$$N\\% \\text{ of } X = \\frac{N}{100} \\times X$$`}</div>
           <div className="lrn-eq">{`$$X \\text{ is } N\\% \\text{ of ? } \\Rightarrow ? = X \\times \\frac{100}{N}$$`}</div>
           <div className="lrn-eq">{`$$\\text{What \\% of } X \\text{ is } Y? \\Rightarrow N = \\frac{Y}{X} \\times 100$$`}</div>
-          <div className="lrn-eq">{`$$\\text{Increase: new} = P(1 + N/100)$$`}</div>
-          <div className="lrn-eq">{`$$\\text{Decrease: new} = P(1 - N/100)$$`}</div>
+          <div className="lrn-eq">{`$$\\text{Increase: new} = P\\left(1 + \\frac{N}{100}\\right)$$`}</div>
+          <div className="lrn-eq">{`$$\\text{Decrease: new} = P\\left(1 - \\frac{N}{100}\\right)$$`}</div>
           <div className="lrn-eq">{`$$\\text{Relative error} = \\frac{|\\text{true} - \\text{approx}|}{\\text{true}} \\times 100\\%$$`}</div>
         </>,
         <>

@@ -1,10 +1,10 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
-import { GeneratingFunctionGeom } from '../../../../../components/viz/physics-viz/modules'
+import { GeneratingFunctionGeom } from '../../../../../components/viz'
 
 function CanonicalTransformations() {
   const config = {
     learning: {
-      groupTitle: 'Part III: Hamiltonian Mechanics and Canonical Formalism',
+      groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
       category: 'Classical Mechanics',
       title: 'Canonical Transformations',
       subtitle: "Coordinate changes in phase space that preserve the form of Hamilton's equations"

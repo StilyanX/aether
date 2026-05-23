@@ -7,17 +7,16 @@ import {
   PendulumEnergy,
   ResonanceDriver,
   PhasePortraitDrag
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 // Component
 
 export default function OscillationsPart1() {
   const config = {
     cssPrefix: 'osc',
-    source: 'An Introduction to Mechanics - Kleppner & Kolenkow',
     documentTitle: 'Oscillations (Part I) - AETHER',
     learning: {
-      groupTitle: 'Part I: Newtonian Mechanics',
+      groupTitle: 'Newtonian Mechanics',
       category: 'Module 8',
       title: 'Oscillations (Part I)',
       subtitle:

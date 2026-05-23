@@ -6,7 +6,7 @@ import {
   LiouvilleBlob,
   NestedEnergyLevels,
   PhaseFlowOrbits
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 function PhasePortraitSimulation({ C }) {
   const canvasRef = useRef(null)
@@ -74,7 +74,6 @@ function PhasePortraitSimulation({ C }) {
         balls.forEach(ball => {
           const dx = cx - ball.position.x
           const dy = cy - ball.position.y
-          const dist = Math.sqrt(dx * dx + dy * dy) || 1
           const k = 0.002
           Matter.Body.applyForce(ball, ball.position, { x: k * dx, y: k * dy })
         })
@@ -104,7 +103,7 @@ function PhasePortraitSimulation({ C }) {
         width: '100%',
         height: 320,
         background: 'transparent',
-        border: `1px solid ${C.faint}`
+        border: `1px solid ${C.dim}`
       }}
     />
   )
@@ -115,10 +114,9 @@ function SpineOfPartIIIContentInner() {
 
   const config = {
     cssPrefix: 'sop',
-    source: 'Mechanics (Landau & Lifshitz) · Mathematical Methods of Classical Mechanics (Arnold)',
     documentTitle: 'Spine of Part III - AETHER',
     learning: {
-      groupTitle: 'Part III: Hamiltonian Mechanics and Canonical Formalism',
+      groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
       category: 'Classical Mechanics',
       title: 'Spine of Part III',
       subtitle:

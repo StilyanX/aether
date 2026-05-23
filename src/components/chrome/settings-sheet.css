@@ -1,7 +1,5 @@
-/* ==============================================================
-   SETTINGS
-   Ported from aether-design-system/project/ui_kits/platform/platform.css
-   ============================================================== */
+/* SETTINGS
+   Ported from aether-design-system/project/ui_kits/platform/platform.css */
 
 /* Profile badge - sits left of the settings dial */
 .stg-profile-wrap {
@@ -21,6 +19,7 @@
   cursor: pointer;
   color: #0a0a0c;
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 14px;
   letter-spacing: 0;
   overflow: hidden;
@@ -57,6 +56,7 @@
   border-bottom: 1px solid var(--border-subtle);
   color: var(--text-primary, rgba(240, 240, 250, 1));
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -332,6 +332,7 @@
 }
 .stg-head-title {
   font-family: var(--font-display);
+  font-weight: 700;
   font-weight: 500;
   font-size: 2.4rem;
   letter-spacing: -0.02em;
@@ -447,6 +448,7 @@
 }
 .stg-group-title {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -523,6 +525,7 @@
 }
 .stg-theme-name {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -589,6 +592,7 @@
 }
 .stg-tf-spec {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 44px;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -624,6 +628,7 @@
 }
 .stg-tf-name {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -847,6 +852,7 @@
 }
 .stg-radio-name {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1023,6 +1029,7 @@
 }
 .stg-density-name {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1084,6 +1091,7 @@
   color: var(--text-primary);
   cursor: pointer;
   font-family: var(--font-display);
+  font-weight: 700;
   letter-spacing: 0.04em;
   transition:
     border-color 220ms,
@@ -1326,9 +1334,7 @@
   }
 }
 
-/* ==============================================================
-   EXPANDED SETTINGS - tabs, search, panes, controls
-   ============================================================== */
+/* EXPANDED SETTINGS - tabs, search, panes, controls */
 
 .stg-search {
   margin-top: 10px;
@@ -1412,6 +1418,7 @@
   cursor: pointer;
   text-align: left;
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1496,6 +1503,7 @@
 }
 .stg-toggle-name {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1560,6 +1568,7 @@
   cursor: pointer;
   text-align: center;
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2018,6 +2027,7 @@
 }
 .stg-shortcut-k {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--text-primary);
@@ -2149,6 +2159,7 @@
 }
 .stg-session-d {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -2244,6 +2255,7 @@
 }
 .stg-lang-n {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.04em;
 }
@@ -2299,6 +2311,7 @@
   border: 1px solid var(--border-default);
   color: #0a0a0c;
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 36px;
   letter-spacing: 0;
   overflow: hidden;
@@ -2325,6 +2338,7 @@ label.stg-avatar {
   display: grid;
   place-items: center;
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 48px;
   line-height: 1;
   color: #fff;
@@ -2484,6 +2498,7 @@ label.stg-avatar {
   border: 1px solid var(--border-subtle);
   color: #0a0a0c;
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 10px;
   letter-spacing: 0;
   overflow: hidden;
@@ -2532,6 +2547,7 @@ label.stg-avatar {
 }
 .stg-data-k {
   font-family: var(--font-display);
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -2716,9 +2732,7 @@ label.stg-avatar {
   }
 }
 
-/* ==============================================================
-   LIVE OPT-IN CHROME - driven by data-attrs from use-settings
-   ============================================================== */
+/* LIVE OPT-IN CHROME - driven by data-attrs from use-settings */
 
 /* Text scale - global font-size anchor (every rem cascades from here) */
 html {
@@ -2732,7 +2746,7 @@ html[data-typeface='dyslexic'] {
   --font-mono: 'OpenDyslexic', sans-serif;
 }
 
-/* SVG <text> presentation attributes can't use CSS vars — override directly */
+/* SVG <text> presentation attributes can't use CSS vars, override directly */
 html[data-typeface='dyslexic'] text {
   font-family: 'OpenDyslexic', sans-serif;
 }

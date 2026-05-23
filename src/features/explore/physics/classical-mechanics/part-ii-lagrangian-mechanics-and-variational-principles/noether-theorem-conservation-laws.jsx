@@ -12,7 +12,7 @@ import {
   DragHandle as DH2,
   OPACITY as O2,
   VizCard
-} from '../../../../../components/viz/physics-viz/primitives'
+} from '../../../../../components/viz/primitives'
 
 // Visualizations
 
@@ -161,10 +161,9 @@ function TranslationSymmetry() {
 export default function NoetherTheoremConservationLaws() {
   const config = {
     cssPrefix: 'ntcl',
-    source: 'Mathematical Methods of Classical Mechanics - Arnold',
     documentTitle: "Noether's Theorem and Conservation Laws - AETHER",
     learning: {
-      groupTitle: 'Part II: Lagrangian Mechanics and Variational Principles',
+      groupTitle: 'Lagrangian Mechanics and Variational Principles',
       category: 'Physics',
       title: "Noether's Theorem and Conservation Laws",
       subtitle:

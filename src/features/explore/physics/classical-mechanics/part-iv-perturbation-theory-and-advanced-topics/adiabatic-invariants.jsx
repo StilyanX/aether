@@ -5,7 +5,7 @@ import {
   AdiabaticInvariantArea,
   AdiabaticOscillator,
   AdiabaticPhaseEllipse
-} from '../../../../../components/viz/physics-viz/modules'
+} from '../../../../../components/viz'
 
 // Adiabatic invariant simulation: oscillator with slowly changing frequency
 function AdiabaticSimulation({ C }) {
@@ -86,7 +86,7 @@ function AdiabaticSimulation({ C }) {
         width: '100%',
         height: 280,
         background: 'transparent',
-        border: `1px solid ${C.faint}`
+        border: `1px solid ${C.dim}`
       }}
     />
   )
@@ -99,10 +99,9 @@ function AdiabaticInvariantsContentInner() {
 
   const config = {
     cssPrefix: 'rbd',
-    source: 'Mechanics (Course of Theoretical Physics, Vol. 1) - Landau & Lifshitz',
     documentTitle: 'Adiabatic Invariants - AETHER',
     learning: {
-      groupTitle: 'Part IV: Perturbation Theory and Advanced Topics',
+      groupTitle: 'Perturbation Theory and Advanced Topics',
       category: 'Physics',
       title: 'Adiabatic Invariants',
       subtitle:

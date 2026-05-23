@@ -14,11 +14,8 @@ import {
   PlayPause as PP6,
   OPACITY as O6,
   VizCard
-} from '../../../../../components/viz/physics-viz/primitives'
-import {
-  useSimulation as useSim6,
-  rk4Step as rk46
-} from '../../../../../components/viz/physics-viz/physics-core'
+} from '../../../../../components/viz/primitives'
+import { useSimulation as useSim6, rk4Step as rk46 } from '../../../../../components/viz/physics'
 
 function PendulumS1() {
   const [th, setTh] = React.useState(1.0)
@@ -261,10 +258,9 @@ function DoublePendulum() {
 export default function MechanicsOnManifolds() {
   const config = {
     cssPrefix: 'mom',
-    source: 'Mathematical Methods of Classical Mechanics - Arnold',
     documentTitle: 'Mechanics on Manifolds - AETHER',
     learning: {
-      groupTitle: 'Part II: Lagrangian Mechanics and Variational Principles',
+      groupTitle: 'Lagrangian Mechanics and Variational Principles',
       category: 'Physics',
       title: 'Mechanics on Manifolds',
       subtitle:

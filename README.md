@@ -15,13 +15,12 @@
 ---
 
 <p align="center">
-  <img src="public/screenshots/home.png" alt="Explore — the map of knowable things" width="900">
+  <img src="public/screenshots/home.png" alt="Explore: the map of knowable things" width="900">
 </p>
 <p align="center">
-  <img src="public/screenshots/subject.png" alt="Subject page — Classical Mechanics" width="900">
 </p>
 <p align="center">
-  <img src="public/screenshots/learn.png" alt="Learning view — Vectors, Kinematics, and Galilean Structure" width="900">
+  <img src="public/screenshots/learn.png" alt="Learning view: Vectors, Kinematics, and Galilean Structure" width="900">
 </p>
 
 ---
@@ -55,10 +54,10 @@ Most learning platforms are built around keeping you on the platform. Aether is 
 
 **Subjects currently covered:**
 
-- **Mathematics:** Arithmetic (place value, fractions, decimals, number theory, rational numbers) with interactive tools
+- **Mathematics:** Arithmetic (place value, fractions, decimals, number theory, rational numbers, interactive tools); Algebra (foundations, equations and inequalities, polynomials, functions, sequences, the binomial theorem)
 - **Physics:** Classical Mechanics (Newtonian, Lagrangian, Hamiltonian, perturbation theory)
 - **Languages:** German A1
-- **Explore:** curated books, papers, podcasts, videos
+- **Explore:** curated books, films, papers, podcasts, videos
 
 More subjects ship continuously.
 
@@ -111,12 +110,12 @@ npm run dev
 <summary>Troubleshooting</summary>
 <br>
 
-| Symptom                             | Fix                                                                                    |
-| ----------------------------------- | -------------------------------------------------------------------------------------- |
-| `curl: command not found` (Windows) | Use the PowerShell command instead                                                     |
-| `winget: command not found`         | Update Windows to 1709+ or install Node manually from [nodejs.org](https://nodejs.org) |
-| Port 8000 already in use            | Open [http://localhost:8000](http://localhost:8000) directly                           |
-| Blank page or 404                   | Navigate to [http://localhost:8000/Aether/](http://localhost:8000/Aether/) manually    |
+| Symptom                             | Fix                                                                                                      |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `curl: command not found` (Windows) | Use the PowerShell command instead                                                                       |
+| `winget: command not found`         | Update Windows to 1709+ or install Node manually from [nodejs.org](https://nodejs.org)                   |
+| Port 8000 already in use            | Stop the conflicting process (`lsof -ti:8000 \| xargs kill`) or change `server.port` in `vite.config.js` |
+| Blank page or 404                   | Navigate to [http://localhost:8000/Aether/](http://localhost:8000/Aether/) manually          |
 
 </details>
 
@@ -162,7 +161,7 @@ Everything else is open. To argue with one of the above, open an issue with `tra
   <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion">
   <img src="https://img.shields.io/badge/MathJax-orange?style=for-the-badge" alt="MathJax">
   <img src="https://img.shields.io/badge/Matter.js-4B5562?style=for-the-badge" alt="Matter.js">
-  <img src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white" alt="Three.js">
+  <img src="https://img.shields.io/badge/Mafs-1a73e8?style=for-the-badge" alt="Mafs">
 </p>
 
 ### Privacy

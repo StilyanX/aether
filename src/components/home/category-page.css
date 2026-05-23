@@ -8,19 +8,19 @@
   background: var(--bg);
   padding-bottom: 32px;
 }
-
 /* Sidebar */
 .ep-sidebar {
-  padding: 28px 0 40px;
   border-right: 1px solid var(--border-subtle);
+}
+.ep-sidebar-inner {
+  padding: 28px 0 40px;
   position: sticky;
   top: 0;
-  align-self: start;
   max-height: 100vh;
   overflow-y: auto;
   scrollbar-width: none;
 }
-.ep-sidebar::-webkit-scrollbar {
+.ep-sidebar-inner::-webkit-scrollbar {
   display: none;
 }
 
@@ -176,7 +176,7 @@
 
 .ep-masthead-title {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 700;
   font-size: clamp(3rem, 6vw, 6rem);
   line-height: 0.9;
   letter-spacing: -0.02em;
@@ -220,7 +220,7 @@
 .ep-masthead-counter .c-num {
   font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
@@ -395,7 +395,7 @@
 .ep-section-num {
   font-family: var(--font-display);
   font-size: 2.25rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
@@ -447,7 +447,9 @@
   display: flex;
   flex-direction: column;
 }
-.ep-row {
+.ep-row,
+.ep-row:link,
+.ep-row:visited {
   display: grid;
   grid-template-columns: 48px 1fr 24px;
   align-items: center;
@@ -820,11 +822,13 @@
     grid-template-columns: 1fr;
   }
   .ep-sidebar {
+    border-right: 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .ep-sidebar-inner {
     position: relative;
     max-height: none;
     padding: 16px 24px;
-    border-right: 0;
-    border-bottom: 1px solid var(--border-subtle);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 4px 8px;

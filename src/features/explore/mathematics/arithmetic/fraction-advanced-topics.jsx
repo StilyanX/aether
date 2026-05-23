@@ -2,18 +2,13 @@ import { LearningTemplate } from '../../../../components/learning/learning-templ
 import { useVizColors } from '../../../../hooks/use-viz-colors'
 import { useMathJax } from '../../../../hooks/use-mathjax'
 
-import {
-  HarmonicMeanVis,
-  CucumberVis,
-  WineTeaVis
-} from '../../../../components/viz/math-viz/modules'
+import { HarmonicMeanVis, CucumberVis, WineTeaVis } from '../../../../components/viz'
 
 function useConfig() {
   useMathJax([])
   const C = useVizColors()
   const config = {
     cssPrefix: 'frc',
-    source: 'Understanding Numbers in Elementary School Mathematics: Hung-Hsi Wu',
     documentTitle: 'Fraction Advanced Topics - AETHER',
     learning: {
       category: 'Part 2',
@@ -47,7 +42,7 @@ function useConfig() {
             This is the <strong>harmonic mean</strong> of 15 and 18.
           </p>
           <p>{`Computing: $\\frac{1}{15} + \\frac{1}{18} = \\frac{11}{90}$.`}</p>
-          <p>{`Average speed = $\\frac{2}{11/90} = \\frac{180}{11} = 16\\frac{4}{11}$ mph.`}</p>
+          <p>{`Average speed = $\\frac{2}{\\frac{11}{90}} = \\frac{180}{11} = 16\\frac{4}{11}$ mph.`}</p>
           <p>{`This is less than the arithmetic mean $\\frac{15 + 18}{2} = 16.5$.`}</p>
           <p>{`The distance $D$ cancels. The harmonic mean depends only on the two speeds.`}</p>
 
@@ -276,7 +271,7 @@ function useConfig() {
       },
       {
         q: 'You drive 90 miles at 60 mph, then 90 at 45 mph. Average speed?',
-        a: '$51\\frac{3}{7}$ mph. Total = 180 mi. Time $= \\frac{3}{2} + 2 = \\frac{7}{2}$ hr. Avg $= \\frac{180}{7/2} = \\frac{360}{7}$.'
+        a: '$51\\frac{3}{7}$ mph. Total = 180 mi. Time $= \\frac{3}{2} + 2 = \\frac{7}{2}$ hr. Avg $= \\frac{180}{\\frac{7}{2}} = \\frac{360}{7}$.'
       },
       {
         q: 'Sam drives 73 miles A to B at 60 mph, back at 70. Average speed?',
@@ -304,7 +299,7 @@ function useConfig() {
       },
       {
         q: 'A painter finishes in 8 hrs, another in 6. They start together but after 2 hrs the first leaves. How much longer for the second?',
-        a: '$2\\frac{1}{2}$ more hours. In 2 hrs together: $2\\left(\\frac{1}{8} + \\frac{1}{6}\\right) = \\frac{7}{12}$ done. Remaining: $\\frac{5}{12}$. At $\\frac{1}{6}$ per hr: $\\frac{5/12}{1/6} = \\frac{5}{2}$ hrs.'
+        a: '$2\\frac{1}{2}$ more hours. In 2 hrs together: $2\\left(\\frac{1}{8} + \\frac{1}{6}\\right) = \\frac{7}{12}$ done. Remaining: $\\frac{5}{12}$. At $\\frac{1}{6}$ per hr: $\\frac{\\frac{5}{12}}{\\frac{1}{6}} = \\frac{5}{2}$ hrs.'
       },
       {
         q: 'Two shuttles: A takes 3 hrs, B takes 5 hrs same route. Start from opposite ends. When meet?',
@@ -312,7 +307,7 @@ function useConfig() {
       },
       {
         q: 'A car travels at constant speed. In $2\\frac{1}{3}$ hours it covers 125 miles. How far in 4 hours?',
-        a: '$214\\frac{2}{7}$ miles. Speed $= \\frac{125}{7/3} = \\frac{375}{7}$. In 4 hrs: $\\frac{1500}{7}$.'
+        a: '$214\\frac{2}{7}$ miles. Speed $= \\frac{125}{\\frac{7}{3}} = \\frac{375}{7}$. In 4 hrs: $\\frac{1500}{7}$.'
       },
       {
         q: 'Shawna drives $\\frac{2}{3}$ hr to work. Firm moved: now $\\frac{5}{6}$ hr at same speed. She drives 12 more miles. How far is firm?',
@@ -328,7 +323,7 @@ function useConfig() {
       },
       {
         q: 'Find $q$ so that $28\\frac{1}{2} = q \\times 5\\frac{3}{4}$.',
-        a: '$q = \\frac{57/2}{23/4} = \\frac{57}{2} \\times \\frac{4}{23} = \\frac{228}{46} = \\frac{114}{23} = 4\\frac{22}{23}$.'
+        a: '$q = \\frac{\\frac{57}{2}}{\\frac{23}{4}} = \\frac{57}{2} \\times \\frac{4}{23} = \\frac{228}{46} = \\frac{114}{23} = 4\\frac{22}{23}$.'
       },
       {
         q: 'Mr. Dennis took students to a play. Only $\\frac{2}{5}$ showed up: 52 students. Total?',
@@ -340,11 +335,11 @@ function useConfig() {
       },
       {
         q: 'A rectangle has area $\\frac{7}{8}$ and one side $\\frac{1}{3}$. Other side?',
-        a: '$\\frac{21}{8} = 2\\frac{5}{8}$. Side $= \\frac{7/8}{1/3} = \\frac{7}{8} \\times 3 = \\frac{21}{8}$.'
+        a: '$\\frac{21}{8} = 2\\frac{5}{8}$. Side $= \\frac{\\frac{7}{8}}{\\frac{1}{3}} = \\frac{7}{8} \\times 3 = \\frac{21}{8}$.'
       },
       {
         q: 'A water tank is $\\frac{19}{23}$ full with 271 gallons. Full capacity?',
-        a: '$\\frac{271}{19/23} = 271 \\times \\frac{23}{19} = \\frac{6233}{19} = 328\\frac{1}{19}$ gallons.'
+        a: '$\\frac{271}{\\frac{19}{23}} = 271 \\times \\frac{23}{19} = \\frac{6233}{19} = 328\\frac{1}{19}$ gallons.'
       },
       {
         q: 'Explain why dividing by $\\frac{1}{2}$ doubles but dividing by 2 halves.',
@@ -415,7 +410,7 @@ function useConfig() {
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Harmonic Mean</span>
-              <p className="lrn-step-content">{`$2/(1/v_1 + 1/v_2)$`}</p>
+              <p className="lrn-step-content">{`$\\frac{2}{\\frac{1}{v_1} + \\frac{1}{v_2}}$`}</p>
             </div>
           </div>
         </>,
@@ -435,7 +430,7 @@ function useConfig() {
               <span className="lrn-compare-title">Why It Fails</span>
               <ul className="lrn-list">
                 <li>Must use total distance / total time</li>
-                <li>Percent is a number (N/100)</li>
+                <li>Percent is a number ({`$\\frac{N}{100}$`})</li>
                 <li>Gives the mediant, not the sum</li>
                 <li>Gives a pair, not one number</li>
               </ul>

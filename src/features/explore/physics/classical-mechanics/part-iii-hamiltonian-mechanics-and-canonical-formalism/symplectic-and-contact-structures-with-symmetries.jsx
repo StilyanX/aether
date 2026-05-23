@@ -1,6 +1,6 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
 import { useVizColors } from '../../../../../hooks/use-viz-colors'
-import { Mafs, Coordinates, Point, Line, Circle, Text, vec } from 'mafs'
+import { Mafs, Coordinates, Point, Line, Text } from 'mafs'
 import 'mafs/core.css'
 
 // ─── Static Mafs diagram: Contact plane field on ℝ³ ───────────────────────
@@ -65,11 +65,10 @@ export default function SymplecticContactStructuresSymmetries() {
 
   const config = {
     cssPrefix: 'scs',
-    source: 'Mathematical Methods of Classical Mechanics - Arnold',
     documentTitle: 'Symplectic and Contact Structures with Symmetries - AETHER',
 
     learning: {
-      groupTitle: 'Part III: Hamiltonian Mechanics and Canonical Formalism',
+      groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
       category: 'Physics / Classical Mechanics',
       title: 'Symplectic and Contact Structures with Symmetries',
       subtitle: 'Kähler geometry, contact topology, momentum maps, and symmetry reduction',

@@ -4,17 +4,17 @@ import { useVizColors } from '../../../../hooks/use-viz-colors'
 import {
   PlaceValueNumberLine,
   WholeDistributiveLawArea as DistributiveLawAreaModel,
-  AdditionCarryVis, SubtractionTradingVis,
+  AdditionCarryVis,
+  SubtractionTradingVis,
   WholeMultiplicationArea as MultiplicationAreaModel,
   LongDivisionStepVis
-} from '../../../../components/viz/math-viz/modules'
+} from '../../../../components/viz'
 
 export default function PlaceValueAndAlgorithms() {
   const C = useVizColors()
 
   const config = {
     cssPrefix: 'whn',
-    source: 'Understanding Numbers in Elementary School Mathematics - Hung-Hsi Wu',
     documentTitle: 'Place Value and Algorithms - AETHER',
     learning: {
       category: 'Part 1',
@@ -173,7 +173,7 @@ export default function PlaceValueAndAlgorithms() {
 
           <p>{`Using exponents, the expanded form of any number is precise. For example:`}</p>
           <div className="lrn-eq">{`$$298{,}534{,}453 = (2 \\times 10^8) + (9 \\times 10^7) + (8 \\times 10^6) + \\cdots + (3 \\times 10^0)$$`}</div>
-          <p>{`Each digit is the multiplier for its matching power of 10. The digit 9 in $298{,}534{,}453$ multiplies $10^7$, contributing $9{,}000{,}000$.`}</p>
+          <p>{`Each digit is the multiplier for its matching power of 10. The digit 9 in $298{,}534{,}453$ multiplies $10^7$, contributing $90{,}000{,}000$.`}</p>
 
           <h3>All About Zero</h3>
           <p>{`Multiplying by a power of 10 appends zeros. Write $k$ zeros after the last digit of $N$ to get $N \\times 10^k$.`}</p>
@@ -943,7 +943,7 @@ export default function PlaceValueAndAlgorithms() {
           <div className="lrn-eq">
             <span>{`$$22 = (5 \\times 4) + 2$$`}</span>
           </div>
-          <p>Using the expanded form of 185:</p>
+          <p>Using the expanded form of 742:</p>
           <div className="lrn-eq">{`$$742 = (1 \\times 10^2 + 8 \\times 10 + 5) \\times 4 + 2 = (1 \\times 10^2) \\times 4 + (8 \\times 10) \\times 4 + (5 \\times 4) + 2$$`}</div>
           <p>
             The algorithm breaks a hard division into a sequence of easy ones. Each easy division

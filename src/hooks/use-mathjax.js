@@ -14,6 +14,34 @@ const MATHJAX_CDN = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.j
  */
 import { useSettings } from './use-settings'
 
+// Authors sometimes write LaTeX inside plain JSX text (e.g. `<h3>$a \\cdot b$</h3>`)
+// instead of template literals. JSX text doesn't apply JS escape processing, so
+// `\\cdot` reaches MathJax as two literal backslashes; MathJax parses `\\` as a
+// newline command and renders `cdot` as italic identifiers.
+//
+// Patch MathJax's TeX input `compile` step to collapse `\\X` -> `\X` before
+// parsing. This is the only point where ALL math (initial typeset, lazy-loaded
+// content, dynamic re-typesets) is guaranteed to pass through, so it's the
+// only place a fix can be both complete and race-free.
+function installEscapeHook(MJ) {
+  try {
+    const inputJax = MJ?.startup?.input?.[0]
+    if (!inputJax || typeof inputJax.compile !== 'function') return
+    if (inputJax.__escapeHookInstalled) return
+    const origCompile = inputJax.compile.bind(inputJax)
+    inputJax.compile = function (math, doc) {
+      if (math && typeof math.math === 'string' && /\\\\[A-Za-z]/.test(math.math)) {
+        math.math = math.math.replace(/\\\\(?=[A-Za-z])/g, '\\')
+      }
+      return origCompile(math, doc)
+    }
+    inputJax.__escapeHookInstalled = true
+  } catch {
+    // best-effort: if MathJax internals change shape, fall through silently;
+    // the learning-template DOM fallback still catches the bug post-render.
+  }
+}
+
 export function useMathJax(deps = [], enabled = true) {
   const settings = useSettings()
   const engine = settings.formulaRender || 'katex'
@@ -47,6 +75,11 @@ export function useMathJax(deps = [], enabled = true) {
     if (!effectiveEnabled) return
     // Check if already loaded
     if (window.MathJax?.typesetPromise) {
+      installEscapeHook(window.MathJax)
+      // Force a re-typeset so any mjx-containers rendered before the hook
+      // existed (e.g. on the very first page load of a session) get redone
+      // with the corrected source.
+      if (window.MathJax?.typesetClear) window.MathJax.typesetClear()
       setStatus('ready')
       typeset()
       return
@@ -85,6 +118,9 @@ export function useMathJax(deps = [], enabled = true) {
       startup: {
         typeset: true, // Auto-typeset on load
         ready: () => {
+          // Install the compile hook BEFORE defaultReady so the initial
+          // auto-typeset already sees corrected source.
+          installEscapeHook(window.MathJax)
           window.MathJax.startup.defaultReady()
           setStatus('ready')
         }
@@ -101,6 +137,9 @@ export function useMathJax(deps = [], enabled = true) {
     }
 
     document.head.appendChild(script)
+    // Bootstrap effect: configures MathJax once per session. Re-running on engine/speech changes
+    // would re-add the script tag; runtime config changes are handled by the re-typeset effect below.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effectiveEnabled])
 
   // Re-typeset when dependencies change
