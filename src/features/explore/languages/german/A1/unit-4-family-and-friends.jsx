@@ -4,7 +4,7 @@ const config = {
   cssPrefix: 'faf',
   documentTitle: 'Family and Friends: AETHER',
   learning: {
-    category: 'Unit 3',
+    category: 'Unit 4',
     title: 'Familie und Freunde',
     subtitle: 'Family members, possessive pronouns, marital status, and describing relationships',
     sections: [
@@ -12,24 +12,17 @@ const config = {
         <div id="lrn-section-0">
           <h2>Family Members</h2>
           <p>
-            Most German family words come in male-female pairs. The article tells you which is
-            which: <em>der Vater</em> (father) is masculine; <em>die Mutter</em> (mother) is
-            feminine. Knowing one pair helps you learn the next.
+            Every German noun (a word for a person or thing) has a gender. Gender here is just a
+            label, not a statement about the real world. There are three: masculine (<em>der</em>),
+            feminine (<em>die</em>), and neuter (<em>das</em>). Plural words almost always use{' '}
+            <em>die</em>.
           </p>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              German often pairs male and female family members. Given that <em>der Vater</em> means
-              "father", what do you think <em>die Mutter</em> means?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <em>die Mutter</em> means "mother".
-              </p>
-              <p>Family nouns in German match the biological gender of the person they describe.</p>
-            </details>
-          </div>
+          <p>
+            Many family words come in male-female pairs, and these often match the person:{' '}
+            <em>der Vater</em> (father) is masculine, <em>die Mutter</em> (mother) is feminine. But
+            not always. <em>das Kind</em> (the child) is neuter, even though a child is a boy or a
+            girl. So learn each word together with its article.
+          </p>
           <div className="lrn-table">
             <table>
               <thead>
@@ -143,16 +136,58 @@ const config = {
                   <td>neighbour (female)</td>
                   <td>Nachbarinnen</td>
                 </tr>
+                <tr>
+                  <td>Großvater</td>
+                  <td>der</td>
+                  <td>grandfather</td>
+                  <td>Großväter</td>
+                </tr>
+                <tr>
+                  <td>Großmutter</td>
+                  <td>die</td>
+                  <td>grandmother</td>
+                  <td>Großmütter</td>
+                </tr>
+                <tr>
+                  <td>Onkel</td>
+                  <td>der</td>
+                  <td>uncle</td>
+                  <td>Onkel</td>
+                </tr>
+                <tr>
+                  <td>Tante</td>
+                  <td>die</td>
+                  <td>aunt</td>
+                  <td>Tanten</td>
+                </tr>
+                <tr>
+                  <td>Cousin</td>
+                  <td>der</td>
+                  <td>cousin (male)</td>
+                  <td>Cousins</td>
+                </tr>
+                <tr>
+                  <td>Cousine</td>
+                  <td>die</td>
+                  <td>cousin (female)</td>
+                  <td>Cousinen</td>
+                </tr>
               </tbody>
             </table>
           </div>
+          <p>
+            Two words in the table are plural only: <em>die Eltern</em> (parents) and{' '}
+            <em>die Geschwister</em> (siblings). They have no singular form. You cannot say "one
+            parent" or "one sibling" with these words.
+          </p>
           <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+            <span className="lrn-elaborate-label">THE PLURAL UMLAUT</span>
             <p>
-              Several of these words change their vowel in the plural: a becomes ä, u becomes ü.
-              Those two dots are called an umlaut. <em>Vater</em> becomes <em>Väter</em>;{' '}
-              <em>Bruder</em> becomes <em>Brüder</em>. In dictionaries, the symbol ² marks this
-              pattern.
+              Several of these words change their vowel in the plural: a becomes ä, u becomes ü, o
+              becomes ö. Those two dots are called an umlaut. <em>Vater</em> becomes <em>Väter</em>;{' '}
+              <em>Bruder</em> becomes <em>Brüder</em>. Dictionaries do not use a special code for
+              this. They simply print the full plural with the two dots over the vowel, so you can
+              see the change at a glance.
             </p>
           </div>
         </div>
@@ -160,7 +195,10 @@ const config = {
       <>
         <div id="lrn-section-1">
           <h2>Possessive Pronouns</h2>
-          <p>Compare these two sentences:</p>
+          <p>
+            A possessive pronoun is a small word that shows who owns something, like <em>my</em>,{' '}
+            <em>your</em>, or <em>his</em>. Watch what happens with family words:
+          </p>
           <ul className="lrn-list">
             <li>
               <em>Das ist mein Vater.</em> = That is my father.
@@ -168,20 +206,16 @@ const config = {
             <li>
               <em>Das ist meine Mutter.</em> = That is my mother.
             </li>
+            <li>
+              <em>Das sind meine Eltern.</em> = Those are my parents.
+            </li>
           </ul>
           <p>
-            The possessive is "my" in both. In German it changes: <em>mein</em> before a masculine
-            noun, <em>meine</em> before a feminine noun. The noun's gender, not the owner's, drives
-            the ending.
+            The possessive is "my" in all three. In German it changes with the noun: <em>mein</em>{' '}
+            before a masculine or neuter noun, <em>meine</em> before a feminine or plural noun. The
+            rule is simple: the noun's gender drives the ending, not the owner's. So with family
+            words you check the noun first, then pick <em>mein</em> or <em>meine</em>.
           </p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Every German noun has a grammatical gender. Any word placed before it, including
-              possessives, must reflect that gender in its ending. The owner's gender is irrelevant;
-              only the noun's gender matters.
-            </p>
-          </div>
           <div className="lrn-table">
             <table>
               <thead>
@@ -230,8 +264,9 @@ const config = {
             <span className="lrn-callout-label">Watch out: ihr vs. Ihr</span>
             <p>
               <strong>ihr</strong> (lowercase) has two jobs: it is the possessive for "her" (
-              <em>ihr Vater</em> = her father), and it is the personal pronoun for "you" when
-              addressing a group informally (introduced in Unit 2).
+              <em>ihr Vater</em> = her father), and it is the personal pronoun (a word that stands
+              in for a person, like <em>I</em> or <em>you</em>) for "you" when addressing a group
+              informally.
             </p>
             <p>
               <strong>Ihr</strong> (capitalised) is the formal "your".
@@ -241,15 +276,21 @@ const config = {
           <div className="lrn-callout lrn-tip">
             <span className="lrn-callout-label">Watch out: sein</span>
             <p>
-              <strong>sein</strong> is both a possessive pronoun (his) and the infinitive of the
-              verb "to be".
+              <strong>sein</strong> is both a possessive pronoun (his) and the infinitive (the
+              basic, unchanged form) of the verb "to be".
             </p>
             <p>Context tells you which meaning applies.</p>
           </div>
           <h3>The Negative Article kein</h3>
           <p>
-            <strong>kein / keine</strong> means "no" or "not any". It negates the indefinite article
-            and follows the same pattern as <strong>ein / eine</strong>:
+            First, a quick recall. <strong>ein / eine</strong> is the indefinite article: the word
+            for "a" or "an". You say <em>ein Bruder</em> (a brother) and <em>eine Schwester</em> (a
+            sister). German marks gender here too: <em>ein</em> before a masculine or neuter noun,{' '}
+            <em>eine</em> before a feminine noun.
+          </p>
+          <p>
+            <strong>kein / keine</strong> means "no" or "not any". It is the "no" form of{' '}
+            <strong>ein / eine</strong> (it makes the noun negative) and follows the same pattern:
           </p>
           <div className="lrn-table">
             <table>
@@ -282,14 +323,17 @@ const config = {
               </tbody>
             </table>
           </div>
+          <p>
+            In a full sentence: <em>Das ist kein Bruder.</em> = That is not a brother.
+          </p>
         </div>
       </>,
       <>
         <div id="lrn-section-2">
           <h2>Marital Status</h2>
           <p>
-            Three adjectives cover most situations. They do not change their ending regardless of
-            who you are describing.
+            Three adjectives (describing words) cover most situations. They do not change their
+            ending, no matter who you describe.
           </p>
           <div className="lrn-table">
             <table>
@@ -347,7 +391,7 @@ const config = {
     },
     {
       q: 'What is the article and plural of "daughter"?',
-      a: 'die Tochter, Töchter. Article: die (feminine). Plural adds umlaut: Töchter. The ² symbol in dictionaries signals this umlaut pattern.'
+      a: 'die Tochter, Töchter. Article: die (feminine). The plural adds an umlaut: the two dots over the vowel. Tochter becomes Töchter.'
     },
     {
       q: 'What is the possessive pronoun for "his" before a masculine noun?',
@@ -355,7 +399,7 @@ const config = {
     },
     {
       q: 'Which two German family words exist only in the plural?',
-      a: 'die Eltern (parents) and die Geschwister (siblings). Neither has a singular form, you cannot say "eine Elter" or "ein Geschwister" in standard German.'
+      a: 'die Eltern (parents) and die Geschwister (siblings). Neither has a singular form. You cannot say "eine Elter" or "ein Geschwister" in standard German.'
     },
     {
       q: 'Translate: "This is my wife."',
@@ -363,11 +407,11 @@ const config = {
     },
     {
       q: 'What is "kein / keine" and how does it work?',
-      a: 'kein/keine = no, not any. It negates a noun with an indefinite article. kein (m/n): kein Freund (no male friend). keine (f/Pl.): keine Freundin (no female friend).'
+      a: 'kein/keine = no, not any. It is the "no" form of ein/eine, it makes a noun negative. kein before a masculine or neuter noun: kein Freund (no male friend). keine before a feminine or plural noun: keine Freundin (no female friend).'
     },
     {
       q: 'What is the difference between "ihr" (lowercase) and "Ihr" (capitalised)?',
-      a: 'ihr (lowercase) = her (possessive, 3rd person singular feminine) OR you (informal plural pronoun). Ihr (capitalised) = your (formal possessive). Context and capitalisation distinguish them.'
+      a: 'ihr (lowercase) = her (the possessive, as in ihr Vater = her father) OR you (when speaking to a group of friends). Ihr (capitalised) = your (formal). Context and capitalisation distinguish them.'
     }
   ],
   reference: {
@@ -375,191 +419,43 @@ const config = {
     title: 'Familie und Freunde',
     sections: [
       <>
-        <h2>Family</h2>
+        <h2>Key Pairs and Rules</h2>
         <div className="lrn-table">
           <table>
             <thead>
               <tr>
-                <th>German</th>
-                <th>Article</th>
-                <th>English</th>
-                <th>Plural</th>
+                <th>Topic</th>
+                <th>Quick rule</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>Vater</td>
-                <td>der</td>
-                <td>father</td>
-                <td>Väter</td>
+                <td>Three genders</td>
+                <td>der (m), die (f), das (n). The article is part of the word.</td>
               </tr>
               <tr>
-                <td>Mutter</td>
-                <td>die</td>
-                <td>mother</td>
-                <td>Mütter</td>
+                <td>Plural article</td>
+                <td>Almost every plural uses die.</td>
               </tr>
               <tr>
-                <td>Sohn</td>
-                <td>der</td>
-                <td>son</td>
-                <td>Söhne</td>
+                <td>Umlaut plural</td>
+                <td>a → ä, u → ü, o → ö. Vater → Väter, Mutter → Mütter.</td>
               </tr>
               <tr>
-                <td>Tochter</td>
-                <td>die</td>
-                <td>daughter</td>
-                <td>Töchter</td>
+                <td>Plural-only words</td>
+                <td>die Eltern (parents), die Geschwister (siblings). No singular.</td>
               </tr>
               <tr>
-                <td>Bruder</td>
-                <td>der</td>
-                <td>brother</td>
-                <td>Brüder</td>
+                <td>Possessive</td>
+                <td>mein before m/n noun, meine before f/plural noun.</td>
               </tr>
               <tr>
-                <td>Schwester</td>
-                <td>die</td>
-                <td>sister</td>
-                <td>Schwestern</td>
+                <td>kein / keine</td>
+                <td>The "no" form of ein / eine. kein Bruder, keine Schwester.</td>
               </tr>
               <tr>
-                <td>Eltern</td>
-                <td>die</td>
-                <td>parents</td>
-                <td>plural only</td>
-              </tr>
-              <tr>
-                <td>Geschwister</td>
-                <td>die</td>
-                <td>siblings</td>
-                <td>plural only</td>
-              </tr>
-              <tr>
-                <td>Kind</td>
-                <td>das</td>
-                <td>child</td>
-                <td>Kinder</td>
-              </tr>
-              <tr>
-                <td>Mann</td>
-                <td>der</td>
-                <td>man / husband</td>
-                <td>Männer</td>
-              </tr>
-              <tr>
-                <td>Frau</td>
-                <td>die</td>
-                <td>woman / wife</td>
-                <td>Frauen</td>
-              </tr>
-              <tr>
-                <td>Ehepartner</td>
-                <td>der</td>
-                <td>spouse (m)</td>
-                <td>Ehepartner</td>
-              </tr>
-              <tr>
-                <td>Ehepartnerin</td>
-                <td>die</td>
-                <td>spouse (f)</td>
-                <td>Ehepartnerinnen</td>
-              </tr>
-              <tr>
-                <td>Freund</td>
-                <td>der</td>
-                <td>friend (m)</td>
-                <td>Freunde</td>
-              </tr>
-              <tr>
-                <td>Freundin</td>
-                <td>die</td>
-                <td>friend (f)</td>
-                <td>Freundinnen</td>
-              </tr>
-              <tr>
-                <td>Nachbar</td>
-                <td>der</td>
-                <td>neighbour (m)</td>
-                <td>Nachbarn</td>
-              </tr>
-              <tr>
-                <td>Nachbarin</td>
-                <td>die</td>
-                <td>neighbour (f)</td>
-                <td>Nachbarinnen</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Possessive Pronouns</h2>
-        <div className="lrn-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Owner</th>
-                <th>m/n noun</th>
-                <th>f/Pl. noun</th>
-                <th>English</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ich</td>
-                <td>mein</td>
-                <td>meine</td>
-                <td>my</td>
-              </tr>
-              <tr>
-                <td>du</td>
-                <td>dein</td>
-                <td>deine</td>
-                <td>your (informal)</td>
-              </tr>
-              <tr>
-                <td>er</td>
-                <td>sein</td>
-                <td>seine</td>
-                <td>his</td>
-              </tr>
-              <tr>
-                <td>sie</td>
-                <td>ihr</td>
-                <td>ihre</td>
-                <td>her</td>
-              </tr>
-              <tr>
-                <td>Sie</td>
-                <td>Ihr</td>
-                <td>Ihre</td>
-                <td>your (formal)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Marital Status</h2>
-        <div className="lrn-table">
-          <table>
-            <thead>
-              <tr>
-                <th>German</th>
-                <th>English</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ledig</td>
-                <td>single / unmarried</td>
-              </tr>
-              <tr>
-                <td>verheiratet</td>
-                <td>married</td>
-              </tr>
-              <tr>
-                <td>geschieden</td>
-                <td>divorced</td>
+                <td>Marital status</td>
+                <td>ledig (single), verheiratet (married), geschieden (divorced).</td>
               </tr>
             </tbody>
           </table>

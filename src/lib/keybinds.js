@@ -4,13 +4,19 @@ export const KEYBIND_ACTIONS = [
   {
     id: 'open-settings',
     label: 'Open settings',
-    defaultCombo: 'Control',
-    global: true,
-    hidden: true
+    // A real chord, not a bare modifier. A lone-Control bind only fires if the
+    // OS and browser deliver a clean Control keyup with no key in between, and
+    // a tap of a lone modifier is routinely eaten upstream (IME and
+    // keyboard-layout switchers claim it), so it silently does nothing on some
+    // machines. Tapping Control still works (see use-keybinds) but is a bonus,
+    // never the only way in.
+    defaultCombo: 'Mod+,',
+    global: true
   },
   { id: 'search', label: 'Search', defaultCombo: '/', global: true },
   { id: 'explore', label: 'Explore', defaultCombo: 'g e' },
   { id: 'library', label: 'Library', defaultCombo: 'g l' },
+  { id: 'focus-sidebar', label: 'Focus sidebar', defaultCombo: 'Mod+\\', global: true },
   { id: 'focus-mode', label: 'Focus mode', defaultCombo: 'f' },
   { id: 'next-lesson', label: 'Next lesson', defaultCombo: 'j' },
   { id: 'prev-lesson', label: 'Previous lesson', defaultCombo: 'k' },
@@ -98,18 +104,36 @@ export function matchEvent(combo, e, seqIndex) {
   return 'partial'
 }
 
+// A modifier pressed and released on its own, e.g. "Control". Such a bind can
+// only resolve on release: while the key is still down there is no way to know
+// whether a chord is coming. The dispatcher fires these as a tap; the ordinary
+// keydown matcher below deliberately refuses them (stepMatches returns false on
+// an empty key), so the two paths cannot both claim the same press.
+export const MODIFIER_EVENT_KEYS = { Control: 'Ctrl', Alt: 'Alt', Shift: 'Shift', Meta: 'Meta' }
+
+export function bareModifier(str) {
+  if (!str) return null
+  const steps = str.split(/\s+/).filter(Boolean)
+  if (steps.length !== 1) return null
+  const parts = steps[0].split('+').filter(Boolean)
+  if (parts.length !== 1) return null
+  return MOD_TOKENS.has(parts[0]) ? normalizeMod(parts[0]) : null
+}
+
 // Build a combo string from a captured KeyboardEvent (used by remap input).
 export function eventToCombo(e) {
+  // A lone modifier is a legal bind: it becomes a tap. Return it verbatim so
+  // "Control" round-trips through parseCombo as a bare-modifier step.
+  if (MODIFIER_EVENT_KEYS[e.key]) return e.key
+
   const parts = []
   if (e.metaKey) parts.push(isMac ? 'Mod' : 'Meta')
   if (e.ctrlKey) parts.push(isMac ? 'Ctrl' : 'Mod')
   if (e.altKey) parts.push('Alt')
   // For non-printable keys (Escape, Enter, Arrow*, Tab, F1...), keep as-is.
   // For printable keys, take e.key directly so shifted glyphs (>, <, ?) survive.
-  let key = e.key
-  if (!key || key === 'Shift' || key === 'Control' || key === 'Meta' || key === 'Alt') {
-    return null
-  }
+  const key = e.key
+  if (!key) return null
   parts.push(key)
   return parts.join('+')
 }
@@ -126,21 +150,32 @@ const KEY_DISPLAY = {
   Tab: 'Tab'
 }
 
+// Display tokens for a combo. Keys are separated by an explicit '+' inside a
+// step and 'then' between steps: without the '+', a chord ("Ctrl+,") renders as
+// two loose chips and reads as two independent bindings. Both separators are
+// rendered as separators, not as keys.
+export const COMBO_SEPARATORS = new Set(['+', 'then'])
+
 export function comboTokens(str) {
   if (!str) return []
   const tokens = []
   const steps = str.split(/\s+/).filter(Boolean)
   steps.forEach((step, i) => {
     const parts = step.split('+').filter(Boolean)
+    const keys = []
     parts.forEach(p => {
-      if (p === 'Mod' || p === 'Meta' || p === 'Ctrl' || p === 'Control') tokens.push('Ctrl')
-      else if (p === 'Alt' || p === 'Option') tokens.push('Alt')
-      else if (p === 'Shift') tokens.push('Shift')
-      else if (KEY_DISPLAY[p]) tokens.push(KEY_DISPLAY[p])
+      if (p === 'Mod' || p === 'Meta' || p === 'Ctrl' || p === 'Control') keys.push('Ctrl')
+      else if (p === 'Alt' || p === 'Option') keys.push('Alt')
+      else if (p === 'Shift') keys.push('Shift')
+      else if (KEY_DISPLAY[p]) keys.push(KEY_DISPLAY[p])
       else if (p.length === 1 && p !== p.toLowerCase()) {
-        tokens.push('Shift')
-        tokens.push(p.toUpperCase())
-      } else tokens.push(p.length === 1 ? p.toUpperCase() : p)
+        keys.push('Shift')
+        keys.push(p.toUpperCase())
+      } else keys.push(p.length === 1 ? p.toUpperCase() : p)
+    })
+    keys.forEach((k, ki) => {
+      if (ki > 0) tokens.push('+')
+      tokens.push(k)
     })
     if (i < steps.length - 1) tokens.push('then')
   })

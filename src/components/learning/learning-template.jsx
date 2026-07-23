@@ -1,7 +1,6 @@
 import {
   lazy,
   Suspense,
-  useContext,
   useEffect,
   useLayoutEffect,
   useState,
@@ -10,17 +9,18 @@ import {
   useMemo,
   useTransition
 } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useMathJax } from '../../hooks/use-mathjax'
 import { useTheme } from '../../hooks/use-theme'
 import { useSettings } from '../../hooks/use-settings'
+import { useBookmarks } from '../../hooks/use-bookmarks'
 import {
   resourceMetadata,
   slugToIndex,
   categoryStructure,
-  topicComponentMap
+  topicComponentMap,
+  resourceContent
 } from '../../config/registry'
-import { TopicMetaContext } from '../home/topic-meta-context'
 import { effectiveCombo, comboTokens } from '../../lib/keybinds'
 import ErrorBoundary from '../layout/error-boundary'
 import LearningSidebar from './learning-sidebar'
@@ -28,6 +28,7 @@ import KeyboardCheatsheet from './keyboard-cheatsheet'
 import { useFSRS } from '../../hooks/use-fsrs'
 import './learning-template.css'
 import './topic-page.css'
+import { FONT_TINY } from '../viz/scale-tokens'
 
 const DOMAIN_COLOR = {
   mathematics: 'var(--domain-mathematics)',
@@ -79,6 +80,16 @@ function resolveDomain(domainId) {
 const LearningMode = lazy(() => import('./learning-mode'))
 const SolvingMode = lazy(() => import('./solving-mode'))
 const ReferenceMode = lazy(() => import('./reference-mode'))
+
+// Sibling inside <Suspense> - fires useEffect only after the lazy component in
+// the same boundary has resolved and committed, so modesCount is incremented
+// only once the mode's DOM is actually present for MathJax to typeset.
+function ModeNotifier({ onMounted }) {
+  useEffect(() => {
+    onMounted()
+  }, [onMounted])
+  return null
+}
 
 function checkHasMath(config) {
   const check = str => typeof str === 'string' && str.includes('$')
@@ -146,7 +157,6 @@ function normalizeLatexEscapes(root) {
 }
 
 export function LearningTemplate({ config }) {
-  const { unitTitle } = useContext(TopicMetaContext)
   const ltSettings = useSettings()
   const availableTabs = [
     config.learning && ['learn', 'Learning'],
@@ -159,12 +169,34 @@ export function LearningTemplate({ config }) {
   const [underlineStyle, setUnderlineStyle] = useState({})
   const [loaded, setLoaded] = useState(false)
   const [copied, setCopied] = useState(false)
-  const [contentReady, setContentReady] = useState(false)
+  const [typesetReady, setTypesetReady] = useState(false)
+  const [modesCount, setModesCount] = useState(0)
   const [shortcuts, setShortcuts] = useState(
     () => localStorage.getItem('aether-shortcuts') !== 'false'
   )
   const [isReaderOpen, setIsReaderOpen] = useState(false)
   const [activeSectionIndex, setActiveSectionIndex] = useState(0)
+  const [sectionTitles, setSectionTitles] = useState([])
+
+  // Bookmarks are keyed by the registry slug, and every topic route is exactly
+  // "/" + that slug, so the path is the key.
+  const { pathname } = useLocation()
+  const routeSlug = pathname.replace(/^\//, '')
+  const { isBookmarked, toggleBookmark } = useBookmarks()
+  const saved = isBookmarked(routeSlug)
+
+  // The sections the reader actually gets. A page may declare them directly as
+  // learning.sections, or as units[].cards[] — LearningMode renders both, so the
+  // sidebar and the scroll-spy have to resolve them the same way or a units-based
+  // page renders sections that nothing can see (empty SECTIONS list, no tracking).
+  const learnSections = useMemo(() => {
+    if (config.learning?.sections?.length) return config.learning.sections
+    if (config.units)
+      return config.units.flatMap(u =>
+        (u.cards || []).map(c => ({ title: c.title, content: c.content }))
+      )
+    return []
+  }, [config.learning?.sections, config.units])
   const [practiceProgress, setPracticeProgress] = useState({ index: 0, total: 0 })
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [focusMode, setFocusMode] = useState(false)
@@ -189,10 +221,20 @@ export function LearningTemplate({ config }) {
   const nav = useNavigate()
   const { cssPrefix, documentTitle } = config
 
-  // Resolve breadcrumb crumbs from the registry: topic → parentSlug → resource → category.
-  // This produces a uniform 4-level path (EXPLORE / category / resource / topic) regardless
-  // of whether the URL is /explore/... or /library/..., URL params are not consulted.
-  const parentSlug = topicComponentMap[config.learning.title]?.parentSlug || null
+  // Resolve breadcrumb crumbs from the URL slug, NOT the page title. The URL
+  // pathname always equals "/" + the registry slug, whereas config.learning.title
+  // can drift from the topicComponentMap key (it had for ~32 topics, collapsing
+  // their breadcrumb to "EXPLORE / topic"). Match the entry by slug, fall back to
+  // dropping the last path segment. Produces a uniform 4-level path
+  // (EXPLORE / category / resource / topic) for both /explore/… and /library/… URLs.
+  const parentSlug = useMemo(() => {
+    const slug = pathname.replace(/^\/+/, '').replace(/\/+$/, '')
+    if (!slug) return null
+    const entry = Object.values(topicComponentMap).find(e => e.slug === slug)
+    if (entry?.parentSlug) return entry.parentSlug
+    const segs = slug.split('/')
+    return segs.length > 1 ? segs.slice(0, -1).join('/') : null
+  }, [pathname])
   const resourceInfo = useMemo(() => {
     if (!parentSlug) return null
     return resourceMetadata[slugToIndex[parentSlug]] || null
@@ -200,13 +242,44 @@ export function LearningTemplate({ config }) {
   const categoryId = resourceInfo?.category || null
   const domainInfo = useMemo(() => resolveDomain(categoryId), [categoryId])
 
+  // Previous / next lesson, in the resource's curriculum order. resourceContent
+  // defines explicit ordered topic arrays per unit (object key order is NOT
+  // reliable); flatten across units so the pager flows seamlessly between them.
+  // Same source the j/k keyboard nav uses in topic-standalone.jsx.
+  const pager = useMemo(() => {
+    const slug = pathname.replace(/^\/+/, '').replace(/\/+$/, '')
+    if (!slug) return null
+    const entry = Object.entries(topicComponentMap).find(([, v]) => v.slug === slug)
+    if (!entry) return null
+    const [title, cfg] = entry
+    const parent = resourceContent[cfg.parentSlug]
+    if (!parent?.units) return null
+    const titles = parent.units.flatMap(u =>
+      (u.topics || []).map(t => (typeof t === 'object' ? t.title : t))
+    )
+    const idx = titles.indexOf(title)
+    if (idx < 0) return null
+    const toLink = t => {
+      const s = topicComponentMap[t]?.slug
+      return s ? { title: t, slug: s } : null
+    }
+    return {
+      prev: idx > 0 ? toLink(titles[idx - 1]) : null,
+      next: idx < titles.length - 1 ? toLink(titles[idx + 1]) : null
+    }
+  }, [pathname])
+
   const hasMath = useMemo(() => checkHasMath(config), []) // eslint-disable-line react-hooks/exhaustive-deps
   const topicSlug = config.learning.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
   const { status: mathStatus, typeset, clear } = useMathJax([], hasMath)
   const fsrs = useFSRS(topicSlug, config.practice || [])
 
+  const expectedModes = availableTabs.length
+  const allModesMounted = modesCount >= expectedModes
+  const handleModeMounted = useCallback(() => setModesCount(n => n + 1), [])
+
   useEffect(() => {
-    document.title = documentTitle || config.learning.title + '/Aether'
+    document.title = documentTitle || config.learning.title + '/aether'
   }, [documentTitle, config.learning.title])
 
   useEffect(() => {
@@ -229,17 +302,28 @@ export function LearningTemplate({ config }) {
     }
   }, [hasMath, mathStatus, tab, typeset, clear])
 
-  // Skip MathJax gate entirely when no math in content
+  // Fire aether:typeset-ready once all modes are mounted and MathJax is done.
+  // 250ms delay ensures use-mathjax's own 100ms + 200ms auto-typeset passes complete first.
   useEffect(() => {
-    if (!hasMath) {
-      setContentReady(true)
+    if (!allModesMounted) return
+
+    function fire() {
+      window.dispatchEvent(new CustomEvent('aether:typeset-ready'))
+      setTypesetReady(true)
+    }
+
+    if (!hasMath || mathStatus === 'disabled' || mathStatus === 'error') {
+      fire()
       return
     }
-    if (mathStatus === 'ready') {
-      const timer = setTimeout(() => setContentReady(true), 400)
-      return () => clearTimeout(timer)
-    }
-  }, [mathStatus, hasMath])
+    if (mathStatus !== 'ready') return
+
+    const t = setTimeout(() => {
+      const p = typeset()
+      p ? p.then(fire) : fire()
+    }, 250)
+    return () => clearTimeout(t)
+  }, [allModesMounted, mathStatus, hasMath, typeset])
 
   useEffect(() => {
     if (navRef.current) {
@@ -290,22 +374,57 @@ export function LearningTemplate({ config }) {
     setDrawerOpen(false)
   }
 
-  // Track active section while reading
+  // Track active section while reading. Does NOT gate on typesetReady: the
+  // observer must attach as soon as the sections exist, even if MathJax is slow
+  // or fails. typesetReady stays in the deps only so positions recompute once
+  // math typesetting settles section heights.
   useEffect(() => {
-    if (tab !== 'learn' || !contentReady) return
-    const sectionCount = config.learning?.sections?.length || 0
+    if (tab !== 'learn') return
+    const sectionCount = learnSections.length
     if (sectionCount === 0) return
 
-    const findActive = () => {
-      const threshold = window.innerHeight * 0.35
-      let active = 0
-      for (let i = 0; i < sectionCount; i++) {
-        const el = document.getElementById(`lrn-section-${i}`)
-        if (!el) continue
-        if (el.getBoundingClientRect().top <= threshold) active = i
+    // Active section = the last one whose top has crossed a "trip line" at 35%
+    // of viewport height. A thin observation band there fires the recompute off
+    // the scroll thread (no scroll-linked layout); the band must NOT be 0px tall
+    // (-35%/-65% sums to 100% → zero-area root → isIntersecting never true).
+    //
+    // Two cases the trip line alone cannot see, both handled below:
+    //   1. At the bottom of the page a short final section may never reach the
+    //      line (the scroll runs out first), so it could never go active.
+    //   2. The observer only fires when a top crosses the band. Scrolling the
+    //      last stretch to the bottom crosses nothing, so nothing recomputes.
+    let els = []
+    const recompute = () => {
+      if (!els.length) return
+      const doc = document.documentElement
+      const atBottom = window.scrollY + window.innerHeight >= doc.scrollHeight - 2
+      if (atBottom) {
+        setActiveSectionIndex(els.length - 1)
+        return
+      }
+      const line = window.innerHeight * 0.35
+      let idx = 0
+      for (let i = 0; i < els.length; i++) {
+        if (els[i].getBoundingClientRect().top <= line) idx = i
         else break
       }
-      setActiveSectionIndex(active)
+      setActiveSectionIndex(idx)
+    }
+
+    const observer = new IntersectionObserver(recompute, {
+      rootMargin: '-35% 0px -60% 0px',
+      threshold: 0
+    })
+
+    // Coalesced to one measurement per frame; passive, so it never blocks scroll.
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        ticking = false
+        recompute()
+      })
     }
 
     let rafId
@@ -314,16 +433,33 @@ export function LearningTemplate({ config }) {
         rafId = requestAnimationFrame(trySetup)
         return
       }
-      findActive()
-      window.addEventListener('scroll', findActive, { passive: true })
+      els = []
+      for (let i = 0; i < sectionCount; i++) {
+        const el = document.getElementById(`lrn-section-${i}`)
+        if (el) {
+          els.push(el)
+          observer.observe(el)
+        }
+      }
+      // Label each section from its rendered heading. Reading the DOM (rather
+      // than walking the JSX tree) is the only way to see a heading that a child
+      // component renders: a static walk finds the element, not its output, and
+      // silently falls back to "Section N".
+      setSectionTitles(els.map(el => el.querySelector('h1, h2, h3')?.textContent?.trim() || null))
+      recompute()
     }
     rafId = requestAnimationFrame(trySetup)
 
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+
     return () => {
       cancelAnimationFrame(rafId)
-      window.removeEventListener('scroll', findActive)
+      observer.disconnect()
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
     }
-  }, [tab, contentReady, config.learning?.sections?.length])
+  }, [tab, typesetReady, learnSections.length])
 
   const toggleShortcuts = useCallback(() => {
     setShortcuts(prev => {
@@ -356,7 +492,9 @@ export function LearningTemplate({ config }) {
         setIsReaderOpen(prev => !prev)
         return
       }
-      if ((e.ctrlKey || e.metaKey) && key === 's') {
+      // The topbar advertises Ctrl P for "download as PDF", so bind it. Ctrl S
+      // stays bound for the muscle memory it already built.
+      if ((e.ctrlKey || e.metaKey) && (key === 's' || key === 'p')) {
         e.preventDefault()
         window.print()
         return
@@ -523,32 +661,6 @@ export function LearningTemplate({ config }) {
     )
   }
 
-  if (!contentReady) {
-    return (
-      <div
-        className={`lt ${cssPrefix}`}
-        style={{
-          minHeight: '100vh',
-          background: 'var(--bg)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'var(--text-secondary)',
-          fontFamily: 'var(--reader-font-family)',
-          fontSize: '14px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em'
-        }}
-      >
-        {mathStatus === 'loading'
-          ? 'Loading...'
-          : mathStatus === 'error'
-            ? 'Error loading content'
-            : 'Preparing content...'}
-      </div>
-    )
-  }
-
   const resourceTitle = resourceInfo?.title || config.learning.title
   const moduleTitle = config.learning.title
 
@@ -557,7 +669,8 @@ export function LearningTemplate({ config }) {
     availableTabs,
     onTabChange: handleTabChange,
     onTabKeyDown: handleTabKeyDown,
-    sections: config.learning?.sections || [],
+    sections: learnSections,
+    sectionTitles,
     activeSectionIndex,
     onSectionClick: handleSectionClick,
     practiceProgress,
@@ -569,7 +682,7 @@ export function LearningTemplate({ config }) {
   }
 
   return (
-    <div className={`lt-shell${focusMode ? ' focus-mode' : ''}`}>
+    <div className={`lt-shell${focusMode ? ' focus-mode' : ''}`} data-typeset-host="learning">
       <LearningSidebar {...sidebarProps} />
       <LearningSidebar
         {...sidebarProps}
@@ -748,6 +861,27 @@ export function LearningTemplate({ config }) {
                   )}
                 </button>
               )}
+              {/* Icon-only, to match every other control in this toolbar. The
+                  state is carried by the fill (☆ outline -> ★ filled) plus ink
+                  weight, both clearing 3:1; the meaning is carried by the
+                  accessible name, which is the only thing a screen reader gets. */}
+              <button
+                type="button"
+                className={`lv-topbar-icon lv-topbar-save${saved ? ' on' : ''}`}
+                onClick={() => toggleBookmark(routeSlug)}
+                aria-pressed={saved}
+                aria-label={saved ? 'Remove from saved' : 'Save this topic'}
+                title={saved ? 'Remove from saved' : 'Save this topic'}
+              >
+                <span className="lv-topbar-star" aria-hidden="true">
+                  {saved ? '★' : '☆'}
+                </span>
+                {ltSettings.topbarShowHints && (
+                  <span className="lv-topbar-hint">
+                    {comboTokens(effectiveCombo('bookmark', ltSettings.keybinds)).join(' ')}
+                  </span>
+                )}
+              </button>
               {ltSettings.topbarShowSettings && (
                 <button
                   type="button"
@@ -761,21 +895,18 @@ export function LearningTemplate({ config }) {
                     <circle cx="12" cy="12" r="3" />
                     <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09a1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06a1.65 1.65 0 001.82.33h0a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51h0a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82v0a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
                   </svg>
-                  {ltSettings.topbarShowHints && <span className="lv-topbar-hint">Ctrl</span>}
+                  {ltSettings.topbarShowHints && (
+                    <span className="lv-topbar-hint">
+                      {comboTokens(effectiveCombo('open-settings', ltSettings.keybinds))
+                        .filter(t => t !== '+')
+                        .join(' ')}
+                    </span>
+                  )}
                 </button>
               )}
             </div>
           )}
         </header>
-
-        <section className="lv-masthead">
-          <h1 className="lv-title">
-            {unitTitle || config.learning.groupTitle || config.learning.title}
-          </h1>
-          {(config.learning.groupSubtitle || config.learning.subtitle) && (
-            <p className="lv-lead">{config.learning.groupSubtitle || config.learning.subtitle}</p>
-          )}
-        </section>
 
         <nav className="lt-nav" aria-label="Learning modes" hidden>
           <button className="lt-back" onClick={() => nav(-1)} aria-label="Go back" title="Go back">
@@ -834,10 +965,9 @@ export function LearningTemplate({ config }) {
                   <span className="lt-reader-label">Theme</span>
                   <div className="lt-reader-theme-swatches">
                     {[
-                      { id: 'dark', bg: '#18181b', label: 'Dark' },
+                      { id: 'dark', bg: '#000000', label: 'Dark' },
                       { id: 'light', bg: '#fafaf8', label: 'Light' },
-                      { id: 'sepia', bg: '#f4ecd8', label: 'Sepia' },
-                      { id: 'high-contrast', bg: '#000000', label: 'Hi-Con' }
+                      { id: 'sepia', bg: '#f4ecd8', label: 'Sepia' }
                     ].map(({ id, bg, label }) => (
                       <div
                         key={id}
@@ -858,7 +988,7 @@ export function LearningTemplate({ config }) {
                         <span
                           style={{
                             fontFamily: 'var(--reader-font-family)',
-                            fontSize: 8,
+                            fontSize: FONT_TINY,
                             textTransform: 'uppercase',
                             letterSpacing: '0.08em',
                             color: theme === id ? 'var(--text-primary)' : 'var(--text-tertiary)'
@@ -984,22 +1114,110 @@ export function LearningTemplate({ config }) {
         </nav>
 
         <main id="main-content">
-          <div role="tabpanel" id={`${tab}-panel`} aria-labelledby={`${tab}-tab`}>
-            <ErrorBoundary level="content" resetKeys={[tab]} onReset={() => handleTabChange(tab)}>
-              <Suspense fallback={null}>
-                {tab === 'learn' && <LearningMode config={config} hasMath={hasMath} />}
-                {tab === 'solve' && (
-                  <SolvingMode
-                    config={config}
-                    topicSlug={topicSlug}
-                    hasMath={hasMath}
-                    onProgress={setPracticeProgress}
-                  />
-                )}
-                {tab === 'cheat' && <ReferenceMode config={config} hasMath={hasMath} />}
-              </Suspense>
-            </ErrorBoundary>
-          </div>
+          {availableTabs.map(([id]) => {
+            const isActive = tab === id
+            const style = isActive
+              ? undefined
+              : typesetReady
+                ? { display: 'none' }
+                : {
+                    visibility: 'hidden',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: 0,
+                    overflow: 'hidden',
+                    pointerEvents: 'none',
+                    zIndex: -1
+                  }
+            return (
+              <div
+                key={id}
+                role="tabpanel"
+                id={`${id}-panel`}
+                aria-labelledby={`${id}-tab`}
+                style={style}
+              >
+                <ErrorBoundary level="content" resetKeys={[id]} onReset={() => handleTabChange(id)}>
+                  <Suspense fallback={null}>
+                    <ModeNotifier onMounted={handleModeMounted} />
+                    {id === 'learn' && (
+                      <LearningMode
+                        config={
+                          config.learning?.sections?.length || !config.units
+                            ? config
+                            : {
+                                ...config,
+                                learning: {
+                                  ...config.learning,
+                                  sections: config.units.flatMap(u =>
+                                    (u.cards || []).map(c => ({
+                                      title: c.title,
+                                      content: c.content
+                                    }))
+                                  )
+                                }
+                              }
+                        }
+                        hasMath={hasMath}
+                      />
+                    )}
+                    {id === 'solve' && (
+                      <SolvingMode
+                        config={config}
+                        topicSlug={topicSlug}
+                        hasMath={hasMath}
+                        onProgress={setPracticeProgress}
+                        active={isActive}
+                      />
+                    )}
+                    {id === 'cheat' && <ReferenceMode config={config} hasMath={hasMath} />}
+                  </Suspense>
+                </ErrorBoundary>
+              </div>
+            )
+          })}
+          {tab === 'learn' && pager && (pager.prev || pager.next) && (
+            <nav className="lt-pager" aria-label="Lesson navigation">
+              {pager.prev ? (
+                <button
+                  type="button"
+                  className="lt-pager-link prev"
+                  onClick={() => nav(`/${pager.prev.slug}`)}
+                  aria-label={`Previous lesson: ${pager.prev.title}`}
+                >
+                  <span className="lt-pager-arrow" aria-hidden="true">
+                    {'←'}
+                  </span>
+                  <span className="lt-pager-text">
+                    <span className="lt-pager-dir">Previous</span>
+                    <span className="lt-pager-title">{pager.prev.title}</span>
+                  </span>
+                </button>
+              ) : (
+                <span className="lt-pager-spacer" />
+              )}
+              {pager.next ? (
+                <button
+                  type="button"
+                  className="lt-pager-link next"
+                  onClick={() => nav(`/${pager.next.slug}`)}
+                  aria-label={`Next lesson: ${pager.next.title}`}
+                >
+                  <span className="lt-pager-text">
+                    <span className="lt-pager-dir">Next</span>
+                    <span className="lt-pager-title">{pager.next.title}</span>
+                  </span>
+                  <span className="lt-pager-arrow" aria-hidden="true">
+                    {'→'}
+                  </span>
+                </button>
+              ) : (
+                <span className="lt-pager-spacer" />
+              )}
+            </nav>
+          )}
         </main>
       </div>
       <KeyboardCheatsheet

@@ -35,15 +35,6 @@ export function rk4Integrate(f, y0, t0, t1, N = 1) {
   return y
 }
 
-export function verletStep(accelFn, t, y, v, dt) {
-  const a0 = accelFn(t, y, v)
-  const yNext = y.map((yi, i) => yi + v[i] * dt + 0.5 * a0[i] * dt * dt)
-  const vMid = v.map((vi, i) => vi + 0.5 * a0[i] * dt)
-  const a1 = accelFn(t + dt, yNext, vMid)
-  const vNext = vMid.map((vmi, i) => vmi + 0.5 * a1[i] * dt)
-  return [yNext, vNext]
-}
-
 export function useSimulation(initialState, step, opts = {}) {
   const { running = false, speed = 1, dtMax = 0.02 } = opts
   const [state, setState] = React.useState(initialState)
@@ -51,6 +42,12 @@ export function useSimulation(initialState, step, opts = {}) {
   const stateRef = React.useRef(state)
   stateRef.current = state
   const reduced = useReducedMotion()
+  // HOUSE RULE (reduced motion): suppress SELF-STARTING motion only. A sim that
+  // mounts with playing=true stays frozen; once `playing` changes (the user
+  // pressed PLAY/PAUSE) the explicit gesture overrides the preference.
+  const mountPlayingRef = React.useRef(playing)
+  const userActedRef = React.useRef(false)
+  if (playing !== mountPlayingRef.current) userActedRef.current = true
   React.useEffect(() => {
     if (!playing) return
     let raf = 0
@@ -58,7 +55,7 @@ export function useSimulation(initialState, step, opts = {}) {
     const loop = now => {
       let dt = Math.min((now - last) / 1000, 0.05) * speed
       last = now
-      if (reduced) dt = 0
+      if (reduced && !userActedRef.current) dt = 0
       const sub = Math.max(1, Math.ceil(dt / dtMax))
       const ddt = dt / sub
       let s = stateRef.current
@@ -73,14 +70,10 @@ export function useSimulation(initialState, step, opts = {}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playing, speed, reduced])
   const reset = React.useCallback(() => {
+    stateRef.current = initialState
     setState(initialState)
   }, [initialState])
   return [state, setState, { playing, setPlaying, reset }]
-}
-
-export function useResetKey() {
-  const [k, setK] = React.useState(0)
-  return [k, () => setK(v => v + 1)]
 }
 
 // Vector helpers (2D / 3D)
@@ -147,26 +140,6 @@ export const Q = {
     const dq = Q.mul(om, q)
     return [0.5 * dq[0], 0.5 * dq[1], 0.5 * dq[2], 0.5 * dq[3]]
   }
-}
-
-export function rigidBodyStep(state, dt, torqueWorldFn = () => [0, 0, 0]) {
-  const { q, Lw, Ibody } = state
-  const qInv = [q[0], -q[1], -q[2], -q[3]]
-  const Lbody = Q.rotate(qInv, Lw)
-  const omegaBody = [Lbody[0] / Ibody[0], Lbody[1] / Ibody[1], Lbody[2] / Ibody[2]]
-  const omegaWorld = Q.rotate(q, omegaBody)
-
-  const tau = torqueWorldFn(state)
-  const dLw = V3.scale(tau, dt)
-  const dq = Q.derivWorld(q, omegaWorld)
-  const qNext = Q.normalize([
-    q[0] + dq[0] * dt,
-    q[1] + dq[1] * dt,
-    q[2] + dq[2] * dt,
-    q[3] + dq[3] * dt
-  ])
-  const LwNext = V3.add(Lw, dLw)
-  return { q: qNext, Lw: LwNext, Ibody }
 }
 
 export function project3(v, opts = {}) {

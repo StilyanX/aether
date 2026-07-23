@@ -92,7 +92,7 @@ function AdiabaticSimulation({ C }) {
   )
 }
 
-// ─── Config ──────────────────────────────────────────────────────────────────
+// Config
 
 function AdiabaticInvariantsContentInner() {
   const C = useVizColors()
@@ -107,7 +107,7 @@ function AdiabaticInvariantsContentInner() {
       subtitle:
         'Slowly varying parameters, adiabatic invariant conservation, and action-angle variables',
       sections: [
-        // ── Section 11: Adiabatic Invariants ───────────────────────────────
+        // Section 11: Adiabatic Invariants
         <>
           <div className="lrn-section" id="lrn-section-0" data-section-index="0">
             <h2>Adiabatic Invariants</h2>
@@ -115,13 +115,11 @@ function AdiabaticInvariantsContentInner() {
               Shorten a pendulum while it swings and its energy increases - you are doing work on
               it. So energy is not conserved when the length changes. But something else is. That
               hidden quantity is the adiabatic invariant, and it survives as long as the length
-              changes slowly compared to each swing.
+              changes slowly compared to each swing. Adiabatic means the change is slow enough that
+              the system keeps up each cycle.
             </p>
             <p>
-              {`"Almost constant" understates the precision. The error is not merely small - it is
-              exponentially small. Each time you halve the rate of change, the error does not halve:
-              it shrinks by a factor like $e$ raised to a large negative power. Adiabatic invariants
-              hold with remarkable accuracy in practice.`}
+              {`Adiabatic invariants are far better than "almost constant." The error is exponentially small. So they hold with remarkable accuracy in practice. A complex-time derivation proves this. Here we take the result and use it.`}
             </p>
             <p>
               This idea appears across physics. Magnetic mirrors trap charged particles through
@@ -180,21 +178,15 @@ function AdiabaticInvariantsContentInner() {
 
             <h3>Definition of the Adiabatic Invariant</h3>
             <p>
-              For a 1D system with a slowly-changing parameter, the adiabatic invariant is a
-              geometric quantity: the area enclosed by the orbit in phase space, divided by{' '}
-              {`$2\\pi$`}.
-            </p>
-            <p>
-              Phase space is the plane of all possible positions {`$q$`} (where the particle is) and
-              momenta {`$p = mv$`} (how fast it moves). At every moment, the particle is a single
-              point in this plane. Over one full oscillation, that point traces a closed loop. The
-              area inside the loop is:
+              {`You already met this loop area last unit: the action $I$, the phase-space area swept by
+              one oscillation, over $2\\pi$. The adiabatic invariant for a 1D system is exactly that
+              action (the $\\oint$ sign means add up the momentum around the closed loop):`}
             </p>
             <div className="lrn-eq lrn-eq-display">
               <span>{`$$I \\equiv \\oint \\frac{p\\,dq}{2\\pi}$$`}</span>
             </div>
             <p>
-              This quantity is conserved - up to exponentially small corrections - whenever
+              This quantity holds steady - up to exponentially small corrections - whenever
               parameters change adiabatically.
             </p>
 
@@ -227,21 +219,26 @@ function AdiabaticInvariantsContentInner() {
                 zero - and $I$ is exactly conserved.`}
               </p>
               <p>
-                {`A more careful analysis shows the corrections are not just small but exponentially
-                small in $\\frac{\\omega\\lambda}{\\dot{\\lambda}}$, the ratio of oscillation frequency to
-                fractional drift rate. The faster the oscillation relative to the drift, the better
-                the invariant holds.`}
+                {`The corrections are not just small. They are exponentially small in
+                $\\frac{\\omega\\lambda}{\\dot{\\lambda}}$, the ratio of oscillation frequency to fractional
+                drift rate. The faster the oscillation relative to the drift, the better the invariant
+                holds.`}
               </p>
             </div>
 
             <h3>Period and Frequency Relations</h3>
             <p>
-              The period T and frequency {`$\\omega$`} are related to the adiabatic invariant by:
+              {`These next two come straight from action-angle variables. The angle advances at the rate
+              $\\partial E/\\partial I = \\omega$, and the period is how long one full turn takes. So the
+              period $T$ and frequency $\\omega$ tie to the invariant by:`}
             </p>
             <div className="lrn-eq">
               <span>{`$$2\\pi\\,\\frac{\\partial I}{\\partial E} = T, \\qquad \\frac{\\partial E}{\\partial I} = \\omega$$`}</span>
             </div>
-            <p>For a 1D oscillator specifically:</p>
+            <p>
+              {`For a 1D oscillator specifically, the orbit loop is an ellipse, and its area works out
+              to $\\oint p\\,dq = \\frac{2\\pi E}{\\omega}$. Dividing by $2\\pi$ gives:`}
+            </p>
             <div className="lrn-eq">
               <span>{`$$I = \\frac{E}{\\omega}$$`}</span>
             </div>
@@ -249,38 +246,17 @@ function AdiabaticInvariantsContentInner() {
               So as {`$\\omega$`} changes slowly, E changes in proportion: {`$E \\propto \\omega$`}.
             </p>
             <p>
-              {`In quantum mechanics, $n = \\frac{I}{\\hbar}$, where $n$ is the quantum number - the number of
-              energy steps the oscillator has climbed. Conserving $I$ means conserving $n$. When
-              quantum mechanics reproduces classical behavior - at large $n$ - the adiabatic
-              invariant and the quantum number are the same thing.`}
+              {`In quantum mechanics, $n = \\frac{I}{\\hbar}$, where $n$ is the quantum number - the number
+              of energy steps the oscillator has climbed. ($\\hbar$ is Planck's constant, the size of
+              one quantum step.) Conserving $I$ means conserving $n$.`}
             </p>
 
-            <div className="lrn-self-explain">
-              <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-              <p>
-                A charged particle spirals along a magnetic field line. The field slowly strengthens
-                as the particle moves toward a "magnetic mirror." Does the particle speed up, slow
-                down, or stay the same? Form your answer before reading on.
-              </p>
-              <details className="lrn-self-explain-reveal">
-                <summary>Expert explanation</summary>
-                <p>
-                  The particle's circular motion in the plane perpendicular to the field is an
-                  oscillator. The adiabatic invariant is the magnetic moment{' '}
-                  {`$\\mu = \\frac{mv_\\perp^2}{2B}$`} - the ratio of the particle's rotational
-                  kinetic energy ({`$\\tfrac{1}{2}mv_\\perp^2$`}) to the field strength {`$B$`}.
-                </p>
-                <p>
-                  As B increases, {`$v_\\perp$`} must increase to keep {`$\\mu$`} constant. Since
-                  total speed is conserved (the magnetic force does no work), the parallel speed{' '}
-                  {`$v_\\parallel$`} decreases.
-                </p>
-                <p>
-                  If B is strong enough, {`$v_\\parallel$`} reaches zero and the particle reflects:
-                  this is the magnetic mirror effect.
-                </p>
-              </details>
-            </div>
+            <p>
+              {`A charged particle's gyration across a slowly changing magnetic field is one more
+              oscillator, so it carries its own adiabatic invariant: the magnetic moment
+              $\\mu = \\frac{mv_\\perp^2}{2B}$. The next topic develops this and the magnetic mirror in
+              full.`}
+            </p>
 
             <AdiabaticInvariantArea />
 
@@ -294,166 +270,77 @@ function AdiabaticInvariantsContentInner() {
             <AdiabaticPhaseEllipse />
           </div>
         </>,
-        // ── Section 12: Canonical (Action-Angle) Variables ─────────────────
+        // Section 12: The slow drift of the action
         <>
           <div className="lrn-section" id="lrn-section-1" data-section-index="1">
-            <h2>Canonical Variables (Action-Angle Variables)</h2>
+            <h2>Why the Action Barely Drifts</h2>
             <p>
-              Action-angle variables give you the simplest possible description of periodic motion.
-              In standard coordinates {`$(q, p)$`}, a nonlinear oscillator traces a complicated
-              closed curve in phase space each cycle. Switch to action-angle variables {`$(I, w)$`},
-              and that curve becomes a horizontal straight line: {`$I$`} stays constant, {`$w$`}{' '}
-              increases at a steady rate {`$\\omega$`}. All the complexity of the oscillator is
-              absorbed into how {`$\\omega$`} depends on {`$I$`}. Use these variables to read off
-              frequencies without solving the full equations, or as the starting point for
-              perturbation theory.
+              {`You already have the tools. Use action-angle coordinates $(I, w)$ - the action $I$ (the
+              loop area in phase space, over $2\\pi$) stays fixed, and the angle $w$ winds around. The
+              action $I$ is constant and the angle $w$ runs at the steady rate $\\omega(I)$. So
+              $\\dot{I} = 0$ and $\\dot{w} = \\omega$, and the angle climbs by exactly $2\\pi$ each
+              period. Now let a parameter $\\lambda$ drift slowly. Then $I$ is no longer perfectly
+              constant. How fast does it move, and why does that motion average away?`}
             </p>
 
-            <div className="lrn-predict">
-              <span className="lrn-predict-label">PREDICT</span>
+            <div className="lrn-callout">
+              <span className="lrn-callout-label">Recall</span>
               <p>
-                In action-angle variables, Hamilton's equations are {`$\\dot{I} = 0$`} and{' '}
-                {`$\\dot{w} = \\omega(I)$`}. What does the trajectory look like in the {`$(I, w)$`}{' '}
-                plane?
+                {`$I = \\oint p\\,dq / 2\\pi$ is the action (closed-loop area in phase space, over
+                $2\\pi$). Its partner is the angle $w$, with $\\dot{I} = 0$ and $\\dot{w} = \\omega(I)$
+                at fixed parameters. We use these results here without rebuilding them.`}
               </p>
-              <details className="lrn-predict-reveal">
-                <summary>Check your thinking</summary>
-                <p>
-                  It is a horizontal straight line at height {`$I = I_0$`}, traversed at constant
-                  speed {`$\\omega(I_0)$`}.
-                </p>
-                <p>The phase space structure is completely flat in action-angle coordinates.</p>
-              </details>
             </div>
 
-            <h3>Construction of Action-Angle Variables</h3>
-            <p>Define the action variable as:</p>
-            <div className="lrn-eq lrn-eq-display">
-              <span>{`$$I = \\oint \\frac{p\\,dq}{2\\pi}$$`}</span>
-            </div>
+            <h3>Worked Example: Oscillator with Drifting Frequency</h3>
             <p>
-              {`Define the abbreviated action $S_0(q; I)$ as the running integral of momentum along
-              the orbit up to position $q$, evaluated at fixed energy $E(I)$:`}
+              {`Take $H = \\frac{p^2}{2m} + \\tfrac{1}{2}m\\omega^2(t)q^2$ with $\\omega(t)$ drifting
+              slowly. (The Hamiltonian $H$ is the total energy written in terms of $q$ and $p$.)`}
+            </p>
+            <p>
+              {`First write $q$ and $p$ in action-angle form. At fixed $\\omega$ the energy is
+              $E = \\tfrac{1}{2}m\\omega^2 A^2$ at amplitude $A$, and $I = E/\\omega$, so
+              $A = \\sqrt{2E/(m\\omega^2)} = \\sqrt{2I/(m\\omega)}$. With $q = A\\sin w$:`}
             </p>
             <div className="lrn-eq">
-              <span>{`$$S_0(q; I) = \\int^q p(q',\\, E(I))\\,dq'$$`}</span>
+              <span>{`$$q = \\sqrt{\\frac{2I}{m\\omega}}\\,\\sin w, \\qquad p = m\\dot{q} = m\\,A\\,\\omega\\cos w = \\sqrt{2Im\\omega}\\,\\cos w$$`}</span>
             </div>
             <p>
-              {`This accumulates the area swept in phase space as you move from the starting point
-              to $q$.`}
+              {`Now use Hamilton's equations $\\dot{q} = p/m$ and $\\dot{p} = -m\\omega^2 q$. Differentiate
+              the $q$ and $p$ above (both depend on time through $I$, $w$, and $\\omega$), match the two
+              sides term by term, and solve the pair for $\\dot{I}$ and $\\dot{w}$. This gives:`}
             </p>
-            <p>The angle variable is the canonical conjugate of I:</p>
-            <div className="lrn-eq">
-              <span>{`$$w = \\frac{\\partial S_0(q; I)}{\\partial I}$$`}</span>
-            </div>
-            <p>Hamilton's equations in these variables become:</p>
-            <div className="lrn-eq lrn-eq-display">
-              <span>{`$$\\dot{I} = 0, \\qquad \\dot{w} = \\frac{dE(I)}{dI} = \\omega(I)$$`}</span>
-            </div>
-            <p>
-              So the solution is {`$I = \\text{const}$`}, {`$w = \\omega(I)\\,t + \\text{const}$`}.
-            </p>
-
-            <div className="lrn-callout lrn-warning">
-              <span className="lrn-callout-label">Important</span>
-              <p>
-                {`The abbreviated action $S_0(q, I; \\lambda)$ used in the adiabatic context is not the true abbreviated action for a time-dependent Hamiltonian.`}
-              </p>
-              <p>
-                {`It is defined by treating $E$ and $\\lambda$ as slowly varying parameters and solving for $p(q, E; \\lambda)$ at each instant.`}
-              </p>
-              <p>This is consistent in the adiabatic approximation, but not exact.</p>
-            </div>
-
-            <h3>Angle Variable Increment per Period</h3>
-            <p>
-              In one complete period of oscillation, the angle variable increases by exactly{' '}
-              {`$2\\pi$`}:
-            </p>
-            <div className="lrn-eq">
-              <span>{`$$\\Delta w = \\oint \\frac{\\partial^2 S_0}{\\partial I\\,\\partial q}\\,dq = \\frac{\\partial}{\\partial I}\\oint \\frac{\\partial S_0}{\\partial q}\\,dq = \\frac{\\partial}{\\partial I}(2\\pi I) = 2\\pi$$`}</span>
-            </div>
-            <p>
-              {`The key step is the third equality: since $\\frac{\\partial S_0}{\\partial q} = p$ (by
-              definition of $S_0$ as the running momentum integral), the closed-loop integral is
-              just $\\oint p\\,dq = 2\\pi I$ - which is the definition of the action variable.
-              Differentiating with respect to $I$ gives $2\\pi$ regardless of the system. So $w$
-              is a true angle, cycling through $2\\pi$ per oscillation.`}
-            </p>
-
-            <div className="lrn-compare">
-              <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Coordinates {`$(q, p)$`}</span>
-                <p>Motion is complicated, curves in phase space</p>
-                <p>Equations of motion are nonlinear</p>
-                <p>Direct physical observables</p>
-              </div>
-              <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Action-Angle {`$(I, w)$`}</span>
-                <p>Motion is trivial, horizontal lines</p>
-                <p>{`$\\dot{I}=0$, $\\dot{w}=\\omega(I)$ - equations fully decoupled`}</p>
-                <p>Ideal for perturbation theory and frequency analysis</p>
-              </div>
-            </div>
-
-            <h3>Worked Example: Harmonic Oscillator with Time-dependent Frequency</h3>
-            <p>
-              {`The Hamiltonian is $H = \\frac{p^2}{2m} + \\tfrac{1}{2}m\\omega^2(t)q^2$ with slowly varying $\\omega(t)$.`}
-            </p>
-            <p>
-              {`At fixed $\\omega$, the action-angle relations are $q = \\sqrt{\\frac{2I}{m\\omega}}\\sin w$ and $p = \\sqrt{2Im\\omega}\\cos w$.`}
-            </p>
-            <p>Substituting into the canonical equations gives:</p>
             <div className="lrn-eq">
               <span>{`$$\\dot{I} = -\\frac{I\\dot{\\omega}}{\\omega}\\cos 2w, \\qquad \\dot{w} = \\omega + \\frac{\\dot{\\omega}}{2\\omega}\\sin 2w$$`}</span>
             </div>
             <p>
-              The mean of {`$\\cos 2w$`} over one cycle is zero, so I is constant on average even
-              when {`$\\omega$`} varies in time. This is the adiabatic invariant result in
-              action-angle form.
+              {`The mean of $\\cos 2w$ over one cycle is zero. So $I$ holds constant on average even
+              while $\\omega$ changes. The drift term carries the small factor $\\dot{\\omega}/\\omega$:
+              $I$ responds only to the fractional change in $\\omega$, never to its absolute value.`}
             </p>
-
-            <div className="lrn-self-explain">
-              <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-              <p>
-                Why does {`$\\dot{I}$`} contain a factor of {`$\\frac{\\dot{\\omega}}{\\omega}$`}{' '}
-                and not just {`$\\dot{\\omega}$`}? Form your answer before reading on.
-              </p>
-              <details className="lrn-self-explain-reveal">
-                <summary>Expert explanation</summary>
-                <p>
-                  {`$I$ is the area of the orbit ellipse in phase space, divided by $2\\pi$. The
-                  ellipse has axes proportional to $\\sqrt{\\frac{E}{m\\omega^2}}$ (position) and
-                  $\\sqrt{mE}$ (momentum). Its area is $\\pi \\cdot \\sqrt{\\frac{E}{m\\omega^2}} \\cdot
-                  \\sqrt{mE} = \\frac{\\pi E}{\\omega}$.`}
-                </p>
-                <p>
-                  {`Scaling $\\omega$ by a constant stretches one axis and squeezes the other
-                  equally, leaving the area - and hence $I$ - unchanged. So $I$ does not respond
-                  to the absolute value of $\\omega$, only to fractional changes. That is why
-                  $\\frac{\\dot{\\omega}}{\\omega}$ appears, not $\\dot{\\omega}$ alone.`}
-                </p>
-              </details>
-            </div>
 
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`The transformation from $(q, p)$ to $(I, w)$ is canonical, generated by the abbreviated action $S_0(q, I; \\lambda)$.`}
+                {`The move from $(q, p)$ to $(I, w)$ is a canonical change of variables (one that
+                leaves Hamilton's equations in the same form). It is built from a single
+                generating function $S_0$, the one function whose derivatives define the whole
+                change of coordinates.`}
               </p>
               <p>
-                {`When $\\lambda$ is constant, $S_0$ is time-independent so $H' = H$, i.e., the new Hamiltonian is just the energy $E(I)$.`}
+                {`When $\\lambda$ is fixed, $S_0$ carries no time dependence. The new Hamiltonian is
+                just the energy, $H' = E(I)$.`}
               </p>
               <p>
-                {`When $\\lambda$ varies, the generating function gains time dependence, modifying the
-                Hamiltonian to $H' = E(I;\\lambda) + \\Lambda\\dot{\\lambda}$, where
+                {`When $\\lambda$ drifts, $S_0$ picks up a time dependence. That shifts the
+                Hamiltonian to $H' = E(I;\\lambda) + \\Lambda\\dot{\\lambda}$, with
                 $\\Lambda = \\left(\\frac{\\partial S_0}{\\partial\\lambda}\\right)_{q,I}$.`}
               </p>
               <p>
-                {`Hamilton's equations then give $\\dot{I} = -\\frac{\\partial H'}{\\partial w}$. The energy
-                $E(I;\\lambda)$ does not depend on $w$, so only the $\\Lambda\\dot{\\lambda}$ term
-                contributes. That term oscillates rapidly at frequency $\\omega$. When averaged over
-                one cycle, it cancels to zero: $I$ is an invariant on average.`}
+                {`Hamilton's equations give $\\dot{I} = -\\partial H'/\\partial w$. The energy term does
+                not depend on $w$, so only $\\Lambda\\dot{\\lambda}$ drives $I$. That term swings
+                rapidly at frequency $\\omega$. Averaged over one cycle it cancels, so $I$ is
+                invariant on average.`}
               </p>
             </div>
           </div>
@@ -468,7 +355,7 @@ function AdiabaticInvariantsContentInner() {
       },
       {
         q: 'Predict: A planet orbits a star. The star slowly loses mass over millions of years. Does the planet orbit grow or shrink?',
-        a: "The orbit grows. Treat the radial oscillation as a slow oscillator. Its adiabatic invariant is the radial action $I_r$. As $GM_\\star$ decreases, the gravitational pull weakens. The orbit expands to keep the same action. More directly: for a circular orbit, $E = -\\frac{GM_\\star m}{2a}$, where $a$ is the orbital radius. As $M_\\star$ decreases slowly, $a$ must grow to keep the action constant. The exact result is $a \\cdot M_\\star = \\text{const}$: the orbit radius grows in inverse proportion to the star's mass."
+        a: 'The orbit grows. The radial in-and-out motion is itself a slow oscillator, so its action is the invariant for a gently weakening central pull. A central force exerts no torque, so the angular momentum $L = m\\sqrt{GM_\\star a}$ holds steady through the slow mass loss. Hold $L$ fixed and you get $GM_\\star a = \\text{const}$, so $a \\cdot M_\\star = \\text{const}$. As $M_\\star$ falls, $a$ rises in inverse proportion: the orbit widens to conserve the action.'
       },
       {
         q: 'Transfer: A magnetic pendulum oscillates with frequency omega(B) that depends on a slowly varying magnetic field B(t). The field increases by a factor of 4. By what factor does the energy change?',
@@ -480,7 +367,7 @@ function AdiabaticInvariantsContentInner() {
       }
     ],
 
-    // ── Reference Mode ──────────────────────────────────────────────────────
+    // Reference Mode
     reference: {
       category: 'Quick Reference',
       title: 'Adiabatic Invariants',

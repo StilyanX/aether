@@ -9,33 +9,30 @@ const config = {
     subtitle: 'Apartments, furniture, household vocabulary, location prepositions, and city life',
     sections: [
       <>
-        <div className="lrn-header">
-          <div>
-            <h1>Home and Household</h1>
-            <p>
-              You will learn apartment and house vocabulary, furniture, location prepositions, house
-              rules, and city life phrases.
-            </p>
-          </div>
-        </div>
+        <h2>Why This Unit Matters</h2>
+        <p>
+          You will learn apartment and house vocabulary, furniture, location prepositions, house
+          rules, and city life phrases.
+        </p>
       </>,
 
       <>
         <div id="lrn-section-0" className="lrn-section">
-          <h2>Kapitel 7: Wohnen (Living)</h2>
+          <h2>Wohnen (Living)</h2>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
               You are describing where your sofa is. It stands in front of the window. The German
-              word for "in front of" is "vor." What case do you think follows "vor" when describing
-              a fixed position?
+              word for "in front of" is "vor." When you describe a fixed position, do you think the
+              word for "the window" stays the same or changes form?
             </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>
-                Dativ. A fixed position answers Wo? (Where?), which takes Dativ with two-way
-                prepositions: <strong>Das Sofa steht vor dem Fenster.</strong>
+                It changes. A fixed position uses a case called the Dativ (you will learn it fully
+                in the grammar section). The article shifts:{' '}
+                <strong>Das Sofa steht vor dem Fenster.</strong>
               </p>
             </details>
           </div>
@@ -226,14 +223,17 @@ const config = {
 
           <div className="lrn-callout">
             <span className="lrn-callout-label">In der Nähe von</span>
-            <p>"in der Nähe von" always takes Dativ. Use von + Dativ article, never Genitiv.</p>
+            <p>
+              "in der Nähe von" (near / close to) always takes the Dativ case. You learn the Dativ
+              in full in the grammar section; for now, notice how the article shifts.
+            </p>
             <ul className="lrn-list">
               <li>
-                in der Nähe von dem Supermarkt → <strong>in der Nähe vom Supermarkt</strong> (vom =
-                von dem, contracted)
+                in der Nähe von dem Supermarkt → <strong>in der Nähe vom Supermarkt.</strong> German
+                shortens "von dem" to <strong>vom</strong> (a fixed contraction).
               </li>
               <li>
-                <strong>in der Nähe von der Schule</strong> (Dativ feminine)
+                <strong>in der Nähe von der Schule</strong> (Dativ feminine).
               </li>
             </ul>
             <p>
@@ -385,7 +385,7 @@ const config = {
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">unmöbliert</span>
-              <p>You must bring your own furniture. Matters a lot for new arrivals.</p>
+              <p>You must bring your own furniture. It matters a lot for new arrivals.</p>
             </div>
           </div>
 
@@ -481,66 +481,6 @@ const config = {
             </tbody>
           </table>
 
-          <h3>Giving Directions (Wegbeschreibung)</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>German</th>
-                <th>English</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>geradeaus</td>
-                <td>straight ahead</td>
-              </tr>
-              <tr>
-                <td>links</td>
-                <td>left</td>
-              </tr>
-              <tr>
-                <td>rechts</td>
-                <td>right</td>
-              </tr>
-              <tr>
-                <td>abbiegen</td>
-                <td>to turn</td>
-              </tr>
-              <tr>
-                <td>die Kreuzung</td>
-                <td>intersection/crossroads</td>
-              </tr>
-              <tr>
-                <td>die Ampel</td>
-                <td>traffic light</td>
-              </tr>
-              <tr>
-                <td>der Weg</td>
-                <td>way/path</td>
-              </tr>
-              <tr>
-                <td>die Ecke</td>
-                <td>corner</td>
-              </tr>
-              <tr>
-                <td>gegenüber</td>
-                <td>opposite</td>
-              </tr>
-              <tr>
-                <td>neben</td>
-                <td>next to</td>
-              </tr>
-              <tr>
-                <td>vor</td>
-                <td>in front of</td>
-              </tr>
-              <tr>
-                <td>hinter</td>
-                <td>behind</td>
-              </tr>
-            </tbody>
-          </table>
-
           <h3>House Rules (Hausordnung)</h3>
           <table className="lrn-table">
             <thead>
@@ -601,18 +541,163 @@ const config = {
 
       <>
         <div id="lrn-section-1" className="lrn-section">
-          <h2>Kapitel 7 Grammar</h2>
+          <h2>Grammar: Cases and Prepositions</h2>
+
+          <h3>What a Case Is, and Meeting the Dativ</h3>
+          <p>
+            German nouns change form depending on their job in the sentence. This is called case.
+            German has four cases. You already met the Akkusativ in Unit 5: it marks the direct
+            object, the thing an action lands on (Ich kaufe den Tisch).
+          </p>
+          <p>
+            This unit teaches a new case: the <strong>Dativ</strong>. Look at one example first:
+          </p>
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Worked example</span>
+            <p>
+              <strong>Ich fahre mit dem Bus.</strong> (I travel by bus.)
+            </p>
+            <p>
+              "der Bus" is masculine. But after <em>mit</em> it becomes <strong>dem Bus</strong>.
+              That changed article, <em>dem</em>, is the Dativ. The Dativ is the case German uses
+              for a fixed location and for certain prepositions and verbs.
+            </p>
+          </div>
+
+          <h3>Dative Articles (learn these first)</h3>
+          <p>
+            Before you can use the Dativ, you need its article forms. Compare them to the normal
+            (Nominativ) articles der/die/das/die.
+          </p>
+          <table className="lrn-table">
+            <thead>
+              <tr>
+                <th>Article type</th>
+                <th>Maskulin</th>
+                <th>Feminin</th>
+                <th>Neutrum</th>
+                <th>Plural</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>definite (the)</td>
+                <td>dem</td>
+                <td>der</td>
+                <td>dem</td>
+                <td>den</td>
+              </tr>
+              <tr>
+                <td>indefinite (a)</td>
+                <td>einem</td>
+                <td>einer</td>
+                <td>einem</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td>negative (no/not a)</td>
+                <td>keinem</td>
+                <td>keiner</td>
+                <td>keinem</td>
+                <td>keinen</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Worked walk: das Fenster is neuter. After a Dativ preposition the article becomes{' '}
+            <em>dem</em>: <strong>vor dem Fenster</strong> (in front of the window).
+          </p>
+          <p>
+            Note: plural Dativ nouns add -n to the noun itself. The exception is nouns whose plural
+            already ends in -n or -s. Examples: den Zimmern, den Häusern.
+          </p>
+
+          <h3>Dative Pronouns</h3>
+          <p>The person-words also change in the Dativ. You will use these constantly:</p>
+          <table className="lrn-table">
+            <thead>
+              <tr>
+                <th>Subject (Nominativ)</th>
+                <th>Dativ form</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ich</td>
+                <td>mir</td>
+              </tr>
+              <tr>
+                <td>du</td>
+                <td>dir</td>
+              </tr>
+              <tr>
+                <td>er / es</td>
+                <td>ihm</td>
+              </tr>
+              <tr>
+                <td>sie (she)</td>
+                <td>ihr</td>
+              </tr>
+              <tr>
+                <td>wir</td>
+                <td>uns</td>
+              </tr>
+              <tr>
+                <td>ihr</td>
+                <td>euch</td>
+              </tr>
+              <tr>
+                <td>sie (they)</td>
+                <td>ihnen</td>
+              </tr>
+              <tr>
+                <td>Sie (formal)</td>
+                <td>Ihnen</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>
+            Possessive words take the same Dativ endings: <strong>in meinem Zimmer</strong> (neuter
+            → meinem), <strong>bei meiner Mutter</strong> (feminine → meiner).
+          </p>
+
+          <h3>Preposition + Article Contractions</h3>
+          <p>
+            German shortens a Dativ preposition plus <em>dem</em> or <em>der</em> into one word. Use
+            these short forms by default:
+          </p>
+          <ul className="lrn-list">
+            <li>
+              an dem → <strong>am</strong>
+            </li>
+            <li>
+              in dem → <strong>im</strong>
+            </li>
+            <li>
+              von dem → <strong>vom</strong>
+            </li>
+            <li>
+              zu dem → <strong>zum</strong>
+            </li>
+            <li>
+              zu der → <strong>zur</strong>
+            </li>
+            <li>
+              bei dem → <strong>beim</strong>
+            </li>
+          </ul>
 
           <h3>Dative Prepositions (always Dativ)</h3>
           <p>
-            These prepositions always take the Dativ case:{' '}
+            Start with the example, then the list. <strong>Ich fahre mit dem Bus.</strong> Here{' '}
+            <em>mit</em> forces Dativ on "der Bus" → dem Bus. These prepositions always take the
+            Dativ, every time:
+          </p>
+          <p>
             <strong>aus, bei, mit, nach, seit, von, zu, gegenüber.</strong> Memorize them as a
             group.
           </p>
           <ul className="lrn-list">
-            <li>
-              <strong>Ich fahre mit dem Bus.</strong> (I travel by bus.)
-            </li>
             <li>
               <strong>Ich komme aus der Türkei.</strong> (I come from Turkey.)
             </li>
@@ -634,11 +719,12 @@ const config = {
           </div>
 
           <h3>Accusative Prepositions (always Akkusativ)</h3>
-          <p>These prepositions always take the Akkusativ case: durch, für, gegen, ohne, um.</p>
+          <p>
+            As a quick contrast to the Dativ group: a few prepositions always take the Akkusativ
+            (the Unit 5 case). Example first: <strong>Ich gehe durch den Park.</strong> The list is{' '}
+            <strong>durch, für, gegen, ohne, um.</strong>
+          </p>
           <ul className="lrn-list">
-            <li>
-              <strong>Ich gehe durch den Park.</strong> (I walk through the park.)
-            </li>
             <li>
               <strong>Das Zimmer ist für den Gast.</strong> (The room is for the guest.)
             </li>
@@ -663,8 +749,8 @@ const config = {
           </div>
 
           <p>
-            These nine prepositions can take either Dativ or Akkusativ: an, auf, hinter, in, neben,
-            über, unter, vor, zwischen.
+            A two-way preposition is one that can take two different cases. These nine can take
+            either Dativ or Akkusativ: an, auf, hinter, in, neben, über, unter, vor, zwischen.
           </p>
           <p>
             <strong>
@@ -708,7 +794,7 @@ const config = {
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Wohin? (Akkusativ): moving there</span>
-              <p>Something is being moved to that place.</p>
+              <p>You are moving something to that place.</p>
               <p>
                 <strong>Ich stelle das Sofa vor das Fenster.</strong>
               </p>
@@ -719,15 +805,30 @@ const config = {
           </div>
 
           <div className="lrn-faded">
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-              <p>Fill in the correct case for each blank.</p>
+              <p>Fill in the correct case for each blank, then check.</p>
               <ol className="lrn-list">
                 <li>Das Sofa steht vor _____ (dem/den?) Fenster: static position, so use _____.</li>
                 <li>Ich stelle das Sofa vor _____ (dem/das?) Fenster: movement, so use _____.</li>
               </ol>
+              <details className="lrn-faded-reveal">
+                <summary>Check your answers</summary>
+                <p>
+                  1. <strong>Das Sofa steht vor dem Fenster.</strong> The sofa is not moving (Wo?),
+                  so use Dativ: <strong>dem</strong> Fenster.
+                </p>
+                <p>
+                  2. <strong>Ich stelle das Sofa vor das Fenster.</strong> You move the sofa
+                  (Wohin?), so use Akkusativ: <strong>das</strong> Fenster.
+                </p>
+              </details>
             </div>
           </div>
+          <p>
+            You can now place any object and pick the right case by asking yourself one question:
+            Wo? (it stays put → Dativ) or Wohin? (it moves there → Akkusativ).
+          </p>
 
           <h3>Placement Verbs vs. Position Verbs</h3>
           <table className="lrn-table">
@@ -747,8 +848,8 @@ const config = {
                 <td>liegen (to lie)</td>
               </tr>
               <tr>
-                <td>hängen tr. (to hang up)</td>
-                <td>hängen intr. (to be hanging)</td>
+                <td>hängen (transitive, you hang something up)</td>
+                <td>hängen (intransitive, it hangs)</td>
               </tr>
               <tr>
                 <td>setzen (to seat)</td>
@@ -762,11 +863,11 @@ const config = {
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                The placement verb (stellen, legen, hängen tr.) describes an action moving something
-                to a place. That motion triggers Akkusativ (Wohin?). The position verb (stehen,
-                liegen, hängen intr.) describes where something already is. That stillness triggers
-                Dativ (Wo?). Every pair follows the same logic: action = Akkusativ, position =
-                Dativ.
+                The placement verb (stellen, legen, transitive hängen) describes an action moving
+                something to a place. That motion triggers Akkusativ (Wohin?). The position verb
+                (stehen, liegen, intransitive hängen) describes where something already is. That
+                stillness triggers Dativ (Wo?). Every pair follows the same logic: action =
+                Akkusativ, position = Dativ.
               </p>
             </details>
           </div>
@@ -789,83 +890,20 @@ const config = {
             </details>
           </div>
 
-          <h3>Dative Case of Articles</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Article type</th>
-                <th>Maskulin</th>
-                <th>Feminin</th>
-                <th>Neutrum</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>definite (the)</td>
-                <td>dem</td>
-                <td>der</td>
-                <td>dem</td>
-                <td>den</td>
-              </tr>
-              <tr>
-                <td>indefinite (a)</td>
-                <td>einem</td>
-                <td>einer</td>
-                <td>einem</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>negative (no/not a)</td>
-                <td>keinem</td>
-                <td>keiner</td>
-                <td>keinem</td>
-                <td>keinen</td>
-              </tr>
-            </tbody>
-          </table>
+          <h3>Saying What You Like: gefallen and passen</h3>
           <p>
-            Note: plural Dativ nouns add -n to the noun itself if it does not already end in -n: den
-            Kindern, den Männern.
+            A few verbs send their person into the Dativ instead of treating them as the subject.
+            For talking about an apartment, two matter most: <strong>gefallen</strong> (to please /
+            to like) and <strong>passen</strong> (to suit).
           </p>
-
-          <h3>Verbs that Require Dativ (Dativobjekt verbs)</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Verb</th>
-                <th>Meaning</th>
-                <th>Example</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>helfen</td>
-                <td>to help</td>
-                <td>Ich helfe dem Mann. (I help the man.)</td>
-              </tr>
-              <tr>
-                <td>gehören</td>
-                <td>to belong to</td>
-                <td>Das Buch gehört dem Lehrer. (The book belongs to the teacher.)</td>
-              </tr>
-              <tr>
-                <td>gefallen</td>
-                <td>to please/like</td>
-                <td>Das Zimmer gefällt mir. (I like the room.)</td>
-              </tr>
-              <tr>
-                <td>passen</td>
-                <td>to suit</td>
-                <td>Die Wohnung passt uns. (The apartment suits us.)</td>
-              </tr>
-              <tr>
-                <td>fehlen</td>
-                <td>to be missing</td>
-                <td>Was fehlt Ihnen? (What are you missing?)</td>
-              </tr>
-            </tbody>
-          </table>
+          <ul className="lrn-list">
+            <li>
+              <strong>Das Zimmer gefällt mir.</strong> (I like the room.)
+            </li>
+            <li>
+              <strong>Die Wohnung passt uns.</strong> (The apartment suits us.)
+            </li>
+          </ul>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>Why does "gefallen" use Dativ instead of Akkusativ?</p>
@@ -880,10 +918,11 @@ const config = {
             </details>
           </div>
 
-          <h3>Modal Verb: dürfen (to be allowed to)</h3>
+          <h3>Modal Verb: dürfen (may / allowed to)</h3>
           <p>
-            dürfen expresses permission. It follows the standard modal pattern: no ending on ich and
-            er/sie/es.
+            A modal verb sets the mood of another verb. dürfen is the "may / allowed to" modal; you
+            use it for house rules and permission. It follows the standard modal pattern: no ending
+            on ich and er/sie/es.
           </p>
           <table className="lrn-table">
             <thead>
@@ -932,6 +971,14 @@ const config = {
               pets here.)
             </li>
           </ul>
+          <div className="lrn-insight">
+            <p>
+              <strong>Word order:</strong> the modal (darf) sits in second position. The main verb
+              (rauchen, haben) drops to the end of the clause as an infinitive. See it in "Hier darf
+              man keine Haustiere <em>haben</em>." You can now ask for and state permission with any
+              house rule.
+            </p>
+          </div>
 
           <h3>Dialogue: Wohnungsbesichtigung (Apartment Viewing)</h3>
           <div className="lrn-callout">
@@ -975,21 +1022,50 @@ const config = {
           </p>
 
           <h3>Time and Scheduling</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
+          <p>
+            Renting and city life run on the clock. You set a viewing time, you ask when the
+            apartment is free, you agree quiet hours. First learn to tell the time, then the words
+            that schedule your day.
+          </p>
+
+          <h4>Telling the Time</h4>
+          <p>
+            You ask <strong>Wie spät ist es?</strong> (What time is it?). You answer with{' '}
+            <strong>Es ist ... Uhr.</strong>
+          </p>
+          <ul className="lrn-list">
+            <li>
+              <strong>Es ist zehn Uhr.</strong> (It is ten o'clock.)
+            </li>
+            <li>
+              <strong>Viertel nach zehn</strong> = quarter past ten (10:15).
+            </li>
+            <li>
+              <strong>Viertel vor elf</strong> = quarter to eleven (10:45).
+            </li>
+            <li>
+              <strong>halb elf</strong> = half past ten (10:30).
+            </li>
+          </ul>
+          <div className="lrn-warning">
+            <span className="lrn-warning-label">Watch out</span>
             <p>
-              Look at <strong>die Uhrzeit</strong>. What do you think it means?
+              German counts <strong>halb</strong> toward the next hour. So <strong>halb elf</strong>{' '}
+              is 10:30, not 11:30. Read it as "half on the way to eleven."
             </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <em>Uhr</em> means clock. <em>Zeit</em> means time.
-              </p>
-              <p>
-                So <strong>die Uhrzeit</strong> means "time" (as shown on a clock).
-              </p>
-            </details>
           </div>
+          <p>
+            To set a time for an event, use <strong>um</strong>:{' '}
+            <strong>Die Besichtigung ist um zehn Uhr.</strong> (The viewing is at ten o'clock.) You
+            can now ask the time, answer it, and book an appointment.
+          </p>
+
+          <h4>Time Vocabulary</h4>
+          <p>
+            <strong>die Uhrzeit</strong> joins <em>Uhr</em> (clock) and <em>Zeit</em> (time): the
+            time as shown on a clock. Use the table below to talk about parts of the day and how
+            often something happens.
+          </p>
 
           <table className="lrn-table">
             <thead>
@@ -1110,21 +1186,12 @@ const config = {
           </table>
 
           <h3>City Places and Transport</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              Look at <strong>der Stadtplan</strong>. The word <em>Stadt</em> means city.
-            </p>
-            <p>
-              What does <em>Plan</em> add here?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <strong>der Stadtplan</strong> = city map (a plan of the city).
-              </p>
-            </details>
-          </div>
+          <p>
+            Now you can place these landmarks with the two-way prepositions you learned. A fixed
+            location answers Wo? and takes Dativ:{' '}
+            <strong>Der Supermarkt ist neben dem Theater.</strong> (The supermarket is next to the
+            theatre.)
+          </p>
 
           <table className="lrn-table">
             <thead>
@@ -1312,15 +1379,23 @@ const config = {
           </table>
 
           <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+            <span className="lrn-elaborate-label">ELABORATE</span>
             <p>
               <strong>die Eintrittskarte</strong> breaks into: Eintritt (entry) + Karte (card).
             </p>
             <p>
-              German compound nouns take the article of the last word. Karte = die, so die
-              Eintrittskarte.
+              As you saw in Unit 5, a German compound noun takes the article of its last word. Karte
+              = die, so die Eintrittskarte.
             </p>
             <p>Example: Wie viel kostet eine Eintrittskarte? (How much is the admission fee?)</p>
+          </div>
+
+          <div className="lrn-insight">
+            <p>
+              <strong>Gender heuristic:</strong> nouns ending in <em>-e</em>, <em>-heit</em>,{' '}
+              <em>-keit</em>, or <em>-ung</em> are almost always feminine (die). The <em>-ung</em>{' '}
+              ending is the most reliable: die Wohnung, die Verabschiedung, die Zimmerausstattung.
+            </p>
           </div>
 
           <h3>Useful Verbs and Phrases (City Life)</h3>
@@ -1383,12 +1458,12 @@ const config = {
               <tr>
                 <td>stabil</td>
                 <td>stable</td>
-                <td>eine stabile Verbindung</td>
+                <td>Die Verbindung ist stabil.</td>
               </tr>
               <tr>
                 <td>technisch</td>
                 <td>technical</td>
-                <td>ein technisches Problem</td>
+                <td>Das Problem ist technisch.</td>
               </tr>
               <tr>
                 <td>uninteressant</td>
@@ -1403,7 +1478,7 @@ const config = {
               <tr>
                 <td>weich</td>
                 <td>soft</td>
-                <td>ein weiches Bett</td>
+                <td>Das Bett ist weich.</td>
               </tr>
               <tr>
                 <td>wenig</td>
@@ -1420,8 +1495,8 @@ const config = {
 
           <h3>Greetings and Farewells</h3>
           <p>
-            You use these words when arriving at a hotel or saying goodbye to a host.
-            <strong> tschüss</strong> is informal. <strong>Auf Wiedersehen</strong> is formal.
+            You met the greeting words in Unit 1. Here they apply to host families and hotels:
+            tschüss stays informal, Auf Wiedersehen stays formal.
           </p>
           <table className="lrn-table">
             <thead>
@@ -1503,8 +1578,8 @@ const config = {
                 <td>-</td>
               </tr>
               <tr>
-                <td>weiter-</td>
-                <td>other, further</td>
+                <td>weitergehen</td>
+                <td>to walk on, carry on</td>
                 <td>-</td>
                 <td>-</td>
               </tr>
@@ -1520,29 +1595,17 @@ const config = {
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
-              Why do <strong>die Stunde</strong>, <strong>die Tageszeit</strong>, and{' '}
-              <strong>die Uhrzeit</strong> all use <em>die</em>?
+              Apply the gender heuristic: why do <strong>die Stunde</strong>,{' '}
+              <strong>die Tageszeit</strong>, and <strong>die Uhrzeit</strong> all use <em>die</em>?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Check your thinking</summary>
               <p>
-                Nouns ending in <em>-e</em>, <em>-heit</em>, <em>-keit</em>, and <em>-ung</em> are
-                usually feminine in German.
-              </p>
-              <p>
-                <em>Stunde</em> ends in <em>-e</em>. <em>Tageszeit</em> and <em>Uhrzeit</em> end in{' '}
-                <em>-zeit</em>, which is always feminine.
+                <em>Stunde</em> ends in <em>-e</em>, so it is feminine. <em>Tageszeit</em> and{' '}
+                <em>Uhrzeit</em> end in <em>-zeit</em>; Zeit is the last word and it is feminine, so
+                the compound is feminine too.
               </p>
             </details>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              <strong>Nouns ending in -ung are always feminine.</strong>
-            </p>
-            <p>Examples: die Verabschiedung, die Zimmerausstattung.</p>
-            <p>This is one of the most reliable gender rules in German.</p>
           </div>
         </div>
       </>
@@ -1583,6 +1646,14 @@ const config = {
       a: 'Die Wohnung passt uns. "passen" takes a Dativ object. "uns" is the Dativ form of "wir".'
     },
     {
+      q: 'Give the Dativ form of these pronouns: ich, du, wir, Sie (formal).',
+      a: 'ich → mir, du → dir, wir → uns, Sie → Ihnen. These are the person-forms you use after a Dativ preposition (mit mir, bei dir) or a Dativ verb (Das gefällt mir).'
+    },
+    {
+      q: 'It is 10:30. How do you say the time in German, and why is the hour word "elf"?',
+      a: 'Es ist halb elf. German counts halb toward the NEXT hour, so half past ten is "halb elf" (half on the way to eleven). Warning: halb elf is 10:30, not 11:30.'
+    },
+    {
       q: 'What do KM and NK stand for in a German apartment advertisement?',
       a: 'KM = Kaltmiete (cold rent, base rent without utilities). NK = Nebenkosten (additional costs: water, heating, building maintenance). Always ask: Sind die Nebenkosten inklusive?'
     },
@@ -1611,12 +1682,8 @@ const config = {
       a: 'Ich gehe durch den Park. "durch" always takes Akkusativ. der Park is masculine, Akkusativ = den.'
     },
     {
-      q: 'Give the direction phrase: "Go straight ahead, then turn left at the traffic lights."',
-      a: 'Gehen Sie geradeaus, dann biegen Sie an der Ampel links ab. "abbiegen" is separable: biegen Sie + ab at the end. an der Ampel uses Dativ (static landmark, Wo?).'
-    },
-    {
       q: 'What is "in der Nähe von" and what case does it require?',
-      a: '"in der Nähe von" = near/close to. It always requires Dativ. Example: in der Nähe vom Supermarkt (vom = von dem, contracted). Never use Genitiv here.'
+      a: '"in der Nähe von" = near/close to. It always requires Dativ. Example: in der Nähe vom Supermarkt (vom = von dem, contracted).'
     },
     {
       q: 'Translate: "The apartment is available from the first of March."',
@@ -1895,6 +1962,222 @@ const config = {
             </tr>
           </tbody>
         </table>
+      </>,
+
+      <>
+        <h2>Dative Personal Pronouns</h2>
+        <p>
+          When to use: as the person after a Dativ preposition or a Dativ verb (gefallen, passen).
+        </p>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Subject (Nominativ)</th>
+              <th>Dativ form</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ich</td>
+              <td>mir</td>
+            </tr>
+            <tr>
+              <td>du</td>
+              <td>dir</td>
+            </tr>
+            <tr>
+              <td>er / es</td>
+              <td>ihm</td>
+            </tr>
+            <tr>
+              <td>sie (she)</td>
+              <td>ihr</td>
+            </tr>
+            <tr>
+              <td>wir</td>
+              <td>uns</td>
+            </tr>
+            <tr>
+              <td>ihr</td>
+              <td>euch</td>
+            </tr>
+            <tr>
+              <td>sie (they)</td>
+              <td>ihnen</td>
+            </tr>
+            <tr>
+              <td>Sie (formal)</td>
+              <td>Ihnen</td>
+            </tr>
+          </tbody>
+        </table>
+      </>,
+
+      <>
+        <h2>Preposition + Article Contractions</h2>
+        <p>When to use: these short forms are the normal everyday choice. Use them by default.</p>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Full form</th>
+              <th>Contraction</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>an dem</td>
+              <td>am</td>
+            </tr>
+            <tr>
+              <td>in dem</td>
+              <td>im</td>
+            </tr>
+            <tr>
+              <td>von dem</td>
+              <td>vom</td>
+            </tr>
+            <tr>
+              <td>zu dem</td>
+              <td>zum</td>
+            </tr>
+            <tr>
+              <td>zu der</td>
+              <td>zur</td>
+            </tr>
+            <tr>
+              <td>bei dem</td>
+              <td>beim</td>
+            </tr>
+          </tbody>
+        </table>
+      </>,
+
+      <>
+        <h2>Modal Verb: dürfen (may / allowed to)</h2>
+        <p>
+          When to use: to ask for or state permission. The modal stays in second position; the main
+          verb moves to the end as an infinitive.
+        </p>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Form</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ich</td>
+              <td>darf</td>
+            </tr>
+            <tr>
+              <td>du</td>
+              <td>darfst</td>
+            </tr>
+            <tr>
+              <td>er/sie/es</td>
+              <td>darf</td>
+            </tr>
+            <tr>
+              <td>wir</td>
+              <td>dürfen</td>
+            </tr>
+            <tr>
+              <td>ihr</td>
+              <td>dürft</td>
+            </tr>
+            <tr>
+              <td>sie/Sie</td>
+              <td>dürfen</td>
+            </tr>
+          </tbody>
+        </table>
+      </>,
+
+      <>
+        <h2>Plural Formation Patterns</h2>
+        <p>
+          When to use: A1 nouns fall into a few common plural patterns. Learn the pattern with each
+          noun.
+        </p>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Pattern</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>add -e</td>
+              <td>der Tisch → die Tische</td>
+            </tr>
+            <tr>
+              <td>add -e + umlaut</td>
+              <td>der Stuhl → die Stühle</td>
+            </tr>
+            <tr>
+              <td>add -n / -en</td>
+              <td>die Lampe → die Lampen</td>
+            </tr>
+            <tr>
+              <td>add -er + umlaut</td>
+              <td>das Haus → die Häuser</td>
+            </tr>
+            <tr>
+              <td>no change</td>
+              <td>das Zimmer → die Zimmer</td>
+            </tr>
+            <tr>
+              <td>add -s</td>
+              <td>das Sofa → die Sofas</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Dativ plural adds -n to the noun unless the plural already ends in -n or -s: den Zimmern,
+          den Häusern.
+        </p>
+      </>,
+
+      <>
+        <h2>Telling the Time</h2>
+        <p>When to use: to ask and answer what time it is, or to set a time for an event.</p>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>German</th>
+              <th>English</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wie spät ist es?</td>
+              <td>What time is it?</td>
+            </tr>
+            <tr>
+              <td>Es ist zehn Uhr.</td>
+              <td>It is ten o'clock.</td>
+            </tr>
+            <tr>
+              <td>Viertel nach zehn</td>
+              <td>quarter past ten (10:15)</td>
+            </tr>
+            <tr>
+              <td>halb elf</td>
+              <td>half past ten (10:30)</td>
+            </tr>
+            <tr>
+              <td>Viertel vor elf</td>
+              <td>quarter to eleven (10:45)</td>
+            </tr>
+            <tr>
+              <td>um zehn Uhr</td>
+              <td>at ten o'clock</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Warning: halb counts toward the next hour. halb elf is 10:30, not 11:30.</p>
       </>
     ]
   },

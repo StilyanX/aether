@@ -12,9 +12,9 @@ import {
   QuadInequalityViz,
   TrivialInequalityViz
 } from '../../../../components/viz'
-// ─── Visualization Components ─────────────────────────────────────────────────
+// Visualization Components
 
-// ─── Config ───────────────────────────────────────────────────────────────────
+// Config
 
 function useConfig() {
   return useMemo(
@@ -23,47 +23,27 @@ function useConfig() {
       documentTitle: 'Quadratic Functions and Polynomial Inequalities - AETHER',
       learning: {
         groupTitle: 'Coordinate Geometry and Functions',
-        category: 'Module 14-15',
+        category: 'Algebra',
         title: 'Quadratic Functions and Polynomial Inequalities',
         subtitle:
           'Graphing parabolas and circles, solving inequalities, and optimizing quadratics.',
         sections: [
-          // ── SECTION 0: Parabolas ──────────────────────────────────────────────
+          // SECTION 0: Parabolas
           <>
-            <div className="lrn-header">
-              <div>
-                <span className="lrn-label">Chapter 14</span>
-                <h1>Graphing Quadratics</h1>
-                <p>A parabola is the curve you get when you graph a quadratic equation.</p>
-                <p>
-                  Every parabola has an <strong>axis of symmetry</strong> a line that splits it into
-                  two mirror halves.
-                </p>
-                <p>
-                  The point where the axis meets the parabola is the <strong>vertex</strong>.
-                </p>
-              </div>
-            </div>
-
-            <div className="lrn-predict">
-              <span className="lrn-predict-label">PREDICT</span>
-              <p>
-                {`$y = x^2$`} is a U-shaped curve. What changes if you replace {`$x^2$`} with{' '}
-                {`$5x^2$`}? With {`$-x^2$`}?
-              </p>
-              <details className="lrn-predict-reveal">
-                <summary>Check your thinking</summary>
-                <p>The next subsection works out both cases.</p>
-              </details>
-            </div>
-
-            <h2>14.1 Parabolas</h2>
+            <span className="lrn-label">Part 1</span>
+            <h2>Parabolas</h2>
+            <p>A parabola is the curve you get when you graph a quadratic equation.</p>
+            <p>
+              Every parabola has an <strong>axis of symmetry</strong> a line that splits it into two
+              mirror halves. The point where the axis meets the parabola is the{' '}
+              <strong>vertex</strong>.
+            </p>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Parabola</span>
               <div className="lrn-definition-desc">
                 <p>
-                  The graph of {`$y = ax^2 + bx + c$`} where {`$a \neq 0$`}.
+                  The graph of {`$y = ax^2 + bx + c$`} where {`$a \\neq 0$`}.
                 </p>
                 <p>
                   It is symmetric about a vertical line called the <strong>axis of symmetry</strong>
@@ -150,7 +130,10 @@ function useConfig() {
 
             <h3>Completing the Square to Find the Vertex</h3>
 
-            <p>To go from {`$y = ax^2 + bx + c$`} to standard form, you complete the square.</p>
+            <p>
+              To go from {`$y = ax^2 + bx + c$`} to standard form, complete the square rewrite so
+              the x-terms form a perfect square plus a constant.
+            </p>
 
             <p>
               <strong>Worked example:</strong> Graph {`$y = x^2 - 7x + 6$`} and find its vertex.
@@ -163,25 +146,25 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Find the number to complete the square</span>
-                <p className="lrn-step-content">{`Half of $-7$ is $-\tfrac{7}{2}$. Square it: $\bigl(-\tfrac{7}{2}\bigr)^2 = \tfrac{49}{4}$.`}</p>
+                <p className="lrn-step-content">{`Half of $-7$ is $-\\tfrac{7}{2}$. Square it: $\\bigl(-\\tfrac{7}{2}\\bigr)^2 = \\tfrac{49}{4}$.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Add and subtract inside</span>
-                <p className="lrn-step-content">{`$$y = \\left(x^2 - 7x + \tfrac{49}{4}\right) - \tfrac{49}{4} + 6$$`}</p>
+                <p className="lrn-step-content">{`$$y = \\left(x^2 - 7x + \\tfrac{49}{4}\\right) - \\tfrac{49}{4} + 6$$`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Factor and simplify</span>
-                <p className="lrn-step-content">{`$$y = \\left(x - \tfrac{7}{2}\right)^2 - \tfrac{25}{4}$$`}</p>
+                <p className="lrn-step-content">{`$$y = \\left(x - \\tfrac{7}{2}\\right)^2 - \\tfrac{25}{4}$$`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Read off vertex</span>
-                <p className="lrn-step-content">{`Vertex: $\bigl(\tfrac{7}{2}, -\tfrac{25}{4}\bigr)$. The parabola opens upward since $a = 1 > 0$.`}</p>
+                <p className="lrn-step-content">{`Vertex: $\\bigl(\\tfrac{7}{2}, -\\tfrac{25}{4}\\bigr)$. The parabola opens upward since $a = 1 > 0$.`}</p>
               </div>
             </div>
 
             <div className="lrn-self-explain">
               <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-              <p>Why add and then subtract {`$\tfrac{49}{4}$`}? Why not just add it?</p>
+              <p>Why add and then subtract {`$\\tfrac{49}{4}$`}? Why not just add it?</p>
               <details className="lrn-self-explain-reveal">
                 <summary>Expert explanation</summary>
                 <p>
@@ -223,7 +206,7 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Complete the square inside</span>
-                <p className="lrn-step-content">{`Half of $4$ is $2$; $2^2 = 4$. Add $4$ inside the parentheses. Since $-3$ multiplies the parentheses, this adds $-3 \\cdot 4 = -12$ to the right side so add $+12$ to compensate.`}</p>
+                <p className="lrn-step-content">{`Half of $4$ is $2$; $2^2 = 4$. Add $4$ inside the parentheses. Since $-3$ multiplies the parentheses, this adds $-3 \\cdot 4 = -12$ to the right side so add $+12$ outside to make up for it.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Write in standard form</span>
@@ -233,22 +216,6 @@ function useConfig() {
                 <span className="lrn-step-title">Read vertex</span>
                 <p className="lrn-step-content">{`Vertex: $(-2, 7)$. Since $a = -3 < 0$, the parabola opens downward.`}</p>
               </div>
-            </div>
-
-            <div className="lrn-self-explain">
-              <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-              <p>
-                Why does adding 4 inside the parentheses force us to add {`$+12$`} outside, not{' '}
-                {`$+4$`}?
-              </p>
-              <details className="lrn-self-explain-reveal">
-                <summary>Expert explanation</summary>
-                <p>
-                  The {`$-3$`} sitting in front multiplies whatever is inside, so adding 4 inside is
-                  really adding {`$-3 \\cdot 4 = -12$`} to the whole expression. To cancel that
-                  silently we add {`$+12$`} outside. Net change: zero.
-                </p>
-              </details>
             </div>
 
             <div className="lrn-faded">
@@ -266,7 +233,7 @@ function useConfig() {
                   <li>Vertex: {`$(2, -3)$`}. Opens upward.</li>
                 </ol>
               </div>
-              <div className="lrn-faded-phase">
+              <div className="lrn-faded-phase lrn-faded-partial">
                 <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
                 <ol className="lrn-list">
                   <li>
@@ -321,22 +288,22 @@ function useConfig() {
             </div>
 
             <p>
-              <strong>Worked example:</strong> Graph {`$x = \tfrac{y^2}{2} + 3y + 1$`} and find the
+              <strong>Worked example:</strong> Graph {`$x = \\tfrac{y^2}{2} + 3y + 1$`} and find the
               vertex.
             </p>
 
             <div className="lrn-steps">
               <div className="lrn-step">
                 <span className="lrn-step-title">Complete the square in {`$y$`}</span>
-                <p className="lrn-step-content">{`$$x = \tfrac{1}{2}(y^2 + 6y) + 1$$`}</p>
+                <p className="lrn-step-content">{`$$x = \\tfrac{1}{2}(y^2 + 6y) + 1$$`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Add 9 inside (half of 6 squared)</span>
-                <p className="lrn-step-content">{`$$x = \tfrac{1}{2}(y + 3)^2 + 1 - \tfrac{9}{2} = \tfrac{1}{2}(y + 3)^2 - \tfrac{7}{2}$$`}</p>
+                <p className="lrn-step-content">{`$$x = \\tfrac{1}{2}(y + 3)^2 + 1 - \\tfrac{9}{2} = \\tfrac{1}{2}(y + 3)^2 - \\tfrac{7}{2}$$`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Read vertex</span>
-                <p className="lrn-step-content">{`Vertex: $\bigl(-\tfrac{7}{2}, -3\bigr)$. Since $a = \tfrac{1}{2} > 0$, the parabola opens right. The vertex is the leftmost point.`}</p>
+                <p className="lrn-step-content">{`Vertex: $\\bigl(-\\tfrac{7}{2}, -3\\bigr)$. Since $a = \\tfrac{1}{2} > 0$, the parabola opens right. The vertex is the leftmost point.`}</p>
               </div>
             </div>
 
@@ -347,97 +314,31 @@ function useConfig() {
             <div className="lrn-self-explain">
               <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
               <p>
-                Why is the vertex {`$\bigl(-\tfrac{7}{2}, -3\bigr)$`} and not{' '}
-                {`$\bigl(-3, -\tfrac{7}{2}\bigr)$`}?
+                Why is the vertex {`$\\bigl(-\\tfrac{7}{2}, -3\\bigr)$`} and not{' '}
+                {`$\\bigl(-3, -\\tfrac{7}{2}\\bigr)$`}?
               </p>
               <details className="lrn-self-explain-reveal">
                 <summary>Expert explanation</summary>
                 <p>
                   In {`$x = a(y - k)^2 + h$`}, {`$h$`} is the constant outside (so it equals the
                   output {`$x$`} at the vertex) and {`$k$`} is the constant inside (so it equals the
-                  input {`$y$`} at the vertex). Here {`$h = -\tfrac{7}{2}$`} and {`$k = -3$`}.
+                  input {`$y$`} at the vertex). Here {`$h = -\\tfrac{7}{2}$`} and {`$k = -3$`}.
                 </p>
               </details>
-            </div>
-
-            <h3>General Form and Three-Point Problems</h3>
-
-            <p>
-              When you know three points on the parabola but not its vertex, switch to the general
-              form {`$y = ax^2 + bx + c$`}. Substituting each point gives a linear system in {`$a$`}
-              , {`$b$`}, {`$c$`}.
-            </p>
-
-            <div className="lrn-compare">
-              <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Standard Form {`$y = a(x-h)^2+k$`}</span>
-                <p>Vertex {`$(h,k)$`} is readable at a glance.</p>
-                <p>Best when the vertex or axis of symmetry is given.</p>
-              </div>
-              <div className="lrn-compare-col">
-                <span className="lrn-compare-title">General Form {`$y = ax^2+bx+c$`}</span>
-                <p>
-                  Three unknowns: {`$a$`}, {`$b$`}, {`$c$`}.
-                </p>
-                <p>Best when three points are known each one becomes one linear equation.</p>
-              </div>
-            </div>
-
-            <p>
-              <strong>Worked example:</strong> Find the equation of the parabola through{' '}
-              {`$(1, 0)$`}, {`$(2, 9)$`}, and {`$(-3, 4)$`} with a vertical axis.
-            </p>
-
-            <div className="lrn-steps">
-              <div className="lrn-step">
-                <span className="lrn-step-title">Write general form</span>
-                <p className="lrn-step-content">{`$y = ax^2 + bx + c$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Substitute each point</span>
-                <p className="lrn-step-content">{`$0 = a + b + c$, $9 = 4a + 2b + c$, $4 = 9a - 3b + c$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Solve the system</span>
-                <p className="lrn-step-content">{`Subtracting the first equation from the others: $9 = 3a + b$ and $4 = 8a - 4b$. Solve to get $a = 2$, $b = 3$, $c = -5$.`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Write answer</span>
-                <p className="lrn-step-content">{`$$y = 2x^2 + 3x - 5$$`}</p>
-              </div>
             </div>
 
             <div className="lrn-insight">
               <p>
-                Two problem-solving habits to keep: when you are stuck, list every piece of
-                information you have not yet used the unused fact is usually the key. And when one
-                form of the equation leads to a tangled system, switch to the other form. Standard
-                form is friendly to vertex information; general form is friendly to point
-                information.
-              </p>
-              <p>
-                The forms themselves are less important than knowing how to derive and pick between
-                them. Memorising the formulas can wait; understanding how they come from completing
-                the square cannot.
+                When standard form leads to a tangled system, switch to the general form{' '}
+                {`$y = ax^2 + bx + c$`} and vice versa. Standard form reads off vertex information
+                at a glance; general form takes one substitution per known point.
               </p>
             </div>
           </>,
 
-          // ── SECTION 1: Circles ────────────────────────────────────────────────
+          // SECTION 1: Circles
           <>
-            <div className="lrn-predict">
-              <span className="lrn-predict-label">PREDICT</span>
-              <p>
-                A circle is every point at the same distance from a center. If the center is{' '}
-                {`$(h, k)$`} and the radius is {`$r$`}, what equation captures that?
-              </p>
-              <details className="lrn-predict-reveal">
-                <summary>Check your thinking</summary>
-                <p>The next paragraph derives it from the distance formula.</p>
-              </details>
-            </div>
-
-            <h2>14.2 Circles</h2>
+            <h2>Part 2, Circles</h2>
 
             <p>
               A <strong>circle</strong> is the set of all points at one fixed distance the{' '}
@@ -455,9 +356,10 @@ function useConfig() {
                 </ul>
                 <p>
                   Derivation: a point {`$(x, y)$`} is on the circle exactly when its distance to{' '}
-                  {`$(h, k)$`} equals {`$r$`}. The distance formula gives{' '}
-                  {`$\\sqrt{(x-h)^2 + (y-k)^2} = r$`}. Squaring both sides removes the root and gives
-                  the standard form.
+                  {`$(h, k)$`} equals {`$r$`}. The distance between two points is Pythagoras on the
+                  coordinate differences: square the horizontal gap, square the vertical gap, add,
+                  take the square root. So {`$\\sqrt{(x-h)^2 + (y-k)^2} = r$`}. Squaring both sides
+                  removes the root and gives the standard form.
                 </p>
               </div>
             </div>
@@ -484,7 +386,7 @@ function useConfig() {
             <div className="lrn-steps">
               <div className="lrn-step">
                 <span className="lrn-step-title">Divide by 3</span>
-                <p className="lrn-step-content">{`$$x^2 + 2x + y^2 - 3y = -\tfrac{2}{3}$$`}</p>
+                <p className="lrn-step-content">{`$$x^2 + 2x + y^2 - 3y = -\\tfrac{2}{3}$$`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Complete the square in {`$x$`}</span>
@@ -492,24 +394,25 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Complete the square in {`$y$`}</span>
-                <p className="lrn-step-content">{`$\bigl(y - \tfrac{3}{2}\bigr)^2 - \tfrac{9}{4}$. Add $\tfrac{9}{4}$ to the right side.`}</p>
+                <p className="lrn-step-content">{`$\\bigl(y - \\tfrac{3}{2}\\bigr)^2 - \\tfrac{9}{4}$. Add $\\tfrac{9}{4}$ to the right side.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Combine</span>
-                <p className="lrn-step-content">{`$$(x+1)^2 + \\left(y - \tfrac{3}{2}\right)^2 = -\tfrac{2}{3} + 1 + \tfrac{9}{4} = \tfrac{31}{12}$$`}</p>
+                <p className="lrn-step-content">{`$$(x+1)^2 + \\left(y - \\tfrac{3}{2}\\right)^2 = -\\tfrac{2}{3} + 1 + \\tfrac{9}{4} = \\tfrac{31}{12}$$`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Read off</span>
-                <p className="lrn-step-content">{`Center $\bigl(-1, \tfrac{3}{2}\bigr)$, radius $\\sqrt{\tfrac{31}{12}}$.`}</p>
+                <p className="lrn-step-content">{`Center $\\bigl(-1, \\tfrac{3}{2}\\bigr)$, radius $\\sqrt{\\tfrac{31}{12}}$.`}</p>
               </div>
             </div>
 
             <h3>Degenerate Circles</h3>
 
             <p>
-              Not every equation of the form {`$Ax^2 + Bx + Ay^2 + Cy = D$`} produces a circle you
-              can draw. After completing the square, the right-hand side {`$r^2$`} tells you which
-              case you are in.
+              <em>Degenerate</em> here means an equation that looks like a circle but graphs to a
+              single point or to nothing at all. Not every equation of the form{' '}
+              {`$Ax^2 + Bx + Ay^2 + Cy = D$`} produces a real circle. After completing the square,
+              the right-hand side {`$r^2$`} tells you which case you are in.
             </p>
 
             <div className="lrn-definition">
@@ -517,15 +420,17 @@ function useConfig() {
               <div className="lrn-definition-desc">
                 <ul className="lrn-list">
                   <li>
-                    <strong>Positive:</strong> a real circle with radius {`$\\sqrt{r^2}$`}.
+                    <strong>Positive:</strong> a real circle with radius {`$\\sqrt{r^2}$`}. Example:{' '}
+                    {`$(x-1)^2 + y^2 = 4$`} is a circle of radius 2 centred at {`$(1, 0)$`}.
                   </li>
                   <li>
                     <strong>Zero:</strong> a single point both squares must equal zero, so{' '}
-                    {`$(x, y) = (h, k)$`}.
+                    {`$(x, y) = (h, k)$`}. Example: {`$(x-1)^2 + y^2 = 0$`} is just the point{' '}
+                    {`$(1, 0)$`}.
                   </li>
                   <li>
                     <strong>Negative:</strong> no real graph the left side {`$(x-h)^2 + (y-k)^2$`}{' '}
-                    cannot be negative.
+                    cannot be negative. Example: {`$(x-1)^2 + y^2 = -4$`} has no real solutions.
                   </li>
                 </ul>
               </div>
@@ -533,41 +438,66 @@ function useConfig() {
 
             <div className="lrn-insight">
               An equation of the form {`$Ax^2 + Bx + Ay^2 + Cy = D$`} (same coefficient on {`$x^2$`}{' '}
-              and {`$y^2$`}, {`$A \neq 0$`}), if it has a graph at all, has a graph that is either a
-              circle or a single point. It can never produce any other shape.
+              and {`$y^2$`}, {`$A \\neq 0$`}), if it has a graph at all, has a graph that is either
+              a circle or a single point. It can never produce any other shape.
             </div>
 
-            <h3>Finding a Circle from Three Points</h3>
+            <h3>Reading the Coefficients From the Graph</h3>
 
             <p>
-              When you know three points on the circle but not the centre, use the form{' '}
-              {`$x^2 + Bx + y^2 + Cy = D$`} (divide through by {`$A$`} first if needed).
-              Substituting each point gives a linear equation in {`$B$`}, {`$C$`}, {`$D$`}.
-            </p>
-
-            <p>
-              <strong>Worked example:</strong> Find the circle through {`$(0, 0)$`}, {`$(3, -1)$`},
-              and {`$(-1, 7)$`}.
+              Given the graph of {`$y = ax^2 + bx + c$`}, you can determine the signs of {`$a$`},{' '}
+              {`$b$`}, and {`$c$`} by inspection.
             </p>
 
             <div className="lrn-steps">
               <div className="lrn-step">
-                <span className="lrn-step-title">Write general form</span>
-                <p className="lrn-step-content">{`$x^2 + Bx + y^2 + Cy = D$`}</p>
+                <span className="lrn-step-title">Sign of {`$a$`}</span>
+                <p className="lrn-step-content">
+                  If the parabola opens upward, {`$a > 0$`}. If it opens downward, {`$a < 0$`}.
+                </p>
               </div>
               <div className="lrn-step">
-                <span className="lrn-step-title">Substitute {`$(0,0)$`}</span>
-                <p className="lrn-step-content">{`$0 = D$, so $D = 0$.`}</p>
+                <span className="lrn-step-title">Sign of {`$c$`}</span>
+                <p className="lrn-step-content">
+                  The y-intercept occurs at {`$x = 0$`}, so {`$y = c$`}. If the curve crosses the
+                  y-axis above the origin, {`$c > 0$`}. If below, {`$c < 0$`}.
+                </p>
               </div>
               <div className="lrn-step">
-                <span className="lrn-step-title">
-                  Substitute {`$(3,-1)$`} and {`$(-1,7)$`}
-                </span>
-                <p className="lrn-step-content">{`$3B - C = -10$ and $-B + 7C = -50$.`}</p>
+                <span className="lrn-step-title">Sign of {`$b$`}</span>
+                <p className="lrn-step-content">
+                  The vertex x-coordinate is {`$x = -\\tfrac{b}{2a}$`}. If the vertex is to the left
+                  of the y-axis (negative x), then {`$-\\tfrac{b}{2a} < 0$`}, so{' '}
+                  {`$\\tfrac{b}{2a} > 0$`} has the same sign as {`$a$`}. If the vertex is to the
+                  right (positive x), then {`$b$`} has the opposite sign of {`$a$`}.
+                </p>
+              </div>
+            </div>
+
+            <p>
+              <strong>Worked example:</strong> A parabola opens downward, crosses the y-axis below
+              the origin, and has its vertex to the left of the y-axis. Determine the signs of{' '}
+              {`$a$`}, {`$b$`}, and {`$c$`}.
+            </p>
+
+            <div className="lrn-steps">
+              <div className="lrn-step">
+                <span className="lrn-step-title">Sign of {`$a$`}</span>
+                <p className="lrn-step-content">Opens downward, so {`$a < 0$`}.</p>
               </div>
               <div className="lrn-step">
-                <span className="lrn-step-title">Solve and convert to standard form</span>
-                <p className="lrn-step-content">{`$B = -6$, $C = -8$. After completing the square: $(x-3)^2 + (y-4)^2 = 25$.`}</p>
+                <span className="lrn-step-title">Sign of {`$c$`}</span>
+                <p className="lrn-step-content">Crosses below the origin, so {`$c < 0$`}.</p>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-title">Sign of {`$b$`}</span>
+                <p className="lrn-step-content">
+                  Vertex to the left means {`$x = -\\tfrac{b}{2a} < 0$`}, so {`$-\\tfrac{b}{2a}$`}{' '}
+                  is negative. Since {`$a < 0$`}, we have {`$-\\tfrac{b}{2a} = \\tfrac{-b}{2a}$`}.
+                  For this to be negative with {`$2a < 0$`} in the denominator, the numerator{' '}
+                  {`$-b$`}
+                  must be positive, so {`$b < 0$`}.
+                </p>
               </div>
             </div>
 
@@ -594,45 +524,27 @@ function useConfig() {
               {`$x^2 + y^2 - 4x + 12y + 27 = 0$`}.
             </p>
 
-            <div className="lrn-steps">
-              <div className="lrn-step">
-                <span className="lrn-step-title">Substitute {`$x = y + 7$`} into the circle</span>
-                <p className="lrn-step-content">{`$(y+7)^2 + y^2 - 4(y+7) + 12y + 27 = 0$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Expand and simplify</span>
-                <p className="lrn-step-content">{`$2y^2 + 22y + 48 = 0 \\Rightarrow y^2 + 11y + 24 = 0$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Factor</span>
-                <p className="lrn-step-content">{`$(y + 3)(y + 8) = 0 \\Rightarrow y = -3$ or $y = -8$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Find {`$x$`} and write solutions</span>
-                <p className="lrn-step-content">{`$(4, -3)$ and $(-1, -8)$.`}</p>
-              </div>
-            </div>
+            <p>
+              Substitute {`$x = y + 7$`} into the circle. Expanding gives{' '}
+              {`$(y+7)^2 + y^2 - 4(y+7) + 12y + 27 = 0$`}, which simplifies to{' '}
+              {`$2y^2 + 22y + 48 = 0$`}, that is {`$y^2 + 11y + 24 = 0$`}. Factor{' '}
+              {`$(y+3)(y+8) = 0$`}: {`$y = -3$`} (then {`$x = 4$`}) or {`$y = -8$`} (then{' '}
+              {`$x = -1$`}). The two intersection points are {`$(4, -3)$`} and {`$(-1, -8)$`}.
+            </p>
           </>,
 
-          // ── SECTION 2: Quadratic Inequalities ────────────────────────────────
+          // SECTION 2: Quadratic Inequalities
           <>
-            <div className="lrn-predict">
-              <span className="lrn-predict-label">PREDICT</span>
-              <p>
-                {`$(x+2)(x-5) = 0$`} when {`$x = -2$`} or {`$x = 5$`}. For which {`$x$`} is{' '}
-                {`$(x+2)(x-5) \\geq 0$`}?
-              </p>
-              <details className="lrn-predict-reveal">
-                <summary>Check your thinking</summary>
-                <p>
-                  Two numbers multiply to something nonnegative when they share a sign (both
-                  positive or both negative). That happens for {`$x \\geq 5$`} and for{' '}
-                  {`$x \\leq -2$`}.
-                </p>
-              </details>
-            </div>
+            <h2>Part 3, Quadratic Inequalities</h2>
 
-            <h2>15.1 Quadratic Inequalities</h2>
+            <h3>Why Sign Analysis Works</h3>
+
+            <p>
+              The Intermediate Value Theorem tells us that a continuous function cannot change sign
+              without crossing zero. So a polynomial is either positive or negative throughout each
+              interval between roots the only place it can switch signs is at a root where it equals
+              zero.
+            </p>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Solving a Quadratic Inequality</span>
@@ -650,9 +562,44 @@ function useConfig() {
               <span className="lrn-callout-label">Warning</span>
               <p>
                 Move everything to one side first. You cannot analyse signs when the quadratic is
-                compared to a nonzero number. For example, {`$(x-3)(x-1) > 2$`} is not solved by
-                asking where each factor exceeds something expand, subtract 2, refactor, then
+                compared to a nonzero number. Wherever you see two factors on the left and a
+                non-zero number on the right, expand, subtract the right side, factor again, then
                 analyse signs.
+              </p>
+            </div>
+
+            <p>
+              <strong>Worked example:</strong> Solve {`$(x-3)(x-1) > 2$`} the trap from the warning,
+              worked out.
+            </p>
+
+            <div className="lrn-steps">
+              <div className="lrn-step">
+                <span className="lrn-step-title">Expand the left side</span>
+                <p className="lrn-step-content">{`$(x-3)(x-1) = x^2 - 4x + 3$`}.</p>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-title">Subtract 2 to move everything to one side</span>
+                <p className="lrn-step-content">{`$x^2 - 4x + 1 > 0$`}.</p>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-title">Find roots and analyse signs</span>
+                <p className="lrn-step-content">{`By the quadratic formula the roots are $x = 2 \\pm \\sqrt{3}$. The parabola opens upward, so the expression is positive outside the roots.`}</p>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-title">
+                  Write the solution (strict, so roots excluded)
+                </span>
+                <p className="lrn-step-content">{`$$x < 2 - \\sqrt{3} \\quad \\text{or} \\quad x > 2 + \\sqrt{3}.$$`}</p>
+              </div>
+            </div>
+
+            <div className="lrn-callout">
+              <span className="lrn-callout-label">Interval notation</span>
+              <p>
+                A solution like {`$x \\leq -2$`} or {`$x \\geq 5$`} is written{' '}
+                {`$(-\\infty, -2] \\cup [5, \\infty)$`}. The symbol {`$\\cup$`} means "union" every
+                number that lies in at least one of the two intervals.
               </p>
             </div>
 
@@ -671,7 +618,7 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Write solution</span>
-                <p className="lrn-step-content">{`The inequality is nonstrict, so the roots themselves count: $$x \\leq -2 \\quad \text{or} \\quad x \\geq 5.$$`}</p>
+                <p className="lrn-step-content">{`The inequality is nonstrict ($\\leq$ or $\\geq$ allows equality), so the roots themselves count: $$x \\leq -2 \\quad \\text{or} \\quad x \\geq 5.$$`}</p>
               </div>
             </div>
 
@@ -696,17 +643,6 @@ function useConfig() {
                 </span>
                 <p>Roots are solutions closed circles, brackets {`$[\\,]$`}.</p>
               </div>
-            </div>
-
-            <div className="lrn-callout">
-              <span className="lrn-callout-label">Interval notation</span>
-              <p>
-                The solution {`$x \\leq -2$`} or {`$x \\geq 5$`} is written{' '}
-                {`$(-\\infty, -2] \\cup [5, \\infty)$`}. The symbol {`$\\cup$`} means "union" every
-                number that lies in at least one of the two intervals. Its counterpart {`$\\cap$`}{' '}
-                ("intersection") means the numbers in both: for example,{' '}
-                {`$[3, 7] \\cap [5, 11] = [5, 7]$`}.
-              </p>
             </div>
 
             <p>
@@ -800,7 +736,7 @@ function useConfig() {
             </div>
           </>,
 
-          // ── SECTION 3: Beyond Quadratics ─────────────────────────────────────
+          // SECTION 3: Beyond Quadratics
           <>
             <div className="lrn-predict">
               <span className="lrn-predict-label">PREDICT</span>
@@ -817,7 +753,7 @@ function useConfig() {
               </details>
             </div>
 
-            <h2>15.2 Beyond Quadratics</h2>
+            <h2>Part 4, Polynomial and Rational Inequalities</h2>
 
             <p>
               The same idea track the sign of each factor, then multiply works for any number of
@@ -851,11 +787,11 @@ function useConfig() {
             <div className="lrn-steps">
               <div className="lrn-step">
                 <span className="lrn-step-title">Find roots</span>
-                <p className="lrn-step-content">{`$x = \tfrac{1}{2}$, $x = -1$, $x = -7$. These create four intervals.`}</p>
+                <p className="lrn-step-content">{`$x = \\tfrac{1}{2}$, $x = -1$, $x = -7$. These create four intervals.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Build sign table</span>
-                <p className="lrn-step-content">{`Intervals: $(-\\infty, -7)$, $(-7, -1)$, $(-1, \tfrac{1}{2})$, $(\tfrac{1}{2}, \\infty)$.`}</p>
+                <p className="lrn-step-content">{`Intervals: $(-\\infty, -7)$, $(-7, -1)$, $(-1, \\tfrac{1}{2})$, $(\\tfrac{1}{2}, \\infty)$.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Record signs</span>
@@ -863,7 +799,7 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Solution (strict, so roots excluded)</span>
-                <p className="lrn-step-content">{`$$-7 < x < -1 \\quad \text{or} \\quad x > \tfrac{1}{2}$$`}</p>
+                <p className="lrn-step-content">{`$$-7 < x < -1 \\quad \\text{or} \\quad x > \\tfrac{1}{2}$$`}</p>
               </div>
             </div>
 
@@ -874,9 +810,9 @@ function useConfig() {
                 <summary>Expert explanation</summary>
                 <p>
                   At each root exactly one factor changes sign. Switching one factor from {`$+$`} to{' '}
-                  {`$-$`} (or back) flips the parity of the count of negative factors, and the
-                  product's sign is determined by that parity. So crossing a root always flips the
-                  product.
+                  {`$-$`} (or back) flips the parity (even-or-odd count) of negative factors, and
+                  the product is positive when the count is even and negative when odd. So crossing
+                  a root always flips the product.
                 </p>
               </details>
             </div>
@@ -922,13 +858,13 @@ function useConfig() {
             </div>
 
             <p>
-              <strong>Worked example:</strong> Solve {`$(x+3)\frac{(1-x)}{(x-5)} \\geq 0$`}.
+              <strong>Worked example:</strong> Solve {`$(x+3)\\frac{(1-x)}{(x-5)} \\geq 0$`}.
             </p>
 
             <div className="lrn-steps">
               <div className="lrn-step">
                 <span className="lrn-step-title">Identify critical values</span>
-                <p className="lrn-step-content">{`Numerator zeros: $x = -3$, $x = 1$. Denominator zero: $x = 5$ (excluded).`}</p>
+                <p className="lrn-step-content">{`Critical values are the $x$-values that zero the numerator or denominator the only points where the fraction can change sign. Numerator zeros: $x = -3$, $x = 1$. Denominator zero: $x = 5$ (excluded).`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Four intervals</span>
@@ -940,22 +876,22 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Sign of the fraction</span>
-                <p className="lrn-step-content">{`Multiply numerator signs, divide by denominator sign in each interval: $(-)\frac{(+)}{(-)} = +$, $(+)\frac{(+)}{(-)} = -$, $(+)\frac{(-)}{(-)} = +$, $(+)\frac{(-)}{(+)} = -$. The fraction is positive on $(-\\infty, -3)$ and $(1, 5)$.`}</p>
+                <p className="lrn-step-content">{`Multiply numerator signs, divide by denominator sign in each interval: $(-)\\frac{(+)}{(-)} = +$, $(+)\\frac{(+)}{(-)} = -$, $(+)\\frac{(-)}{(-)} = +$, $(+)\\frac{(-)}{(+)} = -$. The fraction is positive on $(-\\infty, -3)$ and $(1, 5)$.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Write solution</span>
-                <p className="lrn-step-content">{`Numerator zeros $x = -3$ and $x = 1$ are included (nonstrict); $x = 5$ is excluded (denominator zero). Final answer: $$x \\leq -3 \\quad \text{or} \\quad 1 \\leq x < 5.$$`}</p>
+                <p className="lrn-step-content">{`Numerator zeros $x = -3$ and $x = 1$ are included (nonstrict); $x = 5$ is excluded (denominator zero). Final answer: $$x \\leq -3 \\quad \\text{or} \\quad 1 \\leq x < 5.$$`}</p>
               </div>
             </div>
 
             <p>
-              <strong>Worked example:</strong> Solve {`$\tfrac{2}{x-2} - \tfrac{2}{x+3} > -1$`}.
+              <strong>Worked example:</strong> Solve {`$\\tfrac{2}{x-2} - \\tfrac{2}{x+3} > -1$`}.
             </p>
 
             <div className="lrn-steps">
               <div className="lrn-step">
                 <span className="lrn-step-title">Move everything to one side</span>
-                <p className="lrn-step-content">{`$$\tfrac{2}{x-2} - \tfrac{2}{x+3} + 1 > 0$$`}</p>
+                <p className="lrn-step-content">{`$$\\tfrac{2}{x-2} - \\tfrac{2}{x+3} + 1 > 0$$`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Common denominator {`$(x-2)(x+3)$`}</span>
@@ -963,7 +899,7 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Check if numerator has real roots</span>
-                <p className="lrn-step-content">{`Discriminant: $1 - 16 = -15 < 0$. So $x^2 + x + 4 > 0$ always.`}</p>
+                <p className="lrn-step-content">{`The discriminant $b^2 - 4ac$ tells you: negative means no real roots. Here $1 - 16 = -15 < 0$. With no real roots and a positive leading coefficient, $x^2 + x + 4 > 0$ always.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Analyze denominator</span>
@@ -976,7 +912,7 @@ function useConfig() {
             </div>
           </>,
 
-          // ── SECTION 4: Trivial Inequality ─────────────────────────────────────
+          // SECTION 4: Trivial Inequality
           <>
             <div className="lrn-predict">
               <span className="lrn-predict-label">PREDICT</span>
@@ -990,16 +926,16 @@ function useConfig() {
               </details>
             </div>
 
-            <h2>15.3 The Trivial Inequality</h2>
+            <h2>Part 5, The Trivial Inequality and AM-GM</h2>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Trivial Inequality</span>
               <div className="lrn-definition-desc">
-                <p>{`$$x^2 \\geq 0 \\quad \text{for every real } x$$`}</p>
+                <p>{`$$x^2 \\geq 0 \\quad \\text{for every real } x$$`}</p>
                 <p>Equality holds only when {`$x = 0$`}.</p>
                 <p>
-                  It looks too obvious to name, but this single fact is the seed for almost every
-                  inequality proof you will ever write.
+                  It looks too obvious to name, but it anchors almost every inequality proof in this
+                  lesson.
                 </p>
               </div>
             </div>
@@ -1046,15 +982,26 @@ function useConfig() {
             <h3>AM-GM Inequality</h3>
 
             <div className="lrn-definition">
-              <span className="lrn-definition-term">AM-GM Inequality</span>
+              <span className="lrn-definition-term">
+                AM-GM (Arithmetic Mean Geometric Mean) Inequality
+              </span>
               <div className="lrn-definition-desc">
-                <p>{`$$\frac{a^2 + b^2}{2} \\geq ab \\quad \text{for all real } a, b$$`}</p>
-                <p>Equality holds when {`$a = b$`}.</p>
+                <p>{`$$\\frac{a + b}{2} \\geq \\sqrt{ab} \\quad \\text{for all } a, b \\geq 0$$`}</p>
+                <p>
+                  Equality holds when {`$a = b$`}. The name says the same thing in words: the
+                  average of two non-negative numbers is at least their geometric mean.
+                </p>
+                <p>
+                  The squared form below follows by substituting {`$a \\to a^2$`} and{' '}
+                  {`$b \\to b^2$`} and now holds for all real {`$a, b$`} since{' '}
+                  {`$a^2, b^2 \\geq 0$`}:
+                </p>
+                <p>{`$$\\frac{a^2 + b^2}{2} \\geq ab \\quad \\text{for all real } a, b$$`}</p>
               </div>
             </div>
 
             <div className="lrn-proof">
-              <span className="lrn-proof-header">Proof</span>
+              <span className="lrn-proof-header">Proof of the squared form</span>
               <div className="lrn-proof-step">
                 <span className="lrn-proof-step-num">1.</span>
                 <div className="lrn-proof-step-content">{`Start from the Trivial Inequality: $(a - b)^2 \\geq 0$.`}</div>
@@ -1071,14 +1018,14 @@ function useConfig() {
                 <span className="lrn-proof-step-num">4.</span>
                 <div className="lrn-proof-step-content">{`Divide by 2: $\\dfrac{a^2 + b^2}{2} \\geq ab$. $\\square$`}</div>
               </div>
-              <div className="lrn-qed">Q.E.D.</div>
+              <div className="lrn-qed">Q.E.D. (Latin: which was to be demonstrated)</div>
             </div>
 
             <div className="lrn-self-explain">
               <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
               <p>
                 Why does the proof open with {`$(a - b)^2 \\geq 0$`} instead of with the goal{' '}
-                {`$\tfrac{a^2+b^2}{2} \\geq ab$`}?
+                {`$\\tfrac{a^2+b^2}{2} \\geq ab$`}?
               </p>
               <details className="lrn-self-explain-reveal">
                 <summary>Expert explanation</summary>
@@ -1091,43 +1038,33 @@ function useConfig() {
             </div>
 
             <p>
-              <strong>Worked example:</strong> Prove {`$x + \tfrac{1}{x} \\geq 2$`} for all positive{' '}
-              {`$x$`}.
+              <strong>Worked example:</strong> Prove {`$x + \\tfrac{1}{x} \\geq 2$`} for all
+              positive {`$x$`}.
             </p>
 
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">
-                Two Proofs of {`$x + \frac{1}{x} \\geq 2$`}
-              </span>
-              <div className="lrn-definition-desc">
-                <p>
-                  <strong>Solution 1 mimic the AM-GM proof:</strong>
-                </p>
-                <ol className="lrn-list">
-                  <li>{`Start: $(x - 1)^2 \\geq 0$.`}</li>
-                  <li>{`Expand: $x^2 - 2x + 1 \\geq 0$.`}</li>
-                  <li>{`Add $2x$: $x^2 + 1 \\geq 2x$.`}</li>
-                  <li>{`Divide by $x$ (positive, so inequality stays): $x + \tfrac{1}{x} \\geq 2$.`}</li>
-                </ol>
-                <p>
-                  <strong>Solution 2 use AM-GM directly:</strong>
-                </p>
-                <ol className="lrn-list">
-                  <li>{`Let $a = \\sqrt{x}$, $b = \tfrac{1}{\\sqrt{x}}$.`}</li>
-                  <li>{`AM-GM gives $\tfrac{a^2 + b^2}{2} \\geq ab$, i.e., $\tfrac{x + \tfrac{1}{x}}{2} \\geq 1$.`}</li>
-                  <li>{`Multiply by 2: $x + \tfrac{1}{x} \\geq 2$.`}</li>
-                </ol>
+            <div className="lrn-proof">
+              <span className="lrn-proof-header">Proof (using AM-GM as a tool)</span>
+              <div className="lrn-proof-step">
+                <span className="lrn-proof-step-num">1.</span>
+                <div className="lrn-proof-step-content">{`Let $a = \\sqrt{x}$ and $b = \\tfrac{1}{\\sqrt{x}}$ (both real and positive since $x > 0$). Then $a^2 = x$, $b^2 = \\tfrac{1}{x}$, and $ab = 1$.`}</div>
+              </div>
+              <div className="lrn-proof-step">
+                <span className="lrn-proof-step-num">2.</span>
+                <div className="lrn-proof-step-content">{`Apply the squared form of AM-GM, $\\tfrac{a^2 + b^2}{2} \\geq ab$: $\\tfrac{x + 1/x}{2} \\geq 1$.`}</div>
+              </div>
+              <div className="lrn-proof-step">
+                <span className="lrn-proof-step-num">3.</span>
+                <div className="lrn-proof-step-content">{`Multiply both sides by 2: $x + \\tfrac{1}{x} \\geq 2$. $\\square$`}</div>
               </div>
             </div>
 
-            <div className="lrn-insight">
-              Once you prove an inequality, you can use it as a step in other proofs. AM-GM is a
-              direct tool that, once proved from the Trivial Inequality, becomes a reusable building
-              block.
-            </div>
+            <p>
+              Once proved from the Trivial Inequality, AM-GM becomes a reusable tool it short-cuts
+              the same work the Trivial Inequality would do from scratch.
+            </p>
           </>,
 
-          // ── SECTION 5: Quadratic Optimization ────────────────────────────────
+          // SECTION 5: Quadratic Optimization
           <>
             <div className="lrn-predict">
               <span className="lrn-predict-label">PREDICT</span>
@@ -1143,7 +1080,7 @@ function useConfig() {
               </details>
             </div>
 
-            <h2>15.4★ Quadratic Optimization</h2>
+            <h2>Part 6, Quadratic Optimization</h2>
 
             <p>
               For any quadratic {`$f(x) = ax^2 + bx + c$`}, the largest or smallest value of {`$f$`}{' '}
@@ -1153,11 +1090,14 @@ function useConfig() {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Where the optimum lives</span>
               <div className="lrn-definition-desc">
+                <p>
+                  <em>Optimum</em> here means the largest or smallest value.
+                </p>
                 <ul className="lrn-list">
                   <li>{`$a > 0$`}: parabola opens up vertex is the minimum.</li>
                   <li>{`$a < 0$`}: parabola opens down vertex is the maximum.</li>
-                  <li>Vertex x-coordinate: {`$x = -\\dfrac{b}{2a}$`}.</li>
                 </ul>
+                <p>The vertex x-coordinate is derived below.</p>
               </div>
             </div>
 
@@ -1165,57 +1105,16 @@ function useConfig() {
               <InteractiveOptimizationViz />
             </div>
 
-            <h3>Finding Maximum and Minimum by Completing the Square</h3>
+            <h3>Vertex Formula by Completing the Square</h3>
 
             <p>
-              <strong>Worked example:</strong> Find the largest value of {`$-x^2 + 5x - 7$`}.
-            </p>
-
-            <div className="lrn-steps">
-              <div className="lrn-step">
-                <span className="lrn-step-title">Factor out {`$-1$`} from x-terms</span>
-                <p className="lrn-step-content">{`$$-(x^2 - 5x) - 7$$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Complete the square inside</span>
-                <p className="lrn-step-content">{`Half of $-5$ is $-\tfrac{5}{2}$; $\bigl(-\tfrac{5}{2}\bigr)^2 = \tfrac{25}{4}$. Adding $\tfrac{25}{4}$ inside adds $-\tfrac{25}{4}$ outside.`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Standard form</span>
-                <p className="lrn-step-content">{`$$-\\left(x - \tfrac{5}{2}\right)^2 - 7 + \tfrac{25}{4} = -\\left(x - \tfrac{5}{2}\right)^2 - \tfrac{3}{4}$$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Find maximum</span>
-                <p className="lrn-step-content">{`The square is always nonnegative, so $-(\\cdot)^2 \\leq 0$. Maximum is $-\tfrac{3}{4}$ when $x = \tfrac{5}{2}$.`}</p>
-              </div>
-            </div>
-
-            <p>
-              <strong>Worked example:</strong> Find the smallest value of {`$2x^2 + 8x - 9$`}.
-            </p>
-
-            <div className="lrn-steps">
-              <div className="lrn-step">
-                <span className="lrn-step-title">Factor out 2</span>
-                <p className="lrn-step-content">{`$$2(x^2 + 4x) - 9$$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Complete the square</span>
-                <p className="lrn-step-content">{`$2(x + 2)^2 - 8 - 9 = 2(x+2)^2 - 17$`}</p>
-              </div>
-              <div className="lrn-step">
-                <span className="lrn-step-title">Minimum</span>
-                <p className="lrn-step-content">{`Since $2(x+2)^2 \\geq 0$, minimum is $-17$ at $x = -2$.`}</p>
-              </div>
-            </div>
-
-            <h3>Vertex Formula and Average of Roots</h3>
-
-            <p>
-              The vertex x-coordinate of {`$ax^2 + bx + c$`} is {`$x = -\\dfrac{b}{2a}$`}, which is
-              the same number as the average {`$\\dfrac{r + s}{2}$`} of the two roots {`$r$`} and{' '}
-              {`$s$`}. This identity holds even when the roots are complex the algebra of Vieta's
-              formulas does not care whether the roots are real.
+              The vertex x-coordinate of {`$ax^2 + bx + c$`} is {`$x = -\\dfrac{b}{2a}$`}.
+              Geometrically this is also the average {`$\\dfrac{r + s}{2}$`} of the two roots{' '}
+              {`$r$`} and {`$s$`}: the axis of symmetry splits the parabola in half, so it sits
+              exactly between the two x-intercepts (the points where the graph crosses the x-axis).
+              When the discriminant is negative the roots are complex (non-real), but the quadratic
+              formula still produces two values whose sum is {`$-\\dfrac{b}{a}$`}, so the identity
+              still gives the real vertex location.
             </p>
 
             <div className="lrn-proof">
@@ -1226,11 +1125,11 @@ function useConfig() {
               </div>
               <div className="lrn-proof-step">
                 <span className="lrn-proof-step-num">2.</span>
-                <div className="lrn-proof-step-content">{`Factor: $a\\!\\left(x^2 + \\dfrac{b}{a}x\right) + c$.`}</div>
+                <div className="lrn-proof-step-content">{`Factor: $a\\!\\left(x^2 + \\dfrac{b}{a}x\\right) + c$.`}</div>
               </div>
               <div className="lrn-proof-step">
                 <span className="lrn-proof-step-num">3.</span>
-                <div className="lrn-proof-step-content">{`Complete the square: $a\\!\\left(x + \\dfrac{b}{2a}\right)^2 + c - \\dfrac{b^2}{4a}$.`}</div>
+                <div className="lrn-proof-step-content">{`Complete the square: $a\\!\\left(x + \\dfrac{b}{2a}\\right)^2 + c - \\dfrac{b^2}{4a}$.`}</div>
               </div>
               <div className="lrn-proof-step">
                 <span className="lrn-proof-step-num">4.</span>
@@ -1239,33 +1138,10 @@ function useConfig() {
               <div className="lrn-qed">Q.E.D.</div>
             </div>
 
-            <div className="lrn-compare">
-              <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Completing the square</span>
-                <p>
-                  Always works, even when the roots are irrational or complex, and hands you the
-                  optimum value at the same time as the optimum location.
-                </p>
-              </div>
-              <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Averaging the roots</span>
-                <p>
-                  Solve {`$ax^2 + bx + c = 0$`} and take {`$\tfrac{r+s}{2}$`}. Elegant when the
-                  roots are easy to read off the factored revenue example below is exactly this
-                  case.
-                </p>
-              </div>
-            </div>
-
-            <div className="lrn-elaborate">
-              <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-              <p>
-                By Vieta's formulas the sum of the roots is {`$r + s = -\frac{b}{a}$`}, so their
-                average is {`$-\frac{b}{(2a)}$`} the same as the vertex formula. Geometrically, the
-                axis of symmetry splits the parabola in half, so it must lie exactly between the two
-                x-intercepts.
-              </p>
-            </div>
+            <p>
+              The same algebra (Vieta's sum of roots formula gives {`$r + s = -\\dfrac{b}{a}$`}, so
+              the average is {`$-\\dfrac{b}{2a}$`}) confirms the geometric picture.
+            </p>
 
             <h3>Multi-Variable Optimization</h3>
 
@@ -1288,39 +1164,67 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Complete the square in {`$y$`}</span>
-                <p className="lrn-step-content">{`$2y^2 - 14y = 2(y^2 - 7y) = 2\bigl(y - \tfrac{7}{2}\bigr)^2 - \tfrac{49}{2}$.`}</p>
+                <p className="lrn-step-content">{`$2y^2 - 14y = 2(y^2 - 7y) = 2\\bigl(y - \\tfrac{7}{2}\\bigr)^2 - \\tfrac{49}{2}$.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Combine</span>
-                <p className="lrn-step-content">{`$(x+2)^2 - 4 + 2\bigl(y - \tfrac{7}{2}\bigr)^2 - \tfrac{49}{2} + 1 = (x+2)^2 + 2\bigl(y-\tfrac{7}{2}\bigr)^2 - \tfrac{55}{2}$.`}</p>
+                <p className="lrn-step-content">{`$(x+2)^2 - 4 + 2\\bigl(y - \\tfrac{7}{2}\\bigr)^2 - \\tfrac{49}{2} + 1 = (x+2)^2 + 2\\bigl(y-\\tfrac{7}{2}\\bigr)^2 - \\tfrac{55}{2}$.`}</p>
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Minimum</span>
-                <p className="lrn-step-content">{`Both squares are nonnegative. Minimum is $-\tfrac{55}{2}$ at $x = -2$, $y = \tfrac{7}{2}$.`}</p>
+                <p className="lrn-step-content">{`Both squares are nonnegative. Minimum is $-\\tfrac{55}{2}$ at $x = -2$, $y = \\tfrac{7}{2}$.`}</p>
               </div>
             </div>
 
             <div className="lrn-faded">
               <div className="lrn-faded-phase">
-                <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-                <p>Find the largest value of {`$-3a^2 - 36a + 2$`}.</p>
-                <ol className="lrn-list">
-                  <li>{`Factor out $-3$: $-3(a^2 + 12a) + 2$.`}</li>
-                  <li>{`Complete the square: $-3(a + 6)^2 + 108 + 2 = -3(a+6)^2 + 110$.`}</li>
-                  <li>{`Since $-3(\\cdot)^2 \\leq 0$, maximum is $110$ at $a = -6$.`}</li>
-                </ol>
-              </div>
-              <div className="lrn-faded-phase">
-                <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-                <ol className="lrn-list">
-                  <li>{`Factor $-2$ from the $x$-terms of $-2x^2 + 20x - 5$: $-2(x^2 - ?) - 5$.`}</li>
-                  <li>Complete the square inside the parentheses. What do you add?</li>
-                  <li>Adjust the constant outside. Write in standard form and find the maximum.</li>
-                </ol>
-              </div>
-              <div className="lrn-faded-phase">
                 <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
                 <p>Find the maximum value of {`$-4x^2 + 16x + 3$`}.</p>
+              </div>
+            </div>
+
+            <h3>Pure Optimization: No Business Frame</h3>
+
+            <p>
+              Optimization problems are not always about money or physics. Sometimes the constraint
+              is purely mathematical, and the goal is just to find where a quadratic reaches its
+              extreme value.
+            </p>
+
+            <p>
+              <strong>Worked example:</strong> The sum of two numbers is 1. What is the largest
+              possible value of their product?
+            </p>
+
+            <div className="lrn-steps">
+              <div className="lrn-step">
+                <span className="lrn-step-title">Define a variable</span>
+                <p className="lrn-step-content">
+                  Let the first number be {`$x$`}. Since the sum is 1, the second number is{' '}
+                  {`$1 - x$`}.
+                </p>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-title">Write the product as a quadratic</span>
+                <p className="lrn-step-content">{`$$P = x(1 - x) = x - x^2 = -x^2 + x$$`}</p>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-title">Complete the square</span>
+                <p className="lrn-step-content">
+                  Factor {`$-1$`} from the x-terms: {`$P = -(x^2 - x)$`}. Half of {`$-1$`} is{' '}
+                  {`$-\\tfrac{1}{2}$`}; {`$\\bigl(-\\tfrac{1}{2}\\bigr)^2 = \\tfrac{1}{4}$`}. Add
+                  and subtract:{' '}
+                  {`$P = -\\bigl(x^2 - x + \\tfrac{1}{4}\\bigr) + \\tfrac{1}{4} = -\\bigl(x - \\tfrac{1}{2}\\bigr)^2 + \\tfrac{1}{4}$`}
+                  .
+                </p>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-title">Read the maximum</span>
+                <p className="lrn-step-content">
+                  The squared term is at most zero, so the maximum product is {`$\\tfrac{1}{4}$`},
+                  achieved when {`$x = \\tfrac{1}{2}$`}. The two numbers are both{' '}
+                  {`$\\tfrac{1}{2}$`}.
+                </p>
               </div>
             </div>
 
@@ -1347,7 +1251,7 @@ function useConfig() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Maximum at the average of the roots</span>
-                <p className="lrn-step-content">{`The coefficient of $x^2$ is negative, so the maximum is at $x = \tfrac{-20 + 100}{2} = 40$. Optimal price: $\\$20 + \\$40 = \\$60$. Maximum revenue: $R(40) = 100 \\cdot 60 \\cdot 60 = \\$360{,}000$.`}</p>
+                <p className="lrn-step-content">{`The coefficient of $x^2$ is negative, so the maximum is at $x = \\tfrac{-20 + 100}{2} = 40$. Optimal price: $\\$20 + \\$40 = \\$60$. Maximum revenue: $R(40) = 100 \\cdot 60 \\cdot 60 = \\$360{,}000$.`}</p>
               </div>
             </div>
 
@@ -1375,99 +1279,111 @@ function useConfig() {
         // interleaved: computation, conceptual, applied, method selection, transfer, predict, self-explain, elaborate, error detection
         {
           q: 'What is the vertex of {`$y = 3(x - 4)^2 + 7$`}?',
-          a: 'The vertex is {`$(4, 7)$`}. In standard form {`$y = a(x-h)^2 + k$`}, the vertex is {`$(h, k)$`}. Here {`$h = 4$`} (note: the formula has {`$(x - h)$`}, so {`$h = 4$`} even though you see {`$-4$`}) and {`$k = 7$`}. The parabola opens upward since {`$a = 3 > 0$`}, so the vertex is the minimum point.'
+          a: 'The vertex is {`$(4, 7)$`}. In standard form {`$y = a(x-h)^2 + k$`}, the vertex is {`$(h, k)$`}. Here {`$h = 4$`} (the formula has {`$(x - h)$`}, so {`$h = 4$`} even though you see {`$-4$`}) and {`$k = 7$`}. The parabola opens upward since {`$a = 3 > 0$`}, so the vertex is the minimum point.'
         },
         {
-          q: 'A parabola has equation {`$y = x^2 + 6x + 2$`}. Find its vertex by completing the square.',
-          a: 'Vertex is {`$(-3, -7)$`}. Steps: (1) Group x-terms: {`$y = (x^2 + 6x) + 2$`}. (2) Half of 6 is 3; {`$3^2 = 9$`}. Add and subtract: {`$y = (x^2 + 6x + 9) - 9 + 2$`}. (3) Factor: {`$y = (x + 3)^2 - 7$`}. (4) Read vertex: {`$(-3, -7)$`}. The minimum value is {`$-7$`} at {`$x = -3$`}.'
+          q: 'Find the vertex and minimum value of {`$y = x^2 - 10x + 21$`} by completing the square.',
+          a: 'Vertex {`$(5, -4)$`}; minimum value {`$-4$`} at {`$x = 5$`}. (1) Group x-terms: {`$y = (x^2 - 10x) + 21$`}. (2) Half of {`$-10$`} is {`$-5$`}; {`$(-5)^2 = 25$`}. Add and subtract: {`$y = (x^2 - 10x + 25) - 25 + 21$`}. (3) Factor: {`$y = (x - 5)^2 - 4$`}. (4) The squared term is at least zero, so the smallest value of {`$y$`} is {`$-4$`}, hit when {`$x = 5$`}.'
         },
         {
-          q: 'Solve the inequality {`$(x + 2)(x - 5) \\geq 0$`}.',
-          a: 'Solution: {`$x \\leq -2$`} or {`$x \\geq 5$`}. (1) Roots: {`$x = -2$`} and {`$x = 5$`}. (2) Sign analysis: for {`$x < -2$`}, both factors are negative, product is positive. For {`$-2 < x < 5$`}, first factor positive, second negative, product is negative. For {`$x > 5$`}, both positive, product positive. (3) The inequality is {`$\\geq 0$`} (nonstrict), so roots are included. Solution: {`$(-\\infty, -2] \\cup [5, \\infty)$`}.'
+          q: 'Solve the inequality {`$(x - 3)(x + 1) \\leq 0$`}.',
+          a: 'Solution: {`$-1 \\leq x \\leq 3$`}. (1) Roots: {`$x = -1$`} and {`$x = 3$`}. (2) Sign analysis. For {`$x < -1$`}, both factors are negative, product positive. For {`$-1 < x < 3$`}, the first factor is negative and the second is positive, product negative. For {`$x > 3$`}, both positive. (3) The inequality is nonstrict ({`$\\leq$`}: includes equality), so roots count. Solution: {`$[-1, 3]$`}.'
         },
         {
           q: 'A student writes: "The center of {`$(x + 3)^2 + (y - 1)^2 = 16$`} is {`$(3, 1)$`}." Identify and fix the error.',
-          a: 'The center is {`$(-3, 1)$`}, not {`$(3, 1)$`}. The standard form is {`$(x - h)^2 + (y - k)^2 = r^2$`}. When you see {`$(x + 3)^2$`}, that equals {`$(x - (-3))^2$`}, so {`$h = -3$`}. The {`$y$`} part {`$(y - 1)^2$`} correctly gives {`$k = 1$`}. Always flip the sign of what you see in the formula to get the center coordinate.'
+          a: 'The center is {`$(-3, 1)$`}, not {`$(3, 1)$`}. The standard form is {`$(x - h)^2 + (y - k)^2 = r^2$`}. When you see {`$(x + 3)^2$`}, that equals {`$(x - (-3))^2$`}, so {`$h = -3$`}. The {`$y$`} part {`$(y - 1)^2$`} gives {`$k = 1$`}. Always flip the sign of what you see in the formula to read off the center coordinate.'
         },
         {
-          q: 'Explain why {`$x^2 - 6x + 13 \\leq 0$`} has no solutions.',
-          a: 'The quadratic {`$x^2 - 6x + 13 = (x-3)^2 + 4$`}. Since {`$(x-3)^2 \\geq 0$`} always (Trivial Inequality), adding 4 gives {`$(x-3)^2 + 4 \\geq 4 > 0$`}. The expression is always strictly positive it never reaches zero or below. Therefore {`$\\leq 0$`} has no solutions. The graph is a parabola lying entirely above the x-axis.'
+          q: 'Show that {`$2x^2 + 4x + 5 > 0$`} for every real {`$x$`}.',
+          a: 'Complete the square. (1) Factor 2 from the x-terms: {`$2(x^2 + 2x) + 5$`}. (2) Half of 2 is 1; {`$1^2 = 1$`}. Add 1 inside, subtract {`$2 \\cdot 1 = 2$`} outside: {`$2((x + 1)^2 - 1) + 5 = 2(x + 1)^2 + 3$`}. (3) By the Trivial Inequality {`$(x + 1)^2 \\geq 0$`}, so {`$2(x + 1)^2 \\geq 0$`} and the whole expression is at least {`$3$`}. So it is strictly positive everywhere.'
         },
         {
           q: 'Find the equation of the parabola with vertex {`$(4, -3)$`}, horizontal axis of symmetry, passing through {`$(5, -6)$`}.',
-          a: 'Equation: {`$x = \tfrac{1}{9}(y+3)^2 + 4$`}. (1) Horizontal axis means standard form {`$x = a(y - k)^2 + h$`}. With vertex {`$(4, -3)$`}: {`$x = a(y + 3)^2 + 4$`}. (2) Substitute the point {`$(5, -6)$`}: {`$5 = a(-6 + 3)^2 + 4 = 9a + 4$`}. (3) Solve: {`$9a = 1$`}, so {`$a = \tfrac{1}{9}$`}. (4) Verify by plugging back in: {`$\tfrac{1}{9}(-6+3)^2 + 4 = \tfrac{1}{9}(9) + 4 = 1 + 4 = 5$`}. ✓'
+          a: 'Equation: {`$x = \\tfrac{1}{9}(y+3)^2 + 4$`}. (1) Horizontal axis means standard form {`$x = a(y - k)^2 + h$`}. With vertex {`$(4, -3)$`}: {`$x = a(y + 3)^2 + 4$`}. (2) Substitute the point {`$(5, -6)$`}: {`$5 = a(-6 + 3)^2 + 4 = 9a + 4$`}. (3) Solve: {`$9a = 1$`}, so {`$a = \\tfrac{1}{9}$`}. (4) Check by plugging back: {`$\\tfrac{1}{9}(-6+3)^2 + 4 = \\tfrac{1}{9}(9) + 4 = 5$`}.'
         },
         {
-          q: 'Solve {`$r^2 - 8r < -12$`}.',
-          a: 'Solution: {`$2 < r < 6$`}. (1) Move to one side: {`$r^2 - 8r + 12 < 0$`}. (2) Factor: {`$(r - 2)(r - 6) < 0$`}. (3) Roots: {`$r = 2$`} and {`$r = 6$`}. (4) Sign analysis: the product is negative only between the roots. (5) Inequality is strict ({`$<$`}), so roots are excluded. Solution: {`$(2, 6)$`}.'
+          q: 'Solve {`$x^2 + 5x \\geq 14$`}.',
+          a: 'Solution: {`$x \\leq -7$`} or {`$x \\geq 2$`}. (1) Move everything to one side: {`$x^2 + 5x - 14 \\geq 0$`}. (2) Factor: {`$(x + 7)(x - 2) \\geq 0$`}. (3) Roots: {`$x = -7$`} and {`$x = 2$`}. (4) Sign analysis. For {`$x < -7$`}, both factors negative, product positive. Between the roots, product negative. For {`$x > 2$`}, both positive. (5) Nonstrict, so roots count. Solution: {`$(-\\infty, -7] \\cup [2, \\infty)$`}.'
         },
         {
-          q: 'Prove {`$\tfrac{a^2 + b^2}{2} \\geq ab$`} for all real {`$a$`} and {`$b$`}.',
-          a: '(1) Start from the Trivial Inequality: {`$(a - b)^2 \\geq 0$`}. This is always true. (2) Expand: {`$a^2 - 2ab + b^2 \\geq 0$`}. (3) Add {`$2ab$`} to both sides (valid because adding the same thing preserves the inequality): {`$a^2 + b^2 \\geq 2ab$`}. (4) Divide both sides by 2 (positive, so inequality direction unchanged): {`$\tfrac{a^2 + b^2}{2} \\geq ab$`}. Equality holds when {`$a = b$`}, making {`$(a-b)^2 = 0$`}.'
+          q: 'Prove {`$a^2 + b^2 + c^2 \\geq ab + bc + ca$`} for all real {`$a, b, c$`}.',
+          a: '(1) Start from three copies of the Trivial Inequality: {`$(a - b)^2 \\geq 0$`}, {`$(b - c)^2 \\geq 0$`}, {`$(c - a)^2 \\geq 0$`}. (2) Add them: {`$(a-b)^2 + (b-c)^2 + (c-a)^2 \\geq 0$`}. (3) Expand: {`$2a^2 + 2b^2 + 2c^2 - 2ab - 2bc - 2ca \\geq 0$`}. (4) Divide by 2: {`$a^2 + b^2 + c^2 \\geq ab + bc + ca$`}. Equality holds when {`$a = b = c$`} (all three squared differences must be zero at once).'
         },
         {
           q: 'What is the minimum value of {`$2x^2 + 8x - 9$`}? At what {`$x$`} does it occur?',
-          a: 'Minimum value is {`$-17$`} at {`$x = -2$`}. (1) Factor out 2 from x-terms: {`$2(x^2 + 4x) - 9$`}. (2) Complete the square: half of 4 is 2; {`$2^2 = 4$`}. Add 4 inside: {`$2(x + 2)^2 - 2 \\cdot 4 - 9 = 2(x+2)^2 - 17$`}. (3) Since {`$2(x+2)^2 \\geq 0$`}, the minimum is {`$-17$`} when {`$(x+2)^2 = 0$`}, i.e., {`$x = -2$`}.'
+          a: 'Minimum value is {`$-17$`} at {`$x = -2$`}. (1) Factor 2 from x-terms: {`$2(x^2 + 4x) - 9$`}. (2) Half of 4 is 2; {`$2^2 = 4$`}. Add 4 inside, subtract {`$2 \\cdot 4 = 8$`} outside: {`$2(x + 2)^2 - 17$`}. (3) Since {`$2(x+2)^2 \\geq 0$`}, the minimum is {`$-17$`}, hit when {`$(x+2)^2 = 0$`}, that is {`$x = -2$`}.'
         },
         {
-          q: 'Solve {`$(2x-1)(x+1)(x+7) > 0$`}.',
-          a: 'Solution: {`$-7 < x < -1$`} or {`$x > \tfrac{1}{2}$`}. (1) Roots: {`$x = \tfrac{1}{2}$`}, {`$x = -1$`}, {`$x = -7$`}. Four intervals. (2) Sign table pick test value in each interval: {`$x = -10$`}: {`$(-)(-)(-) = -$`}. {`$x = -4$`}: {`$(-)(-)( +) = +$`}. {`$x = 0$`}: {`$(-)( +)( +) = -$`}. {`$x = 1$`}: {`$(+)(+)(+) = +$`}. (3) We want {`$> 0$`} (positive), so take intervals 2 and 4, excluding roots. Solution: {`$(-7, -1) \\cup (\tfrac{1}{2}, \\infty)$`}.'
+          q: 'Solve {`$(x - 2)(x + 3)(x - 5) < 0$`}.',
+          a: 'Solution: {`$x < -3$`} or {`$2 < x < 5$`}. (1) Roots: {`$x = -3$`}, {`$x = 2$`}, {`$x = 5$`}. They cut the line into four intervals. (2) Pick a test value in each. {`$x = -4$`}: {`$(-6)(-1)(-9) = -54 < 0$`} keep. {`$x = 0$`}: {`$(-2)(3)(-5) = 30 > 0$`} drop. {`$x = 3$`}: {`$(1)(6)(-2) = -12 < 0$`} keep. {`$x = 6$`}: {`$(4)(9)(1) = 36 > 0$`} drop. (3) Strict ({`$<$`}: equality excluded), so roots are out. Solution: {`$(-\\infty, -3) \\cup (2, 5)$`}.'
         },
         {
-          q: 'Is {`$3x^2 + 6x + 3y^2 - 9y = -2$`} a circle? If so, find its center and radius.',
-          a: 'Yes. Center {`$(-1, \tfrac{3}{2})$`}, radius {`$\\sqrt{\tfrac{31}{12}}$`}. (1) Divide by 3: {`$x^2 + 2x + y^2 - 3y = -\tfrac{2}{3}$`}. (2) Complete square in {`$x$`}: add 1 to both sides {`$(x+1)^2$`}. (3) Complete square in {`$y$`}: add {`$\tfrac{9}{4}$`} to both sides {`$(y - \tfrac{3}{2})^2$`}. (4) Right side: {`$-\tfrac{2}{3} + 1 + \tfrac{9}{4} = \tfrac{31}{12} > 0$`}. It is a real circle.'
+          q: 'Is {`$2x^2 - 8x + 2y^2 + 12y = -10$`} a circle? If so, find its center and radius.',
+          a: 'Yes. Center {`$(2, -3)$`}, radius {`$2\\sqrt{2}$`}. (1) Divide by 2: {`$x^2 - 4x + y^2 + 6y = -5$`}. (2) Complete the square in {`$x$`}: {`$(x - 2)^2 - 4$`}. (3) Complete the square in {`$y$`}: {`$(y + 3)^2 - 9$`}. (4) Combine: {`$(x - 2)^2 + (y + 3)^2 = -5 + 4 + 9 = 8 > 0$`}. So it is a real circle with center {`$(2, -3)$`} and radius {`$\\sqrt{8} = 2\\sqrt{2}$`}.'
         },
         {
-          q: 'Transfer: A ball is thrown upward with height {`$h(t) = -5t^2 + 20t + 3$`}. Find the maximum height.',
-          a: 'Maximum height is {`$23$`} metres at {`$t = 2$`} seconds. (1) This is a downward-opening quadratic in {`$t$`}; the vertex gives the maximum. (2) Complete the square: {`$-5(t^2 - 4t) + 3 = -5(t - 2)^2 + 20 + 3 = -5(t-2)^2 + 23$`}. (3) Maximum is 23 when {`$t = 2$`}. The technique is identical to finding the vertex of any quadratic the physics context does not change the algebra.'
+          q: 'Transfer: A ball is thrown upward with height {`$h(t) = -5t^2 + 20t + 3$`} metres. Find the maximum height.',
+          a: 'Maximum height is {`$23$`} metres at {`$t = 2$`} seconds. (1) Downward-opening quadratic in {`$t$`}; the vertex gives the maximum. (2) Complete the square: {`$-5(t^2 - 4t) + 3 = -5((t - 2)^2 - 4) + 3 = -5(t-2)^2 + 23$`}. (3) The squared term is at most zero (negated), so the maximum is {`$23$`}, hit when {`$t = 2$`}. The physics setting does not change the algebra.'
         },
         {
-          q: 'Solve {`$(x+3)\frac{(1-x)}{(x-5)} \\geq 0$`}.',
-          a: 'Solution: {`$x \\leq -3$`} or {`$1 \\leq x < 5$`}. (1) Critical values: numerator zeros {`$x = -3$`} and {`$x = 1$`}; denominator zero {`$x = 5$`} (excluded). (2) Four intervals. Sign table: {`$(-\\infty,-3)$`}: {`$(-)\frac{( +)}{(-)} = +$`}. {`$(-3, 1)$`}: {`$(+)\frac{(+)}{(-)} = -$`}. {`$(1, 5)$`}: {`$(+)\frac{(-)}{(-)} = +$`}. {`$(5, \\infty)$`}: {`$(+)\frac{(-)}{(+)} = -$`}. (3) We need {`$\\geq 0$`}: take intervals where sign is positive, including numerator zeros but excluding {`$x = 5$`}.'
+          q: 'Solve {`$\\dfrac{(x - 1)(x + 2)}{x + 4} \\leq 0$`}.',
+          a: 'Solution: {`$x < -4$`} or {`$-2 \\leq x \\leq 1$`}. (1) Numerator zeros: {`$x = 1$` } and {`$x = -2$`}. Denominator zero: {`$x = -4$`} (always excluded). (2) Four intervals. Test values. {`$x = -5$`}: {`$(-6)(-3)/(-1) = -18 < 0$`} keep. {`$x = -3$`}: {`$(-4)(-1)/(1) = 4 > 0$`} drop. {`$x = 0$`}: {`$(-1)(2)/(4) = -0.5 < 0$`} keep. {`$x = 2$`}: {`$(1)(4)/(6) > 0$`} drop. (3) Nonstrict, so include numerator zeros {`$x = -2, 1$`}; exclude {`$x = -4$`}.'
         },
         {
-          q: 'Elaborate: Why is the vertex x-coordinate {`$-\frac{b}{(2a)}$`} always equal to the average of the roots?',
-          a: "By Vieta's formulas, for {`$ax^2 + bx + c = a(x-r)(x-s)$`}, the sum of the roots is {`$r + s = -\frac{b}{a}$`}. Their average is {`$\frac{(r+s)}{2} = -\frac{b}{(2a)}$`}. This is the same as the vertex formula. Geometrically: the axis of symmetry of the parabola bisects the segment between the two x-intercepts, so it must lie at the average of the root positions. This holds even when the roots are complex the formula {`$-\frac{b}{(2a)}$`} still gives the real x-coordinate of the vertex."
+          q: 'Without completing the square, find the vertex of {`$y = 3x^2 + 12x + 7$`} using the average-of-roots identity.',
+          a: 'Vertex {`$(-2, -5)$`}. (1) The vertex x-coordinate equals {`$-\\dfrac{b}{2a} = -\\dfrac{12}{2 \\cdot 3} = -2$`}. (2) Substitute back to get the y-coordinate: {`$y(-2) = 3(4) + 12(-2) + 7 = 12 - 24 + 7 = -5$`}. (3) So the vertex is {`$(-2, -5)$`}. This is the same number the average of the roots would give if you solved {`$3x^2 + 12x + 7 = 0$`} first the identity lets you skip that step.'
         },
         {
-          q: 'Predict: Without computing, what do you expect the shape of the solution set of {`$x^2 - 4x + 4 < 0$`} to be?',
-          a: 'No solutions. {`$x^2 - 4x + 4 = (x-2)^2$`}. A perfect square is always nonnegative ({`$\\geq 0$`}), never strictly negative. So the inequality {`$< 0$`} has no solutions. The graph is a parabola that touches the x-axis at exactly one point {`$(2, 0)$`} and lies entirely above the x-axis everywhere else.'
+          q: 'Predict: Without computing fully, what shape does the solution set of {`$x^2 - 4x + 4 < 0$`} take?',
+          a: 'No solutions. {`$x^2 - 4x + 4 = (x-2)^2$`}. A perfect square (a real number times itself) is never below zero, so {`$(x-2)^2 < 0$`} is impossible. The graph touches the x-axis at the single point {`$(2, 0)$`} and lies above it everywhere else.'
         },
         {
-          q: 'Find the circle through {`$(0, 0)$`}, {`$(3, -1)$`}, and {`$(-1, 7)$`}.',
-          a: 'Equation: {`$(x-3)^2 + (y-4)^2 = 25$`}. (1) General form with {`$D = 0$`} (from substituting {`$(0,0)$`}): {`$x^2 + Bx + y^2 + Cy = 0$`}. (2) Substitute {`$(3,-1)$`}: {`$9 + 3B + 1 - C = 0 \\Rightarrow 3B - C = -10$`}. (3) Substitute {`$(-1, 7)$`}: {`$1 - B + 49 + 7C = 0 \\Rightarrow -B + 7C = -50$`}. (4) Solve: {`$B = -6$`}, {`$C = -8$`}. (5) Complete the square: center {`$(3, 4)$`}, radius {`$5$`}.'
+          q: 'Find the center and radius of the circle {`$x^2 + y^2 + 4x - 10y + 13 = 0$`}.',
+          a: 'Center {`$(-2, 5)$`}, radius {`$4$`}. (1) Group: {`$(x^2 + 4x) + (y^2 - 10y) = -13$`}. (2) Complete the square in {`$x$`}: half of 4 is 2, {`$2^2 = 4$`}, add 4 to both sides. (3) Complete the square in {`$y$`}: half of {`$-10$`} is {`$-5$`}, {`$(-5)^2 = 25$`}, add 25 to both sides. (4) Result: {`$(x + 2)^2 + (y - 5)^2 = -13 + 4 + 25 = 16$`}. (5) Read off: center {`$(-2, 5)$`}, radius {`$\\sqrt{16} = 4$`}.'
         },
         {
-          q: 'Transfer: A rectangular pen has perimeter 40 m. Express the area as a quadratic and find the dimensions that maximize area.',
-          a: 'Maximum area is {`$100$`} sq m, achieved with a {`$10 \times 10$`} square. (1) Let width {`$= w$`}, length {`$= 20 - w$`} (since {`$2w + 2l = 40$`}). (2) Area: {`$A = w(20-w) = -w^2 + 20w$`}. (3) Complete the square: {`$A = -(w-10)^2 + 100$`}. (4) Maximum is 100 when {`$w = 10$`}, so {`$l = 10$`}. The quadratic optimization technique applies directly to geometry problems involving fixed perimeter.'
+          q: 'Transfer: A rectangular pen has perimeter 40 m. Express the area as a quadratic and find the dimensions that make it as large as possible.',
+          a: 'Largest area is {`$100$`} square metres, achieved with a {`$10 \\times 10$`} square. (1) Let width be {`$w$`}; then length is {`$20 - w$`} (since {`$2w + 2l = 40$`}). (2) Area: {`$A = w(20 - w) = -w^2 + 20w$`}. (3) Complete the square: {`$A = -((w - 10)^2 - 100) = -(w - 10)^2 + 100$`}. (4) The squared term is at most zero, so the maximum is {`$100$`}, hit when {`$w = 10$`}, giving {`$l = 10$` } a square.'
         },
         {
-          q: 'Solve {`$\tfrac{2}{x-2} - \tfrac{2}{x+3} > -1$`}.',
-          a: 'Solution: {`$x \\in (-\\infty, -3) \\cup (2, \\infty)$`}. (1) Move everything to one side: {`$\tfrac{2}{x-2} - \tfrac{2}{x+3} + 1 > 0$`}. (2) Common denominator {`$(x-2)(x+3)$`}: numerator {`$= 2(x+3) - 2(x-2) + (x-2)(x+3) = 10 + x^2 + x - 6 = x^2 + x + 4$`}. (3) Discriminant of numerator: {`$1 - 16 = -15 < 0$`}; numerator always positive. (4) Sign of fraction = sign of denominator. Denominator positive when {`$x < -3$`} or {`$x > 2$`}. (5) Exclude {`$x = -3$`} and {`$x = 2$`} (denominator zeros).'
+          q: 'Solve {`$\\dfrac{1}{x - 1} + \\dfrac{1}{x + 1} \\geq 0$`}.',
+          a: 'Solution: {`$-1 < x \\leq 0$`} or {`$x > 1$`}. (1) Combine over common denominator {`$(x-1)(x+1) = x^2 - 1$`}: numerator {`$= (x + 1) + (x - 1) = 2x$`}. So the inequality is {`$\\dfrac{2x}{x^2 - 1} \\geq 0$`}. (2) Numerator zero: {`$x = 0$`}. Denominator zeros: {`$x = \\pm 1$`} (always excluded). (3) Sign chart on the four intervals. {`$x < -1$`}: {`$2x < 0$`}, {`$x^2 - 1 > 0$`}, ratio negative. {`$-1 < x < 0$`}: numerator negative, denominator negative, ratio positive. {`$0 < x < 1$`}: numerator positive, denominator negative, ratio negative. {`$x > 1$`}: both positive, ratio positive. (4) Include {`$x = 0$`} (nonstrict, numerator zero); exclude {`$x = \\pm 1$`}.'
         },
         {
-          q: 'Prove {`$x + \tfrac{1}{x} \\geq 2$`} for all positive {`$x$`}.',
-          a: '(1) Start from the Trivial Inequality: {`$(x-1)^2 \\geq 0$`}. This is always true. (2) Expand: {`$x^2 - 2x + 1 \\geq 0$`}. (3) Add {`$2x$`}: {`$x^2 + 1 \\geq 2x$`}. (4) Since {`$x > 0$`}, divide both sides by {`$x$`} (inequality direction stays): {`$x + \tfrac{1}{x} \\geq 2$`}. Equality holds when {`$(x-1)^2 = 0$`}, i.e., {`$x = 1$`}. The crucial step is dividing by {`$x$`} we must know {`$x > 0$`} for this to be valid.'
+          q: 'Prove {`$x + \\tfrac{1}{x} \\geq 2$`} for all positive {`$x$`}.',
+          a: '(1) Start from the Trivial Inequality: {`$(x-1)^2 \\geq 0$`}. (2) Expand: {`$x^2 - 2x + 1 \\geq 0$`}. (3) Add {`$2x$`}: {`$x^2 + 1 \\geq 2x$`}. (4) Since {`$x > 0$`}, divide both sides by {`$x$`} the direction stays: {`$x + \\tfrac{1}{x} \\geq 2$`}. Equality holds when {`$(x-1)^2 = 0$`}, that is {`$x = 1$`}. The {`$x > 0$`} condition is load-bearing: dividing by a negative number would flip the direction.'
         },
         {
-          q: 'Self-explain: In the inequality {`$(x+3)\frac{(1-x)}{(x-5)} \\geq 0$`}, why is {`$x = 5$`} excluded but {`$x = -3$`} and {`$x = 1$`} are included?',
-          a: '{`$x = 5$`} makes the denominator zero, so the fraction is undefined there it cannot satisfy any inequality. {`$x = -3$`} and {`$x = 1$`} make the numerator zero, so the fraction equals zero. Since the inequality is {`$\\geq 0$`} (nonstrict), zero is a valid solution. The rule is: denominator zeros are always excluded; numerator zeros are included only for nonstrict inequalities ({`$\\leq$`} or {`$\\geq$`}).'
+          q: 'Self-explain: In a rational inequality, why are denominator zeros always excluded but numerator zeros included only for nonstrict ({`$\\leq$`} or {`$\\geq$`})?',
+          a: 'A denominator zero makes the fraction undefined the fraction has no value at that {`$x$`}, so it cannot satisfy any inequality, strict or not. A numerator zero makes the fraction equal to zero. For a nonstrict inequality (which permits equality), zero counts. For a strict inequality (which forbids equality), zero does not count. So the rule is: drop denominator zeros every time; keep numerator zeros only when the inequality allows equality.'
         },
         {
-          q: 'Find the smallest value of {`$x^2 + 4x + 2y^2 - 14y + 1$`}.',
-          a: 'Minimum is {`$-\tfrac{55}{2}$`} at {`$x = -2$`}, {`$y = \tfrac{7}{2}$`}. (1) Complete square in {`$x$`}: {`$(x+2)^2 - 4$`}. (2) Complete square in {`$y$`}: {`$2(y-\tfrac{7}{2})^2 - \tfrac{49}{2}$`}. (3) Sum: {`$(x+2)^2 + 2(y-\tfrac{7}{2})^2 - 4 - \tfrac{49}{2} + 1 = (x+2)^2 + 2(y-\tfrac{7}{2})^2 - \tfrac{55}{2}$`}. (4) Both squared terms are nonnegative; minimum is {`$-\tfrac{55}{2}$`} when both equal zero.'
+          q: 'Find the smallest value of {`$x^2 - 6x + 3y^2 + 12y + 5$`}.',
+          a: 'Minimum is {`$-16$`} at {`$x = 3$`}, {`$y = -2$`}. (1) Complete the square in {`$x$`}: {`$x^2 - 6x = (x - 3)^2 - 9$`}. (2) Complete the square in {`$y$`}: {`$3y^2 + 12y = 3(y^2 + 4y) = 3((y + 2)^2 - 4) = 3(y + 2)^2 - 12$`}. (3) Combine: {`$(x - 3)^2 - 9 + 3(y + 2)^2 - 12 + 5 = (x - 3)^2 + 3(y + 2)^2 - 16$`}. (4) Both squared terms are at least zero, so the minimum is {`$-16$`}, hit when {`$x = 3$`} and {`$y = -2$`}.'
         },
         {
           q: 'Elaborate: Why does completing the square work to find the vertex what makes the squared term the key?',
-          a: 'The Trivial Inequality guarantees that {`$a(x-h)^2 \\geq 0$`} when {`$a > 0$`} (or {`$\\leq 0$`} when {`$a < 0$`}). The squared term hits its extreme value (zero) at exactly one point: {`$x = h$`}. At that point the whole expression reaches its minimum (when {`$a > 0$`}) or maximum (when {`$a < 0$`}). The constant {`$k$`} is what remains when the squared term is zero that is the optimum value. The technique works because real squares can never go below zero, and this is a fundamental property of real numbers, not an algebraic trick.'
+          a: 'The Trivial Inequality says {`$(x - h)^2 \\geq 0$`} for every real {`$x$`}, with equality only at {`$x = h$`}. So {`$a(x - h)^2 + k$`} reaches its smallest value (when {`$a > 0$`}) or largest (when {`$a < 0$`}) exactly at {`$x = h$`}, and the value there is {`$k$`}. Completing the square is the rewrite that exposes both {`$h$`} (the optimum location) and {`$k$`} (the optimum value) in one shape.'
         },
         {
-          q: 'Find the intersection of the line {`$x - y = 7$`} and the circle {`$x^2 + y^2 - 4x + 12y + 27 = 0$`}.',
-          a: 'Intersections at {`$(4, -3)$`} and {`$(-1, -8)$`}. (1) From the line: {`$x = y + 7$`}. (2) Substitute into the circle: {`$(y+7)^2 + y^2 - 4(y+7) + 12y + 27 = 0$`}. (3) Expand: {`$y^2 + 14y + 49 + y^2 - 4y - 28 + 12y + 27 = 0 \\Rightarrow 2y^2 + 22y + 48 = 0$`}. (4) Divide by 2: {`$y^2 + 11y + 24 = 0 \\Rightarrow (y+3)(y+8) = 0$`}. (5) {`$y = -3 \\Rightarrow x = 4$`}; {`$y = -8 \\Rightarrow x = -1$`}.'
+          q: 'Prove {`$x^2 + \\tfrac{1}{x^2} \\geq 2$`} for every {`$x \\neq 0$`}, using AM-GM as a tool.',
+          a: 'Apply the squared form of AM-GM, {`$a^2 + b^2 \\geq 2ab$`}, with {`$a = x$`} and {`$b = \\tfrac{1}{x}$`}. (1) Substitute: {`$x^2 + \\tfrac{1}{x^2} \\geq 2 \\cdot x \\cdot \\tfrac{1}{x} = 2$`}. (2) Equality holds when {`$a = b$`}, that is {`$x = \\tfrac{1}{x}$`} or {`$x^2 = 1$`}, so {`$x = \\pm 1$`}. AM-GM, once proved, is a reusable tool that short-cuts work the Trivial Inequality would otherwise do from scratch.'
+        },
+        {
+          q: 'A downward-opening parabola crosses the y-axis above the origin and has its vertex to the right of the y-axis. Determine the signs of {`$a$`}, {`$b$`}, and {`$c$`} in {`$y = ax^2 + bx + c$`}.',
+          a: 'Sign of {`$a$`}: negative (opens down). Sign of {`$c$`}: positive (y-intercept above origin). Sign of {{`$b$`}}: negative. (1) Vertex at {{`$x = -\\tfrac{b}{2a} > 0$`}} (to the right). (2) Since {{`$a < 0$`}}, we have {{`$2a < 0$`}}. (3) For {{`$-\\tfrac{b}{2a} > 0$`}} with {{`$2a < 0$`}} in the denominator, the numerator {{`$-b$`}} must be negative, so {{`$b$`}} is negative. Flipping signs off the graph is faster than completing the square every time.'
+        },
+        {
+          q: 'Two numbers add up to 5. Find the two numbers that make their product as large as possible.',
+          a: 'The numbers are both {`$\\tfrac{5}{2}$`} and the maximum product is {`$\\tfrac{25}{4}$`}. (1) Let one number be {{`$x$`}}; the other is {{`$5 - x$`}}. (2) Product: {{`$P = x(5 - x) = 5x - x^2 = -x^2 + 5x$`}}. (3) Complete the square: {{`$-\\bigl(x^2 - 5x\\bigr) = -\\bigl(x - \\tfrac{5}{2}\\bigr)^2 + \\tfrac{25}{4}$`}}. (4) Maximum is {{`$\\tfrac{25}{4}$`}} at {{`$x = \\tfrac{5}{2}$`}}. By symmetry, the maximum product of two numbers with a fixed sum always occurs when the numbers are equal.'
+        },
+        {
+          q: 'Does the line {`$y = x + 1$`} meet the circle {`$x^2 + y^2 = 5$`} in 0, 1, or 2 points?',
+          a: 'Two points: {`$(-2, -1)$`} and {`$(1, 2)$`}. (1) Substitute {`$y = x + 1$`} into the circle: {`$x^2 + (x + 1)^2 = 5$`}. (2) Expand: {`$x^2 + x^2 + 2x + 1 = 5$`}, so {`$2x^2 + 2x - 4 = 0$`}, that is {`$x^2 + x - 2 = 0$`}. (3) The discriminant is {`$1 + 8 = 9 > 0$`} two real roots, so two intersection points. (4) Factor: {`$(x + 2)(x - 1) = 0$`} gives {`$x = -2$`} or {`$x = 1$`}, and the line gives the matching {`$y$`}-values.'
         },
         {
           q: 'Transfer: Describe a real-world scenario where knowing the vertex of a parabola gives you actionable information.',
-          a: 'One example: a company selling a product at price {`$p$`} has revenue {`$R = -q \\cdot p^2 + c \\cdot p$`} (a downward parabola). The vertex gives the price that maximizes revenue. Another example: a ball thrown upward has height modeled by a downward-opening quadratic; the vertex gives the maximum height and the time at which it occurs. In both cases, completing the square or using {`$x = -\frac{b}{(2a)}$`} gives the optimal value without guessing. The vertex is the decision point the output at the vertex is the best achievable outcome.'
+          a: 'One example: a company selling a product at price {`$p$`} has revenue {`$R = -q \\cdot p^2 + c \\cdot p$`} (a downward parabola). The vertex gives the price that makes revenue the largest. Another example: a ball thrown upward has height modelled by a downward-opening quadratic; the vertex gives the highest point and the time when it happens. In both cases, completing the square or {`$x = -\\tfrac{b}{2a}$`} gives the best value without guessing.'
         }
       ],
 
@@ -1525,7 +1441,7 @@ function useConfig() {
             </div>
 
             <div className="lrn-eq lrn-eq-hero">
-              <span>{`$$x_{\text{vertex}} = -\frac{b}{2a}$$`}</span>
+              <span>{`$$x_{\\text{vertex}} = -\\frac{b}{2a}$$`}</span>
             </div>
 
             <p>
@@ -1599,33 +1515,41 @@ function useConfig() {
             <p>Equality only when {`$x = 0$`}. Foundation for all other inequality proofs here.</p>
 
             <div className="lrn-eq">
-              <span>{`$$\frac{a^2 + b^2}{2} \\geq ab$$`}</span>
+              <span>{`$$\\frac{a + b}{2} \\geq \\sqrt{ab} \\quad (a, b \\geq 0)$$`}</span>
             </div>
 
-            <p>When to use: comparing a sum of squares to a product; equality when {`$a = b$`}.</p>
-
             <p>
-              AM-GM: proved from {`$(a-b)^2 \\geq 0$`}. Equality when {`$a = b$`}.
+              AM-GM (Arithmetic Mean Geometric Mean). When to use: bounding the average of two
+              non-negative numbers below by their geometric mean; equality when {`$a = b$`}.
             </p>
 
             <div className="lrn-eq">
-              <span>{`$$x + \frac{1}{x} \\geq 2 \\quad (x > 0)$$`}</span>
+              <span>{`$$\\frac{a^2 + b^2}{2} \\geq ab$$`}</span>
             </div>
 
             <p>
-              When to use: bounding expressions of the form {`$x + \frac{1}{x}$`} from below for
+              Squared form (holds for all real {`$a, b$`}). When to use: comparing a sum of squares
+              to a product. Proved from {`$(a-b)^2 \\geq 0$`}; equality when {`$a = b$`}.
+            </p>
+
+            <div className="lrn-eq">
+              <span>{`$$x + \\frac{1}{x} \\geq 2 \\quad (x > 0)$$`}</span>
+            </div>
+
+            <p>
+              When to use: bounding expressions of the form {`$x + \\frac{1}{x}$`} from below for
               positive {`$x$`}.
             </p>
 
             <p>
               Proved from {`$(x-1)^2 \\geq 0$`} or by applying AM-GM with {`$a = \\sqrt{x}$`},{' '}
-              {`$b = \frac{1}{\\sqrt{x}}$`}.
+              {`$b = \\frac{1}{\\sqrt{x}}$`}.
             </p>
 
             <h2>Quadratic Optimization</h2>
 
             <div className="lrn-eq lrn-eq-hero">
-              <span>{`$$ax^2 + bx + c = a\\!\\left(x + \frac{b}{2a}\right)^{\\!2} + c - \frac{b^2}{4a}$$`}</span>
+              <span>{`$$ax^2 + bx + c = a\\!\\left(x + \\frac{b}{2a}\\right)^{\\!2} + c - \\frac{b^2}{4a}$$`}</span>
             </div>
 
             <p>
@@ -1634,20 +1558,20 @@ function useConfig() {
 
             <ul className="lrn-list">
               <li>
-                {`$a > 0$`}: minimum value is {`$c - \frac{b^2}{(4a)}$`} at{' '}
-                {`$x = -\frac{b}{(2a)}$`}
+                {`$a > 0$`}: minimum value is {`$c - \\frac{b^2}{(4a)}$`} at{' '}
+                {`$x = -\\frac{b}{(2a)}$`}
               </li>
               <li>
-                {`$a < 0$`}: maximum value is {`$c - \frac{b^2}{(4a)}$`} at{' '}
-                {`$x = -\frac{b}{(2a)}$`}
+                {`$a < 0$`}: maximum value is {`$c - \\frac{b^2}{(4a)}$`} at{' '}
+                {`$x = -\\frac{b}{(2a)}$`}
               </li>
               <li>
-                Vertex x-coord = average of roots: {`$x = \frac{(r+s)}{2} = -\frac{b}{(2a)}$`}
+                Vertex x-coord = average of roots: {`$x = \\frac{(r+s)}{2} = -\\frac{b}{(2a)}$`}
               </li>
             </ul>
 
             <p>
-              <strong>Multi-variable:</strong> complete the square in each variable independently;
+              <strong>Multi-variable:</strong> complete the square in each variable separately;
               minimum is the sum of constants.
             </p>
 
@@ -1662,14 +1586,14 @@ function useConfig() {
               </li>
               <li>Must move all terms to one side before sign analysis.</li>
               <li>Never cross-multiply in inequalities without knowing the sign.</li>
-              <li>Proofs must be written forwards from a known truth.</li>
+              <li>Write proofs forwards from a known truth.</li>
             </ul>
           </>
         ]
       },
 
       customCss:
-        '.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }'
+        '.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }'
     }),
     []
   )

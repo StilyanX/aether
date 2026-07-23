@@ -9,27 +9,26 @@ const config = {
     category: 'The Book of the New Sun',
     title: 'The Citadel of the Autarch',
     subtitle:
-      'Severian walks north into the war and becomes the Autarch. Book Four follows six chapter arcs across the final volume of The Book of the New Sun.',
+      'Severian walks north into the war and becomes the Autarch. Book Four follows six section arcs across the final volume of The Book of the New Sun.',
     sections: [
-      // Chapter 1: The Resurrected Soldier
+      // Section 1: The Resurrected Soldier
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter 1: The Resurrected Soldier</h1>
+        <div className="lrn-module-divider">
+          <h2>Section 1: The Resurrected Soldier</h2>
         </div>
 
         <div className="lrn-header">
           <div className="lrn-header-text">
             <h2>Orientation: Who Is Severian and What Is This Book?</h2>
             <p>
-              This is Book 4, the final volume of a four-book series called The Book of the New Sun.
-              If you have not read Books 1 through 3, the definitions below give you what you need.
-              Severian is a former journeyman torturer from the far-future city of Nessus. He
-              trained in the guild of the Seekers for Truth and Penitence. The guild exiled him. He
-              served as a lictor, an officer who carries out judicial punishments, in the mountain
-              city of Thrax. He has now lost that post. He walks alone toward the war front in the
-              north. Against his chest he carries a blue gem called the{' '}
-              <strong>Claw of the Conciliator</strong>. The relic has miraculous power he does not
-              fully understand. This chapter opens Book 4 with Severian alone, hungry, and
+              This is the final volume of a four-part story called The Book of the New Sun. Here is
+              everything you need to know going in. Severian is a former journeyman torturer from
+              the far-future city of Nessus. He trained in the guild of the Seekers for Truth and
+              Penitence. The guild exiled him. He served as a lictor, an officer who carries out
+              judicial punishments, in the mountain city of Thrax. He has now lost that post. He
+              walks alone toward the war front in the north. Against his chest he carries a blue gem
+              called the <strong>Claw of the Conciliator</strong>. The relic has miraculous power he
+              does not fully understand. This section opens Book 4 with Severian alone, hungry, and
               approaching a war he has never seen.
             </p>
 
@@ -45,56 +44,56 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Claw of the Conciliator</span>
               <div className="lrn-definition-desc">
-                <p>{`A blue gemstone relic Severian has carried since Book 2. It belongs to a religious order called the Pelerines. He has not been able to return it to them. It has raised the dead before. Severian does not understand how it works. In this chapter, it works again.`}</p>
+                <p>{`A blue gemstone relic Severian has carried for a long time. It belongs to a religious order called the Pelerines. He has not been able to return it to them. It has raised the dead before. Severian does not understand how it works. In this section, it works again.`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Thecla</span>
               <div className="lrn-definition-desc">
-                <p>{`An aristocrat prisoner Severian loved and helped to die in Book 1. Her memories were grafted into him through a ritual after her death. He carries her perspective alongside his own. When he recalls something from her life, he describes it as remembering when he was "the girl-child Thecla."`}</p>
+                <p>{`An aristocrat prisoner Severian loved and helped to die before this story begins. Her memories were grafted into him through a ritual after her death. He carries her perspective alongside his own. When he recalls something from her life, he describes it as remembering when he was "the girl-child Thecla."`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Dorcas</span>
               <div className="lrn-definition-desc">
-                <p>{`Severian's companion from Books 2 and 3. She left him when she recognized her own past. She appears in this chapter only as memory, during Severian's night vigil with the resurrected soldier.`}</p>
+                <p>{`Severian's companion from earlier in his journey. She left him when she recognized her own past. She appears in this section only as memory, during Severian's night vigil with the resurrected soldier.`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Vodalus</span>
               <div className="lrn-definition-desc">
-                <p>{`A noble revolutionary leading an armed uprising against the Autarch, the supreme ruler of the Commonwealth. His followers call themselves the Vodalarü. They appear in this chapter as the enemy mentioned in a dead soldier's letter.`}</p>
+                <p>{`A noble revolutionary leading an armed uprising against the Autarch, the supreme ruler of the Commonwealth. His followers call themselves the Vodalarü. They appear in this section as the enemy mentioned in a dead soldier's letter.`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Pelerines</span>
               <div className="lrn-definition-desc">
-                <p>{`A traveling religious order of women. Severian took the Claw from them in Book 2 while they cared for him after a duel. He has been unable to return it. They appear later in this book.`}</p>
+                <p>{`A traveling religious order of women. Severian took the Claw from them earlier, while they cared for him after a duel. He has been unable to return it. They appear later in this book.`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Autarch</span>
               <div className="lrn-definition-desc">
-                <p>{`The supreme ruler of the Commonwealth, the human civilization centered on Nessus. The title names the book: Severian will become the Autarch by the end of this volume. In this chapter, the Autarch is a distant political fact.`}</p>
+                <p>{`The supreme ruler of the Commonwealth, the human civilization centered on Nessus. The title names the book: Severian will become the Autarch by the end of this volume. In this section, the Autarch is a distant political fact.`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Ascians</span>
               <div className="lrn-definition-desc">
-                <p>{`The enemy nation at war with the Commonwealth. Their soldiers speak only in approved phrases, having no individual language. They back the Vodalarü seditionists mentioned in the soldier's letter. Several days' march north at the time of this chapter.`}</p>
+                <p>{`The enemy nation at war with the Commonwealth. Their soldiers speak only in approved phrases, having no individual language. They back the Vodalarü seditionists mentioned in the soldier's letter. Several days' march north at the time of this section.`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Famulimus</span>
               <div className="lrn-definition-desc">
-                <p>{`An alien or non-human being Severian encountered in earlier books. Not a person in the ordinary sense. Severian uses her as his measure of what is truly strange. In this chapter she appears in a quote: war's inhabitants are more alien than even Famulimus.`}</p>
+                <p>{`An alien or non-human being Severian has met before. Not a person in the ordinary sense. Severian uses her as his measure of what is truly strange. In this section she appears in a quote: war's inhabitants are more alien than even Famulimus.`}</p>
               </div>
             </div>
           </div>
@@ -187,7 +186,7 @@ const config = {
         </div>
 
         <p>
-          A section break separates the chapter's two halves. Wolfe titles the second half "The
+          A section break separates the section's two halves. The story names the second half "The
           Living Soldier." Severian recalls the Claw only now, only after reading the letter, only
           after recognizing the soldier as a person. He takes it from its sapphire case. It sparkles
           more brightly in the sunlight than he has seen before. He touches it to the soldier's
@@ -209,9 +208,9 @@ const config = {
         <p>
           Severian tends the fire through the night in the region called <strong>Orithyia</strong>.
           It is warmer here than the mountains or Lake Diuturna's cold shores. He enters a long
-          memory-reverie of people from the earlier books. He sees Dorcas, the lover who left him.
-          He sees Eata, an apprentice from his guild years, at the necropolis gate of his childhood.
-          He sees Vodalus raising a dead woman at the Citadel, the scene that opened Book 1. He sees
+          memory-reverie of people from his past. He sees Dorcas, the lover who left him. He sees
+          Eata, an apprentice from his guild years, at the necropolis gate of his childhood. He sees
+          Vodalus raising a dead woman at the Citadel, the scene where his story began. He sees
           Morwenna, a woman he executed at the town of Saltus. He drapes the soldier's blanket over
           the "corpse-becoming-man."
         </p>
@@ -240,9 +239,9 @@ const config = {
           <div className="lrn-compare-col">
             <span className="lrn-compare-title">Dead soldier vs. living soldier</span>
             <p>
-              The chapter's literal structure: Wolfe names the two halves "The Dead Soldier" and
-              "The Living Soldier." The same man is corpse and then companion. The transition is
-              uncanny rather than triumphant: he wakes confused and frightened, not grateful.
+              The section's literal structure: the two halves are named "The Dead Soldier" and "The
+              Living Soldier." The same man is corpse and then companion. The transition is uncanny
+              rather than triumphant: he wakes confused and frightened, not grateful.
             </p>
           </div>
           <div className="lrn-compare-col">
@@ -282,33 +281,34 @@ const config = {
             the dead in a mossy glade?
           </p>
           <p>
-            The chapter sets up what kind of power Severian carries. He does not command armies. He
+            The section sets up what kind of power Severian carries. He does not command armies. He
             does not argue in courts. He holds a gem that can restore a single man's life, and he
             nearly failed to use it. Book 4 asks one question. Can this small, uncertain, personal
             power found something as vast as a civilization?
           </p>
           <p>
-            The resurrection also sets the chapter's sacramental tone. The fire smells "fragrant as
-            incense." The blood on the soldier's forehead catches light like a ruby. The Claw works
-            by touch, like laying on of hands. Wolfe opens the book with a miracle that looks like a
-            religious rite. The man who performs it ate the victim's food first.
+            The resurrection also sets the section's sacramental tone. Sacramental means it looks
+            and feels like a holy church rite. The fire smells "fragrant as incense." The blood on
+            the soldier's forehead catches light like a ruby. The Claw works by touch, like laying
+            on of hands. The book opens with a miracle that looks like a religious rite. The man who
+            performs it ate the victim's food first.
           </p>
         </div>
       </>,
-      // Chapter 2: The Lazaret of the Pelerines
+      // Section 2: The Lazaret of the Pelerines
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter 2: The Lazaret of the Pelerines</h1>
+        <div className="lrn-module-divider">
+          <h2>Section 2: The Lazaret of the Pelerines</h2>
         </div>
 
         <div className="lrn-header">
           <div className="lrn-header-text">
             <h2>Orientation: New People, New Place, Old Questions</h2>
             <p>
-              Chapter 1 ended with Severian and the resurrected soldier walking north on a dusty
-              road. Chapter 2 picks up that walk and carries it through eight subchapters. Each
+              Section 1 ended with Severian and the resurrected soldier walking north on a dusty
+              road. Section 2 picks up that walk and carries it through eight subsections. Each
               unfolds inside or approaching a single Pelerine field hospital. The lazaret is the
-              chapter's world: canvas roof, yellow lamps, rows of cots, scarlet-clad priestesses
+              section's world: canvas roof, yellow lamps, rows of cots, scarlet-clad priestesses
               moving among the sick. Severian arrives feverish, certain he is the healthy one. He is
               wrong on both counts.
             </p>
@@ -318,11 +318,11 @@ const config = {
               promised to return when whole. Second: is the small black claw Severian carries
               actually the Pelerines' relic, and if not, what is it? Third: is Thecla, the dead
               woman inside Severian, present only as memory? Or has something more durable taken
-              root in him? This chapter does not settle any of them. It sharpens each one and leaves
+              root in him? This section does not settle any of them. It sharpens each one and leaves
               it open.
             </p>
 
-            <h3>New Terms for This Chapter</h3>
+            <h3>New Terms for This Section</h3>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Lazaret</span>
@@ -355,7 +355,7 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Miles</span>
               <div className="lrn-definition-desc">
-                <p>{`The name Severian gives the resurrected soldier when the soldier cannot remember his own name. By section VI of the chapter, Miles has recovered speech and motion, wears white Pelerine robes, and plans to leave the lazaret the next morning to rejoin the army.`}</p>
+                <p>{`The name Severian gives the resurrected soldier when the soldier cannot remember his own name. Miles later recovers speech and motion, wears white Pelerine robes, and plans to leave the lazaret the next morning to rejoin the army.`}</p>
               </div>
             </div>
 
@@ -397,7 +397,7 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Alzabo</span>
               <div className="lrn-definition-desc">
-                <p>{`A wilderness beast that eats humans and retains their voices and some memories afterward. Vodalus used an alzabo-derived substance in the corpse-eating ritual by which Severian consumed Thecla's flesh and absorbed her personality. Severian explains this to Ava in scene 18.`}</p>
+                <p>{`A beast from an earlier book that absorbs the minds of those it eats. A drug made from it let Severian take in Thecla's voice and memories. He explains this to Ava in scene 18.`}</p>
               </div>
             </div>
 
@@ -438,7 +438,7 @@ const config = {
         <h2>The Road to the Lazaret</h2>
 
         <p>
-          The chapter opens in motion. Severian and the resurrected soldier walk northward on a
+          The section opens in motion. Severian and the resurrected soldier walk northward on a
           dusty gray road, crossing a small rock-strewn valley. The soldier is silent but present.
           He nods when Severian asks for a razor. By morning he has shaved with it. The physical
           recovery runs just ahead of the verbal one. The body remembers what the mind cannot yet
@@ -449,13 +449,13 @@ const config = {
           At two large military camps Severian invents his cover. Both camps refuse to take the
           soldier. The refusals are not hostile; they are bureaucratic. Neither camp has authority
           to admit a man with no unit, no rank, and no visible wound. The third option, the Pelerine
-          lazaret, accepts everyone. This is Wolfe's first structural point. The religious
+          lazaret, accepts everyone. This is the section's first structural point. The religious
           institution does what the military institution cannot, not from superior power but from
           different rules.
         </p>
 
         <blockquote className="lrn-callout">
-          <p>{`"He has already recovered." (Severian, to the army healer, p. 2)`}</p>
+          <p>{`"He has already recovered." (Severian, to the army healer)`}</p>
         </blockquote>
 
         <p>
@@ -463,7 +463,7 @@ const config = {
           partly to warn off beasts. He describes his perfect memory, the oubliette (the underground
           prison) where he trained, and Dorcas. Then he repeats Dorcas's theory of the Claw. The
           Claw bends time backward to the last moment a person lived. It does not actually reverse
-          death. The soldier puts his hand on Severian's shoulder. The gesture is the chapter's
+          death. The soldier puts his hand on Severian's shoulder. The gesture is the section's
           first emotional exchange. It is not speech but contact, from the man who has just heard
           the theory applied to himself.
         </p>
@@ -471,7 +471,7 @@ const config = {
         <p>
           On the path to the lazaret Severian sees two large pines marking a side track and turns
           onto it. Clotted blood in the dust confirms the direction: "We are on the right road. They
-          have been bringing the wounded here." The blood-as-guide is one of the chapter's recurring
+          have been bringing the wounded here." The blood-as-guide is one of the section's recurring
           images. What has already failed to heal marks the road to healing.
         </p>
 
@@ -491,11 +491,11 @@ const config = {
           The fever-dream follows. Severian hallucinates the Citadel, the fortress in Nessus where
           he grew up. He sees the apprentices' dormitory and the steep stair winding through the
           tower's center. He sees the sickroom of his dying teacher Master Malrubius, with two
-          portholes like eyes. He sees two figures from earlier books, the witch Cumaean and her
+          portholes like eyes. He sees two figures from his past, the witch Cumaean and her
           assistant Merryn, tending the sick master. He sees Hethor (a stranger who followed him)
           pressed against the window glass, and his lost dog Triskele. Most importantly, he is in
           Thecla's body in the dream, and Merryn recognizes him as "sister." The dream makes literal
-          what the chapter keeps as metaphor. Severian and Thecla are not merely associated but
+          what the section keeps as metaphor. Severian and Thecla are not merely associated but
           interpenetrating. He wakes wrapped in snow-packs in the real lazaret.
         </p>
 
@@ -526,7 +526,7 @@ const config = {
         </p>
 
         <blockquote className="lrn-callout">
-          <p>{`"How shall the state be most vigorous? It shall be most vigorous when it is without conflict. How shall it be without conflict? When it is without disagreement. How shall disagreement be banished? By banishing the four causes of disagreement: lies, foolish talk, boastful talk, and talk which serves only to incite quarrels. How shall the four causes be banished? By speaking only Correct Thought. Then shall the state be without disagreement. Being without disagreement it shall be without conflict. Being without conflict it shall be vigorous, strong, and secure." (The Ascian prisoner, p. 15)`}</p>
+          <p>{`"How shall the state be most vigorous? It shall be most vigorous when it is without conflict. How shall it be without conflict? When it is without disagreement. How shall disagreement be banished? By banishing the four causes of disagreement: lies, foolish talk, boastful talk, and talk which serves only to incite quarrels. How shall the four causes be banished? By speaking only Correct Thought. Then shall the state be without disagreement. Being without disagreement it shall be without conflict. Being without conflict it shall be vigorous, strong, and secure." (The Ascian prisoner)`}</p>
         </blockquote>
 
         <div className="lrn-elaborate">
@@ -541,8 +541,8 @@ const config = {
             Second, as demonstration: the Ascian produces a coherent, step-by-step response built
             from approved fragments. The system is richer than Severian assumed. The recitation is
             not gibberish; it is a real argument. Severian cannot dismiss it as parroting. It
-            answers him. The double reply leaves him without an obvious next move, and Wolfe does
-            not give him one.
+            answers him. The double reply leaves him without an obvious next move, and the section
+            does not give him one.
           </p>
         </div>
 
@@ -551,7 +551,7 @@ const config = {
         <p>
           Miles shows early that he knows Severian's cover story is false. He cannot remember his
           past but he can read a present situation. The private conversation between them is the
-          chapter's most delicate scene. Severian shows Miles a mirror; Miles looks at his own
+          section's most delicate scene. Severian shows Miles a mirror; Miles looks at his own
           reflection tentatively. Severian then tells the full story of finding the dead soldier and
           reviving him with the talisman. Miles examines the Claw and says it does not look magical.
           Severian tells him it belongs to the Pelerines. Miles responds with skepticism. Nothing in
@@ -560,7 +560,7 @@ const config = {
         </p>
 
         <blockquote className="lrn-callout">
-          <p>{`"Jonas had a habit of speech. Whenever he had to say something unpleasant, he softened it, made a joke of it, by attributing what he said to some comic situation." (Severian, p. 22)`}</p>
+          <p>{`"Jonas had a habit of speech. Whenever he had to say something unpleasant, he softened it, made a joke of it, by attributing what he said to some comic situation." (Severian)`}</p>
         </blockquote>
 
         <p>
@@ -582,17 +582,17 @@ const config = {
           soldier's face goes blank as a somnambulist's. He rises and leaves without a word. The
           blankness is ambiguous. It could be the face of someone who has heard the name of his past
           and cannot yet hold it. It could be the face of a stranger who does not understand why
-          this name matters. Wolfe does not say which it is, and the chapter does not return to
-          Miles again.
+          this name matters. The section never says which it is, and it does not return to Miles
+          again.
         </p>
 
         <blockquote className="lrn-callout">
-          <p>{`"Jonas, Jolenta is gone. I watched her die, and I tried to bring her back with the Claw, but I failed. Perhaps she was too artificial, I don't know. You will have to find someone else." (Severian, p. 22)`}</p>
+          <p>{`"Jonas, Jolenta is gone. I watched her die, and I tried to bring her back with the Claw, but I failed. Perhaps she was too artificial, I don't know. You will have to find someone else." (Severian)`}</p>
         </blockquote>
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">
-            WHY DOES WOLFE REFUSE TO CONFIRM THE IDENTIFICATION?
+            WHY DOES THE STORY REFUSE TO CONFIRM THE IDENTIFICATION?
           </span>
           <p>
             Jonas promised to return "when I am sane and whole." A man resurrected from death cannot
@@ -605,7 +605,7 @@ const config = {
             Keeping it ambiguous preserves both readings. In one reading, the Claw drew Jonas back
             because Severian wished it. The wish came true in the only form the Claw could manage.
             In the other, Severian projects Jonas onto a stranger because he misses his friend and
-            the stranger is convenient. Wolfe's silence on the question is the question: what does
+            the stranger is convenient. The silence on the question is the question: what does
             identity require in order to survive death?
           </p>
         </div>
@@ -627,11 +627,11 @@ const config = {
         </p>
 
         <blockquote className="lrn-callout">
-          <p>{`"The Conciliator was a man, Severian the Lictor, and not a cat or a bird." (The senior Pelerine, p. 34)`}</p>
+          <p>{`"The Conciliator was a man, Severian the Lictor, and not a cat or a bird." (The senior Pelerine)`}</p>
         </blockquote>
 
         <blockquote className="lrn-callout">
-          <p>{`"It is the last relic we possess of the greatest of good men, and we treasured it because we still treasure his memory. If it had been the sort of thing you believe yourself to have, it would have been precious to everyone, and the autarchs would have wrested it from us long ago." (The senior Pelerine, p. 34)`}</p>
+          <p>{`"It is the last relic we possess of the greatest of good men, and we treasured it because we still treasure his memory. If it had been the sort of thing you believe yourself to have, it would have been precious to everyone, and the autarchs would have wrested it from us long ago." (The senior Pelerine)`}</p>
         </blockquote>
 
         <div className="lrn-compare">
@@ -655,18 +655,18 @@ const config = {
           Emilian is from the Autarch's court and knows Severian. He murmurs: "Thecla. I heard
           Thecla. They said she was dead. What voices are here from the lands of the dead?" Severian
           does not explain. He responds as Thecla's voice and touches the Claw to Emilian. The
-          scream that follows is ambiguous. Wolfe leaves it open: pain, or the body recognizing
+          scream that follows is ambiguous. The answer is left open: pain, or the body recognizing
           something it was not prepared to receive. Severian flees and hides under Hallvard's cot.
           Later Emilian is sitting up and talking, confused about what happened.
         </p>
 
         <blockquote className="lrn-callout">
-          <p>{`"Thecla," he murmured. "I heard Thecla. They said she was dead. What voices are here from the lands of the dead?" (Emilian, p. 36)`}</p>
+          <p>{`"Thecla," he murmured. "I heard Thecla. They said she was dead. What voices are here from the lands of the dead?" (Emilian)`}</p>
         </blockquote>
 
         <p>
           Then Severian tries to extend the Claw's power. He holds it overhead, intending to heal
-          everyone sick in the lazaret at once. "It flickered and was dark." This is the chapter's
+          everyone sick in the lazaret at once. "It flickered and was dark." This is the section's
           fourth and most explicit account of the Claw's light. The pattern is precise. The Claw
           shines softly when returned after fumigation. It has white sparks after the Pelerine
           returns it. It heals Emilian during a moment of focused, personal, almost involuntary
@@ -702,7 +702,7 @@ const config = {
           </div>
           <div className="lrn-compare-col">
             <span className="lrn-compare-title">Melito's story</span>
-            <p>{`A fable. Allegorical, involving pride and divine justice. The cock loses to a superior force but refuses the word "beaten." No clear moral resolution. Melito admits it is a children's tale, but he tells it with precision. The angel's final line echoes the chapter's closing scene.`}</p>
+            <p>{`A fable. Allegorical, involving pride and divine justice. The cock loses to a superior force but refuses the word "beaten." No clear moral resolution. Melito admits it is a children's tale, but he tells it with precision. The angel's final line echoes the section's closing scene.`}</p>
           </div>
         </div>
 
@@ -710,28 +710,28 @@ const config = {
           After Melito's story, the four debate whether content or telling matters more. The Ascian
           prisoner speaks unprompted: "All who speak Correct Thought speak well." Foila translates:
           he judges by how well the storyteller tells it, not by its content. Hallvard disagrees.
-          Foila does not judge yet. The contest is not over. Wolfe leaves the storytelling contest
-          open. He leaves the Claw and the Miles-Jonas question open the same way. The chapter ends
-          without a verdict.
+          Foila does not judge yet. The contest is not over. The storytelling contest is left open.
+          The Claw and the Miles-Jonas question are left open the same way. The section ends without
+          a verdict.
         </p>
 
         <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">HOW DO THE STORIES MIRROR THE CHAPTER?</span>
+          <span className="lrn-elaborate-label">HOW DO THE STORIES MIRROR THE SECTION?</span>
           <p>
             Hallvard's story of fraternal betrayal over a woman and property mirrors Severian's
             situation with Miles and Jonas. Jonas loved Jolenta. Severian, who also cared for
-            Jolenta, watched her die. The resurrected soldier may be Jonas (Wolfe does not confirm),
-            returned in a body Severian now tends. The story of a survivor who wanted what his dead
-            companion had reflects an uncomfortable angle. It hits Severian's attachment to the man
-            he brought back.
+            Jolenta, watched her die. The resurrected soldier may be Jonas (the story does not
+            confirm), returned in a body Severian now tends. The story of a survivor who wanted what
+            his dead companion had reflects an uncomfortable angle. It hits Severian's attachment to
+            the man he brought back.
           </p>
           <p>
-            Melito's fable of the cock who loses the fight but refuses defeat mirrors the chapter's
+            Melito's fable of the cock who loses the fight but refuses defeat mirrors the section's
             theological stakes. The cock's declaration, "A cock is not beaten until he turns tail
             and shows the white feather," makes Ava's point about Severian. Whatever the Claw is,
             whatever Thecla's presence means, he has not surrendered. He kneels at the end without
             certainty. He is not beaten. Melito notes the cock's scarlet breast resembles the
-            Pelerines' robes. Wolfe draws the link inside the story.
+            Pelerines' robes. The link is drawn inside the story.
           </p>
         </div>
 
@@ -746,98 +746,84 @@ const config = {
         </p>
 
         <blockquote className="lrn-callout">
-          <p>{`"Then don't you see? It did bring her back. You just said it could act without your even knowing it. You had it, and you had her, rotting, as you say, inside you." (Ava, p. 50)`}</p>
+          <p>{`"Then don't you see? It did bring her back. You just said it could act without your even knowing it. You had it, and you had her, rotting, as you say, inside you." (Ava)`}</p>
         </blockquote>
 
         <p>
           Ava's argument depends on Dorcas's time-bending theory, which Severian recounted on the
           road in scene 3. Suppose the Claw bends time backward. Suppose it can act without
           Severian's awareness. The ritual at Vodalus's banquet then becomes its candidate moment.
-          The Claw may have acted on Thecla's behalf. Wolfe does not resolve this. The Thecla inside
-          Severian would not be mere memory but a form of return. The argument is structurally
-          elegant; it uses only premises Severian has already stated. What he cannot do is accept
-          it. Acceptance would require knowing what Thecla is inside him. The chapter withholds that
-          knowledge. Ava's distinction lands on the same map the Pelerine drew earlier. Natural
-          wounds belong to the bright shoot reaching upward. Self-inflicted wounds belong to the
-          dark roots reaching down.
+          The Claw may have acted on Thecla's behalf. The section does not resolve this. The Thecla
+          inside Severian would not be mere memory but a form of return. The argument is
+          structurally elegant; it uses only premises Severian has already stated. What he cannot do
+          is accept it. Acceptance would require knowing what Thecla is inside him. The section
+          withholds that knowledge. Ava's distinction lands on the same map the Pelerine drew
+          earlier. Natural wounds belong to the bright shoot reaching upward. Self-inflicted wounds
+          belong to the dark roots reaching down.
         </p>
 
         <blockquote className="lrn-callout">
-          <p>{`"The powers of healing protect us from Nature. Why should the Increate protect us from ourselves? We might protect ourselves from ourselves. It may be that he will help us only when we come to regret what we have done." (Ava, p. 51)`}</p>
+          <p>{`"The powers of healing protect us from Nature. Why should the Increate protect us from ourselves? We might protect ourselves from ourselves. It may be that he will help us only when we come to regret what we have done." (Ava)`}</p>
         </blockquote>
 
         <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY DOES THE CHAPTER END IN A SILK CHAPEL?</span>
+          <span className="lrn-elaborate-label">WHY DOES THE SECTION END IN A SILK CHAPEL?</span>
           <p>
             The Pelerine chapel is a scarlet silk tent lit from within. Ava tells Severian the order
             once had a great cathedral called the Domnicellae. It could hold ten thousand and pack
             into a single wagon. Fire burned it before she joined. Severian says he saw it burn. The
             chapel is what the order has left: a portable sacred space, impermanent, dependent on
-            the fabric staying up. This is the condition of every institution in the chapter. The
+            the fabric staying up. This is the condition of every institution in the section. The
             lazaret is canvas. The army camps are tents. The true Claw is lost. The chapel is the
-            appropriate final image for a chapter about what remains when the stable structures are
+            appropriate final image for a section about what remains when the stable structures are
             gone.
           </p>
           <p>
             Ava prays. Severian, knowing no prayers, speaks silently to someone "who seemed at times
             within me and at times, as the angel had said, infinitely remote." The echo of Melito's
             fable is exact: the angel told the cock that the Pancreator is infinitely far from us.
-            What seemed an incidental phrase in a children's story becomes the chapter's last
+            What seemed an incidental phrase in a children's story becomes the section's last
             theological statement. Severian cannot pray because he does not know what he believes.
             He kneels anyway, addressing something that oscillates between interior and infinite.
-            The chapter does not say which pole is true. It closes in that oscillation.
+            The section does not say which pole is true. It closes in that oscillation.
           </p>
           <p>
-            The altar inside holds heaped flowers. The chapter opened with blood on the dust marking
+            The altar inside holds heaped flowers. The section opened with blood on the dust marking
             the right road. It closes with flowers on an altar in a lit tent. Both are offerings
-            left at the edge of something too large to face directly. The chapter's movement is from
-            wound to worship, without resolution. What Wolfe gives Severian at the end is not an
-            answer but a posture.
+            left at the edge of something too large to face directly. The section's movement is from
+            wound to worship, without resolution. What the section gives Severian at the end is not
+            an answer but a posture.
           </p>
         </div>
       </>,
-      // Chapter 3: The Road to the War
+      // Section 3: The Road to the War
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter 3: The Road to the War</h1>
+        <div className="lrn-module-divider">
+          <h2>Section 3: The Road to the War</h2>
         </div>
 
         <div className="lrn-header">
           <div className="lrn-header-text">
-            <h2>Orientation: One Chapter, Two Halves, One Vanishing</h2>
+            <h2>Orientation: One Section, Two Halves, One Vanishing</h2>
             <p>
-              This module covers Wolfe's chapters XI through XVII. The first half stays in the
-              lazaret. The second half puts Severian on a path that behaves strangely.
+              This part covers the storytelling contest and the strange road north. The first half
+              stays in the lazaret. The second half puts Severian on a path that behaves strangely.
             </p>
             <p>
               Three threads run through it. First, the storytelling contest among the wounded that
               began earlier finishes here. The Ascian competes. Foila competes. Severian never
               delivers his promised judgment. Second, the Claw of the Conciliator. Severian has
-              carried it for the entire book. In chapter XIV he gives it back. Third, the war. It
-              has been a distant rumor until now. Mannea's errand pushes Severian toward it.
+              carried it for the entire book. Partway through this part he gives it back. Third, the
+              war. It has been a distant rumor until now. Mannea's errand pushes Severian toward it.
             </p>
             <p>
-              Wolfe pivots on chapter XIV. The lazaret recedes after that. Geography starts to thin
-              out. A house appears at twilight and disappears in daylight. By chapter XVII the man
-              Severian came to fetch dissolves in his grip. The world Severian thought he was
-              standing in becomes a bank of cloud.
+              The story pivots once the Claw is returned. The lazaret recedes after that. Geography
+              starts to thin out. A house appears at twilight and disappears in daylight. By the end
+              the man Severian came to fetch dissolves in his grip. The world Severian thought he
+              was standing in becomes a bank of cloud.
             </p>
 
-            <h3>New Terms for This Chapter</h3>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">The Group of Seventeen</span>
-              <div className="lrn-definition-desc">
-                <p>{`The ruling council of Ascia. Their decrees are the only legal speech. The Just Man parable is told to the Group's lights and is also about them.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Correct Thought</span>
-              <div className="lrn-definition-desc">
-                <p>{`The body of approved Ascian utterances. Speakers must compose every sentence from approved phrases. New sentences are not just forbidden. They are grammatically impossible.`}</p>
-              </div>
-            </div>
+            <h3>New Terms for This Section</h3>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Set locutions</span>
@@ -870,7 +856,7 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Hierodules</span>
               <div className="lrn-definition-desc">
-                <p>{`Aliens disguised in human form. Famulimus, Barbatus, and Ossipago are the three Severian has met. Their faces are imitations of an older type. Master Ash's face resembles theirs but is human.`}</p>
+                <p>{`The aliens disguised in human form Severian has met before, among them Famulimus. Master Ash's face resembles theirs, but his is human.`}</p>
               </div>
             </div>
 
@@ -884,7 +870,7 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Cacogens</span>
               <div className="lrn-definition-desc">
-                <p>{`The general name in Severian's culture for alien visitors. Master Ash says they evacuated many humans before the final ice. He is descended from those refugees.`}</p>
+                <p>{`The alien visitors. Master Ash says they carried many humans away before the final ice, and he is descended from those refugees.`}</p>
               </div>
             </div>
 
@@ -892,7 +878,7 @@ const config = {
 
             <viz.Ch03CharacterWeb />
 
-            <h3>How to Read This Chapter</h3>
+            <h3>How to Read This Section</h3>
 
             <p>
               Read the first half as a contest of voices. Each storyteller competes with a different
@@ -904,15 +890,15 @@ const config = {
               Read the second half as a slow loss of solid ground. Mannea's errand has the structure
               of a fairy tale. The map adjusts distances to fit paper. The Last House visible at
               twilight is gone by morning. Master Ash, when carried away, ceases to be. By the
-              chapter's last line the ice was a cloud bank. Wolfe never says this is supernatural.
-              Severian, sober and adult, says he believes it is.
+              section's last line the ice was a cloud bank. The story never says outright that this
+              is supernatural. Severian, sober and adult, says he believes it is.
             </p>
           </div>
         </div>
       </>,
 
       <>
-        <h2>Chapter XI, Loyal to the Group of Seventeen's Story: The Just Man</h2>
+        <h2>The Ascian's Story: The Just Man</h2>
 
         <p>
           Morning in the lazaret. Severian asks Foila if she will judge between Melito and Hallvard
@@ -1000,11 +986,11 @@ const config = {
         <h3>Why the Ascian and Foila Compete</h3>
 
         <p>
-          Severian wonders about their motives at the end of the chapter. Foila may have allowed the
-          Ascian to enter out of mischief or genuine attraction, Wolfe does not resolve which. She
-          has dealt with Ascians often. He is plainly no ordinary soldier, since someone has taught
-          him Severian's tongue. The Ascian, if he had a motive beyond rivalry, surely meant to tell
-          Foila that he would never give up.
+          Severian wonders about their motives at the end of the section. Foila may have allowed the
+          Ascian to enter out of mischief or genuine attraction; the story does not resolve which.
+          She has dealt with Ascians often. He is plainly no ordinary soldier, since someone has
+          taught him Severian's tongue. The Ascian, if he had a motive beyond rivalry, surely meant
+          to tell Foila that he would never give up.
         </p>
         <p>
           The just man does not give up. That is the only line of the story repeated word for word.
@@ -1014,7 +1000,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XII, Winnoc</h2>
+        <h2>Winnoc</h2>
 
         <p>
           That evening Severian has a new visitor. A shaven-headed male slave seats himself beside
@@ -1058,10 +1044,10 @@ const config = {
         <viz.Ch03SlaveryPaths />
 
         <p>
-          The taxonomy is also Wolfe's way of placing the Autarch inside the same web as everyone
-          else. The Autarch is "Master of Masters and Slave of Slaves." He buys and sells prisoners.
-          The system that produces Winnoc and the system that produces Severian's old patron are one
-          system. The Ascian beside them, a prisoner of war, is the Autarch's slave.
+          The taxonomy also places the Autarch inside the same web as everyone else. The Autarch is
+          "Master of Masters and Slave of Slaves." He buys and sells prisoners. The system that
+          produces Winnoc and the system that produces Severian's old patron are one system. The
+          Ascian beside them, a prisoner of war, is the Autarch's slave.
         </p>
 
         <h3>Winnoc's Own Path</h3>
@@ -1113,7 +1099,7 @@ const config = {
             Therefore I believe you.
           </p>
           <p>
-            This is the chapter's quiet thesis. Cruelty has a grammar. Honest people use one
+            This is the section's quiet thesis. Cruelty has a grammar. Honest people use one
             grammar. Cruel people use the other. After a life of being beaten, Winnoc can hear which
             grammar is which.
           </p>
@@ -1127,7 +1113,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XIII, Foila's Story: The Armiger's Daughter</h2>
+        <h2>Foila's Story: The Armiger's Daughter</h2>
 
         <p>
           The next day Foila announces that she will compete too. She has the right to one. Even a
@@ -1243,7 +1229,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XIV, Mannea</h2>
+        <h2>Mannea and the Return of the Claw</h2>
 
         <p>
           Severian walks among the tents. He finds the scarlet glow of the Pelerines' chapel. The
@@ -1256,8 +1242,8 @@ const config = {
         <p>
           He does not describe the liturgy in detail. He says only that he found it more beautiful
           than his guild's ceremonies and less theatrical. He suspects this makes it less moving in
-          the long run, Wolfe leaves the verdict open. The chants had a strange attraction. The
-          robes were ancient.
+          the long run. The verdict is left open. The chants had a strange attraction. The robes
+          were ancient.
         </p>
         <p>
           When the ceremony ends he stays. He kneels and feigns prayer. The feigning becomes the
@@ -1346,7 +1332,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XV, The Last House</h2>
+        <h2>The Last House</h2>
 
         <p>
           Mannea gives Severian a rough map and a safe-conduct on cream parchment. The safe-conduct
@@ -1420,7 +1406,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XVI, The Anchorite</h2>
+        <h2>The Anchorite</h2>
 
         <p>
           There is a porch. It runs to either side of the house and around the corners. This is the
@@ -1554,7 +1540,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XVII, Ragnarok: The Final Winter</h2>
+        <h2>Ragnarok: The Final Winter</h2>
 
         <p>
           Severian wakes weaponless and unworried. He has lost Terminus Est. He slept at the sacking
@@ -1686,35 +1672,36 @@ const config = {
           </p>
         </div>
 
-        <h3>Why the Chapter Ends This Way</h3>
+        <h3>Why the Section Ends This Way</h3>
 
         <p>
-          The whole arc of this chapter has been about what stories and rote phrases and
+          The whole arc of this section has been about what stories and rote phrases and
           storytellers can carry between minds. The Ascian carried meaning across the barrier of
           language by arrangement. Foila carried a folktale across the barrier of literal
           translation by interpretation. Winnoc carried his question across decades and across the
           gulf between slave and torturer by trust earned in small surrenders.
         </p>
         <p>
-          And then Wolfe gives us Ash. His existence depends on probability. Conversation can carry
-          him; the body cannot. He dissolves the moment Severian tries to drag him across the
+          And then the story gives us Ash. His existence depends on probability. Conversation can
+          carry him; the body cannot. He dissolves the moment Severian tries to drag him across the
           threshold of the wrong epoch. Some things cannot be transferred by force. The Claw could
           not be kept; it had to be returned. Ash cannot be brought; he can only be visited.
         </p>
         <p>
-          The chapter ends with Severian alone again. He walks south on Mannea's map, the road back
+          The section ends with Severian alone again. He walks south on Mannea's map, the road back
           to the war ahead of him.
         </p>
       </>,
 
       <>
-        <h2>Synthesis: What the Whole Chapter is About</h2>
+        <h2>Synthesis: What the Whole Section is About</h2>
 
         <p>
-          Chapter 3 is a meditation on transmission. Stories carry meaning under constraint
-          (Ascian). Stories test what listeners are willing to be guided by (Foila). Pain carries
-          across decades and is finally laid down (Winnoc). Severian returns the Claw he carried so
-          long alone. The anchorite, who cannot be carried at all, dissolves.
+          Section 3 is a meditation on transmission, on carrying meaning from one mind to another.
+          Stories carry meaning under constraint (Ascian). Stories test what listeners are willing
+          to be guided by (Foila). Pain carries across decades and is finally laid down (Winnoc).
+          Severian returns the Claw he carried so long alone. The anchorite, who cannot be carried
+          at all, dissolves.
         </p>
         <p>
           The four pieces fit together. The Ascian shows that meaning survives constraint. Foila
@@ -1724,13 +1711,13 @@ const config = {
           transfer.
         </p>
         <p>
-          The chapter ends Severian's role as bearer of relics. It prepares him for the next
+          The section ends Severian's role as bearer of relics. It prepares him for the next
           movement. He will be a soldier in his own war, not a messenger of someone else's. The road
           to the war is the road on which he became himself again.
         </p>
 
         <div className="lrn-callout lrn-tip">
-          <span className="lrn-callout-label">A reading key for the whole chapter</span>
+          <span className="lrn-callout-label">A reading key for the whole section</span>
           <p>
             When a character speaks, ask three questions. What constraint shapes their speech? What
             does the listener have to provide for the meaning to land? And what would be lost if
@@ -1738,10 +1725,10 @@ const config = {
           </p>
         </div>
       </>,
-      // Chapter 4: The Autarch and the Great Battle
+      // Section 4: The Autarch and the Great Battle
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter 4: The Autarch and the Great Battle</h1>
+        <div className="lrn-module-divider">
+          <h2>Section 4: The Autarch and the Great Battle</h2>
         </div>
 
         <div className="lrn-header">
@@ -1753,29 +1740,29 @@ const config = {
               hospital called the lazaret. An Ascian attack has just destroyed that lazaret.
             </p>
             <p>
-              Two people Severian carries from earlier books matter here. <strong>Thecla</strong>{' '}
-              was a noblewoman of the highest caste (an exultant) whom the guild ordered Severian to
+              Two people Severian carries from his past matter here. <strong>Thecla</strong> was a
+              noblewoman of the highest caste (an exultant) whom the guild ordered Severian to
               torture. He absorbed her memories through an alzabo ritual, and she now lives inside
               him. <strong>Dorcas</strong> was a woman he loved. The Claw had resurrected her from
               the dead. Both are gone. Both remain.
             </p>
             <p>
-              Chapter 3 ended with Severian walking away from Master Ash, an anchorite who faded
-              from existence mid-sentence. This chapter picks up the next morning at the lazaret
-              ruins.
+              Section 3 ended with Severian walking away from Master Ash, an anchorite (a religious
+              hermit who lives alone) who faded from existence mid-sentence. This section picks up
+              the next morning at the lazaret ruins.
             </p>
             <p>
-              Seven chapters (XVIII through XXIV) follow. They cover Severian finding a dying
-              survivor and joining a mercenary cavalry. He then fights a massive battle and meets
-              the ruler of the Commonwealth under fire.
+              Seven sections follow. They cover Severian finding a dying survivor and joining a
+              mercenary cavalry. He then fights a massive battle and meets the ruler of the
+              Commonwealth under fire.
             </p>
 
-            <viz.Ch04ChapterArc />
+            <viz.Ch04ModuleArc />
 
             <div className="lrn-callout">
-              <span className="lrn-callout-label">Why this chapter matters</span>
+              <span className="lrn-callout-label">Why this section matters</span>
               <p>
-                The chapter turns four questions into scenes. What makes you the same person over
+                The section turns four questions into scenes. What makes you the same person over
                 time? Severian already carries Thecla. He is about to meet someone who carries more.
                 Can a ruler govern with mercy without first knowing crime from the inside? What does
                 a language sound like when it cannot form an original sentence? What does discipline
@@ -1829,41 +1816,6 @@ const config = {
             </div>
 
             <div className="lrn-definition">
-              <span className="lrn-definition-term">Cherkajis</span>
-              <div className="lrn-definition-desc">
-                <p>{`Lightly armed cavalry skirmishers in the Commonwealth army. They operate at the edges of the battle formation.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Peltasts</span>
-              <div className="lrn-definition-desc">
-                <p>{`Commonwealth infantry who carry transparent shields and blazing spears. They form part of the line facing the Ascian checkerboard.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Hobilers</span>
-              <div className="lrn-definition-desc">
-                <p>{`Light cavalry armed with bows. They support the Commonwealth battle line alongside the peltasts.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Arsinoither</span>
-              <div className="lrn-definition-desc">
-                <p>{`A large, two-horned beast ridden by the Daughters of War. It charges straight through obstacles and cannot be stopped by ordinary means.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Shotel</span>
-              <div className="lrn-definition-desc">
-                <p>{`A sword with a long double-edged blade. The forward half curves into a semicircle. The blind Ascian warriors use it in paired cavalry combat.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
               <span className="lrn-definition-term">Anpiel</span>
               <div className="lrn-definition-desc">
                 <p>{`A winged female soldier. Each anpiel carries two pistols. Their rainbow wings are wider than a teratornis. They descend from the clouds to intervene in the steel coach standoff.`}</p>
@@ -1887,7 +1839,7 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Penning trap / Anti-iron</span>
               <div className="lrn-definition-desc">
-                <p>{`The Autarch's flier uses antimaterial iron held in a magnetic penning trap. The anti-iron repels the earth's promagnetism, creating lift. Each time an air molecule neutralizes a particle, the craft loses a tiny amount of lift.`}</p>
+                <p>{`The Autarch's flier floats because a magnetic cage holds a strange anti-metal that pushes against the planet, giving the craft lift. Each time an air molecule touches and cancels one particle of the anti-metal, the craft loses a tiny bit of lift.`}</p>
               </div>
             </div>
 
@@ -1897,19 +1849,12 @@ const config = {
                 <p>{`Beings grown from the body cells of exultant women. The Autarch uses them as prostitutes in his secret brothel in the Algedonic Quarter.`}</p>
               </div>
             </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Trilhoen</span>
-              <div className="lrn-definition-desc">
-                <p>{`A heavy weapon mounted on Mamillian's back. It has a dark lens the size of a dinner plate. Severian sees it when the mammoth arrives on the battlefield.`}</p>
-              </div>
-            </div>
           </div>
         </div>
       </>,
 
       <>
-        <h2>XVIII. Foila's Request</h2>
+        <h2>Foila's Request</h2>
 
         <p>
           Severian walks away from the Last House ruins in the early morning. Master Ash, the
@@ -1917,12 +1862,12 @@ const config = {
           Half out of grief, half out of habit, Severian talks aloud to the ghost. He speaks as
           though Ash can still hear him. He speaks about loneliness, about his lost dog Triskele,
           the girl Valeria he met in the Atrium of Time, and Dorcas. He speaks about what it means
-          to contain another person's memories without ceasing to be alone. The chapter opens not
+          to contain another person's memories without ceasing to be alone. The section opens not
           with action but with a meditation on perception itself.
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Severian on perception, page 1</span>
+          <span className="lrn-callout-label">Severian on perception</span>
           <p>{`"Our eyes receive a rain of photons without mass or charge from swarming particles like a billion, billion suns... From the pattering of those photons we believe we see a man. Sometimes the man we believe we see may be as illusory as Master Ash, or more so."`}</p>
         </div>
 
@@ -1941,7 +1886,7 @@ const config = {
 
         <div className="lrn-callout">
           <span className="lrn-callout-label">
-            Foila quoting the Ascian prisoner's opening line, page 6
+            Foila quoting the Ascian prisoner's opening line
           </span>
           <p>{`"'My land is the land of far horizons, of the wide sky.'"`}</p>
         </div>
@@ -1949,12 +1894,12 @@ const config = {
         <p>
           Severian promises. He then steps briefly out of the present moment and tells the reader
           why the lazaret stories sit in his brown book at all. This promise is the reason. The
-          chapter looks back at her death from a point long after.
+          section looks back at her death from a point long after.
         </p>
 
         <div className="lrn-callout">
           <span className="lrn-callout-label">
-            Severian as narrator, closing chapter XVIII, page 6
+            Severian as narrator, looking back from long after
           </span>
           <p>{`"My second promise I have kept, first copying all the stories onto the blank pages at the close of the brown book, then giving them here, just as I heard them in the long, warm noons."`}</p>
         </div>
@@ -1972,7 +1917,7 @@ const config = {
       </>,
 
       <>
-        <h2>XIX. Guasacht</h2>
+        <h2>Joining Guasacht's Bacele</h2>
 
         <p>
           After Foila dies, Severian spends two wandering days alone, sleeping rough and considering
@@ -1984,13 +1929,14 @@ const config = {
         </p>
 
         <p>
-          On the road he encounters Guasacht, a condottiere. He is short, bowlegged, and energetic.
-          He stands amid corpses beside a burned supply wagon. Guasacht sizes Severian up
-          immediately and offers him a place in the 18th Bacele of the Irregular Contarü.
+          On the road he encounters Guasacht, a condottiere, a hired mercenary captain. He is short,
+          bowlegged, and energetic. He stands amid corpses beside a burned supply wagon. Guasacht
+          sizes Severian up immediately and offers him a place in the 18th Bacele of the Irregular
+          Contarü.
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Severian to Guasacht, page 10</span>
+          <span className="lrn-callout-label">Severian to Guasacht</span>
           <p>{`"I'm attached to nothing and no one, memories excepted."`}</p>
         </div>
 
@@ -2003,7 +1949,7 @@ const config = {
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Severian to Daria, page 16</span>
+          <span className="lrn-callout-label">Severian to Daria</span>
           <p>{`"You have no power over me, neither you nor they. I am not afraid of pain, or of death. There is only one living woman I desire, and no man but myself."`}</p>
         </div>
 
@@ -2028,7 +1974,7 @@ const config = {
       </>,
 
       <>
-        <h2>XX. Patrol</h2>
+        <h2>The Steel-Coach Standoff</h2>
 
         <p>
           The bacele departs before dawn and tracks a steel coach captured by Ascian raiders. Deep
@@ -2045,7 +1991,7 @@ const config = {
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Man-beast, page 22</span>
+          <span className="lrn-callout-label">Man-beast</span>
           <p>{`"Our law is not the law of reason. Our law is honor and obedience. We stay."`}</p>
         </div>
 
@@ -2055,9 +2001,7 @@ const config = {
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">
-            Severian mirroring the Ascian officer's formula, page 22
-          </span>
+          <span className="lrn-callout-label">Severian mirroring the Ascian officer's formula</span>
           <p>{`"Greetings in the name of the Group of Seventeen." / "In the name of the Group of Seventeen."`}</p>
         </div>
 
@@ -2092,7 +2036,7 @@ const config = {
           <p>
             The steel-coach episode is a small version of the whole module. Three factions stand in
             a standoff. Unconventional diplomacy resolves it. An unexpected force arriving from
-            outside closes it, the anpiels here, the Autarch later. The chapter shows that language
+            outside closes it, the anpiels here, the Autarch later. The section shows that language
             is both a prison and a key. Correct Thought traps the Ascian officer. Severian escapes
             the trap by learning to speak its grammar. He uses the Group of Seventeen formula to
             claim negotiating standing.
@@ -2101,7 +2045,7 @@ const config = {
       </>,
 
       <>
-        <h2>XXI. Deployment</h2>
+        <h2>Deployment: The March North</h2>
 
         <p>
           Days of patrol pass between the standoff and the main battle. The moon waxes nearly full.
@@ -2117,7 +2061,7 @@ const config = {
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Severian on fear, page 29</span>
+          <span className="lrn-callout-label">Severian on fear</span>
           <p>{`"Fear is like those diseases that disfigure the face with running sores. One becomes almost more afraid of their being seen than of their source, and comes to feel not only disgraced but defiled."`}</p>
         </div>
 
@@ -2147,23 +2091,21 @@ const config = {
       </>,
 
       <>
-        <h2>XXII. Battle</h2>
+        <h2>The Battle in the Valley</h2>
 
         <p>
           The full battle begins, and Severian sees the valley laid out below him. On the Ascian
           side stand four formations. The checkerboard infantry squares advance and retreat in
           alternation. Cherkajis cavalry skirmishers and savage riders hold the right flank. The
-          Daughters of War ride in gilded howdahs on arsinoithers. On the Commonwealth side stand
-          cherkajis, peltasts with transparent shields, hobilers with bows, and the bacele on the
-          flank.
+          Daughters of War ride in gilded howdahs (riding platforms) on arsinoithers (horned
+          beasts). On the Commonwealth side stand cherkajis, peltasts with transparent shields,
+          hobilers with bows, and the bacele on the flank.
         </p>
 
         <viz.Ch04BattleFormation />
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">
-            Severian observing the advancing checkerboard, page 35
-          </span>
+          <span className="lrn-callout-label">Severian observing the advancing checkerboard</span>
           <p>{`"By each step in war the winner loses."`}</p>
         </div>
 
@@ -2174,7 +2116,7 @@ const config = {
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Severian, page 37</span>
+          <span className="lrn-callout-label">Severian, mid-battle</span>
           <p>{`"Fighting is a stupid business at best; but there are things to be learned about it, of which the first is that numbers tell only in time. The immediate struggle is always that of an individual against one or two others."`}</p>
         </div>
 
@@ -2199,7 +2141,7 @@ const config = {
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            Why does Wolfe have the blind swordsman ride on a dwarf archer rather than fight
+            Why does the story have the blind swordsman ride on a dwarf archer rather than fight
             separately?
           </p>
           <details className="lrn-self-explain-reveal">
@@ -2215,16 +2157,16 @@ const config = {
       </>,
 
       <>
-        <h2>XXIII. The Pelagic Argosy Sights Land</h2>
+        <h2>The Pelagic Argosy Sights Land</h2>
 
         <p>
           Severian wakes on the silent battlefield with dire wolves nearby. Then Mamillian arrives.
-          Mamillian is an enormous war-mammoth. It plays a bent orphicleide as it comes. It lifts
-          Severian to safety. A figure on its back gives the code phrase.
+          Mamillian is an enormous war-mammoth. It plays a bent orphicleide (a brass war-horn) as it
+          comes. It lifts Severian to safety. A figure on its back gives the code phrase.
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">The Autarch, page 45</span>
+          <span className="lrn-callout-label">The Autarch, giving the code phrase</span>
           <p>{`"We are the thing itself, the self-ruler, the Autarch. We know more. We know who you are."`}</p>
         </div>
 
@@ -2242,18 +2184,25 @@ const config = {
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">
-            The Autarch explaining why he became a criminal, page 47
-          </span>
+          <span className="lrn-callout-label">The Autarch explaining why he became a criminal</span>
           <p>{`"A judge or a jailer who has no crime of his own is a monster, alternately purloining the forgiveness that belongs to the Increate alone and practicing a deathly rigor that belongs to no one and nothing."`}</p>
         </div>
+
+        <p>
+          This is the Autarch's deeper argument: a just ruler must himself be a criminal. He runs
+          the brothel and exploits khaibits not in spite of being the Autarch but as a precondition
+          of being a tolerable one. A ruler who has never felt guilt cannot govern with mercy,
+          because he cannot forgive what he has never felt. His composite identity mirrors
+          Severian's own. Severian contains Thecla; the Autarch contains all his predecessors. Both
+          are lonely because of, not despite, the people they carry.
+        </p>
 
         <div className="lrn-faded">
           <div className="lrn-faded-phase">
             <span className="lrn-faded-label">SETUP</span>
             <p>
-              Wolfe plants two sightings of the Autarch in earlier books. One at House Azure, the
-              brothel. One in a corridor painting at the House Absolute.
+              The story has shown the Autarch twice already in earlier books. Once at House Azure,
+              the brothel. Once in a corridor painting at the House Absolute.
             </p>
           </div>
           <div className="lrn-faded-phase">
@@ -2268,35 +2217,25 @@ const config = {
             <p>
               The code phrase signals recognition before Severian sees the face. The plural "We"
               confirms the composite identity before the Autarch explains it. The brothel revelation
-              follows, confirming the reader's suspicion that this figure was never simply a ruler.
+              follows, confirming what the earlier sightings hinted: this figure was never simply a
+              ruler.
             </p>
           </div>
         </div>
 
         <viz.Ch04AutarchIdentityWeb />
-
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY THIS MATTERS</span>
-          <p>
-            The Autarch's composite identity mirrors Severian's own. Severian contains Thecla; the
-            Autarch contains all his predecessors. Both are lonely despite, or because of,
-            containing other people. The Autarch's deeper argument is that rulers must be criminals
-            to govern justly. He runs the brothel and exploits khaibits not in spite of being the
-            Autarch. He does these things as a precondition of being a tolerable one. He cannot
-            forgive what he has never felt. A ruler who cannot feel guilt cannot govern with mercy.
-          </p>
-        </div>
       </>,
 
       <>
-        <h2>XXIV. The Flier</h2>
+        <h2>The Flier</h2>
 
         <p>
           After recovering, Severian meets the Autarch again in the pavilion. The Autarch explains
-          the flier's lift mechanism. It uses anti-iron, antimaterial iron, held in a magnetic
-          penning trap. The anti-iron repels the earth's promagnetism and creates lift. Each time an
-          air molecule neutralizes a particle, the craft loses a tiny amount of lift. Over time it
-          will fail.
+          how the flier stays aloft. A magnetic cage holds a strange anti-metal that pushes against
+          the planet itself, and that push gives the craft lift. The cage is a penning trap, the
+          anti-metal a kind of anti-iron, and the planet's pull a promagnetism the anti-iron repels.
+          Each time a stray air molecule touches and cancels a particle of the anti-metal, the craft
+          loses a little lift. Over time it will fail.
         </p>
 
         <p>
@@ -2306,23 +2245,21 @@ const config = {
         </p>
 
         <div className="lrn-callout">
-          <span className="lrn-callout-label">The Autarch to Severian, page 51</span>
+          <span className="lrn-callout-label">The Autarch to Severian, in the ascending flier</span>
           <p>{`"You are two, as people are usually counted. How many do you think I am?"`}</p>
         </div>
 
-        <p>The chapter ends mid-conversation, in ascent. Severian gives no answer.</p>
+        <p>The scene ends mid-conversation, in ascent. Severian gives no answer.</p>
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY THIS MATTERS</span>
           <p>
-            The open question is deliberate. Wolfe closes the chapter on an unresolved identity
-            problem: how many selves can one person hold? This chapter asks it; the next chapter
-            answers it in a way Severian cannot anticipate here. The question is not unique to
-            Wolfe. The philosopher Derek Parfit spent a career on it. He argued that personal
-            identity over time is not a simple fact but a matter of degree. The Autarch's composite
-            self is the extreme case: many pasts, one present. Severian is the moderate case: his
-            own past and Thecla's, one present. The Autarch's question asks where the line is. This
-            module does not draw it.
+            The open question is deliberate. The scene closes on an unresolved problem: how many
+            selves can one person hold? It asks the question now; the answer comes later, in a way
+            Severian cannot anticipate here. The Autarch's composite self is the extreme case, many
+            pasts in one present. Severian is the moderate case, his own past and Thecla's in one
+            present. The Autarch's question, "How many do you think I am?", asks where the line
+            falls between one self and many. The story leaves it undrawn.
           </p>
         </div>
 
@@ -2363,14 +2300,14 @@ const config = {
 
         <div className="lrn-compare">
           <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Anpiels (chapter XX)</span>
+            <span className="lrn-compare-title">Anpiels</span>
             <p>
               Winged and technological. Carry pistols, descend from clouds, resolve the standoff as
               a military instrument. Elite but impersonal: they commend the bacele and leave.
             </p>
           </div>
           <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Daughters of War (chapter XXII)</span>
+            <span className="lrn-compare-title">Daughters of War</span>
             <p>
               Sacred and bejeweled, riding arsinoithers and forbidden to touch. Charge straight and
               unstoppable, ritual, not tactical. Awe-inspiring but unreachable: sacred-forbidden
@@ -2381,11 +2318,11 @@ const config = {
 
         <viz.Ch04AscianStructure />
       </>,
-      // Chapter 5: Severian Becomes the Autarch
-      // ── Orientation ──────────────────────────────────────────────────────
+      // Section 5: Severian Becomes the Autarch
+      // Orientation
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter 5: Severian Becomes the Autarch</h1>
+        <div className="lrn-module-divider">
+          <h2>Section 5: Severian Becomes the Autarch</h2>
         </div>
 
         <div className="lrn-header">
@@ -2393,7 +2330,7 @@ const config = {
             <h2>Orientation: Where We Are</h2>
             <p>
               Severian is an ex-torturer who has wandered across Urth (their planet) for four books.
-              He has fought in the great battle alongside irregular cavalry. Chapter 4 ended with
+              He has fought in the great battle alongside irregular cavalry. Section 4 ended with
               the Autarch pulling Severian into his royal flier above the battlefield.
             </p>
             <p>
@@ -2403,26 +2340,26 @@ const config = {
               loved. The Claw had resurrected her from the dead. She is gone. She remains.
             </p>
             <p>
-              Seven chapters (XXV through XXXI) follow. They cover the flier crash and imprisonment
-              in a jungle ziggurat. They cover Vodalus and the revolutionary camp, the Ascian
-              headquarters, and the succession ritual. They end on the beach at Ocean. There
-              Severian finds the Claw again, or discovers what the Claw always was.
+              What follows covers the flier crash and imprisonment in a jungle ziggurat. Then
+              Vodalus and the revolutionary camp, the Ascian headquarters, and the succession
+              ritual. It ends on the beach at Ocean. There Severian finds the Claw again, or
+              discovers what the Claw always was.
             </p>
 
-            <viz.Ch05ChapterArc />
+            <viz.Ch05ModuleArc />
 
             <div className="lrn-callout">
-              <span className="lrn-callout-label">Why this chapter matters</span>
+              <span className="lrn-callout-label">Why this section matters</span>
               <p>
-                This chapter answers The Book of the New Sun{`'`}s central question. Who rules the
-                Commonwealth? How does power pass from one person to another? The answer Wolfe gives
-                is strange, biological, and sacramental at once.
+                This section answers the series' central question. Who rules the Commonwealth? How
+                does power pass from one person to another? The answer is strange, biological, and
+                sacramental at once.
               </p>
               <p>
-                The chapter also raises questions that exist outside the novel. Can a ruler contain
-                multitudes and remain a coherent self? What does mercy mean when it comes from
-                self-interest? And is a thorn in a rose bush different from a holy relic, or is that
-                the wrong question?
+                It also raises questions that outlast the story. Can a ruler contain multitudes and
+                remain a coherent self? What does mercy mean when it comes from self-interest? And
+                is a thorn in a rose bush different from a holy relic, or is that the wrong
+                question?
               </p>
             </div>
 
@@ -2438,14 +2375,7 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Alzabo</span>
               <div className="lrn-definition-desc">
-                <p>{`A drug made from the fat glands of the alzabo beast. When you consume it alongside the flesh of a recently dead person, you hear that person's voice and memories inside yourself. This is how Thecla survives inside Severian.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Anpiels</span>
-              <div className="lrn-definition-desc">
-                <p>{`The Autarch's winged creatures. Their heads look like women's skulls with curved bills and pointed teeth. Wingspan of twenty cubits. They fly silently. They carry the Autarch's messages and provide military support. The woman-cats called the Autarch "Legion", his mind was already multiple.`}</p>
+                <p>{`The memory-transfer drug introduced in Section 2. Here it matters as the model for the pharmacon: the alzabo rite carries one person (this is how Thecla survives inside Severian), while the pharmacon extends the same logic to the whole line of Autarchs.`}</p>
               </div>
             </div>
 
@@ -2473,7 +2403,7 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Uturuncu</span>
               <div className="lrn-definition-desc">
-                <p>{`A shaman from Andean tradition who can take the form of a tiger. The old native guide in Vodalus's column is one. He wears a grotesque mask and slips under the Autarch's palanquin at night.`}</p>
+                <p>{`A shape-shifting shaman. The old native guide in Vodalus's column is one. The march section below explains what his presence means.`}</p>
               </div>
             </div>
 
@@ -2481,20 +2411,6 @@ const config = {
               <span className="lrn-definition-term">Cerbotanas</span>
               <div className="lrn-definition-desc">
                 <p>{`Blowguns longer than their carriers' outstretched arms. The two younger native guides in Vodalus's column carry them with dart bags dyed burnt umber.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Ransieur / Demilunes</span>
-              <div className="lrn-definition-desc">
-                <p>{`Weapons carried by Ascian infantry. Severian sees thousands armed with the ransieur, then thousands more carrying demilunes as Vodalus's column marches deeper into the Ascian force.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Uintathers / Platybelodons</span>
-              <div className="lrn-definition-desc">
-                <p>{`Large beasts of burden used by the Ascian army. They march alongside six-legged machines that serve the same purpose.`}</p>
               </div>
             </div>
 
@@ -2508,28 +2424,14 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Hierodule</span>
               <div className="lrn-definition-desc">
-                <p>{`From Greek "holy slave." Beings who serve a higher power. Malrubius says: "I am Malrubius, and no Hierodule. Rather I serve those the Hierodules serve." He places himself one step above them in the chain.`}</p>
+                <p>{`The alien servants of a higher power, met earlier in Section 3. Here Malrubius says: "I am Malrubius, and no Hierodule. Rather I serve those the Hierodules serve", placing himself one step above them in the chain.`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">Cacogen</span>
               <div className="lrn-definition-desc">
-                <p>{`A being not of human birth who has chosen to live among humans. From Greek "bad birth." Father Inire is one. The Autarch names him as a helper who was supposed to assist Severian's escape.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">Pteriopes</span>
-              <div className="lrn-definition-desc">
-                <p>{`Winged creatures Agia calls "our pteriopes." Likely the same as the anpiels or related flying entities serving Vodalus's faction.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
-              <span className="lrn-definition-term">The Eight</span>
-              <div className="lrn-definition-desc">
-                <p>{`A constellation. Three stars hang forever over the southern ice. Severian looks for them to orient himself after the crash.`}</p>
+                <p>{`The alien visitors introduced in Section 3. Here the specific cacogen is Father Inire, whom the Autarch names as a helper who was supposed to assist Severian's escape.`}</p>
               </div>
             </div>
 
@@ -2550,13 +2452,9 @@ const config = {
         </div>
       </>,
 
-      // ── Chapter XXV ──────────────────────────────────────────────────────
+      // The Mercy of Agia
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter XXV: The Mercy of Agia</h1>
-        </div>
-
-        <h2>The Flier Above the Front</h2>
+        <h2>The Mercy of Agia: The Flier Above the Front</h2>
 
         <p>
           Severian rides in the Autarch's flier above the battlefield. The Autarch shows him both
@@ -2575,7 +2473,7 @@ const config = {
           the crash. He confirms that Thecla lives inside Severian, that the alzabo transfer is
           real, and asks whether Severian still seeks Dorcas. Then he reveals something Severian has
           carried in silence. Severian himself was once a traitor. He saved Vodalus in the opening
-          chapters of Book 1.
+          sections of Book 1.
         </p>
 
         <div className="lrn-callout">
@@ -2632,9 +2530,9 @@ const config = {
 
         <p>
           Vodalus's riders arrive in moonlight. They carry Severian and the Autarch out from behind
-          Ascian lines. They set them down at a jungle ziggurat where Vodalus and Thea wait. Agia
-          appears and stabs Severian in the face with a lu-civee; he survives but loses two days to
-          unconsciousness. Above, carried by a winged creature, Agia calls down to him.
+          Ascian lines. They set them down at a jungle ziggurat where Vodalus and Thea, his consort,
+          wait. Agia appears and stabs Severian in the face with a lu-civee; he survives but loses
+          two days to unconsciousness. Above, carried by a winged creature, Agia calls down to him.
         </p>
 
         <div className="lrn-callout">
@@ -2643,35 +2541,37 @@ const config = {
         </div>
 
         <p>
-          Two figures from the deep backstory of the series surface in this chapter. Paeon, the
+          Two figures from the deep backstory of the series surface in this section. Paeon, the
           Autarch's original mentor, was once honey-steward at the House Absolute. Paeon trained the
           Autarch and identified Severian as the next. Hildegrin, first met in Book 1, turns out to
           be the Autarch's spy. He is the same Hildegrin who shouted "Run!" during Severian's duel.
         </p>
 
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Bagh_nakh_%28tiger_claw%29%2C_western_India%2C_1700s-1800s_-_Higgins_Armory_Museum_-_DSC05600.JPG"
-            alt="Bagh nakh (tiger claw), western India, 1700s–1800s, Higgins Armory Museum"
-          />
-          <figcaption>
-            {`A bagh nakh, "tiger's claw", the real-world weapon closest to Agia's lu-civee: a bar with rings for two fingers, curved blades concealed in the palm. `}
-            <a
-              href="https://commons.wikimedia.org/wiki/File:Bagh_nakh_(tiger_claw),_western_India,_1700s-1800s_-_Higgins_Armory_Museum_-_DSC05600.JPG"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source
-            </a>
-          </figcaption>
-        </figure>
+        <viz.Plate
+          id={'01'}
+          title={'Bagh Nakh (Tiger Claw)'}
+          src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Bagh_nakh_%28tiger_claw%29%2C_western_India%2C_1700s-1800s_-_Higgins_Armory_Museum_-_DSC05600.JPG"
+          alt="Bagh nakh (tiger claw), western India, 1700s–1800s, Higgins Armory Museum"
+          caption={
+            <>
+              {`A bagh nakh, "tiger's claw", the real-world weapon closest to Agia's lu-civee: a bar with rings for two fingers, curved blades concealed in the palm. `}
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Bagh_nakh_(tiger_claw),_western_India,_1700s-1800s_-_Higgins_Armory_Museum_-_DSC05600.JPG"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source
+              </a>
+            </>
+          }
+        />
 
         <h2>Three Tiers of Mercy</h2>
 
         <p>
-          "The Mercy of Agia" is the chapter's ironic master-title. Agia saves Severian not from
+          "The Mercy of Agia" is the section's ironic master-title. Agia saves Severian not from
           kindness but from hatred, she wants to finish him herself, on her own terms. This is the
-          first of three tiers of mercy that run through these chapters. Agia's mercy is
+          first of three tiers of mercy that run through these sections. Agia's mercy is
           self-interest. The Autarch's political system is systemic stasis. The Claw's final
           revelation is cosmic holiness. All three call themselves mercy. None are what mercy
           usually means.
@@ -2689,13 +2589,9 @@ const config = {
         </div>
       </>,
 
-      // ── Chapter XXVI ─────────────────────────────────────────────────────
+      // Above the Jungle
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter XXVI: Above the Jungle</h1>
-        </div>
-
-        <h2>The Cell, the Leech, and the Boy</h2>
+        <h2>Above the Jungle: The Cell, the Leech, and the Boy</h2>
 
         <p>
           Vodalus's guards hold Severian in a cell within the ziggurat. An old leech, an unnamed
@@ -2711,27 +2607,29 @@ const config = {
         </div>
 
         <p>
-          The line is one of the most disturbing in the chapter, all the more so for its
+          The line is one of the most disturbing in the section, all the more so for its
           understatement. The leech is touching the donor child's shoulder when he says it.
           Severian's mind fills momentarily with a vision of children in flames.
         </p>
 
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Ziggurat_of_Ur.jpg"
-            alt="Ziggurat of Ur, Iraq"
-          />
-          <figcaption>
-            {`The Great Ziggurat of Ur, a tiered ancient structure rising from flat ground. Vodalus occupies a ruined jungle equivalent, trees growing from its walls, ancient stone overgrown. `}
-            <a
-              href="https://commons.wikimedia.org/wiki/File:Ziggurat_of_Ur.jpg"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source
-            </a>
-          </figcaption>
-        </figure>
+        <viz.Plate
+          id={'02'}
+          title={'Great Ziggurat of Ur'}
+          src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Ziggurat_of_Ur.jpg"
+          alt="Ziggurat of Ur, Iraq"
+          caption={
+            <>
+              {`The Great Ziggurat of Ur, a tiered ancient structure rising from flat ground. Vodalus occupies a ruined jungle equivalent, trees growing from its walls, ancient stone overgrown. `}
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Ziggurat_of_Ur.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source
+              </a>
+            </>
+          }
+        />
 
         <h2>The Principle of Primitivity</h2>
 
@@ -2762,18 +2660,14 @@ const config = {
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">ELABORATE</span>
-          <p>{`The Principle of Primitivity is Severian's own theory of cultural haunting. It explains something that bothers every reader of the series: why does this far-future world look medieval? Severian's answer: because prehistoric cultures lasted so long that their conditions still shape behavior, even when the conditions themselves have vanished. "The ghosts of long-vanished things, of fallen cities and marvelous machines" live in all of us. This is Wolfe's in-world account of Urth's strange time-layering.`}</p>
-          <p>{`Think of a real-world parallel: we still have fight-or-flight stress responses tuned for predators that no longer exist. The body behaves as if the conditions of 50,000 years ago still obtain. Severian is describing the cultural version of that.`}</p>
+          <p>{`The Principle of Primitivity is Severian's own theory of cultural haunting. It explains something that bothers every reader of the series: why does this far-future world look medieval? Severian's answer: because prehistoric cultures lasted so long that their conditions still shape behavior, even when the conditions themselves have vanished. "The ghosts of long-vanished things, of fallen cities and marvelous machines" live in all of us. It is the story's own account of Urth's strange time-layering.`}</p>
+          <p>{`Think of a real-world parallel: we still have fight-or-flight stress responses tuned for predators that no longer exist. The body behaves as if the conditions of 50,000 years ago still apply. Severian is describing the cultural version of that.`}</p>
         </div>
       </>,
 
-      // ── Chapter XXVII ────────────────────────────────────────────────────
+      // Before Vodalus
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter XXVII: Before Vodalus</h1>
-        </div>
-
-        <h2>The Interrogation in the Clearing</h2>
+        <h2>Before Vodalus: The Interrogation in the Clearing</h2>
 
         <p>
           On the sixth day after his capture, two women guards bring Severian to Vodalus in a jungle
@@ -2802,7 +2696,7 @@ const config = {
           Vodalus does not yet see what his own movement has become. His main intelligence source is
           the man he aims to overthrow. His Ascian backers want the Autarch delivered to them, not
           the Commonwealth handed over to him. And Agia, who has crossed into his camp, will kill
-          him before the chapter ends. The revolutionary believes he has allies on all sides; every
+          him before the section ends. The revolutionary believes he has allies on all sides; every
           apparent ally is a different kind of enemy.
         </p>
 
@@ -2820,13 +2714,9 @@ const config = {
         <viz.Ch05ThreeFactionCollapse />
       </>,
 
-      // ── Chapter XXVIII ───────────────────────────────────────────────────
+      // On the March
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter XXVIII: On the March</h1>
-        </div>
-
-        <h2>The Column in the Jungle</h2>
+        <h2>On the March: The Column in the Jungle</h2>
 
         <p>
           Vodalus's ragtag column marches through pestilential jungle for a week or more. Severian
@@ -2849,17 +2739,13 @@ const config = {
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">ELABORATE</span>
-          <p>{`The word "uturuncu" comes from Quechua (an Andean indigenous language) and refers to a being who transforms between human and jaguar form. Wolfe uses it here to signal that Vodalus's supposedly revolutionary force contains elements much older than his ideology, shamanic, shape-shifting, loyal to powers that predate the Commonwealth. The Autarch's reach extends into territories Vodalus cannot map.`}</p>
+          <p>{`An uturuncu is a shaman who shifts between human and jaguar form. The word carries an old meaning, and the figure carries an old loyalty: Vodalus's supposedly revolutionary force holds elements far older than his ideology, shamanic, shape-shifting, bound to powers that predate the Commonwealth. The Autarch's reach extends into territories Vodalus cannot map.`}</p>
         </div>
       </>,
 
-      // ── Chapter XXIX ─────────────────────────────────────────────────────
+      // Autarch of the Commonwealth
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter XXIX: Autarch of the Commonwealth</h1>
-        </div>
-
-        <h2>Before the Ascians</h2>
+        <h2>Autarch of the Commonwealth: Before the Ascians</h2>
 
         <p>
           Guards bring Severian and Vodalus before three Ascian women officers. They stand in a
@@ -2874,10 +2760,10 @@ const config = {
 
         <p>
           Inside the tent the Autarch instructs Severian on the pharmacon. He names Father Inire as
-          a cacogen helper. Father Inire may or may not be able to reach them, Wolfe leaves this
-          open. He explains the ritual. Severian must cut open his skull with a small blade hidden
-          in the Autarch's robe. He must swallow the living forebrain cells with the drug. The
-          Autarch's last words are a political acknowledgment rather than an apology.
+          a cacogen helper. Whether Father Inire can reach them in time stays open. He explains the
+          ritual. Severian must cut open his skull with a small blade hidden in the Autarch's robe.
+          He must swallow the living forebrain cells with the drug. The Autarch's last words are a
+          political acknowledgment rather than an apology.
         </p>
 
         <div className="lrn-callout">
@@ -2908,16 +2794,15 @@ const config = {
         <p>
           The succession ritual is a sacrament. It mirrors the Eucharist, consume the body, receive
           the spirit. It echoes the alzabo rite from Book 1, which extended the same
-          consume-to-contain logic. Wolfe embeds Catholic sacramental form into a science-fantasy
+          consume-to-contain logic. The story folds Catholic sacramental form into a science-fantasy
           frame; the pharmacon explicitly echoes the alzabo, linking secular and sacred consumption.
         </p>
 
         <p>
           The Autarch's final speech is a conservative political theology. He does not apologize for
           the system; he explains it. He has closed the roads to paralyze the social order. He
-          genuinely believes this stasis protects the people. Severian weeps but does not argue.
-          Wolfe gives the speech without authorial irony, leaving the reader to judge whether the
-          logic holds.
+          genuinely believes this stasis protects the people. Severian weeps but does not argue. The
+          speech comes without irony, leaving us to judge whether the logic holds.
         </p>
 
         <div className="lrn-compare">
@@ -2933,17 +2818,13 @@ const config = {
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">ELABORATE</span>
-          <p>{`The name "Legion" applied to the Autarch by the woman-cats in Chapter 4 is a New Testament allusion. In Mark 5, the demons say: "My name is Legion, for we are many." The Autarch's name among those who know him identifies him as a being of many selves. Severian's succession is a demonic possession narrative in reverse: he chooses to be entered by many rather than exorcised of them. The pharmacon is the vehicle of a willing, structured possession.`}</p>
+          <p>{`The name "Legion" applied to the Autarch by the woman-cats in Section 4 is a New Testament allusion. In Mark 5, the demons say: "My name is Legion, for we are many." The Autarch's name among those who know him identifies him as a being of many selves. Severian's succession is a demonic possession narrative in reverse: he chooses to be entered by many rather than exorcised of them. The pharmacon is the vehicle of a willing, structured possession.`}</p>
         </div>
       </>,
 
-      // ── Chapter XXX ──────────────────────────────────────────────────────
+      // The Corridors of Time
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter XXX: The Corridors of Time</h1>
-        </div>
-
-        <h2>The Escape Through the Sleeping Army</h2>
+        <h2>The Corridors of Time: The Escape Through the Sleeping Army</h2>
 
         <p>
           Agia and the green man find Severian in the tent and lead him out through the sleeping
@@ -2991,8 +2872,8 @@ const config = {
           The aquastor revelation deconstructs the entire supernatural register of the series. The
           revelation retroactively explains every apparition of Master Malrubius throughout Books
           1–4. Each was a projection from a thinking machine scanning Severian's memory. The
-          "supernatural" mentors are technological. Yet Wolfe strips the numinous only to reinstate
-          it. Malrubius is technology. But the Claw, which comes next, is genuine. The
+          "supernatural" mentors are technological. Yet the numinous is stripped only to be
+          reinstated. Malrubius is technology. But the Claw, which comes next, is genuine. The
           deconstruction is a setup, not a conclusion.
         </p>
 
@@ -3021,17 +2902,13 @@ const config = {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">ELABORATE</span>
           <p>{`The green man's appearance closes a subplot that began in Book 2 (The Sword of the Lictor). Severian freed the green man from a chain using a stone. Since then, the green man has been traveling Time, the corridors that the Hierodules use to run candidates, to find the moment when Severian needed freeing. The debt is repaid across centuries. The corridors of Time are now confirmed as literally operative, not metaphorical.`}</p>
-          <p>{`Severian's decision to accept Malrubius's offer is not driven by rational deliberation. Malrubius offers no assurance. Severian is moved by Triskele galloping down the starlit beach, "the ambassador of all crippled things." The dog embodies every broken creature Severian has failed to save. This is Wolfe's argument: ethical choice is driven by particular love, not abstract principle.`}</p>
+          <p>{`Severian's decision to accept Malrubius's offer is not driven by rational deliberation. Malrubius offers no assurance. Severian is moved by Triskele galloping down the starlit beach, "the ambassador of all crippled things." The dog embodies every broken creature Severian has failed to save. The argument is plain: ethical choice is driven by particular love, not abstract principle.`}</p>
         </div>
       </>,
 
-      // ── Chapter XXXI ─────────────────────────────────────────────────────
+      // The Sand Garden
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter XXXI: The Sand Garden</h1>
-        </div>
-
-        <h2>The Shore at Ocean</h2>
+        <h2>The Sand Garden: The Shore at Ocean</h2>
 
         <p>
           The ship carries Severian to the shore of Ocean. Malrubius confirms he is the Autarch and
@@ -3065,22 +2942,24 @@ const config = {
 
         <viz.Ch05ThornBushClaw />
 
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Rose-thorns.JPG"
-            alt="Close-up of rose thorns on a stem"
-          />
-          <figcaption>
-            {`Rose thorns, the real-world counterpart to the Claw. Each thorn is already what the Claw always was. `}
-            <a
-              href="https://commons.wikimedia.org/wiki/File:Rose-thorns.JPG"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source
-            </a>
-          </figcaption>
-        </figure>
+        <viz.Plate
+          id={'03'}
+          title={'Rose Thorns'}
+          src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Rose-thorns.JPG"
+          alt="Close-up of rose thorns on a stem"
+          caption={
+            <>
+              {`Rose thorns, the real-world counterpart to the Claw. Each thorn is already what the Claw always was. `}
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Rose-thorns.JPG"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source
+              </a>
+            </>
+          }
+        />
 
         <h2>What the Ending Does</h2>
 
@@ -3095,8 +2974,8 @@ const config = {
         <p>
           The series ends not with a victory but with a reconception of the sacred. Severian has
           become the Autarch. He has hundreds of dead rulers inside him. He is standing on a beach,
-          barefoot, throwing his boots into the waves. This is what power looks like in Wolfe's
-          world: not triumph, but radical reorientation.
+          barefoot, throwing his boots into the waves. This is what power looks like here: not
+          triumph, but radical reorientation.
         </p>
 
         <div className="lrn-compare">
@@ -3112,19 +2991,19 @@ const config = {
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">ELABORATE</span>
-          <p>{`Wolfe, a devout Catholic, structures this final scene as a mirror of Moses at the burning bush. God says: "Put off your shoes, for the place where you stand is holy ground." Severian does not hear a voice. He finds a thorn. And he removes his shoes. The New Sun is still years away. The trial is still ahead. But the recognition of holiness is already complete.`}</p>
+          <p>{`The final scene is built as a mirror of Moses at the burning bush. God says: "Put off your shoes, for the place where you stand is holy ground." Severian does not hear a voice. He finds a thorn. And he removes his shoes. The New Sun is still years away. The trial is still ahead. But the recognition of holiness is already complete.`}</p>
         </div>
       </>,
 
-      // ── Themes Across the Module ──────────────────────────────────────────
+      // Themes Across the Module
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Themes Across the Module</h1>
+        <div className="lrn-module-divider">
+          <h2>Themes Across the Module</h2>
         </div>
 
         <h2>Identity and Multiplicity</h2>
-        <p>{`Severian already contains Thecla. Absorbing the Autarch means containing hundreds. The tension between private self, the bower he shares with Thecla, the longing for Dorcas, and the autarchal crowd is the chapter's emotional spine.`}</p>
-        <p>{`When it surfaces: Chapters XXV (the pharmacon temptation), XXIX (the act itself), XXXI (Severian on the beach, still himself after everything).`}</p>
+        <p>{`Severian already contains Thecla. Absorbing the Autarch means containing hundreds. The tension between private self, the bower he shares with Thecla, the longing for Dorcas, and the autarchal crowd is the section's emotional spine.`}</p>
+        <p>{`When it surfaces: the pharmacon temptation, the succession ritual itself, and Severian on the beach, still himself after everything.`}</p>
 
         <div className="lrn-compare">
           <div className="lrn-compare-left">
@@ -3139,70 +3018,53 @@ const config = {
 
         <h2>The Succession Ritual / Pharmacon</h2>
         <p>{`The ritual echoes the alzabo rite but extends it to hundreds. Consuming the dying Autarch's living forebrain cells transfers all previous Autarchs' personalities. The Autarch calls it carrying "all the race and its longings within himself." The Ascian model, everyone becoming the same, is the mirror opposite.`}</p>
-        <p>{`When it surfaces: Chapter XXIX (the act), Chapter XXVII (Severian explains to Vodalus), thematic climax.`}</p>
+        <p>{`When it surfaces: the succession ritual, and earlier when Severian explains to Vodalus; the thematic climax.`}</p>
 
         <h2>The Principle of Primitivity</h2>
         <p>{`Prehistoric cultures shaped human behavior so durably their conditions still govern us. This explains Urth's medieval appearance despite its far-future technology. "The ghosts of long-vanished things" in all of us.`}</p>
-        <p>{`When it surfaces: Chapter XXVI (formulated during imprisonment), implied throughout the series.`}</p>
+        <p>{`When it surfaces: formulated during the imprisonment in the ziggurat, implied throughout the series.`}</p>
 
         <h2>Dying Sun and Civilizational Stasis</h2>
         <p>{`The Autarch's final confession: the system (roads closed, barbarism held steady) is not progress but the least-bad option. Everything else, Ascian collectivism, Vodalus's revolution, has been tried and failed or will fail. "Until the New Sun…"`}</p>
-        <p>{`When it surfaces: Chapter XXIX (the dying speech), implicit in the entire social structure of Urth.`}</p>
+        <p>{`When it surfaces: the Autarch's dying speech, implicit in the entire social structure of Urth.`}</p>
 
         <h2>Mercy vs. Revenge</h2>
         <p>{`Agia frees Severian not from mercy but from hatred. The Autarch's system calls itself mercy but preserves suffering. The Claw's final revelation suggests true mercy is cosmic. Three tiers, all different.`}</p>
-        <p>{`When it surfaces: Chapter XXV (the title and Agia's wound), Chapter XXIX (the Autarch's confession), Chapter XXXI (the Claw).`}</p>
+        <p>{`When it surfaces: the Mercy of Agia and her wound, the Autarch's confession, and the Claw on the beach.`}</p>
 
         <h2>The Claw as Universal Relic</h2>
-        <p>{`The chapter's final meditation: if the Increate rested in the thorn Severian carried, it rests in every thorn. The sanctity of the particular dissolves into the sanctity of everything. "All the world was a relic."`}</p>
-        <p>{`When it surfaces: Chapter XXXI, resolving the series-long mystery.`}</p>
+        <p>{`The section's final meditation: if the Increate rested in the thorn Severian carried, it rests in every thorn. The sanctity of the particular dissolves into the sanctity of everything. "All the world was a relic."`}</p>
+        <p>{`When it surfaces: the final beach scene, resolving the series-long mystery.`}</p>
 
         <h2>Aquastors and the Thinking Machine</h2>
         <p>{`Malrubius and Triskele are not real but generated from Severian's memory by a machine. "As solid as most truly false things are, a dance of particles in space." Reality sustained by imagination. Technology impersonating the numinous.`}</p>
-        <p>{`When it surfaces: Chapter XXX.`}</p>
+        <p>{`When it surfaces: the escape through the sleeping army and the Hierodule ship.`}</p>
 
         <h2>Vodalus as False Messiah</h2>
-        <p>{`Vodalus promised renewal and the stars. His revolution was funded by Erebus's enemies, infiltrated by the Autarch, and destroyed by his own lover. He believed in his cause and was betrayed by everyone including the novel's cosmos. He is tragic, not villainous.`}</p>
-        <p>{`When it surfaces: Chapters XXVII (the interrogation), XXVIII (the march), XXX (his death reported).`}</p>
+        <p>{`Vodalus promised renewal and the stars. His revolution was funded by Erebus's enemies, infiltrated by the Autarch, and destroyed by his own lover. He believed in his cause and was betrayed by everyone, the story's own cosmos included. He is tragic, not villainous.`}</p>
+        <p>{`When it surfaces: the interrogation before Vodalus, the march, and his death reported afterward.`}</p>
 
         <h2>The Corridors of Time</h2>
         <p>{`The green man travels them. Temporal mechanics become literal fact. The Hierodules run candidates through these corridors. The loop of succession is temporal as well as biological.`}</p>
-        <p>{`When it surfaces: Chapter XXX.`}</p>
+        <p>{`When it surfaces: the escape through the sleeping army and the Hierodule ship.`}</p>
 
         <h2>Loneliness and Shared Selfhood</h2>
         <p>{`Severian's terror at absorbing hundreds is not just metaphysical, it is intimate. The privacy of his bond with Thecla will be diluted. "For others, a dozen or a thousand, to come where we lay would be for the crowds of the bazaar to enter a bower."`}</p>
-        <p>{`When it surfaces: Chapter XXV (the temptation), Chapter XXIX (the act).`}</p>
-
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/d/d6/Gene_Wolfe%2C_2005.png"
-            alt="Gene Wolfe at the Nebula Awards, Chicago, 2005"
-          />
-          <figcaption>
-            {`Gene Wolfe (1931–2019) at the Nebula Awards, Chicago, 2005. He spent most of his career as a mechanical engineer; The Book of the New Sun was written in the evenings. `}
-            <a
-              href="https://commons.wikimedia.org/wiki/Category:Gene_Wolfe"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source
-            </a>
-          </figcaption>
-        </figure>
+        <p>{`When it surfaces: the pharmacon temptation, and the succession ritual itself.`}</p>
       </>,
 
-      // Chapter 6: Return to the Citadel
+      // Section 6: Return to the Citadel
       <>
-        <div className="lrn-chapter-divider">
-          <h1>Chapter 6: Return to the Citadel</h1>
+        <div className="lrn-module-divider">
+          <h2>Section 6: Return to the Citadel</h2>
         </div>
 
         <div className="lrn-header">
           <div className="lrn-header-text">
             <h2>Orientation: Going Home Through the Drowned City</h2>
             <p>
-              This module covers Wolfe's chapters XXXII through XXXVIII plus the Appendix. It is
-              the closing movement of <em>The Citadel of the Autarch</em> and of all four books.
+              This is the closing movement of <em>The Citadel of the Autarch</em> and of all four
+              books, the homeward journey.
             </p>
             <p>
               Three large events shape it. First, Severian returns to Nessus and the Citadel after
@@ -3212,12 +3074,11 @@ const config = {
               Time. The book ends in a garden where seasons are wrong.
             </p>
             <p>
-              Wolfe uses the homecoming structure as a literary closing bracket. Every major person
-              and place from the earlier books reappears, touched once, and released. Severian finds
-              Dorcas but does not speak to her. Palaemon argues but Severian overrules him. Severian
-              retrieves the necropolis coin unchanged. Dr. Talos delivers a mirror of the first coin
-              Vodalus ever paid. The chapter is a catalogue of returns, and each return closes a
-              thread.
+              The homecoming works as a literary closing bracket. Every major person and place from
+              the earlier books reappears, touched once, and released. Severian finds Dorcas but
+              does not speak to her. Palaemon argues but Severian overrules him. Severian retrieves
+              the necropolis coin unchanged. Dr. Talos delivers a mirror of the first coin Vodalus
+              ever paid. The section is a catalogue of returns, and each return closes a thread.
             </p>
 
             <h3>New Terms for This Module</h3>
@@ -3253,14 +3114,14 @@ const config = {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Atrium of Time</span>
               <div className="lrn-definition-desc">
-                <p>{`An enclosed garden hidden beneath the Citadel, reachable through the tunnels below the oubliette. Time is suspended inside it. The seasons are wrong. Dead clocks line the walls. Severian reaches it in the final chapter.`}</p>
+                <p>{`An enclosed garden hidden beneath the Citadel, reachable through the tunnels below the oubliette. Time is suspended inside it. The seasons are wrong. Dead clocks line the walls. Severian reaches it in the final section.`}</p>
               </div>
             </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">The Book of the New Sun</span>
               <div className="lrn-definition-desc">
-                <p>{`The name Severian gives his manuscript in the final chapter. He writes it at dawn with a red sun behind him. He seals a second copy in a lead coffer and sets it adrift "on the seas of space and time." The book you are reading is that manuscript.`}</p>
+                <p>{`The name Severian gives his manuscript in the final section. He writes it at dawn with a red sun behind him. He seals a second copy in a lead coffer and sets it adrift "on the seas of space and time." The book you are reading is that manuscript.`}</p>
               </div>
             </div>
 
@@ -3272,26 +3133,19 @@ const config = {
             </div>
 
             <div className="lrn-definition">
-              <span className="lrn-definition-term">Cacogen</span>
-              <div className="lrn-definition-desc">
-                <p>{`Severian's in-world term for beings like Father Inire who are not human but have chosen to serve humanity. The word comes from Greek meaning "bad birth." Father Inire is the most prominent cacogen in the series.`}</p>
-              </div>
-            </div>
-
-            <div className="lrn-definition">
               <span className="lrn-definition-term">Increate</span>
               <div className="lrn-definition-desc">
-                <p>{`Wolfe's name for the creator-god in this fictional theology. Approximately the Christian God, but the term stresses that this being is uncreated and stands outside the chain of cause and effect that produced the universe.`}</p>
+                <p>{`The name for the creator-god in this world's theology. Close to the Christian God, but the term stresses that this being is uncreated and stands outside the chain of cause and effect that produced the universe.`}</p>
               </div>
             </div>
 
             <h3>How to Read This Module</h3>
 
-            <p>Three reading lenses will pay off on every page of this chapter.</p>
+            <p>Three reading lenses will pay off on every page of this section.</p>
             <ol className="lrn-list">
               <li>{`The homecoming lens. Severian passes through the same places in reverse order. Each return reveals what changed in him, not what changed there.`}</li>
-              <li>{`The author lens. This is the last chapter before the manuscript closes. Wolfe is setting up the frame device. Notice every moment where Severian addresses the reader directly.`}</li>
-              <li>{`The time lens. The Resurrection chapter rewrites everything before it. Read suspiciously. Ask which scenes belong to Severian 1 and which to Severian 2.`}</li>
+              <li>{`The frame lens. This is the last stretch before the manuscript closes. The frame device is being set in place. Notice every moment where Severian addresses the reader directly.`}</li>
+              <li>{`The time lens. The Resurrection section rewrites everything before it. Read suspiciously. Ask which scenes belong to Severian 1 and which to Severian 2.`}</li>
             </ol>
           </div>
         </div>
@@ -3301,7 +3155,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XXXII: The Samru</h2>
+        <h2>The Samru</h2>
 
         <h3>Twenty Days on the Gyoll</h3>
 
@@ -3367,7 +3221,7 @@ const config = {
         </div>
 
         <p>
-          When this scene matters: it is the primary evidence for one claim. Wolfe ends
+          When this scene matters: it is the primary evidence for one claim. The story ends
           relationships not with confrontation but with withdrawal. Every major relationship in the
           series ends this way. Jonas dissolves into a mirror. Thecla merges into Severian. Dorcas
           remains watching a body. The pattern is structural.
@@ -3375,7 +3229,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XXXIII: The Citadel of the Autarch</h2>
+        <h2>The Citadel of the Autarch</h2>
 
         <h3>The Barbican and the Castellan</h3>
 
@@ -3430,17 +3284,17 @@ const config = {
           <p>
             Is Severian right? Palaemon's argument is that torture is necessary and must be
             administered by moral people. Severian's argument is that no one should administer it.
-            Which position is stronger, and why does Wolfe refuse to settle it?
+            Which position is stronger, and why does the story refuse to settle it?
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
             <p>
-              Wolfe presents both positions at full strength. Palaemon is not a villain. He is a man
-              who spent his life trying to do a terrible job with integrity. Severian's counter
+              The story presents both positions at full strength. Palaemon is not a villain. He is a
+              man who spent his life trying to do a terrible job with integrity. Severian's counter
               sounds noble but sidesteps the question: if not the guild, who does the work of
-              punishment? Wolfe embeds a genuine penal-philosophy debate inside a fantasy frame and
-              refuses to resolve it. This is characteristic. He never gives his protagonists clean
-              moral victories.
+              punishment? The story embeds a genuine penal-philosophy debate inside a fantasy frame
+              and refuses to resolve it. This is characteristic. He never gives his protagonists
+              clean moral victories.
             </p>
           </details>
         </div>
@@ -3455,7 +3309,7 @@ const config = {
           <p>
             Both are loyal. Both are right by their own logic. The contrast matters because Severian
             must govern people whose loyalty takes different forms. He does not dismiss Palaemon. He
-            overrules him and preserves his dignity. This is the chapter's lesson in governance: you
+            overrules him and preserves his dignity. This is the section's lesson in governance: you
             can be wrong and still be worth respecting.
           </p>
         </div>
@@ -3483,7 +3337,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XXXIV: The Key to the Universe</h2>
+        <h2>The Key to the Universe</h2>
 
         <h3>The Claw Meditation</h3>
 
@@ -3520,12 +3374,12 @@ const config = {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            The text supports both theories. Wolfe constructs the meditation so that no single
-            reading takes hold. This is deliberate. The ambiguity is the point.
+            The text supports both theories. The meditation is built so that no single reading takes
+            hold. This is deliberate. The ambiguity is the point.
           </p>
           <p>
             Severian must act as the New Sun's agent without knowing whether his power is his own or
-            borrowed. Faith, in Wolfe's cosmology, means acting without that certainty.
+            borrowed. Faith, in this cosmology, means acting without that certainty.
           </p>
         </div>
 
@@ -3570,10 +3424,10 @@ const config = {
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
             <p>
-              Wolfe does not say. The mandragora functions as a mirror. It tells Severian he cannot
-              hear others because his own mind is too loud. This is true. It also claims to be
-              created by his power, which advances Theory A of the Claw meditation. Two readings are
-              possible. It could be real as an independent being. Or it could be Severian's own
+              The story does not say. The mandragora functions as a mirror. It tells Severian he
+              cannot hear others because his own mind is too loud. This is true. It also claims to
+              be created by his power, which advances Theory A of the Claw meditation. Two readings
+              are possible. It could be real as an independent being. Or it could be Severian's own
               self-knowledge wearing a grotesque mask. The text supports both. The unanswered
               ethical problem is whether Severian should have broken the glass.
             </p>
@@ -3589,7 +3443,7 @@ const config = {
         </p>
         <p>
           He tests it on the fireplace. A violet cone of light incinerates the wood. He pockets the
-          pistol in his sabretache. He will give it to Ouen in chapter XXXVII.
+          pistol in his sabretache. He will give it to Ouen later, at the Inn of Lost Loves.
         </p>
 
         <div className="lrn-callout">
@@ -3599,7 +3453,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XXXV: Father Inire's Letter</h2>
+        <h2>Father Inire's Letter</h2>
 
         <h3>Rudesind and the Advocate of the Dead</h3>
 
@@ -3624,7 +3478,7 @@ const config = {
             His direction of young Severian to Master Ultan was an act of recognition. He saw that
             Severian would become someone who advocates for the dead. He saw that Severian would
             carry their memories. The Autarch literally contains the dead. This retrospective
-            motive, revealed only at the end, is how Wolfe rewards re-reading.
+            motive, revealed only at the end, is how the story rewards re-reading.
           </p>
         </div>
 
@@ -3686,7 +3540,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XXXVI: Of Bad Gold and Burning</h2>
+        <h2>Of Bad Gold and Burning</h2>
 
         <h3>The Hidden Coin</h3>
 
@@ -3698,7 +3552,7 @@ const config = {
         <p>
           He recites the childhood hiding-rhyme over the coin. The act is a ritual of continuity.
           The boy who hid this coin and the Autarch who retrieves it are the same person. The coin
-          is proof of that continuity. Its unchanged presence is one of the chapter's few moments of
+          is proof of that continuity. Its unchanged presence is one of the section's few moments of
           pure comfort.
         </p>
 
@@ -3776,7 +3630,7 @@ const config = {
       </>,
 
       <>
-        <h2>Chapter XXXVII: Across the River Again</h2>
+        <h2>Across the River Again</h2>
 
         <h3>The Lugger and the Night River</h3>
 
@@ -3796,7 +3650,7 @@ const config = {
         </p>
 
         <p>
-          In this same chapter, Severian quietly names another figure the tunnels will later reveal
+          In this same section, Severian quietly names another figure the tunnels will later reveal
           to him. He understands now why Hildegrin died when they met in Book 1. Hildegrin was too
           close when the time-travelers passed back through that moment. His death was a side effect
           of the loop's mechanics, not a crime.
@@ -3816,7 +3670,7 @@ const config = {
         </p>
         <p>
           The innkeeper blurts: "He looks more like you!" Severian does not state the conclusion.
-          Wolfe leaves the kinship unstated.
+          The kinship is left unstated.
         </p>
 
         <div className="lrn-callout">
@@ -3834,14 +3688,14 @@ const config = {
           <p>
             Severian loves both and can change neither. Their self-assessments are not wrong by the
             book's internal logic. Jonas was an android. The Claw resurrected Dorcas from decades of
-            death. But Wolfe suggests that the choice to accept diminishment is the tragedy, not the
-            condition.
+            death. But the story suggests that the choice to accept diminishment is the tragedy, not
+            the condition.
           </p>
         </div>
       </>,
 
       <>
-        <h2>Chapter XXXVIII: Resurrection</h2>
+        <h2>Resurrection</h2>
 
         <h3>The Manuscript Named</h3>
 
@@ -3852,8 +3706,8 @@ const config = {
         </p>
         <p>
           He says he will seal a second copy in a lead coffer and set it adrift "on the seas of
-          space and time." This is the mechanism. The book you are reading reached Wolfe's fictional
-          translator via that lead coffer.
+          space and time." This is the mechanism. The manuscript reached its far-future translator
+          through that lead coffer.
         </p>
 
         <div className="lrn-callout">
@@ -3879,23 +3733,23 @@ const config = {
           </div>
           <div className="lrn-compare-col">
             <span className="lrn-compare-title">Severian 2 (the narrator)</span>
-            <p>{`The version we have followed across four books. He believed his choices were free. In the final chapter he discovers they were already walked. He writes the manuscript. He is the effect that produces the next cause.`}</p>
+            <p>{`The version we have followed across four books. He believed his choices were free. In the final section he discovers they were already walked. He writes the manuscript. He is the effect that produces the next cause.`}</p>
           </div>
         </div>
 
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            Why does Wolfe reveal the loop in the last chapter rather than earlier? What would
-            change if the reader knew about the loop from the beginning of Book 1?
+            Why does the story reveal the loop in the last section rather than earlier? What would
+            change if you knew about the loop from the beginning of Book 1?
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
             <p>
-              If Wolfe revealed the loop at the start, the series would read as a fixed-rail
+              If the loop were revealed at the start, the series would read as a fixed-rail
               narrative. Severian cannot fail because the loop guarantees his success. Revealed at
               the end, it changes what you already read. You re-understand every scene of apparent
-              choice as also a repetition. This is Wolfe's characteristic reversal: the ending
+              choice as also a repetition. This is the series' characteristic reversal: the ending
               rewrites the beginning. The loop makes re-reading the true reading.
             </p>
           </details>
@@ -3931,9 +3785,9 @@ const config = {
           <p>
             He has retrieved the coin. He has given away the pistol. He has named the manuscript.
             The only remaining step is the door into the star voyage. The Atrium of Time, where
-            seasons are wrong and clocks are dead, is Wolfe's image of the place between worlds. It
-            lies outside normal time, not yet beyond the stars. Valeria waiting there is the first
-            person of the next story.
+            seasons are wrong and clocks are dead, is the story's image of the place between worlds.
+            It lies outside normal time, not yet beyond the stars. Valeria waiting there is the
+            first person of the next story.
           </p>
         </div>
 
@@ -3943,93 +3797,22 @@ const config = {
         </div>
 
         <p>
-          When this scene matters: the Atrium of Time is the primary evidence for one argument.
-          Wolfe structures the series as a pilgrimage rather than a quest. A quest ends when the
-          seeker obtains the object. A pilgrimage ends when the pilgrim arrives at the sacred
-          threshold. Severian does not obtain anything in the final chapter. He arrives.
+          When this scene matters: the Atrium of Time is the primary evidence for one argument. The
+          series is structured as a pilgrimage rather than a quest. A quest ends when the seeker
+          obtains the object. A pilgrimage ends when the pilgrim arrives at the sacred threshold.
+          Severian does not obtain anything in the final section. He arrives.
         </p>
       </>,
 
       <>
-        <h2>The Appendix: The Arms of the Autarch</h2>
-
-        <p>
-          Wolfe's fictional translator appends a systematic analysis of weapons in the series. The
-          taxonomy has three levels. The appendix clarifies why the war's stakes are so asymmetric
-          and why individual weapons matter to cosmological outcomes.
-        </p>
-
-        <h3>The Three-Level Arms Taxonomy</h3>
-
-        <div className="lrn-steps">
-          <div className="lrn-step">
-            <span className="lrn-step-title">Smith-level weapons</span>
-            <p className="lrn-step-content">
-              Swords, axes, pikes, lances. Made by ordinary craftsmen. The guild's tools and
-              Terminus Est belong here. Available to both sides.
-            </p>
-          </div>
-          <div className="lrn-step">
-            <span className="lrn-step-title">Urth-level weapons</span>
-            <p className="lrn-step-content">
-              Energy lances, conti, siege scorpions. Made on Urth using techniques that survive from
-              earlier eras. The Ascians' heavy infantry carry some of these.
-            </p>
-          </div>
-          <div className="lrn-step">
-            <span className="lrn-step-title">Stellar-level weapons</span>
-            <p className="lrn-step-content">
-              The pistols: the stellar pistol Severian found in the autarchs' quarters and possibly
-              other devices. Made off-world. One shot incinerates a fireplace. These weapons are
-              outside the war's ordinary logic.
-            </p>
-          </div>
-        </div>
-
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Commonwealth</span>
-            <p>{`Fights primarily at Smith level. Its sole stellar-level asset is Severian, who carries a single charged pistol. No army of stellar weapons exists. Victory depends on the New Sun mission succeeding, not on military hardware.`}</p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Ascia and Abaia</span>
-            <p>{`Fights at Smith and Urth level in conventional terms. But Abaia's forces include beings that move through water, command from beneath the surface, and recruit from temporal agents. Ascia is not losing because it lacks weapons. It is losing because its supernatural patron is weaker than the Increate.`}</p>
-          </div>
-        </div>
-
-        <p>
-          When this section matters: the taxonomy supports one argument. The war between the
-          Commonwealth and Ascia is not between equals. Ascia has access to forces Abaia provides.
-          The Commonwealth's only stellar-level asset is Severian himself.
-        </p>
-      </>,
-
-      <>
-        <h2>Thematic Synthesis: The Claw, the New Claw, and the Question of Authority</h2>
-
-        <p>
-          Chapter XXXIV is the philosophical center of the chapter. Severian meditates on the Claw's
-          power across several pages. The meditation reaches no verdict. This is the correct
-          outcome.
-        </p>
-        <p>
-          The old Claw reanimated Dorcas before Severian knew he carried it. The new Claw is inert
-          when he consciously tries to use it. The mandragora claims to be an exercise of his own
-          power. The stellar judges may have granted him the gift externally.
-        </p>
-        <p>
-          Both hypotheses require Severian to be the axis of the cosmological project. The
-          difference is whether the power originates inside or outside him. Wolfe refuses to settle
-          this because the question of authority is the question of the whole series. Is Severian
-          acting on his own? Or is he a vessel?
-        </p>
+        <h2>The Claw, the New Claw, and the Question of Authority</h2>
 
         <div className="lrn-faded">
           <span className="lrn-faded-label">CLOSE-READING EXERCISE</span>
           <p>
             Read this passage carefully: "I cannot escape the thought that the power manifested in
-            both Claws is drawn from myself." Severian says this in chapter XXXIV after the New Claw
-            fails to work on the mad prisoner.
+            both Claws is drawn from myself." Severian says this in the Claw meditation, after the
+            new Claw fails to work on the mad prisoner.
           </p>
           <p>
             Step 1: What word does Severian use? "Cannot escape." This is not a confident claim. It
@@ -4047,8 +3830,8 @@ const config = {
             present.
           </p>
           <p>
-            Now apply the same three-step close reading to this passage from the same chapter: "Just
-            as the stellar judges look down upon me from their thrones of light..." Try it
+            Now apply the same three-step close reading to a second line from the same meditation:
+            "Just as the stellar judges look down upon me from their thrones of light..." Try it
             independently before checking the explanation.
           </p>
           <details className="lrn-faded-reveal">
@@ -4066,48 +3849,7 @@ const config = {
       </>,
 
       <>
-        <h2>Thematic Synthesis: Talos, Baldanders, and the Bad Coin</h2>
-
-        <p>
-          The bad-coin scene is symmetrical with the opening of Book 1. Vodalus paid Severian with a
-          coin in the necropolis. Now Talos delivers an identical coin, saved from the morning they
-          parted at the Botanic Gardens. The coin was always bad gold. The circuit is complete.
-        </p>
-
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Talos</span>
-            <p>{`Made by Baldanders to serve. Philosophically eloquent about his own diminishment. Unable to change his fundamental nature. After dismissal, he leaves coin offerings near water. He is the argument for connection: he performs loyalty even when the object of loyalty has rejected him.`}</p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Baldanders</span>
-            <p>{`Self-created. Talos describes him as "a supreme genius of a unique sort: everything turned inward." He stood behind himself and cut the line linking him to the Increate. He is the argument for isolation: he has made himself an island and breathes water alone.`}</p>
-          </div>
-        </div>
-
-        <p>
-          Talos describes Baldanders as "a supreme genius of a unique sort: everything turned
-          inward." He stood behind himself and cut himself off from the line linking us to the
-          Increate. This is the philosophical inverse of the Claw meditation. Where Severian
-          meditates on connection to the divine source, Baldanders severs it. Talos is an argument
-          by contrast.
-        </p>
-      </>,
-
-      <>
-        <h2>Thematic Synthesis: Catherine, Ouen, and the Mirror Face</h2>
-
-        <p>
-          The Inn of Lost Loves scene plants the series' final genealogical puzzle. Ouen's face
-          mirrors Severian's. His mother Cas ran from a monial order and died in childbirth. The
-          chain of evidence points to Catherine, the prisoner in the Botanic Garden chapter of Book
-          1.
-        </p>
-        <p>
-          Wolfe gives all the evidence and Severian states none of the conclusion. The innkeeper
-          states it accidentally: "He looks more like you!" Severian closes the scene and moves on.
-          This is characteristic Wolfe: the reader must do the final step.
-        </p>
+        <h2>Catherine, Ouen, and the Mirror Face</h2>
 
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -4126,39 +3868,10 @@ const config = {
             </p>
           </details>
         </div>
-
-        <p>
-          When this scene matters: the Ouen encounter is the primary evidence for one set of
-          arguments. The argument concerns Severian's parentage and the series' genealogical
-          structure. If Cas is Catherine, and Catherine is Severian's mother or kinswoman, Ouen is
-          Severian's half-brother or cousin. The series began with Severian as an orphan with no
-          family history. It ends with a face that mirrors his. Wolfe closes the parentage question
-          by opening it once more.
-        </p>
       </>,
 
       <>
-        <h2>Thematic Synthesis: Two Severians, One Manuscript</h2>
-
-        <p>
-          Chapter XXXVIII is called Resurrection. The title has three referents. First, Severian is
-          physically resurrected from the war. Second, the Claw chapter meditates on resurrection as
-          a miracle. Third, the revelation of the loop is a kind of resurrection of the series
-          itself: it begins again.
-        </p>
-        <p>
-          Severian in the tunnel sees two sets of footprints. Past Severian wore shoes that did not
-          fit well, with worn soles. Present Severian wears excellent boots but drags one toe. One
-          has good boots and bad legs. The other had good legs and bad boots. The joke encodes the
-          entire arc of growth and loss across four books.
-        </p>
-        <p>
-          The two-Severian structure is the most important structural fact in the series. It means
-          Severian has no free will in the conventional sense. He is repeating a path that was
-          already walked. But he also does not know this until the last chapter. His choices felt
-          free to him. This is Wolfe's position on predestination. Living in a loop does not feel
-          like living in a loop from the inside.
-        </p>
+        <h2>Two Severians, One Manuscript</h2>
 
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -4193,8 +3906,9 @@ const config = {
           </p>
           <p>
             Step 3: Severian addresses "Reader" directly. In the series' fictional frame, the reader
-            is Wolfe's fictional translator, not you. But you are also the reader. Wolfe collapses
-            the distance between the fictional translator and the actual reader deliberately.
+            is the manuscript's far-future translator, not you. But you are also the reader. The
+            story collapses the distance between the fictional translator and the actual reader
+            deliberately.
           </p>
           <p>
             Now: what does it mean that Severian says he "carried you from gate to gate"? Try the
@@ -4215,96 +3929,29 @@ const config = {
       </>,
 
       <>
-        <h2>Thematic Synthesis: Why the Book Ends in a Garden Where Time Does Not Pass</h2>
+        <h2>Why the Book Ends in a Garden Where Time Does Not Pass</h2>
 
-        <p>
-          The Atrium of Time is the right ending for structural reasons. Severian has finished every
-          earthly task. He cannot stay on Urth. He cannot yet leave for the stars. The Atrium is the
-          only place where this state is not a contradiction. It is outside normal time. Inside it
-          nothing changes.
-        </p>
-        <p>
-          Valeria is there. The automated voice calls her using Severian's autarchal titles. He did
-          not know he held those titles. The garden already knows him as Autarch. This suggests the
-          Atrium has always pointed toward his arrival. The timeless garden has been waiting for the
-          Autarch to come through.
-        </p>
-        <p>
-          Wolfe's last image is not a battle, not a departure, not a death. It is a garden and a
-          voice calling a name. The smallest possible scale. After four books of war, torture,
-          exile, and cosmological stakes, the series ends on a human voice. The voice is saying a
-          woman's name. This is the structural argument that the series was never about the cosmic
-          machinery. It was about the people the machinery moves.
-        </p>
-
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+        <div className="lrn-self-explain">
+          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            The garden ending works because Wolfe has earned it. Severian has closed every large
-            structure. He has reformed the guild. Vodalus is dead. The Commonwealth has checked the
-            Ascians.
+            The story closes not on a battle, a departure, or a death, but on a garden and a voice
+            calling a woman's name, the smallest possible scale after four books of war and
+            cosmological stakes. Why end the series on that human voice rather than the star voyage
+            it points toward?
           </p>
-          <p>
-            Severian has named the manuscript. What remains is not a task but a threshold. Valeria's
-            presence in the garden is not explained because explanation would be the wrong register.
-            The garden is a promise, not a resolution. Severian does not halt there. His pen does.
-          </p>
+          <details className="lrn-self-explain-reveal">
+            <summary>Expert explanation</summary>
+            <p>
+              The Atrium of Time is the only place where Severian's state is not a contradiction. He
+              has finished every earthly task and cannot stay on Urth, yet he cannot yet leave for
+              the stars. The Atrium sits outside normal time; inside it nothing changes. Valeria
+              waits there, and the automated voice calls her using autarchal titles Severian did not
+              know he held, so the garden already knows him as Autarch. Ending on her name argues
+              that the series was never about the cosmic machinery. It was about the people the
+              machinery moves.
+            </p>
+          </details>
         </div>
-      </>,
-
-      <>
-        <h2>Reading Map: What the Second Read Reveals</h2>
-
-        <p>
-          Chapter 6 rewards re-reading more than any other. Each scene gives new evidence when you
-          know the loop.
-        </p>
-
-        <ol className="lrn-list">
-          <li>
-            <strong>Chapter XXXII, the ruins scene.</strong> On first read, it is about Severian's
-            blindness to the obvious. On re-read, it is about the city that will be his legacy. He
-            sails through his future monument without recognizing it.
-          </li>
-          <li>
-            <strong>Chapter XXXII, Dorcas.</strong> On first read, a sad parting. On re-read, the
-            last moment of Severian's earthly self. After this, every act is autarchal.
-          </li>
-          <li>
-            <strong>Chapter XXXIII, Palaemon weeping.</strong> On first read, a reunion. On re-read,
-            the moment Severian's childhood is officially over. Palaemon sees a stranger wearing his
-            student's voice.
-          </li>
-          <li>
-            <strong>Chapter XXXIV, the Claw meditation.</strong> On first read, an unresolved
-            philosophical question. On re-read, the loop implies that the previous Severian had the
-            same meditation. The question was never going to be resolved. It is structural.
-          </li>
-          <li>
-            <strong>Chapter XXXV, Rudesind's motive.</strong> On first read, a touching backstory.
-            On re-read, Rudesind has been shaping Severian since childhood with purpose. He is one
-            of many quiet agents who helped produce this Autarch.
-          </li>
-          <li>
-            <strong>Chapter XXXVI, the bad coin.</strong> On first read, a mirroring of Book 1. On
-            re-read, the coin Vodalus paid in Book 1 and the coin Talos delivers are both "bad
-            gold." The series begins and ends on counterfeit currency. Nobody's gold is real. An
-            impurity underlies every transaction.
-          </li>
-          <li>
-            <strong>Chapter XXXVII, Ouen's face.</strong> On first read, a genealogical puzzle. On
-            re-read, Severian gives the stellar pistol to his probable kinsman. The kinsman will
-            protect the woman who may be his grandmother, Wolfe never confirms. The last chapter
-            assembles the family structure he never had as an orphan, wordlessly and without
-            acknowledgment.
-          </li>
-          <li>
-            <strong>Chapter XXXVIII, the tunnel footprints.</strong> On first read, a poignant
-            image. On re-read, the two Severians sharing the tunnel means the loop is physically
-            present in the narrative. They are not metaphorically linked. They have walked the same
-            physical corridor at different times, and the stone held both their prints.
-          </li>
-        </ol>
       </>
     ]
   },
@@ -4314,8 +3961,8 @@ const config = {
       a: 'The lights are energy-weapon discharges from the war front. Severian concludes that war is not a new experience but a new world, with its own alien geography and inhabitants more different from ordinary humans than the alien being Famulimus.'
     },
     {
-      q: 'Severian goes two days without food before finding the soldier. Why does Wolfe track this detail carefully?',
-      a: "Severian states that fasting destroys part of a person's courage. By tracking his hunger precisely, Wolfe explains why Severian plunders the dead man's pack before helping him. The body's need shapes the moral failure the chapter is built around."
+      q: 'Severian goes two days without food before finding the soldier. Why does the story track this detail carefully?',
+      a: "Severian states that fasting destroys part of a person's courage. Tracking his hunger precisely explains why Severian plunders the dead man's pack before helping him. The body's need shapes the moral failure the scene is built around."
     },
     {
       q: 'What are smilodon pug-marks, and how does Severian know they are not an immediate threat?',
@@ -4327,7 +3974,7 @@ const config = {
     },
     {
       q: 'The dead soldier has no visible wound. What objects does Severian find in his pack, and what does the pack reveal about who the soldier was?',
-      a: 'The pack contains bread, cheese, onion, dried meat, a blanket, a fire-blackened pan, stockings, a flint and striking bar, a hanging dial (timepiece), coins, and the unsent letter. Together these objects show a careful, organized man who planned to survive the march. The letter gives him a voice and a love.'
+      a: 'The pack holds food, gear for the march, fire-making tools, and the unsent letter. Together these objects show a careful, organized man who planned to survive the march. The letter is the key item: it gives him a voice and a love.'
     },
     {
       q: "What is in the soldier's unsent letter, and why does reading it change how Severian behaves?",
@@ -4338,7 +3985,7 @@ const config = {
       a: "It shows Severian's moral self-awareness and his self-critical honesty as a narrator. He does not hide the failure. He names it plainly and admits the ordering of events was shaped by hunger and greed, not virtue. This honesty is characteristic of how he tells his own story."
     },
     {
-      q: "Wolfe gives the campfire song verbatim in the soldier's letter. What does the song say, and why does including it matter?",
+      q: "The soldier's letter gives the campfire song word for word. What does the song say, and why does including it matter?",
       a: 'The song says: "Tomorrow night\'s sleep / Will be on stained ground, / So tonight all drink deep, / Let the friend-cup go round." It gives the war a folk voice. Soldiers know they will sleep on a battlefield tomorrow. The song is communal, practical, and without sentimentality. It individualizes the war more than any description of weapons or tactics.'
     },
     {
@@ -4350,8 +3997,8 @@ const config = {
       a: 'He hears a stick snap in the nearby trees. He does not know if someone saw him use the Claw, which is a valuable and controversial object. He arms himself and waits because he is alone and vulnerable, with no one to witness or defend him.'
     },
     {
-      q: "Severian builds a fire from the dead soldier's flint and striking bar. What is unusual about how Wolfe describes the fire's smoke?",
-      a: 'Wolfe says the rotten wood produces smoke that smells "fragrant as incense." This is an example of the sacred emerging from the debased. Severian performs what amounts to a vigil over a resurrection using decayed materials, and Wolfe makes the scene feel sacramental without stating it outright.'
+      q: "Severian builds a fire from the dead soldier's flint and striking bar. What is unusual about how the text describes the fire's smoke?",
+      a: 'The rotten wood produces smoke that smells "fragrant as incense." This is an example of the sacred emerging from the debased. Severian performs what amounts to a vigil over a resurrection using decayed materials, and the scene feels sacramental without saying so outright.'
     },
     {
       q: 'During the night vigil, Severian fears he might "lose myself forever in them, making of my life a loop instead of a line." What does this image mean?',
@@ -4366,12 +4013,12 @@ const config = {
       a: 'The soldier is confused, frightened, and barely able to stand. Severian is alone, unarmed (except the falchion), without food, and far from any shelter. Staying means responsibility for someone who cannot help himself. The impulse to flee is honest: Severian has nothing to offer and much to risk.'
     },
     {
-      q: 'Wolfe describes the blood on the soldier\'s forehead catching firelight "as some crimson gem might, some pigeon\'s blood ruby spilled from a treasure hoard." Why use a jewel simile here?',
-      a: "The Claw itself is a gem. The blood on the forehead echoes the Claw's appearance, making the wound look like a jewel. Wolfe suggests that the wound and the healing instrument are of the same nature. Sacred and precious are linked. The simile also makes violence beautiful, which is a recurring tension in Severian's narration."
+      q: 'The blood on the soldier\'s forehead catches firelight "as some crimson gem might, some pigeon\'s blood ruby spilled from a treasure hoard." Why use a jewel simile here?',
+      a: "The Claw itself is a gem. The blood on the forehead echoes the Claw's appearance, making the wound look like a jewel. The text suggests that the wound and the healing instrument are of the same nature. Sacred and precious are linked. The simile also makes violence beautiful, which is a recurring tension in Severian's narration."
     },
     {
-      q: 'The soldier is named in the chapter only as "the soldier." Makar is named in the letter, but the soldier himself has no name. Why might Wolfe withhold his name?',
-      a: 'Wolfe withholds the name to keep the soldier as a category first and a person second. He becomes individual through the letter, not through introduction. The resurrection makes him a companion before he is ever named. The pattern says: humanity comes from voice and memory, not from labels.'
+      q: 'The soldier is called only "the soldier." Makar is named in the letter, but the soldier himself has no name. Why might the story withhold his name?',
+      a: 'Withholding the name keeps the soldier as a category first and a person second. He becomes individual through the letter, not through introduction. The resurrection makes him a companion before he is ever named. The pattern says: humanity comes from voice and memory, not from labels.'
     },
     {
       q: "Thecla's memories tell Severian about smilodon behavior through Old Midan the huntsman. What does this moment show about how Severian's double memory works in practice?",
@@ -4382,7 +4029,7 @@ const config = {
       a: "The cloak marks Severian as an outsider to the army. It identifies him as a torturer's journeyman, a role he no longer holds, in a military world that does not recognize his guild. It is a symbol of an identity he cannot set aside even while wandering into a new world. He expects to die in it."
     },
     {
-      q: 'Why does Wolfe open Book 4 with a resurrection rather than with a battle, a political event, or Severian arriving at his destination?',
+      q: 'Why does Book 4 open with a resurrection rather than with a battle, a political event, or Severian arriving at his destination?',
       a: "The resurrection establishes what kind of power Severian carries into the final book: small, personal, uncertain, and morally complicated. He does not command. He restores one man at a time, imperfectly, and only after his own failures. The book about becoming Autarch begins by showing the ruler's essential act is a quiet miracle in a glade."
     },
     {
@@ -4390,15 +4037,15 @@ const config = {
       a: "The Vodalarü are seditionists who name themselves after the rebel leader Vodalus. They operate inside Commonwealth territory and are backed by the Ascians. According to the soldier's letter, they kill sentries by night. They are the internal enemy alongside the external Ascian war."
     },
     {
-      q: 'The chapter compares the mossy glade to the hidden picture-room of the House Absolute. What is Wolfe doing with this comparison?',
-      a: "The glade is greenish, silent, and separated from the world like an interior room. The House Absolute's picture-room was a secret space within a vast political structure. By comparing them, Wolfe signals that the glade is a space outside ordinary rules, a place where extraordinary things can happen, just as the picture-room was."
+      q: 'The text compares the mossy glade to the hidden picture-room of the House Absolute. What is this comparison doing?',
+      a: "The glade is greenish, silent, and separated from the world like an interior room. The House Absolute's picture-room was a secret space within a vast political structure. The comparison signals that the glade is a space outside ordinary rules, a place where extraordinary things can happen, just as the picture-room was."
     },
     {
       q: 'Severian shares the last salt meat with the soldier in the morning. Why is this act significant after everything that preceded it?',
       a: "Earlier Severian ate the soldier's food while the man was a corpse. Now he shares the last of it with the man alive. The gesture reverses the earlier taking: Severian moves from plunderer to companion. Sharing the last of something is also a commitment to stay, since it removes his private reserve."
     },
     {
-      q: "Apply Wolfe's technique of ordering events to create moral complexity. A character finds a lost child's bag containing food and a handwritten note. How would you order the scene to create the same effect Wolfe achieves with Severian and the soldier?",
+      q: "Apply the story's technique of ordering events to create moral complexity. A character finds a lost child's bag containing food and a handwritten note. How would you order the scene to create the same effect the Severian-and-soldier scene achieves?",
       a: 'Show the character eating the food before finding the note. Then let the note individualize the child through her own words. Then show the character searching for the child, now motivated by knowledge of her as a person. The eating-before-reading sequence creates a moral failure the reader witnesses, then shows the character correcting course after recognition rather than before it.'
     },
     {
@@ -4406,17 +4053,17 @@ const config = {
       a: "Severian expects rations and equipment. He finds those things, but also the unsent letter on the soldier's last sheet of paper. The rations meet his immediate need. The letter does something else: it forces him to know the dead man as a person. A predictable scavenge becomes the act that triggers a resurrection."
     },
     {
-      q: "Wolfe uses Severian's guild cloak as a recurring detail: worn, faded, out of place in the military world. What technique is this, and how does it differ from simply telling us Severian does not belong to the army?",
-      a: 'Wolfe uses a concrete object to carry an abstract meaning. The cloak is visible, specific, and has a history (given by Master Gurloes at the journeyman ceremony). It says Severian is a torturer from a guild, not a soldier in a unit, without Wolfe writing that sentence. Showing the frayed cloak is more vivid than stating he is an outsider, because the object accumulates meaning each time it appears.'
+      q: "Severian's guild cloak returns again and again as a detail: worn, faded, out of place in the military world. What technique is this, and how does it differ from simply telling us Severian does not belong to the army?",
+      a: 'The story uses a concrete object to carry an abstract meaning. The cloak is visible, specific, and has a history (given by Master Gurloes at the journeyman ceremony). It says Severian is a torturer from a guild, not a soldier in a unit, without anyone stating that sentence. Showing the frayed cloak is more vivid than stating he is an outsider, because the object gathers meaning each time it appears.'
     },
-    // Chapter 2: The Lazaret of the Pelerines
+    // Section 2: The Lazaret of the Pelerines
     {
       q: 'What cover story does Severian invent at the army camps, and why does it only partially work?',
-      a: 'Severian tells the camp healers he is a lictor of a civil judge accompanying the Autarch. The lie is plausible enough to earn directions to the lazaret three leagues away, but it cannot survive the Pelerines, who observe that both Severian and the soldier are feverish and admit them on medical grounds regardless of rank or story.'
+      a: 'Severian tells the camp healers he is a lictor of a civil judge accompanying the Autarch. The lie is reasonable enough to earn directions to the lazaret three leagues away, but it cannot survive the Pelerines, who observe that both Severian and the soldier are feverish and admit them on medical grounds regardless of rank or story.'
     },
     {
       q: "The resurrected soldier puts his hand on Severian's shoulder during the night walk. What is the significance of this gesture?",
-      a: "It is the chapter's first emotional exchange between the two men. The soldier cannot speak yet, but he responds physically to Severian's account of the Claw and Dorcas's time-bending theory. The gesture signals that something human persists in the revived body even before verbal memory returns, confirming that resurrection is not merely mechanical reanimation."
+      a: "It is the section's first emotional exchange between the two men. The soldier cannot speak yet, but he responds physically to Severian's account of the Claw and Dorcas's time-bending theory. The gesture signals that something human persists in the revived body even before verbal memory returns, confirming that resurrection is not merely mechanical reanimation."
     },
     {
       q: 'Foila explains Ascian speech to Severian. What is Correct Thought, and how does the system prevent disloyalty?',
@@ -4428,11 +4075,11 @@ const config = {
     },
     {
       q: 'What two tests does Severian use to identify the resurrected soldier as possibly Jonas?',
-      a: "First, he holds up Foila's mirror: Miles looks at his own reflection tentatively, as though uncertain whether the face is his. Second, Severian quotes Jonas's characteristic speech habit back at him: Jonas used to soften unpleasant things by attributing them to a comic situation. When Miles uses exactly that verbal pattern to deflect Severian's questions, Severian concludes the identification is at least plausible."
+      a: "First, he holds up Foila's mirror: Miles looks at his own reflection tentatively, as though uncertain whether the face is his. Second, Severian quotes Jonas's characteristic speech habit back at him: Jonas used to soften unpleasant things by attributing them to a comic situation. When Miles uses exactly that verbal pattern to deflect Severian's questions, Severian concludes the identification is at least reasonable."
     },
     {
       q: 'What happens when Severian names Jonas and tells Miles that Jolenta is dead?',
-      a: "The soldier's face goes blank as a somnambulist's. He rises and leaves without a word. The blankness is the scene's unanswered question: it could be the face of someone who has heard the name of his past and cannot yet hold it, or of a stranger who does not understand why the name matters. Wolfe does not explain it, and Miles does not appear again in the chapter."
+      a: "The soldier's face goes blank as a somnambulist's. He rises and leaves without a word. The blankness is the scene's unanswered question: it could be the face of someone who has heard the name of his past and cannot yet hold it, or of a stranger who does not understand why the name matters. The text does not explain it, and Miles does not appear again at the lazaret."
     },
     {
       q: 'The senior Pelerine refuses the Claw Severian offers. What is her reason?',
@@ -4440,19 +4087,19 @@ const config = {
     },
     {
       q: 'How does Severian heal Emilian, and why does the method matter?',
-      a: 'Emilian murmurs "Thecla" from his litter. Severian does not correct him; he responds as Thecla\'s voice and says, "Yes. Thecla. You remember me, Emilian. Now be well," then touches him with the Claw. The healing is personal, immediate, and half-accidental: Severian acts before he can plan, in response to a name rather than a decision. This contrasts directly with his failed attempt moments later to direct the Claw at the whole lazaret intentionally.'
+      a: 'Emilian murmurs "Thecla" from his litter. Severian does not correct him; he answers in Thecla\'s voice, tells the man to be well, and touches him with the Claw. The healing is personal, immediate, and half-accidental: Severian acts before he can plan, in response to a name rather than a decision. This contrasts directly with his failed attempt moments later to direct the Claw at the whole lazaret on purpose.'
     },
     {
-      q: "Describe the four states of the Claw's light in chapter 2 and what each corresponds to.",
-      a: 'The Claw shines softly as the moon when returned to Severian after fumigation (p. 10). It has white sparks after the senior Pelerine returns it (p. 35). It heals Emilian during a moment of focused, personal, involuntary action (pp. 35-36). It "flickered and was dark" when Severian tries to consciously direct it outward at all the sick in the lazaret (p. 36). The pattern shows brightness corresponding to the absence of deliberate direction.'
+      q: "Describe the four states of the Claw's light at the lazaret and what each corresponds to.",
+      a: 'The Claw shines softly as the moon when returned to Severian after fumigation. It has white sparks after the senior Pelerine returns it. It heals Emilian during a moment of focused, personal, involuntary action. It "flickered and was dark" when Severian tries to consciously direct it outward at all the sick in the lazaret. The pattern shows brightness matching the absence of deliberate direction.'
     },
     {
       q: "What is Hallvard's story about, and how does Melito respond to it?",
       a: "Hallvard tells the true story of his family from Glacies: his Uncle Anskar was murdered by Gundulf, who wanted to marry Anskar's widow Nennoc. Anskar cut his own life rope before dying to prove he was murdered. Gundulf is found and bound but not killed because mainland law now avenges bloodguilt. Melito accuses Hallvard of telling the story to imply future property prospects, suggesting Hallvard chose it for strategic reasons rather than literary ones."
     },
     {
-      q: "Summarize Melito's fable and identify the line that echoes in the chapter's closing scene.",
-      a: 'A cock defeats an owl, grows proud, and is challenged by an angel to a wrestling match. He refuses on three legal grounds. The angel summons an eagle; the cock fights until he falls dying but refuses to declare himself beaten: "A cock is not beaten until he turns tail and shows the white feather." The angel\'s line, that the Pancreator is infinitely far from us, echoes directly in the chapter\'s last sentence, where Severian speaks silently to someone who seems "at times within me and at times, as the angel had said, infinitely remote."'
+      q: "Summarize Melito's fable and identify the line that echoes in the section's closing scene.",
+      a: 'A cock defeats an owl, grows proud, and is challenged by an angel to a wrestling match. He refuses on three legal grounds. The angel summons an eagle; the cock fights until he falls dying but refuses to declare himself beaten: "A cock is not beaten until he turns tail and shows the white feather." The angel\'s line, that the Pancreator is infinitely far from us, echoes directly in the section\'s last sentence, where Severian speaks silently to someone who seems "at times within me and at times, as the angel had said, infinitely remote."'
     },
     {
       q: 'What does Ava see when she looks at Severian, and how does this differ from what Emilian perceived?',
@@ -4467,34 +4114,34 @@ const config = {
       a: "Ava says the powers of healing protect us from Nature. The Increate will not protect us from ourselves. Her reasoning: we might protect ourselves from ourselves, and the Increate may help only when we come to regret what we have done. This distinguishes natural harm (disease, wounds) from self-inflicted harm (violence, betrayal). The Claw heals fever and wounds but goes dark when directed by Severian's conscious will: the distinction between natural and self-caused harm may explain why its power is directional."
     },
     {
-      q: "The chapter's debate after Melito's story asks whether content or telling matters more. How does the Ascian prisoner intervene, and what does Foila make of his contribution?",
-      a: 'The Ascian says, unprompted: "All who speak Correct Thought speak well." Foila interprets this as a vote for form over content: he judges by how well the story is told, not by what it contains. Hallvard disagrees, preferring plainness. The Ascian\'s intervention is one of his most communicative moments in the chapter: by selecting and chaining a single approved text, he takes a position in an aesthetic debate without ever stepping outside the system Severian challenged earlier.'
+      q: "The section's debate after Melito's story asks whether content or telling matters more. How does the Ascian prisoner intervene, and what does Foila make of his contribution?",
+      a: 'The Ascian says, unprompted: "All who speak Correct Thought speak well." Foila interprets this as a vote for form over content: he judges by how well the story is told, not by what it contains. Hallvard disagrees, preferring plainness. The Ascian\'s intervention is one of his most communicative moments in the section: by selecting and chaining a single approved text, he takes a position in an aesthetic debate without ever stepping outside the system Severian challenged earlier.'
     },
     {
-      q: 'Why does the chapter end in a silk chapel rather than in the lazaret tent where all previous action has occurred?',
-      a: "The chapel is the appropriate final image for a chapter about what remains when stable structures are lost. The Domnicellae was burned; the Pelerines have a portable silk tent in its place. The true Claw was stolen; Severian carries an unexplained substitute. Miles has left without confirmation of his identity. The silk chapel, lit from within, is the chapter's small and impermanent sacred space: it does not resolve what the chapter has opened, but it gives Severian a place to kneel without an answer."
+      q: 'Why does the lazaret sequence end in a silk chapel rather than in the lazaret tent where all the action has occurred?',
+      a: "The chapel is the right final image for a sequence about what remains when stable structures are lost. The Domnicellae was burned; the Pelerines have a portable silk tent in its place. The true Claw was stolen; Severian carries an unexplained substitute. Miles has left without confirmation of his identity. The silk chapel, lit from within, is the section's small and impermanent sacred space: it does not resolve what the section has opened, but it gives Severian a place to kneel without an answer."
     },
     {
       q: 'Predict: Severian holds the Claw overhead and tries to heal everyone in the lazaret at once. What do you predict happens, and what does the result tell you about how the Claw works?',
-      a: "The Claw \"flickered and was dark.\" The prediction follows the chapter's established pattern: the Claw is most active when Severian acts involuntarily or in personal response to a specific person, and fails when he attempts to use it as a systematic instrument. The result suggests the Claw does not respond to scale of intention but to its quality: deliberate, outward direction produces nothing. Whether this is the Claw's nature or Severian's moral limitation, the chapter withholds."
+      a: "The Claw \"flickered and was dark.\" The prediction follows the section's established pattern: the Claw is most active when Severian acts involuntarily or in personal response to a specific person, and fails when he attempts to use it as a systematic instrument. The result suggests the Claw does not respond to scale of intention but to its quality: deliberate, outward direction produces nothing. Whether this is the Claw's nature or Severian's moral limitation, the section withholds."
     },
     {
       q: 'The Ascian prisoner is identified as a prisoner because "he didn\'t die." Explain in your own words what this reveals about how both armies treat Ascian soldiers.',
       a: "The Commonwealth army cannot recognize an Ascian who survives as anything other than a prisoner: his survival makes him the enemy's property in a different sense. Melito's dry answer, \"Why, he didn't die,\" treats survival as the legally relevant fact rather than any action the Ascian took. From the Ascian side, the prisoner is presumably a deserter or a defector by virtue of being captured alive, since Ascian doctrine likely categorizes capture as a form of defeat. Both systems define him by the same absence: he lacks the proper death."
     },
     {
-      q: 'Severian speaks aloud to the silent soldier on the night walk partly to warn off beasts. What else does the monologue do, and why does Wolfe have Severian name this second motive?',
-      a: 'The second motive is loneliness. Severian says so plainly. The monologue is also an act of companionship directed at someone who cannot yet respond. By naming loneliness alongside the practical purpose, Wolfe shows that Severian is not merely pragmatic about the revived soldier: he needs him as a listener even before the soldier can listen. The situation inverts the expected dependency: the healthy man needs the silent, barely-alive one.'
+      q: 'Severian speaks aloud to the silent soldier on the night walk partly to warn off beasts. What else does the monologue do, and why does Severian name this second motive himself?',
+      a: 'The second motive is loneliness. Severian says so plainly. The monologue is also an act of companionship directed at someone who cannot yet respond. Naming loneliness alongside the practical purpose shows that Severian is not merely pragmatic about the revived soldier: he needs him as a listener even before the soldier can listen. The situation flips the expected dependency: the healthy man needs the silent, barely-alive one.'
     },
     {
-      q: "Self-explain: Severian's claw goes dark when he tries to use it on everyone in the lazaret, yet it healed Emilian moments before. What is the structural explanation within the chapter for this difference?",
-      a: "The Emilian healing is reactive: Severian responds to a voice calling Thecla's name and acts before he has time to plan. The attempt on the whole lazaret is deliberate, outward, systematic. Ava's later argument provides a framework: if the Claw acts without Severian knowing, then conscious direction may actually interfere with it. The chapter shows four instances of the Claw's light, each corresponding inversely to the deliberateness of Severian's intent. What Wolfe refuses to say is whether this is the Claw's design or Severian's failing."
+      q: "Self-explain: Severian's claw goes dark when he tries to use it on everyone in the lazaret, yet it healed Emilian moments before. What is the structural explanation within the section for this difference?",
+      a: "The Emilian healing is reactive: Severian responds to a voice calling Thecla's name and acts before he has time to plan. The attempt on the whole lazaret is deliberate, outward, systematic. Ava's later argument provides a framework: if the Claw acts without Severian knowing, then conscious direction may actually interfere with it. The lazaret sequence shows four instances of the Claw's light, each matching inversely the deliberateness of Severian's intent. What the text refuses to say is whether this is the Claw's design or Severian's failing."
     },
     {
       q: "The Ascian's full Correct Thought recitation is itself an answer to Severian's challenge. In what sense does the recitation answer doubly?",
       a: "First, as content: the recitation categorizes Severian's objection as one of the four forbidden causes of disagreement (foolish talk or talk which serves to incite quarrels), meaning the system already has a ruling against it. Second, as demonstration: the Ascian produces a coherent, syllogistically structured argument from approved fragments alone. This proves the system is richer than Severian assumed. The double answer leaves Severian unable to respond: his logical objection has been both categorized as forbidden and answered with genuine logic, both at once."
     },
-    // Chapter 3: The Road to the War
+    // Section 3: The Road to the War
     {
       q: 'What is the central rule of Ascian speech, and how does the Ascian still tell a complete story under it?',
       a: 'Ascians may speak only in phrases drawn from Correct Thought, approved texts of the Group of Seventeen. New sentences are impossible. The Ascian tells The Just Man by selecting and sequencing rote phrases. The meaning emerges from the arrangement, not from the words themselves. Foila pairs each phrase with the next beat of a folktale. Constraint pushes expression into context.'
@@ -4517,11 +4164,11 @@ const config = {
     },
     {
       q: 'Compute: how many times does the just man walk to the capital, and what is the pattern of his journeys?',
-      a: "Three. After each return he is beaten again. The phrase 'The just man did not give up' repeats word-for-word three times, the most repeated line in the parable. Wolfe uses the repetition to point at the Ascian's hidden meaning: 'I will not give up.' The Ascian is declaring his love for Foila inside an approved phrase."
+      a: "Three. After each return he is beaten again. The phrase 'The just man did not give up' repeats word-for-word three times, the most repeated line in the parable. The repetition points at the Ascian's hidden meaning: 'I will not give up.' The Ascian is declaring his love for Foila inside an approved phrase."
     },
     {
       q: "What does Severian mean when he says 'of all the good things in the world, the only ones humanity can claim for itself are stories and music'?",
-      a: 'Mercy, beauty, sleep, clean water, hot food, these we did not invent, only discovered. They are the work of the Increate. Stories and music exist only because a person arranged them. They are the small things that are ours alone. Wolfe loves them best for that reason: a tale is the only kind of object that has no maker but us.'
+      a: 'Mercy, beauty, sleep, clean water, hot food, these we did not invent, only discovered. They are the work of the Increate. Stories and music exist only because a person arranged them. They are the small things that are ours alone. Severian loves them best for that reason: a tale is the only kind of object that has no maker but us.'
     },
     {
       q: "Who is Winnoc, and how does he recognise Severian's profession?",
@@ -4553,10 +4200,10 @@ const config = {
     },
     {
       q: 'Predict: what would have happened if the youngest suitor had asked for the shortest road instead of the best?',
-      a: "The angel would have given him the shortest road, but the story strongly suggests that shortest paths in this world go through 'caverns underground, or something like.' The third suitor explicitly rejects 'shortest' because the empyrean powers rebuke impatience and the journey itself is part of the test. Asking for shortest would likely have killed him. Wolfe's fairy-tale grammar rewards patience over speed."
+      a: "The angel would have given him the shortest road, but the story strongly suggests that shortest paths in this world go through 'caverns underground, or something like.' The third suitor explicitly rejects 'shortest' because the empyrean powers rebuke impatience and the journey itself is part of the test. Asking for shortest would likely have killed him. The fairy-tale grammar rewards patience over speed."
     },
     {
-      q: "What does Severian do in the Pelerines' chapel at the climax of chapter XIV, and what does it cost him?",
+      q: "What does Severian do in the Pelerines' chapel when he returns the relic, and what does it cost him?",
       a: 'He pries open the four iron clamps holding the altar stone, cuts a square from his guild cloak, wraps the Claw of the Conciliator inside, lays it in the hollow under the stone, retightens the clamps, and walks out. He bloodies his fingers on the clamps. The cost is the relic he has carried since the first book, his last claim to messianic status. The gain is freedom from the burden of being more than one man.'
     },
     {
@@ -4601,7 +4248,7 @@ const config = {
     },
     {
       q: 'Predict: what will happen when Severian tries to drag Ash away from the Last House by force?',
-      a: "Ash will cease to exist after a short distance. His being in Severian's epoch depends on probability that only stays high inside his own house. Carried away, his probability collapses. Wolfe has been signalling this throughout: the vanishing path, the appearing/disappearing house, the conversation about the green man. The capture cannot work."
+      a: "Ash will cease to exist after a short distance. His being in Severian's epoch depends on probability that only stays high inside his own house. Carried away, his probability collapses. The story has been signalling this throughout: the vanishing path, the appearing/disappearing house, the conversation about the green man. The capture cannot work."
     },
     {
       q: "What is the precise moment of Ash's disappearance and what does Severian see immediately after?",
@@ -4612,21 +4259,21 @@ const config = {
       a: 'A long-shot business deal exists only inside the conversation that conjures it. The moment people leave the meeting, the probability drops; absent follow-up, the deal evaporates. Or: a rumor exists only in places where enough people believe it; in a skeptical audience it dies on the first telling. The principle: some things require an environment in which they are likely, and they cannot be carried into unlikely environments without dissolving.'
     },
     {
-      q: "Self-explain: why does the chapter ending with Ash's dissolution complete the arc of the module rather than disrupt it?",
-      a: 'The module is a meditation on what can be transmitted between minds and places. The Ascian transmits meaning under constraint. Foila transmits a folktale. Winnoc transmits a question across decades and class. Severian transmits the Claw back to its owners. Then Wolfe gives the limit case: Ash is the kind of being that cannot be transmitted. The arc completes by showing what cannot be carried, after a chapter of showing what can.'
+      q: "Self-explain: why does ending with Ash's dissolution complete the arc of the module rather than disrupt it?",
+      a: 'The module is a meditation on what can be carried between minds and places. The Ascian carries meaning under constraint. Foila passes on a folktale. Winnoc carries a question across decades and class. Severian carries the Claw back to its owners. Then comes the limit case: Ash is the kind of being that cannot be carried. The arc completes by showing what cannot be carried, after pages of showing what can.'
     },
     {
       q: 'What does Severian renounce by leaving the Claw under the altar?',
       a: "The role of messianic bearer. He had been wondering for books whether he was the Conciliator come back. By giving the relic to the order it actually belongs to, he steps out of that question. He says aloud that he is an actor and a child, not a torturer or a messiah. The renunciation prepares him to become a soldier in his own war rather than a messenger of someone else's."
     },
-    // Chapter 4: The Autarch and the Great Battle
+    // Section 4: The Autarch and the Great Battle
     {
       q: 'What does Foila ask Severian to do before she dies?',
       a: "She asks him to remember and retell the stories from the storytelling contest. She knows she is dying and cannot be saved. Severian's perfect memory is the only instrument available to preserve the stories. This request is why the stories appear in the brown book the reader is reading."
     },
     {
-      q: '[PREDICT] If you read only chapter XXIII first, what would you expect the earlier chapters to have established about the Autarch?',
-      a: 'You would expect the earlier chapters to have shown the Autarch in at least one disguise (specifically as a minor official or brothel-keeper), since the XXIII reveal depends on Severian recognizing that a person he met before was the same person. You would also expect a code phrase to have been planted somewhere as a recognition device.'
+      q: '[PREDICT] If you read the battlefield reveal of the Autarch first, what would you expect the earlier scenes to have established about him?',
+      a: 'You would expect the earlier scenes to have shown the Autarch in at least one disguise (specifically as a minor official or brothel-keeper), since the reveal depends on Severian recognizing that a person he met before was the same person. You would also expect a code phrase to have been planted somewhere as a recognition device.'
     },
     {
       q: 'What is the Group of Seventeen, and how does Severian use it in the standoff?',
@@ -4634,7 +4281,7 @@ const config = {
     },
     {
       q: 'Who is Guasacht and what does he represent?',
-      a: "Guasacht is the condottiere of the 18th Bacele, short, bowlegged, and energetic. He represents pure pragmatism: winning means surviving and getting paid. He is dishonest but effective. Wolfe places him in contrast with Severian's principled idealism. Guasacht is a father figure to the bacele and an antagonist to the idea that war has moral clarity."
+      a: "Guasacht is the condottiere of the 18th Bacele, short, bowlegged, and energetic. He represents pure pragmatism: winning means surviving and getting paid. He is dishonest but effective. He stands in contrast with Severian's principled idealism. Guasacht is a father figure to the bacele and an antagonist to the idea that war has moral clarity."
     },
     {
       q: 'What is a destrier, and how does it differ from an ordinary horse?',
@@ -4642,7 +4289,7 @@ const config = {
     },
     {
       q: '[SELF-EXPLAIN] Why does the man-beast refuse to leave the gold even when facing certain death?',
-      a: "The man-beast operates under a code of honor and obedience, which it explicitly states is above the law of reason. Its loyalty to the Autarch's gold is total and not subject to cost-benefit calculation. Wolfe uses this to present a worldbuilding-level contrast: honor as a higher law than survival. It also shows that engineered beings can hold values more rigidly than humans."
+      a: "The man-beast operates under a code of honor and obedience, which it explicitly states is above the law of reason. Its loyalty to the Autarch's gold is total and not subject to cost-benefit calculation. This presents a worldbuilding-level contrast: honor as a higher law than survival. It also shows that engineered beings can hold values more rigidly than humans."
     },
     {
       q: 'What is the Ascian checkerboard formation?',
@@ -4662,7 +4309,7 @@ const config = {
     },
     {
       q: "[TRANSFER] The standoff over the steel coach is resolved by anpiels. How does this mirror the Autarch's arrival at the end of the module?",
-      a: "In both cases, three parties are locked in an unresolvable situation: the bacele, the Ascians, and the man-beasts in chapter XX; Severian pinned and alone on the battlefield in chapter XXIII. In both cases, an unexpected force arrives from above (anpiels from the clouds; the Autarch on Mamillian) and closes the situation. Wolfe uses the coach standoff as a structural preview of the module's climax."
+      a: "In both cases, three parties are locked in an unresolvable situation: the bacele, the Ascians, and the man-beasts at the steel coach; Severian pinned and alone on the battlefield. In both cases, an unexpected force arrives from above (anpiels from the clouds; the Autarch on Mamillian) and closes the situation. The coach standoff works as a structural preview of the module's climax."
     },
     {
       q: 'What is an arsinoither, and who rides them?',
@@ -4674,23 +4321,23 @@ const config = {
     },
     {
       q: "[TRANSFER] Severian resolves the steel coach standoff by speaking each faction's own code back at it. Where else in the module does he use this same method?",
-      a: "In chapter XX he uses the Group of Seventeen formula to enter the Ascian system and uses honor language to negotiate with the man-beasts. In chapter XXIII the Autarch uses a code phrase to enter Severian's trust before explaining himself. Both cases follow the same logic: you do not argue against a closed system; you enter it on its own terms. The system cannot refuse without contradicting itself."
+      a: "At the steel coach he uses the Group of Seventeen formula to enter the Ascian system and uses honor language to negotiate with the man-beasts. On the battlefield the Autarch uses a code phrase to enter Severian's trust before explaining himself. Both cases follow the same logic: you do not argue against a closed system; you enter it on its own terms. The system cannot refuse without contradicting itself."
     },
     {
       q: '[ELABORATE] Why does the third path work in the steel coach standoff when direct confrontation would not?',
       a: "The man-beast and the Ascian are each locked in a rigid code. Guasacht's bacele could fight either party but not both. Severian's approach sidesteps the binary: he proposes a deal that lets both codes claim they have not been violated. The man-beasts unload the gold (honoring their duty). The Ascians free the coach (following collective logic). Neither side surrenders. The third path works because it asks each party to stay inside its own code while changing the situation."
     },
     {
-      q: '[TRANSFER] How does the steel-coach standoff (XX) parallel the Autarch reveal (XXIII to XXIV) as "third-path" resolutions?',
-      a: 'Both replace a binary deadlock with a third option. In chapter XX the man-beasts and the Ascians are locked: fight or surrender. Severian invents a deal that lets each code claim victory. In chapters XXIII to XXIV the ruler problem is posed as a binary: either a ruler has never sinned (and so cannot forgive) or has sinned by accident (and so is corrupt). The Autarch invents a third path by becoming a deliberate brothel-keeper. He chooses guilt as a tool of governance. Both scenes argue that the way out of a deadlock is to refuse the binary itself.'
+      q: '[TRANSFER] How does the steel-coach standoff parallel the Autarch reveal as "third-path" resolutions?',
+      a: 'Both replace a binary deadlock with a third option. At the steel coach the man-beasts and the Ascians are locked: fight or surrender. Severian invents a deal that lets each code claim victory. In the Autarch reveal the ruler problem is posed as a binary: either a ruler has never sinned (and so cannot forgive) or has sinned by accident (and so is corrupt). The Autarch invents a third path by becoming a deliberate brothel-keeper. He chooses guilt as a tool of governance. Both scenes argue that the way out of a deadlock is to refuse the binary itself.'
     },
     {
       q: '[ELABORATE] Why does the Autarch run a brothel in the Algedonic Quarter?',
-      a: "The Autarch argues that a judge or jailer who has no crime of his own becomes a monster. He cannot forgive what he has never felt. By running the brothel and exploiting khaibits, he stays exposed to crime and guilt. This is a sustained political-philosophical claim: legitimate authority requires complicity in wrongdoing, because mercy requires the capacity for guilt. Wolfe does not resolve whether this is true. He presents it as the Autarch's sincere belief, backed by his actions."
+      a: "The Autarch argues that a judge or jailer who has no crime of his own becomes a monster. He cannot forgive what he has never felt. By running the brothel and exploiting khaibits, he stays exposed to crime and guilt. This is a sustained political-philosophical claim: legitimate authority requires complicity in wrongdoing, because mercy requires the capacity for guilt. The text does not resolve whether this is true. It presents it as the Autarch's sincere belief, backed by his actions."
     },
     {
       q: 'What is the code phrase the Autarch uses, and why is it significant?',
-      a: '"The pelagic argosy sights land" is a recognition signal. The phrase tells Severian that the speaker knows who he is and means him no harm. It is also the title of chapter XXIII, which is the chapter in which it appears. Wolfe plants chapter titles as clues rather than summaries. The phrase announces the Autarch before his face is seen.'
+      a: '"The pelagic argosy sights land" is a recognition signal. The phrase tells Severian that the speaker knows who he is and means him no harm. It also names the section in which it appears. The section titles work as clues rather than summaries. The phrase announces the Autarch before his face is seen.'
     },
     {
       q: 'What is Mamillian?',
@@ -4698,7 +4345,7 @@ const config = {
     },
     {
       q: '[SELF-EXPLAIN] Why does the Autarch speak in the plural ("We")?',
-      a: 'The Autarch has absorbed the memories of his predecessors. He is literally more than one person: he contains all the selves of every Autarch before him. The plural "We" is not royal convention. It is an honest description of his composite self. This mirrors Severian containing Thecla. The chapter\'s central revelation is that the Autarch is a walking archive of accumulated selves.'
+      a: 'The Autarch has absorbed the memories of his predecessors. He is literally more than one person: he contains all the selves of every Autarch before him. The plural "We" is not royal convention. It is an honest description of his composite self. This mirrors Severian containing Thecla. The central revelation is that the Autarch is a walking archive of accumulated selves.'
     },
     {
       q: 'What does Severian find when he arrives at Media Pars looking for the lazaret?',
@@ -4709,7 +4356,7 @@ const config = {
       a: "Ibar is a uhlan (trooper) of the 78th Xenagie, a Commonwealth army unit patrolling the road. He is pragmatic and delivers news without sentiment. He tells Severian that the lazaret has moved to Media Pars. He recognizes and accepts Mannea's safe-conduct that Severian carries. He is a minor character whose function is to direct Severian toward the ruined lazaret."
     },
     {
-      q: '[PREDICT] At the end of chapter XXIV, the Autarch asks Severian how many people he is. What does Wolfe signal with this open question?',
+      q: '[PREDICT] As the module closes, the Autarch asks Severian how many people he is. What does this open question signal?',
       a: 'The question is not rhetorical. It is a threshold. The Autarch has been preparing Severian for something he will not name here. The module ends in ascent, mid-conversation, as a deliberate cliff. Severian contains Thecla; the Autarch contains many predecessors; the question asks where the line is. The next module answers it. Do not look for the answer in this module.'
     },
     {
@@ -4721,63 +4368,63 @@ const config = {
       a: 'Correct Thought requires that speakers compose every sentence from approved phrases. No individual can generate new meaning. The blind swordsman cannot see; he is entirely dependent on the dwarf archer for perception. In both cases, an individual is made non-self-sufficient by design. The Ascian system, both linguistic and military, removes individual agency and replaces it with collective structure.'
     },
     {
-      q: "[TRANSFER] How does Severian's fear before battle (XXI) compare to the Ascian officer's reliance on Correct Thought (XX)?",
-      a: 'Both are responses to overwhelming uncertainty, but they sit on opposite ends of a spectrum. Severian is a person learning to hold his position despite fear. Daria gives him plain counsel and he carries himself into the charge. The Ascian officer has no Daria. He has a script. His response to uncertainty is not learning but recitation. He has been erased into a system that supplies his sentences in advance. Wolfe contrasts a person growing under pressure with a person already dissolved into a formula.'
+      q: "[TRANSFER] How does Severian's fear before battle compare to the Ascian officer's reliance on Correct Thought?",
+      a: 'Both are responses to overwhelming uncertainty, but they sit on opposite ends of a spectrum. Severian is a person learning to hold his position despite fear. Daria gives him plain counsel and he carries himself into the charge. The Ascian officer has no Daria. He has a script. His response to uncertainty is not learning but recitation. He has been erased into a system that supplies his sentences in advance. The contrast is a person growing under pressure against a person already dissolved into a formula.'
     },
     {
       q: 'What happens to Erblon in the battle?',
-      a: "Erblon is Guasacht's tall, thin second-in-command. He carries the bacele's black-and-green flag. He is killed during the battle in chapter XXII. His death is one of the losses that marks the cost of the charge through the Ascian square. The flag is both a tactical marker and a symbol of the bacele's identity, so his death takes both the man and the standard."
+      a: "Erblon is Guasacht's tall, thin second-in-command. He carries the bacele's black-and-green flag. He is killed during the charge through the Ascian square. His death is one of the losses that marks the cost of that charge. The flag is both a tactical marker and a symbol of the bacele's identity, so his death takes both the man and the standard."
     },
     {
-      q: 'What are anpiels, and what do they do in chapter XX?',
+      q: 'What are anpiels, and what do they do at the steel coach standoff?',
       a: 'Anpiels are winged female soldiers. Each carries two pistols. Their rainbow wings are wider than a teratornis. They descend from the clouds to resolve the steel coach standoff after Severian has brokered his three-way deal. Their intervention closes the standoff and the bacele receives a commendation. They represent the feminine in this war as a technological military elite, distinct from the sacred Daughters of War.'
     },
     {
       q: "[ELABORATE] Why is the module's opening about loneliness, even though the module is about a great battle?",
-      a: "Severian talks to the fading ghost of Master Ash about Triskele, Valeria, Dorcas, and what it means to contain Thecla without ceasing to be alone. The chapter 18 frame makes clear that the battle chapters are wrapped inside a meditation on memory and loneliness. The Autarch's revelation confirms this: he too is lonely despite containing many predecessors. The battle is where bodies move; the loneliness is where Wolfe's argument lives."
+      a: "Severian talks to the fading ghost of Master Ash about Triskele, Valeria, Dorcas, and what it means to contain Thecla without ceasing to be alone. The opening frame makes clear that the battle is wrapped inside a meditation on memory and loneliness. The Autarch's revelation confirms this: he too is lonely despite containing many predecessors. The battle is where bodies move; the loneliness is where the argument lives."
     },
     {
-      q: "What is the penning trap, and how does the Autarch's flier work?",
-      a: "A penning trap is a magnetic device that holds antimaterial particles in suspension. The Autarch's flier holds anti-iron in a penning trap. The anti-iron repels the earth's promagnetism, creating lift. Each time an air molecule contacts an anti-iron particle, the particle is neutralized and a tiny amount of lift is lost. Over time, the craft will fail. The Autarch explains this to Severian in chapter XXIV as they board the flier together."
+      q: "How does the Autarch's flier stay in the air, and why will it eventually fail?",
+      a: 'A magnetic cage holds a strange anti-metal that pushes against the planet, and that push gives the flier lift. The cage keeps the anti-metal from touching anything. But every time a speck of air touches the anti-metal, a tiny bit is wiped out and a tiny bit of lift is lost. Over time the lift bleeds away and the craft must come down. The Autarch explains this to Severian as they board the flier together.'
     },
     {
       q: 'What are khaibits?',
-      a: "Khaibits are beings grown from the body cells of exultant women. The Autarch uses them as prostitutes in his secret brothel in the Algedonic Quarter of Nessus. Their existence is part of the Autarch's deliberate exposure to crime. He runs the brothel under an assumed identity. Severian realizes in chapter XXIII that the brothel-keeper he encountered earlier was the Autarch in disguise."
+      a: "Khaibits are beings grown from the body cells of exultant women. The Autarch uses them as prostitutes in his secret brothel in the Algedonic Quarter of Nessus. Their existence is part of the Autarch's deliberate exposure to crime. He runs the brothel under an assumed identity. On the battlefield Severian realizes that the brothel-keeper he encountered earlier was the Autarch in disguise."
     },
     {
       q: 'Why does Severian seek Miles-Jonas?',
       a: "He wants to ask about the country of the dead, for Dorcas's sake. Dorcas was a woman Severian loved who was revealed to have been resurrected from the dead. He never finds Miles-Jonas. The search goes nowhere. It establishes that Severian's emotional wound over Dorcas runs in parallel with his physical wound from the battle, and that both go unresolved in this module."
     },
     {
-      q: '[SELF-EXPLAIN] Why does Wolfe end the module mid-conversation, mid-ascent, with an open question?',
-      a: 'The open question ("How many do you think I am?") is the threshold the module ends on. Severian is being prepared for something he cannot name here. Wolfe ends in ascent because the ground of the battle is no longer where the story is. The next module answers the question. Do not look for the answer in this module.'
+      q: '[SELF-EXPLAIN] Why does the module end mid-conversation, mid-ascent, with an open question?',
+      a: 'The open question ("How many do you think I am?") is the threshold the module ends on. Severian is being prepared for something he cannot name here. It ends in ascent because the ground of the battle is no longer where the story is. The next module answers the question. Do not look for the answer in this module.'
     },
     {
       q: 'What is a trilhoen?',
       a: "A trilhoen is a heavy weapon mounted on Mamillian's back. It has a dark lens the size of a dinner plate. Severian notices it when the mammoth arrives on the silent battlefield. Its function is not explained in this module beyond its visual presence as a weapon of enormous scale, fitting the war-mammoth that carries it."
     },
     {
-      q: "[TRANSFER] How does Foila's dying request in chapter XVIII mirror the Autarch's revelation in chapter XXIII?",
-      a: 'Both are acts of disclosure built on trust in memory. Foila entrusts her stories to Severian because his perfect memory can carry them. The Autarch discloses his composite self to Severian in chapter XXIII because Severian, who already carries Thecla, is the rare listener who can hear the disclosure without flinching. Both moments treat memory as the medium of continuity. Both choose Severian because of what he already contains.'
+      q: "[TRANSFER] How does Foila's dying request mirror the Autarch's revelation on the battlefield?",
+      a: 'Both are acts of disclosure built on trust in memory. Foila entrusts her stories to Severian because his perfect memory can carry them. The Autarch discloses his composite self to Severian because Severian, who already carries Thecla, is the rare listener who can hear the disclosure without flinching. Both moments treat memory as the medium of continuity. Both choose Severian because of what he already contains.'
     },
     {
       q: 'What is the Algedonic Quarter?',
-      a: "The Algedonic Quarter is a district of Nessus, the Commonwealth's capital city. The Autarch runs a secret brothel there under an assumed identity. Severian visited it earlier in the series without knowing the brothel-keeper was the Autarch. The revelation in chapter XXIII connects the distant memory to the present encounter."
+      a: "The Algedonic Quarter is a district of Nessus, the Commonwealth's capital city. The Autarch runs a secret brothel there under an assumed identity. Severian visited it earlier in the series without knowing the brothel-keeper was the Autarch. The battlefield revelation connects the distant memory to the present encounter."
     },
     {
       q: '[ELABORATE] What does "By each step in war the winner loses" mean, given what happens in the battle?',
-      a: 'Severian says this watching the Ascian checkerboard advance. The observation is proved immediately: the charge breaks the square, but Erblon is killed, the piebald is killed, and Severian is wounded and pinned. The bacele wins tactically but loses men and horses. Wolfe\'s argument is that military victory is not accumulation but attrition. Both sides diminish with every move, so the "winner" is simply the last one standing, not the one who gained.'
+      a: 'Severian says this watching the Ascian checkerboard advance. The observation is proved immediately: the charge breaks the square, but Erblon is killed, the piebald is killed, and Severian is wounded and pinned. The bacele wins tactically but loses men and horses. The point is that military victory is not accumulation but attrition. Both sides diminish with every move, so the "winner" is simply the last one standing, not the one who gained.'
     },
     {
-      q: 'How does chapter XVIII function as a frame chapter?',
-      a: 'It explains retroactively why the storytelling contest from modules 02 and 03 appears in the brown book. Foila asks Severian to remember and retell the stories. Severian, as narrator, confirms he fulfilled this promise by including the stories in the brown book. This closes the metafictional loop: the stories the reader has already read were put there because a dying woman asked Severian to put them there.'
+      q: 'How does the opening of the battle module work as a frame?',
+      a: 'It explains, after the fact, why the storytelling contest from earlier modules appears in the brown book. Foila asks Severian to remember and retell the stories. Severian, as narrator, confirms he kept this promise by including the stories in the brown book. This closes the metafictional loop: the stories the reader has already read were put there because a dying woman asked Severian to put them there.'
     },
     {
       q: 'What are the three ways the feminine appears in the war across this module?',
-      a: 'First, Daria: an irregular camp follower turned fighter, pragmatic and survival-minded. Second, the Daughters of War: sacred, bejeweled, untouchable warrior-priestesses on arsinoithers. Third, the anpiels: winged female soldiers, technological elite, each carrying two pistols. Wolfe presents them as a deliberate spectrum from ordinary to sacred to technological: three different registers of female power in the same conflict.'
+      a: 'First, Daria: an irregular camp follower turned fighter, pragmatic and survival-minded. Second, the Daughters of War: sacred, bejeweled, untouchable warrior-priestesses on arsinoithers. Third, the anpiels: winged female soldiers, technological elite, each carrying two pistols. They form a deliberate spectrum from ordinary to sacred to technological: three different registers of female power in the same conflict.'
     },
     {
-      q: '[PREDICT] At the start of chapter XIX, Severian wanders for two days alone before encountering Guasacht. What does this wandering tell you about his state of mind?',
+      q: '[PREDICT] Severian wanders for two days alone before encountering Guasacht. What does this wandering tell you about his state of mind?',
       a: 'He sleeps rough and considers re-enlisting, which means he has not decided to join any formal structure. He is looking for Miles-Jonas, which means his emotional wound (Dorcas) is driving him as much as any practical goal. He finds a rusty falchion and cleans it, a practical act that suggests he is readying himself for something, even without a plan. He is isolated, grief-driven, and functionally homeless.'
     },
     {
@@ -4786,11 +4433,11 @@ const config = {
     },
     {
       q: "[SELF-EXPLAIN] Why do the woman-cats in the Autarch's pavilion recognize the trace of Thecla in Severian's face?",
-      a: "Severian absorbed Thecla's memories through the alzabo ritual earlier in the series. Those memories are not just information. They have changed who he is, including (Wolfe implies) subtly how he looks or moves. The woman-cats, as servants intimate with the Autarch who is himself a composite being, are attuned to the signs of a composite self. They recognize in Severian the same thing the Autarch is looking for: a person who contains another person."
+      a: "Severian absorbed Thecla's memories through the alzabo ritual earlier in the series. Those memories are not just information. They have changed who he is, including (the text implies) subtly how he looks or moves. The woman-cats, as servants intimate with the Autarch who is himself a composite being, are attuned to the signs of a composite self. They recognize in Severian the same thing the Autarch is looking for: a person who contains another person."
     },
     {
-      q: '[TRANSFER] Both the Autarch and Severian are recognized through their disguises. What does Wolfe say about identity in a far-future setting where bodies are presumed alterable?',
-      a: "The Autarch hides in a brothel-keeper's disguise but Severian recognizes him because Thecla once met him at House Azure. The woman-cats see Thecla in Severian's face even though his body is his own. Wolfe is arguing that identity in this setting does not live in the body. It lives in what the person carries: relationships, memories, the people they contain. Disguise can change a face but not a history. In a world of engineered bodies and absorbed selves, you are recognized by what is inside you, not what shows."
+      q: '[TRANSFER] Both the Autarch and Severian are recognized through their disguises. What does the story say about identity in a far-future setting where bodies are presumed alterable?',
+      a: "The Autarch hides in a brothel-keeper's disguise but Severian recognizes him because Thecla once met him at House Azure. The woman-cats see Thecla in Severian's face even though his body is his own. The argument is that identity in this setting does not live in the body. It lives in what the person carries: relationships, memories, the people they contain. Disguise can change a face but not a history. In a world of engineered bodies and absorbed selves, you are recognized by what is inside you, not what shows."
     },
     {
       q: 'What is a falchion, and how does Severian acquire his?',
@@ -4798,7 +4445,7 @@ const config = {
     },
     {
       q: '[TRANSFER] How does the Autarch\'s plural speech ("We") function as foreshadowing for the end of the module?',
-      a: 'When the Autarch says "We are the thing itself, the self-ruler," the plural is a direct description of his composite self. At the end of chapter XXIV he asks Severian how many people Severian is. The plural speech has been present from the first moment. Wolfe front-loads the answer to the question before the question is asked. A reader who notices the "We" on page 45 has already been told what the composite identity means before it is explained on page 51.'
+      a: 'When the Autarch says "We are the thing itself, the self-ruler," the plural is a direct description of his composite self. Later he asks Severian how many people Severian is. The plural speech has been present from the first moment. The answer to the question is front-loaded before the question is asked. A reader who notices the "We" early on has already been told what the composite identity means before it is explained at the end.'
     },
     {
       q: 'What is the graisle, and who carries it?',
@@ -4806,11 +4453,11 @@ const config = {
     },
     {
       q: 'What does "honor is the higher life" mean in the context of the man-beast standoff?',
-      a: 'The man-beast says "We want to save our honor" and "Honor is the higher life." It means the man-beast ranks its obligations above its survival. Severian points out that staying will mean death. The man-beast accepts this. Wolfe uses the standoff to present honor as a code that functions exactly like Correct Thought: both are systems that override individual survival in favor of a higher collective principle. The contrast is that the man-beast chose its code; the Ascians had theirs imposed.'
+      a: 'The man-beast says "We want to save our honor" and "Honor is the higher life." It means the man-beast ranks its obligations above its survival. Severian points out that staying will mean death. The man-beast accepts this. The standoff presents honor as a code that functions exactly like Correct Thought: both are systems that override individual survival in favor of a higher collective principle. The contrast is that the man-beast chose its code; the Ascians had theirs imposed.'
     },
     {
-      q: "[ELABORATE] Why does Wolfe show Severian's fear as a social contagion rather than a private feeling?",
-      a: 'Severian observes that fear spreads through the column like a disease. He can feel it passing from rider to rider. This is not just his psychology. It is a tactical claim: fear in one soldier infects the next, and mass rout begins not from an order but from a spreading wave. Severian holds his position partly to stop the wave. Wolfe uses this to argue that courage in battle is not primarily a personal virtue but a social responsibility: one person holding keeps others from running.'
+      q: "[ELABORATE] Why is Severian's fear shown as a social contagion rather than a private feeling?",
+      a: 'Severian observes that fear spreads through the column like a disease. He can feel it passing from rider to rider. This is not just his psychology. It is a tactical claim: fear in one soldier infects the next, and mass rout begins not from an order but from a spreading wave. Severian holds his position partly to stop the wave. The point is that courage in battle is not primarily a personal virtue but a social responsibility: one person holding keeps others from running.'
     },
     {
       q: 'What are orichalks?',
@@ -4825,25 +4472,25 @@ const config = {
       a: "First, a physical wound: his leg is burned through when his contus is cut. This nearly kills him and leaves him unconscious pinned under the dead piebald. Second, an emotional wound: his grief over Dorcas, which drove him to seek Miles-Jonas before the battle. He never finds Miles-Jonas. The physical wound is treated in the Autarch's pavilion. The emotional wound is not addressed in this module."
     },
     {
-      q: '[ELABORATE] Why is "by each step in war the winner loses" true given the chapter\'s evidence?',
-      a: 'The chapter gives four supports. Severian charges and breaks the Ascian square, but his leg is burned through by enemy fire and he wakes pinned under his dead horse. The broken square does not end the war; the valley is still contested when he loses consciousness. He wakes on a corpse-strewn battlefield alone among dire wolves, which is the literal landscape of victory in this module. Even the Autarch, who arrives in command, is exhausted inside his silk pavilion. Wolfe is showing that what we call winning is just being the last to fall. Every step costs the winner a piece of what they came in with.'
+      q: '[ELABORATE] Why is "by each step in war the winner loses" true given the battle\'s evidence?',
+      a: 'The battle gives four supports. Severian charges and breaks the Ascian square. But his leg is burned through by enemy fire, and he wakes pinned under his dead horse. The broken square does not end the war; the valley is still contested when he loses consciousness. He wakes on a corpse-strewn field alone among dire wolves. That is the literal landscape of victory in this module. Even the Autarch, who arrives in command, is exhausted inside his silk pavilion. What we call winning is just being the last to fall. Every step costs the winner a piece of what they came in with.'
     },
     {
-      q: '[SELF-EXPLAIN] Why does Wolfe title chapter XXIII "The Pelagic Argosy Sights Land" rather than "The Autarch Revealed"?',
-      a: 'Wolfe uses chapter titles as clues, not summaries. The code phrase "The pelagic argosy sights land" is spoken by the Autarch on the battlefield to identify himself to Severian. By making the code phrase the chapter title, Wolfe gives the attentive reader a hint before the scene arrives. "The Autarch Revealed" would be a spoiler. The code phrase title is a puzzle. It makes sense only after you have read the chapter, and then it rewards re-reading.'
+      q: '[SELF-EXPLAIN] Why is the reveal section titled "The Pelagic Argosy Sights Land" rather than "The Autarch Revealed"?',
+      a: 'The section titles work as clues, not summaries. The code phrase "The pelagic argosy sights land" is spoken by the Autarch on the battlefield to identify himself to Severian. Making the code phrase the title gives the attentive reader a hint before the scene arrives. "The Autarch Revealed" would be a spoiler. The code phrase title is a puzzle. It makes sense only after you have read the scene, and then it rewards re-reading.'
     },
     {
       q: 'What is a fusil, and how does it compare to a contus?',
-      a: 'A fusil is an energy weapon carried by man-beasts and Ascians. Severian describes it as more advanced than the conti (plural of contus) used by Commonwealth soldiers. The chapter notes that neither side has a decisive technological edge. This near-equality is itself thematic: the war is not decided by superior weapons but by tactics, morale, and the kind of unconventional intervention (anpiels, the Autarch) that lies outside normal military logic.'
+      a: 'A fusil is an energy weapon carried by man-beasts and Ascians. Severian describes it as more advanced than the conti (plural of contus) used by Commonwealth soldiers. The text notes that neither side has a decisive technological edge. This near-equality is itself thematic: the war is not decided by superior weapons but by tactics, morale, and the kind of unconventional intervention (anpiels, the Autarch) that lies outside normal military logic.'
     },
-    // Chapter 5: Severian Becomes the Autarch
+    // Section 5: Severian Becomes the Autarch
     {
       q: `What is the pharmacon the Autarch carries, and what does consuming it do?`,
       a: `It is a drug like alzabo, already mixed. When Severian consumes it with the Autarch's living forebrain cells, it transfers the Autarch's personality, and all previous Autarchs' personalities, into Severian. He absorbs hundreds of prior rulers at once.`
     },
     {
       q: `How does the Autarch die, and where?`,
-      a: `He dies in an Ascian tent inside the main Ascian camp. An Ascian weapon shot down his flier in Chapter XXV. Vodalus carried him in a palanquin through the jungle for days, then delivered him to the Ascian headquarters.`
+      a: `He dies in an Ascian tent inside the main Ascian camp. An Ascian weapon shot down his flier. Vodalus carried him in a palanquin through the jungle for days, then delivered him to the Ascian headquarters.`
     },
     {
       q: `What weapon does Agia use to wound Severian at the jungle ziggurat?`,
@@ -4862,7 +4509,7 @@ const config = {
       a: `Beings created and sustained by imagination and the concentration of thought. They are physically solid but require a thinking machine's range. Master Malrubius and Triskele are aquastors generated from Severian's memory by the Hierodule ship's thinking machine.`
     },
     {
-      q: `What does Severian find on the beach at Ocean in Chapter XXXI?`,
+      q: `What does Severian find on the beach at Ocean?`,
       a: `A thorn in his forearm from a rose bush, the Claw, perfect and shining black. Every thorn on every bush around him is also a perfect Claw. The beach ends with Severian throwing his boots into the waves to walk on holy ground.`
     },
     {
@@ -4890,28 +4537,20 @@ const config = {
       a: `He is briefing his successor. He knows he is likely to die. Severian must understand the world he is inheriting: the web of spies, the truth about Thecla's death, the fact that Severian himself was once a traitor. These are not confessions, they are the intelligence briefing for the next Autarch.`
     },
     {
-      type: 'basic',
-      front: `The Autarch's system closes roads to "paralyze the social order." Name a real-world policy from any era that had the same logic: deliberately preventing change to preserve stability.`,
-      back: `Many examples apply: China's Great Wall combined with the Ming Dynasty's restrictions on sea travel, deliberately cutting off external connections. The Soviet Union's internal passport system, preventing citizens from moving freely. Medieval guild systems that limited who could enter trades. The logic in each case is: mobility creates instability; control movement to preserve the existing order. Whether the Autarch's version is justified follows the same debate as these real cases.`,
-      tags: ['ch29', 'transfer', 'politics', 'stasis']
+      q: `The Autarch's system closes roads to "paralyze the social order." Name a real-world policy from any era that had the same logic: deliberately preventing change to preserve stability.`,
+      a: `Many examples apply: China's Great Wall combined with the Ming Dynasty's restrictions on sea travel, deliberately cutting off external connections. The Soviet Union's internal passport system, preventing citizens from moving freely. Medieval guild systems that limited who could enter trades. The logic in each case is: mobility creates instability; control movement to preserve the existing order. Whether the Autarch's version is justified follows the same debate as these real cases.`
     },
     {
-      type: 'basic',
-      front: `The Principle of Primitivity says we behave as if ancient conditions still obtain. Give one example from modern behavior where this seems demonstrably true.`,
-      back: `Status anxiety in wealthy societies is one clear example. In ancestral environments, low social status meant reduced access to food, mates, and protection, real survival consequences. In modern wealthy societies, low status is rarely life-threatening, yet the stress response is identical: cortisol spikes, hypervigilance, health impacts. We behave as if social demotion were lethal because it was lethal for most of human prehistory.`,
-      tags: ['ch26', 'transfer', 'primitivity']
+      q: `The Principle of Primitivity says we behave as if ancient conditions still obtain. Give one example from modern behavior where this seems demonstrably true.`,
+      a: `Status anxiety in wealthy societies is one clear example. In ancestral environments, low social status meant reduced access to food, mates, and protection, real survival consequences. In modern wealthy societies, low status is rarely life-threatening, yet the stress response is identical: cortisol spikes, hypervigilance, health impacts. We behave as if social demotion were lethal because it was lethal for most of human prehistory.`
     },
     {
-      type: 'basic',
-      front: `The Autarch argues that his system is simply "the least-bad option." Is this a valid political argument, and under what conditions does it fail?`,
-      back: `It is valid under a specific condition: when the alternatives have actually been tried and found worse, and when the current system does not actively destroy the possibility of better alternatives over time. It fails when used to foreclose options that have never been tried, or when the system itself prevents the development of better alternatives, which the Autarch's road-closing arguably does. The argument is coherent; the evidence base is always contested.`,
-      tags: ['ch29', 'transfer', 'politics', 'autarch']
+      q: `The Autarch argues that his system is simply "the least-bad option." Is this a valid political argument, and under what conditions does it fail?`,
+      a: `It is valid under a specific condition: when the alternatives have actually been tried and found worse, and when the current system does not actively destroy the possibility of better alternatives over time. It fails when used to foreclose options that have never been tried, or when the system itself prevents the development of better alternatives, which the Autarch's road-closing does. The argument is coherent; the evidence base is always contested.`
     },
     {
-      type: 'basic',
-      front: `Severian is moved to accept his mission by Triskele, not by argument. Is this a strength or a weakness in decision-making?`,
-      back: `It depends on what kind of decision it is. For irreversible existential choices, whether to accept a mission that may bring the New Sun, abstract reasoning is insufficient because you cannot reason from first principles about unique events. Particular love (Triskele as ambassador of crippled things Severian failed) gives the decision a motivational anchor that argument cannot provide. The weakness: particular love can be manipulated; rational deliberation at least requires stated premises. The strength: it is the only kind of motivation that actually moves a person.`,
-      tags: ['ch30', 'transfer', 'decision', 'ethics']
+      q: `Severian is moved to accept his mission by Triskele, not by argument. Is this a strength or a weakness in decision-making?`,
+      a: `It depends on what kind of decision it is. For irreversible existential choices, whether to accept a mission that may bring the New Sun, abstract reasoning is insufficient because you cannot reason from first principles about unique events. Particular love (Triskele as ambassador of crippled things Severian failed) gives the decision a motivational anchor that argument cannot provide. The weakness: particular love can be manipulated; rational deliberation at least requires stated premises. The strength: it is the only kind of motivation that actually moves a person.`
     },
     {
       q: `What is the difference between the alzabo rite and the pharmacon ritual?`,
@@ -4926,49 +4565,35 @@ const config = {
       a: `A cacogen is a being not of human birth who has chosen to live among humans. From Greek "bad birth." Father Inire is one. The Autarch names him as a helper who was supposed to assist Severian's escape from the Ascian camp but may not have been able to reach them.`
     },
     {
-      type: 'basic',
-      front: `Wolfe compares the Autarch to the New Testament figure of Legion. Elaborate: what does this allusion add to the character that a straightforward description of "a man with many personalities" would not?`,
-      back: `The Legion allusion adds several layers. First, it frames the Autarch's multiplicity as something terrifying and unwilled, not just unusual, Legion is not a spiritual achievement but a possession. Second, the exorcism narrative is inverted: Severian chooses to accept the Legion, where the Gerasene man tried to be freed from it. Third, the allusion connects the Autarch to something ancient and pre-Commonwealth, he is not a modern institution but an old force wearing the clothes of governance. Fourth, Malrubius calling Severian the Autarch now implies Severian has become Legion too. The allusion does not reduce the character; it deepens the cosmic stakes of what Severian has accepted.`,
-      tags: ['ch29', 'elaborate', 'legion', 'allusion']
+      q: `The text compares the Autarch to the New Testament figure of Legion. Elaborate: what does this allusion add to the character that a straightforward description of "a man with many personalities" would not?`,
+      a: `The Legion allusion adds several layers. First, it frames the Autarch's multiplicity as something terrifying and unwilled, not just unusual, Legion is not a spiritual achievement but a possession. Second, the exorcism narrative is inverted: Severian chooses to accept the Legion, where the Gerasene man tried to be freed from it. Third, the allusion connects the Autarch to something ancient and pre-Commonwealth, he is not a modern institution but an old force wearing the clothes of governance. Fourth, Malrubius calling Severian the Autarch now implies Severian has become Legion too. The allusion does not reduce the character; it deepens the cosmic stakes of what Severian has accepted.`
     },
     {
-      type: 'basic',
-      front: `Elaborate on why the aquastor revelation is not simply a disappointing debunking of the supernatural in the series.`,
-      back: `The aquastor revelation removes one source of apparent supernaturalism (apparitions of Malrubius) and immediately restores another (the Claw on the beach). More importantly, the revelation does not reduce Malrubius to "merely" a machine, the aquastor is built from Severian's idealized memory of his teacher, meaning it carries what the real Malrubius embodied in Severian's life. The thinking machine cannot generate what was never there. The revelation is also incomplete: the Claw at the end of the chapter is not explained by any machine. Wolfe strips one layer of the numinous to show that something beneath it cannot be stripped. The debunking is partial and therefore more powerful.`,
-      tags: ['ch30', 'elaborate', 'aquastor', 'supernatural']
+      q: `Elaborate on why the aquastor revelation is not simply a disappointing debunking of the supernatural in the series.`,
+      a: `The aquastor revelation removes one source of apparent supernaturalism (apparitions of Malrubius) and immediately restores another (the Claw on the beach). More importantly, the revelation does not reduce Malrubius to "merely" a machine, the aquastor is built from Severian's idealized memory of his teacher, meaning it carries what the real Malrubius embodied in Severian's life. The thinking machine cannot generate what was never there. The revelation is also incomplete: the Claw on the beach is not explained by any machine. The story strips one layer of the numinous to show that something beneath it cannot be stripped. The debunking is partial and therefore more powerful.`
     },
     {
-      type: 'basic',
-      front: `Elaborate on Vodalus as a tragic figure rather than a villain, using specific evidence from these chapters.`,
-      back: `Vodalus believed in his cause, he wanted to end the Commonwealth's stasis and reach the stars. He took real risks. He gathered real followers. But the evidence from these chapters shows he was surrounded by betrayal on every side: his main intelligence source was the Autarch himself, meaning the ruler knew everything the revolution planned. His Ascian backers wanted the Autarch delivered as an asset, not as part of a genuine partnership. His consort Agia killed him with Hethor's weapon before he could act on whatever he planned for Severian. He was not corrupt; he was outmatched by a network of more complex actors who used his genuine belief as cover for their own agendas. That is the structure of tragedy, not villainy.`,
-      tags: ['ch27', 'ch30', 'elaborate', 'vodalus']
+      q: `Elaborate on Vodalus as a tragic figure rather than a villain, using specific evidence from these sections.`,
+      a: `Vodalus believed in his cause, he wanted to end the Commonwealth's stasis and reach the stars. He took real risks. He gathered real followers. But the evidence from these sections shows he was surrounded by betrayal on every side: his main intelligence source was the Autarch himself, meaning the ruler knew everything the revolution planned. His Ascian backers wanted the Autarch delivered as an asset, not as part of a genuine partnership. His consort Agia killed him with Hethor's weapon before he could act on whatever he planned for Severian. He was not corrupt; he was outmatched by a network of more complex actors who used his genuine belief as cover for their own agendas. That is the structure of tragedy, not villainy.`
     },
     {
-      type: 'basic',
-      front: `After the events of this module, Severian sails to Ocean and will face the trial. Based on what the Autarch and Malrubius tell him, what do you predict the trial will involve?`,
-      back: `The text gives limited clues: Malrubius says Severian must master "the words of authority" before the tests, and that if he fails his manhood will be taken. The voyage is to Ocean, the great western sea. The Hierodules run candidates through the trial. Given the series's sacramental logic, the trial likely tests whether Severian is worthy to petition for the New Sun, whether he can bring light to a dying world. This is confirmed in the fifth book, The Urth of the New Sun.`,
-      tags: ['ch31', 'predict', 'trial']
+      q: `After the events of this module, Severian sails to Ocean and will face the trial. Based on what the Autarch and Malrubius tell him, what do you predict the trial will involve?`,
+      a: `The text gives limited clues: Malrubius says Severian must master "the words of authority" before the tests, and that if he fails his manhood will be taken. The voyage is to Ocean, the great western sea. The Hierodules run candidates through the trial. Given the series's sacramental logic, the trial likely tests whether Severian is worthy to petition for the New Sun, whether he can bring light to a dying world. This is confirmed in the fifth book, The Urth of the New Sun.`
     },
     {
-      type: 'basic',
-      front: `Severian now contains hundreds of prior Autarchs. Predict one practical problem and one psychological problem this will create for him as ruler.`,
-      back: `Practical: when governing, he may hear dozens of conflicting "memories" from prior Autarchs about how similar situations were handled, the same problem faced by any ruler inheriting an institution, but internalized as competing voices. He must distinguish his own judgment from inherited precedent. Psychological: the prior self he most wants to protect (his bond with Thecla) is now diluted by hundreds of strangers. The bower has become the bazaar. He mourned this before the act; it will likely deepen as the personalities settle.`,
-      tags: ['ch29', 'ch31', 'predict', 'identity']
+      q: `Severian now contains hundreds of prior Autarchs. Predict one practical problem and one psychological problem this will create for him as ruler.`,
+      a: `Practical: when governing, he may hear dozens of conflicting "memories" from prior Autarchs about how similar situations were handled, the same problem faced by any ruler inheriting an institution, but internalized as competing voices. He must distinguish his own judgment from inherited precedent. Psychological: the prior self he most wants to protect (his bond with Thecla) is now diluted by hundreds of strangers. The bower has become the bazaar. He mourned this before the act; it will likely deepen as the personalities settle.`
     },
     {
-      type: 'basic',
-      front: `Explain in your own words: what does "all the world was a relic" mean, and why does it end the book rather than begin it?`,
-      back: `A relic is an object that carries the presence of the sacred, not because the object is special but because the holy touched it. If the Increate rested in the Claw, and the Claw is just a thorn, then the Increate rests in every thorn. Every piece of ground Severian walks on has been touched by the same presence. The world is entirely holy, which means no part of it is more holy than any other. This ends the book rather than beginning it because the recognition requires everything that came before: four books of wandering, carrying the Claw, losing it, finding it again. The insight is earned by the journey, not handed at the start.`,
-      tags: ['ch31', 'self-explain', 'claw', 'relic']
+      q: `Explain in your own words: what does "all the world was a relic" mean, and why does it end the book rather than begin it?`,
+      a: `A relic is an object that carries the presence of the sacred, not because the object is special but because the holy touched it. If the Increate rested in the Claw, and the Claw is just a thorn, then the Increate rests in every thorn. Every piece of ground Severian walks on has been touched by the same presence. The world is entirely holy, which means no part of it is more holy than any other. This ends the book rather than beginning it because the recognition requires everything that came before: four books of wandering, carrying the Claw, losing it, finding it again. The insight is earned by the journey, not handed at the start.`
     },
     {
       q: `What is Thea's relationship to Severian, and where does she appear in this module?`,
-      back: "Thea is Vodalus's consort and Severian's half-sister. She appears at the jungle ziggurat in Chapter XXV when Vodalus's riders bring Severian there after the flier crash. She does not play an active role in these chapters, she is identified and present.",
-      tags: ['ch25', 'basic', 'thea']
+      a: "Thea is Vodalus's consort and Severian's half-sister. She appears at the jungle ziggurat when Vodalus's riders bring Severian there after the flier crash. She does not play an active role in these scenes, she is identified and present."
     },
     {
-      type: 'basic',
-      front: `Who is Paeon, and what role did he play in the Autarch succession?`,
+      q: `Who is Paeon, and what role did he play in the Autarch succession?`,
       a: `Paeon was the Autarch's original mentor, formerly honey-steward at the House Absolute. He trained the sitting Autarch and identified Severian as the next Autarch. The Autarch recalls him as "a servant who rose." Paeon represents the chain of secret knowledge that keeps the succession working across generations.`
     },
     {
@@ -4976,48 +4601,44 @@ const config = {
       a: `A collapsible dome of black metal that glows with sourceless pale light, the Ascian officer headquarters. Three Ascian women officers sit around a low table inside. Vodalus presents both Severian and the unconscious Autarch to them. The Ascians speak in collectivist speech-mode (every statement a quotation from the approved canon). They take both prisoners into Ascian custody.`
     },
     {
-      q: `Why is Hildegrin significant in the Autarch's revelations in Chapter XXV?`,
+      q: `Why is Hildegrin significant in the Autarch's revelations in the flier?`,
       a: `Hildegrin is revealed to have been the Autarch's spy and bodyguard all along. In Book 1, Hildegrin shouted "Run!" to Agia's opponent during Severian's duel, an act that seemed random but was actually the Autarch's agent interfering in the duel to protect Severian. The Autarch names this as evidence that Severian has been watched and guided toward succession for a long time.`
     },
     {
-      type: 'basic',
-      front: `The Claw's final revelation is that the particular sacred dissolves into universal holiness. Find one parallel in a real religious tradition where a specific holy object or place is understood this way.`,
-      back: `The Jewish concept of kavod (divine presence, "glory") is one example: though the Temple was the primary locus of divine presence, the Psalms assert that the whole earth is full of God's glory (Isaiah 6:3). The Shabbat turns ordinary time into holy time by treating it as the seventh day of creation, the same logic as Severian treating all ground as holy ground. In Zen Buddhism, the koan "What is Buddha?" is answered with ordinary things, "three pounds of flax," "the cypress tree in the garden", because Buddha-nature pervades everything, not special objects. The Claw's dissolution parallels all of these.`,
-      tags: ['ch31', 'transfer', 'claw', 'religion']
+      q: `The Claw's final revelation is that the particular sacred dissolves into universal holiness. Find one parallel in a real religious tradition where a specific holy object or place is understood this way.`,
+      a: `The Jewish concept of kavod (divine presence, "glory") is one example: though the Temple was the primary locus of divine presence, the Psalms assert that the whole earth is full of God's glory (Isaiah 6:3). The Shabbat turns ordinary time into holy time by treating it as the seventh day of creation, the same logic as Severian treating all ground as holy ground. In Zen Buddhism, the koan "What is Buddha?" is answered with ordinary things, "three pounds of flax," "the cypress tree in the garden", because Buddha-nature pervades everything, not special objects. The Claw's dissolution parallels all of these.`
     },
     {
-      type: 'basic',
-      front: `The alzabo and pharmacon both work by consuming to contain. Name a real biological mechanism that operates on the same principle.`,
-      back: `Vaccination is one answer: introducing a killed or weakened pathogen into the body so the immune system learns to contain the threat. The body consumes a representation of the dangerous thing and gains the capacity to respond to it. A closer parallel might be gut microbiome colonization in infancy: the infant's immune system learns self-tolerance by being exposed to the microbiome and "consuming" those signatures. The pharmacological principle, ingest to acquire, also appears in mithridatism: Mithridates VI of Pontus reportedly built immunity to poisons by consuming small doses over time.`,
-      tags: ['ch29', 'transfer', 'alzabo', 'pharmacon', 'biology']
+      q: `The alzabo and pharmacon both work by consuming to contain. Name a real biological mechanism that operates on the same principle.`,
+      a: `Vaccination is one answer: introducing a killed or weakened pathogen into the body so the immune system learns to contain the threat. The body consumes a representation of the dangerous thing and gains the capacity to respond to it. A closer parallel might be gut microbiome colonization in infancy: the infant's immune system learns self-tolerance by being exposed to the microbiome and "consuming" those signatures. The pharmacological principle, ingest to acquire, also appears in mithridatism: Mithridates VI of Pontus reportedly built immunity to poisons by consuming small doses over time.`
     },
-    // Chapter 6: Return to the Citadel
+    // Section 6: Return to the Citadel
     {
       q: "What happens when Severian touches the mad prisoner's forehead with the New Claw?",
-      a: "The New Claw is inert. Nothing happens. This is the trigger for the chapter's extended meditation on where the Claw's power comes from. The old Claw healed and raised the dead; the new one does nothing. Severian cannot determine whether the power was always his own, or whether the original Claw was a genuine channel."
+      a: "The New Claw is inert. Nothing happens. This is the trigger for the section's extended meditation on where the Claw's power comes from. The old Claw healed and raised the dead; the new one does nothing. Severian cannot determine whether the power was always his own, or whether the original Claw was a genuine channel."
     },
     {
       q: "What are the two competing theories Severian proposes about the Claw's power?",
-      a: "Theory A: the power is Severian's own, expressed through the Claw as a symbol or suggestion. The Claw focused his unconscious capacity. Theory B: the Hierodules or the Increate gifted him the power externally as part of the New Sun bargain. Both theories are supported by the text. Wolfe does not settle the question."
+      a: "Theory A: the power is Severian's own, expressed through the Claw as a symbol or suggestion. The Claw focused his unconscious capacity. Theory B: the Hierodules or the Increate gifted him the power externally as part of the New Sun bargain. Both theories are supported by the text. The story does not settle the question."
     },
     {
       q: 'Who killed Vodalus, and what happened to the revolutionary movement after his death?',
-      a: 'Agia killed Vodalus. Father Inire\'s letter in chapter XXXV delivers this information. After Vodalus died, Chatelaine Thea tried to command his forces. Inire found her unfit. Agia now commands the revolutionary movement in Thea\'s place. Severian meditates on Agia as "a female Vodalus" who has taken humanity as her opponent.'
+      a: 'Agia killed Vodalus. Father Inire\'s letter delivers this information. After Vodalus died, Chatelaine Thea tried to command his forces. Inire found her unfit. Agia now commands the revolutionary movement in Thea\'s place. Severian meditates on Agia as "a female Vodalus" who has taken humanity as her opponent.'
     },
     {
       q: 'Why does Severian not speak to Dorcas when he finds her in ruined Nessus?',
-      a: 'He watches her from the doorway and leaves silently. Wolfe stages the parting without words because any conversation would falsify the situation. Dorcas is moving backward in time toward her past life forty years ago. Severian is moving forward toward the stars. They no longer share the same present. Silence is the only honest response.'
+      a: 'He watches her from the doorway and leaves silently. The parting happens without words because any conversation would falsify the situation. Dorcas is moving backward in time toward her past life forty years ago. Severian is moving forward toward the stars. They no longer share the same present. Silence is the only honest response.'
     },
     {
       q: "What does the mandragora claim about its relationship to Severian's power?",
       a: 'The mandragora claims to be "an unconscious exercise of your own power, as the Claw was." It directly advances Theory A of the Claw meditation. It also tells Severian he cannot hear others because his own mind shrieks too loudly. Severian does not break the glass, leaving the mandragora\'s ethical demand unanswered.'
     },
     {
-      q: 'What evidence does Wolfe give that Ouen may be related to Severian?',
+      q: 'What evidence does the story give that Ouen may be related to Severian?',
       a: "Ouen's face is nearly identical to Severian's. His mother Cas ran from a monial order and died in childbirth, which matches Catherine's history. The innkeeper blurts \"He looks more like you!\" Severian never states the conclusion, but the chain of evidence points to a blood relationship, probably through Catherine."
     },
     {
-      q: 'What is the temporal loop Severian reveals in the final chapter?',
+      q: 'What is the temporal loop Severian reveals in the final section?',
       a: "Severian deduces that he is not the first person to walk his path. A previous Severian underwent the same journey, became Autarch, sailed beyond the candles of night, and was sent back to when he was young by those who walk the corridors of Time. The series is a causal loop. Severian's life is the cause and the effect of itself."
     },
     {
@@ -5037,15 +4658,11 @@ const config = {
       a: "A quest ends when the hero obtains something. A pilgrimage ends when the pilgrim arrives at a threshold. In Module 06, Severian obtains nothing. He closes threads, gives away his pistol, names the manuscript, and arrives at the Atrium of Time. The last scene is not a victory. It is an arrival. Valeria's name being called is not a prize. It is a door. The ending supports pilgrimage structure, not quest structure."
     },
     {
-      q: 'Transfer: If you were arguing that Wolfe builds the series to reward re-reading, what specific evidence from Module 06 would you cite?',
+      q: 'Transfer: If you were arguing that the series is built to reward re-reading, what specific evidence from Module 06 would you cite?',
       a: "Three examples are strongest. First, Rudesind's motive: on first read, it is a touching backstory; on re-read, he has been shaping Severian since childhood with purpose. Second, the bad coin: only on re-read does the reader notice both coins are described as counterfeit. Third, the tunnel footprints: knowing the loop on re-read makes the two sets of prints a physical manifestation of the causal structure, not just a metaphor."
     },
     {
-      q: 'What is the three-level arms taxonomy in the Appendix?',
-      a: "The Appendix describes three levels of weapons. Smith-level: swords, axes, and pikes made by ordinary craftsmen. Urth-level: energy lances, conti, and siege scorpions made on Urth using surviving older techniques. Stellar-level: weapons made off-world, including the stellar pistol Severian found in the autarchs' quarters. One shot from a stellar pistol incinerates a fireplace. The taxonomy clarifies why the war is asymmetric."
-    },
-    {
-      q: "What is Master Malrubius's cosmological teaching, as Severian transcribes it in chapter XXXIV?",
+      q: "What is Master Malrubius's cosmological teaching, as Severian transcribes it on the homeward voyage?",
       a: 'The universe flowers, seeds, dies, and reflowers in cycles called divine years. In a prior cycle, a human-like race shaped other intelligences into a perfected form. Those shaped beings escaped to Yesod. From Yesod they observe and shape our cycle as they themselves were shaped. The Hierodules are their instruments. The New Sun signals the completion of the first phase of this shaping. Severian transcribes this for the first time in the narrative; Malrubius told him on the ship from the jungle.'
     },
     {
@@ -5057,8 +4674,8 @@ const config = {
       a: 'Severian plans to briefly imprison the guild in the oubliette, to give them "sensitivity to justice," then end the guild\'s work entirely. Palaemon argues that the work of justice must be done by someone, and it must be done by good men. Severian overrules him with the counter that it should not be done at all. He later recruits Roche, Drotte, and Eata to carry out the brief imprisonment.'
     },
     {
-      q: "Elaborate: Why is it true that Wolfe never resolves the question of whether the Claw's power is Severian's own?",
-      a: "Wolfe refuses resolution because the question of authority is the question of the whole series. If Severian's power is his own, he is a godlike being pretending to be a servant. If it is given externally, he is a vessel with no independent value. Either resolution would collapse the tension that makes the character interesting. The ambiguity is load-bearing. Severian must act without knowing the answer, which is Wolfe's definition of faith."
+      q: "Elaborate: Why is it true that the story never resolves the question of whether the Claw's power is Severian's own?",
+      a: "The story refuses resolution because the question of authority is the question of the whole series. If Severian's power is his own, he is a godlike being pretending to be a servant. If it is given externally, he is a vessel with no independent value. Either resolution would collapse the tension that makes the character interesting. The ambiguity is load-bearing. Severian must act without knowing the answer, which is the series' definition of faith."
     },
     {
       q: "Elaborate: Why is it true that the bad-coin scene is a structural echo of the series' opening?",
@@ -5074,19 +4691,19 @@ const config = {
     },
     {
       q: 'Predict: What do you expect to happen to Dorcas after the events of Module 06?',
-      a: "The text does not show Dorcas's fate. Severian gives Ouen the stellar pistol and instructs him to persuade her to leave Nessus. Abaia's forces are moving south toward the city. If Ouen succeeds, Dorcas leaves. If he fails, she remains in a city about to be reached by an army serving an aquatic power. Wolfe leaves this open. The reader who cares about Dorcas must live with not knowing."
+      a: "The text does not show Dorcas's fate. Severian gives Ouen the stellar pistol and instructs him to persuade her to leave Nessus. Abaia's forces are moving south toward the city. If Ouen succeeds, Dorcas leaves. If he fails, she remains in a city about to be reached by an army serving an aquatic power. The story leaves this open. The reader who cares about Dorcas must live with not knowing."
     },
     {
-      q: "Self-explain: Why does Wolfe stage Palaemon's recognition of Severian through voice rather than sight?",
-      a: "Palaemon is nearly blind. He does not recognize Severian in ceremonial dress by sight. He is frightened by the apparition. When Severian speaks his name, Palaemon weeps. The staging puts the recognition in the voice, not the face. This is the correct register for Wolfe's ending: Severian's autarchal appearance is new, but his voice is unchanged. The voice is the proof of continuity. It is the thing that cannot be given to him by the castellan or taken away by the war."
+      q: "Self-explain: Why is Palaemon's recognition of Severian staged through voice rather than sight?",
+      a: "Palaemon is nearly blind. He does not recognize Severian in ceremonial dress by sight. He is frightened by the apparition. When Severian speaks his name, Palaemon weeps. The staging puts the recognition in the voice, not the face. This is the right register for the ending: Severian's autarchal appearance is new, but his voice is unchanged. The voice is the proof of continuity. It is the thing that cannot be given to him by the castellan or taken away by the war."
     },
     {
       q: "What does the stellar pistol reveal about the ancient autarchs' quarters?",
       a: 'The pistol is hidden in a drawer, still charged after centuries. It was placed there by someone who expected it might be needed later. The quarters hold papers on matters now forgotten. The microcosm stirs to life. The mandragora has been preserved for centuries. The quarters are a repository of technologies and beings from earlier autarchs, maintained in suspension. The pistol is the most actionable item. Everything else is preserved. Nothing else fires.'
     },
     {
-      q: 'Transfer: How would you use the Dorcas parting scene to argue that Wolfe systematically refuses consolation at the ends of his major relationships?',
-      a: "Every major relationship in the series ends without closure. Jonas dissolves into a mirror. Thecla merges into Severian. The Autarch dies after giving Severian his memories. Dorcas is found but not spoken to. In each case, Wolfe stages the ending as withdrawal rather than conversation. The Dorcas parting is the clearest example because it is entirely Severian's choice: he could speak to her. He does not. The refusal of consolation is the point, not a failure of the narrative."
+      q: 'Transfer: How would you use the Dorcas parting scene to argue that the series systematically refuses consolation at the ends of its major relationships?',
+      a: "Every major relationship in the series ends without closure. Jonas dissolves into a mirror. Thecla merges into Severian. The Autarch dies after giving Severian his memories. Dorcas is found but not spoken to. In each case, the ending is staged as withdrawal rather than conversation. The Dorcas parting is the clearest example because it is entirely Severian's choice: he could speak to her. He does not. The refusal of consolation is the point, not a failure of the narrative."
     },
     {
       q: 'What two sets of footprints does Severian find in the tunnel beneath the Citadel?',
@@ -5110,11 +4727,11 @@ const config = {
     },
     {
       q: "Self-explain: Why does the book end on Valeria's name being called rather than on Severian's departure?",
-      a: "Severian's departure is the next chapter of his life, not the end of the manuscript. The manuscript ends where Severian's pen stops. His pen stops in the garden because the garden is the threshold. The voice calling Valeria's name is the last sound before the door opens. Wolfe ends on a name being called rather than a door opening because the opening of the door is not in this story. It is in the sequel Severian is about to live. The ending is a promise, not a resolution."
+      a: "Severian's departure is the next section of his life, not the end of the manuscript. The manuscript ends where Severian's pen stops. His pen stops in the garden because the garden is the threshold. The voice calling Valeria's name is the last sound before the door opens. The book ends on a name being called rather than a door opening because the opening of the door is not in this story. It is in the sequel Severian is about to live. The ending is a promise, not a resolution."
     },
     {
       q: 'What is the significance of the lead coffer Severian plans to set adrift?',
-      a: 'Severian will seal a second copy of the manuscript in a lead coffer and set it adrift "on the seas of space and time." This is the mechanism by which the book reaches Wolfe\'s fictional translator. It is also an act of faith: Severian cannot know the coffer will reach anyone. He sends it anyway. The lead coffer makes the book an artifact in the story\'s cosmology, not just a narrative device. The series is literally the object inside the coffer.'
+      a: 'Severian will seal a second copy of the manuscript in a lead coffer and set it adrift "on the seas of space and time." This is the mechanism by which the book reaches its distant translator, the figure who claims to have rendered it into our language. It is also an act of faith: Severian cannot know the coffer will reach anyone. He sends it anyway. The lead coffer makes the book an artifact in the story\'s cosmology, not just a narrative device. The series is literally the object inside the coffer.'
     },
     {
       q: 'Transfer: If you were defending the structural decision to end the series in the Atrium of Time rather than with the star voyage, what argument would you make?',
@@ -5137,15 +4754,15 @@ const config = {
       a: '"Chosen" is the operative word. Severian frames Agia\'s position as a decision about identity, not just a political accident. Vodalus was defined by his opposition to the established order. Agia has not merely inherited his organization. She has adopted his defining characteristic: taking humanity as the enemy. Severian\'s phrasing implies that Agia, who was once a person with particular grievances, has now become an abstraction. She has chosen to be the thing that opposes, rather than the person who opposes specific things.'
     },
     {
-      q: 'What does the sign on the mausoleum graven with a rose, fountain, and flying ship mean to Severian in the final chapter?',
+      q: 'What does the sign on the mausoleum graven with a rose, fountain, and flying ship mean to Severian in the final section?',
       a: 'Severian recognizes the mausoleum as his own future tomb. He has "disturbed his own tomb, and now goes to lie in it." The rose, fountain, and flying ship on the facade are symbols of the life he has lived and the voyage he is about to undertake. The mausoleum was there in Book 1 as a childhood playground. Knowing it is his own tomb in Module 06 is the loop\'s most personal manifestation: the place he played as a child is the monument to the Autarch he became.'
     },
     {
-      q: 'Predict: Given the evidence Wolfe provides, will Baldanders appear again in the sequel series?',
-      a: 'Talos believes Baldanders survived by breathing water. Baldanders is the self-created being who severed himself from the Increate\'s chain. These traits make him functionally immortal and unresolvable. Talos does not know where he is. Severian does not pursue him. Whether Baldanders appears in the sequel is outside this module\'s scope, but Wolfe plants enough ambiguity that a return is reasonable. The "unique genius" who can breathe water and stand behind himself is too unusual a figure to be simply abandoned.'
+      q: 'Predict: Given the evidence the story provides, will Baldanders appear again in the sequel series?',
+      a: 'Talos believes Baldanders survived by breathing water. Baldanders is the self-created being who severed himself from the Increate\'s chain. These traits make him functionally immortal and unresolvable. Talos does not know where he is. Severian does not pursue him. Whether Baldanders appears in the sequel is outside this module\'s scope, but the story plants enough ambiguity that a return is reasonable. The "unique genius" who can breathe water and stand behind himself is too unusual a figure to be simply abandoned.'
     },
     {
-      q: "What is the contrast Wolfe draws between the castellan and Master Palaemon as old men in Severian's service?",
+      q: "What is the contrast the story draws between the castellan and Master Palaemon as old men in Severian's service?",
       a: 'The castellan is a pragmatic old soldier. He reads wounds, immediately subordinates himself, equips Severian efficiently, and becomes useful. Palaemon is a scholar and visionary. He insists on argument, sees the youth Severian was even while speaking to the Autarch, and contests the decision to end the guild. One serves power. The other contests it. Both are admirable. The contrast is not between loyalty and disloyalty but between service through action and service through principle.'
     },
     {
@@ -5157,7 +4774,7 @@ const config = {
       a: 'Severian does not issue orders at a distance. He acts through personal presence and direct experience. The coin retrieval is a ritual of continuity: he must confirm that the boy and the Autarch are the same person before he governs as Autarch. The guild reform requires that grounding. He also needs to be in the necropolis area to receive Talos, whose visit follows. The sequence is not bureaucratic. It is the way Severian has always operated: do the personal thing first, then the institutional one.'
     },
     {
-      q: 'Predict: What does the guild debate in chapter XXXIII reveal about how Severian will handle opposition from advisors throughout his reign?',
+      q: 'Predict: What does the guild debate with Palaemon reveal about how Severian will handle opposition from advisors throughout his reign?',
       a: 'The Palaemon exchange sets the pattern. Severian listens to the full argument. He does not dismiss Palaemon. He overrules him and states the counter clearly: "Between us, Master, we have decided it should not be done at all." He then moves on without rancor. The pattern suggests a ruler who will hear opposition, engage it on its own terms, and then act on his own judgment without punishing disagreement. He is not an autocrat who demands silence. He is an autocrat who listens and then decides alone.'
     }
   ],
@@ -5174,21 +4791,21 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">Severian</span>
           <div className="lrn-definition-desc">
-            <p>{`Narrator and protagonist. Former torturer's journeyman, former lictor of Thrax, now wandering alone toward the war front. Carries the Claw of the Conciliator and Thecla's memories. Tells this story in retrospect after becoming the Autarch.`}</p>
+            <p>{`Narrator and protagonist, carried over from Books 1 to 3. In Book 4 he wanders alone toward the war front, carrying the Claw and Thecla's memories.`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">The resurrected soldier</span>
           <div className="lrn-definition-desc">
-            <p>{`Young, blond, unnamed Commonwealth infantryman. Killed without visible wound near the military road. Author of the unsent letter. Revived by the Claw at the end of chapter 1. Becomes Severian's companion on the walk to the road.`}</p>
+            <p>{`Young, blond, unnamed Commonwealth infantryman. Killed without visible wound near the military road. Author of the unsent letter. Revived by the Claw at the end of section 1. Becomes Severian's companion on the walk to the road.`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">Makar</span>
           <div className="lrn-definition-desc">
-            <p>{`A soldier named in the letter. He fell sick and was allowed to remain behind during the march. Mentioned only; does not appear in the chapter.`}</p>
+            <p>{`A soldier named in the letter. He fell sick and was allowed to remain behind during the march. Mentioned only; does not appear in the section.`}</p>
           </div>
         </div>
 
@@ -5202,35 +4819,35 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">Abdiesus</span>
           <div className="lrn-definition-desc">
-            <p>{`Named in passing. His dimarchi (cavalry) wore red capes. The cavalry officer Severian glimpsed on the road wore green, so he was not one of Abdiesus's. Abdiesus was the Archon of Thrax in Book 3.`}</p>
+            <p>{`Archon of Thrax in Book 3. In Book 4 he is named only in passing: his dimarchi wore red capes, and the road officer's green cape shows he is not one of his.`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">Dorcas</span>
           <div className="lrn-definition-desc">
-            <p>{`Severian's companion from Books 2 and 3. Left him to find her own past. Appears in this chapter only as memory during the night vigil.`}</p>
+            <p>{`Severian's companion from Books 2 and 3, who left to find her own past. In Book 4 she returns only as memory during the night vigil.`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">Vodalus</span>
           <div className="lrn-definition-desc">
-            <p>{`Noble revolutionary whose followers call themselves the Vodalarü. Mentioned in the soldier's letter (as the enemy) and in Severian's night reverie. It is the letter's mention of Vodalus that finally triggers Severian's memory of the Claw.`}</p>
+            <p>{`Noble revolutionary from the earlier books, whose followers call themselves the Vodalarü. In Book 4 the letter's mention of him triggers Severian's memory of the Claw.`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">Famulimus</span>
           <div className="lrn-definition-desc">
-            <p>{`An alien or non-human being from earlier books. Used by Severian as a measure of strangeness: war's inhabitants are more alien than even Famulimus.`}</p>
+            <p>{`A non-human being from earlier books. In Book 4 Severian uses her as a measure of strangeness: war's inhabitants are more alien than even Famulimus.`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">Master Gurloes</span>
           <div className="lrn-definition-desc">
-            <p>{`Severian's former guild master at the Citadel in Nessus. He gave Severian the cloak at his journeyman ceremony. Recalled when Severian notices how worn the cloak has become.`}</p>
+            <p>{`Severian's former guild master from the earlier books. In Book 4 he is recalled as the giver of the now-worn guild cloak.`}</p>
           </div>
         </div>
 
@@ -5244,14 +4861,14 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">Morwenna</span>
           <div className="lrn-definition-desc">
-            <p>{`Executed by Severian at Saltus in Book 2. Recalled during the night reverie as a type of person who "betrays not for a present rival but for their own pasts."`}</p>
+            <p>{`Executed by Severian at Saltus in Book 2. In Book 4 she is recalled as a type who "betrays not for a present rival but for their own pasts."`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">Eata</span>
           <div className="lrn-definition-desc">
-            <p>{`Severian's childhood friend at the Citadel. Appears in Severian's night reverie at the necropolis gate. Not present in Book 4 in person.`}</p>
+            <p>{`Severian's childhood friend from the earlier books. In Book 4 he appears only in the night reverie at the necropolis gate.`}</p>
           </div>
         </div>
 
@@ -5264,7 +4881,7 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">Orithyia</span>
           <div className="lrn-definition-desc">
-            <p>{`The region where the chapter's second half takes place. Warmer than the mountains or Lake Diuturna. Severian camps here with the resurrected soldier through the night.`}</p>
+            <p>{`The region where the section's second half takes place. Warmer than the mountains or Lake Diuturna. Severian camps here with the resurrected soldier through the night.`}</p>
           </div>
         </div>
 
@@ -5292,7 +4909,7 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">Thrax</span>
           <div className="lrn-definition-desc">
-            <p>{`The mountain city where Severian served as lictor in Book 3. Mentioned in the opening reflection as part of his past. He left it (under unclear circumstances) before Book 4 begins.`}</p>
+            <p>{`The mountain city where Severian served as lictor in Book 3. In Book 4 it is named only in the opening reflection, as part of the past he has left.`}</p>
           </div>
         </div>
 
@@ -5302,7 +4919,7 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">The Claw of the Conciliator</span>
           <div className="lrn-definition-desc">
-            <p>{`A blue gemstone relic with miraculous power. Severian carries it in a sapphire case. It works by touch. Pressing it to a dead man's forehead causes fresh blood to well from dead skin. It has raised the dead before (an uhlan on the road to the House Absolute, in Book 2). Severian does not understand its mechanism.`}</p>
+            <p>{`The blue gemstone relic Severian has carried since Book 2, with miraculous power he does not understand. In Book 4 he presses it to the dead soldier's forehead and fresh blood wells from the skin.`}</p>
           </div>
         </div>
 
@@ -5354,21 +4971,21 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">smilodons</span>
           <div className="lrn-definition-desc">
-            <p>{`Large feline predators. Their pug-marks in this chapter are the size of dinner plates. They drink only after gorging and are not dangerous unless disturbed. Severian knows this from Thecla's inherited memory.`}</p>
+            <p>{`Large feline predators, known from the earlier books. In Book 4 their dinner-plate pug-marks appear on the road; Thecla's inherited memory tells Severian they are safe unless disturbed.`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">dimarchi</span>
           <div className="lrn-definition-desc">
-            <p>{`Cavalry troops. Abdiesus commanded dimarchi who wore red capes. The officer Severian sees wears green, which means he is not one of Abdiesus's.`}</p>
+            <p>{`Cavalry troops, known from Book 3. In Book 4 the red-caped dimarchi were Abdiesus's; the green-caped road officer is not.`}</p>
           </div>
         </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">destrier</span>
           <div className="lrn-definition-desc">
-            <p>{`A warhorse. Large, powerful, war-trained. The cavalry officer's horse is foam-mouthed, meaning it has been ridden hard.`}</p>
+            <p>{`A war-trained horse, known from the earlier books. In Book 4 the road officer's destrier is foam-mouthed, meaning it has been ridden hard.`}</p>
           </div>
         </div>
 
@@ -5376,20 +4993,6 @@ const config = {
           <span className="lrn-definition-term">barbute</span>
           <div className="lrn-definition-desc">
             <p>{`An open-faced helmet. The dead soldier's barbute has rolled from his head when Severian finds him.`}</p>
-          </div>
-        </div>
-
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">falchion</span>
-          <div className="lrn-definition-desc">
-            <p>{`A short, single-edged curved sword. The dead soldier's weapon.`}</p>
-          </div>
-        </div>
-
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">coutel</span>
-          <div className="lrn-definition-desc">
-            <p>{`A belt knife. The soldier's, used by Severian to cut the pack straps.`}</p>
           </div>
         </div>
 
@@ -5422,7 +5025,7 @@ const config = {
         </div>
 
         <h2>Quotable Lines</h2>
-        <p>When to look here: to locate the exact wording of a key passage from Chapter 1.</p>
+        <p>When to look here: to locate the exact wording of a key passage from Section 1.</p>
 
         <blockquote className="lrn-callout">
           <p>{`"War is not a new experience; it is a new world. Its inhabitants are more different from human beings than Famulimus and her friends."`}</p>
@@ -5448,15 +5051,15 @@ const config = {
           <p>{`"…the world of war is stalked by the monsters called battles, whose cells are individuals but who have a life and intelligence of their own."`}</p>
         </blockquote>
       </>,
-      // Chapter 2: The Lazaret of the Pelerines
+      // Section 2: The Lazaret of the Pelerines
       <>
         <div className="ref-header">
           <span className="ref-label">QUICK REFERENCE</span>
-          <h1>The Lazaret of the Pelerines</h1>
+          <h2>The Lazaret of the Pelerines</h2>
           <p className="ref-lead">
-            Chapter 2 of The Citadel of the Autarch. Severian and the resurrected soldier reach a
-            Pelerine field hospital near the war front and stay across eight subchapters. The
-            chapter sharpens three open questions without settling any of them.
+            Section 2 of The Citadel of the Autarch. Severian and the resurrected soldier reach a
+            Pelerine field hospital near the war front and stay across eight subsections. The
+            section sharpens three open questions without settling any of them.
           </p>
         </div>
 
@@ -5472,7 +5075,7 @@ const config = {
             <div className="ref-item">
               <span className="ref-label">Miles, possibly Jonas</span>
               <p>
-                The resurrected soldier from Chapter 1. Named Miles in this chapter. May be Jonas
+                The resurrected soldier from Section 1. Named Miles in this section. May be Jonas
                 returned through Father Inire's mirrors.
               </p>
             </div>
@@ -5560,14 +5163,13 @@ const config = {
           </div>
         </div>
       </>,
-      // Chapter 3: The Road to the War
+      // Section 3: The Road to the War
       <>
         <h2>Module Skeleton</h2>
 
         <p>
-          Module 03 of <em>The Citadel of the Autarch</em>. Covers chapters XI–XVII. Roughly 47
-          pages. Severian's setting moves from convalescence in the lazaret to the Last House twenty
-          leagues north.
+          Section 3 of <em>The Citadel of the Autarch</em>. The setting moves from Severian's
+          convalescence in the lazaret to the Last House, twenty leagues north.
         </p>
 
         <viz.Ch03StructureDiagram />
@@ -5577,11 +5179,12 @@ const config = {
         <div className="ref-grid">
           <div className="ref-item">
             <strong>Severian</strong>, narrator; lictor of the Torturers' guild; convalescing from
-            the leaf-of-the-avern wound; surrenders the Claw in chapter XIV; sent north by Mannea.
+            the leaf-of-the-avern wound; surrenders the Claw to the senior Pelerine; sent north by
+            Mannea.
           </div>
           <div className="ref-item">
             <strong>Foila</strong>, postulant; interpreter of Ascian; arbiter of the contest; enters
-            her own tale in chapter XIII.
+            her own tale in the contest.
           </div>
           <div className="ref-item">
             <strong>Melito · Hallvard</strong>, bedridden suitors; competed in earlier modules;
@@ -5753,7 +5356,7 @@ const config = {
             high. Carried outside, his probability collapses and he vanishes.
           </p>
           <p>
-            <strong>When to use:</strong> as the rule that predicts the chapter's ending the moment
+            <strong>When to use:</strong> as the rule that predicts the section's ending the moment
             Severian decides to use force.
           </p>
         </div>
@@ -5796,8 +5399,7 @@ const config = {
             in spirit (their culture has sold something).
           </p>
           <p>
-            <strong>When to use:</strong> for questions about Wolfe's symbolic naming of the
-            Ascians.
+            <strong>When to use:</strong> for questions about how the story names the Ascians.
           </p>
         </div>
       </>,
@@ -5811,7 +5413,7 @@ const config = {
           <span className="ref-formula-name">On stories</span>
           <p>{`"Of all the good things in the world, the only ones humanity can claim for itself are stories and music; the rest, mercy, beauty, sleep, clean water and hot food are all the work of the Increate."`}</p>
           <p>
-            <strong>When to use:</strong> for any question on Wolfe's value-placing of narrative.
+            <strong>When to use:</strong> for any question on how the story values narrative.
           </p>
         </div>
 
@@ -5819,8 +5421,8 @@ const config = {
           <span className="ref-formula-name">Winnoc's verdict</span>
           <p>{`"Because you would have said the other."`}</p>
           <p>
-            <strong>When to use:</strong> as the chapter XII pivot, proof that cruelty has a grammar
-            and honesty has another.
+            <strong>When to use:</strong> as the pivot of Winnoc's night confession, proof that
+            cruelty has a grammar and honesty has another.
           </p>
         </div>
 
@@ -5836,7 +5438,7 @@ const config = {
           <span className="ref-formula-name">Ash on time</span>
           <p>{`"It is a weaving, a tapestry that extends forever in all directions. I follow a thread backward. You will trace a color forward."`}</p>
           <p>
-            <strong>When to use:</strong> as the central image of chapter XVII.
+            <strong>When to use:</strong> as the central image of the Last House scene.
           </p>
         </div>
 
@@ -5844,7 +5446,7 @@ const config = {
           <span className="ref-formula-name">Ash on religion and science</span>
           <p>{`"Religion and science have always been matters of faith in something. It is the same something."`}</p>
           <p>
-            <strong>When to use:</strong> for questions about the chapter's epistemic stance.
+            <strong>When to use:</strong> for questions about the section's epistemic stance.
           </p>
         </div>
 
@@ -5857,88 +5459,89 @@ const config = {
           </p>
         </div>
       </>,
-      // Chapter 4: The Autarch and the Great Battle
+      // Section 4: The Autarch and the Great Battle
       <>
         <h2>Cast</h2>
         <ul className="lrn-list">
           <li>
             <strong>Severian</strong>. Narrator; ex-torturer; joins the 18th Bacele; wounded in the
-            battle; lifted to safety by Mamillian. Function: viewpoint character. Appears in:
-            chapters XVIII to XXIV.
+            battle; lifted to safety by Mamillian. Function: viewpoint character. Present from the
+            ruined lazaret through to boarding the flier.
           </li>
           <li>
-            <strong>Master Ash</strong>. Anchorite; fades and vanishes in chapter XVIII; emblem of
-            loneliness and illusory perception. Function: opening ghost figure. Appears in: chapter
-            XVIII.
+            <strong>Master Ash</strong>. Anchorite; fades and vanishes at the ruined lazaret; emblem
+            of loneliness and illusory perception. Function: opening ghost figure. Appears in
+            Foila's request at the ruined lazaret.
           </li>
           <li>
             <strong>Foila</strong>. Dying Pelerine survivor; asks Severian to retell the stories;
             her request frames the entire story-within-story structure. Function: hinge of the
-            module's frame. Appears in: chapter XVIII.
+            module's frame. Appears in Foila's request at the ruined lazaret.
           </li>
           <li>
             <strong>Ibar</strong>. Uhlan of the 78th Xenagie; tells Severian the lazaret moved to
-            Media Pars. Function: directs Severian to the ruined lazaret. Appears in: chapter XVIII.
+            Media Pars. Function: directs Severian to the ruined lazaret. Appears in Foila's request
+            at the ruined lazaret.
           </li>
           <li>
             <strong>Guasacht</strong>. Condottiere of the 18th Bacele; short, bowlegged, pragmatic;
-            effective but dishonest. Function: mercenary captain and foil to Severian. Appears in:
-            chapters XIX to XXII.
+            effective but dishonest. Function: mercenary captain and foil to Severian. Appears from
+            joining the 18th Bacele through the valley battle.
           </li>
           <li>
             <strong>Erblon</strong>. Guasacht's second-in-command; carries the bacele's flag and
-            graisle; killed in battle. Function: marks the cost of the charge. Appears in: chapters
-            XIX to XXII.
+            graisle; killed in battle. Function: marks the cost of the charge. Appears from joining
+            the 18th Bacele through the valley battle.
           </li>
           <li>
             <strong>Daria</strong>. Red-haired irregular fighter; initiates Severian; counsels him
             on fear before the battle. Function: pragmatic counterweight to his theorizing. Appears
-            in: chapters XIX and XXI.
+            at the joining of the 18th Bacele and again before the battle.
           </li>
           <li>
             <strong>Mesrop</strong>. Cynical trooper of the Contarü; pragmatic commentator on the
-            battle. Function: chorus voice on military reality. Appears in: chapter XXI.
+            battle. Function: chorus voice on military reality. Appears in the deployment.
           </li>
           <li>
             <strong>Man-beast (urning)</strong>. One of three Autarch-loyal hybrid guards inside the
             steel coach; face shifts between mastiff and human; honor-bound to the gold. Function:
-            honor as a higher law than reason. Appears in: chapter XX.
+            honor as a higher law than reason. Appears in the steel-coach standoff.
           </li>
           <li>
             <strong>Ascian officer</strong>. Captured commander; speaks Commonwealth tongue via
             Correct Thought phrases; negotiates with Severian. Function: shows Correct Thought in
-            action. Appears in: chapter XX.
+            action. Appears in the steel-coach standoff.
           </li>
           <li>
             <strong>Anpiels</strong>. Winged female soldiers; two pistols each; rainbow wings;
             descend from clouds to resolve the coach standoff. Function: technological elite
-            intervention. Appears in: chapter XX.
+            intervention. Appears in the steel-coach standoff.
           </li>
           <li>
             <strong>Daughters of War</strong>. Bejeweled women in gilded howdahs on arsinoithers;
             sacred and forbidden; charge straight through all obstacles. Function: sacred military
-            register. Appears in: chapter XXII.
+            register. Appears in the valley battle.
           </li>
           <li>
             <strong>The Autarch</strong>. Androgyne ruler of the Commonwealth; revealed on
             Mamillian's back; composite of absorbed predecessors; runs a brothel in the Algedonic
-            Quarter; pilots the flier. Function: the module's central revelation. Appears in:
-            chapters XXIII and XXIV.
+            Quarter; pilots the flier. Function: the module's central revelation. Appears in the
+            Autarch's revelation and the boarding of the flier.
           </li>
           <li>
             <strong>Mamillian</strong>. The Autarch's war-mammoth; plays a bent orphicleide; lifts
             Severian to safety; carries the trilhoen. Function: vehicle for the Autarch's arrival.
-            Appears in: chapter XXIII.
+            Appears in the Autarch's revelation in the silk pavilion.
           </li>
           <li>
             <strong>Woman-cats</strong>. Feline-headed Autarch servants; nurse Severian; recognize
-            the trace of Thecla in him. Function: confirm composite identity by sight. Appears in:
-            chapter XXIII.
+            the trace of Thecla in him. Function: confirm composite identity by sight. Appears in
+            the Autarch's revelation in the silk pavilion.
           </li>
           <li>
             <strong>Miles-Jonas</strong>. Sought but never found; Severian wanted to ask him about
             the country of the dead for Dorcas's sake. Function: marks the unresolved Dorcas wound.
-            Appears in: chapter XIX (mentioned only).
+            Mentioned only, at the joining of the 18th Bacele.
           </li>
         </ul>
 
@@ -5946,38 +5549,38 @@ const config = {
         <ul className="lrn-list">
           <li>
             <strong>Mamillian</strong>. War-mammoth; enormous; carries Autarch and trilhoen. Appears
-            in: chapter XXIII.
+            in the Autarch's revelation in the silk pavilion.
           </li>
           <li>
             <strong>Arsinoithers</strong>. Two-horned beasts ridden by the Daughters of War; charge
-            straight and unstoppable. Appears in: chapter XXII.
+            straight and unstoppable. Appears in the valley battle.
           </li>
           <li>
             <strong>Urningos / Man-beasts</strong>. Engineered half-human hybrids; face flickers
-            between mastiff and human; serve the Autarch. Appears in: chapter XX.
+            between mastiff and human; serve the Autarch. Appears in the steel-coach standoff.
           </li>
           <li>
             <strong>Anpiels</strong>. Winged female soldiers; rainbow wings; two pistols each.
-            Appears in: chapter XX.
+            Appears in the steel-coach standoff.
           </li>
           <li>
-            <strong>Cherkajis</strong>. Light cavalry skirmishers; Commonwealth army. Appears in:
-            chapter XXII.
+            <strong>Cherkajis</strong>. Light cavalry skirmishers; Commonwealth army. Appears in the
+            valley battle.
           </li>
           <li>
             <strong>Peltasts</strong>. Infantry with transparent shields and blazing spears. Appears
-            in: chapter XXII.
+            in the valley battle.
           </li>
           <li>
-            <strong>Hobilers</strong>. Light cavalry with bows. Appears in: chapter XXII.
+            <strong>Hobilers</strong>. Light cavalry with bows. Appears in the valley battle.
           </li>
           <li>
-            <strong>Dire wolves</strong>. On the silent battlefield when Severian wakes. Appears in:
-            chapter XXIII.
+            <strong>Dire wolves</strong>. On the silent battlefield when Severian wakes. Appears in
+            the Autarch's revelation in the silk pavilion.
           </li>
           <li>
             <strong>Destriers</strong>. Engineered war-horses with fang-like forward hooves. Appears
-            in: chapters XIX to XXII.
+            from joining the 18th Bacele through the valley battle.
           </li>
         </ul>
 
@@ -5985,23 +5588,23 @@ const config = {
         <ul className="lrn-list">
           <li>
             <strong>Last House ruins</strong>. Where Severian wakes at the start; where Master Ash
-            fades. Appears in: chapter XVIII.
+            fades. Appears in Foila's request at the ruined lazaret.
           </li>
           <li>
             <strong>Media Pars</strong>. Location of the destroyed lazaret; crater and shattered
-            trees. Appears in: chapter XVIII.
+            trees. Appears in Foila's request at the ruined lazaret.
           </li>
           <li>
             <strong>The valley</strong>. Site of the great battle; Ascian checkerboard infantry on
-            one side, Commonwealth forces on the other. Appears in: chapter XXII.
+            one side, Commonwealth forces on the other. Appears in the valley battle.
           </li>
           <li>
             <strong>The Autarch's silk pavilion</strong>. Where Severian recovers; where the Autarch
-            reveals himself. Appears in: chapter XXIII.
+            reveals himself. Appears in the Autarch's revelation in the silk pavilion.
           </li>
           <li>
             <strong>Algedonic Quarter</strong>. District of Nessus where the Autarch runs his secret
-            brothel. Referenced in: chapter XXIII.
+            brothel. Referenced in the Autarch's revelation scene.
           </li>
         </ul>
 
@@ -6009,39 +5612,42 @@ const config = {
         <ul className="lrn-list">
           <li>
             <strong>Contus</strong>. Long energy-projecting weapon; Severian's primary ranged
-            weapon; cut through in battle. Appears in: chapters XIX to XXII.
+            weapon; cut through in battle. Appears from joining the 18th Bacele through the valley
+            battle.
           </li>
           <li>
             <strong>Falchion</strong>. Rusty single-edged sword Severian finds on the road and
-            cleans. Appears in: chapter XIX.
+            cleans. Appears in joining the 18th Bacele.
           </li>
           <li>
             <strong>Graisle</strong>. Brass military trumpet; Erblon carries it; lost when he is
-            killed. Appears in: chapters XXI and XXII.
+            killed. Appears in the deployment and the valley battle.
           </li>
           <li>
             <strong>Trilhoen</strong>. Heavy weapon with a dark lens mounted on Mamillian's back.
-            Appears in: chapter XXIII.
+            Appears in the Autarch's revelation in the silk pavilion.
           </li>
           <li>
             <strong>Brown book</strong>. Severian's memoir; the text the reader is reading; Foila's
-            request is the reason the stories appear in it. Appears in: chapter XVIII.
+            request is the reason the stories appear in it. Appears in Foila's request at the ruined
+            lazaret.
           </li>
           <li>
             <strong>Code phrase</strong>. "The pelagic argosy sights land"; the Autarch's
-            recognition signal to Severian. Appears in: chapter XXIII.
+            recognition signal to Severian. Appears in the Autarch's revelation in the silk
+            pavilion.
           </li>
           <li>
             <strong>Antimaterial flier</strong>. Uses anti-iron in a penning trap for lift; Severian
-            and the Autarch board it. Appears in: chapter XXIV.
+            and the Autarch board it. Appears in boarding the flier.
           </li>
           <li>
             <strong>Shotel</strong>. Curved double-edged sword used by blind Ascian warriors.
-            Appears in: chapter XXII.
+            Appears in the valley battle.
           </li>
           <li>
             <strong>Pentadactyl</strong>. Five-armed Ascian flying war machine; scatters horses;
-            triggers Severian's fear. Appears in: chapter XXI.
+            triggers Severian's fear. Appears in the deployment.
           </li>
         </ul>
 
@@ -6050,487 +5656,750 @@ const config = {
           <li>
             <strong>Composite identity</strong>. The Autarch absorbs predecessors and is literally
             plural. Severian contains Thecla. Both are lonely despite (because of) containing
-            others. Appears in: chapters XVIII, XXIII, XXIV.
+            others. Appears at the ruined lazaret, the Autarch's revelation, and the flier.
           </li>
           <li>
             <strong>Memory as moral obligation</strong>. Foila's dying request makes Severian's
-            perfect memory a duty to the dead, not just a narrative device. Appears in: chapter
-            XVIII.
+            perfect memory a duty to the dead, not just a narrative device. Appears in Foila's
+            request at the ruined lazaret.
           </li>
           <li>
             <strong>War as organized stupidity</strong>. Severian insists battle reduces individuals
-            to the immediate and that "by each step in war the winner loses." Appears in: chapters
-            XXII and XXIII.
+            to the immediate and that "by each step in war the winner loses." Appears in the valley
+            battle and the Autarch's revelation.
           </li>
           <li>
             <strong>Honor vs. reason</strong>. The man-beast refuses to leave the gold despite
-            certain death; honor is above reason. Appears in: chapter XX.
+            certain death; honor is above reason. Appears in the steel-coach standoff.
           </li>
           <li>
             <strong>Legitimate authority requires crime</strong>. The Autarch runs a brothel to stay
-            exposed to guilt; a ruler who has never sinned becomes a monster. Appears in: chapters
-            XXIII and XXIV.
+            exposed to guilt; a ruler who has never sinned becomes a monster. Appears in the
+            Autarch's brothel revelation.
           </li>
           <li>
             <strong>Fear and self-mastery</strong>. Severian confesses fear openly; Daria gives
-            plain counsel; holding position prevents mass rout. Appears in: chapters XXI and XXII.
+            plain counsel; holding position prevents mass rout. Appears in the deployment and the
+            valley battle.
           </li>
           <li>
             <strong>Language as prison and key</strong>. Ascian Correct Thought traps its speakers;
-            Severian turns the formula back against the officer. Appears in: chapters XX and XXI.
+            Severian turns the formula back against the officer. Appears in the steel-coach standoff
+            and the deployment.
           </li>
           <li>
             <strong>The impossibility of incognito</strong>. The Autarch runs a brothel in disguise;
-            Severian fights as an anonymous irregular; both are recognized anyway. Appears in:
-            chapters XIX to XXIV.
+            Severian fights as an anonymous irregular; both are recognized anyway. Appears
+            throughout, from joining the 18th Bacele to boarding the flier.
           </li>
         </ul>
 
         <h2>Quotations</h2>
         <ul className="lrn-list">
           <li>
-            {`"Sometimes the man we believe we see may be as illusory as Master Ash, or more so." Severian on perception. Chapter XVIII, p. 1.`}
+            {`"Sometimes the man we believe we see may be as illusory as Master Ash, or more so." Severian on perception..`}
           </li>
           <li>
-            {`"I'm attached to nothing and no one, memories excepted." Severian to Guasacht. Chapter XIX, p. 10.`}
+            {`"I'm attached to nothing and no one, memories excepted." Severian to Guasacht..`}
           </li>
           <li>
-            {`"Our law is not the law of reason. Our law is honor and obedience. We stay." Man-beast. Chapter XX, p. 22.`}
+            {`"Our law is not the law of reason. Our law is honor and obedience. We stay." Man-beast..`}
           </li>
           <li>
-            {`"Fear is like those diseases that disfigure the face with running sores." Severian. Chapter XXI, p. 29.`}
+            {`"Fear is like those diseases that disfigure the face with running sores." Severian..`}
           </li>
-          <li>{`"By each step in war the winner loses." Severian. Chapter XXII, p. 35.`}</li>
+          <li>{`"By each step in war the winner loses." Severian..`}</li>
           <li>
-            {`"Fighting is a stupid business at best; but there are things to be learned about it... The immediate struggle is always that of an individual against one or two others." Severian. Chapter XXII, p. 37.`}
-          </li>
-          <li>
-            {`"We are the thing itself, the self-ruler, the Autarch. We know more. We know who you are." The Autarch. Chapter XXIII, p. 45.`}
+            {`"Fighting is a stupid business at best; but there are things to be learned about it... The immediate struggle is always that of an individual against one or two others." Severian..`}
           </li>
           <li>
-            {`"A judge or a jailer who has no crime of his own is a monster." The Autarch. Chapter XXIII, p. 47.`}
+            {`"We are the thing itself, the self-ruler, the Autarch. We know more. We know who you are." The Autarch..`}
           </li>
+          <li>{`"A judge or a jailer who has no crime of his own is a monster." The Autarch..`}</li>
           <li>
-            {`"You are two, as people are usually counted. How many do you think I am?" The Autarch to Severian. Chapter XXIV, p. 51.`}
+            {`"You are two, as people are usually counted. How many do you think I am?" The Autarch to Severian..`}
           </li>
         </ul>
 
-        <h2>Chapter Skeleton</h2>
+        <h2>Beat Skeleton</h2>
         <ol className="lrn-list">
           <li>
-            <strong>XVIII. Foila's Request</strong>. Master Ash fades; lazaret destroyed; Foila asks
+            <strong>Foila's Request</strong>. Master Ash fades; lazaret destroyed; Foila asks
             Severian to remember the stories.
           </li>
           <li>
-            <strong>XIX. Guasacht</strong>. Severian joins the 18th Bacele by riding the piebald;
-            meets Daria.
+            <strong>Guasacht</strong>. Severian joins the 18th Bacele by riding the piebald; meets
+            Daria.
           </li>
           <li>
-            <strong>XX. Patrol</strong>. Steel coach standoff; Severian negotiates with man-beasts
-            and Ascians; anpiels resolve it.
+            <strong>Patrol</strong>. Steel coach standoff; Severian negotiates with man-beasts and
+            Ascians; anpiels resolve it.
           </li>
           <li>
-            <strong>XXI. Deployment</strong>. Pentadactyl scatters the column; Severian's fear
-            becomes visible; Daria counsels him.
+            <strong>Deployment</strong>. Pentadactyl scatters the column; Severian's fear becomes
+            visible; Daria counsels him.
           </li>
           <li>
-            <strong>XXII. Battle</strong>. Valley battle; Daughters of War charge; Severian wounded
-            and pinned under the dead piebald.
+            <strong>Battle</strong>. Valley battle; Daughters of War charge; Severian wounded and
+            pinned under the dead piebald.
           </li>
           <li>
-            <strong>XXIII. The Pelagic Argosy Sights Land</strong>. Mamillian arrives; Autarch
-            revealed; silk pavilion; brothel confession.
+            <strong>The Pelagic Argosy Sights Land</strong>. Mamillian arrives; Autarch revealed;
+            silk pavilion; brothel confession.
           </li>
           <li>
-            <strong>XXIV. The Flier</strong>. Anti-iron explained; Severian and Autarch board the
-            flier; "How many do you think I am?"
+            <strong>The Flier</strong>. Anti-iron explained; Severian and Autarch board the flier;
+            "How many do you think I am?"
           </li>
         </ol>
       </>,
-      // Chapter 5: Severian Becomes the Autarch
-      {
-        title: 'Characters',
-        content: [
-          {
-            term: 'Severian',
-            desc: 'Narrator and protagonist. Former torturer. Absorbs the Autarch and becomes the new Autarch in Chapter XXIX. Finds the Claw on the beach in Chapter XXXI.'
-          },
-          {
-            term: 'The Autarch (old)',
-            desc: 'Pale, thin-haired, dying from the flier crash. Delivers his political theology in whispers in the Ascian tent. Dies after the pharmacon ritual.'
-          },
-          {
-            term: 'Agia',
-            desc: "Severian's enemy from Book 1. Wounds him at the ziggurat with a lu-civee. Later rescues him from the Ascian tent alongside the green man. Kills Vodalus with Hethor's weapon."
-          },
-          {
-            term: 'Vodalus',
-            desc: 'The revolutionary. Receives Severian at the ziggurat. Betrayed by the Autarch (his spy), the Ascians, and Agia. Killed off-page by Chapter XXX.'
-          },
-          {
-            term: 'Thea',
-            desc: "Vodalus's consort. Severian's half-sister. Present at the ziggurat in Chapter XXV. Not active in these chapters."
-          },
-          {
-            term: 'The old leech',
-            desc: "Unnamed physician. Tends Severian's wounds with blood transfusions. Serves Vodalus for forbidden knowledge."
-          },
-          {
-            term: 'The boy',
-            desc: "The leech's transfusion donor. About thirteen. Lips turn lead-colored; recovers quickly."
-          },
-          {
-            term: 'The green man',
-            desc: 'Being from the future. Green-skinned with white teeth. Traveled the corridors of Time to repay a debt from Book 2. Frees Severian and returns to the future.'
-          },
-          {
-            term: 'Master Malrubius',
-            desc: "Severian's childhood teacher. Appears as an aquastor generated from his memory. Tells him he is the Autarch. Dissolves into dust when the ship moves out of range."
-          },
-          {
-            term: 'Triskele',
-            desc: "Severian's three-legged dog. Also an aquastor. Gallops down the starlit beach and dissolves. His presence motivates Severian to accept the mission."
-          },
-          {
-            term: 'Father Inire',
-            desc: 'Cacogen ally. Mentioned by the Autarch as a helper who was supposed to assist escape. Did not reach them.'
-          },
-          {
-            term: 'Hethor',
-            desc: "Agia's paramour. Appears only through his weapon: mirrors that produce a worm of white fire. The worm kills Ascian sentries and Vodalus."
-          },
-          {
-            term: 'Thecla',
-            desc: `Chatelaine. Lives in Severian via the alzabo. Referenced throughout; not directly present. Her death in prison clarified as caused by officers acting in the Autarch's absence.`
-          },
-          {
-            term: 'Dorcas',
-            desc: "Mentioned; Severian's lost love. The Autarch asks if he still seeks her. Referenced in memory retreats during imprisonment."
-          },
-          {
-            term: 'Cyriaca',
-            desc: 'Briefly recalled. Severian invokes feeling what Cyriaca felt in the gardens of the archon, consumed by ambition, when he contemplates the succession.'
-          },
-          {
-            term: 'Paeon',
-            desc: `The Autarch's original mentor. Honey-steward at the House Absolute. Trained the Autarch and identified Severian as next.`
-          },
-          {
-            term: 'Hildegrin',
-            desc: "The Autarch's spy and bodyguard. Shouted 'Run!' during Severian's duel in Book 1, revealed now as an act of the Autarch's protection."
-          },
-          {
-            term: 'The uturuncu',
-            desc: `Old native guide in Vodalus's column. Shaman capable of assuming tiger form. Wears a grotesque mask. Slips under the Autarch's palanquin at night.`
-          }
-        ]
-      },
-      {
-        title: 'Places',
-        content: [
-          {
-            term: 'The battlefield above Urth',
-            desc: `Seen from the Autarch's flier. Commonwealth and Ascian armies deployed toward the northern horizon.`
-          },
-          {
-            term: 'The crashed flier',
-            desc: "The Autarch's royal flier, shot down by an Ascian weapon. Half-buried, side torn away, wiring exposed."
-          },
-          {
-            term: 'The jungle ziggurat',
-            desc: "Ruined ancient structure, trees growing from its walls. Vodalus's base. Severian imprisoned here in Chapters XXVI–XXVII."
-          },
-          {
-            term: 'The northern jungle',
-            desc: "Pestilential. Blood-bats, beetle swarms, Ascian corpses. Vodalus's column marches through it in Chapter XXVIII."
-          },
-          {
-            term: 'The Ascian metal dome',
-            desc: 'Collapsible dome of black metal, sourceless pale light. Ascian officer headquarters. Vodalus presents Severian and the Autarch here.'
-          },
-          {
-            term: 'The Ascian tent',
-            desc: 'Inside the main Ascian camp. The Autarch dies here. Severian performs the succession ritual here.'
-          },
-          {
-            term: 'Ocean',
-            desc: 'The great western sea. Malrubius lands Severian on its shore. The trial awaits here.'
-          },
-          {
-            term: 'The sand beach',
-            desc: 'Starlit, with cliffs beyond and wild roses growing from a dune. Malrubius and Triskele dissolve here. Severian finds the Claw here.'
-          },
-          {
-            term: 'House Azure',
-            desc: "Where the Autarch first met Severian. Where Severian first sensed the Autarch's multiple nature."
-          },
-          {
-            term: 'The House Absolute',
-            desc: `Source of Paeon. Destination after Severian's rule is secured.`
-          },
-          {
-            term: 'Nessus (Citadel direction)',
-            desc: "Severian's origin and the direction he must return to after the trial."
-          }
-        ]
-      },
-      {
-        title: 'Glossed Terms',
-        content: [
-          {
-            term: 'Pharmacon',
-            desc: 'Drug that transfers consciousness across individuals via consumption of living brain cells.'
-          },
-          {
-            term: 'Alzabo',
-            desc: 'Drug from the alzabo beast; enables absorption of the recently dead through their flesh.'
-          },
-          {
-            term: 'Lu-civee',
-            desc: 'Concealed hand weapon: bar with rings, four or five curved blades hidden in palm.'
-          },
-          {
-            term: 'Anpiels',
-            desc: "The Autarch's winged creatures. Skull-faces, twenty-cubit wingspan, fly silently."
-          },
-          { term: 'Evzones', desc: 'Ascian elite soldiers. Silvery caps, long jezails.' },
-          { term: 'Jezails', desc: 'Long-barreled Ascian weapons that fire converging bolts.' },
-          { term: 'Uturuncu', desc: 'Andean shapeshifter shaman; can assume tiger form.' },
-          { term: 'Cerbotanas', desc: "Blowguns longer than the carrier's outstretched arms." },
-          { term: 'Ransieur / Demilunes', desc: 'Weapons carried by Ascian infantry.' },
-          { term: 'Uintathers / Platybelodons', desc: 'Large Ascian beasts of burden.' },
-          {
-            term: 'Aquastors',
-            desc: 'Beings sustained by imagination and thought; physically solid; machine-dependent.'
-          },
-          {
-            term: 'Hierodule',
-            desc: 'From Greek "holy slave." Malrubius claims to serve those the Hierodules serve.'
-          },
-          {
-            term: 'Cacogen',
-            desc: 'Being not of human birth who lives among humans. Father Inire is one.'
-          },
-          { term: 'Pteriopes', desc: "Winged creatures serving Vodalus's faction." },
-          {
-            term: 'The Eight',
-            desc: 'A constellation; three stars over the southern ice; used for orientation.'
-          },
-          { term: 'Lune', desc: 'The moon.' },
-          {
-            term: 'The brown book',
-            desc: "Severian's commonplace book from the Matachin Tower. His only remaining possession from the Guild."
-          }
-        ]
-      },
-      {
-        title: 'Themes',
-        content: [
-          {
-            term: 'Identity and multiplicity',
-            desc: 'When it surfaces: Chapters XXV (temptation), XXIX (the act), XXXI (Severian alone on the beach).'
-          },
-          {
-            term: 'The succession ritual / pharmacon',
-            desc: 'When it surfaces: Chapters XXV (revealed), XXIX (performed), as thematic climax.'
-          },
-          {
-            term: 'The Principle of Primitivity',
-            desc: 'When it surfaces: Chapter XXVI (formulated in the ziggurat cell).'
-          },
-          {
-            term: 'Dying sun and civilizational stasis',
-            desc: 'When it surfaces: Chapter XXIX (the dying speech), implicit throughout the social structure of Urth.'
-          },
-          {
-            term: 'Mercy vs. revenge',
-            desc: 'When it surfaces: Chapter XXV (Agia), Chapter XXIX (the Autarch), Chapter XXXI (the Claw).'
-          },
-          {
-            term: 'The Claw as universal relic',
-            desc: 'When it surfaces: Chapter XXXI, resolving the series-long mystery by dissolving it.'
-          },
-          {
-            term: 'Aquastors and the thinking machine',
-            desc: 'When it surfaces: Chapter XXX (the revelation).'
-          },
-          {
-            term: "Vodalus's movement as false messiah",
-            desc: 'When it surfaces: Chapters XXVII (interrogation), XXVIII (march), XXX (death reported).'
-          },
-          {
-            term: 'The corridors of Time',
-            desc: 'When it surfaces: Chapter XXX (the green man).'
-          },
-          {
-            term: 'Loneliness and shared selfhood',
-            desc: 'When it surfaces: Chapter XXV (the temptation), Chapter XXIX (the act).'
-          }
-        ]
-      },
-      {
-        title: 'Key Quotes',
-        content: [
-          {
-            term: 'Page 1',
-            desc: '"I could show them to you more closely… Still, you would see only human faces.", The Autarch above the battlefield.'
-          },
-          { term: 'Page 3', desc: '"Does she not live in Severian?", The Autarch on Thecla.' },
-          {
-            term: 'Page 3',
-            desc: '"I, Severian, am a traitor too.", Severian confessing to the Autarch.'
-          },
-          {
-            term: 'Page 9',
-            desc: '"I was Severian and Thecla united now… I knew then what poor Cyriaca had felt in the gardens of the archon.", On ambition and merged selfhood.'
-          },
-          {
-            term: 'Page 9',
-            desc: `"I clasped my heart's companion to me, and felt myself clasped…", The chiasmus of absorption.`
-          },
-          {
-            term: 'Page 10',
-            desc: '"Now I have repaid you for the mine, you are still alive.", Agia from above.'
-          },
-          {
-            term: 'Page 14',
-            desc: '"Such knowledge is not gained without experiment.", The old leech.'
-          },
-          { term: 'Page 15', desc: `Severian's Principle of Primitivity.` },
-          {
-            term: 'Page 17',
-            desc: '"There is no category of human activity in which the dead do not outnumber the living…", Severian meditating.'
-          },
-          {
-            term: 'Page 23',
-            desc: '"The Autarch, who in one body is a thousand.", Severian to Vodalus.'
-          },
-          {
-            term: 'Page 35',
-            desc: '"You were right to hate me, Severian. I stand… for so much that is wrong.", The Autarch dying.'
-          },
-          {
-            term: 'Page 35–36',
-            desc: `"Because all else is worse. Until the New Sun comes, we have but a choice of evils.", The Autarch's system.`
-          },
-          { term: 'Page 41', desc: '"You are the Autarch now.", Malrubius.' },
-          {
-            term: 'Page 43',
-            desc: '"We are aquastors, beings created and sustained by the power of the imagination and the concentration of thought.", Malrubius.'
-          },
-          { term: 'Page 43', desc: '"It was the Claw.", Severian on the beach.' },
-          {
-            term: 'Page 44',
-            desc: '"All the world was a relic. I drew off my boots…", The final sentence.'
-          }
-        ]
-      },
-      {
-        title: 'Beat Timeline',
-        content: [
-          {
-            term: 'Ch. XXV / p.1',
-            desc: "Severian in the Autarch's flier above the battlefield."
-          },
-          {
-            term: 'Ch. XXV / p.2',
-            desc: 'Autarch explains the stakes of succession to Severian.'
-          },
-          {
-            term: 'Ch. XXV / p.3–4',
-            desc: 'Autarch confirms Thecla, Vodalus, Hildegrin revelations.'
-          },
-          { term: 'Ch. XXV / p.4', desc: "Autarch clarifies he did not order Thecla's death." },
-          {
-            term: 'Ch. XXV / p.4–6',
-            desc: 'Flier shot down; evzones capture Severian and the dying Autarch.'
-          },
-          { term: 'Ch. XXV / p.7–8', desc: 'Anpiels attack evzones in moonlight.' },
-          {
-            term: 'Ch. XXV / p.5–6, 8–9',
-            desc: 'Autarch instructs Severian on the pharmacon ritual.'
-          },
-          {
-            term: 'Ch. XXV / p.9',
-            desc: "Severian's ambivalence: desire vs. privacy with Thecla."
-          },
-          {
-            term: 'Ch. XXV / p.9–10',
-            desc: "Vodalus's riders arrive; carry them to the jungle ziggurat."
-          },
-          {
-            term: 'Ch. XXV / p.10–11',
-            desc: 'Agia wounds Severian with a lu-civee; he loses two days.'
-          },
-          {
-            term: 'Ch. XXVI / p.11–14',
-            desc: "Severian imprisoned; leech's transfusions; the boy."
-          },
-          { term: 'Ch. XXVI / p.14', desc: 'Agia threatens Severian; he dismisses her.' },
-          {
-            term: 'Ch. XXVI / p.14–16',
-            desc: 'Severian alone; memory retreats; Principle of Primitivity.'
-          },
-          {
-            term: 'Ch. XXVII / p.18–20',
-            desc: "Women guards bring Severian to Vodalus's clearing."
-          },
-          {
-            term: 'Ch. XXVII / p.20–23',
-            desc: 'Vodalus interrogates Severian; the spy revelation.'
-          },
-          {
-            term: 'Ch. XXVII / p.22–23',
-            desc: '"I am two in a single body. Yet I am not the Autarch."'
-          },
-          {
-            term: 'Ch. XXVIII / p.24–27',
-            desc: "Vodalus's column marches through jungle; uturuncu guide."
-          },
-          { term: 'Ch. XXVIII / p.27–29', desc: 'Column enters the Ascian army; midnight halt.' },
-          {
-            term: 'Ch. XXIX / p.29–33',
-            desc: 'Three Ascian officers in the metal dome; Vodalus presents both.'
-          },
-          { term: 'Ch. XXIX / p.33–34', desc: 'Ascian tent; the Autarch whispers "Wait."' },
-          { term: 'Ch. XXIX / p.34–35', desc: 'Autarch instructs Severian; names Father Inire.' },
-          { term: 'Ch. XXIX / p.35–36', desc: "The Autarch's political confession." },
-          { term: 'Ch. XXIX / p.36', desc: 'Severian performs the ritual; Autarch dies.' },
-          {
-            term: 'Ch. XXIX / p.36–37',
-            desc: 'Drug floods Severian; hundreds of personalities enter.'
-          },
-          {
-            term: 'Ch. XXX / p.37–40',
-            desc: 'Agia and the green man free Severian from the tent.'
-          },
-          {
-            term: 'Ch. XXX / p.40',
-            desc: 'Agia reveals Vodalus dead; she killed him; she vanishes.'
-          },
-          {
-            term: 'Ch. XXX / p.40–41',
-            desc: 'The green man repays his debt; steps into temporal aperture.'
-          },
-          {
-            term: 'Ch. XXX / p.41–42',
-            desc: 'Malrubius and Triskele descend; Severian is the Autarch.'
-          },
-          {
-            term: 'Ch. XXX / p.43–44',
-            desc: 'Aquastor revelation; Malrubius and Triskele dissolve.'
-          },
-          {
-            term: 'Ch. XXXI / p.40–42',
-            desc: 'Ship carries Severian to Ocean; final instruction.'
-          },
-          {
-            term: 'Ch. XXXI / p.43–44',
-            desc: 'The Claw found on the beach; boots thrown into the sea.'
-          }
-        ]
-      },
-      // Chapter 6: Return to the Citadel
+      // Section 5: Severian Becomes the Autarch
+      <>
+        <h2>Characters</h2>
+        <p>When to look here: when a name appears in the becoming-Autarch sections.</p>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Severian</span>
+          <div className="lrn-definition-desc">
+            <p>{`Narrator and protagonist. Former torturer. Absorbs the old Autarch and becomes the new Autarch in the Ascian tent. Finds the Claw on the beach at the end.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Autarch (old)</span>
+          <div className="lrn-definition-desc">
+            <p>{`Pale, thin-haired, dying from the flier crash. Delivers his political theology in whispers in the Ascian tent. Dies after the pharmacon ritual.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Agia</span>
+          <div className="lrn-definition-desc">
+            <p>{`Severian's enemy from Book 1. Wounds him at the ziggurat with a lu-civee. Later rescues him from the Ascian tent alongside the green man. Kills Vodalus with Hethor's weapon.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Vodalus</span>
+          <div className="lrn-definition-desc">
+            <p>{`The revolutionary. Receives Severian at the ziggurat. Betrayed by the Autarch (his spy), the Ascians, and Agia. Killed off-page during the jungle march.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Thea</span>
+          <div className="lrn-definition-desc">
+            <p>{`Vodalus's consort. Severian's half-sister. Present at the ziggurat. Not active in these sections.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The old leech</span>
+          <div className="lrn-definition-desc">
+            <p>{`Unnamed physician. Tends Severian's wounds with blood transfusions. Serves Vodalus for forbidden knowledge.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The boy</span>
+          <div className="lrn-definition-desc">
+            <p>{`The leech's transfusion donor. About thirteen. Lips turn lead-colored; recovers quickly.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The green man</span>
+          <div className="lrn-definition-desc">
+            <p>{`Being from the future. Green-skinned with white teeth. Traveled the corridors of Time to repay a debt from Book 2. Frees Severian and returns to the future.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Master Malrubius</span>
+          <div className="lrn-definition-desc">
+            <p>{`Severian's childhood teacher. Appears as an aquastor generated from his memory. Tells him he is the Autarch. Dissolves into dust when the ship moves out of range.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Triskele</span>
+          <div className="lrn-definition-desc">
+            <p>{`Severian's three-legged dog. Also an aquastor. Gallops down the starlit beach and dissolves. His presence motivates Severian to accept the mission.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Father Inire</span>
+          <div className="lrn-definition-desc">
+            <p>{`Cacogen ally. Named by the Autarch as a helper who was supposed to assist escape. Did not reach them.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Hethor</span>
+          <div className="lrn-definition-desc">
+            <p>{`Agia's paramour. Appears only through his weapon: mirrors that produce a worm of white fire. The worm kills Ascian sentries and Vodalus.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Thecla</span>
+          <div className="lrn-definition-desc">
+            <p>{`Chatelaine. Lives in Severian via the alzabo. Referenced throughout; not directly present. Her death in prison is clarified here as caused by officers acting in the Autarch's absence.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Dorcas</span>
+          <div className="lrn-definition-desc">
+            <p>{`Mentioned; Severian's lost love. The Autarch asks if he still seeks her. Recalled in memory retreats during imprisonment.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Cyriaca</span>
+          <div className="lrn-definition-desc">
+            <p>{`Briefly recalled. Severian invokes feeling what Cyriaca felt in the gardens of the archon, consumed by ambition, when he contemplates the succession.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Paeon</span>
+          <div className="lrn-definition-desc">
+            <p>{`The Autarch's original mentor. Honey-steward at the House Absolute. Trained the Autarch and identified Severian as next.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Hildegrin</span>
+          <div className="lrn-definition-desc">
+            <p>{`The Autarch's spy and bodyguard. Shouted "Run!" during Severian's duel in Book 1, revealed now as an act of the Autarch's protection.`}</p>
+          </div>
+        </div>
+
+        <h2>Places</h2>
+        <p>When to look here: when a location is named in these sections.</p>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The battlefield above Urth</span>
+          <div className="lrn-definition-desc">
+            <p>{`Seen from the Autarch's flier. Commonwealth and Ascian armies deployed toward the northern horizon.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The crashed flier</span>
+          <div className="lrn-definition-desc">
+            <p>{`The Autarch's royal flier, shot down by an Ascian weapon. Half-buried, side torn away, wiring exposed.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The jungle ziggurat</span>
+          <div className="lrn-definition-desc">
+            <p>{`Ruined ancient structure, trees growing from its walls. Vodalus's base. Severian is imprisoned here.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The northern jungle</span>
+          <div className="lrn-definition-desc">
+            <p>{`Pestilential. Blood-bats, beetle swarms, Ascian corpses. Vodalus's column marches through it.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Ascian metal dome</span>
+          <div className="lrn-definition-desc">
+            <p>{`Collapsible dome of black metal, sourceless pale light. Ascian officer headquarters. Vodalus presents Severian and the Autarch here.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Ascian tent</span>
+          <div className="lrn-definition-desc">
+            <p>{`Inside the main Ascian camp. The Autarch dies here. Severian performs the succession ritual here.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Ocean</span>
+          <div className="lrn-definition-desc">
+            <p>{`The great western sea. Malrubius lands Severian on its shore. The trial awaits here.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The sand beach</span>
+          <div className="lrn-definition-desc">
+            <p>{`Starlit, with cliffs beyond and wild roses growing from a dune. Malrubius and Triskele dissolve here. Severian finds the Claw here.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">House Azure</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where the Autarch first met Severian. Where Severian first sensed the Autarch's multiple nature.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The House Absolute</span>
+          <div className="lrn-definition-desc">
+            <p>{`Source of Paeon. Destination after Severian's rule is secured.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Nessus (Citadel direction)</span>
+          <div className="lrn-definition-desc">
+            <p>{`Severian's origin and the direction he must return to after the trial.`}</p>
+          </div>
+        </div>
+
+        <h2>Glossed Terms</h2>
+        <p>When to look here: when an unfamiliar word appears in these sections.</p>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Pharmacon</span>
+          <div className="lrn-definition-desc">
+            <p>{`Drug that transfers consciousness across individuals via consumption of living brain cells.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Alzabo</span>
+          <div className="lrn-definition-desc">
+            <p>{`Drug from the alzabo beast; enables absorption of the recently dead through their flesh.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Lu-civee</span>
+          <div className="lrn-definition-desc">
+            <p>{`Concealed hand weapon: bar with rings, four or five curved blades hidden in palm.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Anpiels</span>
+          <div className="lrn-definition-desc">
+            <p>{`The Autarch's winged creatures. Skull-faces, twenty-cubit wingspan, fly silently.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Evzones</span>
+          <div className="lrn-definition-desc">
+            <p>{`Ascian elite soldiers. Silvery caps, long jezails.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Jezails</span>
+          <div className="lrn-definition-desc">
+            <p>{`Long-barreled Ascian weapons that fire converging bolts.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Uturuncu</span>
+          <div className="lrn-definition-desc">
+            <p>{`Andean shapeshifter shaman; can assume tiger form. An old native guide in Vodalus's column wears the grotesque mask of one.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Cerbotanas</span>
+          <div className="lrn-definition-desc">
+            <p>{`Blowguns longer than the carrier's outstretched arms.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Ransieur / Demilunes</span>
+          <div className="lrn-definition-desc">
+            <p>{`Weapons carried by Ascian infantry.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Uintathers / Platybelodons</span>
+          <div className="lrn-definition-desc">
+            <p>{`Large Ascian beasts of burden.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Aquastors</span>
+          <div className="lrn-definition-desc">
+            <p>{`Beings sustained by imagination and thought; physically solid; machine-dependent.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Hierodule</span>
+          <div className="lrn-definition-desc">
+            <p>{`From Greek "holy slave." Malrubius claims to serve those the Hierodules serve.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Cacogen</span>
+          <div className="lrn-definition-desc">
+            <p>{`Being not of human birth who lives among humans. Father Inire is one.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Pteriopes</span>
+          <div className="lrn-definition-desc">
+            <p>{`Winged creatures serving Vodalus's faction.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Eight</span>
+          <div className="lrn-definition-desc">
+            <p>{`A constellation; three stars over the southern ice; used for orientation.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Lune</span>
+          <div className="lrn-definition-desc">
+            <p>{`The moon.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The brown book</span>
+          <div className="lrn-definition-desc">
+            <p>{`Severian's commonplace book from the Matachin Tower. His only remaining possession from the Guild.`}</p>
+          </div>
+        </div>
+
+        <h2>Themes</h2>
+        <p>When to look here: to find where a theme surfaces across these sections.</p>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Identity and multiplicity</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: the temptation in the flier, the succession act in the Ascian tent, Severian alone on the beach.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The succession ritual / pharmacon</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: revealed in the flier, performed in the Ascian tent, as thematic climax.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Principle of Primitivity</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: formulated in the ziggurat cell.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Dying sun and civilizational stasis</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: the Autarch's dying speech, implicit throughout the social structure of Urth.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Mercy vs. revenge</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: Agia at the ziggurat, the Autarch in the tent, the Claw on the beach.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Claw as universal relic</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: the beach ending, resolving the series-long mystery by dissolving it.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Aquastors and the thinking machine</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: the revelation on the beach.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Vodalus's movement as false messiah</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: the interrogation at the ziggurat, the jungle march, the report of his death.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The corridors of Time</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: the green man's escape and return.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Loneliness and shared selfhood</span>
+          <div className="lrn-definition-desc">
+            <p>{`Where it surfaces: the temptation in the flier, the succession act in the tent.`}</p>
+          </div>
+        </div>
+
+        <h2>Key Quotes</h2>
+        <p>When to look here: to locate the exact wording of a key passage from these sections.</p>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Autarch, above the battlefield</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"I could show them to you more closely… Still, you would see only human faces."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Autarch, on Thecla</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"Does she not live in Severian?"`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Severian, confessing to the Autarch</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"I, Severian, am a traitor too."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Severian, on ambition and merged selfhood</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"I was Severian and Thecla united now… I knew then what poor Cyriaca had felt in the gardens of the archon."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Severian, the chiasmus of absorption</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"I clasped my heart's companion to me, and felt myself clasped…"`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Agia, from above at the ziggurat</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"Now I have repaid you for the mine, you are still alive."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The old leech, in the prison cell</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"Such knowledge is not gained without experiment."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Severian, meditating alone in the cell</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"There is no category of human activity in which the dead do not outnumber the living…"`}</p>
+            </blockquote>
+            <p>{`This is the seed of Severian's Principle of Primitivity.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Severian, to Vodalus under interrogation</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"The Autarch, who in one body is a thousand."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Autarch, dying in the Ascian tent</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"You were right to hate me, Severian. I stand… for so much that is wrong."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Autarch, on his system of rule</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"Because all else is worse. Until the New Sun comes, we have but a choice of evils."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Malrubius, on the beach</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"You are the Autarch now."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Malrubius, the aquastor revelation</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"We are aquastors, beings created and sustained by the power of the imagination and the concentration of thought."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Severian, finding the relic on the beach</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"It was the Claw."`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The final sentence</span>
+          <div className="lrn-definition-desc">
+            <blockquote className="lrn-callout">
+              <p>{`"All the world was a relic. I drew off my boots…"`}</p>
+            </blockquote>
+          </div>
+        </div>
+
+        <h2>Beat Timeline</h2>
+        <p>When to look here: to find where a beat falls in the order of events.</p>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">In the flier above the battlefield</span>
+          <div className="lrn-definition-desc">
+            <p>{`Severian rides in the Autarch's flier above the deployed armies.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The stakes of succession</span>
+          <div className="lrn-definition-desc">
+            <p>{`The Autarch explains the stakes of succession to Severian.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The flier revelations</span>
+          <div className="lrn-definition-desc">
+            <p>{`The Autarch confirms the Thecla, Vodalus, and Hildegrin revelations, and clarifies that he did not order Thecla's death.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The flier shot down</span>
+          <div className="lrn-definition-desc">
+            <p>{`The flier is shot down; evzones capture Severian and the dying Autarch. Anpiels attack the evzones in moonlight.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The pharmacon instruction</span>
+          <div className="lrn-definition-desc">
+            <p>{`The Autarch instructs Severian on the pharmacon ritual. Severian feels his ambivalence: desire against privacy with Thecla.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Carried to the ziggurat</span>
+          <div className="lrn-definition-desc">
+            <p>{`Vodalus's riders arrive and carry them to the jungle ziggurat. Agia wounds Severian with a lu-civee; he loses two days.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Imprisoned in the ziggurat cell</span>
+          <div className="lrn-definition-desc">
+            <p>{`Severian is imprisoned; the leech's transfusions begin; the boy donor appears. Agia threatens Severian; he dismisses her.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Alone in the cell</span>
+          <div className="lrn-definition-desc">
+            <p>{`Severian is alone; memory retreats; the Principle of Primitivity is formulated.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Brought before Vodalus</span>
+          <div className="lrn-definition-desc">
+            <p>{`Women guards bring Severian to Vodalus's clearing. Vodalus interrogates Severian; the spy revelation comes out. Severian says, "I am two in a single body. Yet I am not the Autarch."`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The jungle march</span>
+          <div className="lrn-definition-desc">
+            <p>{`Vodalus's column marches through jungle behind the uturuncu guide, enters the Ascian army, and halts at midnight.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Ascian metal dome</span>
+          <div className="lrn-definition-desc">
+            <p>{`Three Ascian officers receive them in the metal dome; Vodalus presents both Severian and the Autarch.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Ascian tent and the ritual</span>
+          <div className="lrn-definition-desc">
+            <p>{`In the tent the Autarch whispers "Wait," then instructs Severian and names Father Inire, and makes his political confession. Severian performs the ritual; the Autarch dies. The drug floods Severian; hundreds of personalities enter.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The rescue and the green man</span>
+          <div className="lrn-definition-desc">
+            <p>{`Agia and the green man free Severian from the tent. Agia reveals Vodalus is dead, that she killed him, and vanishes. The green man repays his debt and steps into a temporal aperture.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The beach and the aquastor revelation</span>
+          <div className="lrn-definition-desc">
+            <p>{`Malrubius and Triskele descend; Severian is named the Autarch. The ship carries Severian to Ocean with a final instruction. The aquastor revelation comes; Malrubius and Triskele dissolve.`}</p>
+          </div>
+        </div>
+
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">The Claw on the beach</span>
+          <div className="lrn-definition-desc">
+            <p>{`The Claw is found on the beach; the boots are thrown into the sea.`}</p>
+          </div>
+        </div>
+      </>,
+      // Section 6: Return to the Citadel
       <>
         <h2>Character Index</h2>
         <ul className="lrn-list">
@@ -6546,8 +6415,8 @@ const config = {
           </li>
           <li>
             <strong>Dorcas</strong>: found over the dead boatman in ruined Nessus; does not see
-            Severian; they part without speaking. When to cite: arguments about Wolfe's refusal of
-            consolation at the ends of relationships.
+            Severian; they part without speaking. When to cite: arguments about the story's refusal
+            of consolation at the ends of relationships.
           </li>
           <li>
             <strong>The castellan</strong>: silver-haired, lame old soldier; first to pay Severian
@@ -6622,121 +6491,120 @@ const config = {
         <h2>Scene Index</h2>
         <ul className="lrn-list">
           <li>
-            <strong>Severian boards the Samru</strong>: pp. 1-2. Craquemarte borrowed. "Walked on as
-            a mighty army." When to cite: anchor a close reading of this beat.
+            <strong>Severian boards the Samru</strong>: Craquemarte borrowed. "Walked on as a mighty
+            army." When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>The ruins of Nessus revealed</strong>: pp. 3-4. Two days of blindness; the glass
-            corrects it. When to cite: anchor a close reading of this beat.
+            <strong>The ruins of Nessus revealed</strong>: Two days of blindness; the glass corrects
+            it. When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Dorcas over the dead boatman</strong>: pp. 5-7. Silent parting. Severian leaves
-            without speaking. When to cite: anchor a close reading of this beat.
+            <strong>Dorcas over the dead boatman</strong>: Silent parting. Severian leaves without
+            speaking. When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Re-boarding the Samru</strong>: p. 7-8. Captain's relief. The mate's comic
-            acclamation. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>Arrival at Nessus, the rowers' chant</strong>: p. 9. "Row, brothers, row! Yet
-            God is for us." When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>Barbican entry, kitten and ball</strong>: p. 11. Two guards' thumbs broken.
-            Castellan summoned. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>The castellan reads Severian's wounds</strong>: pp. 11-12. First homage paid.
-            Words of authority used. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>Master Palaemon weeps</strong>: pp. 13-14. Terminus Est furniture laid on the
-            table. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>The guild abolition debate</strong>: pp. 15. "Between us, Master, we have
-            decided it should not be done at all." When to cite: anchor a close reading of this
-            beat.
-          </li>
-          <li>
-            <strong>Oubliette tour, fourteen cells</strong>: pp. 16-17. Two released. One denied.
-            Thecla's old cell visited. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>New Claw inert, Claw meditation</strong>: pp. 17-21. Two theories. No verdict.
+            <strong>Re-boarding the Samru</strong>: Captain's relief. The mate's comic acclamation.
             When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>The ancient autarchs' quarters</strong>: pp. 26-29. Microcosm. Mandragora.
-            Emerald bench. When to cite: anchor a close reading of this beat.
+            <strong>Arrival at Nessus, the rowers' chant</strong>: "Row, brothers, row! Yet God is
+            for us." When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Mandragora speaks</strong>: pp. 28-30. Demands the glass be broken. Not broken.
-            When to cite: anchor a close reading of this beat.
+            <strong>Barbican entry, kitten and ball</strong>: Two guards' thumbs broken. Castellan
+            summoned. When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Rudesind and the advocate of the dead</strong>: pp. 29-33. Backstory of young
-            Severian's direction to Ultan. When to cite: anchor a close reading of this beat.
+            <strong>The castellan reads Severian's wounds</strong>: First homage paid. Words of
+            authority used. When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Father Inire's letter</strong>: pp. 33-35. Vodalus dead. Agia commands. Military
-            intelligence. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>Roche summoned</strong>: pp. 36-37. Plan for guild imprisonment stated.
-            Journeyman habits requested. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>The hidden coin retrieved</strong>: p. 38. Necropolis mausoleum. Childhood rhyme
-            recited. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>Dr. Talos and the bad coin</strong>: pp. 38-42. Baldanders explained. Offerings
-            near water described. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>Stellar pistol found and tested</strong>: pp. 42-43. Violet cone incinerates the
-            fireplace. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>Night crossing, the steersman's story</strong>: pp. 43-49. Galleass without
-            lights. Voices from the water. When to cite: anchor a close reading of this beat.
-          </li>
-          <li>
-            <strong>Maxellindis and the corridors of Time</strong>: p. 48. Severian warns Eata. When
+            <strong>Master Palaemon weeps</strong>: Terminus Est furniture laid on the table. When
             to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Ouen at the Inn of Lost Loves</strong>: pp. 49-53. Mirror face. Locket of
-            Dorcas. Innkeeper's blurt. When to cite: anchor a close reading of this beat.
+            <strong>The guild abolition debate</strong>: "Between us, Master, we have decided it
+            should not be done at all." When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Stellar pistol given to Ouen</strong>: pp. 53-54. Instruction to protect Dorcas
-            and leave the city. When to cite: anchor a close reading of this beat.
+            <strong>Oubliette tour, fourteen cells</strong>: Two released. One denied. Thecla's old
+            cell visited. When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Meditation on Jonas and Dorcas</strong>: p. 54. "My only real friend was in his
-            own eyes merely a machine." When to cite: anchor a close reading of this beat.
+            <strong>New Claw inert, Claw meditation</strong>: Two theories. No verdict. When to
+            cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Severian names the manuscript</strong>: pp. 54-55. The Book of the New Sun. Lead
-            coffer planned. When to cite: anchor a close reading of this beat.
+            <strong>The ancient autarchs' quarters</strong>: Microcosm. Mandragora. Emerald bench.
+            When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>The temporal loop revealed</strong>: p. 55. Not the first Severian.
-            Corridor-walkers sent him back. When to cite: anchor a close reading of this beat.
+            <strong>Mandragora speaks</strong>: Demands the glass be broken. Not broken. When to
+            cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>Two sets of footprints in the tunnel</strong>: p. 55. Good boots, bad leg vs.
-            bad shoes, good leg. When to cite: anchor a close reading of this beat.
+            <strong>Rudesind and the advocate of the dead</strong>: Backstory of young Severian's
+            direction to Ultan. When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>The Atrium of Time</strong>: p. end. Shaft of light. Dead clocks. Wrong seasons.
-            Valeria found. When to cite: anchor a close reading of this beat.
+            <strong>Father Inire's letter</strong>: Vodalus dead. Agia commands. Military
+            intelligence. When to cite: anchor a close reading of this beat.
           </li>
           <li>
-            <strong>The last line</strong>: p. end. "Here my pen shall halt, reader, though I do
-            not." When to cite: anchor a close reading of this beat.
+            <strong>Roche summoned</strong>: Plan for guild imprisonment stated. Journeyman habits
+            requested. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>The hidden coin retrieved</strong>: Necropolis mausoleum. Childhood rhyme
+            recited. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Dr. Talos and the bad coin</strong>: Baldanders explained. Offerings near water
+            described. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Stellar pistol found and tested</strong>: Violet cone incinerates the fireplace.
+            When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Night crossing, the steersman's story</strong>: Galleass without lights. Voices
+            from the water. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Maxellindis and the corridors of Time</strong>: Severian warns Eata. When to
+            cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Ouen at the Inn of Lost Loves</strong>: Mirror face. Locket of Dorcas.
+            Innkeeper's blurt. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Stellar pistol given to Ouen</strong>: Instruction to protect Dorcas and leave
+            the city. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Meditation on Jonas and Dorcas</strong>: "My only real friend was in his own
+            eyes merely a machine." When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Severian names the manuscript</strong>: The Book of the New Sun. Lead coffer
+            planned. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>The temporal loop revealed</strong>: Not the first Severian. Corridor-walkers
+            sent him back. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>Two sets of footprints in the tunnel</strong>: Good boots, bad leg vs. bad
+            shoes, good leg. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>The Atrium of Time</strong>: Shaft of light. Dead clocks. Wrong seasons. Valeria
+            found. When to cite: anchor a close reading of this beat.
+          </li>
+          <li>
+            <strong>The last line</strong>: "Here my pen shall halt, reader, though I do not." When
+            to cite: anchor a close reading of this beat.
           </li>
         </ul>
       </>,
@@ -6751,7 +6619,7 @@ const config = {
           <li>
             <strong>Seeing and not seeing</strong>: the ruins of Nessus invisible for two days;
             Jonas overlooked as an android; Baldanders's mastery ignored. When to cite: arguments
-            about Wolfe's treatment of unreliable perception.
+            about the story's treatment of unreliable perception.
           </li>
           <li>
             <strong>Return and repetition</strong>: every scene in the module revisits an earlier
@@ -6775,13 +6643,13 @@ const config = {
           </li>
           <li>
             <strong>Kinship and doubles</strong>: Ouen mirrors Severian's face; Maxellindis echoes
-            temporal patterns; two sets of footprints. When to cite: arguments about Wolfe's use of
-            doubling or the genealogical structure of the series.
+            temporal patterns; two sets of footprints. When to cite: arguments about the story's use
+            of doubling or the genealogical structure of the series.
           </li>
           <li>
             <strong>Isolation and community</strong>: Jonas and Dorcas as self-erasing friends;
             Rudesind keeping company with the dead; Severian as an army of one. When to cite:
-            arguments about Wolfe's treatment of loneliness as a chosen condition.
+            arguments about the story's treatment of loneliness as a chosen condition.
           </li>
           <li>
             <strong>The dying sun and the New Sun</strong>: necropolis pines feeding on the dead;
@@ -6926,8 +6794,9 @@ const config = {
           </li>
           <li>
             <strong>Master Malrubius's teachings (Books 1-3)</strong> returns as: Severian
-            transcribes the cosmological cycle of divine years for the first time in chapter XXXIV.
-            When to cite: tracking the homecoming-as-closure structure.
+            transcribes the cosmological cycle of divine years for the first time, recalling what
+            Malrubius told him on the ship from the jungle. When to cite: tracking the
+            homecoming-as-closure structure.
           </li>
           <li>
             <strong>The childhood mausoleum (Book 1)</strong> returns as: Severian retrieves the

@@ -1,6 +1,6 @@
 // BOOK II - THE CLAW OF THE CONCILIATOR
 // Painting plates have been replaced with original visualizations of the
-// actual book scenes (the Saltus Beats card lists the five chapters the
+// actual book scenes (the Saltus Beats card lists the five sections the
 // volume spends in Saltus - fair, scaffold, mine, green man, parting).
 
 import React from 'react'
@@ -12,7 +12,7 @@ import {
   Slider,
   Toggle,
   PlayPause,
-  ChapterTimeline,
+  ModuleTimeline,
   useAnimationTime,
   Hatch,
   Stipple,
@@ -21,33 +21,50 @@ import {
   FG,
   OPACITY
 } from '../../../primitives'
+import {
+  FONT_LABEL,
+  FONT_SMALL,
+  FONT_TEX,
+  LS_CONTROL,
+  LS_LABEL,
+  LS_MEDIUM,
+  LS_OPEN,
+  LS_TIGHT,
+  LS_TITLE,
+  LS_UPPER,
+  STROKE_EMPHASIS,
+  STROKE_GUIDE,
+  STROKE_HAIR,
+  STROKE_PRIMARY,
+  STROKE_SECONDARY
+} from '../../../scale-tokens'
 
 // II.01.1 - Saltus Map
 export function SaltusMap() {
   const [tip, setTip] = useTooltip()
   const features = [
-    { id: 'square', body: 'Fair, vendors, crowd.\nMorwenna burned here.', cite: 'Ch. I–III' },
-    { id: 'scaffold', body: "Severian carries out\nMorwenna's execution.", cite: 'Ch. II' },
-    { id: 'inn', body: 'Severian and Jonas lodge.\nHe dreams of the green man.', cite: 'Ch. I' },
+    { id: 'square', body: 'Fair, vendors, crowd.\nMorwenna burned here.', cite: '§I–III' },
+    { id: 'scaffold', body: "Severian carries out\nMorwenna's execution.", cite: '§II' },
+    { id: 'inn', body: 'Severian and Jonas lodge.\nHe dreams of the green man.', cite: '§I' },
     {
       id: 'barnoch',
       body: 'Door bricked up. Sympathiser\nof Vodalus, buried alive.\nSeverian opens it.',
-      cite: 'Ch. III'
+      cite: '§III'
     },
     {
       id: 'mine',
       body: 'Severian enters alone.\nBlue light deepens; a\nfootstep from below the pool.',
-      cite: 'Ch. IV'
+      cite: '§IV'
     },
     {
       id: 'forest',
       body: 'Forest court of Vodalus.\nThe alzabo feast is held here.',
-      cite: 'Ch. V–VII'
+      cite: '§V–VII'
     },
     {
       id: 'forge',
       body: "The village smith.\nWolfe's mood-image of\nthe carnifex at work.",
-      cite: 'Ch. I'
+      cite: '§I'
     }
   ]
   const F = id => features.find(f => f.id === id)
@@ -57,11 +74,11 @@ export function SaltusMap() {
   return (
     <Canvas w={800} h={540}>
       <Hatch id="sal-grass" angle={20} gap={6} opacity={0.07} />
-      <Hatch id="sal-stone" angle={90} gap={3} opacity={0.15} strokeWidth={0.5} />
-      <Label x={40} y={32} size={10}>
+      <Hatch id="sal-stone" angle={90} gap={3} opacity={0.15} strokeWidth={STROKE_HAIR} />
+      <Label x={40} y={32} size={FONT_SMALL}>
         SALTUS · MINING VILLAGE NORTH OF NESSUS
       </Label>
-      <Label x={760} y={32} anchor="end" size={10}>
+      <Label x={760} y={32} anchor="end" size={FONT_SMALL}>
         N ↑
       </Label>
 
@@ -83,7 +100,7 @@ export function SaltusMap() {
                 y2={y - h * 0.3}
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="0.6"
+                strokeWidth={STROKE_HAIR}
               />
               <path
                 d={`M ${x - h * 0.5} ${y - h * 0.2}
@@ -91,7 +108,7 @@ export function SaltusMap() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="0.8"
+                strokeWidth={STROKE_GUIDE}
               />
             </g>
           )
@@ -100,9 +117,9 @@ export function SaltusMap() {
           x={670}
           y={184}
           fill={FG}
-          fontSize="10"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.14em"
+          letterSpacing={LS_UPPER}
           opacity={OPACITY.dim}
         >
           FOREST → (Vodalus)
@@ -119,7 +136,7 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         <Stipple x={70} y={190} w={180} h={50} n={50} seed={9} opacity={0.3} r={0.6} />
         <path
@@ -127,7 +144,7 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         <line
           x1={140}
@@ -136,7 +153,7 @@ export function SaltusMap() {
           y2={196}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <line
           x1={190}
@@ -145,7 +162,7 @@ export function SaltusMap() {
           y2={196}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <line
           x1={138}
@@ -154,7 +171,7 @@ export function SaltusMap() {
           y2={196}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <line
           x1={154}
@@ -163,7 +180,7 @@ export function SaltusMap() {
           y2={246}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         <line
           x1={176}
@@ -172,7 +189,7 @@ export function SaltusMap() {
           y2={246}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         <rect
           x={172}
@@ -182,14 +199,28 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
         <circle cx={176} cy={246} r="2.5" fill={FG} opacity={OPACITY.fg} />
         <circle cx={188} cy={246} r="2.5" fill={FG} opacity={OPACITY.fg} />
-        <text x={170} y={184} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.12em">
+        <text
+          x={170}
+          y={184}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_MEDIUM}
+        >
           MINE
         </text>
-        <text x={170} y={266} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={170}
+          y={266}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           descent ↓
         </text>
       </g>
@@ -207,7 +238,7 @@ export function SaltusMap() {
           fill="url(#sal-stone)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         {Array.from({ length: 24 }).map((_, i) => {
           const rng = srand(700 + i)
@@ -222,7 +253,14 @@ export function SaltusMap() {
             />
           )
         })}
-        <text x={400} y={388} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={400}
+          y={388}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           SQUARE
         </text>
       </g>
@@ -240,7 +278,7 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <line
           x1={384}
@@ -249,7 +287,7 @@ export function SaltusMap() {
           y2={210}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         <line
           x1={416}
@@ -258,7 +296,7 @@ export function SaltusMap() {
           y2={210}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         <line
           x1={380}
@@ -267,7 +305,7 @@ export function SaltusMap() {
           y2={210}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         <line
           x1={400}
@@ -276,7 +314,7 @@ export function SaltusMap() {
           y2={224}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
         <circle
           cx={400}
@@ -285,7 +323,7 @@ export function SaltusMap() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
         <line
           x1={376}
@@ -294,7 +332,7 @@ export function SaltusMap() {
           y2={258}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         <line
           x1={372}
@@ -303,15 +341,15 @@ export function SaltusMap() {
           y2={266}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         <text
           x={400}
           y={196}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.16em"
+          letterSpacing={LS_TITLE}
           opacity={OPACITY.dim}
         >
           SCAFFOLD
@@ -331,14 +369,14 @@ export function SaltusMap() {
           fill="url(#sal-stone)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <polygon
           points="194,326 232,304 266,326"
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <rect
           x={250}
@@ -348,7 +386,7 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
         <rect
           x={224}
@@ -358,7 +396,7 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.5"
+          strokeWidth={STROKE_HAIR}
         />
         <rect
           x={242}
@@ -368,7 +406,7 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.5"
+          strokeWidth={STROKE_HAIR}
         />
         <line
           x1={246}
@@ -377,7 +415,7 @@ export function SaltusMap() {
           y2={344}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.4"
+          strokeWidth={STROKE_HAIR}
         />
         <line
           x1={242}
@@ -386,7 +424,7 @@ export function SaltusMap() {
           y2={340}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.4"
+          strokeWidth={STROKE_HAIR}
         />
         <line
           x1={200}
@@ -395,7 +433,7 @@ export function SaltusMap() {
           y2={342}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         <rect
           x={188}
@@ -405,9 +443,16 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
-        <text x={230} y={384} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={230}
+          y={384}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           INN
         </text>
       </g>
@@ -425,14 +470,14 @@ export function SaltusMap() {
           fill="url(#sal-stone)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <polygon
           points="96,358 160,346 160,358"
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <rect
           x={148}
@@ -442,14 +487,14 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
         <path
           d="M 152 340 Q 158 330 154 320 Q 148 312 156 304"
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.7"
+          strokeWidth={STROKE_GUIDE}
         />
         <path
           d="M 110 380 L 108 376 L 130 372 L 134 372 L 132 376 L 130 380 Z"
@@ -460,9 +505,9 @@ export function SaltusMap() {
           x={130}
           y={414}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.14em"
+          letterSpacing={LS_UPPER}
           opacity={OPACITY.dim}
         >
           FORGE
@@ -482,7 +527,7 @@ export function SaltusMap() {
           fill="url(#sal-stone)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <rect
           x={566}
@@ -492,7 +537,7 @@ export function SaltusMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         {[0, 1, 2, 3, 4].map(r => (
           <g key={r}>
@@ -503,7 +548,7 @@ export function SaltusMap() {
               y2={344 + r * 6}
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.5"
+              strokeWidth={STROKE_HAIR}
             />
             {[0, 1, 2].map(c => (
               <line
@@ -514,7 +559,7 @@ export function SaltusMap() {
                 y2={350 + r * 6}
                 stroke={FG}
                 strokeOpacity={OPACITY.dim}
-                strokeWidth="0.5"
+                strokeWidth={STROKE_HAIR}
               />
             ))}
           </g>
@@ -523,9 +568,9 @@ export function SaltusMap() {
           x={580}
           y={396}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.14em"
+          letterSpacing={LS_UPPER}
           opacity={OPACITY.dim}
         >
           BARNOCH'S
@@ -538,10 +583,17 @@ export function SaltusMap() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
           strokeDasharray="6 4"
         />
-        <text x={120} y={494} fill={FG} fontSize="10" opacity={OPACITY.dim} letterSpacing="0.14em">
+        <text
+          x={120}
+          y={494}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_UPPER}
+        >
           ROAD SOUTH → NESSUS
         </text>
       </g>
@@ -558,44 +610,44 @@ export function SaltusBeats() {
     {
       id: 1,
       label: 'THE FAIR',
-      cite: 'Ch. I',
+      cite: '§I',
       body: "Severian and Jonas arrive on horseback\nfor the carnival around three executions.\nThe alcalde greets them; a forge rings\nnearby - that is the volume's blacksmith."
     },
     {
       id: 2,
       label: 'MORWENNA',
-      cite: 'Ch. II',
+      cite: '§II',
       body: "Severian visits Morwenna in her cell.\nShe is condemned for poisoning.\nHer accuser is killed by Severian's\nintervention - a thrown stone."
     },
     {
       id: 3,
       label: 'THE EXECUTION',
-      cite: 'Ch. II',
+      cite: '§II',
       body: "On the scaffold above the square,\nSeverian carries out the carnifex's\nwork: Morwenna and a thief.\nThe crowd does not turn away."
     },
     {
       id: 4,
       label: 'THE MINE',
-      cite: 'Ch. IV',
+      cite: '§IV',
       body: "Beneath Saltus, Severian descends\nfor the man-apes' gold. The Claw\nfirst flares in his sabretache.\nA footstep - from below."
     },
     {
       id: 5,
       label: "BARNOCH'S DOOR",
-      cite: 'Ch. III',
+      cite: '§III',
       body: 'Barnoch, sympathiser of Vodalus,\nwas walled in alive behind his door.\nSeverian opens the brick for him.'
     },
     {
       id: 6,
       label: 'THE GREEN MAN',
-      cite: 'Ch. III',
+      cite: '§III',
       body: 'In a sideshow tent: a man whose\nskin is green and who claims to\nhave come back through time.\nSeverian leaves him a file.'
     }
   ]
   return (
     <Canvas w={800} h={460}>
-      <Label x={40} y={28} size={10}>
-        SALTUS · SIX SCENES (CHAPTERS I-V)
+      <Label x={40} y={28} size={FONT_SMALL}>
+        SALTUS · SIX SCENES (SECTIONS I-V)
       </Label>
       {beats.map((b, i) => {
         const col = i % 3,
@@ -620,19 +672,19 @@ export function SaltusBeats() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={on ? OPACITY.fg : OPACITY.dim}
-              strokeWidth={on ? 1.4 : 1}
+              strokeWidth={on ? STROKE_PRIMARY : STROKE_SECONDARY}
             />
             <text
               x={x + 12}
               y={y + 22}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               opacity={OPACITY.dim}
-              letterSpacing="0.16em"
+              letterSpacing={LS_TITLE}
             >
               {`SCENE ${b.id} · ${b.cite}`}
             </text>
-            <text x={x + 12} y={y + 44} fill={FG} fontSize="13" letterSpacing="0.12em">
+            <text x={x + 12} y={y + 44} fill={FG} fontSize={FONT_TEX} letterSpacing={LS_MEDIUM}>
               {b.label}
             </text>
             {b.body.split('\n').map((ln, j) => (
@@ -641,7 +693,7 @@ export function SaltusBeats() {
                 x={x + 12}
                 y={y + 70 + j * 14}
                 fill={FG}
-                fontSize="10"
+                fontSize={FONT_SMALL}
                 opacity={OPACITY.dim}
               >
                 {ln}
@@ -673,27 +725,30 @@ export function MineSection() {
           x={40}
           y={28}
           fill={FG}
-          fontSize="10"
+          fontSize={FONT_SMALL}
           opacity={OPACITY.dim}
-          letterSpacing="0.18em"
+          letterSpacing={LS_CONTROL}
           style={{ textTransform: 'uppercase' }}
         >
-          THE MINE BENEATH SALTUS · CH. IV
+          THE MINE BENEATH SALTUS · §IV
         </text>
         <path
           d="M 100 60 L 100 480 L 360 480 L 480 460 L 480 200 L 380 60 Z"
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.faint}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
+        <clipPath id="mineGlowClip">
+          <path d="M 100 60 L 100 480 L 360 480 L 480 460 L 480 200 L 380 60 Z" />
+        </clipPath>
         <path
           d={`M ${xTop} ${yTop} L ${xTop + 40} ${yTop} L ${xBot + 40} ${yBot} L ${xBot} ${yBot} Z`}
           fill={FG}
           fillOpacity="0.03"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <ellipse
           cx={xBot + 20}
@@ -703,37 +758,46 @@ export function MineSection() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={xBot + 86} y={yBot - 6} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+        <text x={xBot + 86} y={yBot - 6} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           standing pool
         </text>
-        <circle
-          cx={sx + 20}
-          cy={sy}
-          r={20 + 30 * depth}
-          fill="none"
-          stroke={FG}
-          strokeOpacity={0.18 + 0.25 * depth}
-          strokeWidth="0.8"
-        />
-        <circle
-          cx={sx + 20}
-          cy={sy}
-          r={36 + 60 * depth}
-          fill="none"
-          stroke={FG}
-          strokeOpacity={0.06 + 0.2 * depth}
-          strokeWidth="0.8"
-        />
-        <text x={520} y={150} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.08em">
+        <g clipPath="url(#mineGlowClip)">
+          <circle
+            cx={sx + 20}
+            cy={sy}
+            r={20 + 30 * depth}
+            fill="none"
+            stroke={FG}
+            strokeOpacity={0.18 + 0.25 * depth}
+            strokeWidth={STROKE_GUIDE}
+          />
+          <circle
+            cx={sx + 20}
+            cy={sy}
+            r={36 + 60 * depth}
+            fill="none"
+            stroke={FG}
+            strokeOpacity={0.06 + 0.2 * depth}
+            strokeWidth={STROKE_GUIDE}
+          />
+        </g>
+        <text
+          x={520}
+          y={150}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_LABEL}
+        >
           GLOW INTENSITY
         </text>
-        <text x={520} y={170} fill={FG} fontSize="10">
+        <text x={520} y={170} fill={FG} fontSize={FONT_SMALL}>
           {Math.round(depth * 100)}%
         </text>
         <circle cx={sx + 20} cy={sy} r="6" fill={FG} />
-        <text x={sx + 36} y={sy + 4} fill={FG} fontSize="10">
+        <text x={sx + 36} y={sy + 4} fill={FG} fontSize={FONT_SMALL}>
           Severian
         </text>
         {depth > 0.7 && (
@@ -742,10 +806,10 @@ export function MineSection() {
               x={xBot + 20}
               y={yBot + 16}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.fg}
-              letterSpacing="0.08em"
+              letterSpacing={LS_LABEL}
             >
               ↓ FOOTSTEP FROM BELOW
             </text>
@@ -753,7 +817,7 @@ export function MineSection() {
               x={xBot + 20}
               y={yBot + 30}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.dim}
             >
@@ -761,22 +825,29 @@ export function MineSection() {
             </text>
           </g>
         )}
-        <text x={520} y={220} fill={FG} fontSize="10" opacity={OPACITY.dim} letterSpacing="0.12em">
-          FROM CH. IV
+        <text
+          x={520}
+          y={220}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_MEDIUM}
+        >
+          FROM §IV
         </text>
-        <text x={520} y={240} fill={FG} fontSize="11">
+        <text x={520} y={240} fill={FG} fontSize={FONT_LABEL}>
           "The blue light grew brighter,
         </text>
-        <text x={520} y={256} fill={FG} fontSize="11">
+        <text x={520} y={256} fill={FG} fontSize={FONT_LABEL}>
           not weaker, as we descended."
         </text>
-        <text x={520} y={290} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={520} y={290} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           The Claw in the sabretache
         </text>
-        <text x={520} y={306} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={520} y={306} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           is its source - neither
         </text>
-        <text x={520} y={322} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={520} y={322} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           knows yet.
         </text>
       </svg>
@@ -804,7 +875,7 @@ export function ForestCourt() {
       angle: -Math.PI / 2,
       label: 'VODALUS',
       sub: 'presides',
-      cite: 'Ch. VI',
+      cite: '§VI',
       body: 'Seated on a cushion at the head\nof the circle. Inquires of Severian.'
     },
     {
@@ -812,7 +883,7 @@ export function ForestCourt() {
       angle: -Math.PI / 2 + 0.7,
       label: 'Thea',
       sub: "Vodalus's lady",
-      cite: 'Ch. VI',
+      cite: '§VI',
       body: "Thecla's half-sister.\nSeverian recognises her face."
     },
     {
@@ -820,7 +891,7 @@ export function ForestCourt() {
       angle: Math.PI / 2,
       label: 'SEVERIAN',
       sub: 'new initiate',
-      cite: 'Ch. VI',
+      cite: '§VI',
       body: 'Given his share of the alzabo.\nWill carry Thecla afterward.'
     },
     {
@@ -828,7 +899,7 @@ export function ForestCourt() {
       angle: Math.PI / 2 - 0.7,
       label: 'guard',
       sub: '',
-      cite: 'Ch. V',
+      cite: '§V',
       body: 'Vodalarius - armed.\nSeverian was brought blindfolded.'
     },
     {
@@ -836,7 +907,7 @@ export function ForestCourt() {
       angle: -Math.PI / 2 - 0.7,
       label: 'guard',
       sub: '',
-      cite: 'Ch. V',
+      cite: '§V',
       body: 'Another Vodalarius.\nThe forest is full of them.'
     },
     {
@@ -844,7 +915,7 @@ export function ForestCourt() {
       angle: 0,
       label: 'others',
       sub: 'unnamed',
-      cite: 'Ch. VI',
+      cite: '§VI',
       body: 'Other officers of the rebellion.\nThe volume does not name them all.'
     },
     {
@@ -852,15 +923,15 @@ export function ForestCourt() {
       angle: Math.PI,
       label: 'THECLA',
       sub: '(the meat)',
-      cite: 'Ch. VI',
+      cite: '§VI',
       body: "Thecla's flesh, mixed with the\nalzabo flesh. To eat is to wear her\nmemory for a time."
     }
   ]
   return (
     <Canvas w={800} h={580}>
       <Hatch id="fc-canopy" angle={120} gap={4} opacity={0.06} />
-      <Label x={40} y={32} size={10}>
-        FOREST COURT · ALZABO FEAST · CH. V–VII
+      <Label x={40} y={32} size={FONT_SMALL}>
+        FOREST COURT · ALZABO FEAST · §V–VII
       </Label>
       <rect x={0} y={60} width={800} height={500} fill="url(#fc-canopy)" />
       {Array.from({ length: 26 }).map((_, i) => {
@@ -880,7 +951,7 @@ export function ForestCourt() {
               y2={y - h * 0.3}
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.9"
+              strokeWidth={STROKE_GUIDE}
             />
             <path
               d={`M ${x - h * 0.32} ${y - h * 0.2}
@@ -890,7 +961,7 @@ export function ForestCourt() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="0.8"
+              strokeWidth={STROKE_GUIDE}
             />
           </g>
         )
@@ -906,7 +977,7 @@ export function ForestCourt() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         <line
           x1={cx - 50}
@@ -915,7 +986,7 @@ export function ForestCourt() {
           y2={cy + 14}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="2"
+          strokeWidth={STROKE_EMPHASIS}
         />
         <line
           x1={cx - 40}
@@ -924,7 +995,7 @@ export function ForestCourt() {
           y2={cy + 20}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         <line
           x1={cx - 25}
@@ -933,7 +1004,7 @@ export function ForestCourt() {
           y2={cy + 8}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         {[
           [0, -50, 1.0],
@@ -953,7 +1024,7 @@ export function ForestCourt() {
             strokeWidth={sc * 1.1}
           />
         ))}
-        <Rays cx={cx} cy={cy} r0={62} r1={110} count={20} opacity={0.2} strokeWidth={0.4} />
+        <Rays cx={cx} cy={cy} r0={62} r1={110} count={20} opacity={0.2} strokeWidth={STROKE_HAIR} />
         {Array.from({ length: 18 }).map((_, i) => {
           const rng = srand(220 + i)
           const a = -Math.PI / 2 + (rng() - 0.5) * Math.PI
@@ -973,10 +1044,10 @@ export function ForestCourt() {
           x={cx}
           y={cy + 56}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
           opacity={OPACITY.dim}
-          letterSpacing="0.16em"
+          letterSpacing={LS_TITLE}
         >
           PYRE · ALZABO + THECLA
         </text>
@@ -1001,7 +1072,7 @@ export function ForestCourt() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.faint}
-              strokeWidth="0.4"
+              strokeWidth={STROKE_HAIR}
             />
             <circle cx={x} cy={y - 8} r="5" fill={FG} opacity={OPACITY.fg} />
             <path
@@ -1009,19 +1080,26 @@ export function ForestCourt() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1"
+              strokeWidth={STROKE_SECONDARY}
             />
             <text
               x={x}
               y={y + 36}
               fill={FG}
-              fontSize="10"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
-              letterSpacing="0.08em"
+              letterSpacing={LS_LABEL}
             >
               {s.label}
             </text>
-            <text x={x} y={y + 50} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+            <text
+              x={x}
+              y={y + 50}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              textAnchor="middle"
+              opacity={OPACITY.dim}
+            >
               {s.sub}
             </text>
             <circle cx={x} cy={y} r="22" fill="transparent" />
@@ -1041,43 +1119,43 @@ export function Antechamber() {
       name: 'old man',
       x: 200,
       y: 200,
-      cite: 'Ch. XII',
+      cite: '§XII',
       body: 'Came as a young suitor.\nForgot the year. Stayed.'
     },
     {
       name: 'singer',
       x: 340,
       y: 170,
-      cite: 'Ch. XII',
+      cite: '§XII',
       body: 'Sings the same song\nshe began on her arrival.'
     },
     {
       name: 'soldier',
       x: 500,
       y: 200,
-      cite: 'Ch. XII',
+      cite: '§XII',
       body: 'Wears a uniform of\na regiment now disbanded.'
     },
-    { name: 'child', x: 620, y: 230, cite: 'Ch. XII', body: 'Born here.\nHis mother left him.' },
+    { name: 'child', x: 620, y: 230, cite: '§XII', body: 'Born here.\nHis mother left him.' },
     {
       name: 'Severian',
       x: 400,
       y: 340,
-      cite: 'Ch. XI–XII',
+      cite: '§XI–XII',
       body: 'Wanders in with Jonas.\nThey are not visitors;\nthey are intruders.'
     },
     {
       name: 'Jonas',
       x: 340,
       y: 340,
-      cite: 'Ch. XII',
+      cite: '§XII',
       body: 'Recognises this antechamber.\nHe has been here before.\nHe leaves through the mirrors.'
     }
   ]
   return (
     <Canvas w={800} h={460}>
-      <Label x={40} y={32} size={10}>
-        ANTECHAMBER · HOUSE ABSOLUTE · CH. XI–XII
+      <Label x={40} y={32} size={FONT_SMALL}>
+        ANTECHAMBER · HOUSE ABSOLUTE · §XI–XII
       </Label>
       <rect
         x={120}
@@ -1087,7 +1165,7 @@ export function Antechamber() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.2"
+        strokeWidth={STROKE_PRIMARY}
       />
       <line
         x1={120}
@@ -1111,9 +1189,9 @@ export function Antechamber() {
         x={108}
         y={250}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
         transform="rotate(-90 108 250)"
       >
         MIRROR WALL
@@ -1122,9 +1200,9 @@ export function Antechamber() {
         x={692}
         y={250}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
         transform="rotate(90 692 250)"
       >
         MIRROR WALL
@@ -1149,13 +1227,13 @@ export function Antechamber() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
           <text
             x={v.x}
             y={v.y + 28}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -1163,10 +1241,24 @@ export function Antechamber() {
           </text>
         </g>
       ))}
-      <text x={400} y={64} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.16em">
+      <text
+        x={400}
+        y={64}
+        fill={FG}
+        fontSize={FONT_LABEL}
+        textAnchor="middle"
+        letterSpacing={LS_TITLE}
+      >
         A ROOM THAT FORGOT IT WAS A PRISON
       </text>
-      <text x={400} y={448} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={448}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         none of them remember when they arrived; none of them leave
       </text>
       <Tooltip tip={tip} />
@@ -1181,25 +1273,25 @@ export function HouseAbsolute() {
     {
       r: 230,
       label: 'OUTER GARDENS',
-      cite: 'Ch. X',
+      cite: '§X',
       body: 'Public play takes place here.\nDr. Talos performs Eschatology and Genesis.'
     },
     {
       r: 175,
       label: 'HYPOGEUM WARDS',
-      cite: 'Ch. XI',
+      cite: '§XI',
       body: 'Buried, concentric corridors.\nThe whole palace is underground.'
     },
     {
       r: 120,
       label: 'ANTECHAMBER',
-      cite: 'Ch. XII',
+      cite: '§XII',
       body: "Visitors collect; none ever leave.\nInire's mirrors line two walls."
     },
     {
       r: 65,
       label: 'AUTARCH CENTRE',
-      cite: 'Ch. X–XII',
+      cite: '§X–XII',
       body: 'At the core. Severian does not\nmeet the Autarch in Book II.'
     }
   ]
@@ -1207,7 +1299,7 @@ export function HouseAbsolute() {
     cy = 270
   return (
     <Canvas w={800} h={560}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         HOUSE ABSOLUTE · CONCENTRIC PALACE
       </Label>
       <line
@@ -1217,9 +1309,16 @@ export function HouseAbsolute() {
         y2={120}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
-      <text x={40} y={108} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={40}
+        y={108}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         SURFACE
       </text>
       {rings.map((rg, i) => (
@@ -1238,15 +1337,15 @@ export function HouseAbsolute() {
             fill="none"
             stroke={FG}
             strokeOpacity={tip && tip.title === rg.label ? OPACITY.fg : OPACITY.dim}
-            strokeWidth={tip && tip.title === rg.label ? 1.6 : 1}
+            strokeWidth={tip && tip.title === rg.label ? STROKE_EMPHASIS : STROKE_SECONDARY}
           />
           <text
             x={cx}
             y={cy - rg.r - 6}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.12em"
+            letterSpacing={LS_MEDIUM}
             opacity={OPACITY.dim}
           >
             {rg.label}
@@ -1258,110 +1357,24 @@ export function HouseAbsolute() {
         fill="none"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.2"
+        strokeWidth={STROKE_PRIMARY}
       />
       <circle cx={cx - 90} cy={cy + 60} r="6" fill={FG} />
-      <text x={cx - 80} y={cy + 76} fill={FG} fontSize="10" opacity={OPACITY.fg}>
+      <text x={cx - 80} y={cy + 76} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.fg}>
         Severian + Jonas
       </text>
-      <text x={cx - 80} y={cy + 90} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+      <text x={cx - 80} y={cy + 90} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         slipped through the wrong ring
       </text>
-      <text x={500} y={490} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={500}
+        y={490}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         each ring filters who can pass
-      </text>
-      <Tooltip tip={tip} />
-    </Canvas>
-  )
-}
-
-// II.05.1 - Play Structure
-export function PlayStructure() {
-  const [tip, setTip] = useTooltip()
-  const acts = ['I · NIGHT', 'II · CITY', 'III · MOUNTAIN', 'IV · COSMOS', 'V · GARDEN']
-  const actors = [
-    { name: 'Severian', roles: ['Statue', 'Inquisitor', 'Climber', '-', 'First Adam'] },
-    { name: 'Baldanders', roles: ['Demon', 'Tyrant', 'God', 'God', 'Familiar'] },
-    { name: 'Dr. Talos', roles: ['Conjurer', 'Conjurer', 'Prophet', 'Prophet', 'Conjurer'] },
-    { name: 'Jolenta', roles: ['-', 'Contessa', 'Sibyl', 'Princess', 'New Eve'] },
-    { name: 'Dorcas', roles: ['Spirit', 'Servant', '-', 'Witness', 'Witness'] },
-    { name: 'figurant 1', roles: ['-', '-', 'climber', 'soldier', '-'] },
-    { name: 'figurant 2', roles: ['-', '-', '-', 'soldier', '-'] }
-  ]
-  return (
-    <Canvas w={800} h={500}>
-      <Label x={40} y={32} size={10}>
-        ESCHATOLOGY AND GENESIS · 7 ACTORS · 5 ACTS
-      </Label>
-      {acts.map((a, i) => (
-        <text
-          key={i}
-          x={240 + i * 90}
-          y={80}
-          fill={FG}
-          fontSize="9"
-          textAnchor="middle"
-          letterSpacing="0.12em"
-          opacity={OPACITY.dim}
-        >
-          {a}
-        </text>
-      ))}
-      {actors.map((act, r) => (
-        <g key={act.name}>
-          <text x={60} y={120 + r * 44} fill={FG} fontSize="11" letterSpacing="0.08em">
-            {act.name}
-          </text>
-          {act.roles.map((role, c) => (
-            <g
-              key={c}
-              style={{ cursor: role === '-' ? 'default' : 'pointer' }}
-              onMouseEnter={
-                role !== '-'
-                  ? () =>
-                      setTip({
-                        x: 240 + c * 90,
-                        y: 120 + r * 44,
-                        title: `${act.name} → ${role}`,
-                        body: `Act ${acts[c].split(' ')[0]}\n${act.name} plays ${role}.`,
-                        cite: 'Ch. X'
-                      })
-                  : null
-              }
-              onMouseLeave={() => setTip(null)}
-            >
-              <rect
-                x={200 + c * 90}
-                y={104 + r * 44}
-                width={80}
-                height={32}
-                fill={role === '-' ? 'none' : '#000'}
-                stroke={FG}
-                strokeOpacity={role === '-' ? OPACITY.faint : OPACITY.dim}
-                strokeWidth="0.8"
-              />
-              <text
-                x={240 + c * 90}
-                y={124 + r * 44}
-                fill={FG}
-                opacity={role === '-' ? OPACITY.faint : OPACITY.fg}
-                fontSize="10"
-                textAnchor="middle"
-              >
-                {role}
-              </text>
-            </g>
-          ))}
-        </g>
-      ))}
-      <text x={40} y={440} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
-        DOUBLING
-      </text>
-      <text x={40} y={456} fill={FG} fontSize="10">
-        forced - one body for Demon and God, Contessa and Princess
-      </text>
-      <text x={40} y={476} fill={FG} fontSize="10" opacity={OPACITY.dim}>
-        Wolfe writes the doubling into the script itself
       </text>
       <Tooltip tip={tip} />
     </Canvas>
@@ -1371,8 +1384,11 @@ export function PlayStructure() {
 // II.06.1 - Cumaean Ritual
 export function CumaeanRitual() {
   const [playing, setPlaying] = React.useState(false)
-  const t = useAnimationTime(playing, 0.4)
-  const phase = (t % 4) / 4
+  const tRaw = useAnimationTime(playing, 0.4)
+  // RESET rebases the clock so the ritual returns to its first phase
+  const [tBase, setTBase] = React.useState(0)
+  const t = tRaw - tBase
+  const phase = (((t % 4) + 4) % 4) / 4
   const cx = 400,
     cy = 320
   const R = 140
@@ -1415,12 +1431,12 @@ export function CumaeanRitual() {
           x={40}
           y={28}
           fill={FG}
-          fontSize="10"
+          fontSize={FONT_SMALL}
           opacity={OPACITY.dim}
-          letterSpacing="0.18em"
+          letterSpacing={LS_CONTROL}
           style={{ textTransform: 'uppercase' }}
         >
-          CUMAEAN CALLS APU PUNCHAU · CH. XXIX–XXX
+          CUMAEAN CALLS APU PUNCHAU · §XXIX–XXX
         </text>
 
         <Stipple x={40} y={50} w={720} h={140} n={120} seed={47} opacity={0.55} r={0.5} />
@@ -1431,7 +1447,7 @@ export function CumaeanRitual() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
           {[
             [220, 160],
@@ -1450,12 +1466,12 @@ export function CumaeanRitual() {
           ))}
           <text
             x={400}
-            y={216}
+            y={50}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
           >
             THE ANCIENT CITY · FLICKERING
           </text>
@@ -1469,7 +1485,7 @@ export function CumaeanRitual() {
           fill="url(#cum-ground)"
           stroke={FG}
           strokeOpacity={OPACITY.faint}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         {[80, 120, 160].map((rr, i) => (
           <ellipse
@@ -1481,7 +1497,7 @@ export function CumaeanRitual() {
             fill="none"
             stroke={FG}
             strokeOpacity={OPACITY.faint * 0.7}
-            strokeWidth="0.4"
+            strokeWidth={STROKE_HAIR}
           />
         ))}
 
@@ -1495,7 +1511,7 @@ export function CumaeanRitual() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.faint}
-            strokeWidth="0.4"
+            strokeWidth={STROKE_HAIR}
           />
         ))}
 
@@ -1516,7 +1532,7 @@ export function CumaeanRitual() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1.2"
+                strokeWidth={STROKE_PRIMARY}
               />
               {Array.from({ length: 4 }).map((_, j) => (
                 <line
@@ -1527,7 +1543,7 @@ export function CumaeanRitual() {
                   y2={s.y - s.h / 2 + 12 + j * 9}
                   stroke={FG}
                   strokeOpacity={OPACITY.faint * 0.7}
-                  strokeWidth="0.4"
+                  strokeWidth={STROKE_HAIR}
                 />
               ))}
             </g>
@@ -1535,7 +1551,15 @@ export function CumaeanRitual() {
         })}
 
         <g opacity={apuOpacity}>
-          <Rays cx={cx} cy={cy} r0={30} r1={120} count={24} opacity={0.4} strokeWidth={0.6} />
+          <Rays
+            cx={cx}
+            cy={cy}
+            r0={30}
+            r1={120}
+            count={24}
+            opacity={0.4}
+            strokeWidth={STROKE_HAIR}
+          />
           <circle
             cx={cx}
             cy={cy}
@@ -1543,20 +1567,27 @@ export function CumaeanRitual() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.4"
+            strokeWidth={STROKE_PRIMARY}
           />
           <ellipse cx={cx} cy={cy - 4} rx={10} ry={12} fill={FG} opacity={0.85} />
           <text
             x={cx}
             y={cy + 56}
             fill={FG}
-            fontSize="11"
+            fontSize={FONT_LABEL}
             textAnchor="middle"
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
           >
             APU PUNCHAU
           </text>
-          <text x={cx} y={cy + 70} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+          <text
+            x={cx}
+            y={cy + 70}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            opacity={OPACITY.dim}
+          >
             head of day
           </text>
         </g>
@@ -1582,7 +1613,7 @@ export function CumaeanRitual() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.faint}
-              strokeWidth="0.4"
+              strokeWidth={STROKE_HAIR}
             />
             <circle cx={w.x} cy={w.y - 8} r="5" fill={FG} opacity={OPACITY.fg} />
             <path
@@ -1590,33 +1621,47 @@ export function CumaeanRitual() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1"
+              strokeWidth={STROKE_SECONDARY}
             />
             <text
               x={w.x}
               y={w.y + 32}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
-              letterSpacing="0.08em"
+              letterSpacing={LS_LABEL}
             >
               {w.label}
             </text>
           </g>
         ))}
 
-        <text x={40} y={538} fill={FG} fontSize="10" opacity={OPACITY.dim} letterSpacing="0.12em">
+        <text
+          x={40}
+          y={538}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_MEDIUM}
+        >
           phase {(phase * 100).toFixed(0)}% · the city appears, then fades
         </text>
       </svg>
-      <PlayPause playing={playing} onToggle={() => setPlaying(v => !v)} onReset={() => {}} />
+      <PlayPause
+        playing={playing}
+        onToggle={() => {
+          if (!playing) setTBase(0) // the hook restarts its clock on each play
+          setPlaying(v => !v)
+        }}
+        onReset={() => setTBase(tRaw)}
+      />
     </div>
   )
 }
 
 // II.07.1 - Nessus → Thrax
 export function NessusToThrax() {
-  const chapters = [
+  const sections = [
     [1, 'The village of Saltus', 'SALTUS', 0.55],
     [2, 'The man in the dark', 'SALTUS', 0.35],
     [3, 'The cipher', 'SALTUS', 0.5],
@@ -1649,8 +1694,8 @@ export function NessusToThrax() {
     [30, 'The Pelerine', 'NORTH', 0.55],
     [31, "The thaumaturge's mirror", 'THRAX', 0.5]
   ]
-  const data = chapters.map(([n, label, band]) => ({ n, label, sub: band }))
-  const moods = chapters.map(([, , , m]) => m)
+  const data = sections.map(([n, label, band]) => ({ n, label, sub: band }))
+  const moods = sections.map(([, , , m]) => m)
   const beats = [
     { i: 0, label: 'Saltus' },
     { i: 4, label: 'Mine' },
@@ -1663,15 +1708,15 @@ export function NessusToThrax() {
   ]
   const [current, setCurrent] = React.useState(0)
   return (
-    <ChapterTimeline
-      chapters={data}
+    <ModuleTimeline
+      sections={data}
       moods={moods}
       beats={beats}
       current={current}
       onScrub={setCurrent}
       width={780}
       height={260}
-      topLabel="THE CLAW OF THE CONCILIATOR · 31 CHAPTERS"
+      topLabel="THE CLAW OF THE CONCILIATOR · 31 SECTIONS"
     />
   )
 }
@@ -1696,13 +1741,13 @@ export function CharacterNetwork() {
         {
           name: 'Jolenta',
           tag: 'beauty · dying',
-          cite: 'Ch. VIII–XXVII',
+          cite: '§VIII–XXVII',
           body: "Talos' actress; declines\non the journey."
         },
         {
           name: 'Jonas',
           tag: 'iron-handed',
-          cite: 'Ch. XI–XII',
+          cite: '§XI–XII',
           body: "Walks into Inire's mirror;\nnever returns."
         }
       ]
@@ -1715,32 +1760,33 @@ export function CharacterNetwork() {
         {
           name: 'Vodalus',
           tag: 'rebel chief',
-          cite: 'Ch. V–VII',
+          cite: '§V–VII',
           body: 'Presides at the alzabo feast.'
         },
-        { name: 'Thea', tag: "Vodalus's lady", cite: 'Ch. VI', body: "Thecla's half-sister." },
+        { name: 'Thea', tag: "Vodalus's lady", cite: '§VI', body: "Thecla's half-sister." },
         {
           name: 'F. Inire',
           tag: 'shadow vizier',
-          cite: 'Ch. XIII',
+          cite: '§XIII',
           body: 'Met as the homunculus\nin the antechamber.'
         },
-        { name: 'Autarch', tag: 'unseen', cite: 'Ch. X–XII', body: 'In the palace; never seen.' }
+        { name: 'Autarch', tag: 'unseen', cite: '§X–XII', body: 'In the palace; never seen.' }
       ]
     },
     {
       name: 'HIERODULES + SIBYL',
       angle: 0.6,
+      labelR: 130,
       radius: 230,
       members: [
-        { name: 'Cumaean', tag: 'sibyl', cite: 'Ch. XXI–XXIII', body: 'Calls Apu Punchau back.' },
+        { name: 'Cumaean', tag: 'sibyl', cite: '§XXI–XXIII', body: 'Calls Apu Punchau back.' },
         {
           name: 'Merryn',
           tag: "sibyl's witch",
-          cite: 'Ch. XXI',
+          cite: '§XXI',
           body: "Cumaean's witch-companion."
         },
-        { name: 'Hildegrin', tag: 'the Badger', cite: 'Ch. XXII', body: 'Killed in the ritual.' }
+        { name: 'Hildegrin', tag: 'the Badger', cite: '§XXII', body: 'Killed in the ritual.' }
       ]
     },
     {
@@ -1770,13 +1816,13 @@ export function CharacterNetwork() {
         {
           name: 'Thecla',
           tag: 'inside Severian',
-          cite: 'Ch. VI',
+          cite: '§VI',
           body: 'Wears him from within\nafter the feast.'
         },
         {
           name: 'Malrubius',
           tag: 'in dreams',
-          cite: 'Ch. XXVII',
+          cite: '§XXVII',
           body: 'Visits Severian as aquastor.'
         }
       ]
@@ -1786,8 +1832,8 @@ export function CharacterNetwork() {
       angle: -3.6,
       radius: 180,
       members: [
-        { name: 'Agia', tag: 'ghost-hunter', cite: 'Ch. III', body: 'Her hand in Saltus murders.' },
-        { name: 'Hethor', tag: 'old sailor', cite: 'Ch. XXIV', body: 'Follows; conjures notules.' }
+        { name: 'Agia', tag: 'ghost-hunter', cite: '§III', body: 'Her hand in Saltus murders.' },
+        { name: 'Hethor', tag: 'old sailor', cite: '§XXIV', body: 'Follows; conjures notules.' }
       ]
     }
   ]
@@ -1801,7 +1847,7 @@ export function CharacterNetwork() {
   })
   return (
     <Canvas w={800} h={640}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         SEVERIAN'S RELATIONAL FIELD · BOOK II
       </Label>
       {factions.flatMap((f, fi) =>
@@ -1816,24 +1862,24 @@ export function CharacterNetwork() {
               y2={m._y}
               stroke={FG}
               strokeOpacity={active ? OPACITY.fg : OPACITY.faint}
-              strokeWidth={active ? 1.4 : 0.6}
+              strokeWidth={active ? STROKE_PRIMARY : STROKE_HAIR}
             />
           )
         })
       )}
       {factions.map((f, fi) => {
-        const lx = cx + Math.cos(f.angle) * (f.radius + 90)
-        const ly = cy + Math.sin(f.angle) * (f.radius + 90)
+        const lx = cx + Math.cos(f.angle) * (f.radius + (f.labelR ?? 90))
+        const ly = cy + Math.sin(f.angle) * (f.radius + (f.labelR ?? 90))
         return (
           <text
             key={fi}
             x={lx}
             y={ly}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             opacity={OPACITY.dim}
             textAnchor="middle"
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
           >
             {f.name}
           </text>
@@ -1856,16 +1902,16 @@ export function CharacterNetwork() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1"
+              strokeWidth={STROKE_SECONDARY}
             />
-            <text x={m._x} y={m._y + 22} fill={FG} fontSize="10" textAnchor="middle">
+            <text x={m._x} y={m._y + 22} fill={FG} fontSize={FONT_SMALL} textAnchor="middle">
               {m.name}
             </text>
             <text
               x={m._x}
               y={m._y + 36}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.dim}
             >
@@ -1883,15 +1929,36 @@ export function CharacterNetwork() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={cx} y={cy + 4} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={cx}
+          y={cy + 4}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           SEV
         </text>
-        <text x={cx} y={cy + 44} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={cx}
+          y={cy + 44}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           SEVERIAN
         </text>
-        <text x={cx} y={cy + 60} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={cx}
+          y={cy + 60}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           + Thecla within
         </text>
       </g>
@@ -1910,7 +1977,7 @@ export function TerminologyTree() {
   })
   const reservoirs = {
     GREEK: {
-      x: 120,
+      x: 130,
       y: 90,
       words: [
         ['cataphract', 'Gk. armed cavalry'],
@@ -1922,18 +1989,18 @@ export function TerminologyTree() {
       ]
     },
     LATIN: {
-      x: 380,
+      x: 390,
       y: 90,
       words: [
         ['Conciliator', 'L. reconciler'],
         ['lictor', 'L. magistrate guard'],
-        ['carnifex', 'L. butcher · executioner'],
         ['mappemonde', 'L./Fr. world-map'],
+        ['carnifex', 'L. butcher · executioner'],
         ['flamingo', 'L. flame-coloured']
       ]
     },
     ARCHAIC: {
-      x: 640,
+      x: 650,
       y: 90,
       words: [
         ['fuligin', 'darker than black'],
@@ -1945,7 +2012,7 @@ export function TerminologyTree() {
     },
     AUTHORS: {
       x: 380,
-      y: 380,
+      y: 360,
       words: [
         ['Apu Punchau', 'Quechua: head of day'],
         ['Erebus', 'Gk. dark place'],
@@ -1958,7 +2025,7 @@ export function TerminologyTree() {
   return (
     <div style={{ width: '100%' }}>
       <Canvas w={800} h={520}>
-        <Label x={40} y={32} size={10}>
+        <Label x={40} y={32} size={FONT_SMALL}>
           VOCABULARY · FOUR RESERVOIRS
         </Label>
         {Object.entries(reservoirs).map(([r, rg]) => (
@@ -1967,9 +2034,9 @@ export function TerminologyTree() {
               x={rg.x}
               y={rg.y}
               fill={FG}
-              fontSize="11"
+              fontSize={FONT_LABEL}
               textAnchor="middle"
-              letterSpacing="0.16em"
+              letterSpacing={LS_TITLE}
               opacity={active[r] ? OPACITY.fg : OPACITY.dim}
             >
               {r}
@@ -1985,7 +2052,7 @@ export function TerminologyTree() {
             {rg.words.map((w, i) => {
               const col = i % 2
               const row = Math.floor(i / 2)
-              const wx = rg.x + (col === 0 ? -90 : 90)
+              const wx = rg.x + (col === 0 ? -65 : 65)
               const wy = rg.y + 60 + row * 38
               return (
                 <g key={i} opacity={active[r] ? 1 : 0.25}>
@@ -2001,9 +2068,9 @@ export function TerminologyTree() {
                     x={wx}
                     y={wy}
                     fill={FG}
-                    fontSize="11"
+                    fontSize={FONT_LABEL}
                     textAnchor="middle"
-                    letterSpacing="0.06em"
+                    letterSpacing={LS_TIGHT}
                   >
                     {w[0]}
                   </text>
@@ -2011,7 +2078,7 @@ export function TerminologyTree() {
                     x={wx}
                     y={wy + 14}
                     fill={FG}
-                    fontSize="9"
+                    fontSize={FONT_SMALL}
                     textAnchor="middle"
                     opacity={OPACITY.dim}
                   >
@@ -2054,7 +2121,7 @@ export function SymbolNetwork() {
       y: 160,
       label: 'MIRROR',
       sub: 'Inire · doubling',
-      cite: 'Ch. XIII',
+      cite: '§XIII',
       body: 'Jonas walks into one and is gone.'
     },
     fang: {
@@ -2062,7 +2129,7 @@ export function SymbolNetwork() {
       y: 160,
       label: 'FANG',
       sub: 'alzabo · wolf',
-      cite: 'Ch. VI, IV',
+      cite: '§VI, IV',
       body: 'The animal mouth that takes\nselves into itself.'
     },
     water: {
@@ -2070,7 +2137,7 @@ export function SymbolNetwork() {
       y: 340,
       label: 'WATER',
       sub: 'lake · cistern',
-      cite: 'Ch. V, XX',
+      cite: '§V, XX',
       body: "Mineshaft pool; Cumaean's cistern."
     },
     flame: {
@@ -2078,7 +2145,7 @@ export function SymbolNetwork() {
       y: 340,
       label: 'FLAME',
       sub: 'feast · pyre',
-      cite: 'Ch. VI, II',
+      cite: '§VI, II',
       body: "Morwenna's pyre; the feast fire."
     },
     shadow: {
@@ -2094,7 +2161,7 @@ export function SymbolNetwork() {
       y: 520,
       label: 'MASK',
       sub: 'play · Hierodule',
-      cite: 'Ch. X',
+      cite: '§X',
       body: 'The play and the Hierodules\nshare the same surface.'
     },
     sun: {
@@ -2102,7 +2169,7 @@ export function SymbolNetwork() {
       y: 80,
       label: 'NEW SUN',
       sub: 'awaited',
-      cite: 'Ch. XXVIII',
+      cite: '§XXVIII',
       body: 'The Conciliator is rumoured\nto bring it.'
     },
     grave: {
@@ -2110,7 +2177,7 @@ export function SymbolNetwork() {
       y: 560,
       label: 'GRAVE',
       sub: 'Barnoch · feast',
-      cite: 'Ch. III, VI',
+      cite: '§III, VI',
       body: 'Barnoch buried alive;\nThecla devoured.'
     },
     coin: {
@@ -2141,7 +2208,7 @@ export function SymbolNetwork() {
   ]
   return (
     <Canvas w={800} h={620}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         SYMBOL NETWORK · CLAW AT THE CENTRE
       </Label>
       {edges.map(([a, b], i) => (
@@ -2153,7 +2220,7 @@ export function SymbolNetwork() {
           y2={nodes[b].y}
           stroke={FG}
           strokeOpacity={OPACITY.faint}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
       ))}
       {Object.entries(nodes).map(([k, n]) => (
@@ -2172,15 +2239,15 @@ export function SymbolNetwork() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={k === 'claw' ? OPACITY.fg : OPACITY.dim}
-            strokeWidth={k === 'claw' ? 1.6 : 1}
+            strokeWidth={k === 'claw' ? STROKE_EMPHASIS : STROKE_SECONDARY}
           />
           <text
             x={n.x}
             y={n.y + (k === 'claw' ? 32 : 26)}
             fill={FG}
-            fontSize={k === 'claw' ? 11 : 10}
+            fontSize={k === 'claw' ? FONT_LABEL : FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.1em"
+            letterSpacing={LS_OPEN}
           >
             {n.label}
           </text>
@@ -2188,7 +2255,7 @@ export function SymbolNetwork() {
             x={n.x}
             y={n.y + (k === 'claw' ? 48 : 40)}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >

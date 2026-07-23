@@ -11,18 +11,19 @@ import {
 
 // Component
 
-export default function OscillationsPart1() {
+export default function SmallOscillationsElementary() {
   const config = {
     cssPrefix: 'osc',
-    documentTitle: 'Oscillations (Part I) - AETHER',
+    documentTitle: 'Small Oscillations (Elementary) - AETHER',
     learning: {
       groupTitle: 'Newtonian Mechanics',
       category: 'Module 8',
-      title: 'Oscillations (Part I)',
+      title: 'Small Oscillations (Elementary)',
       subtitle:
         'The harmonic oscillator models springs, pendulums, atoms, and electrical circuits. One equation of motion, recurring everywhere from atoms to bridges.',
       sections: [
         <>
+          <h2>{`The Harmonic Oscillator`}</h2>
           <p>{`Pull a mass on a spring sideways and let go. It bounces back and forth at a steady rhythm, neither slowing down nor speeding up. The same equation that describes this motion also describes a swinging pendulum, a vibrating atom, a tuned electrical circuit, and a bridge swaying in the wind.`}</p>
           <p>{`To follow the math, you need Newton's law $F = ma$, the formulas for kinetic energy $K = \\tfrac{1}{2} m v^2$ and momentum $p = m v$, and a working comfort with derivatives.`}</p>
           <div className="lrn-predict">
@@ -33,18 +34,17 @@ export default function OscillationsPart1() {
               <p>{`Form your answer first. Then read on for the worked explanation.`}</p>
             </details>
           </div>
-          <h2>{`The Harmonic Oscillator`}</h2>
-          <p>{`A harmonic oscillator is any system whose restoring force is proportional to how far it has been pushed from rest. The simplest case is a mass on a spring. Pull the mass out by a distance $x$ and the spring pulls back with force $-kx$. The number $k$ is the spring constant, measured in newtons per meter, and it sets the stiffness: a larger $k$ means a stiffer spring that pulls back harder for the same pull.`}</p>
+          <p>{`A harmonic oscillator is any system whose restoring force grows in step with how far it has been pushed from rest. The simplest case is a mass on a spring. Pull it out by a distance $x$ and the spring pulls back with the familiar Hooke's-law force $-kx$, where the spring constant $k$ sets the stiffness.`}</p>
           <p>
             <strong>{`When to use this:`}</strong>
             {` Use the simple harmonic oscillator model when the restoring force grows linearly with displacement and there is no friction. This covers small swings of a pendulum, a mass on an ideal spring, or a charge oscillating in a circuit with no resistance.`}
           </p>
           <h3>{`The equation of motion`}</h3>
-          <p>{`Newton's second law says force equals mass times acceleration, and acceleration is the second derivative of position. So $m \\ddot x = -k x$, and rearranged this is the equation of motion of the frictionless oscillator:`}</p>
+          <p>{`Newton's second law with this spring force gives the frictionless equation of motion, $m \\ddot x = -kx$, which rearranges to:`}</p>
           <div className="lrn-eq">
             <span>{`$$m \\ddot x + k x = 0$$`}</span>
           </div>
-          <p>{`This is a second-order linear differential equation: a relationship between $x(t)$ and its second time derivative, with no powers or products of $x$. Our job is to find every function $x(t)$ that obeys it.`}</p>
+          <p>{`This is a second-order differential equation, since it links $x(t)$ to its second time derivative. Our job is to find every function $x(t)$ that obeys it.`}</p>
           <h3>{`The general solution`}</h3>
           <p>{`The equation contains $\\ddot x$, so we need a function whose second derivative reproduces the function itself, up to a sign. Sines and cosines do exactly that. Try $x = B \\sin(\\omega_0 t) + C \\cos(\\omega_0 t)$, differentiate twice, and you get $\\ddot x = -\\omega_0^2 x$. Substituting back, the equation holds only when:`}</p>
           <div className="lrn-eq">
@@ -62,17 +62,18 @@ export default function OscillationsPart1() {
           <div className="lrn-eq">
             <span>{`$$x = A \\cos(\\omega_0 t + \\phi)$$`}</span>
           </div>
-          <p>{`Here $A$ is the maximum displacement and $\\phi$ shifts the cosine left or right in time, so we can match any starting position and velocity. Given the original sine and cosine coefficients, the amplitude and phase are:`}</p>
+          <p>{`Here $A$ is the maximum displacement and $\\phi$ shifts the cosine left or right in time, so we can match any starting position and velocity. The angle-addition rule says $A\\cos(\\omega_0 t + \\phi) = A\\cos\\phi\\cos(\\omega_0 t) - A\\sin\\phi\\sin(\\omega_0 t)$. Matching this to $B\\sin(\\omega_0 t) + C\\cos(\\omega_0 t)$ gives $C = A\\cos\\phi$ and $B = -A\\sin\\phi$, so the amplitude and phase are:`}</p>
           <div className="lrn-eq">
             <span>{`$$A = \\sqrt{B^2 + C^2}, \\quad \\tan \\phi = -\\frac{B}{C}$$`}</span>
           </div>
+          <p>{`For example, $3\\sin(\\omega_0 t) + 4\\cos(\\omega_0 t)$ folds into one cosine with $A = \\sqrt{3^2 + 4^2} = 5$ and $\\tan\\phi = -\\tfrac{3}{4}$.`}</p>
           <p>{`The period of one full swing is $T = \\tfrac{2\\pi}{\\omega_0}$. The ordinary frequency, in hertz, is $\\nu = \\tfrac{1}{T}$. Hertz means cycles per second; angular frequency $\\omega_0$ is in radians per second, larger than the ordinary frequency by a factor of $2\\pi$ because one full cycle is $2\\pi$ radians.`}</p>
           <PhaseShift />
           <h3>{`Worked example: initial conditions for a frictionless oscillator`}</h3>
           <p>{`A mass on a spring has $\\omega_0 = 4$ rad/s. At $t=0$ we pull it to $x_0 = 0.1$ m and release it from rest, so $v_0 = 0$. Find $x(t)$.`}</p>
           <p>{`Step 1: write the general form $x = A \\cos(\\omega_0 t + \\phi)$.`}</p>
           <p>{`Step 2: at $t=0$ the position must be $0.1$, so $A \\cos\\phi = 0.1$.`}</p>
-          <p>{`Step 3: at $t=0$ the velocity must be zero, so $-A \\omega_0 \\sin\\phi = 0$. This forces $\\phi = 0$.`}</p>
+          <p>{`Step 3: differentiate the position to get the velocity, $\\dot x = -A \\omega_0 \\sin(\\omega_0 t + \\phi)$. At $t=0$ this must be zero, so $-A \\omega_0 \\sin\\phi = 0$. This forces $\\phi = 0$.`}</p>
           <p>{`Step 4: with $\\phi = 0$, step 2 gives $A = 0.1$ m.`}</p>
           <p>{`Final answer: $x(t) = 0.1 \\cos(4 t)$ meters.`}</p>
           <div className="lrn-self-explain">
@@ -98,6 +99,45 @@ export default function OscillationsPart1() {
           </div>
           <p>{`The total energy never changes. It is set by the amplitude and the stiffness alone.`}</p>
           <PendulumEnergy />
+          <h3>{`The simple pendulum`}</h3>
+          <p>{`A simple pendulum is a small mass on a light string of length $L$, swinging from a fixed pivot. Pull it aside by an angle $\\theta$ and gravity pulls it back toward the bottom. This is the second classic oscillator, and the spring math carries straight over to it.`}</p>
+          <p>{`Gravity acts straight down, but only the part along the swing arc pushes the mass back. That restoring part has size $mg\\sin\\theta$. Newton's law along the arc gives the equation of motion:`}</p>
+          <div className="lrn-eq">
+            <span>{`$$\\ddot\\theta + \\frac{g}{L} \\sin\\theta = 0$$`}</span>
+          </div>
+          <p>{`The $\\sin\\theta$ makes this harder than the spring, because the restoring force is no longer a straight line in $\\theta$. But for small swings there is a clean shortcut.`}</p>
+          <div className="lrn-elaborate">
+            <span className="lrn-elaborate-label">SMALL-ANGLE APPROXIMATION</span>
+            <p>{`For a small angle measured in radians, $\\sin\\theta$ is almost equal to $\\theta$ itself. At $\\theta = 0.1$ rad (about 6 degrees), $\\sin\\theta = 0.0998$, off by one part in a thousand.`}</p>
+            <p>{`So for small swings we replace $\\sin\\theta$ with $\\theta$. The equation of motion becomes $\\ddot\\theta + \\tfrac{g}{L}\\theta = 0$, the exact same form as the spring.`}</p>
+          </div>
+          <p>{`This is the harmonic oscillator equation again, with $\\tfrac{g}{L}$ playing the role that $\\tfrac{k}{m}$ played for the spring. So the natural frequency and period are:`}</p>
+          <div className="lrn-eq">
+            <span>{`$$\\omega_0 = \\sqrt{\\frac{g}{L}}, \\quad T = 2\\pi\\sqrt{\\frac{L}{g}}$$`}</span>
+          </div>
+          <p>{`The period depends only on the length and on gravity. The mass cancels out, and the starting angle does not appear. A heavy bob and a light bob on equal strings keep the same time.`}</p>
+          <h3>{`Worked example: a one-meter pendulum`}</h3>
+          <p>{`A pendulum has length $L = 1$ m on Earth, where $g = 9.8$ m/s$^2$. Find its period for small swings.`}</p>
+          <p>{`Step 1: write the period formula $T = 2\\pi\\sqrt{\\tfrac{L}{g}}$.`}</p>
+          <p>{`Step 2: put in the numbers, $T = 2\\pi\\sqrt{\\tfrac{1}{9.8}} = 2\\pi\\sqrt{0.102}$.`}</p>
+          <p>{`Step 3: $\\sqrt{0.102} = 0.319$, so $T = 2\\pi(0.319) \\approx 2.0$ s.`}</p>
+          <p>{`A one-meter pendulum swings out and back in about two seconds. You can now read a pendulum's timing straight off its length.`}</p>
+          <div className="lrn-self-explain">
+            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
+            <p>{`Why does a heavier bob keep the same time as a lighter one? The mass sets both the gravity pull and the inertia that resists it. Double the mass and you double the restoring force, but you also double the inertia. The two cancel, so the mass drops out of the period.`}</p>
+            <details className="lrn-self-explain-reveal">
+              <summary>Expert explanation</summary>
+              <p>{`Form your answer first. Then read the section above and check.`}</p>
+            </details>
+          </div>
+          <h3>{`The physical pendulum`}</h3>
+          <p>{`A real swinging object is not a point on a string. It is an extended body: a swinging rod, a clock pendulum, a child on a swing. This is a physical pendulum. It pivots about a fixed point, with its mass spread out instead of bunched at one spot.`}</p>
+          <p>{`Now the restoring torque from gravity acts at the center of mass, a distance $d$ from the pivot. Newton's law for rotation, with the small-angle step again, gives the period:`}</p>
+          <div className="lrn-eq">
+            <span>{`$$T = 2\\pi\\sqrt{\\frac{I}{mgd}}$$`}</span>
+          </div>
+          <p>{`Here $I$ is the moment of inertia about the pivot, a measure of how the mass is spread around it. The distance $d$ runs from the pivot to the center of mass. The bigger the spread $I$, the slower the swing.`}</p>
+          <p>{`This formula contains the simple pendulum as a special case. Shrink the body to a point mass at the end of a string of length $L$. Then $I = mL^2$ and $d = L$, and the formula reduces back to $T = 2\\pi\\sqrt{\\tfrac{mL^2}{mgL}} = 2\\pi\\sqrt{\\tfrac{L}{g}}$.`}</p>
           <h3>{`Time-averaged energies`}</h3>
           <p>{`The angle brackets $\\langle \\cdot \\rangle$ denote an average taken over one full cycle. Over a cycle, $\\langle \\cos^2 \\rangle = \\tfrac{1}{2}$ and $\\langle \\sin^2 \\rangle = \\tfrac{1}{2}$, because cosine-squared and sine-squared are mirror-image curves that always add to one. So:`}</p>
           <div className="lrn-eq">
@@ -125,7 +165,7 @@ export default function OscillationsPart1() {
         </>,
         <>
           <h2>{`The Damped Harmonic Oscillator`}</h2>
-          <p>{`Real oscillators lose energy. Air resistance, internal friction inside the spring, and drag through a surrounding fluid all pull energy out a little at a time. The simplest model of this is a viscous drag force $f = -b v$: viscous means the drag is proportional to speed, so move twice as fast and you feel twice the pushback. The number $b$ is the damping constant, measured in newton-seconds per meter.`}</p>
+          <p>{`Real oscillators lose energy. Air resistance, friction inside the spring, and drag through a fluid all bleed energy out over time. The simplest model is the familiar viscous drag force $f = -bv$, which grows with speed. The number $b$ is the damping constant, measured in newton-seconds per meter.`}</p>
           <p>
             <strong>{`When to use this:`}</strong>
             {` Use this model whenever a drag force is roughly proportional to velocity. This fits oscillations in air or thin fluids, electrical circuits with resistance, and most low-amplitude mechanical systems.`}
@@ -157,7 +197,7 @@ export default function OscillationsPart1() {
             <p>{`Each cycle therefore takes more time, and the frequency drops below $\\omega_0$.`}</p>
           </div>
           <h3>{`Energy decay`}</h3>
-          <p>{`The work done by drag over one cycle is $W_\\text{drag} = -\\int b v^2 \\, dt$. The integrand $v^2$ is never negative and $b$ is positive, so this work is always negative: drag steadily removes energy from the system.`}</p>
+          <p>{`The work done by drag over one cycle is $W_\\text{drag} = -\\int b v^2 \\, dt$. Inside the integral $v^2$ is never negative and $b$ is positive, so this work is always negative: drag steadily removes energy from the system.`}</p>
           <p>{`For light damping, the kinetic and potential averages still split the total in half, but the amplitude itself is now shrinking. Substituting the decaying envelope into $E = \\tfrac{1}{2} k [A(t)]^2$:`}</p>
           <div className="lrn-eq">
             <span>{`$$E(t) = \\tfrac{1}{2} k A^2 e^{-\\gamma t} = E_0 e^{-\\gamma t}$$`}</span>
@@ -170,9 +210,9 @@ export default function OscillationsPart1() {
           </div>
           <p>{`The quality factor $Q$ measures how many cycles the oscillator can ring through before its energy fades. It is defined as:`}</p>
           <div className="lrn-eq">
-            <span>{`$$Q = \\frac{\\text{energy stored}}{\\text{energy dissipated per radian}}$$`}</span>
+            <span>{`$$Q = \\frac{\\text{energy stored}}{\\text{energy lost per radian}}$$`}</span>
           </div>
-          <p>{`Per radian means for every radian of phase the oscillator passes through, where one radian is $\\tfrac{1}{2\\pi}$ of a full cycle. Working out this ratio for light damping gives:`}</p>
+          <p>{`Per radian means for every radian of phase the oscillator passes through, where one radian is $\\tfrac{1}{2\\pi}$ of a full cycle. For light damping (small $\\gamma$), working out this ratio gives:`}</p>
 
           <div className="lrn-eq">
             <span>{`$$Q = \\frac{\\omega_1}{\\gamma} \\approx \\frac{\\omega_0}{\\gamma}$$`}</span>
@@ -183,7 +223,7 @@ export default function OscillationsPart1() {
           <p>{`A weight bouncing on a rubber band oscillates at $\\nu = 1$ Hz and comes to rest in roughly $\\tau = 1$ second. Then $\\gamma = 1$ per second, and $Q = \\tfrac{2\\pi(1)}{1} \\approx 6$. The rubber band is a low-$Q$ oscillator.`}</p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why is $Q$ dimensionless? Energy stored is measured in joules. Energy dissipated per radian is also measured in joules. The ratio of two quantities with the same units is a pure number, free of physical dimensions.`}</p>
+            <p>{`Why is $Q$ dimensionless? Energy stored is measured in joules. Energy lost per radian is also measured in joules. The ratio of two quantities with the same units is a pure number, free of physical dimensions.`}</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>{`Form your answer first. Then read the section above and check.`}</p>
@@ -195,7 +235,6 @@ export default function OscillationsPart1() {
           <p>{`Step 2: take the logarithm. $\\tfrac{\\gamma t}{2} = \\ln 2 \\approx 0.693$, giving $\\gamma t = 1.386$.`}</p>
           <p>{`Step 3: 5 cycles at 1 kHz lasts $t = 5$ ms, so $\\gamma = \\tfrac{1.386}{0.005} = 277$ per second.`}</p>
           <p>{`Step 4: $Q = \\tfrac{\\omega_0}{\\gamma} = \\tfrac{2\\pi(1000)}{277} \\approx 23$.`}</p>
-          <p>{`Atomic transitions can reach $Q$ values in the trillions, far above any tuning fork or pendulum. That is why an atomic clock keeps better time than any mechanical clock.`}</p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>{`Why does the amplitude halve when the energy drops by a factor of four? Because energy is proportional to amplitude squared. If $A$ halves, $A^2$ falls to one quarter.`}</p>
@@ -221,34 +260,6 @@ export default function OscillationsPart1() {
           </div>
           <DampingRegimes />
           <PhasePortraitDrag />
-          <h3>{`Full derivation using complex variables`}</h3>
-          <p>{`To solve $\\ddot x + \\gamma \\dot x + \\omega_0^2 x = 0$ in full, try the trial function $x = e^{\\alpha t}$. This works because differentiating $e^{\\alpha t}$ just multiplies it by $\\alpha$, which turns the differential equation into a polynomial in $\\alpha$:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$\\alpha^2 + \\gamma \\alpha + \\omega_0^2 = 0$$`}</span>
-          </div>
-          <p>{`The quadratic formula gives the roots:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$\\alpha = -\\frac{\\gamma}{2} \\pm \\sqrt{\\frac{\\gamma^2}{4} - \\omega_0^2}$$`}</span>
-          </div>
-          <p>{`The sign of the quantity under the square root sets which of three cases applies.`}</p>
-          <p>
-            <strong>{`Case 1, light damping:`}</strong>
-            {` $\\gamma^2 < 4 \\omega_0^2$. The expression under the square root is negative, so the square root is imaginary. Define $\\omega_1 = \\sqrt{\\omega_0^2 - \\tfrac{\\gamma^2}{4}}$, then $\\alpha = -\\tfrac{\\gamma}{2} \\pm i \\omega_1$. Combining the two complex roots into a single real solution gives $x = A e^{-\\tfrac{\\gamma t}{2}} \\cos(\\omega_1 t + \\phi)$, the decaying oscillation we already met.`}
-          </p>
-          <p>
-            <strong>{`Case 2, heavy damping (overdamped):`}</strong>
-            {` $\\gamma^2 > 4 \\omega_0^2$. Both roots are real and negative, so the solution $x = C_1 e^{\\alpha_+ t} + C_2 e^{\\alpha_- t}$ is a sum of two decaying exponentials. No oscillation: the mass slides slowly back toward zero.`}
-          </p>
-          <p>
-            <strong>{`Case 3, critical damping:`}</strong>
-            {` $\\gamma^2 = 4 \\omega_0^2$. The two roots collapse onto each other. A standard result for repeated roots gives the solution $x = (C_1 + C_2 t) \\, e^{-\\tfrac{\\gamma t}{2}}$. This regime brings the system back to rest in the shortest possible time. Door closers and car shock absorbers are tuned to sit close to this point.`}
-          </p>
-          <div className="lrn-faded">
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">YOUR TURN</span>
-              <p>{`Show that as $\\gamma^2 \\to 4 \\omega_0^2$ from below, the two independent solutions of Case 1 collapse into one, and a second independent solution of the form $t \\, e^{-\\tfrac{\\gamma t}{2}}$ must appear to keep the general solution two-parameter. This is exactly the form Case 3 predicts.`}</p>
-            </div>
-          </div>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>{`You push a child on a swing. If you push at random times, the swing barely moves. If you push exactly when they reach the top, the swing grows huge. Why?`}</p>
@@ -263,7 +274,7 @@ export default function OscillationsPart1() {
           <p>{`Now imagine someone pushing the oscillator with a periodic force $F_0 \\cos(\\omega t)$, pumping energy in. The system has its own natural frequency $\\omega_0$, and the driver has its own frequency $\\omega$. When the two frequencies fall close to each other, the driver and the system step into rhythm together, and the response can grow far larger than the driving force alone would suggest. That effect is resonance.`}</p>
           <p>
             <strong>{`When to use this:`}</strong>
-            {` Use the forced oscillator model when an outside source drives an oscillating system at a chosen frequency. This applies to AC circuits, microwave cavities, atomic clocks, and shaking buildings during earthquakes.`}
+            {` Use the forced oscillator model when an outside source drives an oscillating system at a chosen frequency. This applies to AC circuits, atomic clocks, and buildings shaking during earthquakes.`}
           </p>
           <h3>{`Undamped forced oscillator`}</h3>
           <p>{`Add the driving force to Newton's law:`}</p>
@@ -325,7 +336,7 @@ export default function OscillationsPart1() {
               <p>{`When $\\omega > \\omega_0$, the mass moves opposite to the driver, lagging by 180 degrees: as the driver pushes one way, the mass is moving the other way.`}</p>
             </div>
           </div>
-          <p>{`At resonance itself ($\\omega = \\omega_0$), the lag is exactly 90 degrees: the mass is halfway between in-phase and out-of-phase, which is precisely the condition under which each push lands when the mass has maximum velocity, depositing energy most efficiently.`}</p>
+          <p>{`At resonance itself ($\\omega = \\omega_0$), the lag is exactly 90 degrees. The mass is then halfway between in-phase and out-of-phase. That is the condition where each push lands when the mass moves fastest, so the driver feeds in energy most efficiently.`}</p>
 
           <h3>{`Worked example: shaking a weight on a rubber band`}</h3>
           <p>{`A weight hangs from a rubber band with $\\omega_0 = 4$ rad/s, and you shake the top of the rubber band with your hand. Shake slowly and the weight just follows your hand. Shake at $\\omega_0$ and the weight builds up a huge amplitude. Shake fast and the weight stays nearly still while your hand jiggles above it.`}</p>
@@ -340,26 +351,17 @@ export default function OscillationsPart1() {
           </div>
           <h3>{`Worked example: a vibration isolation table`}</h3>
           <p>{`A delicate instrument sits on an air table while the building around it vibrates at high frequency. You want the instrument to feel none of those vibrations. Choose the mass and the spring so the table's natural frequency $\\omega_0$ is well below the building's vibration frequency. The instrument is then driven far above resonance, and the $\\tfrac{1}{\\omega^2}$ falloff reduces its amplitude to almost nothing.`}</p>
-          <p>{`A car's suspension does almost the opposite job: it is tuned for critical damping so the car body returns to rest quickly after each bump, instead of bouncing many times.`}</p>
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why does increasing the dashpot's friction coefficient first reduce the vibration the instrument feels, but eventually couple the building's motion back into the instrument?`}</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`Form your answer first. Then read the section above and check.`}</p>
-            </details>
-          </div>
+          <p>{`A car's suspension does almost the opposite job: it is tuned for critical damping so the car body returns to rest quickly after each bump, instead of bouncing many times. The isolation table wants the least damping it can get away with. Heavy damping does kill the table's own bounce, but it also grips the table to the floor, so more of the building's shaking passes straight through into the instrument.`}</p>
           <h3>{`Energy and the Lorentzian curve`}</h3>
           <p>{`The time-averaged kinetic and potential energies, with the steady-state amplitude $A$ from the formula above, are:`}</p>
           <div className="lrn-eq">
             <span>{`$$\\langle K \\rangle = \\tfrac{1}{4} m \\omega^2 A^2, \\quad \\langle U \\rangle = \\tfrac{1}{4} k A^2$$`}</span>
           </div>
-          <p>{`Plotting the total energy as a function of the driving frequency near resonance gives a sharp peak. Its shape is captured by the Lorentzian function:`}</p>
+          <p>{`Plotting the total energy as a function of the driving frequency near resonance gives a sharp peak. Close to the peak, its shape is captured by the Lorentzian function:`}</p>
           <div className="lrn-eq">
             <span>{`$$\\langle E(\\omega) \\rangle \\approx \\frac{F_0^2}{4m\\left[(\\omega - \\omega_0)^2 + \\left(\\frac{\\gamma}{2}\\right)^2\\right]}$$`}</span>
           </div>
           <p>{`This curve, peaking at $\\omega = \\omega_0$ and falling off symmetrically on both sides, is called a Lorentzian. It shows up across physics whenever a system rings at a single dominant frequency, from atomic spectral lines to nuclear resonances.`}</p>
-          <LorentzianRes />
           <h3>{`Resonance width`}</h3>
           <p>{`The full width at half maximum is the spread in $\\omega$ over which the Lorentzian sits at half its peak height. For this curve it works out to:`}</p>
           <div className="lrn-eq">
@@ -369,33 +371,7 @@ export default function OscillationsPart1() {
           <div className="lrn-eq">
             <span>{`$$Q = \\frac{\\omega_0}{\\Delta \\omega}$$`}</span>
           </div>
-          <p>{`A sharp, narrow peak means a high-$Q$ oscillator. Atomic transitions reach $Q$ values in the trillions; the resonance peak is so narrow that the natural frequency serves as a near-perfect time reference, which is exactly the principle of an atomic clock.`}</p>
-          <h3>{`Full derivation using complex variables`}</h3>
-          <p>{`The same equation has a much shorter derivation if we use complex numbers. Start from the driven damped equation:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$\\ddot{x} + \\gamma\\dot{x} + \\omega_0^2 x = \\frac{F_0}{m}\\cos(\\omega t)$$`}</span>
-          </div>
-          <p>{`Replace $\\cos(\\omega t)$ on the right with $e^{i\\omega t}$, which contains the cosine as its real part. Try the matching complex trial function $x = \\tilde{A} \\, e^{i\\omega t}$, where $\\tilde{A}$ is a complex amplitude that bundles both the size and the phase of the response.`}</p>
-          <p>{`Differentiating $e^{i\\omega t}$ once gives $i\\omega \\, e^{i\\omega t}$, so every time derivative in the equation simply multiplies by $i\\omega$. Substituting:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$(-\\omega^2 + i\\omega\\gamma + \\omega_0^2)\\tilde{A} = \\frac{F_0}{m}$$`}</span>
-          </div>
-          <p>{`Solve algebraically for $\\tilde{A}$:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$\\tilde{A} = \\frac{F_0}{m\\left[(\\omega_0^2 - \\omega^2) + i\\omega\\gamma\\right]}$$`}</span>
-          </div>
-          <p>{`Write the complex amplitude in polar form, $\\tilde{A} = |\\tilde{A}| \\, e^{-i\\phi}$. Its magnitude is the size of the oscillation, and $\\phi$ is the angle by which the response lags the drive:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$|\\tilde{A}| = \\frac{F_0}{m\\sqrt{(\\omega_0^2 - \\omega^2)^2 + (\\omega\\gamma)^2}}$$`}</span>
-          </div>
-          <div className="lrn-eq">
-            <span>{`$$\\tan\\phi = \\frac{\\omega\\gamma}{\\omega_0^2 - \\omega^2}$$`}</span>
-          </div>
-          <p>{`Taking the real part of $\\tilde{A} \\, e^{i\\omega t}$ recovers the physical, real-valued motion: $x(t) = |\\tilde{A}|\\cos(\\omega t - \\phi)$. This matches the formulas we found earlier, but the algebra was simpler because differentiation became multiplication.`}</p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`Why does the complex method work? The differential equation is linear, so if a complex function $\\tilde{x}(t)$ solves the equation with a complex driving term, its real part automatically solves the equation with the real driving term. The complex form is just a calculational shortcut: it carries the cosine and sine together as the real and imaginary parts of one $e^{i\\omega t}$, and turns differentiation into multiplication.`}</p>
-          </div>
+          <p>{`A sharp, narrow peak means a high-$Q$ oscillator. Atomic transitions reach $Q$ values in the trillions. Their resonance peak is so narrow that the natural frequency serves as a near-perfect time reference. This is the principle behind the atomic clock.`}</p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>{`An oscillator's energy dies in time $\\tau$. How sharp is its resonance peak in frequency space?`}</p>
@@ -407,7 +383,7 @@ export default function OscillationsPart1() {
         </>,
         <>
           <h2>{`Time Response Versus Frequency Response`}</h2>
-          <p>{`Every oscillator can be described two ways: by how it behaves over time, and by how it responds to different driving frequencies. In the time view, the energy of a free oscillation decays as $e^{-\\tfrac{t}{\\tau}}$. In the frequency view, the resonance peak of a driven oscillation has a width $\\Delta \\omega$.`}</p>
+          <p>{`You can describe every oscillator two ways: by how it behaves over time, and by how it responds to different driving frequencies. In the time view, the energy of a free oscillation decays as $e^{-\\tfrac{t}{\\tau}}$. In the frequency view, the resonance peak of a driven oscillation has a width $\\Delta \\omega$.`}</p>
           <p>{`These two numbers are tied to each other by a single relation:`}</p>
           <div className="lrn-eq">
             <span>{`$$\\tau \\, \\Delta \\omega = 1$$`}</span>
@@ -422,15 +398,15 @@ export default function OscillationsPart1() {
               <p>{`How narrow the resonance peak is in $\\omega$ when the oscillator is driven steadily. Set by the width $\\Delta \\omega = \\gamma$.`}</p>
             </div>
           </div>
-          <p>{`A long ring time means a narrow peak, and a short ring time means a broad peak. The two pictures are not separate phenomena: they are the same fact about the oscillator viewed in time and in frequency.`}</p>
+          <p>{`A long ring time means a narrow peak, and a short ring time means a broad peak. The two pictures are not separate effects. They are the same fact about the oscillator, seen in time and in frequency.`}</p>
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`Why are these reciprocal? An oscillation that rings for a long time can be tracked through many cycles, and its frequency can be measured very precisely, giving a narrow peak.`}</p>
-            <p>{`An oscillation that ends quickly never gets the chance to settle into a clean, single frequency, so its peak is broad. The same reasoning lies behind the Heisenberg energy-time uncertainty $\\Delta E \\, \\Delta t \\geq \\tfrac{\\hbar}{2}$ in quantum mechanics: a state that lives only briefly cannot have a sharply defined energy.`}</p>
+            <p>{`Why are these reciprocal? An oscillation that rings for a long time runs through many cycles, so you can pin down its frequency very precisely, giving a narrow peak.`}</p>
+            <p>{`An oscillation that ends quickly never settles into a clean, single frequency, so its peak is broad. Long life buys a sharp frequency; short life forces a fuzzy one.`}</p>
           </div>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
-            <p>{`You shine a flashlight forward while running, and a friend stands still and watches. In Galilean physics (the world Newton wrote in), velocities just add, so the flashlight beam should appear faster to you than to your friend. What did Maxwell's equations and the Michelson-Morley experiment actually find?`}</p>
+            <p>{`An oscillator has $Q = 1000$. Roughly how many full cycles does it ring through before its energy drops to about a third of its starting value?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>{`Form your answer first. Then read on for the worked explanation.`}</p>
@@ -455,6 +431,14 @@ export default function OscillationsPart1() {
       {
         q: `A spring-mass oscillator has period 2 s on Earth. Take the same spring and mass to the Moon. What is the new period?`,
         a: `The period $T = 2\\pi\\sqrt{\\tfrac{m}{k}}$ depends only on the mass and the spring stiffness, neither of which changes on the Moon. The period stays at 2 s. A pendulum behaves differently, because its period also depends on the local gravitational acceleration $g$.`
+      },
+      {
+        q: `A simple pendulum has length 1 m on Earth where $g = 9.8$ m/s$^2$. Find its period for small swings.`,
+        a: `Use $T = 2\\pi\\sqrt{\\tfrac{L}{g}} = 2\\pi\\sqrt{\\tfrac{1}{9.8}} = 2\\pi\\sqrt{0.102}$. Since $\\sqrt{0.102} = 0.319$, the period is $T = 2\\pi(0.319) \\approx 2.0$ s. The period depends only on length and gravity, not on the mass of the bob.`
+      },
+      {
+        q: `A pendulum has a period of 2 s on Earth. Take it to the Moon, where gravity is about 1.62 m/s$^2$. What is the new period?`,
+        a: `The period $T = 2\\pi\\sqrt{\\tfrac{L}{g}}$ depends on $g$, which is smaller on the Moon. The length stays fixed, so the period scales as $\\tfrac{1}{\\sqrt{g}}$. The ratio is $\\sqrt{\\tfrac{9.8}{1.62}} = \\sqrt{6.05} = 2.46$, so the new period is $2 \\times 2.46 \\approx 4.9$ s. The pendulum swings slower in weaker gravity.`
       },
       {
         q: `What is the total energy of an undamped oscillator with amplitude $A$ and stiffness $k$?`,
@@ -490,11 +474,11 @@ export default function OscillationsPart1() {
       },
       {
         q: `What is the quality factor $Q$ in words and as a formula?`,
-        a: `$Q$ is the ratio of energy stored to energy dissipated per radian of oscillation. For light damping, $Q \\approx \\tfrac{\\omega_0}{\\gamma}$. It measures how many oscillations happen before the energy dies out.`
+        a: `$Q$ is the ratio of energy stored to energy lost per radian of oscillation. For light damping, $Q \\approx \\tfrac{\\omega_0}{\\gamma}$. It measures how many oscillations happen before the energy dies out.`
       },
       {
         q: `Why is $Q$ dimensionless?`,
-        a: `Energy stored has units of joules. Energy dissipated per radian also has units of joules. Their ratio is a pure number.`
+        a: `$Q$ is a ratio of two energies, both measured in joules. The shared units cancel, so $Q$ is a pure number with no dimensions.`
       },
       {
         q: `A tuning fork rings at 440 Hz and dies out in 4 seconds. Find $Q$.`,
@@ -563,7 +547,7 @@ export default function OscillationsPart1() {
     ],
     reference: {
       category: 'Quick Reference',
-      title: 'Oscillations (Part I)',
+      title: 'Small Oscillations (Elementary)',
       sections: [
         <>
           <div className="ref-section">

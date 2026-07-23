@@ -87,7 +87,8 @@ export default function Pomodoro() {
           !inQuietHours()
         ) {
           try {
-            const title = next === 'work' ? 'Aether - Back to work' : 'Aether - Take a break'
+            const title =
+              next === 'work' ? 'Aether - Back to work' : 'Aether - Take a break'
             const body =
               next === 'work'
                 ? `${settings.pomodoroWork} min focus block`

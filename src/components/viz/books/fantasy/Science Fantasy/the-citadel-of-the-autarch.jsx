@@ -32,6 +32,25 @@ import {
   figureStyle,
   svgStyle
 } from '../../../theme'
+import {
+  FONT_LABEL,
+  FONT_SMALL,
+  FONT_TEX,
+  FONT_TITLE,
+  LS_COMPACT,
+  LS_CONTROL,
+  LS_LABEL,
+  LS_MEDIUM,
+  LS_OPEN,
+  LS_TIGHT,
+  LS_TITLE,
+  LS_UPPER,
+  STROKE_EMPHASIS,
+  STROKE_GUIDE,
+  STROKE_HAIR,
+  STROKE_PRIMARY,
+  STROKE_SECONDARY
+} from '../../../scale-tokens'
 
 // Reusable mood-curve chart (module-private)
 function ArcChart4({ beats, title, w = 800, h = 360 }) {
@@ -47,7 +66,7 @@ function ArcChart4({ beats, title, w = 800, h = 360 }) {
   const path = 'M ' + beats.map(b => `${xOf(b.x)} ${yOf(b.y)}`).join(' L ')
   return (
     <Canvas w={w} h={h}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         {title}
       </Label>
       <line
@@ -57,17 +76,17 @@ function ArcChart4({ beats, title, w = 800, h = 360 }) {
         y2={PAD_T + innerH * 0.5}
         stroke={FG}
         strokeOpacity={OPACITY.faint}
-        strokeWidth="0.6"
+        strokeWidth={STROKE_HAIR}
         strokeDasharray="2 4"
       />
       <text
         x={PAD_L - 8}
         y={PAD_T + 4}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="end"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         HIGH
       </text>
@@ -75,39 +94,50 @@ function ArcChart4({ beats, title, w = 800, h = 360 }) {
         x={PAD_L - 8}
         y={PAD_T + innerH}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="end"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         LOW
       </text>
-      <path d={path} stroke={FG} strokeOpacity={OPACITY.fg} strokeWidth="1.4" fill="none" />
-      {beats.map((b, i) => (
-        <g key={i}>
-          <circle cx={xOf(b.x)} cy={yOf(b.y)} r="4" fill={FG} />
-          <text
-            x={xOf(b.x)}
-            y={yOf(b.y) + (i % 2 === 0 ? -10 : 20)}
-            fill={FG}
-            fontSize="9"
-            textAnchor="middle"
-            opacity={OPACITY.fg}
-          >
-            {b.label}
-          </text>
-        </g>
-      ))}
+      <path
+        d={path}
+        stroke={FG}
+        strokeOpacity={OPACITY.fg}
+        strokeWidth={STROKE_PRIMARY}
+        fill="none"
+      />
+      {beats.map((b, i) => {
+        // Clamp centered labels into the viewBox (end beats overhang otherwise)
+        const halfW = b.label.length * FONT_SMALL * 0.31
+        const lx = Math.max(halfW + 4, Math.min(w - halfW - 4, xOf(b.x)))
+        return (
+          <g key={i}>
+            <circle cx={xOf(b.x)} cy={yOf(b.y)} r="4" fill={FG} />
+            <text
+              x={lx}
+              y={yOf(b.y) + (i % 2 === 0 ? -10 : 20)}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              textAnchor="middle"
+              opacity={OPACITY.fg}
+            >
+              {b.label}
+            </text>
+          </g>
+        )
+      })}
     </Canvas>
   )
 }
 
-// IV.01.1 - Structure Diagram (Ch. 1)
+// IV.01.1 - Structure Diagram (§1)
 export function Ch01StructureDiagram() {
   return (
     <Canvas w={800} h={420}>
-      <Label x={40} y={32} size={10}>
-        CHAPTER 1 · TWO HALVES JOINED BY THE CLAW
+      <Label x={40} y={32} size={FONT_SMALL}>
+        SECTION 1 · TWO HALVES JOINED BY THE CLAW
       </Label>
       <g>
         <rect
@@ -118,32 +148,39 @@ export function Ch01StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={80} y={144} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={80}
+          y={144}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           FIRST HALF
         </text>
-        <text x={80} y={168} fill={FG} fontSize="11" letterSpacing="0.08em">
+        <text x={80} y={168} fill={FG} fontSize={FONT_LABEL} letterSpacing={LS_LABEL}>
           corpse on the field
         </text>
-        <text x={80} y={188} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={188} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · not named; "the soldier"
         </text>
-        <text x={80} y={204} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={204} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · Severian carries him from
         </text>
-        <text x={80} y={218} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={218} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           {' '}
           the battlefield
         </text>
-        <text x={80} y={238} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={238} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · starves him through two days
         </text>
-        <text x={80} y={258} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={258} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           {' '}
           of grief and hunger
         </text>
-        <text x={80} y={282} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={282} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           p. 1–12
         </text>
       </g>
@@ -155,12 +192,26 @@ export function Ch01StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={400} y={206} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={400}
+          y={206}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           CLAW
         </text>
-        <text x={400} y={222} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={222}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           hinge
         </text>
       </g>
@@ -173,27 +224,34 @@ export function Ch01StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={460} y={144} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={460}
+          y={144}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           SECOND HALF
         </text>
-        <text x={460} y={168} fill={FG} fontSize="11" letterSpacing="0.08em">
+        <text x={460} y={168} fill={FG} fontSize={FONT_LABEL} letterSpacing={LS_LABEL}>
           a man called "Miles"
         </text>
-        <text x={460} y={188} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={460} y={188} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · named; companion
         </text>
-        <text x={460} y={204} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={460} y={204} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · Severian feeds him
         </text>
-        <text x={460} y={224} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={460} y={224} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · helps him walk
         </text>
-        <text x={460} y={244} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={460} y={244} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · they go on together
         </text>
-        <text x={460} y={282} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={460} y={282} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           p. 12–18
         </text>
       </g>
@@ -204,7 +262,7 @@ export function Ch01StructureDiagram() {
         y2={210}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       <line
         x1={438}
@@ -213,18 +271,18 @@ export function Ch01StructureDiagram() {
         y2={210}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       <text
         x={400}
         y={104}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
       >
-        THE CHAPTER PIVOTS EXACTLY HERE
+        THE SECTION PIVOTS EXACTLY HERE
       </text>
     </Canvas>
   )
@@ -261,8 +319,8 @@ export function Ch01ResurrectionSequence() {
   ]
   return (
     <Canvas w={800} h={300}>
-      <Label x={40} y={32} size={10}>
-        RESURRECTION · FIVE BEATS · CH. 1 PAGES 12–16
+      <Label x={40} y={32} size={FONT_SMALL}>
+        RESURRECTION · FIVE BEATS · §1 PAGES 12–16
       </Label>
       {beats.map((b, i) => {
         const x = 80 + i * 140
@@ -277,23 +335,37 @@ export function Ch01ResurrectionSequence() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={isPivot ? OPACITY.fg : OPACITY.dim}
-              strokeWidth={isPivot ? 1.6 : 1}
+              strokeWidth={isPivot ? STROKE_EMPHASIS : STROKE_SECONDARY}
             />
             <text
               x={x}
               y={120}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.dim}
-              letterSpacing="0.16em"
+              letterSpacing={LS_TITLE}
             >
               BEAT {b.id}
             </text>
-            <text x={x} y={144} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.08em">
+            <text
+              x={x}
+              y={144}
+              fill={FG}
+              fontSize={FONT_LABEL}
+              textAnchor="middle"
+              letterSpacing={LS_LABEL}
+            >
               {b.label}
             </text>
-            <text x={x} y={162} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+            <text
+              x={x}
+              y={162}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              textAnchor="middle"
+              opacity={OPACITY.dim}
+            >
               {b.page}
             </text>
             {b.body.split('\n').map((ln, j) => (
@@ -302,7 +374,7 @@ export function Ch01ResurrectionSequence() {
                 x={x}
                 y={186 + j * 14}
                 fill={FG}
-                fontSize="9"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
                 opacity={OPACITY.dim}
               >
@@ -317,7 +389,7 @@ export function Ch01ResurrectionSequence() {
                 y2={165}
                 stroke={FG}
                 strokeOpacity={OPACITY.dim}
-                strokeWidth="1"
+                strokeWidth={STROKE_SECONDARY}
               />
             )}
           </g>
@@ -327,7 +399,7 @@ export function Ch01ResurrectionSequence() {
   )
 }
 
-// IV.01.3 - Emotional Arc (Ch. 1)
+// IV.01.3 - Emotional Arc (§1)
 export function Ch01EmotionalArc() {
   const beats = [
     { x: 0, y: 0.75, label: 'war horizon · awe' },
@@ -337,10 +409,10 @@ export function Ch01EmotionalArc() {
     { x: 4, y: 0.3, label: 'night vigil · memory' },
     { x: 5, y: 0.55, label: 'morning · life' }
   ]
-  return <ArcChart4 beats={beats} title="EMOTIONAL ARC · CH. 1" />
+  return <ArcChart4 beats={beats} title="EMOTIONAL ARC · §1" />
 }
 
-// IV.01.4 - Character Web (Ch. 1)
+// IV.01.4 - Character Web (§1)
 export function Ch01CharacterWeb() {
   const [tip, setTip] = useTooltip()
   const sev = { x: 400, y: 280 }
@@ -352,17 +424,17 @@ export function Ch01CharacterWeb() {
     { name: 'Triskele', x: 200, y: 440, cite: 'memory', body: 'The hound from the kennels.' },
     { name: 'Jonas', x: 600, y: 440, cite: 'memory', body: 'Lost into a mirror.' }
   ]
-  const soldier = { x: 400, y: 440, cite: 'Ch. 1', body: 'Just resurrected.\nNot yet named Miles.' }
+  const soldier = { x: 400, y: 440, cite: '§1', body: 'Just resurrected.\nNot yet named Miles.' }
   const claw = {
     x: 400,
     y: 120,
-    cite: 'Ch. 1',
+    cite: '§1',
     body: "In Severian's sabretache.\nThe only present link."
   }
   return (
     <Canvas w={800} h={580}>
-      <Label x={40} y={32} size={10}>
-        CHARACTER WEB · CH. 1 (ALONE WITH THE CLAW)
+      <Label x={40} y={32} size={FONT_SMALL}>
+        CHARACTER WEB · §1 (ALONE WITH THE CLAW)
       </Label>
       {memory.map((m, i) => (
         <line
@@ -373,7 +445,7 @@ export function Ch01CharacterWeb() {
           y2={m.y}
           stroke={FG}
           strokeOpacity={OPACITY.faint}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
           strokeDasharray="4 5"
         />
       ))}
@@ -384,7 +456,7 @@ export function Ch01CharacterWeb() {
         y2={soldier.y}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       <line
         x1={sev.x}
@@ -393,7 +465,7 @@ export function Ch01CharacterWeb() {
         y2={claw.y}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       {[...memory, soldier, claw].map((n, i) => (
         <g
@@ -417,15 +489,15 @@ export function Ch01CharacterWeb() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={n === soldier || n === claw ? OPACITY.fg : OPACITY.dim}
-            strokeWidth={n === soldier || n === claw ? 1.4 : 1}
+            strokeWidth={n === soldier || n === claw ? STROKE_PRIMARY : STROKE_SECONDARY}
           />
           <text
             x={n.x}
             y={n.y + (n === soldier || n === claw ? 28 : 22)}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.06em"
+            letterSpacing={LS_TIGHT}
           >
             {n.name || (n === soldier ? 'SOLDIER' : 'CLAW')}
           </text>
@@ -440,20 +512,27 @@ export function Ch01CharacterWeb() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
         <text
           x={sev.x}
           y={sev.y + 32}
           fill={FG}
-          fontSize="11"
+          fontSize={FONT_LABEL}
           textAnchor="middle"
-          letterSpacing="0.14em"
+          letterSpacing={LS_UPPER}
         >
           SEVERIAN
         </text>
       </g>
-      <text x={40} y={550} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={550}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         SOLID = PRESENT · DASHED = MEMORY ONLY
       </text>
       <Tooltip tip={tip} />
@@ -461,12 +540,12 @@ export function Ch01CharacterWeb() {
   )
 }
 
-// IV.02.1 - Structure Diagram (Ch. 2)
+// IV.02.1 - Structure Diagram (§2)
 export function Ch02StructureDiagram() {
   return (
     <Canvas w={800} h={380}>
-      <Label x={40} y={32} size={10}>
-        CHAPTER 2 · OPEN ROAD → CLOSED TENT-WORLD
+      <Label x={40} y={32} size={FONT_SMALL}>
+        SECTION 2 · OPEN ROAD → CLOSED TENT-WORLD
       </Label>
       <g>
         <rect
@@ -477,21 +556,28 @@ export function Ch02StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={80} y={144} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={80}
+          y={144}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           SCENE A
         </text>
-        <text x={80} y={170} fill={FG} fontSize="12" letterSpacing="0.1em">
+        <text x={80} y={170} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_OPEN}>
           OPEN ROAD
         </text>
-        <text x={80} y={196} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={196} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           Severian + Miles ride
         </text>
-        <text x={80} y={212} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={212} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           find the lazaret tents
         </text>
-        <text x={80} y={240} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={240} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           (approach)
         </text>
       </g>
@@ -504,26 +590,40 @@ export function Ch02StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         <text
           x={400}
           y={166}
           fill={FG}
-          fontSize="10"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.16em"
+          letterSpacing={LS_TITLE}
           opacity={OPACITY.dim}
         >
           PIVOT
         </text>
-        <text x={400} y={188} fill={FG} fontSize="11" textAnchor="middle">
+        <text x={400} y={188} fill={FG} fontSize={FONT_LABEL} textAnchor="middle">
           PELERINE'S REFUSAL
         </text>
-        <text x={400} y={210} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={210}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           "the Claw cannot be
         </text>
-        <text x={400} y={226} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={226}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           surrendered, only used"
         </text>
       </g>
@@ -536,21 +636,28 @@ export function Ch02StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={520} y={144} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={520}
+          y={144}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           SCENE B
         </text>
-        <text x={520} y={170} fill={FG} fontSize="12" letterSpacing="0.1em">
+        <text x={520} y={170} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_OPEN}>
           CLOSED TENT-WORLD
         </text>
-        <text x={520} y={196} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={520} y={196} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           lazaret of the Pelerines
         </text>
-        <text x={520} y={212} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={520} y={212} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           Foila, Hallvard, Melito,
         </text>
-        <text x={520} y={228} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={520} y={228} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           Ascian prisoner, Miles
         </text>
       </g>
@@ -578,8 +685,8 @@ export function Ch02AscianSpeechGrammar() {
   }
   return (
     <Canvas w={800} h={500}>
-      <Label x={40} y={32} size={10}>
-        ASCIAN SPEECH · APPROVED FRAGMENTS · CH. XI
+      <Label x={40} y={32} size={FONT_SMALL}>
+        ASCIAN SPEECH · APPROVED FRAGMENTS · §XI
       </Label>
       {fragments.map((f, i) => {
         const y = 80 + i * 44
@@ -595,42 +702,62 @@ export function Ch02AscianSpeechGrammar() {
               fillOpacity={on ? 0.05 : 1}
               stroke={FG}
               strokeOpacity={on ? OPACITY.fg : OPACITY.faint}
-              strokeWidth={on ? 1.2 : 0.6}
+              strokeWidth={on ? STROKE_PRIMARY : STROKE_HAIR}
             />
-            <text x={56} y={y + 5} fill={FG} fontSize="11" opacity={on ? OPACITY.fg : OPACITY.dim}>
+            <text
+              x={56}
+              y={y + 5}
+              fill={FG}
+              fontSize={FONT_LABEL}
+              opacity={on ? OPACITY.fg : OPACITY.dim}
+            >
               {f}
             </text>
           </g>
         )
       })}
-      <text x={460} y={70} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={460}
+        y={70}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         COMPOSED PARABLE →
       </text>
       {chain.map((i, k) => {
         const y = 90 + k * 38
         return (
-          <text key={k} x={460} y={y} fill={FG} fontSize="11" opacity={OPACITY.fg}>
+          <text key={k} x={460} y={y} fill={FG} fontSize={FONT_LABEL} opacity={OPACITY.fg}>
             ‹{i + 1}› {fragments[i]}
           </text>
         )
       })}
-      <text x={460} y={440} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={460}
+        y={440}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         CLICK FRAGMENTS
       </text>
-      <text x={460} y={456} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+      <text x={460} y={456} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         to assemble a meaning;
       </text>
-      <text x={460} y={472} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+      <text x={460} y={472} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         the system is complete
       </text>
-      <text x={460} y={488} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+      <text x={460} y={488} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         but the user is not free.
       </text>
     </Canvas>
   )
 }
 
-// IV.02.3 - Character Web (Ch. 2 lazaret)
+// IV.02.3 - Character Web (§2 lazaret)
 export function Ch02CharacterWeb() {
   const [tip, setTip] = useTooltip()
   const cx = 400,
@@ -639,56 +766,56 @@ export function Ch02CharacterWeb() {
     {
       name: 'Foila',
       a: -Math.PI / 2,
-      cite: 'Ch. 4',
+      cite: '§4',
       body: "Cherkaji rider. Centre of\nthe lazaret's love triangle."
     },
     {
       name: 'Hallvard',
       a: -Math.PI / 2 + (1 * Math.PI) / 4,
-      cite: 'Ch. 4',
+      cite: '§4',
       body: 'Islander; one of two suitors.'
     },
     {
       name: 'Melito',
       a: -Math.PI / 2 + (2 * Math.PI) / 4,
-      cite: 'Ch. 4',
+      cite: '§4',
       body: 'Hoplite; the second suitor.'
     },
     {
       name: 'Ascian',
       a: -Math.PI / 2 + (3 * Math.PI) / 4,
-      cite: 'Ch. XI',
+      cite: '§XI',
       body: 'Speaks in approved fragments;\ntells a story by composition.'
     },
     {
       name: 'Pelerine',
       a: Math.PI / 2,
-      cite: 'Ch. 2',
+      cite: '§2',
       body: 'Refuses to take the Claw;\nsays it cannot be surrendered.'
     },
     {
       name: 'Mannea',
       a: Math.PI / 2 + (1 * Math.PI) / 4,
-      cite: 'Ch. 10',
+      cite: '§10',
       body: 'Pelerine sent on the errand\nthat leads Severian out.'
     },
     {
       name: 'Miles',
       a: Math.PI / 2 + (2 * Math.PI) / 4,
-      cite: 'Ch. 1–end',
-      body: 'The resurrected soldier;\nrenamed Miles in Ch. 1.'
+      cite: '§1–end',
+      body: 'The resurrected soldier;\nrenamed Miles in §1.'
     },
     {
       name: 'Winnoc',
       a: Math.PI / 2 + (3 * Math.PI) / 4,
-      cite: 'Ch. 12',
+      cite: '§12',
       body: 'Pelerine slave; explains\nthe three paths into slavery.'
     }
   ].map(r => ({ ...r, x: cx + Math.cos(r.a) * 170, y: cy + Math.sin(r.a) * 170 }))
   return (
     <Canvas w={800} h={580}>
-      <Label x={40} y={32} size={10}>
-        LAZARET OF THE PELERINES · CH. 2–13
+      <Label x={40} y={32} size={FONT_SMALL}>
+        LAZARET OF THE PELERINES · §2–13
       </Label>
       {ring.map((r, i) => (
         <line
@@ -699,7 +826,7 @@ export function Ch02CharacterWeb() {
           y2={r.y}
           stroke={FG}
           strokeOpacity={tip && tip.title === r.name ? OPACITY.fg : OPACITY.faint}
-          strokeWidth={tip && tip.title === r.name ? 1.4 : 0.6}
+          strokeWidth={tip && tip.title === r.name ? STROKE_PRIMARY : STROKE_HAIR}
         />
       ))}
       {ring.map(r => (
@@ -716,15 +843,15 @@ export function Ch02CharacterWeb() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
           <text
             x={r.x}
             y={r.y + 22}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {r.name}
           </text>
@@ -739,9 +866,16 @@ export function Ch02CharacterWeb() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={cx} y={cy + 32} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={cx}
+          y={cy + 32}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           SEVERIAN
         </text>
       </g>
@@ -754,8 +888,8 @@ export function Ch02CharacterWeb() {
 export function Ch02ClawParadox() {
   return (
     <Canvas w={800} h={420}>
-      <Label x={40} y={32} size={10}>
-        CLAW PARADOX · CH. 2
+      <Label x={40} y={32} size={FONT_SMALL}>
+        CLAW PARADOX · §2
       </Label>
       <g>
         <rect
@@ -766,27 +900,34 @@ export function Ch02ClawParadox() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={80} y={134} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={80}
+          y={134}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           PELERINE
         </text>
-        <text x={80} y={164} fill={FG} fontSize="12" letterSpacing="0.06em">
+        <text x={80} y={164} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_TIGHT}>
           THE TRUE CLAW WAS
         </text>
-        <text x={80} y={182} fill={FG} fontSize="12" letterSpacing="0.06em">
+        <text x={80} y={182} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_TIGHT}>
           A SAPPHIRE
         </text>
-        <text x={80} y={216} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={216} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           Severian's relic broke
         </text>
-        <text x={80} y={232} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={232} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           in Baldanders's castle.
         </text>
-        <text x={80} y={262} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={262} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           What he carries now
         </text>
-        <text x={80} y={278} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={278} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           cannot be the Claw.
         </text>
       </g>
@@ -799,27 +940,34 @@ export function Ch02ClawParadox() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={480} y={134} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={480}
+          y={134}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           SEVERIAN
         </text>
-        <text x={480} y={164} fill={FG} fontSize="12" letterSpacing="0.06em">
+        <text x={480} y={164} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_TIGHT}>
           THE CLAW HEALED
         </text>
-        <text x={480} y={182} fill={FG} fontSize="12" letterSpacing="0.06em">
+        <text x={480} y={182} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_TIGHT}>
           A DEAD SOLDIER
         </text>
-        <text x={480} y={216} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={480} y={216} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           I saw it work.
         </text>
-        <text x={480} y={232} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={480} y={232} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           Miles is alive.
         </text>
-        <text x={480} y={262} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={480} y={262} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           Whatever I carry,
         </text>
-        <text x={480} y={278} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={480} y={278} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           it is the Claw.
         </text>
       </g>
@@ -830,25 +978,39 @@ export function Ch02ClawParadox() {
         y2={210}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
         strokeDasharray="3 3"
       />
       <text
         x={400}
         y={200}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
       >
         CONTRADICTION
       </text>
-      <text x={400} y={224} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={224}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         both presented as fact
       </text>
-      <text x={400} y={360} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.16em">
-        resolution: every thorn is the Claw (Ch. XXXI)
+      <text
+        x={400}
+        y={360}
+        fill={FG}
+        fontSize={FONT_LABEL}
+        textAnchor="middle"
+        letterSpacing={LS_TITLE}
+      >
+        resolution: every thorn is the Claw (§XXXI)
       </text>
     </Canvas>
   )
@@ -858,8 +1020,8 @@ export function Ch02ClawParadox() {
 export function Ch03StructureDiagram() {
   return (
     <Canvas w={800} h={400}>
-      <Label x={40} y={32} size={10}>
-        MODULE 03 · TURN AT CHAPTER XIV
+      <Label x={40} y={32} size={FONT_SMALL}>
+        MODULE 03 · TURN AT SECTION XIV
       </Label>
       <g>
         <rect
@@ -870,27 +1032,34 @@ export function Ch03StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={80} y={134} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={80}
+          y={134}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           BEFORE
         </text>
-        <text x={80} y={162} fill={FG} fontSize="12" letterSpacing="0.08em">
+        <text x={80} y={162} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_LABEL}>
           carries the Claw
         </text>
-        <text x={80} y={190} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={190} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · Foila's circle
         </text>
-        <text x={80} y={206} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={206} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · three suitors' tales
         </text>
-        <text x={80} y={222} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={222} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · slavery paths
         </text>
-        <text x={80} y={238} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={80} y={238} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · the Ascian's parable
         </text>
-        <text x={80} y={266} fill={FG} fontSize="11">
+        <text x={80} y={266} fill={FG} fontSize={FONT_LABEL}>
           listens to stories
         </text>
       </g>
@@ -902,12 +1071,26 @@ export function Ch03StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={400} y={200} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={400}
+          y={200}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           XIV
         </text>
-        <text x={400} y={216} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={216}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           Claw returned
         </text>
       </g>
@@ -920,24 +1103,31 @@ export function Ch03StructureDiagram() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={460} y={134} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={460}
+          y={134}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           AFTER
         </text>
-        <text x={460} y={162} fill={FG} fontSize="12" letterSpacing="0.08em">
+        <text x={460} y={162} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_LABEL}>
           an errand for Mannea
         </text>
-        <text x={460} y={190} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={460} y={190} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · anchorite Master Ash
         </text>
-        <text x={460} y={206} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={460} y={206} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · the Last House
         </text>
-        <text x={460} y={222} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text x={460} y={222} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
           · geography thins out
         </text>
-        <text x={460} y={266} fill={FG} fontSize="11">
+        <text x={460} y={266} fill={FG} fontSize={FONT_LABEL}>
           walks alone
         </text>
       </g>
@@ -948,7 +1138,7 @@ export function Ch03StructureDiagram() {
         y2={200}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       <line
         x1={438}
@@ -957,7 +1147,7 @@ export function Ch03StructureDiagram() {
         y2={200}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
     </Canvas>
   )
@@ -972,7 +1162,7 @@ export function Ch03CharacterWeb() {
       y: 200,
       label: 'Foila',
       sub: 'cherkaji',
-      cite: 'Ch. 4',
+      cite: '§4',
       body: "Judge of the three suitors' tales."
     },
     hallvard: {
@@ -980,7 +1170,7 @@ export function Ch03CharacterWeb() {
       y: 120,
       label: 'Hallvard',
       sub: 'islander · suitor',
-      cite: 'Ch. 5–7',
+      cite: '§5–7',
       body: 'Tells the tale of the boat.'
     },
     melito: {
@@ -988,7 +1178,7 @@ export function Ch03CharacterWeb() {
       y: 280,
       label: 'Melito',
       sub: 'hoplite · suitor',
-      cite: 'Ch. 5–7',
+      cite: '§5–7',
       body: 'Tells the tale of the cock.'
     },
     loyal: {
@@ -996,7 +1186,7 @@ export function Ch03CharacterWeb() {
       y: 340,
       label: 'Loyal',
       sub: 'Ascian',
-      cite: 'Ch. 11',
+      cite: '§11',
       body: 'Tells the parable of Correct Thought.'
     },
     sev: {
@@ -1012,7 +1202,7 @@ export function Ch03CharacterWeb() {
       y: 200,
       label: 'Mannea',
       sub: 'Pelerine',
-      cite: 'Ch. 14',
+      cite: '§14',
       body: 'Sends Severian on the errand\nthat takes him out of the lazaret.'
     },
     ash: {
@@ -1020,7 +1210,7 @@ export function Ch03CharacterWeb() {
       y: 340,
       label: 'Master Ash',
       sub: 'anchorite',
-      cite: 'Ch. 15–17',
+      cite: '§15–17',
       body: 'Lives in a house rooted in time;\nspeaks of the final ice.'
     }
   }
@@ -1034,7 +1224,7 @@ export function Ch03CharacterWeb() {
   ]
   return (
     <Canvas w={800} h={420}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         MODULE 03 · CHARACTER WEB
       </Label>
       {edges.map(([a, b, rel], i) => (
@@ -1046,16 +1236,16 @@ export function Ch03CharacterWeb() {
             y2={nodes[b].y}
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="1"
+            strokeWidth={STROKE_SECONDARY}
           />
           <text
             x={(nodes[a].x + nodes[b].x) / 2}
             y={(nodes[a].y + nodes[b].y) / 2 - 4}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {rel}
           </text>
@@ -1077,15 +1267,15 @@ export function Ch03CharacterWeb() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth={k === 'sev' ? 1.6 : 1}
+            strokeWidth={k === 'sev' ? STROKE_EMPHASIS : STROKE_SECONDARY}
           />
           <text
             x={n.x}
             y={n.y + (k === 'sev' || k === 'foila' ? 28 : 22)}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {n.label}
           </text>
@@ -1093,7 +1283,7 @@ export function Ch03CharacterWeb() {
             x={n.x}
             y={n.y + (k === 'sev' || k === 'foila' ? 42 : 36)}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -1118,17 +1308,31 @@ export function Ch03AscianStoryArc() {
   ]
   return (
     <Canvas w={800} h={500}>
-      <Label x={40} y={32} size={10}>
-        "THE TALE OF LOYAL TO THE GROUP" · CH. XI
+      <Label x={40} y={32} size={FONT_SMALL}>
+        "THE TALE OF LOYAL TO THE GROUP" · §XI
       </Label>
       {fragments.map((f, i) => {
         const y = 80 + i * 70
         return (
           <g key={i}>
-            <text x={40} y={y} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+            <text
+              x={40}
+              y={y}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              opacity={OPACITY.dim}
+              letterSpacing={LS_TITLE}
+            >
               FRAGMENT {i + 1}
             </text>
-            <text x={120} y={y} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+            <text
+              x={120}
+              y={y}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              opacity={OPACITY.dim}
+              letterSpacing={LS_MEDIUM}
+            >
               {f.gloss}
             </text>
             <rect
@@ -1139,9 +1343,9 @@ export function Ch03AscianStoryArc() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="1"
+              strokeWidth={STROKE_SECONDARY}
             />
-            <text x={56} y={y + 30} fill={FG} fontSize="11">
+            <text x={56} y={y + 30} fill={FG} fontSize={FONT_LABEL}>
               {f.quote}
             </text>
             {i < fragments.length - 1 && (
@@ -1157,47 +1361,54 @@ export function Ch03AscianStoryArc() {
           </g>
         )
       })}
-      <text x={580} y={86} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={580}
+        y={86}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         WHAT IT MEANS
       </text>
-      <text x={580} y={112} fill={FG} fontSize="11">
+      <text x={580} y={112} fill={FG} fontSize={FONT_LABEL}>
         A loyal soldier
       </text>
-      <text x={580} y={130} fill={FG} fontSize="11">
+      <text x={580} y={130} fill={FG} fontSize={FONT_LABEL}>
         is sent on a mission.
       </text>
-      <text x={580} y={160} fill={FG} fontSize="11">
+      <text x={580} y={160} fill={FG} fontSize={FONT_LABEL}>
         He meets a stranger;
       </text>
-      <text x={580} y={178} fill={FG} fontSize="11">
+      <text x={580} y={178} fill={FG} fontSize={FONT_LABEL}>
         questions him.
       </text>
-      <text x={580} y={208} fill={FG} fontSize="11">
+      <text x={580} y={208} fill={FG} fontSize={FONT_LABEL}>
         The stranger is an
       </text>
-      <text x={580} y={226} fill={FG} fontSize="11">
+      <text x={580} y={226} fill={FG} fontSize={FONT_LABEL}>
         enemy of the Group.
       </text>
-      <text x={580} y={256} fill={FG} fontSize="11">
+      <text x={580} y={256} fill={FG} fontSize={FONT_LABEL}>
         He returns; reports;
       </text>
-      <text x={580} y={274} fill={FG} fontSize="11">
+      <text x={580} y={274} fill={FG} fontSize={FONT_LABEL}>
         is rewarded.
       </text>
-      <text x={580} y={304} fill={FG} fontSize="11">
+      <text x={580} y={304} fill={FG} fontSize={FONT_LABEL}>
         Unity is sufficient;
       </text>
-      <text x={580} y={322} fill={FG} fontSize="11">
+      <text x={580} y={322} fill={FG} fontSize={FONT_LABEL}>
         no army can stand.
       </text>
       <text
         x={400}
         y={478}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
       >
         constraint does not prevent expression - it selects for it
       </text>
@@ -1218,8 +1429,8 @@ export function Ch03SlaveryPaths() {
   ]
   return (
     <Canvas w={800} h={420}>
-      <Label x={40} y={32} size={10}>
-        WINNOC NAMES THE THREE PATHS · CH. XII
+      <Label x={40} y={32} size={FONT_SMALL}>
+        WINNOC NAMES THE THREE PATHS · §XII
       </Label>
       {paths.map((p, i) => {
         const x = 80 + i * 240
@@ -1233,19 +1444,19 @@ export function Ch03SlaveryPaths() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={p.id === 3 ? OPACITY.fg : OPACITY.dim}
-              strokeWidth={p.id === 3 ? 1.6 : 1}
+              strokeWidth={p.id === 3 ? STROKE_EMPHASIS : STROKE_SECONDARY}
             />
             <text
               x={x + 16}
               y={146}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               opacity={OPACITY.dim}
-              letterSpacing="0.16em"
+              letterSpacing={LS_TITLE}
             >
               PATH {p.id}
             </text>
-            <text x={x + 16} y={174} fill={FG} fontSize="14" letterSpacing="0.14em">
+            <text x={x + 16} y={174} fill={FG} fontSize={FONT_TITLE} letterSpacing={LS_UPPER}>
               {p.label}
             </text>
             {p.body.split('\n').map((ln, j) => (
@@ -1254,21 +1465,28 @@ export function Ch03SlaveryPaths() {
                 x={x + 16}
                 y={210 + j * 16}
                 fill={FG}
-                fontSize="10"
+                fontSize={FONT_SMALL}
                 opacity={OPACITY.dim}
               >
                 {ln}
               </text>
             ))}
             {p.id === 3 && (
-              <text x={x + 16} y={280} fill={FG} fontSize="10" letterSpacing="0.08em">
+              <text x={x + 16} y={280} fill={FG} fontSize={FONT_SMALL} letterSpacing={LS_LABEL}>
                 ← Winnoc
               </text>
             )}
           </g>
         )
       })}
-      <text x={400} y={360} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={360}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         named casually, as common knowledge - and as the frame for Winnoc's own story
       </text>
     </Canvas>
@@ -1278,14 +1496,14 @@ export function Ch03SlaveryPaths() {
 // IV.03.5 - Three Suitors Routes
 export function Ch03ThreeSuitorsRoutes() {
   const suitors = [
-    { x: 140, label: 'ELDEST', route: 'forces', outcome: 'fails', cite: 'Ch. 6' },
-    { x: 400, label: 'MIDDLE', route: 'tricks', outcome: 'fails', cite: 'Ch. 6' },
-    { x: 660, label: 'YOUNGEST', route: 'accepts', outcome: 'wins', cite: 'Ch. 6' }
+    { x: 140, label: 'ELDEST', route: 'forces', outcome: 'fails', cite: '§6' },
+    { x: 400, label: 'MIDDLE', route: 'tricks', outcome: 'fails', cite: '§6' },
+    { x: 660, label: 'YOUNGEST', route: 'accepts', outcome: 'wins', cite: '§6' }
   ]
   return (
     <Canvas w={800} h={420}>
-      <Label x={40} y={32} size={10}>
-        THREE SUITORS · THREE RESPONSES · CH. VI
+      <Label x={40} y={32} size={FONT_SMALL}>
+        THREE SUITORS · THREE RESPONSES · §VI
       </Label>
       <g>
         <circle
@@ -1295,12 +1513,26 @@ export function Ch03ThreeSuitorsRoutes() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x={400} y={348} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={400}
+          y={348}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           BROWN FIGURE
         </text>
-        <text x={400} y={366} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={366}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           (the daughter shifted)
         </text>
       </g>
@@ -1313,19 +1545,26 @@ export function Ch03ThreeSuitorsRoutes() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
-          <text x={s.x} y={144} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.12em">
+          <text
+            x={s.x}
+            y={144}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            letterSpacing={LS_MEDIUM}
+          >
             {s.label}
           </text>
-          <text x={s.x} y={186} fill={FG} fontSize="11" textAnchor="middle">
+          <text x={s.x} y={186} fill={FG} fontSize={FONT_LABEL} textAnchor="middle">
             {s.route}
           </text>
           <text
             x={s.x}
             y={206}
             fill={FG}
-            fontSize="11"
+            fontSize={FONT_LABEL}
             textAnchor="middle"
             opacity={s.outcome === 'wins' ? OPACITY.fg : OPACITY.dim}
           >
@@ -1338,11 +1577,18 @@ export function Ch03ThreeSuitorsRoutes() {
             y2={314}
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="1"
+            strokeWidth={STROKE_SECONDARY}
           />
         </g>
       ))}
-      <text x={400} y={398} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={398}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         the youngest wins by accepting guidance instead of forcing or tricking
       </text>
     </Canvas>
@@ -1353,8 +1599,8 @@ export function Ch03ThreeSuitorsRoutes() {
 export function Ch03LastHouseTime() {
   return (
     <Canvas w={800} h={520}>
-      <Label x={40} y={32} size={10}>
-        MASTER ASH'S HOUSE · CH. 17
+      <Label x={40} y={32} size={FONT_SMALL}>
+        MASTER ASH'S HOUSE · §17
       </Label>
       <line
         x1={40}
@@ -1363,9 +1609,16 @@ export function Ch03LastHouseTime() {
         y2={300}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.2"
+        strokeWidth={STROKE_PRIMARY}
       />
-      <text x={40} y={292} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={292}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         PRESENT
       </text>
       <rect
@@ -1376,12 +1629,26 @@ export function Ch03LastHouseTime() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
-      <text x={400} y={250} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.12em">
+      <text
+        x={400}
+        y={250}
+        fill={FG}
+        fontSize={FONT_LABEL}
+        textAnchor="middle"
+        letterSpacing={LS_MEDIUM}
+      >
         THE HOUSE
       </text>
-      <text x={400} y={268} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={268}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         (present floor)
       </text>
       <rect
@@ -1392,12 +1659,26 @@ export function Ch03LastHouseTime() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
-      <text x={400} y={172} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.12em">
+      <text
+        x={400}
+        y={172}
+        fill={FG}
+        fontSize={FONT_LABEL}
+        textAnchor="middle"
+        letterSpacing={LS_MEDIUM}
+      >
         UPPER ROOM
       </text>
-      <text x={400} y={188} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={188}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         against the final ice
       </text>
       <polyline
@@ -1405,9 +1686,16 @@ export function Ch03LastHouseTime() {
         fill="none"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
-      <text x={40} y={80} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={80}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         FUTURE · ICE
       </text>
       {[330, 360, 400, 440, 470].map((x, i) => (
@@ -1417,27 +1705,34 @@ export function Ch03LastHouseTime() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
       ))}
-      <text x={40} y={478} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={478}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         PAST
       </text>
-      <text x={520} y={470} fill={FG} fontSize="11">
+      <text x={520} y={470} fill={FG} fontSize={FONT_LABEL}>
         "time is a weaving,
       </text>
-      <text x={520} y={488} fill={FG} fontSize="11">
+      <text x={520} y={488} fill={FG} fontSize={FONT_LABEL}>
         not a single thread"
       </text>
-      <text x={520} y={506} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+      <text x={520} y={506} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         -Master Ash
       </text>
     </Canvas>
   )
 }
 
-// IV.04.1 - Chapter Arc
-export function Ch04ChapterArc() {
+// IV.04.1 - Section Arc
+export function Ch04ModuleArc() {
   const beats = [
     { x: 0, y: 0.3, label: 'Foila dies · promise' },
     { x: 1, y: 0.45, label: 'standoff at the coach' },
@@ -1446,14 +1741,14 @@ export function Ch04ChapterArc() {
     { x: 4, y: 0.55, label: 'Daria · counsel' },
     { x: 5, y: 0.85, label: 'rises in flier · Autarch revealed' }
   ]
-  return <ArcChart4 beats={beats} title="MODULE 04 · CHAPTER ARC" />
+  return <ArcChart4 beats={beats} title="MODULE 04 · SECTION ARC" />
 }
 
 // IV.04.2 - Three-Faction Standoff
 export function Ch04ThreeFactionStandoff() {
   return (
     <Canvas w={800} h={480}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         STANDOFF OVER A MIRED COACH
       </Label>
       <g>
@@ -1465,12 +1760,26 @@ export function Ch04ThreeFactionStandoff() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x={400} y={236} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={400}
+          y={236}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           MIRED COACH
         </text>
-        <text x={400} y={254} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={254}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           contains the Autarch
         </text>
       </g>
@@ -1487,15 +1796,15 @@ export function Ch04ThreeFactionStandoff() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.4"
+            strokeWidth={STROKE_PRIMARY}
           />
           <text
             x={f.x}
             y={f.y - 4}
             fill={FG}
-            fontSize="11"
+            fontSize={FONT_LABEL}
             textAnchor="middle"
-            letterSpacing="0.12em"
+            letterSpacing={LS_MEDIUM}
           >
             {f.label}
           </text>
@@ -1503,7 +1812,7 @@ export function Ch04ThreeFactionStandoff() {
             x={f.x}
             y={f.y + 14}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -1516,7 +1825,7 @@ export function Ch04ThreeFactionStandoff() {
             y2={240}
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="1"
+            strokeWidth={STROKE_SECONDARY}
             strokeDasharray="3 3"
           />
         </g>
@@ -1525,10 +1834,10 @@ export function Ch04ThreeFactionStandoff() {
         x={400}
         y={460}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
       >
         SEVERIAN BROKERS THROUGH THE LANGUAGE OF EACH PARTY
       </text>
@@ -1540,16 +1849,16 @@ export function Ch04ThreeFactionStandoff() {
 export function Ch04BattleFormation() {
   return (
     <Canvas w={800} h={520}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         VALLEY BATTLE · ASCIANS vs COMMONWEALTH
       </Label>
       <text
         x={200}
         y={80}
         fill={FG}
-        fontSize="10"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
         opacity={OPACITY.dim}
       >
         ASCIAN ARMY (NORTH)
@@ -1566,7 +1875,7 @@ export function Ch04BattleFormation() {
             fillOpacity={(r + c) % 2 ? 0.15 : 1}
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="0.6"
+            strokeWidth={STROKE_HAIR}
           />
         ))
       )}
@@ -1574,10 +1883,10 @@ export function Ch04BattleFormation() {
         x={200}
         y={262}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         CHECKERBOARD INFANTRY
       </text>
@@ -1602,10 +1911,10 @@ export function Ch04BattleFormation() {
         x={200}
         y={326}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         BLIND-SWORDSMAN PAIRS
       </text>
@@ -1613,9 +1922,9 @@ export function Ch04BattleFormation() {
         x={600}
         y={80}
         fill={FG}
-        fontSize="10"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
         opacity={OPACITY.dim}
       >
         COMMONWEALTH (SOUTH)
@@ -1629,7 +1938,14 @@ export function Ch04BattleFormation() {
           </g>
         )
       })}
-      <text x={600} y={158} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={600}
+        y={158}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         cherkajis · cavalry
       </text>
       {Array.from({ length: 8 }).map((_, i) => {
@@ -1643,7 +1959,14 @@ export function Ch04BattleFormation() {
           />
         )
       })}
-      <text x={600} y={210} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={600}
+        y={210}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         peltasts
       </text>
       {Array.from({ length: 6 }).map((_, i) => {
@@ -1663,7 +1986,14 @@ export function Ch04BattleFormation() {
           </g>
         )
       })}
-      <text x={600} y={258} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={600}
+        y={258}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         hobilers
       </text>
       {Array.from({ length: 4 }).map((_, i) => {
@@ -1678,14 +2008,21 @@ export function Ch04BattleFormation() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1.2"
+              strokeWidth={STROKE_PRIMARY}
             />
             <circle cx={x - 8} cy={300} r="4" fill={FG} />
             <line x1={x - 14} y1={300} x2={x - 8} y2={296} stroke={FG} strokeOpacity={OPACITY.fg} />
           </g>
         )
       })}
-      <text x={600} y={336} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={600}
+        y={336}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         Daughters of War on arsinoithers
       </text>
       <line
@@ -1695,12 +2032,26 @@ export function Ch04BattleFormation() {
         y2={380}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.6"
+        strokeWidth={STROKE_EMPHASIS}
       />
-      <text x={400} y={400} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+      <text
+        x={400}
+        y={400}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        letterSpacing={LS_UPPER}
+      >
         ENGAGEMENT LINE
       </text>
-      <text x={400} y={470} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={470}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         Severian, on horseback, is pinned under his dead horse during the clash
       </text>
     </Canvas>
@@ -1715,26 +2066,26 @@ export function Ch04AutarchIdentityWeb() {
   const ids = [
     {
       name: 'AUTARCH',
-      cite: 'Bk II Ch. X',
+      cite: 'Bk II §X',
       body: 'Severian glimpsed him in the\nHouse Absolute corridor.'
     },
     {
       name: 'innkeeper',
-      cite: 'Bk I Ch. 17',
+      cite: 'Bk I §17',
       body: 'At the Inn of Lost Loves - and\nSeverian did not recognise him.'
     },
     {
       name: 'old man',
-      cite: 'Bk I Ch. 7',
+      cite: 'Bk I §7',
       body: 'Stooped figure in the Atrium of\nTime; Severian thought him servile.'
     },
     { name: 'mercer', cite: 'Bk II', body: 'Sold cloth in Saltus.' },
     { name: 'beggar', cite: 'Bk III', body: 'A blind beggar Severian passed\non the road.' },
     { name: 'soldier', cite: 'Bk IV', body: 'Encountered in the war camp.' },
-    { name: 'father', cite: 'Bk IV Ch. 23', body: 'Sees Severian only once.' },
+    { name: 'father', cite: 'Bk IV §23', body: 'Sees Severian only once.' },
     {
       name: 'composite',
-      cite: 'Bk IV Ch. 22',
+      cite: 'Bk IV §22',
       body: 'The Autarchy is many men;\nthe Throne wears them all.'
     }
   ]
@@ -1745,7 +2096,7 @@ export function Ch04AutarchIdentityWeb() {
   })
   return (
     <Canvas w={800} h={620}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         AUTARCH HOLDS EIGHT IDENTITIES SIMULTANEOUSLY
       </Label>
       {ids.map((id, i) => (
@@ -1757,7 +2108,7 @@ export function Ch04AutarchIdentityWeb() {
           y2={id._y}
           stroke={FG}
           strokeOpacity={tip && tip.title === id.name ? OPACITY.fg : OPACITY.faint}
-          strokeWidth={tip && tip.title === id.name ? 1.4 : 0.6}
+          strokeWidth={tip && tip.title === id.name ? STROKE_PRIMARY : STROKE_HAIR}
         />
       ))}
       {ids.map((id, i) => (
@@ -1776,15 +2127,15 @@ export function Ch04AutarchIdentityWeb() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
           <text
             x={id._x}
             y={id._y + 22}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {id.name}
           </text>
@@ -1799,9 +2150,16 @@ export function Ch04AutarchIdentityWeb() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={cx} y={cy + 4} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.16em">
+        <text
+          x={cx}
+          y={cy + 4}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
           ONE BODY
         </text>
       </g>
@@ -1809,10 +2167,10 @@ export function Ch04AutarchIdentityWeb() {
         x={400}
         y={580}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
       >
         SEVERIAN HAD SEEN HIM TWICE BEFORE WITHOUT KNOWING
       </text>
@@ -1825,13 +2183,13 @@ export function Ch04AutarchIdentityWeb() {
 export function Ch05ThreeFactionCollapse() {
   return (
     <Canvas w={800} h={500}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         MODULE 05 · THREE STRUCTURES CONVERGE
       </Label>
       {[
-        { x: 140, label: 'AUTARCHY', fate: 'dies · transfers to Severian', cite: 'Ch. XXIX' },
-        { x: 400, label: "VODALUS'S REVOLUTION", fate: 'Vodalus killed by Agia', cite: 'Ch. XXXI' },
-        { x: 660, label: 'ASCIAN ARMY', fate: 'loses Severian to Malrubius', cite: 'Ch. XXX' }
+        { x: 140, label: 'AUTARCHY', fate: 'dies · transfers to Severian', cite: '§XXIX' },
+        { x: 400, label: "VODALUS'S REVOLUTION", fate: 'Vodalus killed by Agia', cite: '§XXXI' },
+        { x: 660, label: 'ASCIAN ARMY', fate: 'loses Severian to Malrubius', cite: '§XXX' }
       ].map((f, i) => (
         <g key={i}>
           <rect
@@ -1842,25 +2200,46 @@ export function Ch05ThreeFactionCollapse() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
-          <text x={f.x} y={128} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+          <text
+            x={f.x}
+            y={128}
+            fill={FG}
+            fontSize={FONT_LABEL}
+            textAnchor="middle"
+            letterSpacing={LS_UPPER}
+          >
             {f.label}
           </text>
-          <text x={f.x} y={156} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+          <text
+            x={f.x}
+            y={156}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            opacity={OPACITY.dim}
+          >
             {f.fate.split(' ').slice(0, 3).join(' ')}
           </text>
-          <text x={f.x} y={172} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+          <text
+            x={f.x}
+            y={172}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            opacity={OPACITY.dim}
+          >
             {f.fate.split(' ').slice(3).join(' ')}
           </text>
           <text
             x={f.x}
             y={196}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
-            letterSpacing="0.12em"
+            letterSpacing={LS_MEDIUM}
           >
             {f.cite}
           </text>
@@ -1871,7 +2250,7 @@ export function Ch05ThreeFactionCollapse() {
             y2={340}
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="1"
+            strokeWidth={STROKE_SECONDARY}
           />
         </g>
       ))}
@@ -1882,12 +2261,26 @@ export function Ch05ThreeFactionCollapse() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.6"
+        strokeWidth={STROKE_EMPHASIS}
       />
-      <text x={400} y={414} fill={FG} fontSize="12" textAnchor="middle" letterSpacing="0.16em">
+      <text
+        x={400}
+        y={414}
+        fill={FG}
+        fontSize={FONT_TITLE}
+        textAnchor="middle"
+        letterSpacing={LS_TITLE}
+      >
         SEVERIAN
       </text>
-      <text x={400} y={432} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={432}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         new Autarch
       </text>
     </Canvas>
@@ -1909,7 +2302,7 @@ export function Ch05AutarchIdentityStack() {
   return (
     <div style={{ width: '100%' }}>
       <Canvas w={800} h={520}>
-        <Label x={40} y={32} size={10}>
+        <Label x={40} y={32} size={FONT_SMALL}>
           IDENTITY STACK · DRAG TO PEEL LAYERS
         </Label>
         {stack.map((s, i) => {
@@ -1925,16 +2318,16 @@ export function Ch05AutarchIdentityStack() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={visible ? OPACITY.fg : OPACITY.faint}
-                strokeWidth={visible ? 1 : 0.4}
+                strokeWidth={visible ? STROKE_SECONDARY : STROKE_HAIR}
               />
-              <text x={220} y={y + 22} fill={FG} fontSize="11" letterSpacing="0.12em">
+              <text x={220} y={y + 22} fill={FG} fontSize={FONT_LABEL} letterSpacing={LS_MEDIUM}>
                 {s.label}
               </text>
               <text
                 x={580}
                 y={y + 22}
                 fill={FG}
-                fontSize="9"
+                fontSize={FONT_SMALL}
                 textAnchor="end"
                 opacity={OPACITY.dim}
               >
@@ -1963,8 +2356,8 @@ export function Ch05AquastorProjection() {
   return (
     <div style={{ width: '100%' }}>
       <Canvas w={800} h={460}>
-        <Label x={40} y={32} size={10}>
-          AQUASTOR PROJECTION · CH. XXXVII
+        <Label x={40} y={32} size={FONT_SMALL}>
+          AQUASTOR PROJECTION · §XXXVII
         </Label>
         <ellipse
           cx={150}
@@ -1974,12 +2367,26 @@ export function Ch05AquastorProjection() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x={150} y={204} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={150}
+          y={204}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           SHIP
         </text>
-        <text x={150} y={236} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={150}
+          y={236}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           thinking machine · scans Severian
         </text>
         {inRange && (
@@ -2011,9 +2418,16 @@ export function Ch05AquastorProjection() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x={500} y={296} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.12em">
+        <text
+          x={500}
+          y={296}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_MEDIUM}
+        >
           SEVERIAN
         </text>
         <g opacity={inRange ? 1 : 0.1}>
@@ -2024,13 +2438,20 @@ export function Ch05AquastorProjection() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
             strokeDasharray={inRange ? null : '2 3'}
           />
-          <text x={620} y={214} fill={FG} fontSize="10" textAnchor="middle">
+          <text x={620} y={214} fill={FG} fontSize={FONT_SMALL} textAnchor="middle">
             Malrubius
           </text>
-          <text x={620} y={246} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+          <text
+            x={620}
+            y={246}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            opacity={OPACITY.dim}
+          >
             aquastor
           </text>
         </g>
@@ -2042,27 +2463,55 @@ export function Ch05AquastorProjection() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
             strokeDasharray={inRange ? null : '2 3'}
           />
-          <text x={680} y={334} fill={FG} fontSize="10" textAnchor="middle">
+          <text x={680} y={334} fill={FG} fontSize={FONT_SMALL} textAnchor="middle">
             Triskele
           </text>
-          <text x={680} y={358} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+          <text
+            x={680}
+            y={358}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            opacity={OPACITY.dim}
+          >
             aquastor
           </text>
         </g>
         {!inRange && (
           <g>
-            <text x={620} y={210} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+            <text
+              x={620}
+              y={210}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              textAnchor="middle"
+              opacity={OPACITY.dim}
+            >
               ↓ dust
             </text>
-            <text x={680} y={330} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+            <text
+              x={680}
+              y={330}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              textAnchor="middle"
+              opacity={OPACITY.dim}
+            >
               ↓ dust
             </text>
           </g>
         )}
-        <text x={400} y={420} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={420}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           aquastors are sustained constructs - not ghosts, not miracles
         </text>
       </Canvas>
@@ -2077,8 +2526,8 @@ export function Ch05AquastorProjection() {
 export function Ch05ThornBushClaw() {
   return (
     <Canvas w={800} h={560}>
-      <Label x={40} y={32} size={10}>
-        ON THE BEACH AT OCEAN · CH. XXXIX
+      <Label x={40} y={32} size={FONT_SMALL}>
+        ON THE BEACH AT OCEAN · §XXXIX
       </Label>
 
       <Stipple x={40} y={60} w={720} h={120} n={70} seed={777} opacity={0.4} r={0.5} />
@@ -2090,7 +2539,7 @@ export function Ch05ThornBushClaw() {
         y2={200}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
       {[210, 220, 232, 246, 264, 286, 310].map((wy, i) => (
         <path
@@ -2099,10 +2548,17 @@ export function Ch05ThornBushClaw() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.dim * (1 - i * 0.1)}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
       ))}
-      <text x={40} y={194} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={40}
+        y={194}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         OCEAN
       </text>
 
@@ -2121,7 +2577,7 @@ export function Ch05ThornBushClaw() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.5"
+              strokeWidth={STROKE_HAIR}
             />
             <ellipse
               cx={fx + 20}
@@ -2131,7 +2587,7 @@ export function Ch05ThornBushClaw() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.5"
+              strokeWidth={STROKE_HAIR}
             />
           </g>
         )
@@ -2143,42 +2599,42 @@ export function Ch05ThornBushClaw() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
         <path
           d="M 0 40 Q 20 30 36 0 Q 44 -20 60 -28"
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         <path
           d="M -2 10 Q -30 -10 -50 -30 Q -68 -50 -76 -78"
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         <path
           d="M 0 -40 Q 28 -50 50 -78 Q 64 -100 80 -110"
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <path
           d="M -6 -60 Q -34 -68 -52 -94 Q -60 -110 -78 -120"
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <path
           d="M -2 -110 Q 18 -120 32 -136"
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.9"
+          strokeWidth={STROKE_GUIDE}
         />
         {[
           [0, 80, -30],
@@ -2222,7 +2678,7 @@ export function Ch05ThornBushClaw() {
                 y2={ly}
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="0.7"
+                strokeWidth={STROKE_GUIDE}
               />
               <path
                 d={`M ${lx} ${ly}
@@ -2250,7 +2706,7 @@ export function Ch05ThornBushClaw() {
               fill="none"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
           </g>
         ))}
@@ -2262,30 +2718,44 @@ export function Ch05ThornBushClaw() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         <g transform="translate(120 0)">
-          <Rays cx={0} cy={0} r0={4} r1={22} count={10} opacity={0.5} strokeWidth={0.5} />
+          <Rays cx={0} cy={0} r0={4} r1={22} count={10} opacity={0.5} strokeWidth={STROKE_HAIR} />
           <path d="M 0 -6 L 4 0 L 0 6 L -4 0 Z" fill={FG} opacity={OPACITY.fg} />
         </g>
         <text
           x={50}
           y={45}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
           opacity={OPACITY.dim}
-          letterSpacing="0.12em"
+          letterSpacing={LS_MEDIUM}
         >
           A THORN IN HIS ARM
         </text>
       </g>
 
-      <text x={400} y={520} fill={FG} fontSize="12" textAnchor="middle" letterSpacing="0.18em">
+      <text
+        x={400}
+        y={520}
+        fill={FG}
+        fontSize={FONT_TITLE}
+        textAnchor="middle"
+        letterSpacing={LS_CONTROL}
+      >
         EVERY THORN IS THE CLAW
       </text>
-      <text x={400} y={540} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
-        - the Increate rests in everything (Ch. XXXIX)
+      <text
+        x={400}
+        y={540}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
+        - the Increate rests in everything (§XXXIX)
       </text>
     </Canvas>
   )
@@ -2300,7 +2770,7 @@ export function Ch06RouteMap() {
       x: 80,
       y: 430,
       label: 'Samru landfall',
-      cite: 'Ch. XXX',
+      cite: '§XXX',
       body: 'Ship sets him down south of Nessus.'
     },
     {
@@ -2308,7 +2778,7 @@ export function Ch06RouteMap() {
       x: 170,
       y: 380,
       label: 'Gyoll mouth',
-      cite: 'Ch. XXXII',
+      cite: '§XXXII',
       body: 'Mouth of the river; barge upriver.'
     },
     {
@@ -2316,7 +2786,7 @@ export function Ch06RouteMap() {
       x: 300,
       y: 300,
       label: 'Algedonic Quarter',
-      cite: 'Ch. XXXII',
+      cite: '§XXXII',
       body: 'Where the rag shop was; revisited.'
     },
     {
@@ -2324,7 +2794,7 @@ export function Ch06RouteMap() {
       x: 400,
       y: 250,
       label: 'Botanic Gardens',
-      cite: 'Ch. XXXIII',
+      cite: '§XXXIII',
       body: 'Dorcas met here.'
     },
     {
@@ -2332,7 +2802,7 @@ export function Ch06RouteMap() {
       x: 500,
       y: 220,
       label: 'Sanguinary Field',
-      cite: 'Ch. XXXIII',
+      cite: '§XXXIII',
       body: 'The duel field is empty.'
     },
     {
@@ -2340,7 +2810,7 @@ export function Ch06RouteMap() {
       x: 580,
       y: 240,
       label: 'Pelerine site',
-      cite: 'Ch. XXXIV',
+      cite: '§XXXIV',
       body: 'Cathedral ruins. Memorial.'
     },
     {
@@ -2348,7 +2818,7 @@ export function Ch06RouteMap() {
       x: 650,
       y: 290,
       label: 'Necropolis',
-      cite: 'Ch. XXXV',
+      cite: '§XXXV',
       body: "Vodalus's grave entry; he meets Ouen."
     },
     {
@@ -2356,7 +2826,7 @@ export function Ch06RouteMap() {
       x: 680,
       y: 340,
       label: 'Citadel gate',
-      cite: 'Ch. XXXV',
+      cite: '§XXXV',
       body: 'Returns through the locked gate.'
     },
     {
@@ -2364,7 +2834,7 @@ export function Ch06RouteMap() {
       x: 700,
       y: 400,
       label: 'Matachin Tower',
-      cite: 'Ch. XXXV–VI',
+      cite: '§XXXV–VI',
       body: 'Severian and Palaemon meet.'
     },
     {
@@ -2372,13 +2842,13 @@ export function Ch06RouteMap() {
       x: 660,
       y: 440,
       label: 'Atrium of Time',
-      cite: 'Ch. XXXVII',
+      cite: '§XXXVII',
       body: 'Valeria. The loop reveals itself.'
     }
   ]
   return (
     <Canvas w={800} h={520}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         MODULE 06 · HOMECOMING CIRCUIT
       </Label>
       <path
@@ -2387,13 +2857,13 @@ export function Ch06RouteMap() {
         fillOpacity="0.03"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="0.8"
+        strokeWidth={STROKE_GUIDE}
       />
       <path
         d={'M ' + stops.map(s => `${s.x} ${s.y}`).join(' L ')}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
         fill="none"
       />
       {stops.map(s => (
@@ -2412,15 +2882,22 @@ export function Ch06RouteMap() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
-          <text x={s.x} y={s.y + 4} fill={FG} fontSize="9" textAnchor="middle">
+          <text x={s.x} y={s.y + 4} fill={FG} fontSize={FONT_SMALL} textAnchor="middle">
             {s.id}
           </text>
         </g>
       ))}
       {stops.map((s, i) => (
-        <text key={`L-${i}`} x={40} y={64 + i * 16} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+        <text
+          key={`L-${i}`}
+          x={40}
+          y={64 + i * 16}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+        >
           {s.id}. {s.label}
         </text>
       ))}
@@ -2439,7 +2916,7 @@ export function Ch06CharacterWeb() {
       y: 160,
       label: 'Palaemon',
       sub: 'old teacher',
-      cite: 'Ch. XXXV',
+      cite: '§XXXV',
       body: 'They meet in the tower;\nthe sword returns to him.'
     },
     dorcas: {
@@ -2447,7 +2924,7 @@ export function Ch06CharacterWeb() {
       y: 420,
       label: 'Dorcas',
       sub: 'left him in Bk III',
-      cite: 'Ch. XXXII',
+      cite: '§XXXII',
       body: 'She is now a grieving widow\nin the Algedonic Quarter.'
     },
     ouen: {
@@ -2455,7 +2932,7 @@ export function Ch06CharacterWeb() {
       y: 160,
       label: 'Ouen',
       sub: 'father by blood',
-      cite: 'Ch. XXXV',
+      cite: '§XXXV',
       body: 'Severian recognises his face\nin the innkeeper of Nessus.'
     },
     valeria: {
@@ -2463,7 +2940,7 @@ export function Ch06CharacterWeb() {
       y: 420,
       label: 'Valeria',
       sub: 'wife to be',
-      cite: 'Ch. XXXVII',
+      cite: '§XXXVII',
       body: 'He returns to the Atrium\nand finds her there again.'
     },
     mandragora: {
@@ -2471,7 +2948,7 @@ export function Ch06CharacterWeb() {
       y: 120,
       label: 'Mandragora',
       sub: 'mirror-self',
-      cite: 'Ch. XXXVI',
+      cite: '§XXXVI',
       body: "The homunculus offers a\nreflection of Severian's loops."
     },
     claw: {
@@ -2493,7 +2970,7 @@ export function Ch06CharacterWeb() {
   ]
   return (
     <Canvas w={800} h={540}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         MODULE 06 · HOMECOMING WEB
       </Label>
       {edges.map(([a, b], i) => (
@@ -2505,7 +2982,7 @@ export function Ch06CharacterWeb() {
           y2={nodes[b].y}
           stroke={FG}
           strokeOpacity={tip && tip.title === nodes[b].label ? OPACITY.fg : OPACITY.faint}
-          strokeWidth={tip && tip.title === nodes[b].label ? 1.4 : 0.6}
+          strokeWidth={tip && tip.title === nodes[b].label ? STROKE_PRIMARY : STROKE_HAIR}
         />
       ))}
       {Object.entries(nodes).map(([k, n]) =>
@@ -2525,15 +3002,15 @@ export function Ch06CharacterWeb() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1.2"
+              strokeWidth={STROKE_PRIMARY}
             />
             <text
               x={n.x}
               y={n.y + 22}
               fill={FG}
-              fontSize="10"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
-              letterSpacing="0.08em"
+              letterSpacing={LS_LABEL}
             >
               {n.label}
             </text>
@@ -2541,7 +3018,7 @@ export function Ch06CharacterWeb() {
               x={n.x}
               y={n.y + 36}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.dim}
             >
@@ -2559,15 +3036,15 @@ export function Ch06CharacterWeb() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
         <text
           x={nodes.sev.x}
           y={nodes.sev.y + 32}
           fill={FG}
-          fontSize="11"
+          fontSize={FONT_LABEL}
           textAnchor="middle"
-          letterSpacing="0.14em"
+          letterSpacing={LS_UPPER}
         >
           SEVERIAN
         </text>
@@ -2580,27 +3057,48 @@ export function Ch06CharacterWeb() {
 // IV.06.3 - Returns and Callbacks
 export function Ch06ReturnsAndCallbacks() {
   const callbacks = [
-    { now: 'Necropolis', then: 'Bk I Ch. 1', note: 'Vodalus at the grave' },
-    { now: 'Atrium of Time', then: 'Bk I Ch. 6', note: 'Valeria as a girl' },
-    { now: 'Inn of Lost Loves', then: 'Bk I Ch. 31', note: 'the same innkeeper' },
-    { now: 'Garden of Endless Sleep', then: 'Bk I Ch. 26', note: 'where Dorcas rose' },
-    { now: 'Sanguinary Field', then: 'Bk I Ch. 28', note: 'the avern duel' },
-    { now: 'Pelerine cathedral', then: 'Bk I Ch. 22', note: 'altar smashed' },
-    { now: 'Matachin Tower', then: 'Bk I Ch. 2', note: "Severian's home" },
-    { now: 'Library', then: 'Bk I Ch. 5', note: 'Master Ultan' }
+    { now: 'Necropolis', then: 'Bk I §1', note: 'Vodalus at the grave' },
+    { now: 'Atrium of Time', then: 'Bk I §6', note: 'Valeria as a girl' },
+    { now: 'Inn of Lost Loves', then: 'Bk I §31', note: 'the same innkeeper' },
+    { now: 'Garden of Endless Sleep', then: 'Bk I §26', note: 'where Dorcas rose' },
+    { now: 'Sanguinary Field', then: 'Bk I §28', note: 'the avern duel' },
+    { now: 'Pelerine cathedral', then: 'Bk I §22', note: 'altar smashed' },
+    { now: 'Matachin Tower', then: 'Bk I §2', note: "Severian's home" },
+    { now: 'Library', then: 'Bk I §5', note: 'Master Ultan' }
   ]
   return (
     <Canvas w={800} h={560}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         EIGHT RETURNS · MODULE 06 REVISITS BOOKS I–III
       </Label>
-      <text x={140} y={70} fill={FG} fontSize="10" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={140}
+        y={70}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         NOW
       </text>
-      <text x={460} y={70} fill={FG} fontSize="10" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={460}
+        y={70}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         CALLBACK
       </text>
-      <text x={640} y={70} fill={FG} fontSize="10" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={640}
+        y={70}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         NOTE
       </text>
       {callbacks.map((c, i) => {
@@ -2615,15 +3113,15 @@ export function Ch06ReturnsAndCallbacks() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.faint}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
-            <text x={56} y={y + 4} fill={FG} fontSize="11">
+            <text x={56} y={y + 4} fill={FG} fontSize={FONT_LABEL}>
               {c.now}
             </text>
-            <text x={460} y={y + 4} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+            <text x={460} y={y + 4} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
               {c.then}
             </text>
-            <text x={640} y={y + 4} fill={FG} fontSize="10">
+            <text x={640} y={y + 4} fill={FG} fontSize={FONT_SMALL}>
               {c.note}
             </text>
             <line x1={300} y1={y} x2={340} y2={y} stroke={FG} strokeOpacity={OPACITY.dim} />
@@ -2643,13 +3141,16 @@ export function Ch06ReturnsAndCallbacks() {
 // IV.06.4 - Time Loop Diagram
 export function Ch06TimeLoopDiagram() {
   const [playing, setPlaying] = React.useState(false)
-  const t = useAnimationTime(playing, 0.18)
+  const tRaw = useAnimationTime(playing, 0.18)
+  // RESET rebases the clock so the marker returns to station 1 (t = 0)
+  const [tBase, setTBase] = React.useState(0)
+  const t = tRaw - tBase
   const stations = [
-    { ang: -Math.PI / 2, label: 'Severian becomes Autarch', cite: 'Bk IV Ch. XXIX' },
+    { ang: -Math.PI / 2, label: 'Severian becomes Autarch', cite: 'Bk IV §XXIX' },
     {
       ang: -Math.PI / 2 + (1 * Math.PI) / 4,
       label: 'sails for the stars',
-      cite: 'Bk IV Ch. XXXVII'
+      cite: 'Bk IV §XXXVII'
     },
     {
       ang: -Math.PI / 2 + (2 * Math.PI) / 4,
@@ -2667,13 +3168,13 @@ export function Ch06TimeLoopDiagram() {
     {
       ang: Math.PI / 2 + (3 * Math.PI) / 4,
       label: 'is found by young Severian',
-      cite: 'Bk I Ch. 1'
+      cite: 'Bk I §1'
     }
   ]
   const cx = 400,
     cy = 290,
     R = 170
-  const dotAng = -Math.PI / 2 + (t % 1) * Math.PI * 2
+  const dotAng = -Math.PI / 2 + (((t % 1) + 1) % 1) * Math.PI * 2
 
   function ouroborosPath(Rin, thickness) {
     const inner = Rin - thickness / 2
@@ -2689,8 +3190,8 @@ export function Ch06TimeLoopDiagram() {
   return (
     <div style={{ width: '100%' }}>
       <Canvas w={800} h={600}>
-        <Hatch id="time-scale" angle={45} gap={3} opacity={0.16} strokeWidth={0.4} />
-        <Label x={40} y={32} size={10}>
+        <Hatch id="time-scale" angle={45} gap={3} opacity={0.16} strokeWidth={STROKE_HAIR} />
+        <Label x={40} y={32} size={FONT_SMALL}>
           TIME LOOP · THE SERIES IS A CAUSAL CIRCUIT
         </Label>
 
@@ -2702,7 +3203,7 @@ export function Ch06TimeLoopDiagram() {
           fill="url(#time-scale)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
 
         {Array.from({ length: 60 }).map((_, i) => {
@@ -2718,7 +3219,7 @@ export function Ch06TimeLoopDiagram() {
               y2={cy + Math.sin(a) * r1}
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.4"
+              strokeWidth={STROKE_HAIR}
             />
           )
         })}
@@ -2734,7 +3235,7 @@ export function Ch06TimeLoopDiagram() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1.2"
+                strokeWidth={STROKE_PRIMARY}
               />
               <circle cx={4} cy={-4} r="2.4" fill={FG} opacity={OPACITY.fg} />
               <circle cx={4} cy={-4} r="0.8" fill="var(--bg)" />
@@ -2745,7 +3246,7 @@ export function Ch06TimeLoopDiagram() {
                 y2={-12}
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="0.8"
+                strokeWidth={STROKE_GUIDE}
               />
               <line
                 x1={-12}
@@ -2754,7 +3255,7 @@ export function Ch06TimeLoopDiagram() {
                 y2={12}
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="0.8"
+                strokeWidth={STROKE_GUIDE}
               />
             </g>
           )
@@ -2771,7 +3272,7 @@ export function Ch06TimeLoopDiagram() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1"
+                strokeWidth={STROKE_SECONDARY}
               />
             </g>
           )
@@ -2792,15 +3293,15 @@ export function Ch06TimeLoopDiagram() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1.2"
+                strokeWidth={STROKE_PRIMARY}
               />
               <text
                 x={x}
                 y={y + 3}
                 fill={FG}
-                fontSize="8"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
-                letterSpacing="0.08em"
+                letterSpacing={LS_LABEL}
               >
                 {i + 1}
               </text>
@@ -2811,15 +3312,15 @@ export function Ch06TimeLoopDiagram() {
                 y2={cy + Math.sin(s.ang) * (lxr - 8)}
                 stroke={FG}
                 strokeOpacity={OPACITY.faint}
-                strokeWidth="0.6"
+                strokeWidth={STROKE_HAIR}
               />
               <text
                 x={lx}
                 y={ly - 2}
                 fill={FG}
-                fontSize="10"
+                fontSize={FONT_SMALL}
                 textAnchor={lx < cx - 10 ? 'end' : lx > cx + 10 ? 'start' : 'middle'}
-                letterSpacing="0.06em"
+                letterSpacing={LS_TIGHT}
               >
                 {s.label}
               </text>
@@ -2827,7 +3328,7 @@ export function Ch06TimeLoopDiagram() {
                 x={lx}
                 y={ly + 12}
                 fill={FG}
-                fontSize="9"
+                fontSize={FONT_SMALL}
                 textAnchor={lx < cx - 10 ? 'end' : lx > cx + 10 ? 'start' : 'middle'}
                 opacity={OPACITY.dim}
               >
@@ -2845,7 +3346,7 @@ export function Ch06TimeLoopDiagram() {
             fill="none"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.4"
+            strokeWidth={STROKE_PRIMARY}
           />
           <circle
             cx={cx + Math.cos(dotAng) * R}
@@ -2867,7 +3368,15 @@ export function Ch06TimeLoopDiagram() {
         </g>
 
         <g transform={`translate(${cx} ${cy})`}>
-          <Rays cx={0} cy={0} r0={50} r1={130} count={18} opacity={0.18} strokeWidth={0.5} />
+          <Rays
+            cx={0}
+            cy={0}
+            r0={50}
+            r1={130}
+            count={18}
+            opacity={0.18}
+            strokeWidth={STROKE_HAIR}
+          />
           <rect
             x={-46}
             y={-32}
@@ -2876,7 +3385,7 @@ export function Ch06TimeLoopDiagram() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.4"
+            strokeWidth={STROKE_PRIMARY}
           />
           <path
             d="M -46 -32 Q -50 -28 -46 -22"
@@ -2899,13 +3408,27 @@ export function Ch06TimeLoopDiagram() {
               y2={ly}
               stroke={FG}
               strokeOpacity={OPACITY.dim * (1 - i * 0.12)}
-              strokeWidth="0.5"
+              strokeWidth={STROKE_HAIR}
             />
           ))}
-          <text x={0} y={48} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.16em">
+          <text
+            x={0}
+            y={48}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            letterSpacing={LS_TITLE}
+          >
             THE MANUSCRIPT
           </text>
-          <text x={0} y={62} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+          <text
+            x={0}
+            y={62}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            opacity={OPACITY.dim}
+          >
             reaches the reader
           </text>
         </g>
@@ -2914,20 +3437,27 @@ export function Ch06TimeLoopDiagram() {
           x={400}
           y={576}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
           opacity={OPACITY.dim}
-          letterSpacing="0.16em"
+          letterSpacing={LS_TITLE}
         >
           CAUSE AND EFFECT OF ITSELF
         </text>
       </Canvas>
-      <PlayPause playing={playing} onToggle={() => setPlaying(v => !v)} onReset={() => {}} />
+      <PlayPause
+        playing={playing}
+        onToggle={() => {
+          if (!playing) setTBase(0) // the hook restarts its clock on each play
+          setPlaying(v => !v)
+        }}
+        onReset={() => setTBase(tRaw)}
+      />
     </div>
   )
 }
 
-// ─── Migrated legacy viz (raw-SVG style, theme-token colors) ─────────────────
+// Migrated legacy viz (raw-SVG style, theme-token colors)
 
 export function Ch04AscianStructure() {
   const leftItems = [
@@ -2961,13 +3491,18 @@ export function Ch04AscianStructure() {
 
         <defs>
           <pattern id="grid-ch04-ascian" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={strokeFaint} strokeWidth="0.5" />
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke={strokeFaint}
+              strokeWidth={STROKE_HAIR}
+            />
           </pattern>
         </defs>
 
         <rect width="800" height="440" fill="url(#grid-ch04-ascian)" />
 
-        <text x="30" y="32" fill={textSoft} fontSize="11" letterSpacing="2">
+        <text x="30" y="32" fill={textSoft} fontSize={FONT_LABEL} letterSpacing={LS_CONTROL}>
           ASCIAN STRUCTURE · VERBAL SYSTEM VS. MILITARY HIERARCHY
         </text>
 
@@ -2978,15 +3513,15 @@ export function Ch04AscianStructure() {
           height={38}
           fill={fillMid}
           stroke={stroke}
-          strokeWidth="2"
+          strokeWidth={STROKE_EMPHASIS}
         />
         <text
           x={colX + colW / 2}
           y={82}
           fill={text}
-          fontSize="11"
+          fontSize={FONT_LABEL}
           textAnchor="middle"
-          letterSpacing="1.5"
+          letterSpacing={LS_TITLE}
         >
           VERBAL SYSTEM
         </text>
@@ -2998,15 +3533,15 @@ export function Ch04AscianStructure() {
           height={38}
           fill={fillMid}
           stroke={stroke}
-          strokeWidth="2"
+          strokeWidth={STROKE_EMPHASIS}
         />
         <text
           x={rightX + colW / 2}
           y={82}
           fill={text}
-          fontSize="11"
+          fontSize={FONT_LABEL}
           textAnchor="middle"
-          letterSpacing="1.5"
+          letterSpacing={LS_TITLE}
         >
           MILITARY STRUCTURE
         </text>
@@ -3020,15 +3555,15 @@ export function Ch04AscianStructure() {
               height={itemH}
               fill={fill}
               stroke={strokeSoft}
-              strokeWidth="1.2"
+              strokeWidth={STROKE_PRIMARY}
             />
             <text
               x={colX + colW / 2}
               y={startY + i * (itemH + 6) + 18}
               fill={text}
-              fontSize="9.5"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
-              letterSpacing="0.8"
+              letterSpacing={LS_LABEL}
             >
               {item.label}
             </text>
@@ -3036,7 +3571,7 @@ export function Ch04AscianStructure() {
               x={colX + colW / 2}
               y={startY + i * (itemH + 6) + 35}
               fill={textSoft}
-              fontSize="8"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
             >
               {item.sub}
@@ -3053,15 +3588,15 @@ export function Ch04AscianStructure() {
               height={itemH}
               fill={fill}
               stroke={strokeSoft}
-              strokeWidth="1.2"
+              strokeWidth={STROKE_PRIMARY}
             />
             <text
               x={rightX + colW / 2}
               y={startY + i * (itemH + 6) + 18}
               fill={text}
-              fontSize="9.5"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
-              letterSpacing="0.8"
+              letterSpacing={LS_LABEL}
             >
               {item.label}
             </text>
@@ -3069,7 +3604,7 @@ export function Ch04AscianStructure() {
               x={rightX + colW / 2}
               y={startY + i * (itemH + 6) + 35}
               fill={textSoft}
-              fontSize="8"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
             >
               {item.sub}
@@ -3084,15 +3619,15 @@ export function Ch04AscianStructure() {
           height={leftItems.length * (itemH + 6) + itemH - 6}
           fill={fillSoft}
           stroke={strokeFaint}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <text
           x={400}
           y={58 + (leftItems.length * (itemH + 6)) / 2 - 12}
           fill={textGhost}
-          fontSize="8.5"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.8"
+          letterSpacing={LS_LABEL}
         >
           COLLECTIVIST
         </text>
@@ -3100,9 +3635,9 @@ export function Ch04AscianStructure() {
           x={400}
           y={58 + (leftItems.length * (itemH + 6)) / 2 + 4}
           fill={textGhost}
-          fontSize="8.5"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.8"
+          letterSpacing={LS_LABEL}
         >
           LOGIC
         </text>
@@ -3110,7 +3645,7 @@ export function Ch04AscianStructure() {
           x={400}
           y={58 + (leftItems.length * (itemH + 6)) / 2 + 20}
           fill={textGhost}
-          fontSize="8"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
         >
           governs both
@@ -3124,12 +3659,12 @@ export function Ch04AscianStructure() {
             x2={rightX}
             y2={startY + i * (itemH + 6) + itemH / 2}
             stroke={strokeFaint}
-            strokeWidth="1"
+            strokeWidth={STROKE_SECONDARY}
             strokeDasharray="3 3"
           />
         ))}
 
-        <text x="30" y="425" fill={textSoft} fontSize="9" letterSpacing="1">
+        <text x="30" y="425" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_OPEN}>
           Severian uses the Group of Seventeen formula against the Ascian officer, language as both
           prison and key
         </text>
@@ -3196,21 +3731,33 @@ export function Ch04SeverianFearArc() {
   return (
     <figure role="img" aria-labelledby="ch04-fear-arc-title" style={figureStyle}>
       <svg viewBox="0 0 800 500" style={svgStyle}>
-        <title id="ch04-fear-arc-title">Severian's fear arc across chapters XXI and XXII</title>
+        <title id="ch04-fear-arc-title">Severian's fear arc across sections XXI and XXII</title>
 
         <defs>
           <pattern id="grid-ch04-fear" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={strokeFaint} strokeWidth="0.5" />
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke={strokeFaint}
+              strokeWidth={STROKE_HAIR}
+            />
           </pattern>
         </defs>
 
         <rect width="800" height="500" fill="url(#grid-ch04-fear)" />
 
-        <text x="30" y="32" fill={textSoft} fontSize="11" letterSpacing="2">
-          SEVERIAN'S FEAR ARC · CHAPTERS XXI–XXII
+        <text x="30" y="32" fill={textSoft} fontSize={FONT_LABEL} letterSpacing={LS_CONTROL}>
+          SEVERIAN'S FEAR ARC · SECTIONS XXI–XXII
         </text>
 
-        <line x1={lineX} y1={90} x2={lineX} y2={430} stroke={strokeSoft} strokeWidth="1.5" />
+        <line
+          x1={lineX}
+          y1={90}
+          x2={lineX}
+          y2={430}
+          stroke={strokeSoft}
+          strokeWidth={STROKE_PRIMARY}
+        />
 
         <rect
           x={30}
@@ -3219,12 +3766,19 @@ export function Ch04SeverianFearArc() {
           height={110}
           fill={fill}
           stroke={strokeFaint}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={57} y={148} fill={textSoft} fontSize="10" textAnchor="middle" letterSpacing="1">
+        <text
+          x={57}
+          y={148}
+          fill={textSoft}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_OPEN}
+        >
           XXI
         </text>
-        <text x={57} y={163} fill={textGhost} fontSize="8" textAnchor="middle">
+        <text x={57} y={163} fill={textGhost} fontSize={FONT_SMALL} textAnchor="middle">
           Deployment
         </text>
 
@@ -3235,12 +3789,19 @@ export function Ch04SeverianFearArc() {
           height={200}
           fill={fill}
           stroke={strokeFaint}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={57} y={317} fill={textSoft} fontSize="10" textAnchor="middle" letterSpacing="1">
+        <text
+          x={57}
+          y={317}
+          fill={textSoft}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_OPEN}
+        >
           XXII
         </text>
-        <text x={57} y={332} fill={textGhost} fontSize="8" textAnchor="middle">
+        <text x={57} y={332} fill={textGhost} fontSize={FONT_SMALL} textAnchor="middle">
           Battle
         </text>
 
@@ -3254,7 +3815,7 @@ export function Ch04SeverianFearArc() {
                 r={dotR}
                 fill={isKey ? fillMid : fill}
                 stroke={isKey ? stroke : strokeSoft}
-                strokeWidth={isKey ? 2 : 1.5}
+                strokeWidth={isKey ? STROKE_EMPHASIS : STROKE_PRIMARY}
               />
               <rect
                 x={labelX}
@@ -3263,22 +3824,28 @@ export function Ch04SeverianFearArc() {
                 height={20}
                 fill={fill}
                 stroke={strokeSoft}
-                strokeWidth="1.2"
+                strokeWidth={STROKE_PRIMARY}
               />
               <text
                 x={labelX + 100}
                 y={s.y - 7}
                 fill={text}
-                fontSize="9.5"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
-                letterSpacing="0.8"
+                letterSpacing={LS_LABEL}
               >
                 {s.label}
               </text>
-              <text x={labelX} y={s.y + 8} fill={textSoft} fontSize="8">
+              <text x={labelX} y={s.y + 8} fill={textSoft} fontSize={FONT_SMALL}>
                 {s.note}
               </text>
-              <text x={quoteX} y={s.y + 22} fill={textGhost} fontSize="7.5" fontStyle="italic">
+              <text
+                x={quoteX}
+                y={s.y + 22}
+                fill={textGhost}
+                fontSize={FONT_SMALL}
+                fontStyle="italic"
+              >
                 {s.quote}
               </text>
               <line
@@ -3287,7 +3854,7 @@ export function Ch04SeverianFearArc() {
                 x2={labelX}
                 y2={s.y - 12}
                 stroke={strokeFaint}
-                strokeWidth="1"
+                strokeWidth={STROKE_SECONDARY}
               />
             </g>
           )
@@ -3300,17 +3867,24 @@ export function Ch04SeverianFearArc() {
           height={36}
           fill={fill}
           stroke={strokeFaint}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={400} y={450} fill={textSoft} fontSize="9" textAnchor="middle" letterSpacing="0.8">
+        <text
+          x={400}
+          y={450}
+          fill={textSoft}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_LABEL}
+        >
           Resolution (XXIII): Severian regains consciousness on the silent battlefield.
         </text>
-        <text x={400} y={465} fill={textGhost} fontSize="8.5" textAnchor="middle">
+        <text x={400} y={465} fill={textGhost} fontSize={FONT_SMALL} textAnchor="middle">
           Mamillian arrives. The Autarch speaks the code phrase. Fear ends in recognition.
         </text>
 
-        <text x="30" y="492" fill={textSoft} fontSize="9" letterSpacing="1">
-          chapters XXI–XXIII · pp. 25–45
+        <text x="30" y="492" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_OPEN}>
+          sections XXI–XXIII · pp. 25–45
         </text>
       </svg>
       <figcaption>
@@ -3322,8 +3896,8 @@ export function Ch04SeverianFearArc() {
   )
 }
 
-export function Ch05ChapterArc() {
-  const chapters = [
+export function Ch05ModuleArc() {
+  const sections = [
     { label: 'XXV', sub: "Agia's Mercy", detail: 'flier · pharmacon · anpiels' },
     { label: 'XXVI', sub: 'Above the Jungle', detail: 'ziggurat · leech · imprisoned' },
     { label: 'XXVII', sub: 'Before Vodalus', detail: 'clearing · interrogation · "two in one"' },
@@ -3342,11 +3916,16 @@ export function Ch05ChapterArc() {
   return (
     <figure role="img" aria-labelledby="ch05-arc-title" style={figureStyle}>
       <svg viewBox="0 0 870 265" style={svgStyle}>
-        <title id="ch05-arc-title">Module 05 chapter arc: seven subchapters XXV through XXXI</title>
+        <title id="ch05-arc-title">Module 05 section arc: seven subsections XXV through XXXI</title>
 
         <defs>
           <pattern id="grid-ch05-arc" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={strokeFaint} strokeWidth="0.5" />
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke={strokeFaint}
+              strokeWidth={STROKE_HAIR}
+            />
           </pattern>
           <marker
             id="arrow-ch05-arc"
@@ -3362,11 +3941,11 @@ export function Ch05ChapterArc() {
 
         <rect width="870" height="265" fill="url(#grid-ch05-arc)" />
 
-        <text x="25" y="32" fill={textSoft} fontSize="11" letterSpacing="2">
+        <text x="25" y="32" fill={textSoft} fontSize={FONT_LABEL} letterSpacing={LS_CONTROL}>
           MODULE 05 STRUCTURE · SEVERIAN BECOMES THE AUTARCH
         </text>
 
-        {chapters.map((ch, i) => {
+        {sections.map((sec, i) => {
           const x = startX + i * (boxW + gap)
           const cx = x + boxW / 2
           const isHinge = i === 0 || i === 4 || i === 6
@@ -3379,47 +3958,53 @@ export function Ch05ChapterArc() {
                 height={boxH}
                 fill={isHinge ? fillMid : fill}
                 stroke={isHinge ? stroke : strokeSoft}
-                strokeWidth={isHinge ? 2 : 1.5}
+                strokeWidth={isHinge ? STROKE_EMPHASIS : STROKE_PRIMARY}
               />
               <text
                 x={cx}
                 y={boxY + 22}
                 fill={text}
-                fontSize="13"
+                fontSize={FONT_TEX}
                 textAnchor="middle"
-                letterSpacing="2"
+                letterSpacing={LS_CONTROL}
               >
-                {ch.label}
+                {sec.label}
               </text>
               <text
                 x={cx}
                 y={boxY + 42}
                 fill={text}
-                fontSize="9.5"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
-                letterSpacing="0.8"
+                letterSpacing={LS_LABEL}
               >
-                {ch.sub}
+                {sec.sub}
               </text>
-              <text x={cx} y={boxY + 66} fill={textSoft} fontSize="8" textAnchor="middle">
-                {ch.detail.split(' · ')[0]}
+              <text x={cx} y={boxY + 66} fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
+                {sec.detail.split(' · ')[0]}
               </text>
-              <text x={cx} y={boxY + 80} fill={textSoft} fontSize="8" textAnchor="middle">
-                {ch.detail.split(' · ')[1]}
+              <text x={cx} y={boxY + 80} fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
+                {sec.detail.split(' · ')[1]}
               </text>
-              {ch.detail.split(' · ')[2] && (
-                <text x={cx} y={boxY + 93} fill={textSoft} fontSize="8" textAnchor="middle">
-                  {ch.detail.split(' · ')[2]}
+              {sec.detail.split(' · ')[2] && (
+                <text
+                  x={cx}
+                  y={boxY + 93}
+                  fill={textSoft}
+                  fontSize={FONT_SMALL}
+                  textAnchor="middle"
+                >
+                  {sec.detail.split(' · ')[2]}
                 </text>
               )}
-              {i < chapters.length - 1 && (
+              {i < sections.length - 1 && (
                 <line
                   x1={x + boxW}
                   y1={boxY + boxH / 2}
                   x2={x + boxW + gap - 2}
                   y2={boxY + boxH / 2}
                   stroke={strokeSoft}
-                  strokeWidth="1.5"
+                  strokeWidth={STROKE_PRIMARY}
                   markerEnd="url(#arrow-ch05-arc)"
                 />
               )}
@@ -3431,9 +4016,9 @@ export function Ch05ChapterArc() {
           x={startX + boxW / 2}
           y={boxY + boxH + 26}
           fill={textSoft}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="1"
+          letterSpacing={LS_OPEN}
         >
           hinge: pharmacon offered
         </text>
@@ -3442,9 +4027,9 @@ export function Ch05ChapterArc() {
           x={startX + 4 * (boxW + gap) + boxW / 2}
           y={boxY + boxH + 26}
           fill={textSoft}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="1"
+          letterSpacing={LS_OPEN}
         >
           hinge: succession complete
         </text>
@@ -3453,20 +4038,20 @@ export function Ch05ChapterArc() {
           x={startX + 6 * (boxW + gap) + boxW / 2}
           y={boxY + boxH + 26}
           fill={textSoft}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="1"
+          letterSpacing={LS_OPEN}
         >
           hinge: all is holy
         </text>
 
-        <text x="25" y="248" fill={textSoft} fontSize="9" letterSpacing="1.5">
-          The Citadel of the Autarch · module 05 · chapters XXV-XXXI · pp. 1-44
+        <text x="25" y="248" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_TITLE}>
+          The Citadel of the Autarch · module 05 · sections XXV-XXXI · pp. 1-44
         </text>
       </svg>
       <figcaption>
         The module opens with the Autarch dying in the flier crash, pivots to Severian consuming the
-        pharmacon in Chapter XXIX, and closes with Severian alone on the beach discovering all
+        pharmacon in Section XXIX, and closes with Severian alone on the beach discovering all
         thorns are the Claw.
       </figcaption>
     </figure>
@@ -3483,7 +4068,12 @@ export function Ch05TimeCorridor() {
 
         <defs>
           <pattern id="grid-ch05-time" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={strokeFaint} strokeWidth="0.5" />
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke={strokeFaint}
+              strokeWidth={STROKE_HAIR}
+            />
           </pattern>
           <marker
             id="arrow-time-fwd"
@@ -3509,15 +4099,22 @@ export function Ch05TimeCorridor() {
 
         <rect width="870" height="290" fill="url(#grid-ch05-time)" />
 
-        <text x="25" y="30" fill={textSoft} fontSize="11" letterSpacing="2">
+        <text x="25" y="30" fill={textSoft} fontSize={FONT_LABEL} letterSpacing={LS_CONTROL}>
           THE CORRIDORS OF TIME · DEBT AND REPAYMENT
         </text>
 
-        <line x1="80" y1="155" x2="790" y2="155" stroke={strokeFaint} strokeWidth="1.5" />
-        <text x="80" y="172" fill={textFaint} fontSize="9" letterSpacing="1">
+        <line
+          x1="80"
+          y1="155"
+          x2="790"
+          y2="155"
+          stroke={strokeFaint}
+          strokeWidth={STROKE_PRIMARY}
+        />
+        <text x="80" y="172" fill={textFaint} fontSize={FONT_SMALL} letterSpacing={LS_OPEN}>
           PAST
         </text>
-        <text x="755" y="172" fill={textFaint} fontSize="9" letterSpacing="1">
+        <text x="755" y="172" fill={textFaint} fontSize={FONT_SMALL} letterSpacing={LS_OPEN}>
           FUTURE
         </text>
 
@@ -3528,18 +4125,32 @@ export function Ch05TimeCorridor() {
           height="60"
           fill={fillSoft}
           stroke={strokeSoft}
-          strokeWidth="1.5"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x="180" y="130" fill={text} fontSize="11" textAnchor="middle" letterSpacing="1.5">
+        <text
+          x="180"
+          y="130"
+          fill={text}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
           BOOK 2 EVENT
         </text>
-        <text x="180" y="147" fill={textSoft} fontSize="8.5" textAnchor="middle">
+        <text x="180" y="147" fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
           Severian frees green man
         </text>
-        <text x="180" y="161" fill={textFaint} fontSize="8" textAnchor="middle">
+        <text x="180" y="161" fill={textFaint} fontSize={FONT_SMALL} textAnchor="middle">
           gives half-stone · breaks chain
         </text>
-        <circle cx="180" cy="155" r="5" fill={fill} stroke={strokeSoft} strokeWidth="1.5" />
+        <circle
+          cx="180"
+          cy="155"
+          r="5"
+          fill={fill}
+          stroke={strokeSoft}
+          strokeWidth={STROKE_PRIMARY}
+        />
 
         <rect
           x="340"
@@ -3548,15 +4159,22 @@ export function Ch05TimeCorridor() {
           height="60"
           fill={fillSoft}
           stroke={strokeSoft}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x="435" y="80" fill={textSoft} fontSize="11" textAnchor="middle" letterSpacing="1.5">
+        <text
+          x="435"
+          y="80"
+          fill={textSoft}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
           TIME CORRIDOR
         </text>
-        <text x="435" y="97" fill={textFaint} fontSize="8.5" textAnchor="middle">
+        <text x="435" y="97" fill={textFaint} fontSize={FONT_SMALL} textAnchor="middle">
           green man traverses corridors
         </text>
-        <text x="435" y="111" fill={textFaint} fontSize="8" textAnchor="middle">
+        <text x="435" y="111" fill={textFaint} fontSize={FONT_SMALL} textAnchor="middle">
           seeking the moment to repay
         </text>
 
@@ -3567,24 +4185,38 @@ export function Ch05TimeCorridor() {
           height="60"
           fill={fillMid}
           stroke={stroke}
-          strokeWidth="2"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x="690" y="130" fill={text} fontSize="11" textAnchor="middle" letterSpacing="1.5">
-          CHAPTER XXX
+        <text
+          x="690"
+          y="130"
+          fill={text}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
+          SECTION XXX
         </text>
-        <text x="690" y="147" fill={text} fontSize="8.5" textAnchor="middle">
+        <text x="690" y="147" fill={text} fontSize={FONT_SMALL} textAnchor="middle">
           green man frees Severian
         </text>
-        <text x="690" y="161" fill={textSoft} fontSize="8" textAnchor="middle">
+        <text x="690" y="161" fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
           Ascian camp · debt repaid
         </text>
-        <circle cx="690" cy="155" r="5" fill={fillMid} stroke={stroke} strokeWidth="2" />
+        <circle
+          cx="690"
+          cy="155"
+          r="5"
+          fill={fillMid}
+          stroke={stroke}
+          strokeWidth={STROKE_EMPHASIS}
+        />
 
         <path
           d="M 260,138 Q 340,60 435,118"
           fill="none"
           stroke={strokeSoft}
-          strokeWidth="1.5"
+          strokeWidth={STROKE_PRIMARY}
           strokeDasharray="6 4"
           markerEnd="url(#arrow-time-fwd)"
         />
@@ -3593,7 +4225,7 @@ export function Ch05TimeCorridor() {
           d="M 530,118 Q 610,60 690,138"
           fill="none"
           stroke={stroke}
-          strokeWidth="1.5"
+          strokeWidth={STROKE_PRIMARY}
           markerEnd="url(#arrow-time-fwd)"
         />
 
@@ -3604,10 +4236,10 @@ export function Ch05TimeCorridor() {
           ry="28"
           fill={fill}
           stroke={strokeSoft}
-          strokeWidth="1.5"
+          strokeWidth={STROKE_PRIMARY}
           strokeDasharray="4 3"
         />
-        <text x="790" y="200" fill={textFaint} fontSize="8" textAnchor="middle">
+        <text x="790" y="200" fill={textFaint} fontSize={FONT_SMALL} textAnchor="middle">
           aperture
         </text>
 
@@ -3617,15 +4249,15 @@ export function Ch05TimeCorridor() {
           x2="776"
           y2="155"
           stroke={strokeSoft}
-          strokeWidth="1.5"
+          strokeWidth={STROKE_PRIMARY}
           markerEnd="url(#arrow-time-fwd)"
         />
 
-        <text x="25" y="253" fill={textSoft} fontSize="9.5" letterSpacing="0.8">
+        <text x="25" y="253" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_LABEL}>
           {`"Now I have repaid you for the mine; you are still alive." Agia quoting the green man's act, p. 40`}
         </text>
-        <text x="25" y="270" fill={textFaint} fontSize="9" letterSpacing="1.5">
-          The Citadel of the Autarch · module 05 · ch. XXX pp. 40–41
+        <text x="25" y="270" fill={textFaint} fontSize={FONT_SMALL} letterSpacing={LS_TITLE}>
+          The Citadel of the Autarch · module 05 · §XXX pp. 40–41
         </text>
       </svg>
       <figcaption>
@@ -3642,18 +4274,23 @@ export function Ch06ClawMeditationTree() {
     <figure className="lrn-figure" style={figureStyle}>
       <svg viewBox="0 0 820 440" style={svgStyle} role="img" aria-labelledby="rttc-ch06-claw-title">
         <title id="rttc-ch06-claw-title">
-          The Claw meditation: two competing theories of miracle in Chapter XXXIV
+          The Claw meditation: two competing theories of miracle in Section XXXIV
         </title>
 
         <defs>
           <pattern id="grid-ch06-claw" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={strokeFaint} strokeWidth="0.5" />
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke={strokeFaint}
+              strokeWidth={STROKE_HAIR}
+            />
           </pattern>
         </defs>
         <rect width="820" height="440" fill="url(#grid-ch06-claw)" />
 
-        <text x="20" y="30" fill={textSoft} fontSize="11" letterSpacing="2">
-          THE CLAW'S POWER · TWO COMPETING THEORIES · CHAPTER XXXIV
+        <text x="20" y="30" fill={textSoft} fontSize={FONT_LABEL} letterSpacing={LS_CONTROL}>
+          THE CLAW'S POWER · TWO COMPETING THEORIES · SECTION XXXIV
         </text>
 
         <rect
@@ -3663,17 +4300,24 @@ export function Ch06ClawMeditationTree() {
           height="48"
           fill={fill}
           stroke={stroke}
-          strokeWidth="1.8"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x="410" y="70" fill={text} fontSize="10" textAnchor="middle" letterSpacing="1">
+        <text
+          x="410"
+          y="70"
+          fill={text}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_OPEN}
+        >
           WHERE DOES THE CLAW'S POWER COME FROM?
         </text>
-        <text x="410" y="87" fill={textSoft} fontSize="8.5" textAnchor="middle">
-          Severian's extended meditation, ch. XXXIV, pp. 17-21
+        <text x="410" y="87" fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
+          Severian's extended meditation, §XXXIV, pp. 17-21
         </text>
 
-        <line x1="410" y1="98" x2="200" y2="148" stroke={strokeSoft} strokeWidth="1.2" />
-        <line x1="410" y1="98" x2="620" y2="148" stroke={strokeSoft} strokeWidth="1.2" />
+        <line x1="410" y1="98" x2="200" y2="148" stroke={strokeSoft} strokeWidth={STROKE_PRIMARY} />
+        <line x1="410" y1="98" x2="620" y2="148" stroke={strokeSoft} strokeWidth={STROKE_PRIMARY} />
 
         <rect
           x="60"
@@ -3682,15 +4326,22 @@ export function Ch06ClawMeditationTree() {
           height="52"
           fill={fillSoft}
           stroke={strokeSoft}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x="200" y="167" fill={text} fontSize="9.5" textAnchor="middle" letterSpacing="1">
+        <text
+          x="200"
+          y="167"
+          fill={text}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_OPEN}
+        >
           THEORY A: SEVERIAN IS THE SOURCE
         </text>
-        <text x="200" y="181" fill={textSoft} fontSize="8" textAnchor="middle">
+        <text x="200" y="181" fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
           The Claw is a suggestion, a symbol
         </text>
-        <text x="200" y="193" fill={textSoft} fontSize="8" textAnchor="middle">
+        <text x="200" y="193" fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
           Miracles are his unconscious acts
         </text>
 
@@ -3701,19 +4352,33 @@ export function Ch06ClawMeditationTree() {
           height="52"
           fill={fillSoft}
           stroke={strokeSoft}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x="620" y="167" fill={text} fontSize="9.5" textAnchor="middle" letterSpacing="1">
+        <text
+          x="620"
+          y="167"
+          fill={text}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_OPEN}
+        >
           THEORY B: GIFT FROM THE INCREATE
         </text>
-        <text x="620" y="181" fill={textSoft} fontSize="8" textAnchor="middle">
+        <text x="620" y="181" fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
           The Claw is a channel, a vessel
         </text>
-        <text x="620" y="193" fill={textSoft} fontSize="8" textAnchor="middle">
+        <text x="620" y="193" fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
           Hierodules granted him the power
         </text>
 
-        <line x1="200" y1="200" x2="200" y2="240" stroke={strokeSoft} strokeWidth="1" />
+        <line
+          x1="200"
+          y1="200"
+          x2="200"
+          y2="240"
+          stroke={strokeSoft}
+          strokeWidth={STROKE_SECONDARY}
+        />
         <rect
           x="60"
           y="240"
@@ -3721,35 +4386,42 @@ export function Ch06ClawMeditationTree() {
           height="100"
           fill={fill}
           stroke={strokeSoft}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <text
           x="200"
           y="256"
           fill={textSoft}
-          fontSize="8.5"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.8"
+          letterSpacing={LS_LABEL}
         >
           EVIDENCE FOR A
         </text>
-        <text x="75" y="272" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="75" y="272" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           - New Claw inert when Severian uses it
         </text>
-        <text x="75" y="287" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="75" y="287" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           - Mandragora: "an exercise of your power"
         </text>
-        <text x="75" y="302" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="75" y="302" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           - Old Claw reanimated Dorcas before he
         </text>
-        <text x="75" y="315" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="75" y="315" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           {'  knew he carried it (unconscious act)'}
         </text>
-        <text x="75" y="330" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="75" y="330" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           - Increate as artist: work contains creator
         </text>
 
-        <line x1="620" y1="200" x2="620" y2="240" stroke={strokeSoft} strokeWidth="1" />
+        <line
+          x1="620"
+          y1="200"
+          x2="620"
+          y2="240"
+          stroke={strokeSoft}
+          strokeWidth={STROKE_SECONDARY}
+        />
         <rect
           x="480"
           y="240"
@@ -3757,31 +4429,31 @@ export function Ch06ClawMeditationTree() {
           height="100"
           fill={fill}
           stroke={strokeSoft}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <text
           x="620"
           y="256"
           fill={textSoft}
-          fontSize="8.5"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.8"
+          letterSpacing={LS_LABEL}
         >
           EVIDENCE FOR B
         </text>
-        <text x="495" y="272" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="495" y="272" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           - Stellar judges gifted him the power
         </text>
-        <text x="495" y="287" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="495" y="287" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           - Master Malrubius: the bargain was real
         </text>
-        <text x="495" y="302" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="495" y="302" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           - Claw healed what Severian could not
         </text>
-        <text x="495" y="315" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="495" y="315" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           {'  consciously choose to heal'}
         </text>
-        <text x="495" y="330" fill={textSoft} fontSize="8" letterSpacing="0.3">
+        <text x="495" y="330" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_COMPACT}>
           - New Sun mission requires an external gift
         </text>
 
@@ -3791,7 +4463,7 @@ export function Ch06ClawMeditationTree() {
           x2="410"
           y2="390"
           stroke={strokeSoft}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
           strokeDasharray="4 3"
         />
         <line
@@ -3800,7 +4472,7 @@ export function Ch06ClawMeditationTree() {
           x2="410"
           y2="390"
           stroke={strokeSoft}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
           strokeDasharray="4 3"
         />
         <rect
@@ -3810,12 +4482,19 @@ export function Ch06ClawMeditationTree() {
           height="34"
           fill={fill}
           stroke={strokeSoft}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x="410" y="407" fill={textSoft} fontSize="8.5" textAnchor="middle">
+        <text x="410" y="407" fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
           Both theories converge on the same conclusion:
         </text>
-        <text x="410" y="420" fill={text} fontSize="8.5" textAnchor="middle" letterSpacing="0.5">
+        <text
+          x="410"
+          y="420"
+          fill={text}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_TIGHT}
+        >
           Severian is the axis of the cosmological project
         </text>
       </svg>
@@ -3852,12 +4531,17 @@ export function Ch06StructureDiagram() {
         aria-labelledby="rttc-ch06-struct-title"
       >
         <title id="rttc-ch06-struct-title">
-          Module 06 structure: seven subchapters from the Samru to the Atrium of Time
+          Module 06 structure: seven subsections from the Samru to the Atrium of Time
         </title>
 
         <defs>
           <pattern id="grid-ch06-struct" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={strokeFaint} strokeWidth="0.5" />
+            <path
+              d="M 40 0 L 0 0 0 40"
+              fill="none"
+              stroke={strokeFaint}
+              strokeWidth={STROKE_HAIR}
+            />
           </pattern>
           <marker
             id="arrow-ch06-struct"
@@ -3872,7 +4556,7 @@ export function Ch06StructureDiagram() {
         </defs>
         <rect width="980" height="270" fill="url(#grid-ch06-struct)" />
 
-        <text x="20" y="32" fill={textSoft} fontSize="11" letterSpacing="2">
+        <text x="20" y="32" fill={textSoft} fontSize={FONT_LABEL} letterSpacing={LS_CONTROL}>
           MODULE 06 STRUCTURE · RETURN TO THE CITADEL
         </text>
 
@@ -3888,15 +4572,15 @@ export function Ch06StructureDiagram() {
                 height={boxH}
                 fill={fill}
                 stroke={isPivot ? stroke : strokeSoft}
-                strokeWidth={isPivot ? 2 : 1.5}
+                strokeWidth={isPivot ? STROKE_EMPHASIS : STROKE_PRIMARY}
               />
               <text
                 x={cx}
                 y={boxY + 22}
                 fill={text}
-                fontSize="11"
+                fontSize={FONT_LABEL}
                 textAnchor="middle"
-                letterSpacing="2"
+                letterSpacing={LS_CONTROL}
               >
                 {s.label}
               </text>
@@ -3904,20 +4588,26 @@ export function Ch06StructureDiagram() {
                 x={cx}
                 y={boxY + 40}
                 fill={text}
-                fontSize="9"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
-                letterSpacing="1"
+                letterSpacing={LS_OPEN}
               >
                 {s.sub}
               </text>
-              <text x={cx} y={boxY + 65} fill={textSoft} fontSize="8" textAnchor="middle">
+              <text x={cx} y={boxY + 65} fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
                 {s.detail.split(' · ')[0]}
               </text>
-              <text x={cx} y={boxY + 78} fill={textSoft} fontSize="8" textAnchor="middle">
+              <text x={cx} y={boxY + 78} fill={textSoft} fontSize={FONT_SMALL} textAnchor="middle">
                 {s.detail.split(' · ')[1]}
               </text>
               {s.detail.split(' · ')[2] && (
-                <text x={cx} y={boxY + 91} fill={textSoft} fontSize="8" textAnchor="middle">
+                <text
+                  x={cx}
+                  y={boxY + 91}
+                  fill={textSoft}
+                  fontSize={FONT_SMALL}
+                  textAnchor="middle"
+                >
                   {s.detail.split(' · ')[2]}
                 </text>
               )}
@@ -3928,7 +4618,7 @@ export function Ch06StructureDiagram() {
                   x2={stages[i + 1].x - 2}
                   y2={boxY + boxH / 2}
                   stroke={strokeSoft}
-                  strokeWidth="1.5"
+                  strokeWidth={STROKE_PRIMARY}
                   markerEnd="url(#arrow-ch06-struct)"
                 />
               )}
@@ -3940,9 +4630,9 @@ export function Ch06StructureDiagram() {
           x={830 + boxW / 2}
           y={boxY + boxH + 26}
           fill={textSoft}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="1"
+          letterSpacing={LS_OPEN}
         >
           endpoint: Atrium of Time, Valeria
         </text>
@@ -3953,12 +4643,12 @@ export function Ch06StructureDiagram() {
           x2="940"
           y2={boxY + boxH + 14}
           stroke={strokeSoft}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
           strokeDasharray="3 3"
         />
 
-        <text x="20" y="252" fill={textSoft} fontSize="9" letterSpacing="1.5">
-          The Citadel of the Autarch · module 06 · chapters XXXII-XXXVIII + Appendix
+        <text x="20" y="252" fill={textSoft} fontSize={FONT_SMALL} letterSpacing={LS_TITLE}>
+          The Citadel of the Autarch · module 06 · sections XXXII-XXXVIII
         </text>
       </svg>
       <figcaption>

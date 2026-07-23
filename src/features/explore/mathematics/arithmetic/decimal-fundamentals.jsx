@@ -1,13 +1,385 @@
+import { useState } from 'react'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
-import { useVizColors } from '../../../../hooks/use-viz-colors'
-
+import { VizFigure } from '../../../../components/viz-figure'
 import {
-  FractionToDecimalVis,
-  NumberLinePlacement,
-  DecimalComparisonVis,
-  ScientificNotationVis,
-  PlaceValueVis
-} from '../../../../components/viz'
+  FONT_CONTROL,
+  FONT_LABEL,
+  FONT_SMALL,
+  FONT_TINY,
+  FONT_VALUE_LG
+} from '../../../../components/viz/scale-tokens'
+import {
+  Plot,
+  Polyline,
+  Dot,
+  Tex,
+  Label,
+  Slider,
+  FG,
+  OPACITY
+} from '../../../../components/viz/primitives'
+
+// Inline viz · migrated 2026-05 from src/components/viz/arithmetic.jsx into
+// the topic file, wrapped in <VizFigure>. Engine choices per pattern map.
+
+// 09.1.1: Fraction to Decimal. Number-line with two labeled fraction points.
+function Df_FractionToDecimalInline() {
+  const v1 = 2 / 9
+  const v2 = 3 / 11
+  return (
+    <div style={{ width: '100%' }}>
+      <Plot xRange={[-0.02, 0.5]} yRange={[-0.49, 0.25]} width={620} height={240}>
+        <Polyline
+          points={[
+            [0, 0],
+            [0.5, 0]
+          ]}
+          opacity={OPACITY.fg}
+        />
+        {Array.from({ length: 6 }, (_, i) => i / 10).map(t => (
+          <g key={t}>
+            <Polyline
+              points={[
+                [t, -0.06],
+                [t, 0.06]
+              ]}
+              opacity={OPACITY.dim}
+            />
+            <Label
+              at={[t, -0.18]}
+              anchor="middle"
+              size={FONT_SMALL}
+              upper={false}
+              opacity={OPACITY.dim}
+            >
+              {t.toFixed(1)}
+            </Label>
+          </g>
+        ))}
+        <Dot x={v1} y={0} r={4} />
+        <Tex
+          at={[v1, 0.22]}
+          tex={`\\tfrac{2}{9} = 0.222\\ldots`}
+          anchor="middle"
+          size={FONT_LABEL}
+        />
+        <Dot x={v2} y={0} r={4} />
+        <Tex
+          at={[v2, -0.45]}
+          tex={`\\tfrac{3}{11} = 0.2727\\ldots`}
+          anchor="middle"
+          size={FONT_LABEL}
+        />
+      </Plot>
+    </div>
+  )
+}
+
+// 09.1.2: Number Line Placement. Dual-strip zoom from [w, w+1] to [w.t, w.t+0.1].
+function Df_NumberLinePlacementInline() {
+  const [v, setV] = useState(41.15)
+  const lo1 = Math.floor(v)
+  const hi1 = lo1 + 1
+  const lo2 = Math.floor(v * 10) / 10
+  const hi2 = lo2 + 0.1
+  const Strip = ({ y, lo, hi, decimals }) => (
+    <g>
+      <Polyline
+        points={[
+          [0, y],
+          [1, y]
+        ]}
+        opacity={OPACITY.fg}
+      />
+      {Array.from({ length: 11 }, (_, i) => i / 10).map(t => (
+        <g key={t}>
+          <Polyline
+            points={[
+              [t, y - 0.06],
+              [t, y + 0.06]
+            ]}
+            opacity={t === 0 || t === 1 ? OPACITY.fg : OPACITY.dim}
+          />
+          {(t === 0 || t === 1 || t === 0.5) && (
+            <Label
+              at={[t, y - 0.16]}
+              anchor="middle"
+              size={FONT_SMALL}
+              upper={false}
+              opacity={OPACITY.dim}
+            >
+              {(lo + (hi - lo) * t).toFixed(decimals)}
+            </Label>
+          )}
+        </g>
+      ))}
+      <Dot x={(v - lo) / (hi - lo)} y={y} r={4} />
+    </g>
+  )
+  return (
+    <div style={{ width: '100%' }}>
+      <Plot xRange={[-0.1, 1.17]} yRange={[-0.17, 1.08]} width={620} height={300}>
+        <Strip y={0.55} lo={lo1} hi={hi1} decimals={0} />
+        <Strip y={-0.05} lo={lo2} hi={hi2} decimals={1} />
+        <Tex at={[0, 0.92]} tex={`x = ${v.toFixed(2)}`} anchor="start" size={FONT_LABEL} />
+      </Plot>
+      <Slider
+        label="x"
+        value={v}
+        min={41}
+        max={42}
+        step={0.01}
+        onChange={setV}
+        format={x => x.toFixed(2)}
+      />
+    </div>
+  )
+}
+
+// 09.1.3: Digit-by-Digit Comparison. HTML CSS grid for digit-column alignment
+// (per pattern map: digit-column algorithms align under font metrics, not
+// coordinate space).
+function Df_DecimalComparisonInline() {
+  const [a, setA] = useState(0.4)
+  const [b, setB] = useState(0.38972)
+  const aStr = a.toFixed(5)
+  const bStr = b.toFixed(5)
+  const aChars = aStr.split('')
+  const bChars = bStr.split('')
+  let firstDiff = -1
+  for (let i = 0; i < aChars.length; i++) {
+    if (aChars[i] !== bChars[i]) {
+      firstDiff = i
+      break
+    }
+  }
+  const cmp = a > b ? '>' : a < b ? '<' : '='
+  const opacityFor = i => (firstDiff >= 0 && i > firstDiff ? OPACITY.dim : OPACITY.fg)
+  const cellStyle = i => ({
+    fontSize: FONT_VALUE_LG,
+    textAlign: 'center',
+    padding: '4px 0',
+    fontVariantNumeric: 'tabular-nums',
+    color: 'var(--text-primary)',
+    opacity: opacityFor(i),
+    outline: firstDiff >= 0 && i === firstDiff ? `1px dashed currentColor` : 'none',
+    outlineOffset: 2
+  })
+  return (
+    <div style={{ width: '100%' }}>
+      <div
+        style={{
+          width: '100%',
+          padding: '8px 12px',
+          fontFamily: "'D-DIN', ui-monospace, monospace"
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${aChars.length}, 1fr)`,
+            maxWidth: 420,
+            margin: '0 auto'
+          }}
+        >
+          {aChars.map((c, i) => (
+            <span key={'a' + i} style={cellStyle(i)}>
+              {c}
+            </span>
+          ))}
+          {bChars.map((c, i) => (
+            <span key={'b' + i} style={cellStyle(i)}>
+              {c}
+            </span>
+          ))}
+        </div>
+        <div
+          style={{
+            marginTop: 16,
+            textAlign: 'center',
+            fontSize: FONT_CONTROL,
+            letterSpacing: '0.12em',
+            color: 'var(--text-primary)',
+            opacity: OPACITY.fg
+          }}
+        >
+          {aStr} {cmp} {bStr}
+        </div>
+      </div>
+      <Slider
+        label="a"
+        value={a}
+        min={0}
+        max={1}
+        step={0.0001}
+        onChange={setA}
+        format={x => x.toFixed(5)}
+      />
+      <Slider
+        label="b"
+        value={b}
+        min={0}
+        max={1}
+        step={0.0001}
+        onChange={setB}
+        format={x => x.toFixed(5)}
+      />
+    </div>
+  )
+}
+
+// 09.1.4: Place Value Bars. Digit × power-of-10 → contribution bar per row.
+function Df_PlaceValueInline() {
+  const [v, setV] = useState(35.2647)
+  const intPart = Math.floor(v)
+  const intDigits = String(intPart).split('').map(Number)
+  const intPlaces = intDigits.map((d, i) => intDigits.length - 1 - i)
+  const fracStr = v.toFixed(4).split('.')[1] || ''
+  const fracDigits = fracStr.split('').map(Number)
+  const all = [
+    ...intDigits.map((d, i) => ({ d, p: intPlaces[i], val: d * Math.pow(10, intPlaces[i]) })),
+    ...fracDigits.map((d, i) => ({ d, p: -(i + 1), val: d * Math.pow(10, -(i + 1)) }))
+  ]
+  const W = 480
+  const barH = 24
+  const maxBar = 320
+  return (
+    <div style={{ width: '100%' }}>
+      <svg
+        viewBox={`0 0 ${W + 60} ${all.length * (barH + 6) + 50}`}
+        width="100%"
+        style={{ display: 'block', color: 'var(--text-primary)' }}
+      >
+        <g transform="translate(20, 24)">
+          <Label x={0} y={-6} size={FONT_CONTROL} upper={false} opacity={OPACITY.fg}>
+            {v.toFixed(4)}
+          </Label>
+          {all.map((it, i) => (
+            <g key={i} transform={`translate(0, ${i * (barH + 6) + 12})`}>
+              <Label x={0} y={barH * 0.65} size={FONT_LABEL} upper={false} opacity={OPACITY.fg}>
+                {it.d}
+              </Label>
+              <text
+                x={20}
+                y={barH * 0.65}
+                fill={FG}
+                opacity={OPACITY.dim}
+                fontSize={FONT_LABEL}
+                style={{ fontFamily: "'D-DIN', ui-monospace, monospace" }}
+              >
+                <tspan>{'× 10'}</tspan>
+                <tspan dy={-5} fontSize={FONT_TINY}>
+                  {it.p}
+                </tspan>
+              </text>
+              <Label x={120} y={barH * 0.65} size={FONT_LABEL} upper={false} opacity={OPACITY.dim}>
+                {`= ${it.val.toFixed(Math.max(0, -it.p))}`}
+              </Label>
+              <rect
+                x={210}
+                y={4}
+                width={Math.max(2, (Math.abs(it.val) / v) * maxBar)}
+                height={barH - 8}
+                fill={FG}
+                fillOpacity={0.4}
+                stroke={FG}
+                strokeOpacity={0.8}
+              />
+            </g>
+          ))}
+        </g>
+      </svg>
+      <Slider
+        label="v"
+        value={v}
+        min={0.0001}
+        max={99.9999}
+        step={0.0001}
+        onChange={setV}
+        format={x => x.toFixed(4)}
+      />
+    </div>
+  )
+}
+
+// 09.1.5: Scientific Notation. Log-scale number line; dot at k + log10(m).
+function Df_ScientificNotationInline() {
+  const [m, setM] = useState(3.5)
+  const [k, setK] = useState(2)
+  const v = m * Math.pow(10, k)
+  const xMin = -4
+  const xMax = 9
+  const kMax = 8
+  const dotX = k + Math.log10(m)
+  const labelAnchor = dotX > xMax - 1.2 ? 'end' : dotX < xMin + 1.2 ? 'start' : 'middle'
+  return (
+    <div style={{ width: '100%' }}>
+      <Plot xRange={[xMin - 0.4, xMax + 0.4]} yRange={[-0.35, 0.9]} width={620} height={240}>
+        <Polyline
+          points={[
+            [xMin, 0],
+            [xMax, 0]
+          ]}
+          opacity={OPACITY.fg}
+        />
+        {Array.from({ length: xMax - xMin + 1 }, (_, i) => i + xMin).map(e => (
+          <g key={e}>
+            <Polyline
+              points={[
+                [e, -0.08],
+                [e, 0.08]
+              ]}
+              opacity={OPACITY.dim}
+            />
+            <Tex
+              at={[e, -0.22]}
+              tex={`10^{${e}}`}
+              anchor="middle"
+              size={FONT_TINY}
+              opacity={OPACITY.dim}
+            />
+          </g>
+        ))}
+        {Array.from({ length: 10 }, (_, i) => i + 1).map(mm => (
+          <Polyline
+            key={mm}
+            points={[
+              [k + Math.log10(mm), -0.04],
+              [k + Math.log10(mm), 0.04]
+            ]}
+            opacity={OPACITY.faint}
+          />
+        ))}
+        <Dot x={dotX} y={0} r={4} />
+        <Tex
+          at={[dotX, 0.28]}
+          tex={`${m.toFixed(2)} \\times 10^{${k}}`}
+          anchor={labelAnchor}
+          size={FONT_LABEL}
+        />
+        <Tex at={[xMin, 0.7]} tex={`= ${v.toExponential(3)}`} anchor="start" size={FONT_LABEL} />
+      </Plot>
+      <Slider
+        label="m"
+        value={m}
+        min={1}
+        max={9.99}
+        step={0.01}
+        onChange={setM}
+        format={x => x.toFixed(2)}
+      />
+      <Slider
+        label="k"
+        value={k}
+        min={xMin}
+        max={kMax}
+        step={1}
+        onChange={x => setK(x | 0)}
+        format={x => x}
+      />
+    </div>
+  )
+}
 
 const config = {
   cssPrefix: 'dcf',
@@ -31,12 +403,9 @@ const config = {
 }
 
 function DecimalFundamentalsContent() {
-  const C = useVizColors()
-
   config.learning.sections = [
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 1: WHY FINITE DECIMALS MATTER (Module 38)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 1: WHY FINITE DECIMALS MATTER (Module 38)
+     */
     <>
       <h2>Why Finite Decimals Matter</h2>
 
@@ -44,7 +413,7 @@ function DecimalFundamentalsContent() {
         <span className="lrn-predict-label">PREDICT</span>
         <p>
           You want to compare {`$\\frac{2}{9}$`} and {`$\\frac{3}{11}$`}. Without finding a common
-          denominator, how could decimals help?
+          denominator (one shared bottom number for both fractions), how could decimals help?
         </p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
@@ -99,20 +468,9 @@ function DecimalFundamentalsContent() {
         </li>
       </ol>
 
-      <h3>Fat Content Example</h3>
-      <p>
-        One food has {`$\\frac{2}{9}$`} lb (about 0.1 kg) of fat. Another has {`$\\frac{3}{11}$`}{' '}
-        lb. Which has more fat?
-      </p>
-      <p>
-        Convert to decimals: {`$\\frac{2}{9}$`} = 0.2222... and {`$\\frac{3}{11}$`} = 0.2727...
-      </p>
-      <p>
-        Compare: 0.22 &lt; 0.27. So {`$\\frac{2}{9}$`} &lt; {`$\\frac{3}{11}$`}. The second food has
-        more fat.
-      </p>
-
-      <FractionToDecimalVis C={C} />
+      <VizFigure title="Fraction to Decimal" size="body" aspect="620/192">
+        <Df_FractionToDecimalInline />
+      </VizFigure>
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -130,9 +488,8 @@ function DecimalFundamentalsContent() {
       </div>
     </>,
 
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 2: DECIMAL NOTATION AND BASIC PROPERTIES (Module 39, Part 1)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 2: DECIMAL NOTATION AND BASIC PROPERTIES (Module 39, Part 1)
+     */
     <>
       <h2>Decimal Notation and Basic Properties</h2>
 
@@ -207,7 +564,7 @@ function DecimalFundamentalsContent() {
         </div>
       </div>
 
-      <h3>Integer Part and Decomposition</h3>
+      <h3>Breaking It Down: Integer Part and Decimal Part</h3>
       <p>Every finite decimal has an integer part and a decimal part.</p>
       <p>The integer part of 41.15 is 41. The integer part of 0.265 is 0.</p>
       <div className="lrn-eq">{`$$41.15 = 41 + \\frac{15}{10^2} = 41 + 0.15$$`}</div>
@@ -218,7 +575,9 @@ function DecimalFundamentalsContent() {
         between 0 and 1.
       </p>
 
-      <NumberLinePlacement C={C} />
+      <VizFigure title="Number Line Placement" size="body" aspect="620/240">
+        <Df_NumberLinePlacementInline />
+      </VizFigure>
 
       <p>
         On the number line, 41.15 sits between 41 and 42. It sits {`$\\frac{15}{100}$`} of the way
@@ -238,7 +597,9 @@ function DecimalFundamentalsContent() {
       </div>
 
       <h3>Negative Exponents</h3>
-      <p>We define negative powers of 10 as reciprocals.</p>
+      <p>
+        We define negative powers of 10 as reciprocals. A reciprocal is 1 divided by the number.
+      </p>
       <div className="lrn-eq lrn-eq-display">{`$$10^{-n} = \\frac{1}{10^n}$$`}</div>
       <p>
         So {`$10^{-1} = \\frac{1}{10}$`}, {`$10^{-2} = \\frac{1}{100}$`}, and{' '}
@@ -253,13 +614,12 @@ function DecimalFundamentalsContent() {
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-        <p>{`When both $m$ and $n$ are positive, this is repeated multiplication. When one is negative, say $m > 0$ and $n < 0$, you multiply $10^m$ by $\\frac{1}{10^{|n|}}$. Factors of 10 cancel. You always get $10^{m+n}$. All cases give the same rule.`}</p>
+        <p>{`When both $m$ and $n$ are positive, this is repeated multiplication. Say one is negative, with $m > 0$ and $n < 0$. Then you multiply $10^m$ by $\\frac{1}{10^{|n|}}$. Here $|n|$ is the size of $n$ with the minus sign dropped. Factors of 10 cancel. You always get $10^{m+n}$. All cases give the same rule.`}</p>
       </div>
     </>,
 
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 3: DECIMAL ARITHMETIC (Module 39, Part 2)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 3: DECIMAL ARITHMETIC (Module 39, Part 2)
+     */
     <>
       <h2>Decimal Arithmetic</h2>
 
@@ -299,19 +659,6 @@ function DecimalFundamentalsContent() {
         addition.
       </p>
 
-      <div className="lrn-self-explain">
-        <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>Why must you align decimal points before adding?</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Expert explanation</summary>
-          <p>
-            Each digit position represents a different power of 10. Adding a tenths digit to a
-            hundredths digit mixes different sized units. Alignment ensures you add tenths to
-            tenths, hundredths to hundredths.
-          </p>
-        </details>
-      </div>
-
       <h3>Subtraction of Finite Decimals</h3>
       <p>The same principle applies to subtraction.</p>
       <div className="lrn-eq">{`$$3.145 - 2.8675 = ?$$`}</div>
@@ -322,9 +669,14 @@ function DecimalFundamentalsContent() {
       <p>
         Count the total decimal places in both factors. The product has that many decimal places.
       </p>
+      <p>Start small. Multiply 0.3 by 0.2.</p>
+      <p>0.3 has 1 decimal place. 0.2 has 1. The product has 1 + 1 = 2 decimal places.</p>
+      <div className="lrn-eq">{`$$3 \\times 2 = 6 \\quad \\Rightarrow \\quad 0.3 \\times 0.2 = 0.06$$`}</div>
+      <p>Now scale up to larger factors.</p>
       <div className="lrn-eq">{`$$11.4608 \\times 0.397 = ?$$`}</div>
       <p>11.4608 has 4 decimal places. 0.397 has 3. The product has 4 + 3 = 7 decimal places.</p>
       <div className="lrn-eq">{`$$114608 \\times 397 = 45499376 \\quad \\Rightarrow \\quad 11.4608 \\times 0.397 = 4.5499376$$`}</div>
+      <p>You can now multiply any two finite decimals.</p>
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -350,23 +702,25 @@ function DecimalFundamentalsContent() {
 
       <h3>Division of Finite Decimals</h3>
       <p>To divide finite decimals, convert to a fraction of whole numbers.</p>
+      <p>Start with one that comes out clean. Divide 0.6 by 0.2.</p>
+      <div className="lrn-eq">{`$$\\frac{0.6}{0.2} = \\frac{6 \\times 10^{-1}}{2 \\times 10^{-1}} = \\frac{6}{2} = 3$$`}</div>
+      <p>
+        The powers of 10 cancel. You get a clean whole number 3, which is itself a finite decimal.
+        You can now divide any two finite decimals into a whole number fraction.
+      </p>
+      <p>Now a harder one.</p>
       <div className="lrn-eq">{`$$\\frac{0.0045}{0.14} = \\frac{45 \\times 10^{-4}}{14 \\times 10^{-2}} = \\frac{45 \\times 10^{-4}}{14 \\times 10^{-2}} \\cdot \\frac{10^4}{10^4} = \\frac{45}{1400}$$`}</div>
       <p>Now {`$\\frac{45}{1400}$`} is a fraction of whole numbers. Simplify if possible.</p>
 
-      <p>But does {`$\\frac{45}{1400}$`} produce a finite decimal? Factor the denominator.</p>
-      <div className="lrn-eq">{`$$\\frac{45}{1400} = \\frac{3^2}{2^3 \\times 5^2 \\times 7}$$`}</div>
       <p>
-        The denominator contains 7. A prime factor is a prime number that divides evenly into
-        another number. A fraction in lowest terms is a finite decimal only when its denominator has
-        no prime factors other than 2 and 5. Since 7 appears, this decimal never terminates.
+        Does {`$\\frac{45}{1400}$`} terminate? A fraction in lowest terms gives a finite decimal in
+        just one case. Its denominator must have no prime factors other than 2 and 5. (Lowest terms
+        means the top and bottom share no common factor.) Here{' '}
+        {`$1400 = 2^3 \\times 5^2 \\times 7$`}. The 7 means this one never terminates.
       </p>
 
       <div className="lrn-faded">
-        <div className="lrn-faded-phase">
-          <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-          <p>{`$\\frac{0.0045}{0.14}$: Multiply top and bottom by $10^4$: $\\frac{45}{1400}$. Factor: $1400 = 2^3 \\times 5^2 \\times 7$. Since 7 appears, not a finite decimal. Simplify: $\\frac{45}{1400} = \\frac{9}{280}$.`}</p>
-        </div>
-        <div className="lrn-faded-phase">
+        <div className="lrn-faded-phase lrn-faded-partial">
           <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
           <p>{`$\\frac{0.036}{0.12}$: Multiply top and bottom by $10^3$: $\\frac{36}{\\rule{1cm}{0.5pt}}$. Factor the denominator: $\\rule{2cm}{0.5pt}$. Is it a finite decimal?`}</p>
         </div>
@@ -375,20 +729,10 @@ function DecimalFundamentalsContent() {
           <p>{`Compute $\\frac{0.0084}{0.21}$. Convert to a whole number fraction and determine if the result is a finite decimal.`}</p>
         </div>
       </div>
-
-      <div className="lrn-self-explain">
-        <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>Why does the prime factor 7 in the denominator prevent a finite decimal?</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Expert explanation</summary>
-          <p>{`A finite decimal equals $\\frac{m}{10^n}$ for some integers. Since $10^n = 2^n \\times 5^n$, the only primes in the denominator can be 2 and 5. No power of 10 can absorb a factor of 7. So the fraction cannot equal any $\\frac{m}{10^n}$.`}</p>
-        </details>
-      </div>
     </>,
 
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 4: COMPARING FINITE DECIMALS (Module 40.1)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 4: COMPARING FINITE DECIMALS (Module 40.1)
+     */
     <>
       <h2>Comparing Finite Decimals</h2>
 
@@ -398,8 +742,8 @@ function DecimalFundamentalsContent() {
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
           <p>
-            0.4 = 0.40000. Compare digit by digit: 0.4 has 4 in the tenths place. 0.38972 has 3.
-            Since 4 &gt; 3, we know 0.4 &gt; 0.38972.
+            0.4 is larger. The tenths digit decides it: 4 beats 3. The body below shows why this
+            scan is enough.
           </p>
         </details>
       </div>
@@ -418,14 +762,16 @@ function DecimalFundamentalsContent() {
 
       <h3>Same-Denominator Method</h3>
       <p>
-        Pad both decimals with trailing zeros. Give them the same number of decimal places. Then
-        compare the whole numbers.
+        Pad both decimals with trailing zeros until they have the same number of decimal places.
+        This is the same equivalent-fraction step you already know. Then compare the whole numbers.
       </p>
       <div className="lrn-eq">{`$$0.4 = 0.40000, \\qquad 0.38972 = 0.38972$$`}</div>
       <p>Multiply both by 10^5 to get whole numbers.</p>
       <div className="lrn-eq">{`$$40000 > 38972 \\quad \\Rightarrow \\quad 0.4 > 0.38972$$`}</div>
 
-      <DecimalComparisonVis C={C} />
+      <VizFigure title="Digit-by-Digit Comparison" size="body" aspect="auto">
+        <Df_DecimalComparisonInline />
+      </VizFigure>
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -446,8 +792,9 @@ function DecimalFundamentalsContent() {
 
       <h3>Digit-by-Digit Comparison</h3>
       <p>
-        Scan left to right. At the first position where the digits differ, the decimal with the
-        larger digit is larger.
+        This is the same first-differing-digit rule you use for whole numbers, now extended past the
+        point. Scan left to right. At the first position where the digits differ, the decimal with
+        the larger digit is larger.
       </p>
       <div className="lrn-eq">{`$$0.234\\mathbf{1}927 < 0.234\\mathbf{2} \\qquad \\text{because at the 4th place, } 1 < 2$$`}</div>
 
@@ -469,25 +816,14 @@ function DecimalFundamentalsContent() {
       </div>
 
       <p>
-        The key reduction: when integer parts are equal, subtract them from both. Now you compare
-        two decimals between 0 and 1. The digit-by-digit rule handles this directly.
+        When integer parts are equal, what is the simplest way to reduce the comparison? Subtract
+        the equal integer parts from both. Now you compare two decimals between 0 and 1. The
+        digit-by-digit rule handles this directly.
       </p>
-
-      <div className="lrn-compare">
-        <div className="lrn-compare-col">
-          <span className="lrn-compare-title">Same-Denominator Method</span>
-          <p>Pad with zeros. Multiply by 10^k. Compare whole numbers. Rigorous. Good for proofs.</p>
-        </div>
-        <div className="lrn-compare-col">
-          <span className="lrn-compare-title">Digit-by-Digit Scanning</span>
-          <p>Scan left to right. Stop at first difference. Fast. Good for quick comparisons.</p>
-        </div>
-      </div>
     </>,
 
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 5: EXPANDED FORM AND PLACE VALUE (Module 41.1)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 5: EXPANDED FORM AND PLACE VALUE (Module 41.1)
+     */
     <>
       <h2>Expanded Form and Place Value</h2>
 
@@ -511,9 +847,12 @@ function DecimalFundamentalsContent() {
       </p>
 
       <h3>Complete Expanded Form</h3>
+      <p>Expanded form writes a number as the sum of each digit times its place value.</p>
       <div className="lrn-eq lrn-eq-display">{`$$35.2647 = (3 \\times 10^1) + (5 \\times 10^0) + (2 \\times 10^{-1}) + (6 \\times 10^{-2}) + (4 \\times 10^{-3}) + (7 \\times 10^{-4})$$`}</div>
 
-      <PlaceValueVis C={C} />
+      <VizFigure title="Place Value Bars" size="body" aspect="auto">
+        <Df_PlaceValueInline />
+      </VizFigure>
 
       <p>
         Every digit multiplies a power of 10. The powers decrease by 1 from left to right. The
@@ -537,6 +876,9 @@ function DecimalFundamentalsContent() {
         10^(-1). The digit 4 sits in the thousandths place, with place value 10^(-3).
       </p>
       <div className="lrn-eq">{`$$w.a_1a_2 \\ldots a_n = w + a_1 \\times 10^{-1} + a_2 \\times 10^{-2} + \\ldots + a_n \\times 10^{-n}$$`}</div>
+      <p>
+        Here {`$a_1$`} is the first digit after the point, {`$a_2$`} the second, and so on.
+      </p>
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -551,11 +893,11 @@ function DecimalFundamentalsContent() {
       </div>
 
       <div className="lrn-faded">
-        <div className="lrn-faded-phase">
+        <div className="lrn-faded-phase lrn-faded-partial">
           <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
           <p>{`Expand 7.304: $(7 \\times 10^0) + (3 \\times 10^{-1}) + (0 \\times 10^{-2}) + (4 \\times 10^{-3})$. The zero in the hundredths place contributes nothing, but it holds the position.`}</p>
         </div>
-        <div className="lrn-faded-phase">
+        <div className="lrn-faded-phase lrn-faded-partial">
           <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
           <p>{`Expand 0.0819: $(\\rule{1cm}{0.5pt} \\times 10^{-2}) + (1 \\times 10^{\\rule{0.5cm}{0.5pt}}) + (9 \\times 10^{\\rule{0.5cm}{0.5pt}})$`}</p>
         </div>
@@ -566,9 +908,8 @@ function DecimalFundamentalsContent() {
       </div>
     </>,
 
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 6: SCIENTIFIC NOTATION (Module 40.2)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 6: SCIENTIFIC NOTATION (Module 40.2)
+     */
     <>
       <h2>Scientific Notation</h2>
 
@@ -594,12 +935,14 @@ function DecimalFundamentalsContent() {
 
       <h3>Definition</h3>
       <p>
-        A number in scientific notation has the form a x 10^k, where 1 &lt; a &lt; 10 and k is an
+        A number in scientific notation has the form a x 10^k, where 1 &le; a &lt; 10 and k is an
         integer.
       </p>
       <div className="lrn-eq lrn-eq-display">{`$$a \\times 10^k, \\quad \\text{where } 1 \\leq a < 10$$`}</div>
 
-      <ScientificNotationVis C={C} />
+      <VizFigure title="Scientific Notation Magnitude" size="body" aspect="620/192">
+        <Df_ScientificNotationInline />
+      </VizFigure>
 
       <h3>Converting to Scientific Notation</h3>
       <div className="lrn-eq">{`$$751.2 = 7.512 \\times 10^2$$`}</div>
@@ -631,22 +974,11 @@ function DecimalFundamentalsContent() {
       </div>
 
       <h3>Worked Examples</h3>
-      <div className="lrn-eq">{`$$8.5 \\times 10^{34} < 2.3 \\times 10^{35}$$`}</div>
-      <p>Different exponents. 34 &lt; 35, so the first is smaller, despite 8.5 &gt; 2.3.</p>
       <div className="lrn-eq">{`$$9.2 \\times 10^{-8} < 1.1 \\times 10^{-7}$$`}</div>
       <p>Different exponents. -8 &lt; -7, so the first is smaller.</p>
 
       <p>Negative numbers in scientific notation work the same way. Put a minus sign in front.</p>
       <div className="lrn-eq">{`$$-3.2 \\times 10^5 = -320000$$`}</div>
-
-      <div className="lrn-self-explain">
-        <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>{`Why does $8.5 \\times 10^{34}$ lose to $2.3 \\times 10^{35}$, even though 8.5 is almost 4 times 2.3?`}</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Expert explanation</summary>
-          <p>{`$10^{35} = 10 \\times 10^{34}$. So $2.3 \\times 10^{35} = 23 \\times 10^{34}$. Now compare: 23 vs 8.5. The extra factor of 10 from the exponent difference more than compensates for the smaller leading factor.`}</p>
-        </details>
-      </div>
 
       <div className="lrn-compare">
         <div className="lrn-compare-col">
@@ -656,16 +988,14 @@ function DecimalFundamentalsContent() {
         <div className="lrn-compare-col">
           <span className="lrn-compare-title">Scientific Notation</span>
           <p>
-            Highlights magnitude via exponent. Best for comparing very large or very small numbers.
+            Shows magnitude using the exponent. Best for comparing very large or very small numbers.
           </p>
         </div>
       </div>
     </>
   ]
 
-  // ═══════════════════════════════════════════
   // PRACTICE CARDS (interleaved)
-  // ═══════════════════════════════════════════
   config.practice = [
     {
       q: 'What does the decimal 0.00065 mean as a fraction?',
@@ -698,10 +1028,6 @@ function DecimalFundamentalsContent() {
     {
       q: 'Compute $0.135 + 0.0486$. Show the fraction method.',
       a: 'Rewrite with denominator $10^4$: $0.135 = \\frac{1350}{10^4}$, $0.0486 = \\frac{486}{10^4}$. Add numerators: $\\frac{1350 + 486}{10^4} = \\frac{1836}{10^4} = 0.1836$. Matching denominators turns decimal addition into whole number addition.'
-    },
-    {
-      q: 'Predict: what happens to the decimal expansion of $\\frac{1}{n}$ as $n$ gets more prime factors (other than 2 and 5)?',
-      a: 'The repeating block gets longer. More prime factors mean more possible remainders in long division. More remainders means it takes longer before one repeats, producing a longer period.'
     },
     {
       q: 'Why does $10^m \\times 10^n = 10^{m+n}$ hold even when $m$ or $n$ is negative?',
@@ -769,9 +1095,7 @@ function DecimalFundamentalsContent() {
     }
   ]
 
-  // ═══════════════════════════════════════════
   // REFERENCE MODE
-  // ═══════════════════════════════════════════
   config.reference.sections = [
     <>
       <h2>Finite Decimal Fundamentals</h2>

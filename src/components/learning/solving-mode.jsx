@@ -43,7 +43,7 @@ function SearchWebBtn({ query }) {
   )
 }
 
-function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
+function CardStudyView({ cards, topicSlug, hasMath, onProgress, active = true }) {
   const settings = useSettings()
   const {
     loading,
@@ -65,6 +65,7 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
   const [answerVisible, setAnswerVisible] = useState(false)
   const [importStatus, setImportStatus] = useState('')
   const [elapsed, setElapsed] = useState(0)
+  const [sessionElapsedMs, setSessionElapsedMs] = useState(0)
   const cardStartRef = useRef(Date.now())
   const containerRef = useRef(null)
   const fileInputRef = useRef(null)
@@ -88,6 +89,15 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
     )
     return () => clearInterval(id)
   }, [settings.showReviewTimer, sessionStarted, sessionComplete])
+
+  useEffect(() => {
+    if (!settings.sessionTimeLimit || !sessionStarted || sessionComplete) return
+    const id = setInterval(() => setSessionElapsedMs(Date.now() - sessionStats.startTime), 5000)
+    return () => clearInterval(id)
+  }, [settings.sessionTimeLimit, sessionStarted, sessionComplete, sessionStats.startTime])
+
+  const overSessionLimit =
+    settings.sessionTimeLimit > 0 && sessionElapsedMs > settings.sessionTimeLimit * 60000
 
   useMathJax([sessionIndex, answerVisible, sessionStarted], hasMath)
 
@@ -124,9 +134,11 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
     }
   }, [sessionStarted, sessionComplete])
 
-  // Keyboard shortcuts
+  // Keyboard shortcuts. Only bind while this tab is active: the solving DOM
+  // stays mounted (display:none) behind the learning/reference tabs, so an
+  // ungated ArrowRight would reveal/rate cards while the user reads elsewhere.
   useEffect(() => {
-    if (!sessionStarted || sessionComplete) return
+    if (!active || !sessionStarted || sessionComplete) return
 
     const handler = e => {
       if (!settings.keyboardShortcuts) return
@@ -152,7 +164,7 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
 
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [sessionStarted, sessionComplete, answerVisible, rateCard, goBack, settings.keyboardShortcuts])
+  }, [active, sessionStarted, sessionComplete, answerVisible, rateCard, goBack, settings.keyboardShortcuts])
 
   const handleExport = async () => {
     const exported = await exportTopic(topicSlug)
@@ -326,6 +338,13 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
           </div>
         </div>
 
+        {overSessionLimit && (
+          <p className="slv-next-due" role="status">
+            {Math.round(sessionElapsedMs / 60000)} min into this session, wrap up whenever you're
+            ready.
+          </p>
+        )}
+
         <div className="slv-card-question" key={`q-${sessionIndex}`}>
           {currentCard?.q}
           {settings.searchWeb && <SearchWebBtn query={currentCard?.q} />}
@@ -372,7 +391,7 @@ function CardStudyView({ cards, topicSlug, hasMath, onProgress }) {
   )
 }
 
-export default function SolvingMode({ config, topicSlug, hasMath, onProgress }) {
+export default function SolvingMode({ config, topicSlug, hasMath, onProgress, active = true }) {
   const [viewMode, setViewMode] = useState('card')
   const [showAll, setShowAll] = useState(false)
   const [resetKey, setResetKey] = useState(0)
@@ -423,6 +442,10 @@ export default function SolvingMode({ config, topicSlug, hasMath, onProgress }) 
   useMathJax([revealedCards.size, showAll, resetKey], hasMath)
 
   useEffect(() => {
+    // Solving mode shares the DOM with the learning/reference tabs (all three
+    // stay mounted for MathJax). Only bind global keys when this tab is active,
+    // else `g` toggles the hidden grid while the user is reading elsewhere.
+    if (!active) return
     const handleKeyDown = e => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
       if (document.activeElement?.closest('[data-card-study]')) return
@@ -433,7 +456,7 @@ export default function SolvingMode({ config, topicSlug, hasMath, onProgress }) 
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [])
+  }, [active])
 
   // Animate counter
   useEffect(() => {
@@ -525,6 +548,7 @@ export default function SolvingMode({ config, topicSlug, hasMath, onProgress }) 
           topicSlug={topicSlug}
           hasMath={hasMath}
           onProgress={onProgress}
+          active={active}
         />
       ) : (
         <>

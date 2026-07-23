@@ -20,7 +20,7 @@
   flex: 1;
   padding: 0 32px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-tertiary);
@@ -83,49 +83,31 @@
   width: 16px;
   height: 16px;
 }
+/* Save toggle. Icon-only, sharing .lv-topbar-icon's box so it sits in the same
+   56px rhythm as its neighbours. State is carried by the glyph fill (☆ -> ★) and
+   by ink weight, never by colour: both renderings clear WCAG SC 1.4.11's 3:1
+   non-text contrast on their own background (--text-secondary 8.3:1,
+   --text-primary 16:1 on black), and 1.4.11 does not require the two states to
+   contrast with EACH OTHER, so a monochrome fill swap is compliant. */
+.lv-topbar-save.on {
+  color: var(--text-primary);
+}
+.lv-topbar-star {
+  font-size: var(--type-h6);
+  line-height: 1;
+}
+
 .lv-topbar-hint {
   position: absolute;
   bottom: 6px;
   right: 6px;
-  font-size: 8px;
+  font-size: var(--type-caption);
   letter-spacing: 0.08em;
   color: var(--text-tertiary);
 }
 
-.lv-masthead {
-  padding: var(--d-mh-top, 48px) 10% 8px;
-  max-width: 1200px;
-  position: relative;
-  z-index: 2;
-}
-
 .lt main {
   padding: 16px 10% 80px;
-}
-
-.lv-title {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2.4rem, 5.6vw, 5rem);
-  line-height: 0.96;
-  letter-spacing: -0.02em;
-  margin: 0 0 20px;
-  color: var(--text-primary);
-  text-transform: none;
-}
-.lv-lead {
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  max-width: 680px;
-  margin: 0 0 32px;
-}
-
-.lv-mode.active {
-  color: var(--ax-topbar);
-}
-.lv-mode.active .lv-mode-s {
-  color: var(--text-secondary);
 }
 
 /* Suppress the original tab nav when the re-skinned shell is active; the masthead
@@ -135,9 +117,6 @@
 }
 
 @media (max-width: 1024px) {
-  .lv-masthead {
-    padding: 32px 6% 16px;
-  }
   .lt main {
     padding: 32px 6% 64px;
   }
@@ -146,9 +125,6 @@
 @media (max-width: 768px) {
   .lv-topbar-actions {
     display: none;
-  }
-  .lv-masthead {
-    padding: 24px 20px 12px;
   }
   .lt main {
     padding: 24px 20px 80px;

@@ -12,16 +12,19 @@ export function useKeyboardNav(itemCount, containerRef) {
   const [focusedIndex, setFocusedIndex] = useState(-1)
 
   // Navigate to a specific index
-  const navigate = useCallback((newIndex) => {
-    if (itemCount === 0) return
+  const navigate = useCallback(
+    newIndex => {
+      if (itemCount === 0) return
 
-    const clamped = Math.max(0, Math.min(itemCount - 1, newIndex))
-    setFocusedIndex(clamped)
+      const clamped = Math.max(0, Math.min(itemCount - 1, newIndex))
+      setFocusedIndex(clamped)
 
-    // Focus the card at this index
-    const cards = containerRef.current?.querySelectorAll('.card')
-    cards?.[clamped]?.focus()
-  }, [itemCount, containerRef])
+      // Focus the card at this index
+      const cards = containerRef.current?.querySelectorAll('.card')
+      cards?.[clamped]?.focus()
+    },
+    [itemCount, containerRef]
+  )
 
   // Navigate to next item
   const next = useCallback(() => {
@@ -51,7 +54,7 @@ export function useKeyboardNav(itemCount, containerRef) {
 
   // Global escape handler
   useEffect(() => {
-    const handleEscape = (e) => {
+    const handleEscape = e => {
       if (e.key === 'Escape') {
         clear()
       }

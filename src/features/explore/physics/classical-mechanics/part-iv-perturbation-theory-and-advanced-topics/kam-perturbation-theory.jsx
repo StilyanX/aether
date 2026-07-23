@@ -10,8 +10,9 @@ import {
   InvariantToriDiagram as InvariantToriDiagramAether,
   KAMCantorSet
 } from '../../../../../components/viz'
+import { FONT_VALUE } from '../../../../../components/viz/scale-tokens'
 
-// ─── Visualization: Invariant Tori ───────────────────────────────────────────
+// Visualization: Invariant Tori
 function InvariantToriDiagram({ C }) {
   return (
     <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
@@ -27,7 +28,7 @@ function InvariantToriDiagram({ C }) {
       >
         Nested invariant 2-tori on a 3D energy surface (schematic cross-section)
       </p>
-      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-3, 3] }} preserveAspectRatio={false} height={220}>
+      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-3, 3] }} preserveAspectRatio={false} height={320}>
         {[0.5, 1.1, 1.8, 2.6, 3.5].map((r, i) => (
           <Plot.Parametric
             key={i}
@@ -38,7 +39,7 @@ function InvariantToriDiagram({ C }) {
           />
         ))}
         <LaTeX at={[0, 2.2]} tex={String.raw`\mathbb{T}^2`} color={C.dim} />
-        <Text x={0} y={-2.7} size={24} color={C.dim}>
+        <Text x={0} y={-2.7} size={FONT_VALUE} color={C.dim}>
           non-resonant tori survive KAM
         </Text>
       </Mafs>
@@ -46,7 +47,7 @@ function InvariantToriDiagram({ C }) {
   )
 }
 
-// ─── Visualization: KAM Cantor Set of Surviving Tori ─────────────────────────
+// Visualization: KAM Cantor Set of Surviving Tori
 function KAMCantorDiagram({ C }) {
   // Alternating filled (surviving) and empty (destroyed) frequency bands
   const bands = []
@@ -72,7 +73,7 @@ function KAMCantorDiagram({ C }) {
       >
         Surviving (filled) vs destroyed (empty) tori on the frequency axis
       </p>
-      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={220}>
+      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={320}>
         {bands.map((b, i) => (
           <Plot.Parametric
             key={i}
@@ -84,13 +85,13 @@ function KAMCantorDiagram({ C }) {
           />
         ))}
         <LaTeX at={[-5, 2.1]} tex={String.raw`\omega`} color={C.dim} />
-        <Text x={-5} y={-2.3} size={24} color={C.dim}>
+        <Text x={-5} y={-2.3} size={FONT_VALUE} color={C.dim}>
           frequency axis
         </Text>
-        <Text x={0} y={2.1} size={24} color={C.dim}>
+        <Text x={0} y={2.1} size={FONT_VALUE} color={C.dim}>
           Diophantine (survive)
         </Text>
-        <Text x={0} y={1.5} size={24} color={C.dim}>
+        <Text x={0} y={1.5} size={FONT_VALUE} color={C.dim}>
           resonant (destroyed)
         </Text>
       </Mafs>
@@ -98,7 +99,7 @@ function KAMCantorDiagram({ C }) {
   )
 }
 
-// ─── Visualization: Two-Frequency Lissajous on Torus ────────────────────────
+// Visualization: Two-Frequency Lissajous on Torus
 function ConditionallyPeriodicDiagram({ C }) {
   const omega1 = 1
   const omega2 = Math.sqrt(2)
@@ -116,7 +117,7 @@ function ConditionallyPeriodicDiagram({ C }) {
       >
         Conditionally-periodic trajectory with irrational frequency ratio (densely fills torus)
       </p>
-      <Mafs viewBox={{ x: [-3, 3], y: [-3, 3] }} preserveAspectRatio={false} height={260}>
+      <Mafs viewBox={{ x: [-3, 3], y: [-3, 3] }} preserveAspectRatio={false} height={380}>
         <Plot.Parametric
           t={[0, 40]}
           xy={t => [2.2 * Math.cos(omega1 * t), 2.2 * Math.sin(omega2 * t)]}
@@ -129,7 +130,7 @@ function ConditionallyPeriodicDiagram({ C }) {
           tex={String.raw`\tfrac{\omega_2}{\omega_1} = \sqrt{2}`}
           color={C.dim}
         />
-        <Text x={0} y={-2.7} size={24} color={C.dim}>
+        <Text x={0} y={-2.7} size={FONT_VALUE} color={C.dim}>
           trajectory densely fills annular region
         </Text>
       </Mafs>
@@ -137,61 +138,7 @@ function ConditionallyPeriodicDiagram({ C }) {
   )
 }
 
-// ─── Visualization: Arnold Diffusion Codimension ─────────────────────────────
-function ArnoldDiffusionDiagram({ C }) {
-  return (
-    <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
-      <p
-        style={{
-          fontSize: '0.75rem',
-          textAlign: 'center',
-          color: C.dim,
-          margin: '8px 0 0 0',
-          letterSpacing: '0.05em',
-          textTransform: 'uppercase'
-        }}
-      >
-        2 DOF: tori divide energy surface (left). 3 DOF: tori do not divide (right)
-      </p>
-      <Mafs viewBox={{ x: [-6, 6], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={200}>
-        {/* 2 DOF side: 3D energy surface, 2-tori as circles dividing it */}
-        {[0.7, 1.4, 2.1].map((r, i) => (
-          <Plot.Parametric
-            key={i}
-            t={[-Math.PI, Math.PI]}
-            xy={t => [-3.5 + r * Math.cos(t) * 0.9, r * 0.6 * Math.sin(t)]}
-            color={C.accent}
-            strokeWidth={1.5}
-          />
-        ))}
-        <Text x={-3.5} y={-2.1} size={24} color={C.dim}>
-          2 DOF: trapped
-        </Text>
-        {/* 3 DOF side: tori don't divide, drift path shown */}
-        {[0.9, 1.7].map((r, i) => (
-          <Plot.Parametric
-            key={i}
-            t={[-Math.PI, Math.PI]}
-            xy={t => [2.5 + r * Math.cos(t) * 0.8, r * 0.5 * Math.sin(t)]}
-            color={C.dim}
-            strokeWidth={1.5}
-          />
-        ))}
-        <Plot.Parametric
-          t={[0, 1]}
-          xy={t => [1.2 + t * 2.8, -0.2 + 0.5 * Math.sin(t * 8)]}
-          color={C.accent}
-          strokeWidth={2}
-        />
-        <Text x={2.5} y={-2.1} size={24} color={C.dim}>
-          3+ DOF: drift possible
-        </Text>
-      </Mafs>
-    </div>
-  )
-}
-
-// ─── Visualization: Poincaré-Birkhoff Annulus ────────────────────────────────
+// Visualization: Poincaré-Birkhoff Annulus
 function PoincareBirkhoffDiagram({ C }) {
   return (
     <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
@@ -207,7 +154,7 @@ function PoincareBirkhoffDiagram({ C }) {
       >
         Area-preserving annulus map: inner rotates clockwise, outer counterclockwise
       </p>
-      <Mafs viewBox={{ x: [-3.5, 3.5], y: [-3, 3] }} preserveAspectRatio={false} height={260}>
+      <Mafs viewBox={{ x: [-3.5, 3.5], y: [-3, 3] }} preserveAspectRatio={false} height={380}>
         {/* Outer boundary */}
         <Plot.Parametric
           t={[-Math.PI, Math.PI]}
@@ -238,7 +185,7 @@ function PoincareBirkhoffDiagram({ C }) {
           color={C.fg}
           strokeWidth={2}
         />
-        <Text x={0} y={-2.7} size={24} color={C.dim}>
+        <Text x={0} y={-2.7} size={FONT_VALUE} color={C.dim}>
           at least 2 fixed points guaranteed
         </Text>
         <LaTeX at={[2.1, 0.8]} tex={String.raw`p_1`} color={C.dim} />
@@ -248,7 +195,7 @@ function PoincareBirkhoffDiagram({ C }) {
   )
 }
 
-// ─── Visualization: Frequency Map ────────────────────────────────────────────
+// Visualization: Frequency Map
 function FrequencyMapDiagram({ C }) {
   return (
     <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
@@ -264,7 +211,7 @@ function FrequencyMapDiagram({ C }) {
       >
         Frequency map from action space (left) to frequency space (right)
       </p>
-      <Mafs viewBox={{ x: [-6, 6], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={200}>
+      <Mafs viewBox={{ x: [-6, 6], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={280}>
         <Coordinates.Cartesian subdivisions={1} />
         {/* Action space: concentric circles */}
         {[0.6, 1.2, 1.9].map((r, i) => (
@@ -292,7 +239,7 @@ function FrequencyMapDiagram({ C }) {
           strokeWidth={2}
         />
         <LaTeX at={[3.5, 2.1]} tex={String.raw`\omega`} color={C.dim} />
-        <Text x={0} y={-2.3} size={24} color={C.dim}>
+        <Text x={0} y={-2.3} size={FONT_VALUE} color={C.dim}>
           nondegeneracy: map is injective
         </Text>
       </Mafs>
@@ -300,7 +247,7 @@ function FrequencyMapDiagram({ C }) {
   )
 }
 
-// ─── Visualization: Frequency Repulsion ──────────────────────────────────────
+// Visualization: Frequency Repulsion
 function FrequencyRepulsionDiagram({ C }) {
   return (
     <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
@@ -316,7 +263,7 @@ function FrequencyRepulsionDiagram({ C }) {
       >
         Frequency repulsion: 1-parameter family (left) vs 2-parameter crossing (right)
       </p>
-      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={200}>
+      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={280}>
         <Coordinates.Cartesian subdivisions={1} />
         <Plot.Parametric
           t={[-2, 2]}
@@ -330,12 +277,12 @@ function FrequencyRepulsionDiagram({ C }) {
           color={C.accent}
           strokeWidth={2}
         />
-        <Text x={-3.5} y={-2.2} size={24} color={C.dim}>
+        <Text x={-3.5} y={-2.2} size={FONT_VALUE} color={C.dim}>
           1-parameter
         </Text>
         <Plot.Parametric t={[-2, 2]} xy={t => [1.5 + t, t]} color={C.fg} strokeWidth={2} />
         <Plot.Parametric t={[-2, 2]} xy={t => [1.5 + t, -t]} color={C.dim} strokeWidth={2} />
-        <Text x={1.5} y={-2.2} size={24} color={C.dim}>
+        <Text x={1.5} y={-2.2} size={FONT_VALUE} color={C.dim}>
           2-parameter
         </Text>
         <LaTeX at={[-4.8, 2.1]} tex={String.raw`\omega_i(\lambda)`} color={C.dim} />
@@ -344,7 +291,7 @@ function FrequencyRepulsionDiagram({ C }) {
   )
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// Component
 export default function KAMPerturbationContent() {
   const C = useVizColors()
 
@@ -358,10 +305,9 @@ export default function KAMPerturbationContent() {
       subtitle:
         'Conditionally-periodic motion, KAM theorem, Arnold diffusion, and symplectic topology',
       sections: [
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 0: Conditionally-Periodic Motion
-        // ──────────────────────────────────────────────────────────────────
         <>
+          <h2>Conditionally-Periodic Motion and Invariant Tori</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>You have an integrable Hamiltonian system with invariant tori.</p>
@@ -377,8 +323,6 @@ export default function KAMPerturbationContent() {
               </p>
             </details>
           </div>
-
-          <h2>Conditionally-Periodic Motion and Invariant Tori</h2>
 
           <p>
             The central question: when you add a small perturbation to an integrable system with
@@ -500,10 +444,21 @@ export default function KAMPerturbationContent() {
                 <span>{`$$\\det\\begin{pmatrix} \\dfrac{\\partial^2 H_0}{\\partial I^2} & \\dfrac{\\partial H_0}{\\partial I} \\\\[6pt] \\left(\\dfrac{\\partial H_0}{\\partial I}\\right)^{\\!T} & 0 \\end{pmatrix} \\neq 0$$`}</span>
               </div>
               <p>
-                This ensures the frequency ratios change as you move between tori on a fixed energy
-                surface. Where nondegeneracy asks for distinct frequency vectors, isoenergetic
-                nondegeneracy asks for distinct frequency directions - two tori at the same energy
-                must point in different directions in frequency space.
+                Read the matrix this way. The plain Hessian{' '}
+                {`$\\frac{\\partial^2 H_0}{\\partial I^2}$`} measures how the frequencies turn as
+                you move the action in any direction. But you do not want any direction. You want to
+                stay on one energy surface, so you may only move the action in ways that keep the
+                energy fixed. The extra border row and column, built from{' '}
+                {`$\\frac{\\partial H_0}{\\partial I}$`}, carry exactly that constraint: the
+                gradient of the energy. The zero in the corner is just bookkeeping for the
+                constraint and holds no extra information.
+              </p>
+              <p>
+                So the bordered determinant tests the frequencies along the energy surface alone. If
+                it is nonzero, the frequency directions change as you move between tori at the same
+                energy. Where plain nondegeneracy asks for distinct frequency vectors, isoenergetic
+                nondegeneracy asks for distinct frequency directions: two tori at the same energy
+                must point different ways in frequency space.
               </p>
             </div>
           </div>
@@ -523,15 +478,15 @@ export default function KAMPerturbationContent() {
           </div>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 1: KAM Theorem
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
               You want to prove that most tori survive a perturbation. Standard perturbation theory
-              gives you small denominators that make the series diverge.
+              makes you divide by {`$\\langle\\omega,k\\rangle$`}, which is nearly zero near a
+              resonance. These small denominators blow up the corrections and make the series
+              diverge.
             </p>
             <p>What kind of iterative scheme could beat the small denominator problem?</p>
             <details className="lrn-predict-reveal">
@@ -600,8 +555,8 @@ export default function KAMPerturbationContent() {
                 {`$\\langle\\omega, k\\rangle = \\omega_1 k_1 + \\omega_2 k_2 + \\cdots$`} equals
                 zero exactly at resonance. This condition says it can never get too close to zero:
                 it must stay at least {`$\\frac{C}{|k|^\\nu}$`} away, even as {`$|k|$`} grows large.
-                The larger {`$|k|$`}, the closer a near-resonance could be - the condition
-                quantifies exactly how much clearance is required.
+                The larger {`$|k|$`}, the closer a near-resonance could be - the condition pins down
+                exactly how much clearance is required.
               </p>
               <p>
                 Tori satisfying this for some constants {`$C, \\nu > 0$`} are called Diophantine. If
@@ -667,7 +622,9 @@ export default function KAMPerturbationContent() {
                 <li>
                   To kill the {`$O(\\varepsilon)$`} term, solve the homological equation:{' '}
                   {`$\\{H_0, S\\} + H_1 = \\langle H_1 \\rangle$`} where {`$\\langle H_1 \\rangle$`}{' '}
-                  is the torus-average of {`$H_1$`}.
+                  is the torus-average of {`$H_1$`}. (The Poisson bracket {`$\\{H_0, S\\}$`} and the
+                  Fourier solution of this equation are the homological step set up in full on the
+                  averaging page; here it is just one ingredient.)
                 </li>
                 <li>
                   Solution:{' '}
@@ -675,12 +632,15 @@ export default function KAMPerturbationContent() {
                   . The small denominators appear here.
                 </li>
                 <li>
-                  After one step: new error is {`$O(\\varepsilon^2)$`}. Repeat to get{' '}
-                  {`$O(\\varepsilon^4)$`}, etc.
+                  After one step: the leftover perturbation is {`$O(\\varepsilon^2)$`}. The new
+                  problem has the exact same shape as the old one, only with {`$\\varepsilon^2$`} in
+                  place of {`$\\varepsilon$`}. So you run the identical scheme again, and it squares
+                  the small parameter once more:{' '}
+                  {`$\\varepsilon^2 \\to \\varepsilon^4 \\to \\varepsilon^8 \\to \\cdots$`}.
                 </li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <ol className="lrn-list">
                 <li>What equation must {`$S$`} satisfy to kill the first-order error?</li>
@@ -696,23 +656,25 @@ export default function KAMPerturbationContent() {
             </div>
           </div>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Why Analyticity Saves the Step</span>
             <p>
-              Small denominators grow at most polynomially:{' '}
-              {`$|\\langle\\omega,k\\rangle|^{-1} \\leq C|k|^\\nu$`}.
+              KAM assumes {`$H_1$`} is analytic: smooth enough to have a convergent power series.
+              This hypothesis is what makes the whole scheme work.
             </p>
             <p>
-              Newton's method reduces the error from {`$\\varepsilon$`} to {`$\\varepsilon^2$`} in
-              each step.
+              When a function is analytic, its Fourier coefficients {`$\\hat{H}_1(I,k)$`} shrink
+              exponentially fast as {`$|k|$`} grows, like {`$e^{-\\sigma|k|}$`} for some{' '}
+              {`$\\sigma > 0$`}. The small denominators only blow up polynomially, like{' '}
+              {`$|k|^\\nu$`}. Look at the solution{' '}
+              {`$S = \\sum_k \\frac{\\hat{H}_1(I,k)}{i\\langle\\omega,k\\rangle}e^{i\\langle k,\\varphi\\rangle}$`}
+              : each term is an exponentially small top over a polynomially small bottom.
             </p>
             <p>
-              The gain from squaring {`$(\\varepsilon^2)$`} beats the loss from denominators{' '}
-              {`$(|k|^\\nu)$`}.
-            </p>
-            <p>
-              This is why Lindstedt series diverge while KAM converges: quadratic vs linear
-              convergence.
+              Exponential decay always wins against polynomial growth. So the sum stays finite and{' '}
+              {`$S$`} is well-defined and bounded. This is exactly why the Diophantine condition is
+              enough to make {`$S$`} bounded in an analytic norm. Drop the analyticity and the
+              coefficients no longer outrun the denominators, and the step can fail.
             </p>
           </div>
 
@@ -769,7 +731,7 @@ export default function KAMPerturbationContent() {
             </p>
             <p>The denominator {`$2\\omega_J - 5\\omega_S$`} is very small, not zero.</p>
             <p>
-              This causes a long-period perturbation of about 800 years and a large amplitude in
+              This causes a long-period perturbation of about 880 years and a large amplitude in
               orbital elements.
             </p>
             <p>It does not cause instability. The KAM tori keep the orbits bounded.</p>
@@ -778,8 +740,8 @@ export default function KAMPerturbationContent() {
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
-              KAM gives eternal confinement in 2 DOF systems. Do you expect the same guarantee in 5
-              DOF systems with the same perturbation size?
+              KAM gives eternal confinement in 2 degrees-of-freedom (DOF) systems. Do you expect the
+              same guarantee in 5 DOF systems with the same perturbation size?
             </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
@@ -797,9 +759,7 @@ export default function KAMPerturbationContent() {
           </div>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 2: Zones of Instability and Arnold Diffusion
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -817,7 +777,8 @@ export default function KAMPerturbationContent() {
               </p>
               <p>
                 In 3 DOF: energy surface is 5-dimensional, 3-tori are codimension 2. They do not
-                divide the surface. You can go around them.
+                divide the surface. A codimension-2 surface is like a rope in a room: you walk
+                around it without crossing it.
               </p>
             </details>
           </div>
@@ -825,14 +786,16 @@ export default function KAMPerturbationContent() {
           <h2>Zones of Instability and Arnold Diffusion</h2>
 
           <p>
-            The geometry changes fundamentally when the number of degrees of freedom exceeds two.
-            That change destroys the topological trap that keeps 2 DOF trajectories confined
-            forever.
+            The geometry changes when the number of degrees of freedom is more than two. That change
+            destroys the topological trap that keeps 2 DOF trajectories confined forever.
           </p>
 
-          <div style={{ margin: '24px 0' }}>
-            <ArnoldDiffusionDiagram C={C} />
-          </div>
+          <p>
+            One term first. The codimension of a surface is the number of independent directions you
+            would have to fix to land on it: the dimension of the space minus the dimension of the
+            surface. Codimension 1 is a wall that splits a room. Codimension 2 or more is a thread
+            you can step around.
+          </p>
 
           <ArnoldDiffusion />
 
@@ -853,9 +816,8 @@ export default function KAMPerturbationContent() {
               </p>
               <p>
                 Arnold diffusion: trajectories can drift along resonant zones over long times. The
-                rate is exponentially slow - proportional to{' '}
-                {`$\\exp\\!\\bigl(-\\tfrac{c}{\\varepsilon}\\bigr)$`} for some constant {`$c$`} -
-                but it is not zero.
+                rate is exponentially slow. The drift stays bounded for a time of order{' '}
+                {`$\\exp\\!\\bigl((c/\\varepsilon)^a\\bigr)$`}, but it is not zero.
               </p>
             </div>
           </div>
@@ -874,131 +836,175 @@ export default function KAMPerturbationContent() {
                 without crossing it.
               </p>
               <p>
-                In 3 DOF, the energy surface has 5 dimensions. The 3-tori have dimension 3,
-                codimension 2. A path from one side to the other can detour around the tori.
+                In 3 degrees of freedom, the energy surface has 5 dimensions. The 3-tori have
+                dimension 3, codimension 2. A path from one side to the other can detour around the
+                tori.
               </p>
             </details>
           </div>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>In 2 DOF, the energy surface has 3 dimensions and tori have 2 dimensions.</p>
-            <p>Codimension 1 means each torus separates the energy surface into two sides.</p>
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">KAM vs Nekhoroshev: Two Guarantees</span>
             <p>
-              A trajectory starting on one side cannot reach the other without crossing the torus.
+              KAM and the Nekhoroshev estimate answer different questions about the same system.
             </p>
             <p>
-              In {`$n > 2$`} DOF, the energy surface has {`$2n-1 > 3$`} dimensions. Tori have
-              codimension {`$n-1 > 1$`}.
+              KAM is about which orbits are exactly invariant: the Diophantine tori, kept forever
+              and never drifting.
             </p>
-            <p>Higher codimension means you can go around the tori, not just over them.</p>
+            <p>
+              Nekhoroshev is about every other orbit, including those in the gaps. None of them
+              drift fast. The slow variables stay within {`$\\sim \\varepsilon^b$`} of their start
+              for a time of order {`$\\exp\\!\\bigl((c/\\varepsilon)^a\\bigr)$`}, where the exponent
+              {`$a$`} shrinks as the number of degrees of freedom grows. Drift is allowed, but only
+              over a stretch of time that is exponentially long.
+            </p>
           </div>
 
-          <h3>Six Variants of the KAM Theorem</h3>
+          <h3>Watching Tori Break: The Standard Map</h3>
 
           <p>
-            The KAM theorem adapts to several settings. Each has its own nondegeneracy condition.
+            One concrete system lets you watch tori survive and then break as you turn up the
+            perturbation: the standard map (also called the Chirikov-Taylor map). It is a single
+            twist map with one knob {`$K$`}. Larger {`$K$`} means stronger kicks. The Part V pages
+            on Poincaré maps and Lyapunov exponents build and analyze it; here it just illustrates
+            KAM.
           </p>
 
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Autonomous systems</span>
-              <p className="lrn-step-content">
-                {`$H = H_0(I) + \\varepsilon H_1(I,\\varphi)$`}. Nondegeneracy:{' '}
-                {`$\\det|\\frac{\\partial^2 H_0}{\\partial I^2}| \\neq 0$`}.
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">The Last Torus to Break</span>
+            <p>
+              At small {`$K$`} the picture is full of smooth invariant curves, the tori KAM keeps.
+              As {`$K$`} grows, curves with frequency ratios near simple fractions break first. The
+              chaotic gaps spread.
+            </p>
+            <p>
+              One curve holds out longest: the one whose frequency ratio is the golden mean{' '}
+              {`$(\\sqrt{5}-1)/2 \\approx 0.618$`}. It is the last torus to break, and it goes at{' '}
+              {`$K \\approx 0.972$`}. Above that value no curve spans the picture and large-scale
+              chaos sets in.
+            </p>
+          </div>
+
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Why Golden Is the Toughest Frequency</span>
+            <p>
+              The Diophantine condition rewards a frequency ratio that stays far from every
+              fraction. The golden mean does this best of all numbers.
+            </p>
+            <p>
+              Write a number as a continued fraction. Large entries mean a nearby good fraction
+              approximation, which is a near-resonance. The golden mean has the smallest possible
+              entries, all 1s, so it has the worst rational approximations. Worst-approximated means
+              farthest from resonance, which means its torus is the hardest to break.
+            </p>
+          </div>
+
+          <h3>The Nondegeneracy Condition Across Settings</h3>
+
+          <p>
+            KAM is not one theorem but a family. Each setting needs its own nondegeneracy condition:
+            the precise statement that frequencies must vary from torus to torus. Two worked cases,
+            then a short catalog.
+          </p>
+
+          <div className="lrn-compare">
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Autonomous flow</span>
+              <p>{`$H = H_0(I) + \\varepsilon H_1(I,\\varphi)$`}.</p>
+              <p>
+                Nondegeneracy: {`$\\det|\\frac{\\partial^2 H_0}{\\partial I^2}| \\neq 0$`}. The
+                frequency vector changes as you move between tori.
               </p>
             </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Periodic systems</span>
-              <p className="lrn-step-content">
-                {`$H = H_0(I) + \\varepsilon H_1(I,\\varphi,t)$`} with {`$t$`}-periodic. Extended
-                phase space has {`$(n+1)$`}-dimensional tori.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Symplectic mappings (twist maps)</span>
-              <p className="lrn-step-content">
-                Nondegeneracy: {`$\\det|\\frac{\\partial^2 S_0}{\\partial I^2}| \\neq 0$`} for the
-                generating function {`$S_0$`}. The "twist" condition: the rotation number varies
-                with the radius.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Exact symplectic maps</span>
-              <p className="lrn-step-content">
-                Applies to maps satisfying an exactness condition (the flux through any closed curve
-                is preserved). Used in billiard problems.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Neighborhoods of equilibria (autonomous)</span>
-              <p className="lrn-step-content">
-                Nondegeneracy matrix: {`$\\det|\\omega_{kl}| \\neq 0$`} where{' '}
-                {`$H_0(\\tau) = \\sum\\omega_k\\tau_k + \\tfrac{1}{2}\\sum\\omega_{kl}\\tau_k\\tau_l$`}
-                .
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Fixed points of mappings</span>
-              <p className="lrn-step-content">
-                Applies to symplectic maps near an elliptic fixed point. Uses rotation number
-                condition.
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Twist map</span>
+              <p>A symplectic map of the annulus, frequency replaced by rotation number.</p>
+              <p>
+                Twist condition: {`$\\det|\\frac{\\partial^2 S_0}{\\partial I^2}| \\neq 0$`} for the
+                generating function {`$S_0$`}. The rotation number changes with the radius.
               </p>
             </div>
           </div>
 
-          <h3>Applications of the KAM Theorem</h3>
+          <p>The same idea adapts to four more settings:</p>
 
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Geodesic flow on a convex surface</span>
-              <p className="lrn-step-content">
-                A surface close to an ellipsoid has 2 DOF. Geodesics oscillate between two caustics.
-                KAM tori persist for surfaces close enough to the ellipsoid.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Billiard table</span>
-              <p className="lrn-step-content">
-                Convex billiard tables have stable closed trajectories. The minor-axis trajectory of
-                an elliptic table is stable. KAM proves Lyapunov stability. This is also a direct
-                application of the Poincaré-Birkhoff theorem.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Pendulum with oscillating suspension</span>
-              <p className="lrn-step-content">
-                The upper equilibrium can be stabilized by oscillation. KAM proves Lyapunov
-                stability when resonances of order 3 and 4 are absent.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Rapidly rotating rigid body</span>
-              <p className="lrn-step-content">
-                After eliminating cyclic coordinates, a 2 DOF system remains. KAM shows the angular
-                momentum vector stays near its initial value for all time.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Restricted three-body problem</span>
-              <p className="lrn-step-content">
-                Asteroid in Jupiter's field, planar circular restricted 3-body problem. For small
-                Jupiter mass, invariant tori survive and the asteroid remains bounded.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Motion of n planets around the sun</span>
-              <p className="lrn-step-content">
-                Conditionally-periodic motions fill most of the Keplerian phase space. Secular
-                changes of actions are exponentially small.
-              </p>
-            </div>
+          <ul className="lrn-list">
+            <li>
+              Time-periodic forcing: add a periodic time variable, raising the torus dimension by
+              one.
+            </li>
+            <li>
+              Exact symplectic maps (flux through any closed curve preserved): used for billiards.
+            </li>
+            <li>
+              Near an equilibrium: the condition becomes {`$\\det|\\omega_{kl}| \\neq 0$`} for the
+              normal-form frequency matrix.
+            </li>
+            <li>Near an elliptic fixed point of a map: the rotation-number condition again.</li>
+          </ul>
+
+          <h3>Worked Applications</h3>
+
+          <p>
+            Two applications carried through, then a few one-line entries. Each turns a real system
+            into the {`$H_0 + \\varepsilon H_1$`} form KAM needs.
+          </p>
+
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Worked: Asteroid Near Jupiter</span>
+            <p>
+              Model the Sun, Jupiter, and a tiny asteroid. The asteroid's mass is so small it does
+              not affect the other two. Jupiter circles the Sun on a fixed orbit. This is the planar
+              circular restricted three-body problem.
+            </p>
+            <p>
+              Treat Jupiter's mass {`$\\mu$`} as the small parameter. At {`$\\mu = 0$`} the asteroid
+              feels only the Sun and runs an integrable Kepler ellipse, so it sits on an invariant
+              torus.
+            </p>
+            <p>
+              Turn Jupiter on at small {`$\\mu$`}. KAM keeps most of those tori, slightly bent. In 2
+              degrees of freedom those tori divide the energy surface, so the asteroid stays trapped
+              between two of them. Its orbit stays bounded for all time, as long as it sits far from
+              a strong resonance.
+            </p>
           </div>
+
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Worked: Fast-Spinning Rigid Body</span>
+            <p>
+              A rigid body spins under gravity (a top). Its symmetry axis lets you remove one cyclic
+              angle, leaving a 2-degree-of-freedom system.
+            </p>
+            <p>
+              Spin it fast. The gravity torque is then small next to the spin, so it plays the role
+              of {`$\\varepsilon H_1$`}. KAM keeps most tori. The angular-momentum vector stays near
+              its starting direction for all time: the top does not tip over.
+            </p>
+          </div>
+
+          <ul className="lrn-list">
+            <li>
+              Geodesics on a near-ellipsoid surface (2 degrees of freedom): tori persist when the
+              surface is close enough to an exact ellipsoid.
+            </li>
+            <li>
+              Convex billiards: KAM plus Poincaré-Birkhoff prove that short stable bouncing orbits
+              survive small reshaping of the table.
+            </li>
+            <li>
+              Pendulum with a vibrating pivot: fast vibration stabilizes the upright position when
+              order-3 and order-4 resonances are absent.
+            </li>
+            <li>
+              {`$n$`} planets around the Sun: quasi-periodic motion fills most of the phase space,
+              and the slow drift of orbit sizes stays exponentially small.
+            </li>
+          </ul>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 3: Poincaré-Birkhoff Fixed-Point Theorem
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -1019,16 +1025,32 @@ export default function KAMPerturbationContent() {
 
           <h2>Poincaré-Birkhoff Fixed-Point Theorem</h2>
 
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">What Happens Where a Torus Breaks</span>
+            <p>
+              KAM tells you the non-resonant tori survive. It is silent about what replaces a
+              resonant torus once it breaks apart. This section answers that.
+            </p>
+            <p>
+              A resonant torus is filled with closed loops. The perturbation does not erase them
+              all. It leaves behind an even number of isolated periodic orbits, alternating around
+              the ring: stable centers (called elliptic) and unstable saddles (called hyperbolic).
+              This is an island chain. Thin chaotic layers grow along the saddles.
+            </p>
+            <p>
+              The Poincaré-Birkhoff theorem is the tool that counts those surviving orbits. It works
+              on a return map of an annulus.
+            </p>
+          </div>
+
           <p>
-            Use this theorem to prove existence of periodic orbits in a Hamiltonian system by
-            analyzing a Poincaré return map of an annulus. The Poincaré return map is the map that
-            takes a point on a cross-section of phase space to where the trajectory returns to that
-            same cross-section.
+            A Poincaré return map sends a point on a cross-section of phase space to where its
+            trajectory next crosses the same cross-section. It turns a continuous flow into one step
+            of a map. Closed orbits become fixed points of that map.
           </p>
           <p>
-            Real-world application: the magnetic confinement of plasma in a tokamak uses twisted
-            magnetic field lines. The twist condition of the Poincaré-Birkhoff theorem guarantees
-            existence of periodic field lines, which correspond to closed drift orbits.
+            One physical use: a tokamak confines plasma with twisted magnetic field lines. The twist
+            condition then guarantees closed field lines, which trace closed drift orbits.
           </p>
 
           <div style={{ margin: '24px 0' }}>
@@ -1038,8 +1060,9 @@ export default function KAMPerturbationContent() {
           <div className="lrn-callout lrn-success">
             <span className="lrn-callout-label">Theorem (Poincaré-Birkhoff)</span>
             <p>
-              Every area-preserving homeomorphism of a planar annulus, rotating the two boundary
-              circles in opposite directions, has at least two fixed points.
+              Take any area-preserving continuous map of a flat ring (an annulus). Suppose it turns
+              the inner edge one way and the outer edge the opposite way. Then it has at least two
+              fixed points.
             </p>
           </div>
 
@@ -1083,10 +1106,17 @@ export default function KAMPerturbationContent() {
           <h3>Connection to Generating Functions</h3>
 
           <p>
-            Fixed points of a symplectic map are critical points of a generating function. A
-            generating function {`$S(q, Q)$`} is a function that encodes the symplectic map
-            implicitly via the relations {`$p = \\frac{\\partial S}{\\partial q}$`},{' '}
-            {`$P = -\\frac{\\partial S}{\\partial Q}$`}.
+            A symplectic map is one that preserves areas in phase space (the
+            canonical-transformations page builds these from generating functions). Counting its
+            fixed points by hand is hard. There is a slicker route: turn each fixed point into a
+            critical point of a single function, then let topology count the critical points.
+          </p>
+          <p>
+            Recall from canonical transformations that a generating function {`$S(q, Q)$`} stores a
+            symplectic map without writing it out. The relations{' '}
+            {`$p = \\frac{\\partial S}{\\partial q}$`} and{' '}
+            {`$P = -\\frac{\\partial S}{\\partial Q}$`} read off the old and new momenta by
+            differentiating {`$S$`}. Where those momenta agree with the old point, nothing moves.
           </p>
 
           <div className="lrn-proof">
@@ -1094,25 +1124,34 @@ export default function KAMPerturbationContent() {
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">1.</span>
               <div className="lrn-proof-step-content">
-                The generating function for a symplectic diffeomorphism of the annulus satisfies{' '}
-                {`$dS = (x-X)dy + (Y-y)dX$`}.
+                For an area-preserving map {`$(x,y) \\mapsto (X,Y)$`} of the annulus, the same
+                generating-function idea gives {`$dS = (x-X)dy + (Y-y)dX$`}. This is the{' '}
+                {`$S(q,Q)$`}
+                relation rewritten in the annulus coordinates: it measures how far the map moves
+                each point.
               </div>
             </div>
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">2.</span>
               <div className="lrn-proof-step-content">
-                A fixed point satisfies {`$X = x$`} and {`$Y = y$`}, which forces {`$dS = 0$`}.
+                A fixed point satisfies {`$X = x$`} and {`$Y = y$`}. Both bracketed differences
+                vanish, so {`$dS = 0$`} there.
               </div>
             </div>
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">3.</span>
               <div className="lrn-proof-step-content">
-                Define {`$F(x,y) = S(X(x,y),y)$`}. Every fixed point of the diffeomorphism is a
-                critical point of {`$F$`}.
+                Define {`$F(x,y) = S(X(x,y),y)$`}. Every fixed point of the map is a critical point
+                of {`$F$`} (a point where {`$dF = 0$`}).
               </div>
             </div>
             <div className="lrn-qed">Q.E.D.</div>
           </div>
+
+          <p>
+            You can now count periodic orbits without tracking a single trajectory: count the
+            critical points of one function {`$F$`} instead, which topology bounds from below.
+          </p>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -1135,122 +1174,40 @@ export default function KAMPerturbationContent() {
             </details>
           </div>
 
-          <h3>Symplectic Diffeomorphisms of the Torus</h3>
+          <h3>Periodic Orbits from Broken Resonant Tori</h3>
+
+          <p>
+            Now return to KAM. A resonant torus is filled with closed trajectories. When the
+            perturbation breaks it apart, the closed trajectories do not all vanish. A definite
+            number of them survive as isolated periodic orbits.
+          </p>
 
           <div className="lrn-callout lrn-success">
-            <span className="lrn-callout-label">Torus Diffeomorphism Theorem</span>
+            <span className="lrn-callout-label">Theorem (Surviving Periodic Orbits)</span>
             <p>
-              A symplectic diffeomorphism of the torus that fixes its center of gravity has at least
-              four fixed points counting multiplicity, at least three geometrically different ones.
-            </p>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The torus has Betti numbers {`$b_0 = 1$`}, {`$b_1 = 2$`}, {`$b_2 = 1$`}. Their sum is
-              4.
+              Take an isoenergetically nondegenerate system with an {`$n$`}-torus filled with closed
+              trajectories. When that torus breaks apart under perturbation, at least {`$2^{n-1}$`}{' '}
+              closed trajectories of the perturbed system survive.
             </p>
             <p>
-              By the Morse theory lower bound, any smooth function on the torus has at least 4
-              critical points.
-            </p>
-            <p>
-              Fixed points of the diffeomorphism correspond one-to-one to critical points of the
-              generating function {`$F$`}, so the diffeomorphism has at least 4 fixed points.
-            </p>
-          </div>
-
-          <h3>Generalized Poincaré Theorem and Lagrangian Intersections</h3>
-
-          <div className="lrn-callout lrn-success">
-            <span className="lrn-callout-label">Generalized Poincaré Theorem</span>
-            <p>
-              Every symplectic diffeomorphism of a compact symplectic manifold, homologous to the
-              identity, has at least as many fixed points as a smooth function on the manifold has
-              critical points.
-            </p>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Homologous to the Identity</span>
-            <div className="lrn-definition-desc">
-              <p>
-                A symplectic diffeomorphism {`$g: M \\to M$`} is homologous to the identity if it
-                connects to the identity by a smooth path {`$g_t$`} of symplectic diffeomorphisms.
-              </p>
-              <p>
-                At each moment {`$t$`}, the velocity field {`$\\dot{g}_t$`} must have a
-                single-valued Hamiltonian.
-              </p>
-              <p>
-                Informally: the map can be "continuously deformed" to the identity through
-                Hamiltonian flows.
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Lagrangian Submanifold</span>
-            <div className="lrn-definition-desc">
-              <p>
-                A Lagrangian submanifold of a symplectic manifold {`$(M^{2n}, \\omega)$`} is an{' '}
-                {`$n$`}-dimensional submanifold {`$L$`} on which the symplectic form {`$\\omega$`}{' '}
-                assigns zero area to every 2-dimensional slice within {`$L$`}.
-              </p>
-              <p>
-                Example: the graph of a symplectic map in {`$M \\times M$`} is a Lagrangian
-                submanifold (with the product symplectic structure).
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Generating Function Approach</span>
-              <p>Fixed points = critical points of {`$F(x,y) = S(X(x,y),y)$`}.</p>
-              <p>Works near the identity map only.</p>
-              <p>Local method.</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Lagrangian Intersection Approach</span>
-              <p>Fixed points = intersections of graph of map with diagonal.</p>
-              <p>
-                Both are Lagrangian submanifolds. Two {`$n$`}-dimensional Lagrangian surfaces inside
-                a {`$2n$`}-dimensional space cannot generally avoid each other - topology forces
-                them to cross, giving at least {`$2^n$`} intersection points.
-              </p>
-              <p>Global method; works in any dimension.</p>
-            </div>
-          </div>
-
-          <h3>Periodic Points from Disintegrating Tori</h3>
-
-          <div className="lrn-callout lrn-success">
-            <span className="lrn-callout-label">Theorem (Periodic Points)</span>
-            <p>
-              If an isoenergetically nondegenerate system has an {`$n$`}-torus filled with closed
-              trajectories, its disintegration under perturbation creates at least {`$2^{n-1}$`}{' '}
-              closed trajectories of the perturbed system.
+              These are the island centers of the chain. They alternate elliptic and hyperbolic, the
+              same structure the Poincaré-Birkhoff theorem forces.
             </p>
           </div>
 
           <div className="lrn-callout">
-            <span className="lrn-callout-label">Historical Note</span>
+            <span className="lrn-callout-label">Connects to Symplectic Topology</span>
             <p>
-              Arnold notes this work triggered the growth of symplectic topology as a branch of
-              mathematics (first edition, 1974).
-            </p>
-            <p>
-              The generating function invariance {`$\\Phi(z) = \\Phi'(g(z)) + \\text{const}$`}{' '}
-              connects the structure of the generating function to the topology of the map.
+              These fixed-point counts are the tip of a deep subject. Counting fixed points of a
+              symplectic map becomes counting critical points of a function, and the Morse-theory
+              lower bound (the sum of the Betti numbers) turns topology into a guaranteed orbit
+              count. Pushing this idea to general symplectic manifolds grew into modern symplectic
+              topology during the 1970s.
             </p>
           </div>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 4: Multiplicities of Characteristic Frequencies
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -1275,10 +1232,24 @@ export default function KAMPerturbationContent() {
           <h2>Multiplicities of Characteristic Frequencies</h2>
 
           <p>
-            Generically, two natural frequencies of a Hamiltonian system cannot collide as you vary
-            a single parameter. This section explains why - and what symmetry does to break that
-            rule.
+            Take two natural frequencies of a Hamiltonian system. As you vary one parameter, you
+            cannot generally force the two frequencies to become equal. Symmetry can break this
+            rule. Here is why both facts hold.
           </p>
+
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Frequencies Are Eigenvalue Magnitudes</span>
+            <p>
+              Linearize a Hamiltonian system near a stable equilibrium. The small oscillations
+              decouple into normal modes. Each mode has a frequency {`$\\omega$`}.
+            </p>
+            <p>
+              In the linearized system, that frequency shows up as a pair of imaginary eigenvalues
+              {`$\\pm i\\omega$`} of the equations of motion. Stable oscillation means the
+              eigenvalues sit on the imaginary axis. Two modes have equal frequency exactly when
+              their eigenvalue pairs collide on that axis.
+            </p>
+          </div>
 
           <div className="lrn-definition">
             <span className="lrn-definition-term">Codimension of a Submanifold</span>
@@ -1295,6 +1266,18 @@ export default function KAMPerturbationContent() {
           </div>
 
           <h3>Ellipsoids and Their Revolution Classes</h3>
+
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Why Ellipsoids Answer the Frequency Question</span>
+            <p>
+              A stable quadratic Hamiltonian fixes an energy ellipsoid in phase space. Its
+              characteristic frequencies are the axis lengths of that ellipsoid.
+            </p>
+            <p>
+              So two equal frequencies mean two equal axes: an ellipsoid of revolution. Counting how
+              rare equal frequencies are becomes counting how rare ellipsoids of revolution are.
+            </p>
+          </div>
 
           <p>
             An ellipsoid in {`$\\mathbb{R}^n$`} has {`$\\frac{n(n+1)}{2}$`} parameters (one for each
@@ -1336,19 +1319,6 @@ export default function KAMPerturbationContent() {
             <div className="lrn-qed">Q.E.D.</div>
           </div>
 
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Codimension Formula for Multiple Axes</span>
-            <div className="lrn-definition-desc">
-              <p>
-                The set of ellipsoids with {`$v_2$`} double, {`$v_3$`} triple, {`$v_4$`} fourfold
-                axes has codimension:
-              </p>
-              <div className="lrn-eq">
-                <span>{`$$2v_2 + 5v_3 + 9v_4 + \\cdots = \\sum \\tfrac{1}{2}(i-1)(i+2)v_i$$`}</span>
-              </div>
-            </div>
-          </div>
-
           <div style={{ margin: '24px 0' }}>
             <FrequencyRepulsionDiagram C={C} />
           </div>
@@ -1373,23 +1343,6 @@ export default function KAMPerturbationContent() {
               </p>
               <p>Two conditions together give codimension 2.</p>
             </details>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Two frequencies {`$\\omega_1(\\lambda)$`} and {`$\\omega_2(\\lambda)$`} can collide
-              only if their difference {`$\\omega_1 - \\omega_2 = 0$`}.
-            </p>
-            <p>This is one condition in the space of Hamiltonians: it has codimension 1.</p>
-            <p>
-              But for imaginary eigenvalues {`$\\pm ib$`}, you also need them to remain imaginary
-              after the collision.
-            </p>
-            <p>
-              This adds a second condition: both eigenvalues must move along the imaginary axis.
-            </p>
-            <p>Two conditions together give codimension 2.</p>
           </div>
 
           <h3>Effect of Symmetry on the Spectrum</h3>
@@ -1444,7 +1397,7 @@ export default function KAMPerturbationContent() {
       ]
     },
 
-    // ─── PRACTICE CARDS ───────────────────────────────────────────────────────
+    // PRACTICE CARDS
     practice: [
       {
         q: 'Define conditionally-periodic motion on an invariant torus.',
@@ -1479,8 +1432,8 @@ export default function KAMPerturbationContent() {
         a: 'In 2 DOF, the energy surface has dimension 3. Invariant 2-tori have codimension 1 in the energy surface: they divide it into disconnected pieces. Trajectories in a gap between tori cannot escape. In 5 DOF, the energy surface has dimension 9 and 5-tori have codimension 4: they do not divide the energy surface. Trajectories can drift around the tori through Arnold diffusion, though exponentially slowly.'
       },
       {
-        q: "[PREDICT] An asteroid is at the 3:1 resonance with Jupiter. KAM tori near the resonance are destroyed. What do you expect for the asteroid's long-term behavior?",
-        a: 'The resonant torus breaks into a finite number of periodic orbits plus heteroclinic structure (separatrix splitting). In 2 DOF, surviving KAM tori outside the resonance zone bound the motion. But the asteroid near the 3:1 resonance can undergo large chaotic excursions within the resonance zone. This is the Kirkwood gap mechanism. Its orbital elements fluctuate widely.'
+        q: '[PREDICT] An asteroid sits near the 3:1 resonance with Jupiter, where KAM tori are destroyed. What do you expect for its long-term behavior?',
+        a: 'The resonant torus breaks into an island chain: alternating stable centers and unstable saddles, with thin chaotic layers along the saddles. Far from the resonance, surviving KAM tori still bound the motion. But right inside the resonance zone the asteroid rides those chaotic layers and its orbit shape swings widely over time. This sweeps the asteroid onto a planet-crossing path and clears it out, which is why the asteroid belt has an empty band at the 3:1 resonance.'
       },
       {
         q: '[ELABORATE] Name three variants of the KAM theorem and their nondegeneracy conditions.',
@@ -1495,20 +1448,20 @@ export default function KAMPerturbationContent() {
         a: 'For a symplectic diffeomorphism with generating function {`$S$`} satisfying {`$dS = (x-X)dy + (Y-y)dX$`}, define {`$F(x,y) = S(X(x,y),y)$`}. Every fixed point ({`$X=x, Y=y$`}) forces {`$dS=0$`}, hence {`$dF=0$`}. Fixed points are exactly the critical points of {`$F$`}.'
       },
       {
-        q: '[TRANSFER] A physicist wants to count periodic orbits of period {`$N$`} in a Hamiltonian system. How does the Poincaré-Birkhoff theorem help?',
-        a: 'The {`$N$`}-th iterate {`$A^N$`} of the Poincaré return map is itself an area-preserving map of an annulus. If the rotation angles on the boundary circles have opposite signs relative to the period-{`$N$`} threshold, Poincaré-Birkhoff guarantees at least 2 fixed points of {`$A^N$`}. These correspond to exactly the periodic orbits of period {`$N$`}.'
+        q: '[TRANSFER] A physicist wants to prove periodic orbits exist in a 2 DOF Hamiltonian system. How does the Poincaré-Birkhoff theorem help?',
+        a: 'A periodic orbit becomes a fixed point of the Poincaré return map, which is area-preserving on an annulus. If the return map turns the inner edge of the annulus one way and the outer edge the opposite way, Poincaré-Birkhoff guarantees at least two fixed points. Those two fixed points are the periodic orbits, so their existence is proven without solving the equations of motion.'
       },
       {
-        q: '[ELABORATE] Why does the generalized Poincaré theorem require the map to be homologous to the identity?',
-        a: 'A general symplectic map can have few fixed points (a rotation of a sphere may have exactly 2). The homologous-to-identity condition ensures the map is topologically trivial: it can be deformed to the identity through symplectic maps with single-valued Hamiltonians. This forces the fixed-point count to match the topological lower bound given by the sum of Betti numbers.'
+        q: '[ELABORATE] A resonant torus has just broken. How does the Poincaré-Birkhoff theorem explain what replaces it?',
+        a: 'The broken torus leaves behind an even number of isolated periodic orbits arranged in a ring: an island chain. On a Poincaré return map of the surrounding annulus, the rotation rate is faster on one side of the old resonant radius than the other, so the inner and outer edges turn opposite ways. Poincaré-Birkhoff then forces at least two fixed points, which are the alternating elliptic centers and hyperbolic saddles of the chain.'
       },
       {
-        q: '[SELF-EXPLAIN] Explain why the Lagrangian intersection approach gives fixed points of a symplectic map.',
-        a: 'The graph of a symplectic map {`$A: M \\to M$`} is a Lagrangian submanifold of {`$M \\times M$`}. The diagonal {`$\\Delta = \\{(x,x)\\}$`} is also Lagrangian. Their intersection consists exactly of fixed points {`$A(x)=x$`}. Lagrangian intersection theory gives the lower bound {`$2^n$`} on the number of intersection points.'
+        q: '[SELF-EXPLAIN] When a resonant n-torus breaks apart, what survives, and what is its structure?',
+        a: 'At least {`$2^{n-1}$`} closed trajectories survive as isolated periodic orbits. They are the island centers of a chain. They alternate elliptic (stable centers) and hyperbolic (unstable saddles) around the ring, the same alternating structure the Poincaré-Birkhoff theorem forces. Thin chaotic layers grow along the saddles.'
       },
       {
-        q: 'How many fixed points does a torus diffeomorphism (homologous to identity) have?',
-        a: 'At least four counting multiplicity, at least three geometrically different. This follows from Morse theory: the torus has Betti numbers {`$1, 2, 1$`} summing to 4, so any smooth function on it has at least 4 critical points.'
+        q: '[TRANSFER] You compare two frequency ratios in the standard map: {`$1/2$`} and the golden mean {`$(\\sqrt{5}-1)/2$`}. Which torus survives a stronger kick, and why?',
+        a: 'The golden-mean torus survives the stronger kick. The Diophantine condition rewards a ratio that stays far from every fraction. The ratio {`$1/2$`} is itself a low-order rational, so its torus is resonant and breaks first. The golden mean has the continued fraction {`$[0;1,1,1,\\ldots]$`}, all 1s, the smallest possible entries. Small entries mean the worst rational approximations, so it sits farthest from resonance. That is why it is the last torus to break, going at {`$K \\approx 0.972$`}.'
       },
       {
         q: 'What is the codimension of the set of ellipsoids of revolution in the space of all ellipsoids?',
@@ -1523,12 +1476,12 @@ export default function KAMPerturbationContent() {
         a: 'In a generic one-parameter family, the frequency curves approach each other but repel: like hyperbolas, not crossing. This is the "avoided crossing" phenomenon. Crossing requires codimension 2, which a generic one-parameter family cannot achieve. The curves form hyperbola-like shapes in the {`$(\\lambda, \\omega)$`} plane.'
       },
       {
-        q: '[ELABORATE] Why does 3-fold rotational symmetry force double characteristic frequencies for "non-symmetric" modes?',
-        a: 'Modes that are not invariant under the 3-fold rotation form 2-dimensional irreducible representations of the rotation group. The character theory of {`$\\mathbb{Z}_3$`} over {`$\\mathbb{R}$`} forces this. The linearized equations of motion on such a representation must have the same eigenvalue for both basis vectors, by equivariance. Any symmetry-preserving perturbation leaves this eigenspace intact, so the double frequency persists.'
+        q: '[ELABORATE] Why does 3-fold rotational symmetry force equal frequencies for "non-symmetric" modes?',
+        a: 'A mode that is not symmetric under the 3-fold rotation cannot stand alone. Rotating it by one third of a turn produces a second, distinct mode shape. The two shapes must oscillate at the same frequency, because the rotation is a symmetry of the whole system and cannot change how fast a mode vibrates. So these modes come locked in equal-frequency pairs. Any perturbation that keeps the 3-fold symmetry keeps the pair locked, so the double frequency cannot split.'
       }
     ],
 
-    // ─── REFERENCE MODE ───────────────────────────────────────────────────────
+    // REFERENCE MODE
     reference: {
       category: 'Quick Reference',
       title: 'KAM Theory and Perturbation Methods',
@@ -1582,8 +1535,9 @@ export default function KAMPerturbationContent() {
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">{`$n>2$`} DOF</span>
               <p>
-                Tori do not divide energy surface. Arnold diffusion possible. Rate{' '}
-                {`$\\sim e^{-\\frac{1}{\\varepsilon^d}}$`}.
+                Tori do not divide energy surface. Arnold diffusion possible. Nekhoroshev bound:
+                action drift stays within {`$\\sim \\varepsilon^b$`} for a time of order{' '}
+                {`$\\exp\\!\\bigl((c/\\varepsilon)^a\\bigr)$`}.
               </p>
             </div>
           </div>
@@ -1654,7 +1608,7 @@ export default function KAMPerturbationContent() {
         </>
       ]
     },
-    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }`
+    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }`
   }
 
   return <LearningTemplate config={config} />

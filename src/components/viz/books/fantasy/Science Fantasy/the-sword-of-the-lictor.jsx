@@ -9,7 +9,7 @@ import {
   Tooltip,
   useTooltip,
   Toggle,
-  ChapterTimeline,
+  ModuleTimeline,
   Hatch,
   Stipple,
   Rays,
@@ -30,6 +30,23 @@ import {
   textGhost,
   textSoft
 } from '../../../theme'
+import {
+  FONT_LABEL,
+  FONT_SMALL,
+  FONT_TEX,
+  FONT_TITLE,
+  LS_CONTROL,
+  LS_LABEL,
+  LS_MEDIUM,
+  LS_OPEN,
+  LS_TITLE,
+  LS_UPPER,
+  STROKE_EMPHASIS,
+  STROKE_GUIDE,
+  STROKE_HAIR,
+  STROKE_PRIMARY,
+  STROKE_SECONDARY
+} from '../../../scale-tokens'
 
 // Reusable mood-curve chart (module-private)
 function ArcChart({ beats, title, w = 800, h = 360 }) {
@@ -45,7 +62,7 @@ function ArcChart({ beats, title, w = 800, h = 360 }) {
   const path = 'M ' + beats.map(b => `${xOf(b.x)} ${yOf(b.y)}`).join(' L ')
   return (
     <Canvas w={w} h={h}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         {title}
       </Label>
       <line
@@ -55,17 +72,17 @@ function ArcChart({ beats, title, w = 800, h = 360 }) {
         y2={PAD_T + innerH * 0.5}
         stroke={FG}
         strokeOpacity={OPACITY.faint}
-        strokeWidth="0.6"
+        strokeWidth={STROKE_HAIR}
         strokeDasharray="2 4"
       />
       <text
         x={PAD_L - 8}
         y={PAD_T + 4}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="end"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         HIGH
       </text>
@@ -73,29 +90,40 @@ function ArcChart({ beats, title, w = 800, h = 360 }) {
         x={PAD_L - 8}
         y={PAD_T + innerH}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="end"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         LOW
       </text>
-      <path d={path} stroke={FG} strokeOpacity={OPACITY.fg} strokeWidth="1.4" fill="none" />
-      {beats.map((b, i) => (
-        <g key={i}>
-          <circle cx={xOf(b.x)} cy={yOf(b.y)} r="4" fill={FG} />
-          <text
-            x={xOf(b.x)}
-            y={yOf(b.y) + (i % 2 === 0 ? -10 : 20)}
-            fill={FG}
-            fontSize="9"
-            textAnchor="middle"
-            opacity={OPACITY.fg}
-          >
-            {b.label}
-          </text>
-        </g>
-      ))}
+      <path
+        d={path}
+        stroke={FG}
+        strokeOpacity={OPACITY.fg}
+        strokeWidth={STROKE_PRIMARY}
+        fill="none"
+      />
+      {beats.map((b, i) => {
+        // Clamp centered labels into the viewBox (end beats overhang otherwise)
+        const halfW = b.label.length * FONT_SMALL * 0.31
+        const lx = Math.max(halfW + 4, Math.min(w - halfW - 4, xOf(b.x)))
+        return (
+          <g key={i}>
+            <circle cx={xOf(b.x)} cy={yOf(b.y)} r="4" fill={FG} />
+            <text
+              x={lx}
+              y={yOf(b.y) + (i % 2 === 0 ? -10 : 20)}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              textAnchor="middle"
+              opacity={OPACITY.fg}
+            >
+              {b.label}
+            </text>
+          </g>
+        )
+      })}
     </Canvas>
   )
 }
@@ -112,7 +140,7 @@ export function ThraxGeography() {
       w: 90,
       h: 46,
       label: 'ACIES CASTLE',
-      cite: 'Ch. I',
+      cite: '§I',
       body: "At the blade's tip,\nupstream - first\ndefence of the city."
     },
     {
@@ -123,7 +151,7 @@ export function ThraxGeography() {
       w: 140,
       h: 32,
       label: 'CAPULUS WALL',
-      cite: 'Ch. I',
+      cite: '§I',
       body: "The 'hilt'; closes\nthe valley downstream."
     },
     {
@@ -134,7 +162,7 @@ export function ThraxGeography() {
       w: 110,
       h: 60,
       label: 'VINCULA',
-      cite: 'Ch. I',
+      cite: '§I',
       body: "Severian's prison-keep,\nbartizan projects from\nthe western cliff."
     },
     {
@@ -145,17 +173,17 @@ export function ThraxGeography() {
       w: 120,
       h: 46,
       label: "ARCHON'S PALACE",
-      cite: 'Ch. I',
+      cite: '§I',
       body: 'Where Cyriaca is held;\nthe ridotto takes place here.'
     }
   ]
   const flash = id => tip && tip.id === id
   return (
     <Canvas w={800} h={560}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         THRAX · CITY OF WINDOWLESS ROOMS
       </Label>
-      <Label x={760} y={32} anchor="end" size={10}>
+      <Label x={760} y={32} anchor="end" size={FONT_SMALL}>
         (VALLEY RUNS N→S)
       </Label>
       <path
@@ -164,7 +192,7 @@ export function ThraxGeography() {
         fillOpacity="0.025"
         stroke={FG}
         strokeOpacity={OPACITY.faint}
-        strokeWidth="0.6"
+        strokeWidth={STROKE_HAIR}
       />
       <path
         d="M 40 70 L 120 80 L 140 280 L 100 480 L 40 520 Z"
@@ -172,7 +200,7 @@ export function ThraxGeography() {
         fillOpacity="0.03"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
       <path
         d="M 760 70 L 680 80 L 660 280 L 700 480 L 760 520 Z"
@@ -180,19 +208,26 @@ export function ThraxGeography() {
         fillOpacity="0.03"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
-      <text x={60} y={180} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={60}
+        y={180}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         WEST CLIFF
       </text>
       <text
         x={720}
         y={180}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         opacity={OPACITY.dim}
         textAnchor="end"
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         EAST CLIFF
       </text>
@@ -200,16 +235,30 @@ export function ThraxGeography() {
         d="M 400 100 Q 390 200 410 280 Q 400 380 400 480"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
         fill="none"
       />
-      <text x={410} y={280} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+      <text x={410} y={280} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         ACIS
       </text>
-      <text x={400} y={50} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={50}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         UPSTREAM ↑
       </text>
-      <text x={400} y={530} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={530}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         DOWNSTREAM ↓
       </text>
       {features.map(f => (
@@ -229,15 +278,15 @@ export function ThraxGeography() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={flash(f.id) ? OPACITY.fg : OPACITY.dim}
-            strokeWidth={flash(f.id) ? 1.6 : 1}
+            strokeWidth={flash(f.id) ? STROKE_EMPHASIS : STROKE_SECONDARY}
           />
           <text
             x={f.x}
             y={f.y + 4}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.12em"
+            letterSpacing={LS_MEDIUM}
           >
             {f.label}
           </text>
@@ -252,8 +301,8 @@ export function ThraxGeography() {
 export function VinculaCrossSection() {
   return (
     <Canvas w={800} h={520}>
-      <Label x={40} y={32} size={10}>
-        VINCULA · SLANTED SHAFT IN CLIFF · CH. I–III
+      <Label x={40} y={32} size={FONT_SMALL}>
+        VINCULA · SLANTED SHAFT IN CLIFF · §I–III
       </Label>
       <line
         x1={40}
@@ -262,10 +311,17 @@ export function VinculaCrossSection() {
         y2={70}
         stroke={FG}
         strokeOpacity={OPACITY.faint}
-        strokeWidth="0.6"
+        strokeWidth={STROKE_HAIR}
         strokeDasharray="2 4"
       />
-      <text x={40} y={62} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={40}
+        y={62}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         SKY
       </text>
       <path
@@ -274,7 +330,7 @@ export function VinculaCrossSection() {
         fillOpacity="0.03"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
       <line
         x1={40}
@@ -283,9 +339,16 @@ export function VinculaCrossSection() {
         y2={150}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
-      <text x={42} y={144} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={42}
+        y={144}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         STREET LEVEL
       </text>
       <rect
@@ -296,12 +359,26 @@ export function VinculaCrossSection() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.2"
+        strokeWidth={STROKE_PRIMARY}
       />
-      <text x={195} y={130} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.12em">
+      <text
+        x={195}
+        y={130}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        letterSpacing={LS_MEDIUM}
+      >
         BARTIZAN
       </text>
-      <text x={195} y={146} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={195}
+        y={146}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         Severian's quarters
       </text>
       <polygon
@@ -310,14 +387,14 @@ export function VinculaCrossSection() {
         fillOpacity="0.05"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
       <text
         x={380}
         y={290}
         fill={FG}
-        fontSize="10"
-        letterSpacing="0.16em"
+        fontSize={FONT_SMALL}
+        letterSpacing={LS_TITLE}
         transform="rotate(72 380 290)"
       >
         SHAFT
@@ -338,7 +415,7 @@ export function VinculaCrossSection() {
               y2={ly}
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
             <circle cx={rx - 6} cy={ry} r="4" fill={FG} opacity={OPACITY.fg} />
             <line
@@ -348,37 +425,58 @@ export function VinculaCrossSection() {
               y2={ry}
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
           </g>
         )
       })}
-      <text x={460} y={460} fill={FG} fontSize="10" letterSpacing="0.12em">
+      <text x={460} y={460} fill={FG} fontSize={FONT_SMALL} letterSpacing={LS_MEDIUM}>
         PRISONERS HUNG IN CHAINS
       </text>
       <g transform="translate(560,180)">
-        <text x={0} y={0} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={0}
+          y={0}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           SEVERIAN LIVES
         </text>
-        <text x={0} y={16} fill={FG} fontSize="11">
+        <text x={0} y={16} fill={FG} fontSize={FONT_LABEL}>
           above the shaft.
         </text>
-        <text x={0} y={50} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={0}
+          y={50}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           PRISONERS
         </text>
-        <text x={0} y={66} fill={FG} fontSize="11">
+        <text x={0} y={66} fill={FG} fontSize={FONT_LABEL}>
           hang below; he descends to feed,
         </text>
-        <text x={0} y={80} fill={FG} fontSize="11">
+        <text x={0} y={80} fill={FG} fontSize={FONT_LABEL}>
           unchain, kill, or release.
         </text>
-        <text x={0} y={114} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+        <text
+          x={0}
+          y={114}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          opacity={OPACITY.dim}
+          letterSpacing={LS_TITLE}
+        >
           CYRIACA
         </text>
-        <text x={0} y={130} fill={FG} fontSize="11">
+        <text x={0} y={130} fill={FG} fontSize={FONT_LABEL}>
           comes from the Archon's hall
         </text>
-        <text x={0} y={144} fill={FG} fontSize="11">
+        <text x={0} y={144} fill={FG} fontSize={FONT_LABEL}>
           to die. He frees her instead.
         </text>
       </g>
@@ -386,7 +484,7 @@ export function VinculaCrossSection() {
   )
 }
 
-// III.01.3 - Authority Web (Ch. I)
+// III.01.3 - Authority Web (§I)
 export function Ch01SeverianAuthorityWeb() {
   const [tip, setTip] = useTooltip()
   const nodes = {
@@ -403,7 +501,7 @@ export function Ch01SeverianAuthorityWeb() {
       y: 230,
       label: 'ARCHON',
       sub: 'Abdiesus',
-      cite: 'Ch. I',
+      cite: '§I',
       body: 'Hires Severian as lictor.\nGives the ridotto invitation.'
     },
     severian: {
@@ -411,7 +509,7 @@ export function Ch01SeverianAuthorityWeb() {
       y: 380,
       label: 'SEVERIAN',
       sub: 'lictor',
-      cite: 'Ch. I',
+      cite: '§I',
       body: "Carries out the Archon's will\non the prisoners of the Vincula."
     },
     palaemon: {
@@ -435,7 +533,7 @@ export function Ch01SeverianAuthorityWeb() {
       y: 500,
       label: 'Cyriaca',
       sub: 'condemned',
-      cite: 'Ch. III',
+      cite: '§III',
       body: 'Severian frees her instead of\nexecuting. Becomes his crime.'
     },
     dorcas: {
@@ -443,7 +541,7 @@ export function Ch01SeverianAuthorityWeb() {
       y: 500,
       label: 'Dorcas',
       sub: 'leaves him',
-      cite: 'Ch. II',
+      cite: '§II',
       body: 'Breaks down by the cistern;\nleaves for Nessus.'
     }
   }
@@ -457,8 +555,8 @@ export function Ch01SeverianAuthorityWeb() {
   ]
   return (
     <Canvas w={800} h={560}>
-      <Label x={40} y={32} size={10}>
-        AUTHORITY WEB · CH. I
+      <Label x={40} y={32} size={FONT_SMALL}>
+        AUTHORITY WEB · §I
       </Label>
       {edges.map(([a, b, rel], i) => (
         <g key={i}>
@@ -469,17 +567,17 @@ export function Ch01SeverianAuthorityWeb() {
             y2={nodes[b].y}
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="1"
+            strokeWidth={STROKE_SECONDARY}
             strokeDasharray={a === 'claw' ? '3 3' : null}
           />
           <text
             x={(nodes[a].x + nodes[b].x) / 2}
             y={(nodes[a].y + nodes[b].y) / 2 - 4}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {rel}
           </text>
@@ -501,15 +599,15 @@ export function Ch01SeverianAuthorityWeb() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth={k === 'severian' ? 1.6 : 1.2}
+            strokeWidth={k === 'severian' ? STROKE_EMPHASIS : STROKE_PRIMARY}
           />
           <text
             x={n.x}
             y={n.y + (k === 'severian' ? 28 : 22)}
             fill={FG}
-            fontSize={k === 'severian' ? 11 : 10}
+            fontSize={k === 'severian' ? FONT_LABEL : FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.1em"
+            letterSpacing={LS_OPEN}
           >
             {n.label}
           </text>
@@ -517,7 +615,7 @@ export function Ch01SeverianAuthorityWeb() {
             x={n.x}
             y={n.y + (k === 'severian' ? 44 : 38)}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -531,7 +629,7 @@ export function Ch01SeverianAuthorityWeb() {
   )
 }
 
-// III.01.4 - Structure Diagram (Ch. I)
+// III.01.4 - Structure Diagram (§I)
 export function Ch01StructureDiagram() {
   const scenes = [
     { id: 1, label: "Dorcas's breakdown", cite: '§1', mood: 0.25 },
@@ -542,8 +640,8 @@ export function Ch01StructureDiagram() {
   ]
   return (
     <Canvas w={800} h={360}>
-      <Label x={40} y={32} size={10}>
-        CHAPTER I · FIVE SCENES
+      <Label x={40} y={32} size={FONT_SMALL}>
+        SECTION I · FIVE SCENES
       </Label>
       {scenes.map((s, i) => {
         const x = 80 + i * 150
@@ -557,23 +655,37 @@ export function Ch01StructureDiagram() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="1"
+              strokeWidth={STROKE_SECONDARY}
             />
             <text
               x={x}
               y={108}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
-              letterSpacing="0.16em"
+              letterSpacing={LS_TITLE}
               opacity={OPACITY.dim}
             >
               {`§${s.id}`}
             </text>
-            <text x={x} y={150} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.08em">
+            <text
+              x={x}
+              y={150}
+              fill={FG}
+              fontSize={FONT_LABEL}
+              textAnchor="middle"
+              letterSpacing={LS_LABEL}
+            >
               {s.label}
             </text>
-            <text x={x} y={172} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+            <text
+              x={x}
+              y={172}
+              fill={FG}
+              fontSize={FONT_SMALL}
+              textAnchor="middle"
+              opacity={OPACITY.dim}
+            >
               {s.cite}
             </text>
             {i < scenes.length - 1 && (
@@ -584,26 +696,33 @@ export function Ch01StructureDiagram() {
                 y2={153}
                 stroke={FG}
                 strokeOpacity={OPACITY.dim}
-                strokeWidth="1"
+                strokeWidth={STROKE_SECONDARY}
               />
             )}
           </g>
         )
       })}
-      <text x={40} y={240} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={240}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         ARC SHAPE
       </text>
-      <text x={40} y={258} fill={FG} fontSize="11">
+      <text x={40} y={258} fill={FG} fontSize={FONT_LABEL}>
         descent into fracture → pivot at the jacal → return through ceremony
       </text>
-      <text x={40} y={278} fill={FG} fontSize="10" opacity={OPACITY.dim}>
-        The unused Claw is the chapter's hinge: Severian could have healed Dorcas at §3.
+      <text x={40} y={278} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
+        The unused Claw is the section's hinge: Severian could have healed Dorcas at §3.
       </text>
     </Canvas>
   )
 }
 
-// III.02.1 - Emotional Arc (Ch. II)
+// III.02.1 - Emotional Arc (§II)
 export function Ch02EmotionalArc() {
   const beats = [
     { x: 0, y: 0.35, label: 'Dorcas leaves' },
@@ -614,7 +733,7 @@ export function Ch02EmotionalArc() {
     { x: 7, y: 0.15, label: 'Salamander' },
     { x: 8, y: 0.4, label: 'flight' }
   ]
-  return <ArcChart beats={beats} title="EMOTIONAL ARC · CH. II - IX" />
+  return <ArcChart beats={beats} title="EMOTIONAL ARC · §II - IX" />
 }
 
 // III.02.2 - Lost Archives Cosmogony
@@ -642,8 +761,8 @@ export function LostArchivesCosmogony() {
   ]
   return (
     <Canvas w={800} h={420}>
-      <Label x={40} y={32} size={10}>
-        CYRIACA'S UNCLE'S COSMOGONY · LOST ARCHIVES · CH. II
+      <Label x={40} y={32} size={FONT_SMALL}>
+        CYRIACA'S UNCLE'S COSMOGONY · LOST ARCHIVES · §II
       </Label>
       {stages.map((s, i) => {
         const x = 80 + i * 170
@@ -657,19 +776,19 @@ export function LostArchivesCosmogony() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1.2"
+              strokeWidth={STROKE_PRIMARY}
             />
             <text
               x={x + 12}
               y={140}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               opacity={OPACITY.dim}
-              letterSpacing="0.16em"
+              letterSpacing={LS_TITLE}
             >
               STAGE {s.id}
             </text>
-            <text x={x + 12} y={162} fill={FG} fontSize="13" letterSpacing="0.14em">
+            <text x={x + 12} y={162} fill={FG} fontSize={FONT_TEX} letterSpacing={LS_UPPER}>
               {s.label}
             </text>
             {s.body.split('\n').map((ln, j) => (
@@ -678,7 +797,7 @@ export function LostArchivesCosmogony() {
                 x={x + 12}
                 y={186 + j * 14}
                 fill={FG}
-                fontSize="10"
+                fontSize={FONT_SMALL}
                 opacity={OPACITY.dim}
               >
                 {ln}
@@ -693,24 +812,31 @@ export function LostArchivesCosmogony() {
                   y2={195}
                   stroke={FG}
                   strokeOpacity={OPACITY.fg}
-                  strokeWidth="1"
+                  strokeWidth={STROKE_SECONDARY}
                 />
                 <polyline
                   points={`${x + 162},${190} ${x + 170},${195} ${x + 162},${200}`}
                   fill="none"
                   stroke={FG}
                   strokeOpacity={OPACITY.fg}
-                  strokeWidth="1"
+                  strokeWidth={STROKE_SECONDARY}
                 />
               </g>
             )}
           </g>
         )
       })}
-      <text x={40} y={340} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={340}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         PHYSICAL RESIDUE
       </text>
-      <text x={40} y={356} fill={FG} fontSize="11">
+      <text x={40} y={356} fill={FG} fontSize={FONT_LABEL}>
         the lost archives - Cyriaca's vault - is what's left.
       </text>
     </Canvas>
@@ -721,8 +847,8 @@ export function LostArchivesCosmogony() {
 export function ClawDualFailure() {
   return (
     <Canvas w={800} h={460}>
-      <Label x={40} y={32} size={10}>
-        THE SALAMANDER · DUAL FAILURE · CH. IX
+      <Label x={40} y={32} size={FONT_SMALL}>
+        THE SALAMANDER · DUAL FAILURE · §IX
       </Label>
       <g>
         <circle
@@ -732,12 +858,26 @@ export function ClawDualFailure() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x={400} y={228} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={400}
+          y={228}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           SALAMANDER
         </text>
-        <text x={400} y={246} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={246}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           heat-flower
         </text>
       </g>
@@ -750,15 +890,36 @@ export function ClawDualFailure() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={150} y={202} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.16em">
+        <text
+          x={150}
+          y={202}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
           TERMINUS EST
         </text>
-        <text x={150} y={222} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={150}
+          y={222}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           discarded
         </text>
-        <text x={150} y={244} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={150}
+          y={244}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           "useless against this"
         </text>
       </g>
@@ -771,7 +932,14 @@ export function ClawDualFailure() {
         strokeOpacity={OPACITY.dim}
         strokeDasharray="3 3"
       />
-      <text x={290} y={216} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={290}
+        y={216}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         fails
       </text>
       <g>
@@ -783,15 +951,36 @@ export function ClawDualFailure() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={650} y={202} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.16em">
+        <text
+          x={650}
+          y={202}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
           CLAW
         </text>
-        <text x={650} y={222} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={650}
+          y={222}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           raised aloft
         </text>
-        <text x={650} y={244} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={650}
+          y={244}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           "last resort"
         </text>
       </g>
@@ -804,7 +993,14 @@ export function ClawDualFailure() {
         strokeOpacity={OPACITY.dim}
         strokeDasharray="3 3"
       />
-      <text x={512} y={216} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={512}
+        y={216}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         fails
       </text>
       <line
@@ -814,7 +1010,7 @@ export function ClawDualFailure() {
         y2={340}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.2"
+        strokeWidth={STROKE_PRIMARY}
       />
       <polyline
         points="394,332 400,340 406,332"
@@ -830,12 +1026,26 @@ export function ClawDualFailure() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
-      <text x={400} y={362} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+      <text
+        x={400}
+        y={362}
+        fill={FG}
+        fontSize={FONT_LABEL}
+        textAnchor="middle"
+        letterSpacing={LS_UPPER}
+      >
         FALLS THROUGH THE FLOOR
       </text>
-      <text x={400} y={380} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={380}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         killed by its own fire - not by sword, not by miracle
       </text>
     </Canvas>
@@ -847,11 +1057,11 @@ export function SalamanderAnatomy() {
   return (
     <Canvas w={800} h={480}>
       <Hatch id="sal-heat" angle={45} gap={3} opacity={0.1} />
-      <Label x={40} y={32} size={10}>
-        SALAMANDER · A REPTILIAN FLOWER OF GLOWING GAUZE · CH. IX
+      <Label x={40} y={32} size={FONT_SMALL}>
+        SALAMANDER · A REPTILIAN FLOWER OF GLOWING GAUZE · §IX
       </Label>
       <g transform="translate(400,260)">
-        <Rays cx={0} cy={0} r0={92} r1={170} count={36} opacity={0.4} strokeWidth={0.5} />
+        <Rays cx={0} cy={0} r0={92} r1={170} count={36} opacity={0.4} strokeWidth={STROKE_HAIR} />
         {[110, 134, 162].map((rr, i) => (
           <circle
             key={i}
@@ -861,7 +1071,7 @@ export function SalamanderAnatomy() {
             fill="none"
             stroke={FG}
             strokeOpacity={0.18 - i * 0.04}
-            strokeWidth="0.4"
+            strokeWidth={STROKE_HAIR}
             strokeDasharray="3 4"
           />
         ))}
@@ -872,7 +1082,7 @@ export function SalamanderAnatomy() {
           fill="url(#sal-heat)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         {Array.from({ length: 14 }).map((_, i) => {
           const a = (i / 14) * Math.PI * 2
@@ -885,7 +1095,7 @@ export function SalamanderAnatomy() {
               y2={Math.sin(a) * 70}
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.5"
+              strokeWidth={STROKE_HAIR}
             />
           )
         })}
@@ -902,7 +1112,7 @@ export function SalamanderAnatomy() {
                 fill="none"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1.2"
+                strokeWidth={STROKE_PRIMARY}
               />
               <path
                 d={`M ${Math.cos(a) * 50} ${Math.sin(a) * 50}
@@ -911,7 +1121,7 @@ export function SalamanderAnatomy() {
                 fill="none"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1.2"
+                strokeWidth={STROKE_PRIMARY}
               />
               <line
                 x1={Math.cos(a) * 50}
@@ -920,7 +1130,7 @@ export function SalamanderAnatomy() {
                 y2={Math.sin(a) * 115}
                 stroke={FG}
                 strokeOpacity={OPACITY.dim}
-                strokeWidth="0.5"
+                strokeWidth={STROKE_HAIR}
               />
               <polygon
                 points={`${Math.cos(a) * 110 - 3} ${Math.sin(a) * 110}
@@ -940,7 +1150,7 @@ export function SalamanderAnatomy() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         <ellipse
           cx={8}
@@ -950,7 +1160,7 @@ export function SalamanderAnatomy() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         <circle cx={-8} cy={-4} r="1" fill={FG} opacity={OPACITY.fg} />
         <circle cx={8} cy={-4} r="1" fill={FG} opacity={OPACITY.fg} />
@@ -1001,16 +1211,16 @@ export function SalamanderAnatomy() {
             y2={lbl.to[1]}
             stroke={FG}
             strokeOpacity={OPACITY.faint}
-            strokeWidth="0.6"
+            strokeWidth={STROKE_HAIR}
           />
           <circle cx={lbl.from[0]} cy={lbl.from[1]} r={1.5} fill={FG} opacity={OPACITY.dim} />
           <text
             x={lbl.to[0]}
             y={lbl.to[1] - 2}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor={lbl.to[0] < 400 ? 'start' : 'end'}
-            letterSpacing="0.12em"
+            letterSpacing={LS_MEDIUM}
           >
             {lbl.label}
           </text>
@@ -1018,7 +1228,7 @@ export function SalamanderAnatomy() {
             x={lbl.to[0]}
             y={lbl.to[1] + 12}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor={lbl.to[0] < 400 ? 'start' : 'end'}
             opacity={OPACITY.dim}
           >
@@ -1030,18 +1240,18 @@ export function SalamanderAnatomy() {
         x={400}
         y={444}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
       >
-        ANATOMY FROM CH. IX - NOT FROM TRADITION
+        ANATOMY FROM §IX - NOT FROM TRADITION
       </text>
     </Canvas>
   )
 }
 
-// III.03.1 - Emotional Arc (Ch. XIII)
+// III.03.1 - Emotional Arc (§XIII)
 export function Ch03EmotionalArc() {
   const beats = [
     { x: 0, y: 0.45, label: 'leaving Thrax' },
@@ -1051,10 +1261,10 @@ export function Ch03EmotionalArc() {
     { x: 6, y: 0.8, label: 'star-stones · cosmic' },
     { x: 7.5, y: 0.4, label: 'descent to fields' }
   ]
-  return <ArcChart beats={beats} title="EMOTIONAL ARC · CH. XIII - XIV" />
+  return <ArcChart beats={beats} title="EMOTIONAL ARC · §XIII - XIV" />
 }
 
-// III.03.2 - Severian Relationship Web (Ch. XIII)
+// III.03.2 - Severian Relationship Web (§XIII)
 export function SeverianRelationshipWeb() {
   const [tip, setTip] = useTooltip()
   const nodes = {
@@ -1064,7 +1274,7 @@ export function SeverianRelationshipWeb() {
       y: 160,
       label: 'Dorcas',
       sub: 'left in Thrax',
-      cite: 'Ch. II',
+      cite: '§II',
       body: 'He carries her absence north.'
     },
     cyriaca: {
@@ -1072,7 +1282,7 @@ export function SeverianRelationshipWeb() {
       y: 80,
       label: 'Cyriaca',
       sub: 'freed',
-      cite: 'Ch. III',
+      cite: '§III',
       body: 'Her freeing put him in flight.'
     },
     thecla: {
@@ -1080,7 +1290,7 @@ export function SeverianRelationshipWeb() {
       y: 380,
       label: 'Thecla',
       sub: 'within',
-      cite: 'Ch. VI Bk II',
+      cite: '§VI Bk II',
       body: 'Still inside; speaks at intervals.'
     },
     archon: {
@@ -1088,7 +1298,7 @@ export function SeverianRelationshipWeb() {
       y: 80,
       label: 'Abdiesus',
       sub: 'sought him',
-      cite: 'Ch. III',
+      cite: '§III',
       body: 'Sends Mamillian after Severian.'
     },
     claw: {
@@ -1104,8 +1314,8 @@ export function SeverianRelationshipWeb() {
       y: 400,
       label: 'small Severian',
       sub: 'just ahead',
-      cite: 'Ch. XV–XIX',
-      body: 'Will be encountered\nin the next chapter cluster.'
+      cite: '§XV–XIX',
+      body: 'Will be encountered\nin the next section cluster.'
     }
   }
   const edges = [
@@ -1118,8 +1328,8 @@ export function SeverianRelationshipWeb() {
   ]
   return (
     <Canvas w={800} h={520}>
-      <Label x={40} y={32} size={10}>
-        RELATIONSHIP WEB · CH. XIII
+      <Label x={40} y={32} size={FONT_SMALL}>
+        RELATIONSHIP WEB · §XIII
       </Label>
       {edges.map(([a, b, kind], i) => (
         <line
@@ -1130,7 +1340,7 @@ export function SeverianRelationshipWeb() {
           y2={nodes[b].y}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
           strokeDasharray={kind === 'dash' ? '4 4' : null}
         />
       ))}
@@ -1152,15 +1362,15 @@ export function SeverianRelationshipWeb() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth={k === 'sev' ? 1.6 : 1}
+            strokeWidth={k === 'sev' ? STROKE_EMPHASIS : STROKE_SECONDARY}
           />
           <text
             x={n.x}
             y={n.y + (k === 'sev' ? 28 : 22)}
             fill={FG}
-            fontSize={k === 'sev' ? 11 : 10}
+            fontSize={k === 'sev' ? FONT_LABEL : FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {n.label}
           </text>
@@ -1169,7 +1379,7 @@ export function SeverianRelationshipWeb() {
               x={n.x}
               y={n.y + (k === 'sev' ? 44 : 36)}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.dim}
             >
@@ -1179,7 +1389,14 @@ export function SeverianRelationshipWeb() {
           <circle cx={n.x} cy={n.y} r="22" fill="transparent" />
         </g>
       ))}
-      <text x={40} y={500} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={500}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         SOLID = ACTION · DASHED = MEMORY / OBLIGATION
       </text>
       <Tooltip tip={tip} />
@@ -1198,8 +1415,8 @@ export function CliffStrata() {
   ]
   return (
     <Canvas w={800} h={500}>
-      <Label x={40} y={32} size={10}>
-        CLIFF STRATA · CH. XIII · PAGES 21–24
+      <Label x={40} y={32} size={FONT_SMALL}>
+        CLIFF STRATA · §XIII · PAGES 21–24
       </Label>
       {strata.map((s, i) => (
         <g key={i}>
@@ -1211,12 +1428,12 @@ export function CliffStrata() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth={i === 2 ? 1.6 : 0.8}
+            strokeWidth={i === 2 ? STROKE_EMPHASIS : STROKE_GUIDE}
           />
-          <text x={132} y={s.y + 22} fill={FG} fontSize="11" letterSpacing="0.12em">
+          <text x={132} y={s.y + 22} fill={FG} fontSize={FONT_LABEL} letterSpacing={LS_MEDIUM}>
             {s.label}
           </text>
-          <text x={132} y={s.y + 42} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+          <text x={132} y={s.y + 42} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
             {s.sub}
           </text>
           {Array.from({ length: 14 }).map((_, j) => (
@@ -1228,7 +1445,7 @@ export function CliffStrata() {
               y2={s.y + 60}
               stroke={FG}
               strokeOpacity={OPACITY.faint * 0.6}
-              strokeWidth="0.4"
+              strokeWidth={STROKE_HAIR}
             />
           ))}
         </g>
@@ -1238,24 +1455,31 @@ export function CliffStrata() {
         fill="none"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       <circle cx={460} cy={100} r="5" fill={FG} />
-      <text x={520} y={100} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+      <text x={520} y={100} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         start
       </text>
       <circle cx={460} cy={460} r="5" fill={FG} />
-      <text x={520} y={460} fill={FG} fontSize="10" opacity={OPACITY.dim}>
+      <text x={520} y={460} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         fields
       </text>
-      <text x={580} y={272} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={580}
+        y={272}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         SEVERIAN'S DESCENT
       </text>
     </Canvas>
   )
 }
 
-// III.04.1 - Emotional Arc (Ch. XV–XIX)
+// III.04.1 - Emotional Arc (§XV–XIX)
 export function Ch04EmotionalArc() {
   const beats = [
     { x: 0, y: 0.7, label: "Casdoe's hearth" },
@@ -1267,7 +1491,7 @@ export function Ch04EmotionalArc() {
     { x: 6, y: 0.5, label: 'analept' },
     { x: 7, y: 0.2, label: 'boy dies' }
   ]
-  return <ArcChart beats={beats} title="EMOTIONAL ARC · CH. XV - XIX" />
+  return <ArcChart beats={beats} title="EMOTIONAL ARC · §XV - XIX" />
 }
 
 // III.04.2 - Casdoe House Character Web
@@ -1279,7 +1503,7 @@ export function CasdoeHouseCharacterWeb() {
       y: 120,
       label: 'Casdoe',
       sub: 'mother',
-      cite: 'Ch. XV',
+      cite: '§XV',
       body: 'Receives Severian.\nHer husband Becan was lost.'
     },
     becan: {
@@ -1287,7 +1511,7 @@ export function CasdoeHouseCharacterWeb() {
       y: 200,
       label: 'Becan',
       sub: 'dead · alzabo voice',
-      cite: 'Ch. XVI',
+      cite: '§XVI',
       body: 'Speaks through the alzabo;\nasks to be let in.'
     },
     grand: {
@@ -1295,7 +1519,7 @@ export function CasdoeHouseCharacterWeb() {
       y: 200,
       label: 'old man',
       sub: "Casdoe's father",
-      cite: 'Ch. XVI',
+      cite: '§XVI',
       body: 'Killed when the alzabo\nbreaks in.'
     },
     boy: {
@@ -1303,7 +1527,7 @@ export function CasdoeHouseCharacterWeb() {
       y: 260,
       label: 'Severian (small)',
       sub: 'son',
-      cite: 'Ch. XV–XIX',
+      cite: '§XV–XIX',
       body: "Severian's namesake; he\nadopts him after Casdoe dies."
     },
     sev: {
@@ -1311,7 +1535,7 @@ export function CasdoeHouseCharacterWeb() {
       y: 400,
       label: 'SEVERIAN',
       sub: 'guest',
-      cite: 'Ch. XV',
+      cite: '§XV',
       body: 'Stays the night;\nfights the alzabo at dawn.'
     },
     alzabo: {
@@ -1319,7 +1543,7 @@ export function CasdoeHouseCharacterWeb() {
       y: 340,
       label: 'ALZABO',
       sub: 'remembers Becan',
-      cite: 'Ch. XVI–XVII',
+      cite: '§XVI–XVII',
       body: 'Bear-like; remembers every-\nthing it has eaten.'
     }
   }
@@ -1336,8 +1560,8 @@ export function CasdoeHouseCharacterWeb() {
   ]
   return (
     <Canvas w={800} h={480}>
-      <Label x={40} y={32} size={10}>
-        CASDOE HOUSE · CH. XV–XIX
+      <Label x={40} y={32} size={FONT_SMALL}>
+        CASDOE HOUSE · §XV–XIX
       </Label>
       {edges.map(([a, b, kind], i) => (
         <line
@@ -1348,7 +1572,7 @@ export function CasdoeHouseCharacterWeb() {
           y2={nodes[b].y}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
           strokeDasharray={kind === 'dash' ? '4 4' : null}
         />
       ))}
@@ -1368,15 +1592,15 @@ export function CasdoeHouseCharacterWeb() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth={k === 'sev' ? 1.6 : 1}
+            strokeWidth={k === 'sev' ? STROKE_EMPHASIS : STROKE_SECONDARY}
           />
           <text
             x={n.x}
             y={n.y + (k === 'sev' || k === 'alzabo' ? 28 : 22)}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {n.label}
           </text>
@@ -1384,7 +1608,7 @@ export function CasdoeHouseCharacterWeb() {
             x={n.x}
             y={n.y + (k === 'sev' || k === 'alzabo' ? 42 : 36)}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -1393,7 +1617,14 @@ export function CasdoeHouseCharacterWeb() {
           <circle cx={n.x} cy={n.y} r="22" fill="transparent" />
         </g>
       ))}
-      <text x={40} y={450} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={450}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         SOLID = LIVING / ACTION · DASHED = ABSENCE / VOICE
       </text>
       <Tooltip tip={tip} />
@@ -1415,7 +1646,7 @@ export function AlzaboVoiceMechanism() {
   ]
   return (
     <Canvas w={800} h={460}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         ALZABO MECHANISM (TOP) · ANALEPT MECHANISM (BOTTOM)
       </Label>
       {[
@@ -1427,9 +1658,9 @@ export function AlzaboVoiceMechanism() {
             x={40}
             y={y - 10}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             opacity={OPACITY.dim}
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
           >
             {label}
           </text>
@@ -1443,15 +1674,15 @@ export function AlzaboVoiceMechanism() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.dim}
-                strokeWidth="1"
+                strokeWidth={STROKE_SECONDARY}
               />
               <text
                 x={s.x}
                 y={y + 22}
                 fill={FG}
-                fontSize="11"
+                fontSize={FONT_LABEL}
                 textAnchor="middle"
-                letterSpacing="0.12em"
+                letterSpacing={LS_MEDIUM}
               >
                 {s.label}
               </text>
@@ -1461,7 +1692,7 @@ export function AlzaboVoiceMechanism() {
                   x={s.x}
                   y={y + 44 + j * 14}
                   fill={FG}
-                  fontSize="9"
+                  fontSize={FONT_SMALL}
                   textAnchor="middle"
                   opacity={OPACITY.dim}
                 >
@@ -1477,7 +1708,7 @@ export function AlzaboVoiceMechanism() {
                     y2={y + 35}
                     stroke={FG}
                     strokeOpacity={OPACITY.fg}
-                    strokeWidth="1"
+                    strokeWidth={STROKE_SECONDARY}
                   />
                   <polyline
                     points={`${stages[i + 1].x - 88},${y + 30} ${stages[i + 1].x - 80},${y + 35} ${stages[i + 1].x - 88},${y + 40}`}
@@ -1495,14 +1726,21 @@ export function AlzaboVoiceMechanism() {
         x={400}
         y={400}
         fill={FG}
-        fontSize="11"
+        fontSize={FONT_LABEL}
         textAnchor="middle"
         opacity={OPACITY.fg}
-        letterSpacing="0.14em"
+        letterSpacing={LS_UPPER}
       >
         a mind, or only a voice?
       </text>
-      <text x={400} y={420} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={420}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         the volume asks of both mechanisms exactly this question
       </text>
     </Canvas>
@@ -1517,35 +1755,35 @@ export function TyphonMountainAscent() {
       y: 440,
       x: 400,
       label: 'JUNGLE BASE',
-      cite: 'Ch. XXII',
+      cite: '§XXII',
       body: 'Foliage smothers the highway.\nSeverian climbs upward.'
     },
     {
       y: 380,
       x: 380,
       label: 'THE HIGHWAY',
-      cite: 'Ch. XXII',
+      cite: '§XXII',
       body: "Built ages ago - its scale\nspeaks of the past's reach."
     },
     {
       y: 300,
       x: 360,
       label: 'THE RING',
-      cite: 'Ch. XXIII',
+      cite: '§XXIII',
       body: "Wedding ring on a giant's finger.\nDeath, vast and ornamented."
     },
     {
       y: 230,
       x: 330,
       label: 'THE LAP-TOWN',
-      cite: 'Ch. XXIII',
+      cite: '§XXIII',
       body: "A whole town on the giant's lap.\nPower, lived in."
     },
     {
       y: 140,
       x: 380,
       label: 'THE EYES',
-      cite: 'Ch. XXIV',
+      cite: '§XXIV',
       body: "Typhon's offer: rule with me.\nTyranny made visible."
     }
   ]
@@ -1553,8 +1791,8 @@ export function TyphonMountainAscent() {
     <Canvas w={800} h={560}>
       <Hatch id="ty-stone" angle={20} gap={5} opacity={0.13} />
       <Hatch id="ty-jungle" angle={70} gap={4} opacity={0.1} />
-      <Label x={40} y={32} size={10}>
-        TYPHON · CARVED MOUNTAIN · CH. XXII–XXVI
+      <Label x={40} y={32} size={FONT_SMALL}>
+        TYPHON · CARVED MOUNTAIN · §XXII–XXVI
       </Label>
 
       <Stipple x={40} y={50} w={720} h={120} n={60} seed={211} opacity={0.3} r={0.5} />
@@ -1564,7 +1802,7 @@ export function TyphonMountainAscent() {
         fill="url(#ty-stone)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
 
       <path
@@ -1572,7 +1810,7 @@ export function TyphonMountainAscent() {
         fill="none"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="0.8"
+        strokeWidth={STROKE_GUIDE}
       />
       <ellipse
         cx={395}
@@ -1582,10 +1820,10 @@ export function TyphonMountainAscent() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.2"
+        strokeWidth={STROKE_PRIMARY}
       />
       <circle cx={395} cy={158} r="3" fill={FG} opacity={OPACITY.fg} />
-      <Rays cx={395} cy={158} r0={5} r1={14} count={10} opacity={0.5} strokeWidth={0.4} />
+      <Rays cx={395} cy={158} r0={5} r1={14} count={10} opacity={0.5} strokeWidth={STROKE_HAIR} />
       <ellipse
         cx={420}
         cy={156}
@@ -1594,7 +1832,7 @@ export function TyphonMountainAscent() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
       <path
         d="M 440 175 L 446 200 L 442 210 L 438 200 Z"
@@ -1602,21 +1840,21 @@ export function TyphonMountainAscent() {
         fillOpacity={0.1}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="0.8"
+        strokeWidth={STROKE_GUIDE}
       />
       <path
         d="M 426 222 Q 436 228 442 224 Q 438 232 432 230 Z"
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="0.7"
+        strokeWidth={STROKE_GUIDE}
       />
       <path
         d="M 422 234 Q 426 256 416 274"
         fill="none"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="0.6"
+        strokeWidth={STROKE_HAIR}
       />
 
       {[230, 260, 290, 330, 380, 430, 470].map((sy, i) => (
@@ -1626,7 +1864,7 @@ export function TyphonMountainAscent() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.faint * 1.3}
-          strokeWidth="0.5"
+          strokeWidth={STROKE_HAIR}
         />
       ))}
 
@@ -1645,14 +1883,14 @@ export function TyphonMountainAscent() {
               y2={y - h * 0.4}
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
             <path
               d={`M ${x - 6} ${y - h * 0.2} Q ${x} ${y - h} ${x + 6} ${y - h * 0.2} Z`}
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
           </g>
         )
@@ -1662,11 +1900,18 @@ export function TyphonMountainAscent() {
         d="M 600 510 L 540 460 L 480 410 L 460 360 L 440 310"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="2"
+        strokeWidth={STROKE_EMPHASIS}
         fill="none"
         strokeDasharray="5 4"
       />
-      <text x={620} y={490} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={620}
+        y={490}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         THE HIGHWAY
       </text>
 
@@ -1679,7 +1924,7 @@ export function TyphonMountainAscent() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.5"
+          strokeWidth={STROKE_HAIR}
         />
         <rect
           x={332}
@@ -1689,7 +1934,7 @@ export function TyphonMountainAscent() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.5"
+          strokeWidth={STROKE_HAIR}
         />
         <rect
           x={338}
@@ -1699,7 +1944,7 @@ export function TyphonMountainAscent() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.5"
+          strokeWidth={STROKE_HAIR}
         />
         <rect
           x={346}
@@ -1709,7 +1954,7 @@ export function TyphonMountainAscent() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.5"
+          strokeWidth={STROKE_HAIR}
         />
       </g>
 
@@ -1722,7 +1967,7 @@ export function TyphonMountainAscent() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <ellipse
           cx={300}
@@ -1732,7 +1977,7 @@ export function TyphonMountainAscent() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
       </g>
 
@@ -1741,13 +1986,13 @@ export function TyphonMountainAscent() {
         fill="none"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       <circle cx={395} cy={162} r="4" fill={FG} />
       <g transform="translate(395 162)">
         <circle cx={0} cy={0} r="2.4" fill={FG} />
-        <line x1={0} y1={2} x2={-3} y2={8} stroke={FG} strokeWidth="0.8" />
-        <line x1={0} y1={2} x2={3} y2={8} stroke={FG} strokeWidth="0.8" />
+        <line x1={0} y1={2} x2={-3} y2={8} stroke={FG} strokeWidth={STROKE_GUIDE} />
+        <line x1={0} y1={2} x2={3} y2={8} stroke={FG} strokeWidth={STROKE_GUIDE} />
       </g>
 
       {stages.map((s, i) => (
@@ -1766,20 +2011,27 @@ export function TyphonMountainAscent() {
             y2={s.y}
             stroke={FG}
             strokeOpacity={OPACITY.faint}
-            strokeWidth="0.6"
+            strokeWidth={STROKE_HAIR}
             strokeDasharray="2 4"
           />
           <circle cx={s.x} cy={s.y} r={3} fill={FG} opacity={OPACITY.fg} />
-          <text x={596} y={s.y - 6} fill={FG} fontSize="11" letterSpacing="0.12em">
+          <text x={596} y={s.y - 6} fill={FG} fontSize={FONT_LABEL} letterSpacing={LS_MEDIUM}>
             {s.label}
           </text>
-          <text x={596} y={s.y + 8} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+          <text x={596} y={s.y + 8} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
             {s.cite}
           </text>
         </g>
       ))}
 
-      <text x={40} y={540} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+      <text
+        x={40}
+        y={540}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_TITLE}
+      >
         SEVERIAN CLIMBS THE BODY OF A SCULPTED GIANT
       </text>
       <Tooltip tip={tip} />
@@ -1791,8 +2043,8 @@ export function TyphonMountainAscent() {
 export function TyphonPiatonDuality() {
   return (
     <Canvas w={800} h={460}>
-      <Label x={40} y={32} size={10}>
-        TWO HEADS ON ONE BODY · CH. XXIV–XXVI
+      <Label x={40} y={32} size={FONT_SMALL}>
+        TWO HEADS ON ONE BODY · §XXIV–XXVI
       </Label>
       <rect
         x={300}
@@ -1802,18 +2054,46 @@ export function TyphonPiatonDuality() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
-      <text x={400} y={310} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+      <text
+        x={400}
+        y={310}
+        fill={FG}
+        fontSize={FONT_LABEL}
+        textAnchor="middle"
+        letterSpacing={LS_UPPER}
+      >
         SHARED BODY
       </text>
-      <text x={400} y={332} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={332}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         (Piaton's, originally)
       </text>
-      <text x={400} y={368} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={368}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         HEART · PIATON'S
       </text>
-      <text x={400} y={386} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={386}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         graft never completed
       </text>
       <g>
@@ -1824,12 +2104,26 @@ export function TyphonPiatonDuality() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={280} y={156} fill={FG} fontSize="12" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={280}
+          y={156}
+          fill={FG}
+          fontSize={FONT_TITLE}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           TYPHON
         </text>
-        <text x={280} y={176} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={280}
+          y={176}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           master · the will
         </text>
         <line
@@ -1839,7 +2133,7 @@ export function TyphonPiatonDuality() {
           y2={240}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
       </g>
       <g>
@@ -1850,12 +2144,26 @@ export function TyphonPiatonDuality() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={520} y={156} fill={FG} fontSize="12" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={520}
+          y={156}
+          fill={FG}
+          fontSize={FONT_TITLE}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           PIATON
         </text>
-        <text x={520} y={176} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={520}
+          y={176}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           slave · the heart
         </text>
         <line
@@ -1865,17 +2173,17 @@ export function TyphonPiatonDuality() {
           y2={240}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
       </g>
       <text
         x={400}
         y={60}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
       >
         SEVERIAN'S NOSE-STRIKE
       </text>
@@ -1886,7 +2194,7 @@ export function TyphonPiatonDuality() {
         y2={108}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
       <polyline
         points="394,100 400,108 406,100"
@@ -1901,12 +2209,12 @@ export function TyphonPiatonDuality() {
         y2={140}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
-      <text x={544} y={110} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+      <text x={544} y={110} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         kills Piaton, not Typhon -
       </text>
-      <text x={544} y={124} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+      <text x={544} y={124} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         the heart fails together.
       </text>
     </Canvas>
@@ -1917,8 +2225,8 @@ export function TyphonPiatonDuality() {
 export function Ch06ClawAuthorityWeb() {
   return (
     <Canvas w={800} h={460}>
-      <Label x={40} y={32} size={10}>
-        CLAW'S AUTHORITY · CH. XXIV vs XXVI
+      <Label x={40} y={32} size={FONT_SMALL}>
+        CLAW'S AUTHORITY · §XXIV vs XXVI
       </Label>
       <g>
         <circle
@@ -1928,12 +2236,26 @@ export function Ch06ClawAuthorityWeb() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={400} y={228} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={400}
+          y={228}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           CLAW
         </text>
-        <text x={400} y={246} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={400}
+          y={246}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           Conciliator's
         </text>
       </g>
@@ -1946,18 +2268,39 @@ export function Ch06ClawAuthorityWeb() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={160} y={194} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.16em">
-          CH. XXIV
+        <text
+          x={160}
+          y={194}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
+          §XXIV
         </text>
-        <text x={160} y={222} fill={FG} fontSize="11" textAnchor="middle">
+        <text x={160} y={222} fill={FG} fontSize={FONT_LABEL} textAnchor="middle">
           REFUSES
         </text>
-        <text x={160} y={246} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={160}
+          y={246}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           to revive the boy
         </text>
-        <text x={160} y={262} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={160}
+          y={262}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           on demand
         </text>
       </g>
@@ -1979,18 +2322,39 @@ export function Ch06ClawAuthorityWeb() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
-        <text x={640} y={194} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.16em">
-          CH. XXVI
+        <text
+          x={640}
+          y={194}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
+          §XXVI
         </text>
-        <text x={640} y={222} fill={FG} fontSize="11" textAnchor="middle">
+        <text x={640} y={222} fill={FG} fontSize={FONT_LABEL} textAnchor="middle">
           COMMANDS
         </text>
-        <text x={640} y={246} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={640}
+          y={246}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           cataphracts salute
         </text>
-        <text x={640} y={262} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={640}
+          y={262}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           (Typhon's own)
         </text>
       </g>
@@ -2003,10 +2367,24 @@ export function Ch06ClawAuthorityWeb() {
         strokeOpacity={OPACITY.dim}
         strokeDasharray="3 3"
       />
-      <text x={400} y={370} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+      <text
+        x={400}
+        y={370}
+        fill={FG}
+        fontSize={FONT_LABEL}
+        textAnchor="middle"
+        letterSpacing={LS_UPPER}
+      >
         not for private grief
       </text>
-      <text x={400} y={390} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={390}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         the Claw serves institutional, cosmic purposes
       </text>
     </Canvas>
@@ -2025,7 +2403,7 @@ export function LakeSceneMap() {
       w: 90,
       h: 50,
       label: 'LAKESHORE',
-      cite: 'Ch. XXVIII',
+      cite: '§XXVIII',
       body: "The hetman's village.\nLlibio leads the islanders."
     },
     {
@@ -2036,16 +2414,16 @@ export function LakeSceneMap() {
       w: 90,
       h: 80,
       label: 'CASTLE',
-      cite: 'Ch. XXX–XXXI',
+      cite: '§XXX–XXXI',
       body: "Baldanders's tower.\nThe castle master is named\nonly on the final page."
     }
   ]
   return (
     <Canvas w={800} h={540}>
-      <Label x={40} y={32} size={10}>
-        LAKE DIUTURNA · CH. XXVIII–XXX
+      <Label x={40} y={32} size={FONT_SMALL}>
+        LAKE DIUTURNA · §XXVIII–XXX
       </Label>
-      <Label x={760} y={32} anchor="end" size={10}>
+      <Label x={760} y={32} anchor="end" size={FONT_SMALL}>
         N ↑
       </Label>
       <path
@@ -2054,16 +2432,16 @@ export function LakeSceneMap() {
         fillOpacity="0.03"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.2"
+        strokeWidth={STROKE_PRIMARY}
       />
       <text
         x={400}
         y={300}
         fill={FG}
-        fontSize="11"
+        fontSize={FONT_LABEL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.16em"
+        letterSpacing={LS_TITLE}
       >
         LAKE DIUTURNA
       </text>
@@ -2084,15 +2462,15 @@ export function LakeSceneMap() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
           <text
             x={f.x}
             y={f.y + 4}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.12em"
+            letterSpacing={LS_MEDIUM}
           >
             {f.label}
           </text>
@@ -2106,7 +2484,7 @@ export function LakeSceneMap() {
             y: 280,
             title: 'FLOATING ISLAND',
             body: 'Reed-island built\nas a defensive movable\nplatform.',
-            cite: 'Ch. XXIX'
+            cite: '§XXIX'
           })
         }
         onMouseLeave={() => setTip(null)}
@@ -2119,9 +2497,16 @@ export function LakeSceneMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x={420} y={254} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.12em">
+        <text
+          x={420}
+          y={254}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_MEDIUM}
+        >
           FLOATING ISLAND
         </text>
       </g>
@@ -2133,7 +2518,7 @@ export function LakeSceneMap() {
             y: 120,
             title: 'HIERODULE DISK',
             body: 'Floats above the castle\nthroughout.',
-            cite: 'Ch. XXX'
+            cite: '§XXX'
           })
         }
         onMouseLeave={() => setTip(null)}
@@ -2146,16 +2531,16 @@ export function LakeSceneMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         <text
           x={640}
           y={100}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
           opacity={OPACITY.dim}
-          letterSpacing="0.12em"
+          letterSpacing={LS_MEDIUM}
         >
           HIERODULE DISK
         </text>
@@ -2164,11 +2549,18 @@ export function LakeSceneMap() {
         d="M 140 380 Q 280 320 360 280 Q 440 240 580 220"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
         strokeDasharray="3 3"
         fill="none"
       />
-      <text x={300} y={350} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={300}
+        y={350}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         FLEET → NIGHT ATTACK
       </text>
       <Tooltip tip={tip} />
@@ -2176,7 +2568,7 @@ export function LakeSceneMap() {
   )
 }
 
-// III.06.2 - Authority Web (Ch. VII / lake)
+// III.06.2 - Authority Web (§VII / lake)
 export function Ch07AuthorityWeb() {
   const [tip, setTip] = useTooltip()
   const nodes = {
@@ -2185,7 +2577,7 @@ export function Ch07AuthorityWeb() {
       y: 120,
       label: 'castle master',
       sub: 'unnamed · offstage',
-      cite: 'Ch. XXXI',
+      cite: '§XXXI',
       body: 'Named only on the final\npage - Baldanders himself.'
     },
     zambdas: {
@@ -2193,15 +2585,15 @@ export function Ch07AuthorityWeb() {
       y: 240,
       label: 'Zambdas',
       sub: 'proxy commander',
-      cite: 'Ch. XXVIII',
-      body: "Runs the chapter on\nthe master's behalf."
+      cite: '§XXVIII',
+      body: "Runs the section on\nthe master's behalf."
     },
     sev: {
       x: 400,
       y: 360,
       label: 'SEVERIAN',
       sub: 'prisoner → commander',
-      cite: 'Ch. XXVIII',
+      cite: '§XXVIII',
       body: 'Enters drugged; ends\nleading the island fleet.'
     },
     pia: {
@@ -2209,7 +2601,7 @@ export function Ch07AuthorityWeb() {
       y: 280,
       label: 'Pia',
       sub: 'smuggler',
-      cite: 'Ch. XXVIII',
+      cite: '§XXVIII',
       body: 'Smuggles Terminus Est\nback to him.'
     },
     llibio: {
@@ -2217,7 +2609,7 @@ export function Ch07AuthorityWeb() {
       y: 420,
       label: 'Llibio',
       sub: 'hetman',
-      cite: 'Ch. XXIX',
+      cite: '§XXIX',
       body: 'Trusts a stranger with\na hundred warriors.'
     }
   }
@@ -2229,8 +2621,8 @@ export function Ch07AuthorityWeb() {
   ]
   return (
     <Canvas w={800} h={500}>
-      <Label x={40} y={32} size={10}>
-        AUTHORITY WEB · CH. VII (LAKE)
+      <Label x={40} y={32} size={FONT_SMALL}>
+        AUTHORITY WEB · §VII (LAKE)
       </Label>
       {edges.map(([a, b, rel], i) => (
         <g key={i}>
@@ -2241,16 +2633,16 @@ export function Ch07AuthorityWeb() {
             y2={nodes[b].y}
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="1"
+            strokeWidth={STROKE_SECONDARY}
           />
           <text
             x={(nodes[a].x + nodes[b].x) / 2}
             y={(nodes[a].y + nodes[b].y) / 2 - 4}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {rel}
           </text>
@@ -2272,16 +2664,16 @@ export function Ch07AuthorityWeb() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth={k === 'sev' ? 1.6 : 1.2}
+            strokeWidth={k === 'sev' ? STROKE_EMPHASIS : STROKE_PRIMARY}
             strokeDasharray={k === 'master' ? '4 4' : null}
           />
           <text
             x={n.x}
             y={n.y + (k === 'sev' ? 28 : 22)}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.08em"
+            letterSpacing={LS_LABEL}
           >
             {n.label}
           </text>
@@ -2289,7 +2681,7 @@ export function Ch07AuthorityWeb() {
             x={n.x}
             y={n.y + (k === 'sev' ? 44 : 36)}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -2303,9 +2695,9 @@ export function Ch07AuthorityWeb() {
   )
 }
 
-// III.06.3 - Chapter Timeline (Ch. VII)
-export function Ch07ChapterTimeline() {
-  const chapters = [
+// III.06.3 - Section Timeline (§VII)
+export function Ch07ModuleTimeline() {
+  const sections = [
     { n: 1, label: 'shore arrival', sub: 'prisoner of Zambdas' },
     { n: 2, label: 'Pia smuggles sword', sub: 'first decision' },
     { n: 3, label: 'leap into the lake', sub: 'the cold turn' },
@@ -2320,15 +2712,15 @@ export function Ch07ChapterTimeline() {
   const moods = [0.2, 0.45, 0.6, 0.55, 0.75]
   const [current, setCurrent] = React.useState(0)
   return (
-    <ChapterTimeline
-      chapters={chapters}
+    <ModuleTimeline
+      sections={sections}
       moods={moods}
       beats={beats}
       current={current}
       onScrub={setCurrent}
       width={780}
       height={240}
-      topLabel="CH. VII · FIVE SUB-CHAPTERS"
+      topLabel="§VII · FIVE SUB-SECTIONS"
     />
   )
 }
@@ -2340,43 +2732,43 @@ export function LakeCastleGeography() {
     {
       y: 60,
       label: 'ROOF',
-      cite: 'Ch. XXXI',
+      cite: '§XXXI',
       body: 'Open to the sky;\nthe Hierodule disk hovers above.'
     },
     {
       y: 120,
       label: 'CLOUD CHAMBER',
-      cite: 'Ch. XXXI',
+      cite: '§XXXI',
       body: 'Vapours and machines\nused by Baldanders.'
     },
     {
       y: 180,
       label: 'SCARLET BEDCHAMBER',
-      cite: 'Ch. XXXI',
+      cite: '§XXXI',
       body: 'Where Severian sleeps a night\nbefore he understands the master.'
     },
     {
       y: 240,
       label: 'HIERODULE MEETING',
-      cite: 'Ch. XXXI',
+      cite: '§XXXI',
       body: 'Famulimus, Barbatus, Ossipago\nshed their masks here.'
     },
     {
       y: 300,
       label: 'MACHINES',
-      cite: 'Ch. XXXI',
+      cite: '§XXXI',
       body: 'Ground floor - devices\nof a future Baldanders is building.'
     },
     {
       y: 360,
       label: 'DUNGEON',
-      cite: 'Ch. XXXI',
+      cite: '§XXXI',
       body: 'Beneath the floors.\nThe true Claw - black - is found here.'
     }
   ]
   return (
     <Canvas w={800} h={500}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         BALDANDERS'S CASTLE · CROSS-SECTION
       </Label>
       <rect
@@ -2387,7 +2779,7 @@ export function LakeCastleGeography() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       <line
         x1={40}
@@ -2396,9 +2788,16 @@ export function LakeCastleGeography() {
         y2={420}
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.2"
+        strokeWidth={STROKE_PRIMARY}
       />
-      <text x={40} y={440} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.12em">
+      <text
+        x={40}
+        y={440}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_MEDIUM}
+      >
         LAKE SURFACE
       </text>
       {floors.map((f, i) => (
@@ -2417,19 +2816,19 @@ export function LakeCastleGeography() {
             y2={f.y + 30}
             stroke={FG}
             strokeOpacity={tip && tip.title === f.label ? OPACITY.fg : OPACITY.faint}
-            strokeWidth="0.8"
+            strokeWidth={STROKE_GUIDE}
           />
           <text
             x={400}
             y={f.y + 18}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.12em"
+            letterSpacing={LS_MEDIUM}
           >
             {f.label}
           </text>
-          <text x={540} y={f.y + 22} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+          <text x={540} y={f.y + 22} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
             {f.cite}
           </text>
         </g>
@@ -2442,9 +2841,16 @@ export function LakeCastleGeography() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
-      <text x={400} y={28} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={28}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         HIERODULE DISK
       </text>
       <Tooltip tip={tip} />
@@ -2469,8 +2875,8 @@ export function HierodulemaskLayers() {
   return (
     <div style={{ width: '100%' }}>
       <Canvas w={800} h={420}>
-        <Label x={40} y={32} size={10}>
-          FAMULIMUS REMOVES HER MASKS · CH. XXXI
+        <Label x={40} y={32} size={FONT_SMALL}>
+          FAMULIMUS REMOVES HER MASKS · §XXXI
         </Label>
         {[0, 1, 2].map(L => (
           <g key={L} opacity={L < layer ? 0.15 : L === layer ? 1 : 0.4}>
@@ -2481,7 +2887,7 @@ export function HierodulemaskLayers() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={L === layer ? OPACITY.fg : OPACITY.dim}
-              strokeWidth={L === layer ? 1.6 : 0.8}
+              strokeWidth={L === layer ? STROKE_EMPHASIS : STROKE_GUIDE}
             />
             <circle
               cx={400 - (50 - L * 14)}
@@ -2499,16 +2905,23 @@ export function HierodulemaskLayers() {
             />
           </g>
         ))}
-        <text x={400} y={384} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.16em">
+        <text
+          x={400}
+          y={370}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
           {labels[layer].title}
         </text>
         {labels[layer].body.split('\n').map((ln, j) => (
           <text
             key={j}
             x={400}
-            y={400 + j * 14}
+            y={386 + j * 14}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -2534,10 +2947,10 @@ export function ClawTransformation() {
       cite: 'Books I–III',
       body: 'Blue gem found in the\nPelerine cathedral. Carried since.'
     },
-    { title: 'SHATTERED', cite: 'Ch. XXXI', body: 'Falls and breaks open\nin the castle dungeon.' },
+    { title: 'SHATTERED', cite: '§XXXI', body: 'Falls and breaks open\nin the castle dungeon.' },
     {
       title: 'TRUE CLAW',
-      cite: 'Ch. XXXI',
+      cite: '§XXXI',
       body: 'Black, claw-shaped,\nradiating white light. Found\nwedged between rocks.'
     }
   ]
@@ -2545,8 +2958,8 @@ export function ClawTransformation() {
   return (
     <div style={{ width: '100%' }}>
       <Canvas w={800} h={400}>
-        <Label x={40} y={32} size={10}>
-          CLAW TRANSFORMATION · CH. XXXI
+        <Label x={40} y={32} size={FONT_SMALL}>
+          CLAW TRANSFORMATION · §XXXI
         </Label>
         <g transform="translate(400,210)">
           {stage === 0 && (
@@ -2556,7 +2969,7 @@ export function ClawTransformation() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1.4"
+                strokeWidth={STROKE_PRIMARY}
               />
               <circle cx={0} cy={0} r={6} fill={FG} opacity={OPACITY.dim} />
             </g>
@@ -2568,7 +2981,7 @@ export function ClawTransformation() {
                 fill="none"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1.4"
+                strokeWidth={STROKE_PRIMARY}
               />
             </g>
           )}
@@ -2585,7 +2998,7 @@ export function ClawTransformation() {
                     y2={Math.sin(a) * 70}
                     stroke={FG}
                     strokeOpacity={OPACITY.fg}
-                    strokeWidth="0.8"
+                    strokeWidth={STROKE_GUIDE}
                   />
                 )
               })}
@@ -2594,22 +3007,29 @@ export function ClawTransformation() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1.6"
+                strokeWidth={STROKE_EMPHASIS}
               />
             </g>
           )}
         </g>
-        <text x={400} y={310} fill={FG} fontSize="13" textAnchor="middle" letterSpacing="0.16em">
+        <text
+          x={400}
+          y={310}
+          fill={FG}
+          fontSize={FONT_TEX}
+          textAnchor="middle"
+          letterSpacing={LS_TITLE}
+        >
           {s.title}
         </text>
         <text
           x={400}
           y={328}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
           opacity={OPACITY.dim}
-          letterSpacing="0.12em"
+          letterSpacing={LS_MEDIUM}
         >
           {s.cite}
         </text>
@@ -2619,7 +3039,7 @@ export function ClawTransformation() {
             x={400}
             y={352 + j * 14}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -2636,7 +3056,7 @@ export function ClawTransformation() {
   )
 }
 
-// ─── Migrated legacy viz (raw-SVG style, theme-token colors) ─────────────────
+// Migrated legacy viz (raw-SVG style, theme-token colors)
 
 export function PowerStructureDiagram() {
   return (
@@ -2647,15 +3067,29 @@ export function PowerStructureDiagram() {
         </title>
         <defs>
           <pattern id="apa-grid-power" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={gridLine} strokeWidth="0.5" />
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={gridLine} strokeWidth={STROKE_HAIR} />
           </pattern>
         </defs>
         <rect width="640" height="280" fill="url(#apa-grid-power)" />
 
-        <text x="160" y="30" fill={textFaint} fontSize="11" textAnchor="middle" letterSpacing="2">
+        <text
+          x="160"
+          y="30"
+          fill={textFaint}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_CONTROL}
+        >
           MODERN (TRIPARTITE)
         </text>
-        <text x="480" y="30" fill={textFaint} fontSize="11" textAnchor="middle" letterSpacing="2">
+        <text
+          x="480"
+          y="30"
+          fill={textFaint}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_CONTROL}
+        >
           COMMONWEALTH (UNIFIED)
         </text>
 
@@ -2665,7 +3099,7 @@ export function PowerStructureDiagram() {
           x2="320"
           y2="256"
           stroke={strokeHair}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
           strokeDasharray="4 3"
         />
 
@@ -2676,16 +3110,16 @@ export function PowerStructureDiagram() {
           height="44"
           fill={fillSoft}
           stroke={strokeFaint}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <text
           x="160"
           y="80"
           fill={text}
-          fontSize="13"
+          fontSize={FONT_TEX}
           textAnchor="middle"
           dominantBaseline="middle"
-          letterSpacing="1"
+          letterSpacing={LS_OPEN}
         >
           LEGISLATIVE
         </text>
@@ -2697,16 +3131,16 @@ export function PowerStructureDiagram() {
           height="44"
           fill={fillSoft}
           stroke={strokeFaint}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <text
           x="160"
           y="140"
           fill={text}
-          fontSize="13"
+          fontSize={FONT_TEX}
           textAnchor="middle"
           dominantBaseline="middle"
-          letterSpacing="1"
+          letterSpacing={LS_OPEN}
         >
           EXECUTIVE
         </text>
@@ -2718,21 +3152,21 @@ export function PowerStructureDiagram() {
           height="44"
           fill={fillSoft}
           stroke={strokeFaint}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <text
           x="160"
           y="200"
           fill={text}
-          fontSize="13"
+          fontSize={FONT_TEX}
           textAnchor="middle"
           dominantBaseline="middle"
-          letterSpacing="1"
+          letterSpacing={LS_OPEN}
         >
           JUDICIAL
         </text>
 
-        <text x="160" y="240" fill={textGhost} fontSize="13" textAnchor="middle">
+        <text x="160" y="240" fill={textGhost} fontSize={FONT_TEX} textAnchor="middle">
           three separate bodies
         </text>
 
@@ -2743,54 +3177,75 @@ export function PowerStructureDiagram() {
           height="164"
           fill={fill}
           stroke={strokeSoft}
-          strokeWidth="1.5"
+          strokeWidth={STROKE_PRIMARY}
         />
         <text
           x="480"
           y="88"
           fill={text}
-          fontSize="14"
+          fontSize={FONT_TITLE}
           textAnchor="middle"
           dominantBaseline="middle"
-          letterSpacing="1.5"
+          letterSpacing={LS_TITLE}
         >
           ARCHON / TETRARCH
         </text>
-        <line x1="404" y1="104" x2="556" y2="104" stroke={strokeHair} strokeWidth="1" />
+        <line
+          x1="404"
+          y1="104"
+          x2="556"
+          y2="104"
+          stroke={strokeHair}
+          strokeWidth={STROKE_SECONDARY}
+        />
         <text
           x="480"
           y="126"
           fill={textSoft}
-          fontSize="12"
+          fontSize={FONT_TITLE}
           textAnchor="middle"
           dominantBaseline="middle"
         >
           makes laws
         </text>
-        <line x1="404" y1="144" x2="556" y2="144" stroke={strokeHair} strokeWidth="1" />
+        <line
+          x1="404"
+          y1="144"
+          x2="556"
+          y2="144"
+          stroke={strokeHair}
+          strokeWidth={STROKE_SECONDARY}
+        />
         <text
           x="480"
           y="166"
           fill={textSoft}
-          fontSize="12"
+          fontSize={FONT_TITLE}
           textAnchor="middle"
           dominantBaseline="middle"
         >
           enforces laws
         </text>
-        <line x1="404" y1="184" x2="556" y2="184" stroke={strokeHair} strokeWidth="1" />
+        <line
+          x1="404"
+          y1="184"
+          x2="556"
+          y2="184"
+          stroke={strokeHair}
+          strokeWidth={STROKE_SECONDARY}
+        />
         <text
           x="480"
           y="206"
           fill={textSoft}
-          fontSize="12"
+          fontSize={FONT_TITLE}
           textAnchor="middle"
           dominantBaseline="middle"
         >
           judges laws
         </text>
 
-        <text x="480" y="240" fill={textGhost} fontSize="13" textAnchor="middle">
+        <text x="480" y="240" fill={textGhost} fontSize={FONT_TEX} textAnchor="middle">
           one person, all three functions
         </text>
       </svg>

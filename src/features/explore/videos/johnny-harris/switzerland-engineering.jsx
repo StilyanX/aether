@@ -1,13 +1,15 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import { Plate } from '../../../../components/viz'
+import { VizFigure } from '../../../../components/viz-figure'
 
 const config = {
   cssPrefix: 'swi',
   documentTitle: 'How Switzerland Engineered the Perfect Country - AETHER',
   learning: {
-    category: 'Johnny Harris',
+    category: 'History & Geopolitics',
     title: 'How Switzerland Engineered the Perfect Country',
     subtitle:
-      'How public-transit engineering turned a fragmented country of 26 cantons into a unified nation. Alpine tunnels, the Taktfahrplan pulse, and a 24-hour challenge across all of them.',
+      'How public-transit engineering turned a fragmented country of 26 cantons into a unified nation, through Alpine tunnels and the Taktfahrplan pulse.',
     hero: { youtubeId: 'OMbV1rIPhCg' },
     sections: [
       <>
@@ -44,103 +46,105 @@ const config = {
             another fault line. Catholic and Protestant communities clashed for centuries.
           </p>
 
-          <figure className="lrn-figure">
-            <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-              <div
-                style={{
-                  textAlign: 'center',
-                  fontFamily: 'var(--reader-font-family)',
-                  fontSize: '0.75rem',
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  color: 'rgba(240, 240, 250, 0.7)',
-                  marginBottom: '8px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  gap: '20px',
-                  flexWrap: 'wrap'
-                }}
-              >
-                <span>
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      width: '10px',
-                      height: '10px',
-                      background: '#e0c84a',
-                      marginRight: '6px',
-                      verticalAlign: 'middle'
-                    }}
-                  />
-                  German 64%
-                </span>
-                <span>
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      width: '10px',
-                      height: '10px',
-                      background: '#7a4f9e',
-                      marginRight: '6px',
-                      verticalAlign: 'middle'
-                    }}
-                  />
-                  French 19%
-                </span>
-                <span>
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      width: '10px',
-                      height: '10px',
-                      background: '#4f9e6e',
-                      marginRight: '6px',
-                      verticalAlign: 'middle'
-                    }}
-                  />
-                  Italian 8%
-                </span>
-                <span>
-                  <span
-                    style={{
-                      display: 'inline-block',
-                      width: '10px',
-                      height: '10px',
-                      background: '#c44b4b',
-                      marginRight: '6px',
-                      verticalAlign: 'middle'
-                    }}
-                  />
-                  Romansh &lt;1%
-                </span>
+          <VizFigure aspect="auto" title="Swiss Languages">
+            <figure className="lrn-figure">
+              <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+                <div
+                  style={{
+                    textAlign: 'center',
+                    fontFamily: 'var(--reader-font-family)',
+                    fontSize: '0.75rem',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: 'color-mix(in srgb, var(--base-color) 70%, transparent)',
+                    marginBottom: '8px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    gap: '20px',
+                    flexWrap: 'wrap'
+                  }}
+                >
+                  <span>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: '10px',
+                        height: '10px',
+                        background: '#e0c84a',
+                        marginRight: '6px',
+                        verticalAlign: 'middle'
+                      }}
+                    />
+                    German 64%
+                  </span>
+                  <span>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: '10px',
+                        height: '10px',
+                        background: '#7a4f9e',
+                        marginRight: '6px',
+                        verticalAlign: 'middle'
+                      }}
+                    />
+                    French 19%
+                  </span>
+                  <span>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: '10px',
+                        height: '10px',
+                        background: '#4f9e6e',
+                        marginRight: '6px',
+                        verticalAlign: 'middle'
+                      }}
+                    />
+                    Italian 8%
+                  </span>
+                  <span>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        width: '10px',
+                        height: '10px',
+                        background: '#c44b4b',
+                        marginRight: '6px',
+                        verticalAlign: 'middle'
+                      }}
+                    />
+                    Romansh &lt;1%
+                  </span>
+                </div>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/9/96/Swiss_languages_1.png"
+                  alt="Map of Switzerland's four linguistic regions: German (yellow, 64%), French (purple, 19%), Italian (green, 8%), Romansh (red, less than 1%)"
+                  width="352"
+                  height="233"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    maxWidth: '600px',
+                    height: 'auto',
+                    margin: '0 auto'
+                  }}
+                />
               </div>
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/9/96/Swiss_languages_1.png"
-                alt="Map of Switzerland's four linguistic regions: German (yellow, 64%), French (purple, 19%), Italian (green, 8%), Romansh (red, less than 1%)"
-                width="352"
-                height="233"
-                style={{
-                  display: 'block',
-                  width: '100%',
-                  maxWidth: '600px',
-                  height: 'auto',
-                  margin: '0 auto'
-                }}
-              />
-            </div>
-            <figcaption>
-              Switzerland's four linguistic regions. German speakers dominate the center and east.
-              French speakers occupy the west. Italian speakers live in the south (Ticino). Romansh
-              speakers remain in a small alpine pocket in Graubünden.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Swiss_languages_1.png"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
+              <figcaption>
+                Switzerland's four linguistic regions. German speakers dominate the center and east.
+                French speakers occupy the west. Italian speakers live in the south (Ticino).
+                Romansh speakers remain in a small alpine pocket in Graubünden.{' '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Swiss_languages_1.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Source
+                </a>
+              </figcaption>
+            </figure>
+          </VizFigure>
 
           <p>
             Napoleon invaded in 1798 and tried to force these communities into a single nation. His
@@ -203,7 +207,7 @@ const config = {
 
           <p>
             Switzerland's path to nationhood is slow and painful. Napoleon's 1798 invasion imposes a
-            unified state, but it collapses after he falls. Switzerland reverts to a loose
+            unified state, but it collapses after he falls. Switzerland goes back to a loose
             confederation. Catholic and Protestant cantons fight a brief civil war called the
             Sonderbund conflict in 1847.
           </p>
@@ -237,8 +241,8 @@ const config = {
               <span className="lrn-timeline-title">1848</span>
               <p className="lrn-timeline-content">
                 Federal constitution adopted. Switzerland becomes one nation. The central government
-                gains jurisdiction over public transport. Private companies begin building rail
-                lines with British planners.
+                gains control over public transport. Private companies begin building rail lines
+                with British planners.
               </p>
             </div>
             <div className="lrn-timeline-item">
@@ -462,10 +466,10 @@ const config = {
           <div className="lrn-callout lrn-insight">
             <span className="lrn-callout-label">Insight</span>
             <p>
-              "This poor cow-farming country is learning to dig into the dark solid wall of granite,
-              hoping that they won't hit an underground lake and trusting in math, praying that this
-              digging experiment will work to get them in on Europe's rail economy and turn their
-              geography into diplomacy." (1800s observer, cited by Harris)
+              A poor cow-farming country was learning to dig into a dark, solid wall of granite. It
+              hoped not to hit an underground lake and trusted the math. It was betting that this
+              digging would win it a place in Europe's rail economy and turn its hard geography into
+              diplomatic power.
             </p>
           </div>
 
@@ -476,30 +480,28 @@ const config = {
             labor and technical achievement.
           </p>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/4/45/Gotthard_Base_Tunnel.jpg"
-              alt="Interior of the Gotthard Base Tunnel, showing the twin-tube tunnel at the Sedrun multifunction station"
-            />
-            <figcaption>
-              The Gotthard Base Tunnel interior at the Sedrun station. The modern tunnel runs 57 km
-              through the Alps, completing the legacy begun by the 1882 Gotthard Tunnel.{' '}
+          <Plate
+            title="Gotthard Base Tunnel"
+            src="https://upload.wikimedia.org/wikipedia/commons/4/45/Gotthard_Base_Tunnel.jpg"
+            alt="Interior of the Gotthard Base Tunnel, showing the twin-tube tunnel at the Sedrun multifunction station"
+            caption="The Gotthard Base Tunnel interior at the Sedrun station. The modern tunnel runs 57 km through the Alps, completing the legacy begun by the 1882 Gotthard Tunnel."
+            credit={
               <a
                 href="https://commons.wikimedia.org/wiki/File:Gotthard_Base_Tunnel.jpg"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Source
+                Wikimedia Commons
               </a>
-            </figcaption>
-          </figure>
+            }
+          />
 
           <div className="lrn-callout lrn-insight">
             <span className="lrn-callout-label">Insight</span>
             <p>
-              "Digging becomes the seeds of a national myth, something that can potentially unify
-              these diverse regions, religions, and geographies. And instead of soldiers, the
-              national heroes are engineers and workers." (Johnny Harris)
+              The digging itself became the seed of a national myth. A shared act of building can
+              unify diverse regions, religions, and geographies. Switzerland's national heroes are
+              not soldiers. They are the engineers and workers who carved the tunnels.
             </p>
           </div>
 
@@ -588,44 +590,55 @@ const config = {
           <p>
             British tourists come to Switzerland for the Alps. They are willing to pay to see
             glaciers, peaks, and mountain valleys. This creates a market for mountain railways that
-            no local economic logic could justify. Investment follows demand. Cog railways and
-            gondolas spread into terrain that would never have rail access otherwise.
+            the local economy alone could never pay for. Investment follows demand. Cog railways and
+            gondolas spread into terrain that would never have rail access otherwise. A gondola is a
+            cabin hung from an overhead cable.
           </p>
 
           <p>
             More tourists arrive because the infrastructure improves. Better infrastructure attracts
-            more investment. Switzerland ends up with mountain railways in terrain that would have
-            remained unreachable under any purely domestic economic logic.
+            more investment. Switzerland ends up with mountain railways in terrain that the local
+            economy alone could never have reached.
           </p>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Pilatus_railway_train.jpg"
-              alt="Pilatusbahn cog railway train climbing Mount Pilatus, Switzerland"
-            />
-            <figcaption>
-              The Pilatusbahn on Mount Pilatus near Lucerne, the steepest rack railway in the world
-              with a maximum gradient of 48%. British tourist demand drove investment in exactly
-              this kind of extreme mountain infrastructure.{' '}
+          <Plate
+            title="Pilatusbahn"
+            src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Pilatus_railway_train.jpg"
+            alt="Pilatusbahn cog railway train climbing Mount Pilatus, Switzerland"
+            caption="The Pilatusbahn on Mount Pilatus near Lucerne, the steepest rack railway in the world with a maximum gradient of 48%. British tourist demand drove investment in exactly this kind of extreme mountain infrastructure."
+            credit={
               <a
                 href="https://commons.wikimedia.org/wiki/File:Pilatus_railway_train.jpg"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Source
+                Wikimedia Commons
               </a>
-            </figcaption>
-          </figure>
+            }
+          />
+
+          <div className="lrn-callout lrn-insight">
+            <span className="lrn-callout-label">How a Cog Railway Climbs</span>
+            <p>
+              An ordinary train grips the track only by friction between smooth steel wheels and
+              smooth steel rails. On a steep slope the wheels just spin and slip. So ordinary
+              railways stop climbing at around a 7 to 10 percent grade. A cog railway solves this
+              with a toothed rail, called a rack, laid down the center of the track. A gear under
+              the train, called a pinion, locks into the rack's teeth. This mesh gives solid grip
+              that friction alone cannot. That is how the Pilatusbahn climbs a 48% maximum grade,
+              the steepest of any rack railway in the world.
+            </p>
+          </div>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
               The tourism-to-infrastructure cycle works because tourist revenue is reliable and
-              scalable. A hotel in Grindelwald fills every summer. That revenue can finance a
-              railway. A profitable railway attracts more hotels. More hotels bring more tourists.
-              Each step makes the next step more economically viable. The key is that the first
-              step, building the railway, only needed tourist demand to justify it. After that, the
-              system fed itself.
+              scalable. A hotel in Grindelwald, a Swiss alpine resort village, fills every summer.
+              That revenue can finance a railway. A profitable railway attracts more hotels. More
+              hotels bring more tourists. Each step makes the next step able to pay for itself. The
+              key is that the first step, building the railway, only needed tourist demand to
+              justify it. After that, the system fed itself.
             </p>
           </div>
 
@@ -634,9 +647,9 @@ const config = {
               <span className="lrn-compare-title">Mountain Trains for Tourists</span>
               <p>
                 Gondolas, cog railways, and high-altitude stations built to serve wealthy visitors.
-                The Jungfraujoch station at 3,454 m, reached through a tunnel inside the Eiger. The
-                Pilatusbahn with its 48% gradient. Revenue from tourism justifies the extreme
-                engineering cost.
+                The Jungfraujoch station at 3,454 m, reached through a tunnel inside the Eiger, a
+                mountain in the Bernese Alps. The Pilatusbahn climbs Mount Pilatus. Revenue from
+                tourism justifies the extreme engineering cost.
               </p>
             </div>
             <div className="lrn-compare-col">
@@ -695,52 +708,33 @@ const config = {
 
           <p>
             Switzerland guarantees public transport to every village where people live year-round.
-            The transport can be a train, a gondola, or a postbus. The form does not matter. The
-            right to be connected does.
+            The transport can be a train, a gondola, or a postbus. A postbus is a public bus run by
+            the postal service that reaches remote villages. The form does not matter. The right to
+            be connected does.
           </p>
-
-          <div className="lrn-callout lrn-insight">
-            <span className="lrn-callout-label">Key Quote</span>
-            <p>
-              "By law, every village in Switzerland which has people living all year around, they
-              have the right of public transportation. It can be a train, it can be a gondola, it
-              can be a bus, whatever." (Nick, local guide in Grindelwald)
-            </p>
-          </div>
 
           <p>
-            Harris reaches the Jungfraujoch cog railway station with a local named Nick. The train
-            has eight engines to climb through the mountain. The terminal station sits at 3,454 m,
-            reached by a tunnel carved through the Eiger. At the top, Harris looks out at the
-            largest glacier in the Alps.
+            The Jungfraujoch cog railway shows how far this reaches. The train uses eight engines to
+            climb through the mountain. The terminal station sits at 3,454 m, reached by a tunnel
+            carved through the Eiger. At the top, riders look out at the largest glacier in the
+            Alps.
           </p>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Jungfraujoch_railway_station_3454_meters_altitude_inside_the_Eiger_and_Monch_mountain_-_panoramio.jpg"
-              alt="Jungfraujoch railway station inside the Eiger and Mönch mountains at 3,454 meters altitude"
-            />
-            <figcaption>
-              Jungfraujoch railway station, 3,454 m inside the Eiger and Mönch mountains. The
-              station is accessible entirely by cog railway, with eight engines pulling the train
-              through the mountain.{' '}
+          <Plate
+            title="Jungfraujoch Station"
+            src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Jungfraujoch_railway_station_3454_meters_altitude_inside_the_Eiger_and_Monch_mountain_-_panoramio.jpg"
+            alt="Jungfraujoch railway station inside the Eiger and Mönch mountains at 3,454 meters altitude"
+            caption="Jungfraujoch railway station, set inside the Eiger and Mönch mountains. The station is reached entirely by cog railway."
+            credit={
               <a
                 href="https://commons.wikimedia.org/wiki/File:Jungfraujoch_railway_station_3454_meters_altitude_inside_the_Eiger_and_Monch_mountain_-_panoramio.jpg"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Source
+                Wikimedia Commons
               </a>
-            </figcaption>
-          </figure>
-
-          <div className="lrn-callout lrn-insight">
-            <span className="lrn-callout-label">Insight</span>
-            <p>
-              "Mobility and connection are a right for citizens. No one should be left unreachable,
-              no matter how remote. That takes vision." (Johnny Harris)
-            </p>
-          </div>
+            }
+          />
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -838,8 +832,8 @@ const config = {
             <p>
               A 30-minute pulse works better than higher-frequency random scheduling for one
               specific reason: coordination. Random schedules mean passengers must study timetables
-              for every connection. A 30-minute pulse means every passenger can internalize one
-              rule: "Trains leave at the top and bottom of the hour." This reduces the mental cost
+              for every connection. A 30-minute pulse means every passenger can learn one rule by
+              heart: "Trains leave at the top and bottom of the hour." This reduces the mental cost
               of travel to near zero.
             </p>
             <p>
@@ -847,6 +841,12 @@ const config = {
               synchronize, a passenger arriving at a hub might still wait 9 minutes for the
               connection they need. Synchronization beats frequency when the goal is reliable
               transfers across a whole network.
+            </p>
+            <p>
+              The pulse has one weakness: a late train ripples outward. Every connecting train timed
+              to meet it must wait or break the transfer. So one late hub can push delay across the
+              whole network. This is why a 93.2% on-time rate is not a luxury. It is what keeps the
+              pulse from collapsing.
             </p>
           </div>
 
@@ -907,6 +907,14 @@ const config = {
             </div>
           </div>
 
+          <p>
+            One more piece makes the system durable: its power source. Switzerland's rivers and
+            alpine dams generate most of the electricity that runs the railway. This is hydropower,
+            energy made from falling mountain water. It is renewable and home-grown. So the trains
+            run on domestic power and stay safe from global fuel-price swings. The same mountains
+            that forced the tunnels also supply the power to run trains through them.
+          </p>
+
           <table className="lrn-table">
             <thead>
               <tr>
@@ -958,68 +966,67 @@ const config = {
 
       <>
         <section className="lrn-section">
-          <h2>The 26-Canton Challenge</h2>
+          <h2>Reaching All 26 Cantons in a Single Day</h2>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
-              Harris wants to visit all 26 Swiss cantons using only public transit in under 24
-              hours. He starts at 5:00 a.m. What will be the hardest part, and when will it happen?
+              Imagine trying to set foot in all 26 Swiss cantons in one day, using only public
+              transit. What feature of the network would decide whether this is possible? What part
+              of the day would be hardest?
             </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>
-                The hardest part will come late at night. Early in the day, frequency is high and
-                connections are easy. As midnight approaches, service thins. A single missed
-                connection could mean an hour's wait for the next train. Rural northern cantons have
-                less service than city cantons. The last few cantons, attempted after midnight,
-                carry the highest failure risk.
+                Network density decides it. With trains every 30 minutes at every hub, a missed
+                connection costs minutes, not hours. The hardest part comes late at night. Early in
+                the day, service runs often and connections are easy. Near midnight, fewer trains
+                run, so one missed transfer can mean a long wait. A sparse network would make the
+                whole trip impossible.
               </p>
             </details>
           </div>
 
           <p>
-            Harris starts the 26-canton challenge in the Canton of Vaud, a French-speaking region,
-            at 5:00 a.m. He has a community journalism platform that connects him with local
-            participants. At each leg of the journey, someone who lives in that canton joins him on
-            the train.
+            A canton is a member state of the Swiss federation. Switzerland has 26 of them, much
+            like the United States has 50 states. Reaching all 26 in one day is a useful test of how
+            well the network is woven together. It is possible, and the reason it is possible says
+            everything about Swiss transit.
           </p>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Schweizer_Postauto_Wifi.jpg"
-              alt="Yellow Swiss PostBus with WiFi, the iconic yellow postbus that reaches villages across Switzerland"
-            />
-            <figcaption>
-              The yellow Swiss PostBus (Postauto) is the surface-level backbone of the Swiss
-              mobility guarantee. It reaches valleys and villages where rail infrastructure would be
-              too expensive to build.{' '}
+          <Plate
+            title="Swiss PostBus"
+            src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Schweizer_Postauto_Wifi.jpg"
+            alt="Yellow Swiss PostBus with WiFi, the iconic yellow postbus that reaches villages across Switzerland"
+            caption="The yellow Swiss PostBus (Postauto) is the surface-level backbone of the Swiss mobility guarantee. It reaches valleys and villages where rail infrastructure would be too expensive to build."
+            credit={
               <a
                 href="https://commons.wikimedia.org/wiki/File:Schweizer_Postauto_Wifi.jpg"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Source
+                Wikimedia Commons
               </a>
-            </figcaption>
-          </figure>
+            }
+          />
 
           <p>
-            The first cantons fall quickly. A missed connection near Geneva costs 30 minutes. By
-            early afternoon, more than half the cantons are checked. Rural northern cantons begin to
-            loom as service frequencies thin.
+            Start early, around dawn, and the first cantons fall quickly. Trains run often, so even
+            a missed connection costs only 30 minutes. By early afternoon you can clear more than
+            half the cantons. The rural northern cantons are the real test, because service there
+            thins as the day wears on.
           </p>
 
           <p>
-            As evening arrives, service thins. A group of locals helps Harris solve routing puzzles.
-            Late at night, locals Josh and Tom guide him north to Schaffhausen and back. Cantons 21,
-            22, 23, 24 fall in quick succession.
+            The route can pass through Mount Pilatus and other alpine corners that ordinary networks
+            could never reach. To finish, you may even cross a footbridge between two cantons, then
+            board a 1:00 a.m. train for the last leg. All 26 cantons, inside a single day, on public
+            transit alone.
           </p>
 
           <p>
-            The route passes through Mount Pilatus, home to the world's steepest cog railway. A
-            local woman on the train tells Harris she traveled alone by bus to visit her
-            grandparents at age 6. This is the system working as intended.
+            The same system carries Swiss children on their own. A 6-year-old riding a bus alone to
+            visit grandparents is not unusual here. That is the network working exactly as designed.
           </p>
 
           <div className="lrn-callout lrn-insight">
@@ -1032,28 +1039,21 @@ const config = {
             </p>
           </div>
 
-          <p>
-            Canton 25, Glarus, requires Harris to cross a bridge on foot. He boards the 1:00 a.m.
-            train to canton 26. At 1:40 a.m., he crosses the final bridge. All 26 cantons in under
-            24 hours, using only public transit.
-          </p>
-
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
-              The challenge succeeds partly because of local participants who know the routing. What
-              does this tell you about the Taktfahrplan's actual complexity for an outsider? Form
-              your answer before reading on.
+              Local knowledge makes a 26-canton run far easier than a timetable app alone. What does
+              this tell you about how the Taktfahrplan feels to an outsider? Form your answer before
+              reading on.
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                The Taktfahrplan works seamlessly for people who grew up with it and internalized
-                its rhythms. For an outsider without local knowledge, even a perfectly synchronized
-                system has a learning curve. The locals on the train are not just company. They are
-                human navigational tools, revealing which connections exist that a foreigner would
-                never find in a timetable app. The system's elegance becomes accessible only through
-                lived familiarity.
+                The Taktfahrplan works seamlessly for people who grew up with it and learned its
+                rhythms by heart. For an outsider without local knowledge, even a perfectly
+                synchronized system has a learning curve. A local knows which connections exist that
+                a foreigner would never find in a timetable app. The system's elegance becomes fully
+                usable only through lived familiarity.
               </p>
             </details>
           </div>
@@ -1061,18 +1061,18 @@ const config = {
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              The 26-canton challenge succeeds because the system is dense, not because Harris is
+              A 26-canton day succeeds because the system is dense, not because a traveler is
               clever. With 8,000 trains a day and a 30-minute pulse, missing one connection costs
               you 30 minutes, not 3 hours. A network this dense produces forgiveness: every error
-              has a recovery path within minutes. A sparser network would have made the challenge
-              impossible regardless of skill.
+              has a recovery path within minutes. A sparser network would make the trip impossible
+              regardless of skill.
             </p>
             <p>
-              The locals matter because density alone is not enough. The Taktfahrplan generates
-              hundreds of valid routes between any two points. A timetable app shows the fastest
-              one. A local knows which routes have buffer time. They know which transfers work in
-              practice. They know which detours rescue a missed connection. Dense infrastructure
-              plus lived knowledge is what made 26 cantons in 24 hours possible.
+              Local knowledge matters because density alone is not enough. The Taktfahrplan
+              generates hundreds of valid routes between any two points. A timetable app shows the
+              fastest one. A local knows which routes have buffer time. They know which transfers
+              work in practice. They know which detours rescue a missed connection. Dense
+              infrastructure plus lived knowledge is what makes 26 cantons in a day possible.
             </p>
           </div>
         </section>
@@ -1085,9 +1085,9 @@ const config = {
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
-              Harris grows up in America, where freedom means cars and parking lots. He spends time
-              in Switzerland, where freedom means seamless transit from any glacier to any city.
-              What does the difference between these two models reveal about political values?
+              In America, freedom often means cars and parking lots. In Switzerland, freedom means
+              seamless transit from any glacier to any city. What does the difference between these
+              two models reveal about political values?
             </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
@@ -1102,40 +1102,27 @@ const config = {
           </div>
 
           <p>
-            Harris closes the video with a direct comparison. In America, freedom means individual
-            autonomy: cars, parking lots, the capacity to drive wherever you want. In Switzerland,
-            freedom means seamless travel between glaciers and cities, between big hubs and remote
-            villages, using a system that costs less per trip than a parking space.
+            The two countries define freedom in opposite ways. In America, freedom means individual
+            autonomy: cars, parking lots, the chance to drive wherever you want. In Switzerland,
+            freedom means seamless travel between glaciers and cities. It links big hubs and remote
+            villages. A single trip costs less than a parking space.
           </p>
 
-          <div className="lrn-callout lrn-insight">
-            <span className="lrn-callout-label">Key Quote</span>
-            <p>
-              "Freedom in my country is cars and parking lots and individual autonomy to go where
-              you want. But when you are under the Alps and you can seamlessly go in between big
-              cities and small villages so easily and so pleasantly, that kind of feels like
-              freedom, too." (Johnny Harris)
-            </p>
-          </div>
-
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/1/17/Clock_and_meeting_point_in_Zurich_main_station.jpg"
-              alt="The famous clock and meeting point in Zurich Hauptbahnhof main hall, the nerve center of the Swiss rail network"
-            />
-            <figcaption>
-              The clock at Zurich Hauptbahnhof, the largest hub in the Swiss Taktfahrplan network.
-              Trains arrive from across the country before each pulse moment, then depart together
-              within minutes.{' '}
+          <Plate
+            title="Zurich Hauptbahnhof"
+            src="https://upload.wikimedia.org/wikipedia/commons/1/17/Clock_and_meeting_point_in_Zurich_main_station.jpg"
+            alt="The famous clock and meeting point in Zurich Hauptbahnhof main hall, the nerve center of the Swiss rail network"
+            caption="The clock at Zurich Hauptbahnhof, the largest hub in the Swiss Taktfahrplan network. Trains arrive from across the country before each pulse moment, then depart together within minutes."
+            credit={
               <a
                 href="https://commons.wikimedia.org/wiki/File:Clock_and_meeting_point_in_Zurich_main_station.jpg"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Source
+                Wikimedia Commons
               </a>
-            </figcaption>
-          </figure>
+            }
+          />
 
           <div className="lrn-compare">
             <div className="lrn-compare-col">
@@ -1203,16 +1190,6 @@ const config = {
             </p>
           </div>
 
-          <div className="lrn-callout lrn-insight">
-            <span className="lrn-callout-label">Insight</span>
-            <p>
-              "The locals who joined me made this whole thing possible. All those moments on the
-              train where they were helping me figure out the alternative routes, all while showing
-              me what it means to be a participant in this public transportation system." (Johnny
-              Harris)
-            </p>
-          </div>
-
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
@@ -1265,8 +1242,8 @@ const config = {
       a: 'It means the federal government can override market logic when building transport infrastructure. When private companies refused to dig the Alpine tunnels, the government had constitutional authority to fund them anyway. Without this clause, the rail network would have stopped at the foot of the Alps.'
     },
     {
-      q: 'How long is the Gotthard Base Tunnel, and how fast does Harris travel through it?',
-      a: 'The Gotthard Base Tunnel is 57 km long, making it the longest railway tunnel on Earth. Harris travels through it at 200 km/h with 2.5 km of rock overhead.'
+      q: 'How long is the Gotthard Base Tunnel, and how fast do trains run through it?',
+      a: 'The Gotthard Base Tunnel is 57 km long, making it the longest railway tunnel on Earth. Trains run through it at 200 km/h with 2.5 km of rock overhead.'
     },
     {
       q: 'Why does a 30-minute pulse work better than higher-frequency random scheduling for transfers?',
@@ -1282,7 +1259,7 @@ const config = {
     },
     {
       q: 'What is the mechanical principle that lets a cog-wheel railway climb a 48% grade?',
-      a: 'A toothed rack rail runs down the middle of the track. A gear on the train meshes with the teeth of the rack. The mesh provides physical grip, so the wheels do not slip on steep slopes. Normal rails rely on friction alone, which fails above about a 7% grade. The Pilatusbahn uses this rack-and-gear system to climb Mount Pilatus at a 48% maximum gradient.'
+      a: 'A toothed rack rail runs down the middle of the track. A gear on the train meshes with the teeth of the rack. The mesh provides physical grip, so the wheels do not slip on steep slopes. Normal rails rely on friction alone, which fails above about a 7 to 10 percent grade. The Pilatusbahn uses this rack-and-gear system to climb Mount Pilatus at a 48% maximum gradient.'
     },
     {
       q: 'Switzerland upgraded the Zurich-Bern route in 2004. What was the goal of the upgrade?',
@@ -1309,8 +1286,8 @@ const config = {
       a: 'Military force can impose laws but cannot impose belonging. Swiss communities had four languages, multiple religions, and mountain ranges that blocked daily contact. No army could create shared habits or shared stories across these barriers. Real unity required shared infrastructure, something people used every day that created common experience rather than common fear.'
     },
     {
-      q: 'How many cantons does Switzerland have, and how long did the 26-canton challenge take?',
-      a: 'Switzerland has 26 cantons. Harris completed the challenge in under 24 hours, starting at 5:00 a.m. and crossing the final bridge at 1:40 a.m. the next day. He used only public transit throughout.'
+      q: 'How many cantons does Switzerland have, and what does the Taktfahrplan make possible across all of them?',
+      a: 'Switzerland has 26 cantons. The synchronized 30-minute pulse links them so tightly that a single traveler can reach all 26 in under a day using only public transit. The dense network means a missed connection costs minutes, not hours, so even a long chain of transfers stays on track.'
     },
     {
       q: 'The first Gotthard Tunnel cost 227 million francs and 441 million man-hours. Why did Switzerland take this risk?',
@@ -1330,7 +1307,7 @@ const config = {
     },
     {
       q: 'What were the Lötschberg and Simplon tunnels, and how long did they take to build?',
-      a: 'They were the second wave of Swiss Alpine tunnels, built in the early 1900s after the first Gotthard Tunnel. Together they took 93 months to complete and cost 106 lives. They connect the Italian-speaking southern cantons with the French and German-speaking northern cantons. They are the tunnels Harris rides in the video.'
+      a: 'They were the second wave of Swiss Alpine tunnels, built in the early 1900s after the first Gotthard Tunnel. Together they took 93 months to complete and cost 106 lives. They connect the Italian-speaking southern cantons with the French and German-speaking northern cantons.'
     },
     {
       q: "If the Taktfahrplan is so effective, why don't more countries adopt it?",
@@ -1437,8 +1414,7 @@ const config = {
               <p>
                 A high-altitude saddle in the Bernese Alps reached by the Jungfraubahn cog railway.
                 The terminal station sits at 3,454 m, the highest railway station in Europe. Eight
-                engines pull trains through a tunnel carved inside the Eiger. Harris visits with
-                local guide Nick during the video.
+                engines pull trains through a tunnel carved inside the Eiger.
               </p>
             </div>
           </div>
@@ -1450,7 +1426,7 @@ const config = {
                 The Taktfahrplan's structural design. Major city hubs (Zurich, Bern, Basel) anchor
                 the national clock. Regional hubs mirror the pulse locally. Postbuses in mountain
                 valleys synchronize to regional hubs. Each layer aligns to the layer above it,
-                creating a recursive hierarchy of synchronized connections.
+                creating a repeating hierarchy where each level copies the one above it.
               </p>
             </div>
           </div>
@@ -1549,11 +1525,11 @@ const config = {
               <tr>
                 <td>Swiss administrative cantons</td>
                 <td>26</td>
-                <td>When discussing federal structure and Harris's 24-hour challenge</td>
+                <td>When discussing federal structure and national-scale transit reach</td>
               </tr>
               <tr>
-                <td>Challenge duration</td>
-                <td>Under 24 hours</td>
+                <td>Single-traveler reach in one day</td>
+                <td>All 26 cantons</td>
                 <td>
                   When demonstrating what the Taktfahrplan makes possible for a single traveler
                 </td>

@@ -6,7 +6,7 @@
    expressed via inline styles. Tokens come from app.css so they flip with
    the global theme. */
 
-/* ─── Range sliders (used by viz Slider primitive) ──────────────────────── */
+/* Range sliders (used by viz Slider primitive) */
 
 input[type='range'].viz-range {
   -webkit-appearance: none;
@@ -62,83 +62,209 @@ input[type='range'].viz-range::-moz-range-thumb {
   cursor: pointer;
 }
 
-/* ─── Tool shell (used by interactive arithmetic tools) ─────────────────── */
+/* Tool shell (used by interactive arithmetic tools) */
 
-.ts-root {
-  background: var(--bg);
-  min-height: 100vh;
-  color: var(--text-primary);
-  font-family: var(--reader-font-family);
+/* Digit-column arithmetic grid (addition with carry, etc.)
+   Plain text digits laid out via CSS grid so columns align via native font
+   metrics, not hand-computed SVG x-positions. All colors flow from
+   `currentColor` so the wrapper's inline `style={{ color: C.fg }}` controls
+   the palette. */
+
+.va-arith-grid {
+  display: grid;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto var(--space-2, 8px);
+  padding: 8px 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  color: inherit;
 }
 
-.ts-nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(var(--bg-rgb), 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-default);
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  height: 56px;
-}
-
-.ts-back-btn {
-  width: 36px;
-  height: 36px;
+.va-arith-cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: color-mix(in srgb, var(--base-color) 45%, transparent);
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
-  flex-shrink: 0;
-}
-.ts-back-btn:hover {
-  background: color-mix(in srgb, var(--base-color) 8%, transparent);
-  color: color-mix(in srgb, var(--base-color) 75%, transparent);
-}
-.ts-back-btn:focus-visible {
-  outline: 1px solid var(--border-interactive);
-  outline-offset: 2px;
+  padding: 6px 4px;
+  font-size: clamp(20px, 4vw, 30px);
+  font-weight: 500;
+  text-align: center;
 }
 
-.ts-title {
-  flex: 1;
-  font-size: 11px;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  color: color-mix(in srgb, var(--base-color) 70%, transparent);
+.va-arith-cell--label,
+.va-arith-cell--op {
+  font-size: clamp(18px, 3.4vw, 26px);
+  font-weight: 400;
+  opacity: 0.7;
+  padding-right: 10px;
+  justify-content: flex-end;
 }
 
-.ts-reset-btn {
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  padding: 6px 14px;
-  background: transparent;
-  border: 1px solid var(--border-default);
-  color: var(--text-tertiary);
-  cursor: pointer;
-  text-transform: uppercase;
-  min-height: 36px;
-  transition:
-    border-color 0.15s ease,
-    color 0.15s ease;
+.va-arith-cell--carry,
+.va-arith-cell--borrow {
+  font-size: clamp(12px, 2vw, 15px);
+  font-weight: 400;
+  opacity: 0.55;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  min-height: 1.4em;
 }
-.ts-reset-btn:hover {
-  border-color: var(--border-interactive);
-  color: var(--text-secondary);
+
+.va-arith-cell--digit[data-traded='true'] {
+  opacity: 0.45;
 }
-.ts-reset-btn:focus-visible {
-  outline: 1px solid var(--border-interactive);
-  outline-offset: 2px;
+
+.va-arith-cell--digit[data-traded='true'] s {
+  text-decoration-thickness: 1px;
 }
+
+.va-arith-cell[data-focus='true'] {
+  outline: 1px dashed currentColor;
+  outline-offset: -2px;
+  opacity: 1;
+}
+
+.va-arith-bar {
+  border-top: 1px solid currentColor;
+  margin-top: 2px;
+}
+
+.va-arith-readout {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(12px, 1.8vw, 14px);
+  text-align: center;
+  opacity: 0.4;
+  padding: 4px 0 12px;
+  letter-spacing: 0.04em;
+  transition: opacity 0.2s ease;
+}
+
+.va-arith-readout[data-complete='true'] {
+  opacity: 0.95;
+}
+
+/* Long-division extensions
+   The L-bracket is formed by borders on the dividend row: border-top on
+   each dividend cell draws the overbar above the digits (and below the
+   quotient row); border-left on the leftmost dividend cell draws the
+   vertical arm between the divisor and the dividend. Per-step subtraction
+   rows reuse `.va-arith-cell--digit`, with `.va-divgrid-rem--bar` adding
+   a horizontal rule under the subtrahend only across the working cols. */
+
+.va-divgrid-quotient {
+  min-height: 1.2em;
+  padding-bottom: 4px;
+}
+
+.va-divgrid-divisor {
+  font-size: clamp(20px, 4vw, 30px);
+  font-weight: 500;
+  opacity: 0.95;
+  justify-content: flex-end;
+  padding-right: 8px;
+}
+
+.va-divgrid-dividend {
+  border-top: 1px solid currentColor;
+  padding-top: 6px;
+}
+
+.va-divgrid-dividend--first {
+  border-left: 1px solid currentColor;
+  padding-left: 8px;
+}
+
+.va-divgrid-sub {
+  opacity: 0.85;
+  font-size: clamp(18px, 3.6vw, 26px);
+}
+
+.va-divgrid-rem {
+  font-size: clamp(20px, 4vw, 30px);
+}
+
+.va-divgrid-rem--bar {
+  border-top: 1px solid currentColor;
+  padding-top: 4px;
+}
+
+/* Base conversion table (repeated-division algorithm)
+   Plain text digit columns laid out via CSS grid for native font-metric
+   alignment. Subscripts in the answer line use real <sub> elements rather
+   than SVG <tspan dy> baseline hacks. All colors flow from currentColor
+   so the wrapper's `style={{ color: C.fg }}` controls the palette. */
+
+.viz-baseconv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+}
+
+.viz-baseconv-table {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  column-gap: 16px;
+  row-gap: 2px;
+  font-size: clamp(12px, 1.5vw, 14px);
+  line-height: 1.5;
+}
+
+.viz-baseconv-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.viz-baseconv-cell--op {
+  opacity: 0.5;
+  text-align: left;
+}
+
+.viz-baseconv-cell--r {
+  font-weight: 600;
+  text-align: left;
+}
+
+.viz-baseconv-bar {
+  width: 100%;
+  max-width: 360px;
+  border-top: 1px solid currentColor;
+  opacity: 0.4;
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+
+.viz-baseconv-note {
+  font-size: clamp(10px, 1.2vw, 11px);
+  opacity: 0.6;
+  margin-bottom: 4px;
+  letter-spacing: 0.02em;
+}
+
+.viz-baseconv-answer {
+  font-size: clamp(18px, 2.4vw, 22px);
+  letter-spacing: 0.04em;
+}
+
+.viz-baseconv-answer sub {
+  font-size: 0.55em;
+  vertical-align: baseline;
+  position: relative;
+  bottom: -0.3em;
+  margin-left: 2px;
+}
+
+.viz-baseconv-eq {
+  margin: 0 10px;
+  opacity: 0.7;
+}
+
+/* Euclidean algorithm stepper (number-theory 08.1.4): HTML+CSS grid for
+   digit-column alignment per the pattern map. tabular-nums keeps integers
+   aligned across rows under any font scale. */

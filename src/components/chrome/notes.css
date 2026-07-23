@@ -25,7 +25,7 @@
 .notes-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 10px;
+  font-size: var(--type-micro);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-primary);
@@ -35,7 +35,7 @@
   background: transparent;
   border: none;
   color: var(--text-tertiary);
-  font-size: 16px;
+  font-size: var(--type-body);
   cursor: pointer;
   min-width: 44px;
   min-height: 44px;
@@ -48,20 +48,6 @@
 
 .notes-close:hover {
   color: var(--text-primary);
-}
-
-.notes-scope {
-  padding: 8px 16px;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  border-bottom: 1px solid var(--border-default);
-  flex-shrink: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .notes-compose {
@@ -80,7 +66,7 @@
   border: 1px solid var(--border-default);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: var(--type-glyph);
   line-height: 1.5;
   padding: 8px 10px;
   resize: none;
@@ -105,7 +91,7 @@
   border: 1px solid var(--border-default);
   color: var(--text-primary);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-micro);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   cursor: pointer;
@@ -138,7 +124,7 @@
 .notes-empty {
   padding: 32px 16px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-micro);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-tertiary);
@@ -153,7 +139,7 @@
 
 .notes-item-text {
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: var(--type-glyph);
   line-height: 1.55;
   color: var(--text-primary);
   white-space: pre-wrap;
@@ -169,7 +155,7 @@
 
 .notes-item-source {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-tertiary);
@@ -181,7 +167,7 @@
 
 .notes-item-date {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.1em;
   color: var(--text-tertiary);
   flex-shrink: 0;
@@ -191,7 +177,7 @@
   background: transparent;
   border: none;
   color: var(--text-tertiary);
-  font-size: 14px;
+  font-size: var(--type-button);
   cursor: pointer;
   min-width: 44px;
   min-height: 44px;

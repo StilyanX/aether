@@ -1,12 +1,18 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { useEffect, useState, useMemo, useRef } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useEffect, useState, useMemo, lazy, Suspense } from 'react'
 import CategoryPage from './components/home/category-page'
 import CurriculumView from './components/home/curriculum-view'
 import TopicStandalone from './components/home/topic-standalone'
-import ToolPlaceholder from './components/home/tool-placeholder'
 import ErrorBoundary from './components/layout/error-boundary'
 import SearchModal from './components/layout/search-modal'
+const VizLayoutShowcase = lazy(() => import('./components/viz-layout-showcase'))
+const VisualizationsShowcase = lazy(() => import('./visualizations-showcase/showcase'))
+const AlgebraVisualizationsShowcase = lazy(
+  () => import('./visualizations-showcase/algebra-showcase')
+)
+const ChemistryVisualizationsShowcase = lazy(
+  () => import('./visualizations-showcase/chemistry-showcase')
+)
 import { resourceMetadata, slugToIndex, topicComponentMap } from './config/registry'
 
 function LibraryRoute() {
@@ -16,6 +22,7 @@ function LibraryRoute() {
 }
 import { useTheme } from './hooks/use-theme'
 import { useSettings } from './hooks/use-settings'
+import { useRUM } from './hooks/use-rum'
 import Pomodoro from './components/chrome/pomodoro'
 import Notes from './components/chrome/notes'
 import { SettingsSheet } from './components/chrome/settings-sheet'
@@ -53,7 +60,7 @@ function resolveAmbientColor(path) {
   const parts = path.split('/').filter(Boolean)
 
   // /explore/:domain/:resource/:module → topic page (3-segment topics)
-  // /explore/:domain/:resource/:book/:module → book chapter page (4-segment topics)
+  // /explore/:domain/:resource/:book/:module → book reading page (4-segment topics)
   if ((parts.length === 4 || parts.length === 5) && parts[0] === 'explore') {
     const topicSlug = parts.join('/')
     const parentSlug = slugToParent[topicSlug]
@@ -74,23 +81,6 @@ function resolveAmbientColor(path) {
   return DEFAULT_COLOR
 }
 
-const PAGE_VARIANTS = {
-  initial: dir => ({
-    opacity: 0,
-    y: dir > 0 ? 50 : dir < 0 ? -50 : 16
-  }),
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.48, ease: [0.16, 1, 0.3, 1] }
-  },
-  exit: dir => ({
-    opacity: 0,
-    y: dir > 0 ? -50 : dir < 0 ? 50 : -16,
-    transition: { duration: 0.22, ease: [0.4, 0, 1, 1] }
-  })
-}
-
 function SessionMount() {
   useSessions()
   return null
@@ -109,23 +99,23 @@ function GlobalSettings() {
   return <SettingsSheet open={open} onClose={() => setOpen(false)} />
 }
 
-const getDepth = path => {
-  if (path === '/') return 0
-  const parts = path.split('/').filter(Boolean)
-  return Math.min(parts.length, 3)
-}
-
 function AppContent() {
   useTheme() // ensures theme initialization before first render
+  useRUM() // track Real User Metrics: FCP, LCP, CLS, INP
   const appSettings = useSettings()
   const [zoomLevel, setZoomLevel] = useState(1)
   const [searchModalOpen, setSearchModalOpen] = useState(false)
   const location = useLocation()
-  const prevPathRef = useRef(location.pathname)
-  const direction = Math.sign(getDepth(location.pathname) - getDepth(prevPathRef.current))
+
+  // Own scroll positioning: the browser's 'auto' restoration re-scrolls the page
+  // AFTER async content (curriculum covers, lazy lesson chunks) grows it, landing
+  // the reader mid-page. Manual restoration lets our scrollTo(0,0) stick.
+  useEffect(() => {
+    if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual'
+  }, [])
 
   useEffect(() => {
-    prevPathRef.current = location.pathname
+    window.scrollTo(0, 0)
   }, [location.pathname])
 
   // Update --ambient-color after exit animation completes (220ms)
@@ -196,38 +186,61 @@ function AppContent() {
       <div style={zoomStyle}>
         {/* Global ambient - always mounted, never disappears between routes */}
         <div className="explore-bg" aria-hidden="true" />
-        <AnimatePresence mode="wait" initial={false} custom={direction}>
-          <motion.div
-            key={location.pathname}
-            custom={direction}
-            variants={PAGE_VARIANTS}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            style={{ backfaceVisibility: 'hidden' }}
-          >
-            <Routes location={location}>
-              <Route path="/" element={<CategoryPage category="explore" />} />
-              <Route path="/explore" element={<CategoryPage category="explore" />} />
-              <Route path="/polymath" element={<Navigate to="/explore" replace />} />
-              <Route path="/library" element={<Navigate to="/explore" replace />} />
-              <Route path="/explore/:filter" element={<CategoryPage category="explore" />} />
-              <Route path="/library/:resource" element={<CurriculumView />} />
-              <Route path="/library/:resource/:module" element={<LibraryRoute />} />
-              <Route path="/library/:resource/:module/:topic" element={<TopicStandalone />} />
-              <Route path="/explore/:domain/:resource" element={<CurriculumView />} />
-              <Route
-                path="/explore/:domain/:resource/tool/:toolSlug"
-                element={<ToolPlaceholder />}
-              />
-              <Route path="/explore/:domain/:resource/:module" element={<TopicStandalone />} />
-              <Route
-                path="/explore/:domain/:resource/:book/:module"
-                element={<TopicStandalone />}
-              />
-            </Routes>
-          </motion.div>
-        </AnimatePresence>
+        <div key={location.pathname} className="page-enter">
+          <Routes location={location}>
+            <Route
+              path="/viz-layout-showcase"
+              element={
+                <Suspense
+                  fallback={<div style={{ background: 'var(--bg)', minHeight: '100vh' }} />}
+                >
+                  <VizLayoutShowcase />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/visualizations-showcase"
+              element={
+                <Suspense
+                  fallback={<div style={{ background: 'var(--bg)', minHeight: '100vh' }} />}
+                >
+                  <VisualizationsShowcase />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/algebra-showcase"
+              element={
+                <Suspense
+                  fallback={<div style={{ background: 'var(--bg)', minHeight: '100vh' }} />}
+                >
+                  <AlgebraVisualizationsShowcase />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/chemistry-showcase"
+              element={
+                <Suspense
+                  fallback={<div style={{ background: 'var(--bg)', minHeight: '100vh' }} />}
+                >
+                  <ChemistryVisualizationsShowcase />
+                </Suspense>
+              }
+            />
+            <Route path="/" element={<CategoryPage category="explore" />} />
+            <Route path="/explore" element={<CategoryPage category="explore" />} />
+            <Route path="/polymath" element={<Navigate to="/explore" replace />} />
+            <Route path="/library" element={<Navigate to="/explore" replace />} />
+            <Route path="/explore/:filter" element={<CategoryPage category="explore" />} />
+            <Route path="/library/:resource" element={<CurriculumView />} />
+            <Route path="/library/:resource/:module" element={<LibraryRoute />} />
+            <Route path="/library/:resource/:module/:topic" element={<TopicStandalone />} />
+            <Route path="/explore/:domain/:resource" element={<CurriculumView />} />
+            <Route path="/explore/:domain/:resource/:module" element={<TopicStandalone />} />
+            <Route path="/explore/:domain/:resource/:book/:module" element={<TopicStandalone />} />
+          </Routes>
+        </div>
       </div>
     </>
   )
@@ -236,7 +249,7 @@ function AppContent() {
 function App() {
   return (
     <ErrorBoundary level="app">
-      <Router basename="/Aether">
+      <Router basename="/aether">
         <AppContent />
       </Router>
     </ErrorBoundary>

@@ -4,2327 +4,1880 @@
 // a `C` color object from `useVizColors()` (passed by the consuming page).
 
 import React from 'react'
+import { scaleLinear } from 'd3-scale'
+import { VizFigure } from '../../../viz-figure'
+import { Diagram } from '../../diagram'
+import { useVizColors } from '../../../../hooks/use-viz-colors'
+import BoontaEveCourseTrack from '../../../../assets/viz/boonta-eve-course.svg?react'
+import {
+  FONT_BODY,
+  FONT_CONTROL,
+  FONT_LABEL,
+  FONT_TEX,
+  FONT_VALUE,
+  STROKE_PRIMARY,
+  STROKE_SECONDARY
+} from '../../scale-tokens'
 
-export function TfaTimelineSvg({ C }) {
+const TFA_BEATS = [
+  ['Opening', 'Crawl'],
+  ['Cruiser', 'Approach'],
+  ['Docking', 'Bay'],
+  ['Conference', 'Room'],
+  ['Gas', 'Attack'],
+  ['Destroyer', 'Droids'],
+  ['Hidden', 'Army'],
+  ['Amidala', 'Transmission']
+]
+
+export function TfaSceneTimeline() {
+  const C = useVizColors()
+  const W = 900
+  const H = 150
+  const padX = 60
+  const yLine = H / 2
+  const x = scaleLinear()
+    .domain([0, TFA_BEATS.length - 1])
+    .range([padX, W - padX])
   return (
-    <figure className="lrn-figure">
-      <svg viewBox="0 0 900 160" style={{ width: '100%' }}>
-        <line x1="60" y1="80" x2="840" y2="80" stroke={C.dim} strokeWidth="2" />
-        {[
-          { x: 60, label1: 'Opening', label2: 'Crawl' },
-          { x: 180, label1: 'Cruiser', label2: 'Approach' },
-          { x: 300, label1: 'Docking', label2: 'Bay' },
-          { x: 420, label1: 'Conference', label2: 'Room' },
-          { x: 510, label1: 'Gas', label2: 'Attack' },
-          { x: 620, label1: 'Destroyer', label2: 'Droids' },
-          { x: 730, label1: 'Hidden', label2: 'Army' },
-          { x: 840, label1: 'Amidala', label2: 'Transmission' }
-        ].map((node, i) => (
-          <g key={i}>
-            <circle cx={node.x} cy={80} r={7} fill={C.fg} />
-            <text
-              x={node.x}
-              y={107}
-              textAnchor="middle"
-              fill={C.fg}
-              fontSize="13"
-              fontFamily="D-DIN, sans-serif"
-            >
-              {node.label1}
-            </text>
-            <text
-              x={node.x}
-              y={122}
-              textAnchor="middle"
-              fill={C.fg}
-              fontSize="13"
-              fontFamily="D-DIN, sans-serif"
-            >
-              {node.label2}
-            </text>
-          </g>
-        ))}
+    <VizFigure title="Trade Federation Scene Timeline" size="wide" aspect="6/1">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)',
+          color: C.fg
+        }}
+      >
+        <line
+          x1={padX}
+          y1={yLine}
+          x2={W - padX}
+          y2={yLine}
+          stroke={C.dim}
+          strokeWidth={STROKE_PRIMARY}
+        />
+        {TFA_BEATS.map((beat, i) => {
+          const cx = x(i)
+          const above = i % 2 === 0
+          const y1 = above ? yLine - 22 : yLine + 26
+          const y2 = above ? yLine - 38 : yLine + 42
+          return (
+            <g key={i}>
+              <circle cx={cx} cy={yLine} r={6} fill={C.fg} />
+              <text x={cx} y={y1} textAnchor="middle" fill={C.fg} fontSize={FONT_TEX}>
+                {beat[0]}
+              </text>
+              <text x={cx} y={y2} textAnchor="middle" fill={C.fg} fontSize={FONT_TEX}>
+                {beat[1]}
+              </text>
+            </g>
+          )
+        })}
       </svg>
-      <figcaption>Scene-beat timeline: 14 scenes, 8 major beats</figcaption>
-    </figure>
+    </VizFigure>
   )
 }
 
-export function TfaRelationshipSvg({ C }) {
+const TFA_CHARACTER_NODES = [
+  {
+    id: 'jedi',
+    width: 200,
+    height: 100,
+    labels: [{ text: 'JEDI', bold: true }, { text: 'Qui-Gon Jinn' }, { text: 'Obi-Wan Kenobi' }]
+  },
+  {
+    id: 'federation',
+    width: 220,
+    height: 120,
+    labels: [
+      { text: 'FEDERATION', bold: true },
+      { text: 'Nute Gunray' },
+      { text: 'Daultay Dofine' },
+      { text: 'Rune Haako' }
+    ]
+  },
+  {
+    id: 'naboo',
+    width: 220,
+    height: 80,
+    labels: [{ text: 'NABOO', bold: true }, { text: 'Queen Amidala' }]
+  }
+]
+
+const TFA_CHARACTER_EDGES = [
+  {
+    id: 'e1',
+    sources: ['federation'],
+    targets: ['jedi'],
+    style: 'dashed',
+    labels: [{ text: 'ordered killed' }]
+  },
+  {
+    id: 'e2',
+    sources: ['jedi'],
+    targets: ['naboo'],
+    style: 'solid',
+    labels: [{ text: 'serve' }]
+  },
+  {
+    id: 'e3',
+    sources: ['federation'],
+    targets: ['naboo'],
+    style: 'dashed',
+    labels: [{ text: 'blockades' }]
+  },
+  {
+    id: 'e4',
+    sources: ['naboo'],
+    targets: ['federation'],
+    style: 'dashed',
+    labels: [{ text: 'confronts' }]
+  }
+]
+
+const TFA_LAYOUT_OPTIONS = {
+  'elk.algorithm': 'layered',
+  'elk.direction': 'RIGHT',
+  'elk.spacing.nodeNode': '80',
+  'elk.layered.spacing.nodeNodeBetweenLayers': '120',
+  'elk.spacing.edgeNode': '30',
+  'elk.spacing.edgeEdge': '30'
+}
+
+export function TfaCharacterWeb() {
   return (
-    <figure className="lrn-figure">
-      <svg viewBox="0 0 700 380" style={{ width: '100%' }}>
-        <rect
-          x="40"
-          y="60"
-          width="160"
-          height="90"
-          fill={C.faint}
-          stroke={C.accent}
-          strokeWidth="1.5"
-        />
-        <text
-          x="120"
-          y="90"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          fontWeight="bold"
-        >
-          JEDI
-        </text>
-        <text
-          x="120"
-          y="112"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          Qui-Gon Jinn
-        </text>
-        <text
-          x="120"
-          y="130"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          Obi-Wan Kenobi
-        </text>
-        <text
-          x="350"
-          y="45"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          letterSpacing="2"
-        >
-          REPUBLIC
-        </text>
-        <rect
-          x="500"
-          y="60"
-          width="160"
-          height="110"
-          fill={C.faint}
-          stroke={C.accent}
-          strokeWidth="1.5"
-        />
-        <text
-          x="580"
-          y="90"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          fontWeight="bold"
-        >
-          FEDERATION
-        </text>
-        <text
-          x="580"
-          y="112"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          Nute Gunray
-        </text>
-        <text
-          x="580"
-          y="130"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          Daultay Dofine
-        </text>
-        <text
-          x="580"
-          y="148"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          Rune Haako
-        </text>
-        <rect
-          x="250"
-          y="280"
-          width="200"
-          height="70"
-          fill={C.faint}
-          stroke={C.accent}
-          strokeWidth="1.5"
-        />
-        <text
-          x="350"
-          y="308"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          fontWeight="bold"
-        >
-          NABOO
-        </text>
-        <text
-          x="350"
-          y="330"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          Queen Amidala
-        </text>
-        <line
-          x1="200"
-          y1="105"
-          x2="500"
-          y2="105"
-          stroke={C.dim}
-          strokeWidth="1.5"
-          strokeDasharray="5,4"
-        />
-        <text
-          x="350"
-          y="97"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          stroke="#000"
-          strokeWidth="4"
-          paintOrder="stroke"
-        >
-          ordered killed
-        </text>
-        <line
-          x1="580"
-          y1="170"
-          x2="420"
-          y2="280"
-          stroke={C.dim}
-          strokeWidth="1.5"
-          strokeDasharray="5,4"
-        />
-        <text
-          x="528"
-          y="237"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          stroke="#000"
-          strokeWidth="4"
-          paintOrder="stroke"
-        >
-          blockades
-        </text>
-        <line x1="120" y1="150" x2="280" y2="280" stroke={C.dim} strokeWidth="1.5" />
-        <text
-          x="175"
-          y="237"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          stroke="#000"
-          strokeWidth="4"
-          paintOrder="stroke"
-        >
-          serve
-        </text>
-        <line
-          x1="350"
-          y1="280"
-          x2="490"
-          y2="170"
-          stroke={C.dim}
-          strokeWidth="1.5"
-          strokeDasharray="5,4"
-        />
-        <text
-          x="440"
-          y="262"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          stroke="#000"
-          strokeWidth="4"
-          paintOrder="stroke"
-        >
-          confronts
-        </text>
-      </svg>
-      <figcaption>Character relationship web: three factions, four edges</figcaption>
-    </figure>
+    <Diagram
+      id="SW.I.01.2"
+      title="Trade Federation Character Web"
+      size="body"
+      aspect="800/430"
+      nodes={TFA_CHARACTER_NODES}
+      edges={TFA_CHARACTER_EDGES}
+      layoutOptions={TFA_LAYOUT_OPTIONS}
+    />
   )
 }
 
-export function TfaShipLayoutSvg({ C }) {
+const TFA_SHIP_NODES = [
+  {
+    id: 'docking',
+    width: 160,
+    height: 80,
+    labels: [
+      { text: 'DOCKING BAY', bold: true },
+      { text: 'entry point', dim: true }
+    ]
+  },
+  {
+    id: 'hallway',
+    width: 100,
+    height: 80,
+    labels: [{ text: 'HALLWAY', bold: true }]
+  },
+  {
+    id: 'conference',
+    width: 180,
+    height: 110,
+    labels: [
+      { text: 'CONFERENCE', bold: true },
+      { text: 'ROOM', bold: true },
+      { text: 'gas attack here', dim: true }
+    ]
+  },
+  {
+    id: 'bridge',
+    width: 170,
+    height: 110,
+    labels: [
+      { text: 'BRIDGE', bold: true },
+      { text: 'blast doors sealed', dim: true }
+    ]
+  },
+  {
+    id: 'hangar',
+    width: 500,
+    height: 100,
+    labels: [
+      { text: 'MAIN HANGAR BAY', bold: true },
+      { text: 'Hidden army, thousands of battle droids loading onto landing craft', dim: true }
+    ]
+  }
+]
+
+const TFA_SHIP_EDGES = [
+  { id: 's1', sources: ['docking'], targets: ['hallway'], style: 'solid' },
+  { id: 's2', sources: ['hallway'], targets: ['conference'], style: 'solid' },
+  { id: 's3', sources: ['conference'], targets: ['bridge'], style: 'solid' },
+  {
+    id: 's4',
+    sources: ['conference'],
+    targets: ['hangar'],
+    style: 'dashed',
+    labels: [{ text: 'vent shaft' }]
+  }
+]
+
+const TFA_SHIP_LAYOUT_OPTIONS = {
+  'elk.algorithm': 'layered',
+  'elk.direction': 'RIGHT',
+  'elk.spacing.nodeNode': '50',
+  'elk.layered.spacing.nodeNodeBetweenLayers': '60',
+  'elk.spacing.edgeNode': '30',
+  'elk.padding': '[top=40,left=40,right=40,bottom=40]'
+}
+
+export function TfaShipLayout() {
   return (
-    <figure className="lrn-figure">
-      <svg viewBox="0 0 800 460" style={{ width: '100%' }}>
-        <rect
-          x="40"
-          y="40"
-          width="720"
-          height="380"
-          fill={C.faint}
-          stroke={C.accent}
-          strokeWidth="2"
-          rx="6"
-        />
-        <text
-          x="400"
-          y="28"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          letterSpacing="2"
-        >
-          TRADE FEDERATION DROID CONTROL SHIP
-        </text>
-        <rect
-          x="70"
-          y="100"
-          width="140"
-          height="90"
-          fill={C.faint}
-          stroke={C.dim}
-          strokeWidth="1"
-        />
-        <text
-          x="140"
-          y="138"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          DOCKING BAY
-        </text>
-        <text
-          x="140"
-          y="156"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          entry point
-        </text>
-        <rect
-          x="240"
-          y="100"
-          width="80"
-          height="90"
-          fill={C.faint}
-          stroke={C.dim}
-          strokeWidth="1"
-        />
-        <text
-          x="280"
-          y="141"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          HALL-
-        </text>
-        <text
-          x="280"
-          y="157"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          WAY
-        </text>
-        <rect
-          x="350"
-          y="80"
-          width="150"
-          height="130"
-          fill={C.faint}
-          stroke={C.dim}
-          strokeWidth="1"
-        />
-        <text
-          x="425"
-          y="128"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          CONFERENCE
-        </text>
-        <text
-          x="425"
-          y="146"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          ROOM
-        </text>
-        <text
-          x="425"
-          y="164"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          gas attack here
-        </text>
-        <rect
-          x="530"
-          y="80"
-          width="140"
-          height="130"
-          fill={C.faint}
-          stroke={C.dim}
-          strokeWidth="1"
-        />
-        <text
-          x="600"
-          y="133"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          BRIDGE
-        </text>
-        <text
-          x="600"
-          y="151"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          blast doors sealed
-        </text>
-        <rect
-          x="150"
-          y="270"
-          width="480"
-          height="120"
-          fill={C.faint}
-          stroke={C.dim}
-          strokeWidth="1"
-        />
-        <text
-          x="390"
-          y="318"
-          textAnchor="middle"
-          fill={C.fg}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          MAIN HANGAR BAY
-        </text>
-        <text
-          x="390"
-          y="340"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
-          Hidden army, thousands of battle droids loading onto landing craft
-        </text>
-        <line x1="210" y1="145" x2="240" y2="145" stroke={C.dim} strokeWidth="1.5" />
-        <line x1="320" y1="145" x2="350" y2="145" stroke={C.dim} strokeWidth="1.5" />
-        <line x1="500" y1="145" x2="530" y2="145" stroke={C.dim} strokeWidth="1.5" />
-        <line
-          x1="390"
-          y1="210"
-          x2="390"
-          y2="270"
-          stroke={C.dim}
-          strokeWidth="1.5"
-          strokeDasharray="4,3"
-        />
-        <text x="402" y="248" fill={C.dim} fontSize="13" fontFamily="D-DIN, sans-serif">
-          vent shaft
-        </text>
-      </svg>
-      <figcaption>Ship layout: tactical positions</figcaption>
-    </figure>
+    <Diagram
+      id="SW.I.01.3"
+      title="Trade Federation Cruiser Layout"
+      size="body"
+      aspect="800/520"
+      nodes={TFA_SHIP_NODES}
+      edges={TFA_SHIP_EDGES}
+      layoutOptions={TFA_SHIP_LAYOUT_OPTIONS}
+      containerTitle="Trade Federation Droid Control Ship"
+    />
   )
 }
 
-export function TfaThemeMapSvg({ C }) {
+export function TfaThemeMap() {
+  const C = useVizColors()
+  const halo = { stroke: 'var(--bg-elevated)', strokeWidth: 6, paintOrder: 'stroke' }
+  const W = 800
+  const H = 450
+  const cx = W / 2
+  const cy = H / 2 - 20
   return (
-    <figure className="lrn-figure">
-      <svg viewBox="0 0 700 380" style={{ width: '100%' }}>
-        <line x1="350" y1="40" x2="350" y2="340" stroke={C.dim} strokeWidth="1.5" />
-        <line x1="50" y1="190" x2="650" y2="190" stroke={C.dim} strokeWidth="1.5" />
+    <VizFigure title="Trade Federation Theme Map" size="body" aspect="16/9">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
+      >
+        <line x1={cx} y1={30} x2={cx} y2={H - 60} stroke={C.dim} strokeWidth={STROKE_PRIMARY} />
+        <line x1={40} y1={cy} x2={W - 40} y2={cy} stroke={C.dim} strokeWidth={STROKE_PRIMARY} />
         <text
-          x="350"
-          y="194"
+          x={cx}
+          y={cy + 5}
           textAnchor="middle"
           dominantBaseline="middle"
           fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-          letterSpacing="3"
+          fontSize="14"
+          letterSpacing="4"
+          style={halo}
         >
           TENSION
         </text>
         <text
-          x="160"
-          y="100"
+          x={W * 0.25}
+          y={cy - 80}
           textAnchor="middle"
           fill={C.fg}
-          fontSize="16"
-          fontFamily="D-DIN, sans-serif"
+          fontSize="18"
           fontWeight="bold"
         >
           CALM
         </text>
-        <text
-          x="160"
-          y="120"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
+        <text x={W * 0.25} y={cy - 56} textAnchor="middle" fill={C.dim} fontSize="14">
           Jedi
         </text>
         <text
-          x="540"
-          y="100"
+          x={W * 0.75}
+          y={cy - 80}
           textAnchor="middle"
-          fill={C.dim}
-          fontSize="16"
-          fontFamily="D-DIN, sans-serif"
+          fill={C.fg}
+          fontSize="18"
           fontWeight="bold"
         >
           PANIC
         </text>
-        <text
-          x="540"
-          y="120"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
+        <text x={W * 0.75} y={cy - 56} textAnchor="middle" fill={C.dim} fontSize="14">
           Federation
         </text>
         <text
-          x="160"
-          y="265"
+          x={W * 0.25}
+          y={cy + 80}
           textAnchor="middle"
           fill={C.fg}
-          fontSize="15"
-          fontFamily="D-DIN, sans-serif"
+          fontSize="18"
           fontWeight="bold"
         >
           PRESENT
         </text>
-        <text
-          x="160"
-          y="283"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
+        <text x={W * 0.25} y={cy + 104} textAnchor="middle" fill={C.dim} fontSize="14">
           Qui-Gon
         </text>
         <text
-          x="540"
-          y="258"
+          x={W * 0.75}
+          y={cy + 80}
           textAnchor="middle"
-          fill={C.dim}
-          fontSize="14"
-          fontFamily="D-DIN, sans-serif"
+          fill={C.fg}
+          fontSize="18"
           fontWeight="bold"
         >
           FUTURE ANXIETY
         </text>
-        <text
-          x="540"
-          y="276"
-          textAnchor="middle"
-          fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
-        >
+        <text x={W * 0.75} y={cy + 104} textAnchor="middle" fill={C.dim} fontSize="14">
           Obi-Wan
         </text>
         <text
-          x="350"
-          y="360"
+          x={cx}
+          y={H - 20}
           textAnchor="middle"
           fill={C.dim}
-          fontSize="13"
-          fontFamily="D-DIN, sans-serif"
+          fontSize={FONT_TEX}
+          letterSpacing="1"
         >
           COURTESY vs VIOLENCE | SMALL FORCE vs MASSIVE ARMY
         </text>
       </svg>
-      <figcaption>Theme map: four tensions driving the opening scene</figcaption>
-    </figure>
+    </VizFigure>
   )
 }
 
-export function RaceCourseMap({ C }) {
+// Canonical Boonta Eve Classic course. Track geometry is authored vector art
+// at src/assets/viz/boonta-eve-course.svg: a single closed bezier path drawn
+// in three layers (translucent ribbon, crisp outline, dashed centerline). All
+// colors are currentColor so the track adopts the theme fg.
+export function BoontaRaceCourse() {
+  const C = useVizColors()
   return (
-    <svg
-      viewBox="0 0 800 500"
-      width="100%"
-      height="auto"
-      aria-label="Boonta Eve Classic race course overhead map"
-      role="img"
-    >
-      <text
-        x="400"
-        y="36"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="18"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        BOONTA EVE CLASSIC, RACE CIRCUIT
-      </text>
-
-      {/* Course outer boundary */}
-      <path
-        d="M 120 120 Q 200 80 340 90 Q 480 100 580 80 Q 700 60 730 150 Q 750 220 710 300 Q 680 360 600 390 Q 500 420 400 410 Q 300 420 220 390 Q 130 360 100 280 Q 80 210 120 120 Z"
-        fill={C.faint}
-        stroke={C.dim}
-        strokeWidth="1.5"
-      />
-      {/* Inner boundary: track corridor */}
-      <path
-        d="M 160 150 Q 220 120 340 128 Q 460 136 560 120 Q 660 108 685 180 Q 700 240 670 305 Q 645 350 565 370 Q 460 392 390 384 Q 310 392 240 365 Q 165 338 148 265 Q 135 210 160 150 Z"
-        fill="none"
-        stroke={C.dim}
-        strokeWidth="1"
-        strokeDasharray="6 4"
-      />
-
-      {/* Start/Finish line */}
-      <line x1="245" y1="365" x2="245" y2="415" stroke={C.accent} strokeWidth="3" />
-      <text
-        x="245"
-        y="432"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-      >
-        START / FINISH
-      </text>
-
-      {/* Sebulba crash zone */}
-      <circle cx="310" cy="378" r="10" fill="none" stroke={C.fg} strokeWidth="2" />
-      <line x1="304" y1="372" x2="316" y2="384" stroke={C.fg} strokeWidth="1.5" />
-      <line x1="316" y1="372" x2="304" y2="384" stroke={C.fg} strokeWidth="1.5" />
-      <text
-        x="310"
-        y="400"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        SEBULBA CRASH
-      </text>
-
-      {/* Tusken Raider ambush */}
-      <polygon points="560,92 567,78 574,92" fill={C.dim} />
-      <text
-        x="568"
-        y="72"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        TUSKEN AMBUSH
-      </text>
-
-      {/* Mawhonic crash */}
-      <circle cx="675" cy="200" r="8" fill="none" stroke={C.dim} strokeWidth="1.5" />
-      <line x1="670" y1="195" x2="680" y2="205" stroke={C.dim} strokeWidth="1.5" />
-      <line x1="680" y1="195" x2="670" y2="205" stroke={C.dim} strokeWidth="1.5" />
-      <text
-        x="720"
-        y="198"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        MAWHONIC CRASH
-      </text>
-
-      {/* Service ramp */}
-      <rect x="492" y="124" width="30" height="10" fill={C.dim} opacity="0.7" />
-      <text
-        x="507"
-        y="115"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        SERVICE RAMP
-      </text>
-
-      {/* Cliff drop-off */}
-      <path
-        d="M 695 255 Q 700 265 695 275"
-        fill="none"
-        stroke={C.dim}
-        strokeWidth="2"
-        strokeDasharray="4 3"
-      />
-      <text
-        x="724"
-        y="264"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        CLIFF DROP
-      </text>
-
-      {/* Direction arrow */}
-      <defs>
-        <marker id="tpr-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-          <path d="M 0 0 L 8 4 L 0 8 Z" fill={C.accent} />
-        </marker>
-      </defs>
-      <path
-        d="M 155 230 Q 148 245 155 260"
-        fill="none"
-        stroke={C.accent}
-        strokeWidth="2"
-        markerEnd="url(#tpr-arrow)"
-      />
-      <text
-        x="133"
-        y="244"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        LAP DIR.
-      </text>
-
-      {/* Lap count watermark */}
-      <text
-        x="400"
-        y="252"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="48"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.06em"
-      >
-        3 LAPS
-      </text>
-
-      {/* Grandstands */}
-      <rect x="40" y="462" width="120" height="28" fill="none" stroke={C.faint} strokeWidth="1" />
-      <text
-        x="100"
-        y="476"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        GRANDSTANDS
-      </text>
-
-      {/* Legend */}
-      <circle cx="570" cy="448" r="7" fill="none" stroke={C.fg} strokeWidth="2" />
-      <line x1="564" y1="442" x2="576" y2="454" stroke={C.fg} strokeWidth="1.5" />
-      <line x1="576" y1="442" x2="564" y2="454" stroke={C.fg} strokeWidth="1.5" />
-      <text
-        x="584"
-        y="448"
-        textAnchor="start"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        CRASH
-      </text>
-      <polygon points="618,440 623,430 628,440" fill={C.dim} />
-      <text
-        x="636"
-        y="436"
-        textAnchor="start"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        HAZARD
-      </text>
-    </svg>
-  )
-}
-
-export function PodracerLineup({ C }) {
-  const racers = [
-    { name: 'ANAKIN SKYWALKER', role: 'Hero / Winner', note: 'Slave boy, Force-guided reflexes' },
-    { name: 'SEBULBA', role: 'Champion / Villain', note: 'Side-exhaust sabotage, serial cheater' },
-    { name: 'GASGANO', role: 'Blocker', note: 'Anakin leaps over him at cliff drop' },
-    { name: 'MAWHONIC', role: 'First casualty', note: 'Destroyed by Sebulba, lap 1 turn 1' },
-    {
-      name: 'BEN QUADINAROS',
-      role: 'Comic relief',
-      note: 'All four engines explode at worst moment'
-    },
-    { name: 'ODY MANDRELL', role: 'Pit incident', note: 'Droid DUM-4 sucked into his engine' },
-    { name: 'XELBREE', role: 'Lap 2 casualty', note: "Destroyed by Sebulba's side vent" }
-  ]
-
-  const rowH = 54
-  const svgH = racers.length * rowH + 82
-
-  return (
-    <svg
-      viewBox={`0 0 800 ${svgH}`}
-      width="100%"
-      height="auto"
-      aria-label="Podracer lineup for the Boonta Eve Classic"
-      role="img"
-    >
-      <text
-        x="400"
-        y="32"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="18"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        BOONTA EVE CLASSIC, STARTING LINEUP
-      </text>
-
-      <text
-        x="60"
-        y="60"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-      >
-        PILOT
-      </text>
-      <text
-        x="280"
-        y="60"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-      >
-        RACE ROLE
-      </text>
-      <text
-        x="440"
-        y="60"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-      >
-        OUTCOME / NOTE
-      </text>
-      <line x1="40" y1="70" x2="760" y2="70" stroke={C.faint} strokeWidth="1" />
-
-      {racers.map((r, i) => {
-        const y = 80 + i * rowH
-        const isHero = i === 0
-        const isVillain = i === 1
-        const nameColor = isHero ? C.fg : isVillain ? C.accent : C.dim
-        return (
-          <g key={r.name}>
-            <line
-              x1="40"
-              y1={y + rowH - 2}
-              x2="760"
-              y2={y + rowH - 2}
-              stroke={C.faint}
-              strokeWidth="0.5"
-            />
-            <text
-              x="48"
-              y={y + rowH / 2}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill={C.dim}
-              fontSize="13"
-              fontFamily="D-DIN, sans-serif"
-            >
-              {String(i + 1).padStart(2, '0')}
-            </text>
-            <text
-              x="68"
-              y={y + rowH / 2}
-              dominantBaseline="middle"
-              fill={nameColor}
-              fontSize="14"
-              fontFamily="D-DIN, sans-serif"
-              letterSpacing="0.03em"
-            >
-              {r.name}
-            </text>
-            <text
-              x="280"
-              y={y + rowH / 2}
-              dominantBaseline="middle"
-              fill={C.dim}
-              fontSize="13"
-              fontFamily="D-DIN, sans-serif"
-            >
-              {r.role}
-            </text>
-            <text
-              x="440"
-              y={y + rowH / 2}
-              dominantBaseline="middle"
-              fill={C.dim}
-              fontSize="12"
-              fontFamily="D-DIN, sans-serif"
-            >
-              {r.note}
-            </text>
-          </g>
-        )
-      })}
-    </svg>
-  )
-}
-
-export function RaceTimeline({ C }) {
-  const events = [
-    {
-      lap: 'PRE-RACE',
-      label: "Sebulba sabotages Anakin's engine strap, undetected",
-      type: 'threat'
-    },
-    {
-      lap: 'START',
-      label: "Green light fires. Anakin's engine stalls. All others roar ahead.",
-      type: 'crisis'
-    },
-    {
-      lap: 'LAP 1',
-      label: 'Sebulba destroys Mawhonic on turn 1. Stakes established.',
-      type: 'threat'
-    },
-    {
-      lap: 'LAP 1',
-      label: 'Anakin battles Gasgano. Leaps over him at cliff drop-off.',
-      type: 'hero'
-    },
-    { lap: 'LAP 1', label: 'Tusken Raiders open fire on field. Racers scatter.', type: 'threat' },
-    { lap: 'LAP 2', label: 'Sebulba destroys Xelbree with side-exhaust vent.', type: 'threat' },
-    {
-      lap: 'LAP 2',
-      label: 'Ody Mandrell pits. Droid DUM-4 sucked into engine, explodes.',
-      type: 'action'
-    },
-    {
-      lap: 'LAP 2',
-      label: 'Ben Quadinaros: all four engines explode simultaneously.',
-      type: 'action'
-    },
-    {
-      lap: 'LAP 2',
-      label: "Sebulba breaks Anakin's engine strap. Mechanical crisis.",
-      type: 'crisis'
-    },
-    {
-      lap: 'LAP 2',
-      label: 'Anakin saves via service ramp. Force-instinct payoff. Climbs to second.',
-      type: 'hero'
-    },
-    {
-      lap: 'LAP 3',
-      label: 'Anakin catches Sebulba. Side-by-side duel at full speed.',
-      type: 'hero'
-    },
-    {
-      lap: 'LAP 3',
-      label: 'Steering rods hook together. Both Pods locked in tandem.',
-      type: 'crisis'
-    },
-    {
-      lap: 'LAP 3',
-      label: "Anakin's arm breaks free. Sebulba hits ancient statue, crashes.",
-      type: 'hero'
-    },
-    {
-      lap: 'FINISH',
-      label: 'Anakin wins. Crowd erupts. Probe droid observes Qui-Gon.',
-      type: 'hero'
-    }
-  ]
-
-  const typeColors = { threat: C.dim, crisis: C.accent, action: C.dim, hero: C.fg }
-  const rowH = 44
-  const svgH = events.length * rowH + 90
-
-  return (
-    <svg
-      viewBox={`0 0 800 ${svgH}`}
-      width="100%"
-      height="auto"
-      aria-label="Podrace event timeline: key moments across three laps"
-      role="img"
-    >
-      <text
-        x="400"
-        y="32"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="18"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        RACE EVENT TIMELINE
-      </text>
-
-      <circle cx="130" cy="58" r="5" fill={C.fg} />
-      <text
-        x="140"
-        y="58"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        HERO BEAT
-      </text>
-      <circle cx="242" cy="58" r="5" fill={C.accent} />
-      <text
-        x="252"
-        y="58"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        CRISIS
-      </text>
-      <circle cx="322" cy="58" r="5" fill={C.dim} />
-      <text
-        x="332"
-        y="58"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        ACTION / THREAT
-      </text>
-
-      <line x1="150" y1="75" x2="150" y2={svgH - 20} stroke={C.dim} strokeWidth="1.5" />
-
-      {events.map((ev, i) => {
-        const y = 80 + i * rowH
-        const dotColor = typeColors[ev.type] || C.dim
-        return (
-          <g key={i}>
-            <text
-              x="60"
-              y={y + rowH / 2 - 2}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill={C.dim}
-              fontSize="11"
-              fontFamily="D-DIN, sans-serif"
-              letterSpacing="0.06em"
-            >
-              {ev.lap}
-            </text>
-            <circle cx="150" cy={y + rowH / 2 - 2} r="5" fill={dotColor} />
-            <line
-              x1="155"
-              y1={y + rowH / 2 - 2}
-              x2="175"
-              y2={y + rowH / 2 - 2}
-              stroke={C.dim}
-              strokeWidth="1"
-            />
-            <text
-              x="182"
-              y={y + rowH / 2 - 2}
-              dominantBaseline="middle"
-              fill={ev.type === 'hero' ? C.fg : C.dim}
-              fontSize="13"
-              fontFamily="D-DIN, sans-serif"
-            >
-              {ev.label}
-            </text>
-            <line
-              x1="40"
-              y1={y + rowH - 2}
-              x2="760"
-              y2={y + rowH - 2}
-              stroke={C.faint}
-              strokeWidth="0.4"
-            />
-          </g>
-        )
-      })}
-    </svg>
-  )
-}
-
-export function PodraceCharacterWeb({ C }) {
-  const nodes = [
-    {
-      id: 'anakin',
-      x: 400,
-      y: 250,
-      label: 'ANAKIN',
-      sublabel: 'slave / pilot / hero',
-      primary: true
-    },
-    { id: 'quigon', x: 400, y: 100, label: 'QUI-GON', sublabel: 'orchestrates the bet' },
-    { id: 'watto', x: 570, y: 190, label: 'WATTO', sublabel: 'owner / loser' },
-    { id: 'sebulba', x: 560, y: 350, label: 'SEBULBA', sublabel: 'rival / saboteur' },
-    { id: 'shmi', x: 240, y: 350, label: 'SHMI', sublabel: 'watching mother' },
-    { id: 'padme', x: 230, y: 190, label: 'PADME', sublabel: 'disguised queen' }
-  ]
-
-  const edges = [
-    { from: 'anakin', to: 'quigon', label: 'coached / freed' },
-    { from: 'anakin', to: 'watto', label: 'enslaved by' },
-    { from: 'anakin', to: 'sebulba', label: 'rivals' },
-    { from: 'anakin', to: 'shmi', label: 'son / farewell' },
-    { from: 'anakin', to: 'padme', label: 'dream / kiss' },
-    { from: 'quigon', to: 'watto', label: 'outwits via Force' }
-  ]
-
-  const nodeMap = Object.fromEntries(nodes.map(n => [n.id, n]))
-
-  return (
-    <svg
-      viewBox="0 0 800 450"
-      width="100%"
-      height="auto"
-      aria-label="Character relationship diagram for The Podrace"
-      role="img"
-    >
-      <text
-        x="400"
-        y="32"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="18"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        CHARACTER RELATIONSHIPS
-      </text>
-
-      {edges.map((e, i) => {
-        const a = nodeMap[e.from]
-        const b = nodeMap[e.to]
-        const mx = (a.x + b.x) / 2
-        const my = (a.y + b.y) / 2
-        return (
-          <g key={i}>
-            <line x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke={C.dim} strokeWidth="1.5" />
-            <text
-              x={mx}
-              y={my - 8}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill={C.dim}
-              fontSize="11"
-              fontFamily="D-DIN, sans-serif"
-              letterSpacing="0.03em"
-            >
-              {e.label}
-            </text>
-          </g>
-        )
-      })}
-
-      {nodes.map(n => (
-        <g key={n.id}>
-          <circle
-            cx={n.x}
-            cy={n.y}
-            r={n.primary ? 36 : 28}
-            fill={C.faint}
-            stroke={n.primary ? C.fg : C.dim}
-            strokeWidth={n.primary ? 2 : 1}
-          />
+    <VizFigure title="Boonta Eve Race Course" size="body" aspect="1200/700">
+      <div style={{ position: 'relative', width: '100%', height: '100%', color: C.fg }}>
+        <BoontaEveCourseTrack
+          preserveAspectRatio="xMidYMid meet"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none'
+          }}
+        />
+        <svg
+          viewBox="0 0 1200 700"
+          preserveAspectRatio="xMidYMid meet"
+          role="img"
+          aria-label="Boonta Eve Classic race course"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            fontFamily: 'var(--reader-font-family)',
+            pointerEvents: 'none'
+          }}
+        >
           <text
-            x={n.x}
-            y={n.y - 6}
+            x={600}
+            y={360}
             textAnchor="middle"
             dominantBaseline="middle"
-            fill={n.primary ? C.fg : C.accent}
-            fontSize={n.primary ? 15 : 13}
-            fontFamily="D-DIN, sans-serif"
-            letterSpacing="0.04em"
+            fill="currentColor"
+            fillOpacity="0.14"
+            fontSize="72"
+            letterSpacing="8"
           >
-            {n.label}
+            3 LAPS
           </text>
-          <text
-            x={n.x}
-            y={n.y + 10}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={C.dim}
-            fontSize="11"
-            fontFamily="D-DIN, sans-serif"
-          >
-            {n.sublabel}
+        </svg>
+      </div>
+    </VizFigure>
+  )
+}
+
+const BOONTA_RACE_EVENTS = [
+  { lap: 'PRE-RACE', text: "Sebulba sabotages Anakin's engine strap, undetected", type: 'threat' },
+  {
+    lap: 'START',
+    text: "Green light fires. Anakin's engine stalls. All others roar ahead.",
+    type: 'crisis'
+  },
+  {
+    lap: 'LAP 1',
+    text: 'Sebulba destroys Mawhonic on turn 1. Stakes established.',
+    type: 'threat'
+  },
+  {
+    lap: 'LAP 1',
+    text: 'Anakin battles Gasgano. Leaps over him at cliff drop-off.',
+    type: 'hero'
+  },
+  { lap: 'LAP 1', text: 'Tusken Raiders open fire on field. Racers scatter.', type: 'threat' },
+  { lap: 'LAP 2', text: 'Sebulba destroys Xelbree with side-exhaust vent.', type: 'threat' },
+  {
+    lap: 'LAP 2',
+    text: 'Ody Mandrell pits. Droid DUM-4 sucked into engine, explodes.',
+    type: 'action'
+  },
+  {
+    lap: 'LAP 2',
+    text: 'Ben Quadinaros: all four engines explode simultaneously.',
+    type: 'action'
+  },
+  {
+    lap: 'LAP 2',
+    text: "Sebulba breaks Anakin's engine strap. Mechanical crisis.",
+    type: 'crisis'
+  },
+  {
+    lap: 'LAP 2',
+    text: 'Anakin saves via service ramp. Force-instinct payoff. Climbs to second.',
+    type: 'hero'
+  },
+  { lap: 'LAP 3', text: 'Anakin catches Sebulba. Side-by-side duel at full speed.', type: 'hero' },
+  {
+    lap: 'LAP 3',
+    text: 'Steering rods hook together. Both Pods locked in tandem.',
+    type: 'crisis'
+  },
+  {
+    lap: 'LAP 3',
+    text: "Anakin's arm breaks free. Sebulba hits ancient statue, crashes.",
+    type: 'hero'
+  },
+  { lap: 'FINISH', text: 'Anakin wins. Crowd erupts. Probe droid observes Qui-Gon.', type: 'hero' }
+]
+
+export function BoontaRaceTimeline() {
+  const C = useVizColors()
+  const typeColors = { hero: C.fg, crisis: C.accent, action: C.dim, threat: C.dim }
+  const W = 800
+  const ROW_H = 44
+  const TOP_PAD = 60
+  const BOTTOM_PAD = 24
+  const SPINE_X = 170
+  const H = TOP_PAD + BOONTA_RACE_EVENTS.length * ROW_H + BOTTOM_PAD
+  const yScale = scaleLinear()
+    .domain([0, BOONTA_RACE_EVENTS.length - 1])
+    .range([TOP_PAD + ROW_H / 2, TOP_PAD + (BOONTA_RACE_EVENTS.length - 0.5) * ROW_H])
+
+  return (
+    <VizFigure title="Podrace Event Timeline" size="body" aspect={`${W}/${H}`}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
+      >
+        <g>
+          <circle cx={SPINE_X - 40} cy={28} r={5} fill={C.fg} />
+          <text x={SPINE_X - 30} y={32} fill={C.dim} fontSize="12" letterSpacing="1">
+            HERO BEAT
+          </text>
+          <circle cx={SPINE_X + 72} cy={28} r={5} fill={C.accent} />
+          <text x={SPINE_X + 82} y={32} fill={C.dim} fontSize="12" letterSpacing="1">
+            CRISIS
+          </text>
+          <circle cx={SPINE_X + 152} cy={28} r={5} fill={C.dim} />
+          <text x={SPINE_X + 162} y={32} fill={C.dim} fontSize="12" letterSpacing="1">
+            ACTION / THREAT
           </text>
         </g>
-      ))}
-    </svg>
+
+        <line
+          x1={SPINE_X}
+          y1={TOP_PAD}
+          x2={SPINE_X}
+          y2={H - BOTTOM_PAD}
+          stroke={C.dim}
+          strokeWidth={STROKE_PRIMARY}
+        />
+
+        {BOONTA_RACE_EVENTS.map((ev, i) => {
+          const cy = yScale(i)
+          const dotColor = typeColors[ev.type] || C.dim
+          return (
+            <g key={i}>
+              <text
+                x={SPINE_X - 80}
+                y={cy}
+                textAnchor="end"
+                dominantBaseline="middle"
+                fill={C.dim}
+                fontSize={FONT_LABEL}
+                letterSpacing="1"
+              >
+                {ev.lap}
+              </text>
+              <circle cx={SPINE_X} cy={cy} r={5} fill={dotColor} />
+              <line
+                x1={SPINE_X + 6}
+                y1={cy}
+                x2={SPINE_X + 26}
+                y2={cy}
+                stroke={C.dim}
+                strokeWidth={STROKE_SECONDARY}
+              />
+              <text
+                x={SPINE_X + 32}
+                y={cy}
+                dominantBaseline="middle"
+                fill={ev.type === 'hero' ? C.fg : C.dim}
+                fontSize={FONT_TEX}
+              >
+                {ev.text}
+              </text>
+            </g>
+          )
+        })}
+      </svg>
+    </VizFigure>
   )
 }
 
-export function DmsCharacterWebSvg({ C }) {
-  const nodes = [
-    { id: 'anakin', label: 'ANAKIN', x: 400, y: 250, role: 'Center' },
-    { id: 'shmi', label: 'SHMI', x: 220, y: 130, role: 'Mother' },
-    { id: 'quigon', label: 'QUI-GON', x: 580, y: 130, role: 'Mentor' },
-    { id: 'padme', label: 'PADME', x: 620, y: 360, role: 'Future Partner' },
-    { id: 'obiwan', label: 'OBI-WAN', x: 400, y: 410, role: 'Future Master' },
-    { id: 'kitster', label: 'KITSTER', x: 175, y: 360, role: 'Friend' },
-    { id: 'threepio', label: 'THREEPIO', x: 215, y: 270, role: 'Creation' },
-    { id: 'maul', label: 'DARTH MAUL', x: 580, y: 255, role: 'Enemy' }
-  ]
+const PODRACE_CHAR_NODES = [
+  {
+    id: 'anakin',
+    width: 160,
+    height: 80,
+    labels: [
+      { text: 'ANAKIN', bold: true },
+      { text: 'slave / pilot / hero', dim: true }
+    ]
+  },
+  {
+    id: 'quigon',
+    width: 160,
+    height: 70,
+    labels: [
+      { text: 'QUI-GON', bold: true },
+      { text: 'orchestrates the bet', dim: true }
+    ]
+  },
+  {
+    id: 'watto',
+    width: 150,
+    height: 70,
+    labels: [
+      { text: 'WATTO', bold: true },
+      { text: 'owner / loser', dim: true }
+    ]
+  },
+  {
+    id: 'sebulba',
+    width: 160,
+    height: 70,
+    labels: [
+      { text: 'SEBULBA', bold: true },
+      { text: 'rival / saboteur', dim: true }
+    ]
+  },
+  {
+    id: 'shmi',
+    width: 160,
+    height: 70,
+    labels: [
+      { text: 'SHMI', bold: true },
+      { text: 'watching mother', dim: true }
+    ]
+  },
+  {
+    id: 'padme',
+    width: 160,
+    height: 70,
+    labels: [
+      { text: 'PADME', bold: true },
+      { text: 'disguised queen', dim: true }
+    ]
+  }
+]
 
-  const edges = [
-    { from: 'anakin', to: 'shmi', label: 'separation / wound' },
-    { from: 'anakin', to: 'quigon', label: 'destiny / distance' },
-    { from: 'anakin', to: 'padme', label: 'japor snippet / care' },
-    { from: 'anakin', to: 'obiwan', label: 'skepticism / awe' },
-    { from: 'anakin', to: 'kitster', label: 'loyalty / farewell' },
-    { from: 'anakin', to: 'threepio', label: 'creator / unfinished' },
-    { from: 'anakin', to: 'maul', label: 'witness to first clash' },
-    { from: 'quigon', to: 'maul', label: 'first lightsaber duel' }
-  ]
+const PODRACE_CHAR_EDGES = [
+  {
+    id: 'a-q',
+    sources: ['anakin'],
+    targets: ['quigon'],
+    style: 'solid',
+    labels: [{ text: 'coached / freed' }]
+  },
+  {
+    id: 'a-w',
+    sources: ['watto'],
+    targets: ['anakin'],
+    style: 'dashed',
+    labels: [{ text: 'enslaved by' }]
+  },
+  {
+    id: 'a-s',
+    sources: ['anakin'],
+    targets: ['sebulba'],
+    style: 'dashed',
+    labels: [{ text: 'rivals' }]
+  },
+  {
+    id: 'a-sh',
+    sources: ['shmi'],
+    targets: ['anakin'],
+    style: 'solid',
+    labels: [{ text: 'son / farewell' }]
+  },
+  {
+    id: 'a-p',
+    sources: ['anakin'],
+    targets: ['padme'],
+    style: 'solid',
+    labels: [{ text: 'dream / kiss' }]
+  },
+  {
+    id: 'q-w',
+    sources: ['quigon'],
+    targets: ['watto'],
+    style: 'solid',
+    labels: [{ text: 'outwits via Force' }],
+    layoutOptions: { 'elk.stress.desiredEdgeLength': '420' }
+  }
+]
 
-  const nodeMap = {}
-  nodes.forEach(n => {
-    nodeMap[n.id] = n
-  })
+const PODRACE_CHAR_LAYOUT_OPTIONS = {
+  'elk.algorithm': 'stress',
+  'elk.stress.desiredEdgeLength': '280',
+  'elk.spacing.nodeNode': '110',
+  'elk.spacing.edgeNode': '40',
+  'elk.spacing.edgeEdge': '30',
+  'elk.padding': '[top=50,left=50,right=50,bottom=50]'
+}
 
+export function PodraceCharacterWeb() {
   return (
-    <svg
-      viewBox="0 0 800 500"
-      width="100%"
-      height="auto"
-      aria-label="Character relationship web for Departure and Maul Strikes"
-      role="img"
-    >
-      <text
-        x="400"
-        y="36"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="17"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        CHARACTER WEB: DEPARTURE AND MAUL STRIKES
-      </text>
-
-      {edges.map((e, i) => {
-        const a = nodeMap[e.from]
-        const b = nodeMap[e.to]
-        const mx = (a.x + b.x) / 2
-        const my = (a.y + b.y) / 2
-        return (
-          <g key={i}>
-            <line
-              x1={a.x}
-              y1={a.y}
-              x2={b.x}
-              y2={b.y}
-              stroke={C.dim}
-              strokeWidth="1"
-              strokeDasharray="4 3"
-            />
-            <text
-              x={mx}
-              y={my}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill={C.dim}
-              fontSize="10"
-              fontFamily="D-DIN, sans-serif"
-              letterSpacing="0.03em"
-            >
-              {e.label}
-            </text>
-          </g>
-        )
-      })}
-
-      {nodes.map(n => (
-        <g key={n.id}>
-          <circle
-            cx={n.x}
-            cy={n.y}
-            r="34"
-            fill="var(--bg)"
-            stroke={n.id === 'anakin' ? C.accent : n.id === 'maul' ? C.fg : C.dim}
-            strokeWidth={n.id === 'anakin' ? 2.5 : 1.5}
-          />
-          <text
-            x={n.x}
-            y={n.y - 8}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={n.id === 'anakin' ? C.accent : C.fg}
-            fontSize="12"
-            fontFamily="D-DIN, sans-serif"
-            letterSpacing="0.05em"
-            fontWeight="bold"
-          >
-            {n.label}
-          </text>
-          <text
-            x={n.x}
-            y={n.y + 10}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={C.dim}
-            fontSize="10"
-            fontFamily="D-DIN, sans-serif"
-            letterSpacing="0.03em"
-          >
-            {n.role}
-          </text>
-        </g>
-      ))}
-    </svg>
+    <Diagram
+      id="SW.I.04.4"
+      title="Podrace Character Relationships"
+      size="body"
+      aspect="800/600"
+      nodes={PODRACE_CHAR_NODES}
+      edges={PODRACE_CHAR_EDGES}
+      layoutOptions={PODRACE_CHAR_LAYOUT_OPTIONS}
+    />
   )
 }
 
-export function DarkSideTimelineSvg({ C }) {
+const DMS_CHAR_NODES = [
+  {
+    id: 'anakin',
+    width: 160,
+    height: 80,
+    labels: [
+      { text: 'ANAKIN', bold: true },
+      { text: 'Center', dim: true }
+    ]
+  },
+  {
+    id: 'shmi',
+    width: 160,
+    height: 70,
+    labels: [
+      { text: 'SHMI', bold: true },
+      { text: 'Mother', dim: true }
+    ]
+  },
+  {
+    id: 'quigon',
+    width: 160,
+    height: 70,
+    labels: [
+      { text: 'QUI-GON', bold: true },
+      { text: 'Mentor', dim: true }
+    ]
+  },
+  {
+    id: 'threepio',
+    width: 170,
+    height: 70,
+    labels: [
+      { text: 'THREEPIO', bold: true },
+      { text: 'Creation', dim: true }
+    ]
+  },
+  {
+    id: 'maul',
+    width: 180,
+    height: 70,
+    labels: [
+      { text: 'DARTH MAUL', bold: true },
+      { text: 'Enemy', dim: true }
+    ]
+  },
+  {
+    id: 'kitster',
+    width: 160,
+    height: 70,
+    labels: [
+      { text: 'KITSTER', bold: true },
+      { text: 'Friend', dim: true }
+    ]
+  },
+  {
+    id: 'padme',
+    width: 190,
+    height: 70,
+    labels: [
+      { text: 'PADME', bold: true },
+      { text: 'Future Partner', dim: true }
+    ]
+  },
+  {
+    id: 'obiwan',
+    width: 190,
+    height: 70,
+    labels: [
+      { text: 'OBI-WAN', bold: true },
+      { text: 'Future Master', dim: true }
+    ]
+  }
+]
+
+const DMS_CHAR_EDGES = [
+  {
+    id: 'a-sh',
+    sources: ['anakin'],
+    targets: ['shmi'],
+    style: 'solid',
+    labels: [{ text: 'separation / wound' }]
+  },
+  {
+    id: 'a-q',
+    sources: ['quigon'],
+    targets: ['anakin'],
+    style: 'solid',
+    labels: [{ text: 'destiny / distance' }]
+  },
+  {
+    id: 'a-p',
+    sources: ['anakin'],
+    targets: ['padme'],
+    style: 'solid',
+    labels: [{ text: 'japor snippet / care' }]
+  },
+  {
+    id: 'a-o',
+    sources: ['obiwan'],
+    targets: ['anakin'],
+    style: 'solid',
+    labels: [{ text: 'skepticism / awe' }]
+  },
+  {
+    id: 'a-k',
+    sources: ['anakin'],
+    targets: ['kitster'],
+    style: 'solid',
+    labels: [{ text: 'loyalty / farewell' }]
+  },
+  {
+    id: 'a-t',
+    sources: ['anakin'],
+    targets: ['threepio'],
+    style: 'solid',
+    labels: [{ text: 'creator / unfinished' }]
+  },
+  {
+    id: 'a-m',
+    sources: ['maul'],
+    targets: ['anakin'],
+    style: 'dashed',
+    labels: [{ text: 'witness to first clash' }]
+  },
+  {
+    id: 'q-m',
+    sources: ['quigon'],
+    targets: ['maul'],
+    style: 'dashed',
+    labels: [{ text: 'first lightsaber duel' }],
+    layoutOptions: { 'elk.stress.desiredEdgeLength': '380' }
+  }
+]
+
+const DMS_CHAR_LAYOUT_OPTIONS = {
+  'elk.algorithm': 'stress',
+  'elk.stress.desiredEdgeLength': '300',
+  'elk.spacing.nodeNode': '120',
+  'elk.spacing.edgeNode': '40',
+  'elk.spacing.edgeEdge': '30',
+  'elk.padding': '[top=50,left=50,right=50,bottom=50]'
+}
+
+export function DmsCharacterWeb() {
+  return (
+    <Diagram
+      id="SW.I.03.1"
+      title="Departure and Maul Strikes Character Web"
+      size="body"
+      aspect="900/640"
+      nodes={DMS_CHAR_NODES}
+      edges={DMS_CHAR_EDGES}
+      layoutOptions={DMS_CHAR_LAYOUT_OPTIONS}
+    />
+  )
+}
+
+export function DarkSideTimeline() {
+  const C = useVizColors()
+  const W = 1000
+  const H = 280
+  const yLine = H / 2
+  const padX = 120
   const beats = [
-    { x: 110, label: 'PROBE DROID', sub: 'watches from hill', phase: 'covert' },
-    { x: 260, label: 'DROID REPORTS', sub: 'Maul receives signal', phase: 'covert' },
-    { x: 410, label: 'MAUL RIDES', sub: 'speeder to Mos Espa', phase: 'mobile' },
-    { x: 555, label: 'FIRST STRIKE', sub: 'lightsaber drawn', phase: 'attack' },
-    { x: 700, label: 'REPELLED', sub: 'knocked off ramp', phase: 'retreat' }
+    { label: 'PROBE DROID', sub: 'watches from hill' },
+    { label: 'DROID REPORTS', sub: 'Maul receives signal' },
+    { label: 'MAUL RIDES', sub: 'speeder to Mos Espa' },
+    { label: 'FIRST STRIKE', sub: 'lightsaber drawn' },
+    { label: 'REPELLED', sub: 'knocked off ramp' }
+  ]
+  const step = (W - padX * 2) / (beats.length - 1)
+  const xs = beats.map((_, i) => padX + i * step)
+  const pivot = 3
+
+  const surveillanceEnd = (xs[1] + xs[2]) / 2
+  const transitEnd = (xs[2] + xs[3]) / 2
+  const phases = [
+    { label: 'SURVEILLANCE', x0: xs[0] - 30, x1: surveillanceEnd },
+    { label: 'TRANSIT', x0: surveillanceEnd, x1: transitEnd },
+    { label: 'ASSAULT', x0: transitEnd, x1: xs[xs.length - 1] + 30 }
   ]
 
   return (
-    <svg
-      viewBox="0 0 800 220"
-      width="100%"
-      height="auto"
-      aria-label="Dark side threat timeline from covert surveillance to open attack"
-      role="img"
-    >
-      <text
-        x="400"
-        y="30"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="16"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
+    <VizFigure title="Dark Side Threat Arc" size="body" aspect="1000/280">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Dark side escalation from covert surveillance to open assault"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
       >
-        DARK SIDE THREAT ARC: COVERT TO OPEN
-      </text>
-
-      <line x1="80" y1="120" x2="730" y2="120" stroke={C.dim} strokeWidth="1.5" />
-
-      <rect x="80" y="108" width="330" height="24" fill={C.faint} rx="2" opacity="0.6" />
-      <text
-        x="245"
-        y="98"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.06em"
-      >
-        SURVEILLANCE
-      </text>
-      <rect x="410" y="108" width="145" height="24" fill={C.faint} rx="2" opacity="0.4" />
-      <text
-        x="482"
-        y="98"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.06em"
-      >
-        TRANSIT
-      </text>
-      <rect x="555" y="108" width="175" height="24" fill={C.faint} rx="2" opacity="0.8" />
-      <text
-        x="642"
-        y="98"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.06em"
-      >
-        ASSAULT
-      </text>
-
-      {beats.map((b, i) => (
-        <g key={i}>
-          <circle
-            cx={b.x}
-            cy={120}
-            r="8"
-            fill="var(--bg)"
-            stroke={b.phase === 'attack' || b.phase === 'retreat' ? C.fg : C.dim}
-            strokeWidth={b.phase === 'attack' ? 2.5 : 1.5}
-          />
-          <text
-            x={b.x}
-            y={150}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={b.phase === 'attack' ? C.fg : C.dim}
-            fontSize="12"
-            fontFamily="D-DIN, sans-serif"
-            letterSpacing="0.04em"
-          >
-            {b.label}
-          </text>
-          <text
-            x={b.x}
-            y={170}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={C.dim}
-            fontSize="10"
-            fontFamily="D-DIN, sans-serif"
-          >
-            {b.sub}
-          </text>
-        </g>
-      ))}
-
-      <text
-        x="400"
-        y="205"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        The dark side shifts from watching to striking across a single scene sequence.
-      </text>
-    </svg>
-  )
-}
-
-export function IncompleteLiberationSvg({ C }) {
-  return (
-    <svg
-      viewBox="0 0 800 300"
-      width="100%"
-      height="auto"
-      aria-label="Anakin's freedom vs Shmi's continued captivity"
-      role="img"
-    >
-      <text
-        x="400"
-        y="32"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="15"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        THE INCOMPLETE LIBERATION
-      </text>
-
-      {/* Anakin column - FREE */}
-      <rect
-        x="80"
-        y="60"
-        width="260"
-        height="190"
-        fill="var(--bg)"
-        stroke={C.accent}
-        strokeWidth="1.5"
-      />
-      <text
-        x="210"
-        y="90"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="14"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.06em"
-        fontWeight="bold"
-      >
-        ANAKIN
-      </text>
-      <text
-        x="210"
-        y="115"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-      >
-        FREED
-      </text>
-      <text
-        x="210"
-        y="155"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Wins the podrace.
-      </text>
-      <text
-        x="210"
-        y="175"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Watto releases his contract.
-      </text>
-      <text
-        x="210"
-        y="195"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Walks onto the ship.
-      </text>
-      <text
-        x="210"
-        y="225"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        COST: everything else
-      </text>
-
-      {/* Shmi column - STILL ENSLAVED */}
-      <rect
-        x="460"
-        y="60"
-        width="260"
-        height="190"
-        fill="var(--bg)"
-        stroke={C.dim}
-        strokeWidth="1.5"
-        strokeDasharray="6 3"
-      />
-      <text
-        x="590"
-        y="90"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="14"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.06em"
-        fontWeight="bold"
-      >
-        SHMI
-      </text>
-      <text
-        x="590"
-        y="115"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-      >
-        STILL ENSLAVED
-      </text>
-      <text
-        x="590"
-        y="155"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Watto refused the offer.
-      </text>
-      <text
-        x="590"
-        y="175"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Money was not enough.
-      </text>
-      <text
-        x="590"
-        y="195"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Stays on Tatooine.
-      </text>
-      {/* Arrow between */}
-      <line
-        x1="345"
-        y1="155"
-        x2="455"
-        y2="155"
-        stroke={C.dim}
-        strokeWidth="1"
-        strokeDasharray="3 2"
-      />
-      <text
-        x="400"
-        y="145"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        PAID FOR BY
-      </text>
-    </svg>
-  )
-}
-
-export function FarewellCascadeSvg({ C }) {
-  const steps = [
-    { x: 80, label: 'WAKES THREEPIO', sub: 'leaves him unfinished' },
-    { x: 220, label: 'GIVES KITSTER', sub: 'coins, promises to remember' },
-    { x: 360, label: 'STARTS WALKING', sub: 'toward Qui-Gon' },
-    { x: 500, label: 'RUNS BACK', sub: '"I cannot do it, Mom"' },
-    { x: 640, label: 'STARTS AGAIN', sub: 'Shmi points him forward' }
-  ]
-
-  return (
-    <svg
-      viewBox="0 0 720 200"
-      width="100%"
-      height="auto"
-      aria-label="Anakin's five-step farewell cascade"
-      role="img"
-    >
-      <text
-        x="360"
-        y="28"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="15"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.07em"
-      >
-        THE FAREWELL CASCADE: FIVE ATTEMPTS TO LEAVE
-      </text>
-
-      <line x1="65" y1="95" x2="660" y2="95" stroke={C.dim} strokeWidth="1" strokeDasharray="3 2" />
-
-      {steps.map((s, i) => (
-        <g key={i}>
-          <circle
-            cx={s.x}
-            cy={95}
-            r="10"
-            fill="var(--bg)"
-            stroke={i === 3 ? C.accent : C.dim}
-            strokeWidth={i === 3 ? 2 : 1.5}
-          />
-          <text
-            x={s.x}
-            y={68}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={i === 3 ? C.accent : C.fg}
-            fontSize="10"
-            fontFamily="D-DIN, sans-serif"
-            letterSpacing="0.04em"
-          >
-            {s.label}
-          </text>
-          <text
-            x={s.x}
-            y={125}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={C.dim}
-            fontSize="9"
-            fontFamily="D-DIN, sans-serif"
-          >
-            {s.sub}
-          </text>
-          {i < steps.length - 1 && (
+        {phases.map((p, i) => (
+          <g key={i}>
+            <rect x={p.x0} y={yLine - 18} width={p.x1 - p.x0} height={36} fill={C.faint} />
             <text
-              x={s.x + 70}
-              y={88}
+              x={(p.x0 + p.x1) / 2}
+              y={yLine - 36}
               textAnchor="middle"
               dominantBaseline="middle"
               fill={C.dim}
-              fontSize="16"
-              fontFamily="D-DIN, sans-serif"
+              fontSize={FONT_TEX}
+              letterSpacing="3"
             >
-              {i === 2 ? '!' : '>'}
+              {p.label}
             </text>
-          )}
-        </g>
+          </g>
+        ))}
+
+        <line
+          x1={xs[0] - 30}
+          y1={yLine}
+          x2={xs[xs.length - 1] + 30}
+          y2={yLine}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          vectorEffect="non-scaling-stroke"
+        />
+
+        {beats.map((b, i) => {
+          const isPivot = i === pivot
+          return (
+            <g key={i}>
+              <circle
+                cx={xs[i]}
+                cy={yLine}
+                r={isPivot ? 14 : 10}
+                fill="var(--bg-elevated)"
+                stroke={C.fg}
+                strokeWidth={isPivot ? 1.75 : 1}
+                vectorEffect="non-scaling-stroke"
+              />
+              <text
+                x={xs[i]}
+                y={yLine + 44}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.fg}
+                fontSize="14"
+                fontWeight={isPivot ? 'bold' : 'normal'}
+                letterSpacing="2"
+              >
+                {b.label}
+              </text>
+              <text
+                x={xs[i]}
+                y={yLine + 68}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.dim}
+                fontSize={FONT_TEX}
+              >
+                {b.sub}
+              </text>
+            </g>
+          )
+        })}
+      </svg>
+    </VizFigure>
+  )
+}
+
+export function IncompleteLiberation() {
+  const C = useVizColors()
+  const halo = { stroke: 'var(--bg-elevated)', strokeWidth: 5, paintOrder: 'stroke' }
+  const W = 960
+  const H = 380
+  const cy = H / 2
+  const colW = 360
+  const colH = 320
+  const colY = 30
+  const gap = 120
+  const leftX = (W - colW * 2 - gap) / 2
+  const rightX = leftX + colW + gap
+  const leftCx = leftX + colW / 2
+  const rightCx = rightX + colW / 2
+
+  const anakinLines = ['Wins the podrace.', 'Watto releases his contract.', 'Walks onto the ship.']
+  const shmiLines = ['Watto refused the offer.', 'Money was not enough.', 'Stays on Tatooine.']
+
+  const bodyY0 = 195
+  const bodyStep = 36
+
+  const renderColumn = (cx, lines, cost) => (
+    <>
+      {lines.map((text, i) => (
+        <text
+          key={i}
+          x={cx}
+          y={bodyY0 + i * bodyStep}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="16"
+        >
+          {text}
+        </text>
       ))}
+      {cost && (
+        <text
+          x={cx}
+          y={colY + colH - 32}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+          letterSpacing="3"
+        >
+          {cost}
+        </text>
+      )}
+    </>
+  )
 
-      <text
-        x="360"
-        y="168"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.03em"
+  return (
+    <VizFigure title="The Incomplete Liberation" size="body" aspect="960/380">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Anakin's freedom vs Shmi's continued captivity"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
       >
-        Each return shows loyalty past the point of comfort. The run-back is highlighted.
-      </text>
-    </svg>
+        <rect
+          x={leftX}
+          y={colY}
+          width={colW}
+          height={colH}
+          fill="none"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={leftCx}
+          y={colY + 56}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="22"
+          fontWeight="bold"
+          letterSpacing="3"
+        >
+          ANAKIN
+        </text>
+        <text
+          x={leftCx}
+          y={colY + 92}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="15"
+          letterSpacing="4"
+        >
+          FREED
+        </text>
+        <line
+          x1={leftX + 40}
+          y1={colY + 128}
+          x2={leftX + colW - 40}
+          y2={colY + 128}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          vectorEffect="non-scaling-stroke"
+        />
+        {renderColumn(leftCx, anakinLines, 'COST: EVERYTHING ELSE')}
+
+        <rect
+          x={rightX}
+          y={colY}
+          width={colW}
+          height={colH}
+          fill="none"
+          stroke={C.dim}
+          strokeWidth="1.75"
+          strokeDasharray="6 4"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={rightCx}
+          y={colY + 56}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="22"
+          fontWeight="bold"
+          letterSpacing="3"
+        >
+          SHMI
+        </text>
+        <text
+          x={rightCx}
+          y={colY + 92}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="15"
+          letterSpacing="4"
+        >
+          STILL ENSLAVED
+        </text>
+        <line
+          x1={rightX + 40}
+          y1={colY + 128}
+          x2={rightX + colW - 40}
+          y2={colY + 128}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          vectorEffect="non-scaling-stroke"
+        />
+        {renderColumn(rightCx, shmiLines, null)}
+
+        <line
+          x1={leftX + colW}
+          y1={cy}
+          x2={rightX}
+          y2={cy}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          strokeDasharray="3 3"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={W / 2}
+          y={cy - 10}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+          letterSpacing="4"
+          style={halo}
+        >
+          PAID FOR BY
+        </text>
+      </svg>
+    </VizFigure>
   )
 }
 
-export function TwoInstructionsSvg({ C }) {
+export function FarewellCascade() {
+  const C = useVizColors()
+  const halo = { stroke: 'var(--bg-elevated)', strokeWidth: 5, paintOrder: 'stroke' }
+  const W = 960
+  const H = 280
+  const yLine = H / 2
+  const padX = 100
+  const steps = [
+    { label: 'WAKES THREEPIO', sub: 'leaves him unfinished' },
+    { label: 'GIVES KITSTER', sub: 'coins, promises to remember' },
+    { label: 'STARTS WALKING', sub: 'toward Qui-Gon' },
+    { label: 'RUNS BACK', sub: '"I cannot do it, Mom"' },
+    { label: 'STARTS AGAIN', sub: 'Shmi points him forward' }
+  ]
+  const step = (W - padX * 2) / (steps.length - 1)
+  const xs = steps.map((_, i) => padX + i * step)
+
   return (
-    <svg
-      viewBox="0 0 800 240"
-      width="100%"
-      height="auto"
-      aria-label="Anakin's two contradictory instructions pulling him apart"
-      role="img"
-    >
-      <text
-        x="400"
-        y="28"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="15"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.07em"
+    <VizFigure title="The Farewell Cascade" size="body" aspect="960/280">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Anakin's five-step farewell cascade"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
       >
-        TWO INSTRUCTIONS, ONE WOUND
-      </text>
+        <line
+          x1={xs[0]}
+          y1={yLine}
+          x2={xs[xs.length - 1]}
+          y2={yLine}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          strokeDasharray="4 3"
+          vectorEffect="non-scaling-stroke"
+        />
 
-      {/* Left arrow: Anakin's vow */}
-      <text
-        x="130"
-        y="100"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        "I WILL COME BACK"
-      </text>
-      <text
-        x="130"
-        y="120"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Anakin's promise
-      </text>
-      <line
-        x1="240"
-        y1="130"
-        x2="340"
-        y2="130"
-        stroke={C.accent}
-        strokeWidth="1.5"
-        markerEnd="url(#arrow-l)"
-      />
-
-      {/* Center: Anakin */}
-      <circle cx="400" cy="130" r="30" fill="var(--bg)" stroke={C.fg} strokeWidth="2" />
-      <text
-        x="400"
-        y="126"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-        fontWeight="bold"
-      >
-        ANAKIN
-      </text>
-      <text
-        x="400"
-        y="142"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="9"
-        fontFamily="D-DIN, sans-serif"
-      >
-        torn
-      </text>
-
-      {/* Right arrow: Shmi's instruction */}
-      <line x1="460" y1="130" x2="560" y2="130" stroke={C.dim} strokeWidth="1.5" />
-      <text
-        x="670"
-        y="100"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        "DON'T LOOK BACK"
-      </text>
-      <text
-        x="670"
-        y="120"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Shmi's instruction
-      </text>
-
-      <text
-        x="400"
-        y="195"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.03em"
-      >
-        He cannot follow both. The instruction and the flaw are the same.
-      </text>
-    </svg>
+        {steps.map((s, i) => {
+          const isPivot = i === 3
+          return (
+            <g key={i}>
+              <text
+                x={xs[i]}
+                y={yLine - 60}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.fg}
+                fontSize="14"
+                fontWeight={isPivot ? 'bold' : 'normal'}
+                letterSpacing="2"
+              >
+                {s.label}
+              </text>
+              <circle
+                cx={xs[i]}
+                cy={yLine}
+                r={isPivot ? 14 : 11}
+                fill="var(--bg-elevated)"
+                stroke={C.fg}
+                strokeWidth={isPivot ? 1.75 : 1}
+                vectorEffect="non-scaling-stroke"
+              />
+              {isPivot && (
+                <text
+                  x={xs[i]}
+                  y={yLine + 1}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill={C.fg}
+                  fontSize="14"
+                  fontWeight="bold"
+                >
+                  ↺
+                </text>
+              )}
+              <text
+                x={xs[i]}
+                y={yLine + 44}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.dim}
+                fontSize={FONT_TEX}
+              >
+                {s.sub}
+              </text>
+              {i < steps.length - 1 && (
+                <text
+                  x={xs[i] + step / 2}
+                  y={yLine - 4}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill={C.dim}
+                  fontSize="22"
+                  style={halo}
+                >
+                  {i === 2 ? '!' : '›'}
+                </text>
+              )}
+            </g>
+          )
+        })}
+      </svg>
+    </VizFigure>
   )
 }
 
-export function MaulAttackSvg({ C }) {
+export function TwoInstructions() {
+  const C = useVizColors()
+  const W = 960
+  const H = 320
+  const cy = H / 2
+  const cx = W / 2
+  const r = 50
+  const leftCx = 160
+  const rightCx = W - leftCx
+  const labelY = cy - 70
+
   return (
-    <svg
-      viewBox="0 0 800 280"
-      width="100%"
-      height="auto"
-      aria-label="Maul attack spatial map and combat tempo"
-      role="img"
-    >
-      <text
-        x="400"
-        y="28"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="15"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.07em"
+    <VizFigure title="Two Instructions, One Wound" size="body" aspect="960/320">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Anakin pulled backward by his vow and forward by his mother's instruction"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
       >
-        MAUL'S ATTACK: POSITION AND TEMPO
-      </text>
+        <defs>
+          <marker
+            id="ti-arrow"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="8"
+            markerHeight="8"
+            orient="auto"
+          >
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill={C.fg} />
+          </marker>
+        </defs>
 
-      {/* Ground */}
-      <line x1="60" y1="200" x2="740" y2="200" stroke={C.dim} strokeWidth="1" />
-      <text
-        x="400"
-        y="218"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        TATOOINE DESERT
-      </text>
+        <text
+          x={leftCx}
+          y={labelY}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="16"
+          fontWeight="bold"
+          letterSpacing="2"
+        >
+          "I WILL COME BACK"
+        </text>
+        <text
+          x={leftCx}
+          y={labelY + 26}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+          letterSpacing="1"
+        >
+          Anakin's vow
+        </text>
+        <text
+          x={leftCx}
+          y={labelY + 46}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="12"
+          letterSpacing="3"
+        >
+          PULLS BACKWARD
+        </text>
+        <line
+          x1={cx - r - 10}
+          y1={cy}
+          x2={leftCx + 100}
+          y2={cy}
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+          markerEnd="url(#ti-arrow)"
+        />
 
-      {/* Naboo ship */}
-      <rect
-        x="65"
-        y="155"
-        width="80"
-        height="40"
-        fill="var(--bg)"
-        stroke={C.dim}
-        strokeWidth="1.5"
-      />
-      <text
-        x="105"
-        y="172"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        NABOO
-      </text>
-      <text
-        x="105"
-        y="185"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        SHIP
-      </text>
+        <circle
+          cx={cx}
+          cy={cy}
+          r={r}
+          fill="var(--bg-elevated)"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={cx}
+          y={cy - 6}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="16"
+          fontWeight="bold"
+          letterSpacing="2"
+        >
+          ANAKIN
+        </text>
+        <text
+          x={cx}
+          y={cy + 16}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+        >
+          torn
+        </text>
 
-      {/* Maul speeder approach */}
-      <line
-        x1="700"
-        y1="200"
-        x2="430"
-        y2="200"
-        stroke={C.fg}
-        strokeWidth="1.5"
-        strokeDasharray="5 3"
-      />
-      <circle cx="700" cy="200" r="8" fill="var(--bg)" stroke={C.fg} strokeWidth="1.5" />
-      <text
-        x="700"
-        y="178"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        MAUL
-      </text>
-      <text
-        x="700"
-        y="165"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="9"
-        fontFamily="D-DIN, sans-serif"
-      >
-        speeder arrives
-      </text>
-
-      {/* Duel zone */}
-      <circle
-        cx="400"
-        cy="190"
-        r="20"
-        fill="var(--bg)"
-        stroke={C.accent}
-        strokeWidth="1.5"
-        strokeDasharray="3 2"
-      />
-      <text
-        x="400"
-        y="153"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        DUEL ZONE
-      </text>
-      <text
-        x="400"
-        y="143"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="9"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Qui-Gon barely blocks
-      </text>
-
-      {/* Qui-Gon position */}
-      <circle cx="270" cy="200" r="8" fill="var(--bg)" stroke={C.dim} strokeWidth="1.5" />
-      <text
-        x="270"
-        y="178"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="11"
-        fontFamily="D-DIN, sans-serif"
-      >
-        QUI-GON
-      </text>
-
-      {/* Anakin runs */}
-      <line
-        x1="270"
-        y1="200"
-        x2="155"
-        y2="200"
-        stroke={C.dim}
-        strokeWidth="1"
-        strokeDasharray="3 2"
-      />
-      <text
-        x="210"
-        y="175"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="9"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Anakin runs
-      </text>
-
-      {/* Tempo rows */}
-      <text
-        x="400"
-        y="245"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Maul jumps before the speeder stops. His lightsaber swings before his feet land.
-      </text>
-      <text
-        x="400"
-        y="262"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Attack is already in progress before arrival. Qui-Gon is always one beat behind.
-      </text>
-    </svg>
+        <text
+          x={rightCx}
+          y={labelY}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="16"
+          fontWeight="bold"
+          letterSpacing="2"
+        >
+          "DON'T LOOK BACK"
+        </text>
+        <text
+          x={rightCx}
+          y={labelY + 26}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+          letterSpacing="1"
+        >
+          Shmi's instruction
+        </text>
+        <text
+          x={rightCx}
+          y={labelY + 46}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="12"
+          letterSpacing="3"
+        >
+          PUSHES FORWARD
+        </text>
+        <line
+          x1={cx + r + 10}
+          y1={cy}
+          x2={rightCx - 100}
+          y2={cy}
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+          markerEnd="url(#ti-arrow)"
+        />
+      </svg>
+    </VizFigure>
   )
 }
 
-export function FirstMeetingSvg({ C }) {
+export function MaulAttack() {
+  const C = useVizColors()
+  const W = 1100
+  const H = 340
+  const yGround = 240
+  const shipX = 70
+  const shipW = 110
+  const shipH = 50
+  const quiGonX = 370
+  const duelX = 640
+  const duelR = 36
+  const maulX = 1030
+  const nodeR = 13
+
   return (
-    <svg
-      viewBox="0 0 800 260"
-      width="100%"
-      height="auto"
-      aria-label="First meeting between Obi-Wan and Anakin"
-      role="img"
-    >
-      <text
-        x="400"
-        y="28"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="15"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.07em"
+    <VizFigure title="Maul's Attack: Position and Tempo" size="body" aspect="1100/340">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Spatial map of Maul's attack and the duel position on Tatooine"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
       >
-        FIRST MEETING: OBI-WAN AND ANAKIN
-      </text>
+        <line
+          x1={shipX}
+          y1={yGround}
+          x2={maulX + 50}
+          y2={yGround}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={W / 2}
+          y={yGround + 50}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+          letterSpacing="3"
+        >
+          TATOOINE DESERT
+        </text>
 
-      {/* Obi-Wan */}
-      <rect
-        x="80"
-        y="65"
-        width="240"
-        height="155"
-        fill="var(--bg)"
-        stroke={C.dim}
-        strokeWidth="1.5"
-      />
-      <text
-        x="200"
-        y="95"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="14"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-        fontWeight="bold"
-      >
-        OBI-WAN
-      </text>
-      <text
-        x="200"
-        y="120"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        SKEPTICAL
-      </text>
-      <text
-        x="200"
-        y="145"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        "pathetic life form"
-      </text>
-      <text
-        x="200"
-        y="163"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        sees a boy, not a Jedi
-      </text>
-      <text
-        x="200"
-        y="181"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        gives "the look"
-      </text>
-      <text
-        x="200"
-        y="200"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        cool, distant
-      </text>
+        <rect
+          x={shipX}
+          y={yGround - shipH}
+          width={shipW}
+          height={shipH}
+          fill="var(--bg-elevated)"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={shipX + shipW / 2}
+          y={yGround - shipH / 2 - 8}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="14"
+          fontWeight="bold"
+          letterSpacing="2"
+        >
+          NABOO
+        </text>
+        <text
+          x={shipX + shipW / 2}
+          y={yGround - shipH / 2 + 10}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="14"
+          fontWeight="bold"
+          letterSpacing="2"
+        >
+          SHIP
+        </text>
 
-      {/* Anakin */}
-      <rect
-        x="480"
-        y="65"
-        width="240"
-        height="155"
-        fill="var(--bg)"
-        stroke={C.accent}
-        strokeWidth="1.5"
-      />
-      <text
-        x="600"
-        y="95"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="14"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-        fontWeight="bold"
-      >
-        ANAKIN
-      </text>
-      <text
-        x="600"
-        y="120"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        AWESTRUCK
-      </text>
-      <text
-        x="600"
-        y="145"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        "Wow! You're a Jedi too?"
-      </text>
-      <text
-        x="600"
-        y="163"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        innocent, open
-      </text>
-      <text
-        x="600"
-        y="181"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        already lost everything
-      </text>
-      <text
-        x="600"
-        y="200"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-      >
-        trusts completely
-      </text>
+        <line
+          x1={shipX + shipW}
+          y1={yGround}
+          x2={quiGonX - nodeR}
+          y2={yGround}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          strokeDasharray="4 3"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={(shipX + shipW + quiGonX - nodeR) / 2}
+          y={yGround - 18}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+        >
+          Anakin runs
+        </text>
 
-      <text
-        x="400"
-        y="142"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        VS.
-      </text>
+        <circle
+          cx={quiGonX}
+          cy={yGround}
+          r={nodeR}
+          fill="var(--bg-elevated)"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={quiGonX}
+          y={yGround - 30}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="14"
+          fontWeight="bold"
+          letterSpacing="2"
+        >
+          QUI-GON
+        </text>
 
-      <text
-        x="400"
-        y="238"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="10"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.03em"
+        <text
+          x={duelX}
+          y={yGround - duelR - 38}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+        >
+          Qui-Gon barely blocks
+        </text>
+        <text
+          x={duelX}
+          y={yGround - duelR - 18}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="14"
+          fontWeight="bold"
+          letterSpacing="3"
+        >
+          DUEL ZONE
+        </text>
+        <circle
+          cx={duelX}
+          cy={yGround}
+          r={duelR}
+          fill="var(--bg-elevated)"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          strokeDasharray="4 3"
+          vectorEffect="non-scaling-stroke"
+        />
+
+        <line
+          x1={maulX - nodeR}
+          y1={yGround}
+          x2={duelX + duelR}
+          y2={yGround}
+          stroke={C.fg}
+          strokeWidth={STROKE_SECONDARY}
+          strokeDasharray="6 4"
+          vectorEffect="non-scaling-stroke"
+        />
+
+        <text
+          x={maulX}
+          y={yGround - 38}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize={FONT_TEX}
+        >
+          speeder arrives
+        </text>
+        <text
+          x={maulX}
+          y={yGround - 18}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="14"
+          fontWeight="bold"
+          letterSpacing="2"
+        >
+          MAUL
+        </text>
+        <circle
+          cx={maulX}
+          cy={yGround}
+          r={nodeR}
+          fill="var(--bg-elevated)"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+    </VizFigure>
+  )
+}
+
+export function FirstMeeting() {
+  const C = useVizColors()
+  const W = 960
+  const H = 380
+  const colW = 360
+  const colH = 290
+  const colY = 30
+  const gap = 120
+  const leftX = (W - colW * 2 - gap) / 2
+  const rightX = leftX + colW + gap
+  const leftCx = leftX + colW / 2
+  const rightCx = rightX + colW / 2
+
+  const obiLines = [
+    '"pathetic life form"',
+    'sees a boy, not a Jedi',
+    'gives "the look"',
+    'cool, distant'
+  ]
+  const aniLines = [
+    '"Wow! You\'re a Jedi too?"',
+    'innocent, open',
+    'already lost everything',
+    'trusts completely'
+  ]
+  const bodyY0 = 195
+  const bodyStep = 36
+
+  const renderColumn = (cx, lines) => (
+    <>
+      {lines.map((text, i) => (
+        <text
+          key={i}
+          x={cx}
+          y={bodyY0 + i * bodyStep}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="16"
+        >
+          {text}
+        </text>
+      ))}
+    </>
+  )
+
+  return (
+    <VizFigure title="First Meeting: Obi-Wan and Anakin" size="body" aspect="960/380">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Obi-Wan skeptical, Anakin awestruck at first meeting"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
       >
-        Obi-Wan is one step behind seeing who Anakin truly is.
-      </text>
-    </svg>
+        <rect
+          x={leftX}
+          y={colY}
+          width={colW}
+          height={colH}
+          fill="none"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={leftCx}
+          y={colY + 56}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="22"
+          fontWeight="bold"
+          letterSpacing="3"
+        >
+          OBI-WAN
+        </text>
+        <text
+          x={leftCx}
+          y={colY + 92}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="15"
+          letterSpacing="4"
+        >
+          SKEPTICAL
+        </text>
+        <line
+          x1={leftX + 40}
+          y1={colY + 128}
+          x2={leftX + colW - 40}
+          y2={colY + 128}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          vectorEffect="non-scaling-stroke"
+        />
+        {renderColumn(leftCx, obiLines)}
+
+        <rect
+          x={rightX}
+          y={colY}
+          width={colW}
+          height={colH}
+          fill="none"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          vectorEffect="non-scaling-stroke"
+        />
+        <text
+          x={rightCx}
+          y={colY + 56}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="22"
+          fontWeight="bold"
+          letterSpacing="3"
+        >
+          ANAKIN
+        </text>
+        <text
+          x={rightCx}
+          y={colY + 92}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.fg}
+          fontSize="15"
+          letterSpacing="4"
+        >
+          AWESTRUCK
+        </text>
+        <line
+          x1={rightX + 40}
+          y1={colY + 128}
+          x2={rightX + colW - 40}
+          y2={colY + 128}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          vectorEffect="non-scaling-stroke"
+        />
+        {renderColumn(rightCx, aniLines)}
+
+        <text
+          x={W / 2}
+          y={H / 2}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="16"
+          fontWeight="bold"
+          letterSpacing="4"
+        >
+          VS.
+        </text>
+      </svg>
+    </VizFigure>
   )
 }
 
 const POWER_WEB_NODES = [
-  { id: 'palpatine', x: 400, y: 240, label: 'PALPATINE', sub: 'Hidden Architect', highlight: true },
-  { id: 'valorum', x: 200, y: 130, label: 'VALORUM', sub: 'Supreme Chancellor' },
-  { id: 'amidala', x: 580, y: 130, label: 'AMIDALA', sub: 'Queen of Naboo' },
-  { id: 'senate', x: 130, y: 310, label: 'SENATE', sub: 'Bureaucratic Body' },
-  { id: 'jedi', x: 580, y: 360, label: 'JEDI COUNCIL', sub: 'Guardians of Peace' },
-  { id: 'federation', x: 720, y: 240, label: 'TRADE FED.', sub: 'Lott Dod / Nute Gunray' }
+  {
+    id: 'palpatine',
+    width: 200,
+    height: 80,
+    labels: [
+      { text: 'PALPATINE', bold: true },
+      { text: 'Hidden Architect', dim: true }
+    ]
+  },
+  {
+    id: 'valorum',
+    width: 180,
+    height: 70,
+    labels: [
+      { text: 'VALORUM', bold: true },
+      { text: 'Supreme Chancellor', dim: true }
+    ]
+  },
+  {
+    id: 'amidala',
+    width: 180,
+    height: 70,
+    labels: [
+      { text: 'AMIDALA', bold: true },
+      { text: 'Queen of Naboo', dim: true }
+    ]
+  },
+  {
+    id: 'senate',
+    width: 180,
+    height: 70,
+    labels: [
+      { text: 'SENATE', bold: true },
+      { text: 'Bureaucratic Body', dim: true }
+    ]
+  },
+  {
+    id: 'jedi',
+    width: 200,
+    height: 70,
+    labels: [
+      { text: 'JEDI COUNCIL', bold: true },
+      { text: 'Guardians of Peace', dim: true }
+    ]
+  },
+  {
+    id: 'federation',
+    width: 200,
+    height: 70,
+    labels: [
+      { text: 'TRADE FED.', bold: true },
+      { text: 'Lott Dod / Nute Gunray', dim: true }
+    ]
+  }
 ]
 
 const POWER_WEB_EDGES = [
-  { x1: 400, y1: 240, x2: 580, y2: 130, label: 'manipulates', dashed: true, accent: true },
-  { x1: 400, y1: 240, x2: 200, y2: 130, label: 'betrays', dashed: true, accent: false },
-  { x1: 400, y1: 240, x2: 720, y2: 240, label: 'orchestrates', dashed: true, accent: false },
-  { x1: 580, y1: 130, x2: 130, y2: 310, label: 'addresses', dashed: false, accent: false },
-  { x1: 200, y1: 130, x2: 130, y2: 310, label: 'chairs', dashed: false, accent: false },
-  { x1: 720, y1: 240, x2: 130, y2: 310, label: 'obstructs', dashed: true, accent: false },
-  { x1: 580, y1: 130, x2: 580, y2: 360, label: 'travels with', dashed: false, accent: false },
-  { x1: 400, y1: 240, x2: 580, y2: 360, label: 'withholds from', dashed: true, accent: false }
+  {
+    id: 'p-a',
+    sources: ['palpatine'],
+    targets: ['amidala'],
+    style: 'dashed',
+    labels: [{ text: 'manipulates' }]
+  },
+  {
+    id: 'p-v',
+    sources: ['palpatine'],
+    targets: ['valorum'],
+    style: 'dashed',
+    labels: [{ text: 'betrays' }]
+  },
+  {
+    id: 'p-f',
+    sources: ['palpatine'],
+    targets: ['federation'],
+    style: 'dashed',
+    labels: [{ text: 'orchestrates' }]
+  },
+  {
+    id: 'a-s',
+    sources: ['amidala'],
+    targets: ['senate'],
+    style: 'solid',
+    labels: [{ text: 'addresses' }]
+  },
+  {
+    id: 'v-s',
+    sources: ['valorum'],
+    targets: ['senate'],
+    style: 'solid',
+    labels: [{ text: 'chairs' }]
+  },
+  {
+    id: 'f-s',
+    sources: ['federation'],
+    targets: ['senate'],
+    style: 'dashed',
+    labels: [{ text: 'obstructs' }]
+  },
+  {
+    id: 'a-j',
+    sources: ['amidala'],
+    targets: ['jedi'],
+    style: 'solid',
+    labels: [{ text: 'travels with' }]
+  },
+  {
+    id: 'p-j',
+    sources: ['palpatine'],
+    targets: ['jedi'],
+    style: 'dashed',
+    labels: [{ text: 'withholds from' }]
+  }
 ]
+
+const POWER_WEB_LAYOUT_OPTIONS = {
+  'elk.algorithm': 'stress',
+  'elk.stress.desiredEdgeLength': '260',
+  'elk.spacing.nodeNode': '110',
+  'elk.spacing.edgeNode': '36',
+  'elk.spacing.edgeEdge': '30',
+  'elk.padding': '[top=50,left=50,right=50,bottom=50]'
+}
 
 const TIMELINE_EVENTS = [
   { label: 'Arrival on Coruscant', sub: 'Valorum and Palpatine greet Amidala', phase: 'arrival' },
@@ -2345,749 +1898,853 @@ const TIMELINE_EVENTS = [
   { label: 'Landing Platform', sub: 'Midi-chlorians explained; departure', phase: 'departure' }
 ]
 
-const TIMELINE_ROW_H = 48
-const TIMELINE_SVG_H = TIMELINE_EVENTS.length * TIMELINE_ROW_H + 80
-
-function phaseColor(phase, C) {
-  if (phase === 'manipulation' || phase === 'senate') return C.accent
-  if (phase === 'jedi') return C.fg
-  return C.dim
+export function CoruscantPowerWeb() {
+  return (
+    <Diagram
+      id="SW.I.06.1"
+      title="Coruscant Power Web"
+      size="body"
+      aspect="900/620"
+      nodes={POWER_WEB_NODES}
+      edges={POWER_WEB_EDGES}
+      layoutOptions={POWER_WEB_LAYOUT_OPTIONS}
+    />
+  )
 }
 
-export function PoliticalPowerWeb({ C }) {
-  return (
-    <svg
-      viewBox="0 0 800 480"
-      width="100%"
-      height="auto"
-      aria-label="Political power web showing Palpatine's manipulation of Coruscant factions"
-      role="img"
-    >
-      <text
-        x="400"
-        y="30"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="16"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        CORUSCANT POWER WEB
-      </text>
+export function CoruscantSceneTimeline() {
+  const C = useVizColors()
+  const W = 960
+  const rowH = 90
+  const padTop = 60
+  const padBottom = 60
+  const H = padTop + TIMELINE_EVENTS.length * rowH + padBottom
+  const spineX = 200
 
-      {POWER_WEB_EDGES.map((e, i) => (
+  return (
+    <VizFigure title="Coruscant Politics Scene Timeline" size="body" aspect={`${W}/${H}`}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Eight-scene timeline of the Coruscant politics module"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
+      >
         <line
-          key={i}
-          x1={e.x1}
-          y1={e.y1}
-          x2={e.x2}
-          y2={e.y2}
-          stroke={e.accent ? C.accent : C.dim}
-          strokeWidth={e.accent ? 1.5 : 1}
-          strokeDasharray={e.dashed ? '6 4' : undefined}
-          opacity={e.dashed ? 0.7 : 0.5}
+          x1={spineX}
+          y1={padTop}
+          x2={spineX}
+          y2={H - padBottom}
+          stroke={C.dim}
+          strokeWidth={STROKE_SECONDARY}
+          vectorEffect="non-scaling-stroke"
         />
-      ))}
 
-      {POWER_WEB_NODES.map(n => (
-        <g key={n.id}>
-          <rect
-            x={n.x - 62}
-            y={n.y - 26}
-            width={124}
-            height={52}
-            fill="var(--bg)"
-            stroke={n.highlight ? C.accent : C.dim}
-            strokeWidth={n.highlight ? 1.5 : 1}
-          />
-          <text
-            x={n.x}
-            y={n.y - 7}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={n.highlight ? C.accent : C.fg}
-            fontSize="13"
-            fontFamily="D-DIN, sans-serif"
-            letterSpacing="0.06em"
+        {TIMELINE_EVENTS.map((e, i) => {
+          const y = padTop + i * rowH + rowH / 2
+          const isPivot = e.phase === 'manipulation' || e.phase === 'senate'
+          return (
+            <g key={i}>
+              <text
+                x={spineX - 50}
+                y={y}
+                textAnchor="end"
+                dominantBaseline="middle"
+                fill={C.dim}
+                fontSize="15"
+                letterSpacing="2"
+              >
+                {String(i + 1).padStart(2, '0')}
+              </text>
+              <circle
+                cx={spineX}
+                cy={y}
+                r={isPivot ? 12 : 8}
+                fill="var(--bg-elevated)"
+                stroke={C.fg}
+                strokeWidth={isPivot ? 1.75 : 1}
+                vectorEffect="non-scaling-stroke"
+              />
+              <line
+                x1={spineX + (isPivot ? 14 : 10)}
+                y1={y}
+                x2={spineX + 50}
+                y2={y}
+                stroke={C.dim}
+                strokeWidth={STROKE_SECONDARY}
+                vectorEffect="non-scaling-stroke"
+              />
+              <text
+                x={spineX + 60}
+                y={y - 12}
+                dominantBaseline="middle"
+                fill={C.fg}
+                fontSize="18"
+                fontWeight={isPivot ? 'bold' : 'normal'}
+                letterSpacing="1"
+              >
+                {e.label}
+              </text>
+              <text x={spineX + 60} y={y + 14} dominantBaseline="middle" fill={C.dim} fontSize="15">
+                {e.sub}
+              </text>
+            </g>
+          )
+        })}
+      </svg>
+    </VizFigure>
+  )
+}
+
+const BATTLE_FRONTS = [
+  {
+    quad: 'tl',
+    title: 'POWER GENERATOR',
+    role: 'JEDI DUEL',
+    lines: ['Qui-Gon + Obi-Wan', 'vs. Darth Maul'],
+    results: ['Result: Qui-Gon killed', 'Maul defeated by Obi-Wan']
+  },
+  {
+    quad: 'tr',
+    title: 'ORBIT / SPACE',
+    role: 'DECISIVE FRONT',
+    lines: ['Anakin (accidental)', 'vs. Droid Control Ship'],
+    results: ['Result: Reactor destroyed', 'ALL droids shut down']
+  },
+  {
+    quad: 'bl',
+    title: 'GRASS PLAINS',
+    role: 'DIVERSION FRONT',
+    lines: ['Gungan Army', 'vs. Droid Army'],
+    results: ['Result: Captured', 'then freed by Anakin']
+  },
+  {
+    quad: 'br',
+    title: 'THEED PALACE',
+    role: 'POLITICAL OBJECTIVE',
+    lines: ["Padme's Team", 'vs. Nute Gunray'],
+    results: ['Result: Viceroy captured']
+  }
+]
+
+export function BattleMap() {
+  const C = useVizColors()
+  const halo = { stroke: 'var(--bg-elevated)', strokeWidth: 5, paintOrder: 'stroke' }
+  const W = 1500
+  const H = 1000
+  const gap = 140
+  const cellW = (W - gap * 3) / 2
+  const cellH = (H - gap * 3) / 2
+  const positions = {
+    tl: { x: gap, y: gap },
+    tr: { x: gap * 2 + cellW, y: gap },
+    bl: { x: gap, y: gap * 2 + cellH },
+    br: { x: gap * 2 + cellW, y: gap * 2 + cellH }
+  }
+
+  return (
+    <VizFigure title="Battle of Naboo: Four Fronts" size="body" aspect="1500/1000">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Four simultaneous battle fronts at the Battle of Naboo"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
+      >
+        <defs>
+          <marker
+            id="bn-arrow"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="9"
+            markerHeight="9"
+            orient="auto"
           >
-            {n.label}
-          </text>
-          <text
-            x={n.x}
-            y={n.y + 11}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill={C.dim}
-            fontSize="13"
-            fontFamily="D-DIN, sans-serif"
-          >
-            {n.sub}
-          </text>
-        </g>
-      ))}
+            <path d="M 0 0 L 10 5 L 0 10 Z" fill={C.fg} />
+          </marker>
+        </defs>
 
-      <text
-        x="400"
-        y="460"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        DASHED = hidden influence · SOLID = public relationship · HIGHLIGHTED = architect of
-        outcomes
-      </text>
-    </svg>
-  )
-}
-
-export function CoruscantModuleTimeline({ C }) {
-  return (
-    <svg
-      viewBox={`0 0 800 ${TIMELINE_SVG_H}`}
-      width="100%"
-      height="auto"
-      aria-label="Scene-by-scene timeline of the Coruscant Politics module"
-      role="img"
-    >
-      <text
-        x="400"
-        y="28"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="16"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        SCENE TIMELINE
-      </text>
-
-      <line x1="120" y1="52" x2="120" y2={TIMELINE_SVG_H - 16} stroke={C.dim} strokeWidth="1" />
-
-      {TIMELINE_EVENTS.map((e, i) => {
-        const y = 56 + i * TIMELINE_ROW_H
-        const color = phaseColor(e.phase, C)
-        return (
-          <g key={i}>
-            <circle cx="120" cy={y + TIMELINE_ROW_H / 2 - 6} r="5" fill={color} />
-            <line
-              x1="125"
-              y1={y + TIMELINE_ROW_H / 2 - 6}
-              x2="145"
-              y2={y + TIMELINE_ROW_H / 2 - 6}
-              stroke={color}
-              strokeWidth="1"
-            />
-            <text
-              x="96"
-              y={y + TIMELINE_ROW_H / 2 - 6}
-              textAnchor="end"
-              dominantBaseline="middle"
-              fill={C.dim}
-              fontSize="13"
-              fontFamily="D-DIN, sans-serif"
-            >
-              {String(i + 1).padStart(2, '0')}
-            </text>
-            <text
-              x="150"
-              y={y + TIMELINE_ROW_H / 2 - 14}
-              dominantBaseline="middle"
-              fill={color}
-              fontSize="13"
-              fontFamily="D-DIN, sans-serif"
-              letterSpacing="0.04em"
-            >
-              {e.label}
-            </text>
-            <text
-              x="150"
-              y={y + TIMELINE_ROW_H / 2 + 4}
-              dominantBaseline="middle"
-              fill={C.dim}
-              fontSize="13"
-              fontFamily="D-DIN, sans-serif"
-            >
-              {e.sub}
-            </text>
-            <line
-              x1="40"
-              y1={y + TIMELINE_ROW_H - 2}
-              x2="760"
-              y2={y + TIMELINE_ROW_H - 2}
-              stroke={C.faint}
-              strokeWidth="0.5"
-            />
-          </g>
-        )
-      })}
-
-      <text
-        x="400"
-        y={TIMELINE_SVG_H - 6}
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        HIGHLIGHTED = Palpatine's manipulation arc · WHITE = Jedi thread · DIM =
-        personal/transitional
-      </text>
-    </svg>
-  )
-}
-
-export function BattleMap({ C }) {
-  return (
-    <svg
-      viewBox="0 0 800 520"
-      width="100%"
-      height="auto"
-      aria-label="Four simultaneous battle fronts at the Battle of Naboo"
-      role="img"
-    >
-      <text
-        x="400"
-        y="32"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="18"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        BATTLE OF NABOO: FOUR SIMULTANEOUS FRONTS
-      </text>
-
-      {/* ── FRONT 1: Gungan Plains (bottom-left) ─────────────────────────── */}
-      <rect x="60" y="290" width="220" height="170" fill={C.faint} stroke={C.dim} strokeWidth="1" />
-      <text
-        x="170"
-        y="312"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="14"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-      >
-        GRASS PLAINS
-      </text>
-      <text
-        x="170"
-        y="334"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Gungan Army
-      </text>
-      <text
-        x="170"
-        y="354"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        vs. Droid Army
-      </text>
-      <text
-        x="170"
-        y="380"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Result: Captured
-      </text>
-      <text
-        x="170"
-        y="400"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        then freed by Anakin
-      </text>
-      <text
-        x="170"
-        y="440"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        DIVERSION FRONT
-      </text>
-
-      {/* ── FRONT 2: Theed Palace (bottom-right) ─────────────────────────── */}
-      <rect
-        x="520"
-        y="290"
-        width="220"
-        height="170"
-        fill={C.faint}
-        stroke={C.dim}
-        strokeWidth="1"
-      />
-      <text
-        x="630"
-        y="312"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="14"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-      >
-        THEED PALACE
-      </text>
-      <text
-        x="630"
-        y="334"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Padme's Team
-      </text>
-      <text
-        x="630"
-        y="354"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        vs. Nute Gunray
-      </text>
-      <text
-        x="630"
-        y="380"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Result: Viceroy captured
-      </text>
-      <text
-        x="630"
-        y="440"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        POLITICAL OBJECTIVE
-      </text>
-
-      {/* ── FRONT 3: Power Generator (top-left) ─────────────────────────── */}
-      <rect x="60" y="80" width="220" height="180" fill={C.faint} stroke={C.dim} strokeWidth="1" />
-      <text
-        x="170"
-        y="102"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="14"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-      >
-        POWER GENERATOR
-      </text>
-      <text
-        x="170"
-        y="124"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Qui-Gon + Obi-Wan
-      </text>
-      <text
-        x="170"
-        y="144"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        vs. Darth Maul
-      </text>
-      <text
-        x="170"
-        y="170"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Result: Qui-Gon killed
-      </text>
-      <text
-        x="170"
-        y="190"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Maul defeated by Obi-Wan
-      </text>
-      <text
-        x="170"
-        y="240"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        JEDI DUEL
-      </text>
-
-      {/* ── FRONT 4: Space Battle (top-right) ─────────────────────────── */}
-      <rect x="520" y="80" width="220" height="180" fill={C.faint} stroke={C.dim} strokeWidth="1" />
-      <text
-        x="630"
-        y="102"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="14"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.05em"
-      >
-        ORBIT / SPACE
-      </text>
-      <text
-        x="630"
-        y="124"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Anakin (accidental)
-      </text>
-      <text
-        x="630"
-        y="144"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        vs. Droid Control Ship
-      </text>
-      <text
-        x="630"
-        y="170"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        Result: Reactor destroyed
-      </text>
-      <text
-        x="630"
-        y="190"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-      >
-        ALL droids shut down
-      </text>
-      <text
-        x="630"
-        y="240"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.accent}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-      >
-        DECISIVE FRONT
-      </text>
-
-      {/* ── Center label ─────────────────────────────────────────────────── */}
-      <text
-        x="400"
-        y="185"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="13"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-        stroke="#000"
-        strokeWidth="4"
-        paintOrder="stroke"
-      >
-        SIMULTANEOUS
-      </text>
-      <text
-        x="400"
-        y="205"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill="rgba(255, 255, 255, 0.18)"
-        fontSize="40"
-        fontFamily="D-DIN, sans-serif"
-      >
-        4
-      </text>
-      <text
-        x="400"
-        y="235"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.04em"
-        stroke="#000"
-        strokeWidth="4"
-        paintOrder="stroke"
-      >
-        FRONTS
-      </text>
-
-      {/* ── Connection arrow: Space to Plains (Anakin wins = droids stop) ── */}
-      <defs>
-        <marker id="rbn-arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
-          <path d="M 0 0 L 8 4 L 0 8 Z" fill={C.accent} />
-        </marker>
-      </defs>
-      <path
-        d="M 520 170 Q 400 170 280 375"
-        fill="none"
-        stroke={C.accent}
-        strokeWidth="1.5"
-        strokeDasharray="6 4"
-        markerEnd="url(#rbn-arrow)"
-      />
-      <text
-        x="380"
-        y="270"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.03em"
-        stroke="#000"
-        strokeWidth="4"
-        paintOrder="stroke"
-      >
-        Anakin destroys reactor
-      </text>
-      <text
-        x="380"
-        y="288"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.03em"
-        stroke="#000"
-        strokeWidth="4"
-        paintOrder="stroke"
-      >
-        = all droids shut down
-      </text>
-    </svg>
-  )
-}
-
-export function CharacterArcTimeline({ C }) {
-  const characters = [
-    {
-      name: 'ANAKIN',
-      color: C.fg,
-      beats: [
-        { x: 100, label: 'Hangar' },
-        { x: 260, label: 'Space' },
-        { x: 420, label: 'Control Ship' },
-        { x: 580, label: 'Hero' },
-        { x: 700, label: 'Padawan' }
-      ]
-    },
-    {
-      name: 'OBI-WAN',
-      color: C.dim,
-      beats: [
-        { x: 100, label: 'Reconcile' },
-        { x: 260, label: 'Fight' },
-        { x: 420, label: 'Separated' },
-        { x: 500, label: 'Grief' },
-        { x: 580, label: 'Kills Maul' },
-        { x: 700, label: 'Knight' }
-      ]
-    },
-    {
-      name: 'PADME',
-      color: C.accent,
-      beats: [
-        { x: 100, label: 'Alliance' },
-        { x: 260, label: 'Captured' },
-        { x: 420, label: 'Escapes' },
-        { x: 580, label: 'Victory' },
-        { x: 700, label: 'Queen' }
-      ]
-    },
-    {
-      name: 'QUI-GON',
-      color: C.dim,
-      beats: [
-        { x: 100, label: 'Forgives' },
-        { x: 260, label: 'Fights Maul' },
-        { x: 380, label: 'Death' }
-      ]
-    }
-  ]
-
-  return (
-    <svg
-      viewBox="0 0 800 390"
-      width="100%"
-      height="auto"
-      aria-label="Character arc timeline for the Battle of Naboo"
-      role="img"
-    >
-      <text
-        x="400"
-        y="32"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill={C.fg}
-        fontSize="18"
-        fontFamily="D-DIN, sans-serif"
-        letterSpacing="0.08em"
-      >
-        CHARACTER ARCS: RETURN AND BATTLE OF NABOO
-      </text>
-
-      {characters.map((char, ci) => {
-        const y = 80 + ci * 72
-        const lineY = y + 18
-        return (
-          <g key={char.name}>
-            {/* Character name */}
-            <text
-              x="36"
-              y={lineY}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fill={char.color}
-              fontSize="12"
-              fontFamily="D-DIN, sans-serif"
-              letterSpacing="0.05em"
-            >
-              {char.name}
-            </text>
-            {/* Arc line */}
-            <line
-              x1={char.beats[0].x}
-              y1={lineY}
-              x2={char.beats[char.beats.length - 1].x}
-              y2={lineY}
-              stroke={char.color}
-              strokeWidth="1.5"
-              opacity="0.5"
-            />
-            {/* Beat dots and labels */}
-            {char.beats.map((beat, bi) => (
-              <g key={bi}>
-                <circle cx={beat.x} cy={lineY} r="5" fill={char.color} />
+        {BATTLE_FRONTS.map(front => {
+          const { x, y } = positions[front.quad]
+          const cx = x + cellW / 2
+          return (
+            <g key={front.quad}>
+              <rect
+                x={x}
+                y={y}
+                width={cellW}
+                height={cellH}
+                fill="none"
+                stroke={C.fg}
+                strokeWidth="1.75"
+                vectorEffect="non-scaling-stroke"
+              />
+              <text
+                x={cx}
+                y={y + 56}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.fg}
+                fontSize="22"
+                fontWeight="bold"
+                letterSpacing="3"
+              >
+                {front.title}
+              </text>
+              {front.lines.map((line, i) => (
                 <text
-                  x={beat.x}
-                  y={lineY + (bi % 2 === 0 ? 18 : -14)}
+                  key={`p${i}`}
+                  x={cx}
+                  y={y + 110 + i * 28}
                   textAnchor="middle"
                   dominantBaseline="middle"
-                  fill={char.color}
-                  fontSize="11"
-                  fontFamily="D-DIN, sans-serif"
+                  fill={C.dim}
+                  fontSize="16"
                 >
-                  {beat.label}
+                  {line}
                 </text>
-              </g>
-            ))}
-          </g>
-        )
-      })}
+              ))}
+              {front.results.map((line, i) => (
+                <text
+                  key={`r${i}`}
+                  x={cx}
+                  y={y + 200 + i * 28}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fill={C.dim}
+                  fontSize="16"
+                >
+                  {line}
+                </text>
+              ))}
+              <text
+                x={cx}
+                y={y + cellH - 36}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.fg}
+                fontSize="14"
+                fontWeight="bold"
+                letterSpacing="4"
+              >
+                {front.role}
+              </text>
+            </g>
+          )
+        })}
 
-      {/* Legend */}
-      <circle cx="100" cy="368" r="5" fill={C.fg} />
-      <text
-        x="112"
-        y="368"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
+        <text
+          x={W / 2}
+          y={H / 2 - 60}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="14"
+          letterSpacing="4"
+          style={halo}
+        >
+          SIMULTANEOUS
+        </text>
+        <text
+          x={W / 2}
+          y={H / 2}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="56"
+          fontWeight="bold"
+          style={halo}
+        >
+          4
+        </text>
+        <text
+          x={W / 2}
+          y={H / 2 + 60}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="14"
+          letterSpacing="4"
+          style={halo}
+        >
+          FRONTS
+        </text>
+
+        <path
+          d={`M ${positions.tr.x} ${positions.tr.y + cellH / 2}
+              Q ${W / 2} ${H / 2 + 40}
+              ${positions.bl.x + cellW} ${positions.bl.y + cellH / 2}`}
+          fill="none"
+          stroke={C.fg}
+          strokeWidth="1.75"
+          strokeDasharray="8 5"
+          vectorEffect="non-scaling-stroke"
+          markerEnd="url(#bn-arrow)"
+        />
+        <text
+          x={W / 2}
+          y={H / 2 + 150}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="14"
+          letterSpacing="2"
+          style={halo}
+        >
+          Anakin destroys reactor
+        </text>
+        <text
+          x={W / 2}
+          y={H / 2 + 174}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={C.dim}
+          fontSize="14"
+          letterSpacing="2"
+          style={halo}
+        >
+          = all droids shut down
+        </text>
+      </svg>
+    </VizFigure>
+  )
+}
+
+const ARC_CHARACTERS = [
+  {
+    name: 'ANAKIN',
+    pivot: true,
+    beats: [
+      { x: 100, label: 'Hangar' },
+      { x: 320, label: 'Space' },
+      { x: 540, label: 'Control Ship' },
+      { x: 760, label: 'Hero' },
+      { x: 980, label: 'Padawan' }
+    ]
+  },
+  {
+    name: 'OBI-WAN',
+    beats: [
+      { x: 100, label: 'Reconcile' },
+      { x: 320, label: 'Fight' },
+      { x: 540, label: 'Separated' },
+      { x: 650, label: 'Grief' },
+      { x: 760, label: 'Kills Maul' },
+      { x: 980, label: 'Knight' }
+    ]
+  },
+  {
+    name: 'PADME',
+    beats: [
+      { x: 100, label: 'Alliance' },
+      { x: 320, label: 'Captured' },
+      { x: 540, label: 'Escapes' },
+      { x: 760, label: 'Victory' },
+      { x: 980, label: 'Queen' }
+    ]
+  },
+  {
+    name: 'QUI-GON',
+    terminates: true,
+    beats: [
+      { x: 100, label: 'Forgives' },
+      { x: 320, label: 'Fights Maul' },
+      { x: 530, label: 'Death' }
+    ]
+  }
+]
+
+export function CharacterArcTimeline() {
+  const C = useVizColors()
+  const W = 1200
+  const rowH = 110
+  const padTop = 60
+  const padBottom = 60
+  const H = padTop + ARC_CHARACTERS.length * rowH + padBottom
+  const nameX = 100
+
+  return (
+    <VizFigure title="Character Arcs: Return and Battle of Naboo" size="body" aspect={`${W}/${H}`}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Character arc timeline for the Battle of Naboo"
+        style={{
+          width: '100%',
+          height: '100%',
+          fontFamily: 'var(--reader-font-family)'
+        }}
       >
-        Anakin
-      </text>
-      <circle cx="200" cy="368" r="5" fill={C.dim} />
-      <text
-        x="212"
-        y="368"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
+        {ARC_CHARACTERS.map((char, ci) => {
+          const y = padTop + ci * rowH + rowH / 2
+          const firstX = char.beats[0].x + 180
+          const lastX = char.beats[char.beats.length - 1].x + 180
+          return (
+            <g key={char.name}>
+              <text
+                x={nameX}
+                y={y}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.fg}
+                fontSize="16"
+                fontWeight={char.pivot ? 'bold' : 'normal'}
+                letterSpacing="2"
+              >
+                {char.name}
+              </text>
+              <line
+                x1={firstX}
+                y1={y}
+                x2={lastX}
+                y2={y}
+                stroke={C.dim}
+                strokeWidth={STROKE_SECONDARY}
+                vectorEffect="non-scaling-stroke"
+              />
+              {char.beats.map((beat, bi) => {
+                const cx = beat.x + 180
+                const labelAbove = bi % 2 === 0
+                return (
+                  <g key={bi}>
+                    <circle
+                      cx={cx}
+                      cy={y}
+                      r={char.pivot ? 9 : 7}
+                      fill={char.pivot ? C.fg : 'var(--bg-elevated)'}
+                      stroke={C.fg}
+                      strokeWidth={char.pivot ? 1.75 : 1}
+                      vectorEffect="non-scaling-stroke"
+                    />
+                    <text
+                      x={cx}
+                      y={y + (labelAbove ? -22 : 28)}
+                      textAnchor="middle"
+                      dominantBaseline="middle"
+                      fill={C.dim}
+                      fontSize="14"
+                    >
+                      {beat.label}
+                    </text>
+                  </g>
+                )
+              })}
+            </g>
+          )
+        })}
+      </svg>
+    </VizFigure>
+  )
+}
+
+// Character Roster: 12 portrait cells
+// Editorial typology card. Each cell names a figure and the function they
+// serve in the story, inside a hairline frame. Text only: the film's
+// imagery is not licensed for redistribution, so none is used here.
+
+const ROSTER = [
+  {
+    name: 'QUI-GON JINN',
+    role: 'MENTOR'
+  },
+  {
+    name: 'OBI-WAN KENOBI',
+    role: 'PADAWAN'
+  },
+  {
+    name: 'YODA',
+    role: 'MASTER'
+  },
+  {
+    name: 'MACE WINDU',
+    role: 'COUNCIL'
+  },
+  {
+    name: 'SIDIOUS',
+    role: 'SHADOW'
+  },
+  {
+    name: 'DARTH MAUL',
+    role: 'ASSASSIN'
+  },
+  {
+    name: 'AMIDALA',
+    role: 'QUEEN'
+  },
+  {
+    name: 'PADMÉ',
+    role: 'HANDMAIDEN'
+  },
+  {
+    name: 'ANAKIN',
+    role: 'CHOSEN'
+  },
+  {
+    name: 'SHMI',
+    role: 'MOTHER'
+  },
+  {
+    name: 'WATTO',
+    role: 'TRADER'
+  },
+  {
+    name: 'JAR JAR',
+    role: 'OUTCAST'
+  }
+]
+
+export function CharacterRoster() {
+  const C = useVizColors()
+  const W = 1600
+  const H = 900
+  const cols = 4
+  const rows = 3
+  const gutter = 36
+  const cellW = (W - gutter * (cols + 1)) / cols
+  const cellH = (H - gutter * (rows + 1)) / rows
+  const frameH = 200
+
+  return (
+    <VizFigure title="Character Roster" size="wide" aspect="16/9">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Phantom Menace character roster: 12 portrait cells"
+        style={{
+          width: '100%',
+          height: '100%',
+          color: C.fg,
+          fontFamily: 'var(--reader-font-family)'
+        }}
       >
-        Obi-Wan / Qui-Gon
-      </text>
-      <circle cx="380" cy="368" r="5" fill={C.accent} />
+        {ROSTER.map((c, i) => {
+          const col = i % cols
+          const row = Math.floor(i / cols)
+          const x = gutter + col * (cellW + gutter)
+          const y = gutter + row * (cellH + gutter)
+          return (
+            <CharacterCell
+              key={c.name}
+              x={x}
+              y={y}
+              cellW={cellW}
+              frameH={frameH}
+              name={c.name}
+              role={c.role}
+            />
+          )
+        })}
+      </svg>
+    </VizFigure>
+  )
+}
+
+function CharacterCell({ x, y, cellW, frameH, name, role }) {
+  return (
+    <g transform={`translate(${x}, ${y})`}>
+      <rect
+        x={0}
+        y={0}
+        width={cellW}
+        height={frameH}
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.25}
+        vectorEffect="non-scaling-stroke"
+      />
       <text
-        x="392"
-        y="368"
-        dominantBaseline="middle"
-        fill={C.dim}
-        fontSize="12"
-        fontFamily="D-DIN, sans-serif"
+        x={cellW / 2}
+        y={frameH / 2 - 6}
+        textAnchor="middle"
+        fill="currentColor"
+        fontSize={FONT_BODY}
+        fontWeight="bold"
+        letterSpacing={2}
       >
-        Padme
+        {name}
       </text>
-    </svg>
+      <text
+        x={cellW / 2}
+        y={frameH / 2 + 24}
+        textAnchor="middle"
+        fill="currentColor"
+        fillOpacity={0.55}
+        fontSize={FONT_TEX}
+        letterSpacing={4}
+      >
+        {role}
+      </text>
+    </g>
+  )
+}
+
+// Ships & Tech Scale Lineup
+// Seven Phantom Menace ships/vehicles/droids drawn as length bars at true
+// relative scale on a shared baseline, with a meter ruler beneath. The Trade
+// Federation Battleship (3,170 m diameter) is too massive to fit at this
+// scale and gets a separate top-banner callout.
+
+const SHIP_SCALE = 3.33 // px per meter
+const SHIP_BASELINE = 600 // y-coord where each silhouette's bottom sits
+
+const SHIPS = [
+  {
+    id: 'republic',
+    name: 'REPUBLIC CRUISER',
+    dim: 115
+  },
+  {
+    id: 'royal',
+    name: 'NABOO ROYAL CRUISER',
+    dim: 76
+  },
+  {
+    id: 'sith',
+    name: 'SITH INFILTRATOR',
+    dim: 26.5
+  },
+  {
+    id: 'n1',
+    name: 'N-1 STARFIGHTER',
+    dim: 11
+  },
+  {
+    id: 'pod',
+    name: 'PODRACER',
+    dim: 7
+  },
+  {
+    id: 'droideka',
+    name: 'DROIDEKA',
+    dim: 1.83
+  },
+  {
+    id: 'b1',
+    name: 'BATTLE DROID',
+    dim: 1.93
+  }
+]
+
+export function ShipScaleLineup() {
+  const C = useVizColors()
+  const W = 1600
+  const H = 900
+
+  // Horizontal layout: all ships on a single baseline, largest to smallest,
+  // with a fixed gap between each. Each ship's WIDTH equals its true length
+  // on the ruler so the ruler tick spacing matches the visible silhouettes.
+  const GAP = 56
+  const widths = SHIPS.map(s => s.dim * SHIP_SCALE)
+  const total = widths.reduce((a, b) => a + b, 0) + GAP * (SHIPS.length - 1)
+  const startX = (W - total) / 2
+
+  let cursorX = startX
+  const placed = SHIPS.map((s, i) => {
+    const w = widths[i]
+    const cx = cursorX + w / 2
+    const left = cursorX
+    cursorX += w + GAP
+    return { ...s, cx, left, width: w }
+  })
+
+  return (
+    <VizFigure title="Ships and Tech at Relative Scale" size="wide" aspect="16/9">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Phantom Menace ships and props at true relative scale"
+        style={{
+          width: '100%',
+          height: '100%',
+          color: C.fg,
+          fontFamily: 'var(--reader-font-family)'
+        }}
+      >
+        {/* Trade Federation Battleship callout: too massive (3,170 m) for the
+            row's scale. Drawn as a bracket rather than a bar, because at this
+            scale its true length would be roughly 10,500 px wide. */}
+        <g transform="translate(60, 60)">
+          <line
+            x1={0}
+            y1={0}
+            x2={280}
+            y2={0}
+            stroke="currentColor"
+            strokeWidth={1.25}
+            vectorEffect="non-scaling-stroke"
+          />
+          <line
+            x1={0}
+            y1={0}
+            x2={0}
+            y2={16}
+            stroke="currentColor"
+            strokeWidth={1.25}
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M 268 -6 L 280 0 L 268 6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.25}
+            vectorEffect="non-scaling-stroke"
+          />
+        </g>
+        <text
+          x={360}
+          y={80}
+          fill="currentColor"
+          fontSize={FONT_VALUE}
+          fontWeight="bold"
+          letterSpacing={3}
+        >
+          TRADE FEDERATION BATTLESHIP
+        </text>
+        <text
+          x={360}
+          y={108}
+          fill="currentColor"
+          fillOpacity={0.65}
+          fontSize={FONT_CONTROL}
+          letterSpacing={2}
+        >
+          3,170 M DIAMETER · 28× THE REPUBLIC CRUISER · OFF SCALE
+        </text>
+
+        {/* Length bars: each bar's width is the vehicle's true length on the
+            ruler below, so the comparison between any two is exact. Height is
+            uniform and carries no meaning, because only length is measured. */}
+        {placed.map(s => {
+          const barH = 52
+          return (
+            <g key={s.id}>
+              <rect
+                x={s.left}
+                y={SHIP_BASELINE - barH}
+                width={s.width}
+                height={barH}
+                fill="currentColor"
+                fillOpacity={0.14}
+                stroke="currentColor"
+                strokeWidth={1.25}
+                vectorEffect="non-scaling-stroke"
+              />
+            </g>
+          )
+        })}
+
+        {/* Meter scale bar: spans the full ship lineup width with ticks
+            every 50 m. Sits beneath the shared baseline. */}
+        {(() => {
+          const maxMeters = Math.ceil(total / SHIP_SCALE / 50) * 50
+          const ticks = []
+          for (let m = 0; m <= maxMeters; m += 50) ticks.push(m)
+          return (
+            <g transform={`translate(${startX}, ${SHIP_BASELINE + 30})`}>
+              <line
+                x1={0}
+                y1={0}
+                x2={maxMeters * SHIP_SCALE}
+                y2={0}
+                stroke="currentColor"
+                strokeWidth={1.25}
+                vectorEffect="non-scaling-stroke"
+              />
+              {ticks.map(m => (
+                <g key={m} transform={`translate(${m * SHIP_SCALE}, 0)`}>
+                  <line
+                    x1={0}
+                    y1={-5}
+                    x2={0}
+                    y2={5}
+                    stroke="currentColor"
+                    strokeWidth={STROKE_SECONDARY}
+                    vectorEffect="non-scaling-stroke"
+                  />
+                  <text
+                    x={0}
+                    y={22}
+                    textAnchor="middle"
+                    fill="currentColor"
+                    fontSize={FONT_TEX}
+                    letterSpacing={1}
+                  >
+                    {m}
+                  </text>
+                </g>
+              ))}
+              <text
+                x={maxMeters * SHIP_SCALE + 16}
+                y={4}
+                fill="currentColor"
+                fillOpacity={0.6}
+                fontSize={FONT_TEX}
+                letterSpacing={3}
+              >
+                METERS
+              </text>
+            </g>
+          )
+        })()}
+
+        {/* Per-ship labels: greedy push-right placement guarantees zero
+            overlap. Each label wants to sit centered under its ship; if
+            its left edge would land inside the previous label's right edge
+            (plus gap), it's nudged right just enough to clear. */}
+        {(() => {
+          const labelY = SHIP_BASELINE + 110
+          const dimY = labelY + 22
+          // fontSize 14 with letter-spacing 2 ≈ 11 px per character + margin
+          const widthOf = name => name.length * 11 + 24
+          const MIN_GAP = 12
+          let lastRight = -Infinity
+          const labels = placed.map(s => {
+            const w = widthOf(s.name)
+            const idealLeft = s.cx - w / 2
+            const left = Math.max(idealLeft, lastRight + MIN_GAP)
+            lastRight = left + w
+            return { ...s, labelCx: left + w / 2 }
+          })
+          return labels.map(s => (
+            <g key={`${s.id}-lbl`}>
+              <text
+                x={s.labelCx}
+                y={labelY}
+                textAnchor="middle"
+                fill="currentColor"
+                fontSize={FONT_CONTROL}
+                fontWeight="bold"
+                letterSpacing={2}
+              >
+                {s.name}
+              </text>
+              <text
+                x={s.labelCx}
+                y={dimY}
+                textAnchor="middle"
+                fill="currentColor"
+                fillOpacity={0.6}
+                fontSize={FONT_LABEL}
+                letterSpacing={3}
+              >
+                {s.dim} M
+              </text>
+            </g>
+          ))
+        })()}
+      </svg>
+    </VizFigure>
   )
 }

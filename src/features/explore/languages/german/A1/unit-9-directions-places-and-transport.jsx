@@ -4,18 +4,16 @@ const config = {
   cssPrefix: 'dpt',
   documentTitle: 'Directions, Places and Transport: AETHER',
   learning: {
-    category: 'Unit 8',
+    category: 'Unit 9',
     title: 'Wegbeschreibung, Orte und Verkehr',
     subtitle: 'Navigation, city buildings, transport vocabulary, and asking for directions',
     sections: [
       <>
-        <div className="lrn-header">
-          <h1>Directions, Places and Transport</h1>
-          <p>
-            German directions work with a handful of verbs and prepositions. Master these and you
-            can navigate any German city, buy a ticket, and ask a stranger for help.
-          </p>
-        </div>
+        <h2>Why This Unit Matters</h2>
+        <p>
+          German directions work with a handful of verbs and prepositions. Master these and you can
+          navigate any German city, buy a ticket, and ask a stranger for help.
+        </p>
       </>,
 
       <>
@@ -39,10 +37,25 @@ const config = {
 
           <h2>Directions and Navigation (Richtungen und Wegbeschreibung)</h2>
           <p>
-            The direction words are adverbs and prepositions. The instruction phrases all use the
-            imperative: the command form. Both are introduced together here because you need them at
-            the same time.
+            The direction words are adverbs (words like "left" and "straight") and prepositions
+            (small linking words like "next to" and "behind"). The instruction phrases use the
+            formal imperative, the Sie-command form you learned in Unit 5, to tell someone where
+            to go.
           </p>
+          <p>
+            Some examples below use <em>Biegen Sie … ab</em>, the split command form of abbiegen.
+            That split is explained right after the table.
+          </p>
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Plural key</span>
+            <p>
+              The Article column shows how to make the plural: <strong>-n</strong> /{' '}
+              <strong>-en</strong> / <strong>-e</strong> / <strong>-s</strong> add that ending (Ecke
+              → Ecken). A small <strong>¨</strong> over the ending means add an umlaut too:{' '}
+              <em>-̈e</em> turns Platz into Plätze and Bahnhof into Bahnhöfe. A dash{' '}
+              <strong>-</strong> means the plural looks the same.
+            </p>
+          </div>
 
           <table className="lrn-table">
             <thead>
@@ -217,6 +230,12 @@ const config = {
             </tbody>
           </table>
 
+          <p>
+            These prepositions take the dative, the case you met in Unit 6, so <em>der</em>{' '}
+            becomes
+            <em> dem</em> and <em>die</em> becomes <em>der</em>.
+          </p>
+
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">links (left)</span>
@@ -230,25 +249,6 @@ const config = {
               <p>Go to the left.</p>
               <p>gehen is neutral movement; nach makes it directional.</p>
             </div>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does German use "nach links / nach rechts" with gehen but "links / rechts" with
-              abbiegen?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                <strong>abbiegen</strong> already means "to turn," so you just add the direction:{' '}
-                <em>links abbiegen</em>.
-              </p>
-              <p>
-                <strong>gehen</strong> means "to walk," which is neutral, so you need <em>nach</em>{' '}
-                to show direction: <em>nach links gehen</em>.
-              </p>
-            </details>
           </div>
 
           <h3>The Separable Verb abbiegen (to turn)</h3>
@@ -282,19 +282,14 @@ const config = {
             </tbody>
           </table>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+          <p>
+            The du-command drops the ending and uses the bare verb stem: <em>Bieg</em>.
+          </p>
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Note</span>
             <p>
-              Separable verbs in German split because the prefix carries a specific meaning that
-              modifies the base verb.
-            </p>
-            <p>
-              <em>Biegen</em> means "to bend." <em>Ab-</em> adds the idea of turning off a path.
-            </p>
-            <p>
-              In a main clause, German places all non-finite verb parts at the very end. The
-              separable prefix is non-finite (it only makes sense attached to its verb), so it waits
-              there.
+              Abbiegen is a separable verb, the kind you met in Unit 7. The prefix <em>ab-</em>{' '}
+              jumps to the end of the clause: <em>Biegen Sie links ab.</em>
             </p>
           </div>
 
@@ -342,7 +337,8 @@ const config = {
           <div className="lrn-callout lrn-tip">
             <span className="lrn-callout-label">Tip</span>
             <p>
-              Use <strong>zum</strong> before masculine/neuter nouns (zum Bahnhof) and{' '}
+              Every German noun has a gender: masculine (der), feminine (die), or neuter (das). Use{' '}
+              <strong>zum</strong> before masculine/neuter nouns (zum Bahnhof) and{' '}
               <strong>zur</strong> before feminine nouns (zur Post).
             </p>
             <p>Both mean "to the" and use dative case.</p>
@@ -437,7 +433,7 @@ const config = {
                 </td>
                 <td>das, -̈er</td>
                 <td>hospital</td>
-                <td>Das Krankenhaus ist am Ende der Straße.</td>
+                <td>Das Krankenhaus ist am Ende.</td>
               </tr>
               <tr>
                 <td>
@@ -493,7 +489,7 @@ const config = {
                 </td>
                 <td>die, -en</td>
                 <td>university</td>
-                <td>Die Universität ist am Ende der Straße.</td>
+                <td>Die Universität ist links.</td>
               </tr>
               <tr>
                 <td>
@@ -501,7 +497,7 @@ const config = {
                 </td>
                 <td>der, -s</td>
                 <td>park</td>
-                <td>Der Park ist in der Mitte der Stadt.</td>
+                <td>Der Park ist in der Mitte.</td>
               </tr>
               <tr>
                 <td>
@@ -608,12 +604,12 @@ const config = {
               <tr>
                 <td>in der Mitte</td>
                 <td>in the middle</td>
-                <td>Der Park ist in der Mitte der Stadt.</td>
+                <td>Der Park ist in der Mitte.</td>
               </tr>
               <tr>
                 <td>am Ende</td>
                 <td>at the end</td>
-                <td>Die Schule ist am Ende der Straße.</td>
+                <td>Die Schule ist am Ende.</td>
               </tr>
               <tr>
                 <td>auf der linken Seite</td>
@@ -688,31 +684,57 @@ const config = {
             </div>
           </div>
 
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>The passerby uses "bis zur Ampel." Why is it "zur" and not "zu der"?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                <em>Zur</em> is the contracted form of <em>zu der</em>.
-              </p>
-              <p>
-                <em>Die Ampel</em> is feminine, so you use <em>zu der</em>, which contracts to{' '}
-                <em>zur</em>.
-              </p>
-            </details>
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Note</span>
+            <p>
+              The passerby says <em>bis zur Ampel</em>. <em>Zur</em> is just <em>zu der</em>{' '}
+              squeezed together, the dative contraction you met in Unit 6.
+            </p>
           </div>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              German uses contractions like <em>zum</em> and <em>zur</em> because the combination
-              <em> zu + dem/der</em> appears constantly in everyday speech.
-            </p>
-            <p>
-              Languages shorten high-frequency phrases over time. English does the same:{' '}
-              <em>do not</em> becomes <em>don't</em>; <em>going to</em> becomes <em>gonna</em>.
-            </p>
+          <h3>Build a Set of Directions Step by Step</h3>
+          <p>Here is how the passerby builds those directions, one piece at a time.</p>
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">1. Start them moving</span>
+              <p className="lrn-step-content">Gehen Sie geradeaus. (Go straight ahead.)</p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">2. Give a stopping point</span>
+              <p className="lrn-step-content">… bis zur Ampel. (… until the traffic light.)</p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">3. Turn</span>
+              <p className="lrn-step-content">Dann biegen Sie rechts ab. (Then turn right.)</p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">4. Name the place</span>
+              <p className="lrn-step-content">
+                Der Bahnhof ist auf der linken Seite. (The station is on the left side.)
+              </p>
+            </div>
+          </div>
+
+          <h3>How to Ask for Directions</h3>
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">1. Get attention</span>
+              <p className="lrn-step-content">Entschuldigung! (Excuse me!)</p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">2. Ask the way</span>
+              <p className="lrn-step-content">
+                Wie komme ich zum Bahnhof? (How do I get to the station?)
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">3. Check the distance</span>
+              <p className="lrn-step-content">Ist es weit von hier? (Is it far from here?)</p>
+            </div>
+          </div>
+          <div className="lrn-callout lrn-success">
+            <span className="lrn-callout-label">You can now</span>
+            <p>You can now ask a stranger for directions and follow a multi-step answer.</p>
           </div>
         </div>
       </>,
@@ -739,7 +761,10 @@ const config = {
 
           <h2>Transport (Verkehrsmittel)</h2>
           <p>
-            Use this vocabulary when travelling by public transport or asking about connections.
+            Use this vocabulary when travelling by public transport or asking about connections. The
+            table groups the modes by air (Flugzeug, fliegen, Flug), water (Schiff, Hafen), rail
+            (Zug, U-Bahn, Straßenbahn), and road (Bus, Auto, Fahrrad), then the words you need at
+            the station: tickets, departure, arrival, and platforms.
           </p>
 
           <table className="lrn-table">
@@ -816,9 +841,9 @@ const config = {
               </tr>
               <tr>
                 <td>
-                  <strong>radfahren</strong>
+                  <strong>Rad fahren</strong>
                 </td>
-                <td>(separable)</td>
+                <td>(two words)</td>
                 <td>to cycle</td>
               </tr>
               <tr>
@@ -948,6 +973,9 @@ const config = {
           </div>
 
           <h3>Dialogue: Am Bahnhof (Buying a Ticket)</h3>
+          <p>
+            <em>Ich möchte</em> means "I would like", the polite wish form you met in Unit 5.
+          </p>
           <div className="lrn-callout">
             <span className="lrn-callout-label">Dialog</span>
             <p>
@@ -972,6 +1000,27 @@ const config = {
               <strong>B:</strong> Nein, der Zug ist direkt.
             </p>
           </div>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">1. Say where you want to go</span>
+              <p className="lrn-step-content">Ich möchte eine Fahrkarte nach Berlin.</p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">2. Choose single or return</span>
+              <p className="lrn-step-content">
+                Einfach oder hin und zurück?, Hin und zurück, bitte.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">3. Ask about the train and platform</span>
+              <p className="lrn-step-content">Wann fährt der nächste Zug? Muss ich umsteigen?</p>
+            </div>
+          </div>
+          <div className="lrn-callout lrn-success">
+            <span className="lrn-callout-label">You can now</span>
+            <p>You can now buy a train ticket and ask when and from which platform it leaves.</p>
+          </div>
         </div>
       </>
     ]
@@ -983,10 +1032,6 @@ const config = {
       a: 'The verb is abbiegen (separable). Example: Biegen Sie links ab. (Turn left.) The prefix ab- goes to the end of the clause.'
     },
     {
-      q: 'What does "geradeaus" mean?',
-      a: 'Straight ahead. Example: Gehen Sie geradeaus. (Go straight ahead.)'
-    },
-    {
       q: 'What does "links" mean? Use it in a sentence.',
       a: 'Left. Example: Biegen Sie links ab. (Turn left.) Use it with abbiegen or nach + links with gehen.'
     },
@@ -996,7 +1041,7 @@ const config = {
     },
     {
       q: 'ELABORATE: Why does German use "nach links" with gehen but just "links" with abbiegen?',
-      a: 'Abbiegen already contains the idea of turning, so the direction word alone is enough: links abbiegen. Gehen is neutral movement, so nach is needed to point the direction: nach links gehen. Nach acts as a directional marker for movement verbs.'
+      a: 'Abbiegen already contains the idea of turning, so the direction word alone is enough: links abbiegen. Gehen is neutral movement, so nach is needed to point the direction: nach links gehen. Nach is the word that points the direction for movement verbs.'
     },
     {
       q: 'How do you say "Excuse me, where is the post office?" in German?',
@@ -1048,7 +1093,7 @@ const config = {
     },
     {
       q: 'What does "in der Nähe" mean? Use it in a sentence.',
-      a: 'Nearby / in the area. Example: Das Hotel ist in der Nähe. (The hotel is nearby.) Or: Das Hotel ist in der Nähe des Bahnhofs. (The hotel is near the train station.)'
+      a: 'Nearby / in the area. Example: Das Hotel ist in der Nähe. (The hotel is nearby.)'
     },
     {
       q: 'What does "um die Ecke" mean?',
@@ -1088,7 +1133,7 @@ const config = {
     },
     {
       q: 'How do you say "I would like to reserve a ticket" in German?',
-      a: 'Ich möchte eine Fahrkarte reservieren. reservieren is a -ieren verb (no ge- in Partizip II). Use möchten to express a polite wish.'
+      a: 'Ich möchte eine Fahrkarte reservieren. Ich möchte means "I would like" (the polite wish form from Unit 5). reservieren means "to reserve."'
     }
   ],
 
@@ -1163,7 +1208,7 @@ const config = {
               <td>
                 <strong>entlang</strong>
               </td>
-              <td>postpositive prep</td>
+              <td>preposition</td>
               <td>along</td>
               <td>die Straße entlang (comes after noun)</td>
             </tr>

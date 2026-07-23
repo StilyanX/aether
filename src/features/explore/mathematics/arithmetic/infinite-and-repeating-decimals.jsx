@@ -1,7 +1,360 @@
+import { useMemo, useState } from 'react'
+import katex from 'katex'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
-import { useVizColors } from '../../../../hooks/use-viz-colors'
+import { VizFigure } from '../../../../components/viz-figure'
+import {
+  Plot,
+  Polyline,
+  Dot,
+  Label,
+  Tex,
+  Slider,
+  OPACITY
+} from '../../../../components/viz/primitives'
+import { FONT_LABEL, FONT_SMALL } from '../../../../components/viz/scale-tokens'
 
-import { SqueezingVis, MultiplySubtractVis, LongDivisionVis } from '../../../../components/viz'
+// Inline viz · migrated 2026-05 from src/components/viz/arithmetic.jsx into
+// the topic file, wrapped in <VizFigure>. Engine choices per pattern map.
+
+// 10.1.1: Squeezing √2. Multi-strip number-line zoom; each strip narrows the
+// bracketing interval [aₖ, aₖ + 10⁻⁽ᵏ⁻¹⁾] by 10× per step. Endpoints computed
+// live from Math.sqrt(2) (No-Compromise Rule: real computation, not stage set).
+function Idr_SqrtSqueezeInline() {
+  const [nLevels, setNLevels] = useState(3)
+  const SQRT2 = Math.sqrt(2)
+  const strips = useMemo(() => {
+    const out = []
+    for (let k = 1; k <= nLevels; k++) {
+      const scale = Math.pow(10, k - 1)
+      const lo = Math.floor(SQRT2 * scale) / scale
+      const hi = lo + 1 / scale
+      const aSq = lo * lo
+      const bSq = hi * hi
+      out.push({ k, lo, hi, aSq, bSq })
+    }
+    return out
+  }, [nLevels, SQRT2])
+
+  const stripGap = 1.0
+  const totalH = strips.length * stripGap + 0.6
+  const yTop = totalH / 2
+  const yBottom = yTop - 0.4 - (strips.length - 1) * stripGap - 0.85
+
+  return (
+    <div style={{ width: '100%' }}>
+      <Plot
+        xRange={[-0.04, 1.04]}
+        yRange={[yBottom, yTop + 0.2]}
+        width={620}
+        height={Math.max(220, strips.length * 80 + 60)}
+      >
+        {strips.map((s, idx) => {
+          const yMid = yTop - 0.4 - idx * stripGap
+          const dotX = (SQRT2 - s.lo) / (s.hi - s.lo)
+          const decimals = s.k
+          const aStr = s.lo.toFixed(decimals - 1)
+          const bStr = s.hi.toFixed(decimals - 1)
+          return (
+            <g key={s.k}>
+              <Polyline
+                points={[
+                  [0, yMid],
+                  [1, yMid]
+                ]}
+                opacity={OPACITY.fg}
+              />
+              {Array.from({ length: 11 }, (_, i) => i / 10).map(t => {
+                const isEnd = t === 0 || t === 1
+                return (
+                  <Polyline
+                    key={t}
+                    points={[
+                      [t, yMid - (isEnd ? 0.1 : 0.06)],
+                      [t, yMid + (isEnd ? 0.1 : 0.06)]
+                    ]}
+                    opacity={isEnd ? OPACITY.fg : OPACITY.dim}
+                  />
+                )
+              })}
+              <Label
+                at={[0, yMid - 0.22]}
+                anchor="middle"
+                size={FONT_SMALL}
+                upper={false}
+                opacity={OPACITY.dim}
+              >
+                {aStr}
+              </Label>
+              <Label
+                at={[1, yMid - 0.22]}
+                anchor="middle"
+                size={FONT_SMALL}
+                upper={false}
+                opacity={OPACITY.dim}
+              >
+                {bStr}
+              </Label>
+              <Dot x={dotX} y={yMid} r={4} />
+              {idx === 0 && (
+                <Tex at={[dotX, yMid + 0.3]} tex={`\\sqrt{2}`} anchor="middle" size={FONT_LABEL} />
+              )}
+              <Tex
+                at={[0.5, yMid - 0.6]}
+                tex={`${aStr}^2 = ${s.aSq.toFixed(Math.min(2 * decimals, 8))} < 2 < ${s.bSq.toFixed(Math.min(2 * decimals, 8))} = ${bStr}^2`}
+                anchor="middle"
+                size={FONT_LABEL}
+                opacity={OPACITY.dim}
+              />
+            </g>
+          )
+        })}
+      </Plot>
+      <Slider
+        label="precision"
+        value={nLevels}
+        min={1}
+        max={5}
+        step={1}
+        onChange={v => setNLevels(v | 0)}
+        format={v => `${v} digit${v === 1 ? '' : 's'}`}
+      />
+    </div>
+  )
+}
+
+// 10.1.2: Multiply-Subtract. HTML stack of KaTeX-rendered equations. Theme
+// reactivity via var(--text-primary); KaTeX inherits via currentColor.
+function Idr_MultiplySubtractInline() {
+  const [rep, setRep] = useState(27)
+  const [repLen, setRepLen] = useState(2)
+
+  const rows = useMemo(() => {
+    const repStr = String(rep).padStart(repLen, '0')
+    const num = rep
+    const den = Math.pow(10, repLen) - 1
+    const lines = [
+      `x = 0.\\overline{${repStr}}`,
+      `10^{${repLen}} \\cdot x = ${repStr}.\\overline{${repStr}}`,
+      `(10^{${repLen}} - 1) \\cdot x = ${repStr}`,
+      `x = \\dfrac{${num}}{${den}}`
+    ]
+    return lines.map(tex => {
+      try {
+        return katex.renderToString(tex, { throwOnError: false, displayMode: true })
+      } catch {
+        return tex
+      }
+    })
+  }, [rep, repLen])
+
+  // Clamp rep when repLen shrinks so the slider's value stays in range.
+  const repMax = Math.pow(10, repLen) - 1
+  const repClamped = Math.min(rep, repMax)
+
+  return (
+    <div style={{ width: '100%' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+          padding: '16px 12px',
+          color: 'var(--text-primary)',
+          fontFamily: "'D-DIN', ui-monospace, monospace"
+        }}
+      >
+        <div dangerouslySetInnerHTML={{ __html: rows[0] }} />
+        <div dangerouslySetInnerHTML={{ __html: rows[1] }} />
+        <div
+          style={{
+            borderTop: '1px solid currentColor',
+            opacity: 0.35,
+            margin: '4px 0 4px'
+          }}
+        />
+        <div dangerouslySetInnerHTML={{ __html: rows[2] }} />
+        <div dangerouslySetInnerHTML={{ __html: rows[3] }} />
+      </div>
+      <Slider
+        label="block"
+        value={repClamped}
+        min={1}
+        max={repMax}
+        step={1}
+        onChange={v => setRep(v | 0)}
+        format={v => String(v).padStart(repLen, '0')}
+      />
+      <Slider
+        label="length"
+        value={repLen}
+        min={1}
+        max={4}
+        step={1}
+        onChange={v => {
+          const next = v | 0
+          setRepLen(next)
+          const cap = Math.pow(10, next) - 1
+          if (rep > cap) setRep(cap)
+        }}
+        format={v => v}
+      />
+    </div>
+  )
+}
+
+// 10.1.3: Long Division. HTML + CSS grid digit columns per pattern map.
+// Each step is a row showing `rₖ · 10 = dₖ · q + rₖ₊₁`. Cycle detection
+// highlights the first repeated remainder. Defaults match the prose: 2/11.
+function Idr_LongDivisionInline() {
+  const [p, setP] = useState(2)
+  const [q, setQ] = useState(11)
+
+  const { steps, cycleStart, digits, intPart, terminates } = useMemo(() => {
+    const out = []
+    const seen = new Map()
+    let rem = p % q
+    let dig = ''
+    let cs = -1
+    let term = false
+    for (let i = 0; i < 24; i++) {
+      if (seen.has(rem)) {
+        cs = seen.get(rem)
+        break
+      }
+      seen.set(rem, i)
+      const carried = rem * 10
+      const d = Math.floor(carried / q)
+      const sub = d * q
+      const newRem = carried - sub
+      out.push({ idx: i, rIn: rem, carried, d, sub, rOut: newRem })
+      dig += d
+      rem = newRem
+      if (rem === 0) {
+        term = true
+        break
+      }
+    }
+    return {
+      steps: out,
+      cycleStart: cs,
+      digits: dig,
+      intPart: Math.floor(p / q),
+      terminates: term
+    }
+  }, [p, q])
+
+  const quotient =
+    cycleStart >= 0
+      ? `${intPart}.${digits.slice(0, cycleStart)}(${digits.slice(cycleStart)})`
+      : `${intPart}.${digits || '0'}${terminates ? '' : '…'}`
+
+  // Column widths chosen for at most 3 digits (carried ≤ 9·50 = 450, sub ≤ 49·9 = 441).
+  const rowGrid = '3ch 1.5ch 1.5ch 1.5ch 3ch 1.5ch 1.5ch 1.5ch 3ch'
+
+  return (
+    <div style={{ width: '100%' }}>
+      <div
+        style={{
+          padding: '16px 12px',
+          color: 'var(--text-primary)',
+          fontFamily: "'D-DIN', ui-monospace, monospace",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <div
+          style={{
+            fontSize: 'clamp(18px, 2.6vw, 24px)',
+            letterSpacing: '0.04em',
+            marginBottom: 18,
+            fontVariantNumeric: 'tabular-nums'
+          }}
+        >
+          {`${p} / ${q} = ${quotient}`}
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'max-content',
+            justifyContent: 'center',
+            gap: '4px 0',
+            fontVariantNumeric: 'tabular-nums'
+          }}
+        >
+          {steps.map((s, i) => {
+            const isCycleStart = i === cycleStart
+            const isCycleEnd = cycleStart >= 0 && i === steps.length - 1
+            const flag = isCycleStart || isCycleEnd
+            return (
+              <div
+                key={i}
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: rowGrid,
+                  alignItems: 'baseline',
+                  columnGap: 6,
+                  fontSize: 'clamp(13px, 1.7vw, 15px)',
+                  outline: flag ? '1px dashed currentColor' : 'none',
+                  outlineOffset: 4,
+                  padding: '2px 4px',
+                  opacity: flag ? 1 : 0.9
+                }}
+              >
+                <span style={{ textAlign: 'right', opacity: 0.85 }}>{s.rIn}</span>
+                <span style={{ textAlign: 'center', opacity: 0.5 }}>·</span>
+                <span style={{ textAlign: 'center', opacity: 0.85 }}>10</span>
+                <span style={{ textAlign: 'center', opacity: 0.5 }}>=</span>
+                <span style={{ textAlign: 'right', opacity: 0.95 }}>{s.d}</span>
+                <span style={{ textAlign: 'center', opacity: 0.5 }}>·</span>
+                <span style={{ textAlign: 'center', opacity: 0.85 }}>{q}</span>
+                <span style={{ textAlign: 'center', opacity: 0.5 }}>+</span>
+                <span style={{ textAlign: 'right', opacity: 0.95 }}>{s.rOut}</span>
+              </div>
+            )
+          })}
+        </div>
+
+        <div
+          style={{
+            marginTop: 18,
+            fontSize: 'clamp(11px, 1.4vw, 13px)',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            opacity: 0.6,
+            textAlign: 'center'
+          }}
+        >
+          {cycleStart >= 0
+            ? `Period = ${steps.length - cycleStart} · remainder ${steps[cycleStart].rIn} repeats`
+            : terminates
+              ? 'Terminates · remainder 0 reached'
+              : 'Truncated at 24 digits'}
+        </div>
+      </div>
+
+      <Slider
+        label="p"
+        value={p}
+        min={1}
+        max={50}
+        step={1}
+        onChange={v => setP(v | 0)}
+        format={v => v}
+      />
+      <Slider
+        label="q"
+        value={q}
+        min={2}
+        max={50}
+        step={1}
+        onChange={v => setQ(v | 0)}
+        format={v => v}
+      />
+    </div>
+  )
+}
 
 const config = {
   cssPrefix: 'idr',
@@ -25,12 +378,9 @@ const config = {
 }
 
 function InfiniteAndRepeatingDecimalsContent() {
-  const C = useVizColors()
-
   config.learning.sections = [
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 1: DIVISION-WITH-REMAINDER REVIEW
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 1: DIVISION-WITH-REMAINDER REVIEW
+     */
     <>
       <h2>Division-with-Remainder Review</h2>
 
@@ -83,9 +433,8 @@ function InfiniteAndRepeatingDecimalsContent() {
       </div>
     </>,
 
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 2: DECIMALS AND INFINITE DECIMALS (Module 41.2)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 2: DECIMALS AND INFINITE DECIMALS (Module 41.2)
+     */
     <>
       <h2>Infinite Decimals and Limits</h2>
 
@@ -129,7 +478,9 @@ function InfiniteAndRepeatingDecimalsContent() {
 
       <p>{`Take $\\sqrt{2}$. We know $1^2 = 1 < 2 < 4 = 2^2$, so $1 < \\sqrt{2} < 2$. Then $1.4^2 = 1.96 < 2 < 2.25 = 1.5^2$, so $1.4 < \\sqrt{2} < 1.5$. Continue: $1.41 < \\sqrt{2} < 1.42$, and so on.`}</p>
 
-      <SqueezingVis C={C} />
+      <VizFigure title="Squeezing √2" size="body" aspect="620/240">
+        <Idr_SqrtSqueezeInline />
+      </VizFigure>
 
       <p>
         Each step pins down one more digit. The interval gets 10 times smaller each time. Only one
@@ -158,7 +509,7 @@ function InfiniteAndRepeatingDecimalsContent() {
             <li>{`$1.414^2 = 1.999396 < 2 < 2.002225 = 1.415^2$, so the third digit is 4.`}</li>
           </ul>
         </div>
-        <div className="lrn-faded-phase">
+        <div className="lrn-faded-phase lrn-faded-partial">
           <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
           <p>{`Find the first 2 decimal digits of $\\sqrt{3}$.`}</p>
           <p>{`You know $1^2 = 1 < 3 < 4 = 2^2$.`}</p>
@@ -250,9 +601,8 @@ function InfiniteAndRepeatingDecimalsContent() {
       </div>
     </>,
 
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 3: REPEATING DECIMALS (Module 41.3)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 3: REPEATING DECIMALS (Module 41.3)
+     */
     <>
       <h2>Repeating Decimals</h2>
 
@@ -296,7 +646,9 @@ function InfiniteAndRepeatingDecimalsContent() {
       <div className="lrn-eq">{`$$10 \\times 0.\\overline{8} - 0.\\overline{8} = 8.\\overline{8} - 0.\\overline{8} = 8$$`}</div>
       <div className="lrn-eq">{`$$9 \\times 0.\\overline{8} = 8 \\quad \\Rightarrow \\quad 0.\\overline{8} = \\frac{8}{9}$$`}</div>
 
-      <MultiplySubtractVis C={C} />
+      <VizFigure title="Multiply-Subtract Method" size="body" aspect="auto">
+        <Idr_MultiplySubtractInline />
+      </VizFigure>
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -331,11 +683,11 @@ function InfiniteAndRepeatingDecimalsContent() {
       <div className="lrn-eq">{`$$16.419\\overline{76} = 16 + \\frac{419}{1000} + \\frac{76}{99000} = \\frac{16 \\times 99000 + 419 \\times 99 + 76}{99000} = \\frac{1625557}{99000}$$`}</div>
 
       <div className="lrn-faded">
-        <div className="lrn-faded-phase">
+        <div className="lrn-faded-phase lrn-faded-partial">
           <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
           <p>{`Convert $4.008\\overline{76523}$ to a fraction. Split: $4 + 0.008 + 0.000\\overline{76523}$. Handle: $0.\\overline{76523} = \\frac{76523}{99999}$. Shift: $0.000\\overline{76523} = \\frac{76523}{99999 \\times 1000}$. Combine into a single fraction.`}</p>
         </div>
-        <div className="lrn-faded-phase">
+        <div className="lrn-faded-phase lrn-faded-partial">
           <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
           <p>{`Convert $2.1\\overline{45}$ to a fraction.`}</p>
           <ol className="lrn-list">
@@ -390,9 +742,8 @@ function InfiniteAndRepeatingDecimalsContent() {
       </div>
     </>,
 
-    /* ════════════════════════════════════════════════════════════════════════
-     SECTION 4: DECIMAL EXPANSIONS OF FRACTIONS (Module 42 - Theorem)
-     ════════════════════════════════════════════════════════════════════════ */
+    /* SECTION 4: DECIMAL EXPANSIONS OF FRACTIONS (Module 42 - Theorem)
+     */
     <>
       <h2>Decimal Expansions of Fractions</h2>
 
@@ -443,7 +794,9 @@ function InfiniteAndRepeatingDecimalsContent() {
       </p>
       <p>Divide 2 by 11 using long division.</p>
 
-      <LongDivisionVis C={C} />
+      <VizFigure title="Long Division" size="body" aspect="auto">
+        <Idr_LongDivisionInline />
+      </VizFigure>
 
       <p>The remainders cycle: 9, 2, 9, 2, ... The digits cycle: 1, 8, 1, 8, ...</p>
       <div className="lrn-eq">{`$$\\frac{2}{11} = 0.\\overline{18}$$`}</div>
@@ -484,9 +837,7 @@ function InfiniteAndRepeatingDecimalsContent() {
     </>
   ]
 
-  // ═══════════════════════════════════════════
   // PRACTICE CARDS (interleaved)
-  // ═══════════════════════════════════════════
   config.practice = [
     {
       q: 'Convert $0.\\overline{8}$ to a fraction. Show every step.',
@@ -554,9 +905,7 @@ function InfiniteAndRepeatingDecimalsContent() {
     }
   ]
 
-  // ═══════════════════════════════════════════
   // REFERENCE MODE
-  // ═══════════════════════════════════════════
   config.reference.sections = [
     <>
       <h2>Infinite and Repeating Decimals</h2>

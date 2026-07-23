@@ -1,11 +1,7 @@
 import 'katex/dist/katex.min.css'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
-import {
-  DiffOfSquaresGeomViz,
-  PascalTriangleViz,
-  SquareOfSumGeomViz,
-} from '../../../../components/viz'
-// ─── Config ───────────────────────────────────────────────────────────────────
+import { DiffOfSquaresViz, PascalTriangleViz, SquareOfSumGeomViz } from '../../../../components/viz'
+// Config
 
 function useConfig() {
   const config = {
@@ -17,9 +13,9 @@ function useConfig() {
       title: 'Algebraic Identities (Special Products)',
       subtitle: 'Square a sum. Factor a difference. Build any power from the last.',
       sections: [
-        // ── Section 0: Intro ──────────────────────────────────────────────
-        <>
-          <h1>Short Multiplication Formulas</h1>
+        // Section 0: Intro
+        <div className="lrn-section" key="lrn-section-0" id="lrn-section-0">
+          <h2>Short Multiplication Formulas</h2>
           <p>
             An <strong>identity</strong> is an equation that is true for every value of its letters,
             not just some values.
@@ -36,10 +32,10 @@ function useConfig() {
             <strong>difference of squares</strong>. From these three, Pascal's triangle gives you
             every higher power of a binomial.
           </p>
-        </>,
+        </div>,
 
-        // ── Section 1: Square of a Sum ────────────────────────────────────
-        <>
+        // Section 1: Square of a Sum
+        <div className="lrn-section" key="lrn-section-1" id="lrn-section-1">
           <h2>The Square of a Sum</h2>
 
           <p>
@@ -150,7 +146,7 @@ function useConfig() {
             <div className="lrn-step">
               <span className="lrn-step-title">Verify</span>
               <p className="lrn-step-content">
-                {`$5 + 7 = 12$`}, and {`$12^2 = 144$`}. ✓
+                {`$5 + 7 = 12$`}, and {`$12^2 = 144$`}, which matches.
               </p>
             </div>
           </div>
@@ -171,6 +167,40 @@ function useConfig() {
           <p>
             The letters {`$a$`} and {`$b$`} stand for any number or expression. Substitute and
             simplify.
+          </p>
+
+          <h3>Worked example: an expression inside</h3>
+          <div className="lrn-predict">
+            <span className="lrn-predict-label">PREDICT</span>
+            <p>
+              Before reading on, expand {`$(2x + 3)^2$`}. What are {`$a$`} and {`$b$`} here?
+            </p>
+          </div>
+          <p>
+            Use the formula with {`$a = 2x$`} and {`$b = 3$`}. The whole term {`$2x$`} plays the
+            role of {`$a$`}, so you square all of it.
+          </p>
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Apply the formula</span>
+              <p className="lrn-step-content">
+                {`$(2x + 3)^2 = (2x)^2 + 2 \\cdot (2x) \\cdot 3 + 3^2$`}
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Square each piece</span>
+              <p className="lrn-step-content">
+                {`$(2x)^2 = 4x^2$`}, the middle term is {`$12x$`}, and {`$3^2 = 9$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Result</span>
+              <p className="lrn-step-content">{`$(2x + 3)^2 = 4x^2 + 12x + 9$`}.</p>
+            </div>
+          </div>
+          <p>
+            The common slip is to write {`$2x^2$`} instead of {`$(2x)^2 = 4x^2$`}. Square the
+            coefficient too.
           </p>
 
           <h3>The square of a difference</h3>
@@ -213,13 +243,13 @@ function useConfig() {
             {`$$(7 - 5)^2 = 7^2 - 2 \\cdot 7 \\cdot 5 + 5^2 = 49 - 70 + 25 = 4$$`}
           </div>
           <p>
-            Check: {`$7 - 5 = 2$`} and {`$2^2 = 4$`}. ✓ The {`$-70$`} cancels most of {`$49 + 25$`},
+            Check: {`$7 - 5 = 2$`} and {`$2^2 = 4$`}. The {`$-70$`} cancels most of {`$49 + 25$`},
             which is exactly why the difference formula gives a small answer here.
           </p>
-        </>,
+        </div>,
 
-        // ── Section 2: Difference of Squares ─────────────────────────────
-        <>
+        // Section 2: Difference of Squares
+        <div className="lrn-section" key="lrn-section-2" id="lrn-section-2">
           <h2>The Difference of Squares</h2>
 
           <p>
@@ -260,6 +290,24 @@ function useConfig() {
             squares into two binomials. Read right to left, it multiplies them in one step.
           </p>
 
+          <h3>Worked example: factor {`$x^2 - 16$`}</h3>
+          <div className="lrn-predict">
+            <span className="lrn-predict-label">PREDICT</span>
+            <p>
+              Is {`$16$`} a perfect square? If so, what is {`$b$`}, and what will the two factors
+              be?
+            </p>
+          </div>
+          <p>
+            To factor, first spot the two squares. {`$x^2$`} is already a square, and {`$16 = 4^2$`}
+            . So this is a difference of squares with {`$a = x$`} and {`$b = 4$`}.
+          </p>
+          <div className="lrn-eq">{`$$x^2 - 16 = x^2 - 4^2 = (x + 4)(x - 4)$$`}</div>
+          <p>
+            The hard step is recognizing {`$16$`} as {`$4^2$`}. Once you see the two squares, the
+            factors fall out of the identity.
+          </p>
+
           <h3>Geometric proof</h3>
           <p>
             Start with an {`$a \\times a$`} square and remove a {`$b \\times b$`} square from one
@@ -278,12 +326,12 @@ function useConfig() {
               L-shaped region of area {`$a^2 - b^2$`} rearranged into an {`$(a+b)\\times(a-b)$`}{' '}
               rectangle.
             </p>
-            <DiffOfSquaresGeomViz />
+            <DiffOfSquaresViz />
           </div>
 
           <h3>Mental computation: 101 × 99</h3>
           <p>
-            Recognise the product as {`$(100 + 1)(100 - 1)$`}, which is a difference of squares with{' '}
+            Recognize the product as {`$(100 + 1)(100 - 1)$`}, which is a difference of squares with{' '}
             {`$a = 100$`}, {`$b = 1$`}.
           </p>
           <div className="lrn-eq">{`$$101 \\cdot 99 = 100^2 - 1^2 = 10000 - 1 = 9999$$`}</div>
@@ -295,7 +343,8 @@ function useConfig() {
           <h3>Application: integers that differ by 2</h3>
           <p>
             Take any two integers that differ by 2, say 5 and 7. Their product plus 1 is always a
-            perfect square. Here, {`$5 \\cdot 7 + 1 = 36 = 6^2$`}.
+            perfect square (a number you get by squaring a whole number). Here,{' '}
+            {`$5 \\cdot 7 + 1 = 36 = 6^2$`}.
           </p>
           <p>
             More examples: {`$3 \\cdot 5 + 1 = 16 = 4^2$`} and {`$13 \\cdot 15 + 1 = 196 = 14^2$`}.
@@ -388,13 +437,23 @@ function useConfig() {
             {`$$(a + b + c)^2 = a^2 + b^2 + c^2 + 2ab + 2ac + 2bc$$`}
           </div>
           <p>
-            Imagine a 3×3 grid with rows and columns labelled {`$a, b, c$`}. Each cell holds the
+            Imagine a 3×3 grid with rows and columns labeled {`$a, b, c$`}. Each cell holds the
             product of its row and column.
           </p>
           <p>
             The three diagonal cells give {`$a^2$`}, {`$b^2$`}, {`$c^2$`}. The six off-diagonal
             cells come in three matching pairs: {`$ab$`} and {`$ba$`}, {`$ac$`} and {`$ca$`},{' '}
             {`$bc$`} and {`$cb$`}. Each pair contributes {`$2ab$`}, {`$2ac$`}, {`$2bc$`}.
+          </p>
+          <p>
+            Use this whenever you square a sum of three terms instead of multiplying it out by hand.
+            Check it with numbers: {`$(1 + 2 + 3)^2$`}.
+          </p>
+          <div className="lrn-eq">
+            {`$$(1 + 2 + 3)^2 = 1 + 4 + 9 + 2 \\cdot 1 \\cdot 2 + 2 \\cdot 1 \\cdot 3 + 2 \\cdot 2 \\cdot 3 = 36$$`}
+          </div>
+          <p>
+            And directly, {`$1 + 2 + 3 = 6$`} and {`$6^2 = 36$`}. The formula matches.
           </p>
 
           <h3>Grouping trick: difference of squares with three terms</h3>
@@ -427,10 +486,10 @@ function useConfig() {
           <div className="lrn-eq">
             {`$$(a^2 - 2ab + b^2)(a^2 + 2ab + b^2) = a^4 - 2a^2 b^2 + b^4$$`}
           </div>
-        </>,
+        </div>,
 
-        // ── Section 3: The Cube of a Sum ─────────────────────────────────
-        <>
+        // Section 3: The Cube of a Sum
+        <div className="lrn-section" key="lrn-section-3" id="lrn-section-3">
           <h2>The Cube of a Sum</h2>
 
           <p>
@@ -492,10 +551,10 @@ function useConfig() {
             Same trick for {`$101^3$`}: pick {`$a = 100$`}, {`$b = 1$`}, and the four terms drop
             into place. {`$1000000 + 30000 + 300 + 1 = 1030301$`}.
           </p>
-        </>,
+        </div>,
 
-        // ── Section 4: Higher Powers and Pascal's Triangle ────────────────
-        <>
+        // Section 4: Higher Powers and Pascal's Triangle
+        <div className="lrn-section" key="lrn-section-4" id="lrn-section-4">
           <h2>Higher Powers and Pascal's Triangle</h2>
 
           <p>
@@ -515,8 +574,9 @@ function useConfig() {
             The powers are easy to read off the pattern. {`$(a + b)^1$`} uses {`$a$`} and {`$b$`}.{' '}
             {`$(a + b)^2$`} uses {`$a^2, ab, b^2$`}. {`$(a + b)^3$`} uses{' '}
             {`$a^3, a^2 b, ab^2, b^3$`}. So {`$(a + b)^4$`} must use{' '}
-            {`$a^4, a^3 b, a^2 b^2, ab^3, b^4$`}. Every term has total degree 4. The power of{' '}
-            {`$a$`} decreases from 4 to 0; the power of {`$b$`} climbs from 0 to 4.
+            {`$a^4, a^3 b, a^2 b^2, ab^3, b^4$`}. Every term has total degree 4: the exponents in
+            each term add up to 4. The power of {`$a$`} decreases from 4 to 0; the power of {`$b$`}{' '}
+            climbs from 0 to 4.
           </p>
           <p>Now the coefficients. Stack what you know with a leading 1 written explicitly:</p>
           <div className="lrn-eq">{`$$(a + b)^1 \\to \\;\\; 1, \\; 1$$`}</div>
@@ -605,67 +665,48 @@ function useConfig() {
             </p>
           </div>
 
-          <h3>The fifth and sixth power</h3>
-          <p>Read the coefficients off rows 5 and 6 directly. No further expansion needed.</p>
-          <div className="lrn-eq">
-            {`$$(a + b)^5 = a^5 + 5a^4 b + 10a^3 b^2 + 10a^2 b^3 + 5ab^4 + b^5$$`}
+          <h3>Worked example: expand {`$(x + 2)^4$`}</h3>
+          <div className="lrn-predict">
+            <span className="lrn-predict-label">PREDICT</span>
+            <p>
+              Which Pascal row gives the coefficients of {`$(x + 2)^4$`}? What powers of 2 will you
+              need?
+            </p>
           </div>
-          <div className="lrn-eq">
-            {`$$(a + b)^6 = a^6 + 6a^5 b + 15a^4 b^2 + 20a^3 b^3 + 15a^2 b^4 + 6ab^5 + b^6$$`}
-          </div>
-
-          <h3>Differences with substitution</h3>
           <p>
-            For {`$(a - b)^n$`}, replace {`$b$`} with {`$-b$`}. Odd powers of {`$b$`} flip sign;
-            even powers stay. The result: the same coefficients, with alternating signs.
+            Read the coefficients off row 4: {`$1, 4, 6, 4, 1$`}. Use {`$a = x$`} and {`$b = 2$`}.
+            The powers of {`$b = 2$`} you need are {`$2^0 = 1$`}, {`$2^1 = 2$`}, {`$2^2 = 4$`},{' '}
+            {`$2^3 = 8$`}, {`$2^4 = 16$`}.
           </p>
-          <div className="lrn-eq">{`$$(a - b)^4 = a^4 - 4a^3 b + 6a^2 b^2 - 4ab^3 + b^4$$`}</div>
-          <div className="lrn-eq">
-            {`$$(a - b)^5 = a^5 - 5a^4 b + 10a^3 b^2 - 10a^2 b^3 + 5ab^4 - b^5$$`}
-          </div>
-          <div className="lrn-eq">
-            {`$$(a - b)^6 = a^6 - 6a^5 b + 15a^4 b^2 - 20a^3 b^3 + 15a^2 b^4 - 6ab^5 + b^6$$`}
-          </div>
-
-          <h3>Two facts from special values</h3>
-          <p>
-            <strong>Sum of a row.</strong> Substitute {`$a = 1$`}, {`$b = 1$`} into {`$(a + b)^n$`}.
-            The left side is {`$2^n$`}. The right side is the sum of every coefficient in row{' '}
-            {`$n$`}.
-          </p>
-          <div className="lrn-eq">
-            {`$$\\binom{n}{0} + \\binom{n}{1} + \\binom{n}{2} + \\cdots + \\binom{n}{n} = 2^n$$`}
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Write the skeleton</span>
+              <p className="lrn-step-content">
+                {`$(x + 2)^4 = 1 x^4 + 4 x^3 (2) + 6 x^2 (2)^2 + 4 x (2)^3 + 1 (2)^4$`}
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Multiply each coefficient by its power of 2</span>
+              <p className="lrn-step-content">{`$= x^4 + 8 x^3 + 24 x^2 + 32 x + 16$`}.</p>
+            </div>
           </div>
           <p>
-            Row 4 sums to {`$1 + 4 + 6 + 4 + 1 = 16 = 2^4$`}. Row 6 sums to{' '}
-            {`$1 + 6 + 15 + 20 + 15 + 6 + 1 = 64 = 2^6$`}.
-          </p>
-          <p>
-            <strong>Alternating sum.</strong> Substitute {`$a = 1$`}, {`$b = -1$`}. The left side is{' '}
-            {`$(1 - 1)^n = 0$`} for every {`$n \\geq 1$`}. The right side is the row with signs
-            flipped on the odd terms.
-          </p>
-          <div className="lrn-eq">
-            {`$$\\binom{n}{0} - \\binom{n}{1} + \\binom{n}{2} - \\cdots \\pm \\binom{n}{n} = 0$$`}
-          </div>
-          <p>
-            Row 4 alternating: {`$1 - 4 + 6 - 4 + 1 = 0$`}. The even-indexed and odd-indexed
-            coefficients sum to the same value, each equal to half the row total.
+            Pascal's triangle and powers of {`$b$`} together give every coefficient with no
+            multiplication of binomials at all.
           </p>
 
           <div className="lrn-callout">
             <span className="lrn-callout-label">Historical note</span>
             <p>
-              Blaise Pascal (1623–1662) was a French mathematician and philosopher. The triangle
-              named after him also appeared in works from India, Persia, and China centuries
-              earlier.
+              This triangle is named after Pascal, but mathematicians in India, Persia, and China
+              found it first.
             </p>
           </div>
-        </>
+        </div>
       ]
     },
 
-    // ── Practice cards ────────────────────────────────────────────────────────
+    // Practice cards
     practice: [
       {
         q: 'Expand $(a + b)^2$.',
@@ -673,7 +714,7 @@ function useConfig() {
       },
       {
         q: 'Compute $(5 + 7)^2$ using the square-of-sum identity.',
-        a: '$(5 + 7)^2 = 5^2 + 2 \\cdot 5 \\cdot 7 + 7^2 = 25 + 70 + 49 = 144$. Check: $5 + 7 = 12$ and $12^2 = 144$. ✓'
+        a: '$(5 + 7)^2 = 5^2 + 2 \\cdot 5 \\cdot 7 + 7^2 = 25 + 70 + 49 = 144$. Check: $5 + 7 = 12$ and $12^2 = 144$, which matches.'
       },
       {
         q: 'A student writes $(x + 3)^2 = x^2 + 9$. Find the error and fix it.',
@@ -701,7 +742,7 @@ function useConfig() {
       },
       {
         q: 'Factor $x^2 - 16$.',
-        a: '$x^2 - 16 = x^2 - 4^2 = (x + 4)(x - 4)$. Recognise $16 = 4^2$; this is a difference of squares with $a = x$ and $b = 4$.'
+        a: '$x^2 - 16 = x^2 - 4^2 = (x + 4)(x - 4)$. Recognize $16 = 4^2$; this is a difference of squares with $a = x$ and $b = 4$.'
       },
       {
         q: 'Factor $4x^2 - 9$.',
@@ -709,7 +750,7 @@ function useConfig() {
       },
       {
         q: 'Compute $99 \\times 101$ mentally.',
-        a: '$99 \\times 101 = (100 - 1)(100 + 1) = 100^2 - 1^2 = 10000 - 1 = 9999$. Recognise the product as $(a - b)(a + b) = a^2 - b^2$.'
+        a: '$99 \\times 101 = (100 - 1)(100 + 1) = 100^2 - 1^2 = 10000 - 1 = 9999$. Recognize the product as $(a - b)(a + b) = a^2 - b^2$.'
       },
       {
         q: 'Why does $(a + b)(a - b)$ have no middle term?',
@@ -737,7 +778,7 @@ function useConfig() {
       },
       {
         q: 'Compute $(a^2 - 2ab + b^2)(a^2 + 2ab + b^2)$.',
-        a: 'Recognise the factors as $(a - b)^2$ and $(a + b)^2$. The product is $\\big((a - b)(a + b)\\big)^2 = (a^2 - b^2)^2 = a^4 - 2a^2 b^2 + b^4$.'
+        a: 'Recognize the factors as $(a - b)^2$ and $(a + b)^2$. The product is $\\big((a - b)(a + b)\\big)^2 = (a^2 - b^2)^2 = a^4 - 2a^2 b^2 + b^4$.'
       },
       {
         q: 'Expand $(a - b)^3$.',
@@ -777,7 +818,7 @@ function useConfig() {
       }
     ],
 
-    // ── Reference ─────────────────────────────────────────────────────────────
+    // Reference
     reference: {
       category: 'Quick Reference',
       title: 'Algebraic Identities',
@@ -846,24 +887,13 @@ function useConfig() {
             4, 1 (row 4).
           </p>
 
-          <h3>Fifth power</h3>
-          <div className="lrn-eq">
-            {`$$(a + b)^5 = a^5 + 5a^4 b + 10a^3 b^2 + 10a^2 b^3 + 5ab^4 + b^5$$`}
-          </div>
+          <h3>Higher powers</h3>
           <p>
-            <strong>When to use:</strong> expanding {`$(a + b)^5$`} directly. Coefficients 1, 5, 10,
-            10, 5, 1 (row 5).
+            For {`$(a + b)^5$`} and beyond, read the coefficients off the next Pascal row and pair
+            them with falling powers of {`$a$`} and rising powers of {`$b$`}.
           </p>
-
-          <h3>Sixth power</h3>
-          <div className="lrn-eq">
-            {`$$(a + b)^6 = a^6 + 6a^5 b + 15a^4 b^2 + 20a^3 b^3 + 15a^2 b^4 + 6ab^5 + b^6$$`}
-          </div>
-          <p>
-            <strong>When to use:</strong> expanding {`$(a + b)^6$`} directly. Coefficients 1, 6, 15,
-            20, 15, 6, 1 (row 6).
-          </p>
-
+        </>,
+        <>
           <h2>Pascal's Triangle (Rows 0–6)</h2>
           <div className="lrn-graph">
             <p>Coefficients for {`$(a + b)^n$`}, rows 0 through 6.</p>
@@ -881,7 +911,8 @@ function useConfig() {
             <strong>Alternating sum:</strong> {`$0$`} for {`$n \\geq 1$`}. Substitute {`$a = 1$`},{' '}
             {`$b = -1$`}.
           </p>
-
+        </>,
+        <>
           <h2>Key Facts</h2>
           <ul className="lrn-list">
             <li>
@@ -904,7 +935,7 @@ function useConfig() {
     },
 
     customCss:
-      '.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }'
+      '.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }'
   }
 
   return config
@@ -913,4 +944,8 @@ function useConfig() {
 export default function AlgebraicIdentities() {
   const config = useConfig()
   return <LearningTemplate config={config} />
+}
+
+export function useAlgebraicIdentitiesConfig() {
+  return useConfig()
 }

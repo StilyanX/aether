@@ -1,11 +1,6 @@
 import 'katex/dist/katex.min.css'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
-import {
-  FloorStaircaseViz,
-  LogExpInverseViz,
-  PolynomialCurveViz,
-  PolynomialLabeledViz
-} from '../../../../components/viz'
+import { PolynomialCurveViz, PolynomialLabeledViz } from '../../../../components/viz'
 function useConfig() {
   const config = {
     cssPrefix: 'pol',
@@ -30,22 +25,18 @@ function useConfig() {
 
           <p>
             A <strong>polynomial</strong> is a sum of monomials. Each monomial in the sum is a{' '}
-            <strong>term</strong>. The number in front of the variable part is the{' '}
-            <strong>coefficient</strong>. In {`$3x^2y$`}, the coefficient is 3.
+            <strong>term</strong>; the number in front of its variable part is the term's
+            coefficient, as on the Algebraic Foundations page.
           </p>
 
-          <p>A monomial is itself a polynomial one term. "Poly" means many, "mono" means one.</p>
+          <p>
+            A monomial is itself a polynomial, just one term. "Poly" means many, "mono" means one.
+          </p>
 
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Monomial</span>
-              <p>One product term. {`$3x^2y$`}</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Polynomial</span>
-              <p>A sum of monomials. {`$3x^2y + 2xy - 7$`}</p>
-            </div>
-          </div>
+          <p>
+            So {`$3x^2y$`} is a monomial (one product term), and {`$3x^2y + 2xy - 7$`} is a
+            polynomial (a sum of monomials).
+          </p>
 
           <h3>Degree</h3>
 
@@ -62,7 +53,7 @@ function useConfig() {
 
           <p>
             The <strong>zero polynomial</strong> (every coefficient zero) has no defined degree.
-            Picking any "highest term" would be arbitrary, so we leave it undefined.
+            Picking any "highest term" would be arbitrary, so the degree is left undefined.
           </p>
 
           <h3>Standard Form</h3>
@@ -80,35 +71,18 @@ function useConfig() {
           <h3>Like Terms</h3>
 
           <p>
-            <strong>Like terms</strong> are monomials with the same variables raised to the same
-            powers. To combine them, add the coefficients.
-          </p>
-
-          <p>Example: {`$5x^2y + 3x^2y - 2x^2y = (5 + 3 - 2)x^2y = 6x^2y$`}.</p>
-
-          <p>
-            The variable part {`$x^2y$`} is a common factor. Factoring it out gives the same result.
+            Like terms share the same variables raised to the same powers, so you combine them by
+            adding coefficients, same rule as in Algebraic Foundations. Example:{' '}
+            {`$5x^2y + 3x^2y - 2x^2y = 6x^2y$`}.
           </p>
 
           <h3>When Two Polynomials Are Equal</h3>
 
           <p>
-            Two polynomials are <strong>equal</strong> when, after collecting like terms, every
-            coefficient matches: same constant, same coefficient on {`$x$`}, on {`$x^2$`}, and so
-            on.
+            Two polynomials are equal when, after collecting like terms, every coefficient matches:
+            same constant, same coefficient on {`$x$`}, on {`$x^2$`}, and so on. The full Identity
+            Principle below makes this precise.
           </p>
-
-          <div className="lrn-callout lrn-warning">
-            <span className="lrn-callout-label">Sample values are not a proof</span>
-            <p>
-              The polynomials {`$P(x) = x^2$`} and {`$Q(x) = x$`} agree at {`$x = 0$`} and{' '}
-              {`$x = 1$`}, but they are not equal at {`$x = 2$`}, {`$P(2) = 4$`} and {`$Q(2) = 2$`}.
-            </p>
-            <p>
-              To prove equality, expand both sides into standard form and compare coefficients term
-              by term.
-            </p>
-          </div>
         </>,
 
         <>
@@ -135,63 +109,64 @@ function useConfig() {
 
           <p>Example: {`$(x+1)(x+2) = x^2 + 2x + x + 2 = x^2 + 3x + 2$`}.</p>
 
-          <h3>Key Identities</h3>
-
-          <ul className="lrn-list">
-            <li>{`$(a+b)(a-b) = a^2 - b^2$`} difference of squares</li>
-            <li>{`$(a+b)^2 = a^2 + 2ab + b^2$`} square of a sum</li>
-            <li>{`$(a-b)^2 = a^2 - 2ab + b^2$`} square of a difference</li>
-            <li>{`$(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$`} cube of a sum</li>
-            <li>{`$(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$`} cube of a difference</li>
-          </ul>
-
           <p>
-            The middle terms in {`$(a+b)(a-b)$`} cancel: {`$a^2 - ab + ab - b^2 = a^2 - b^2$`}. In{' '}
-            {`$(a+b)^2$`}, both {`$ab$`} and {`$ba$`} appear, so they sum to {`$2ab$`}.
+            A <strong>binomial</strong> is a polynomial with two terms, like {`$x + 3$`} or{' '}
+            {`$2y - 1$`}. A <strong>trinomial</strong> has three.
           </p>
 
-          <h3>Pascal's Triangle</h3>
+          <p>
+            The short-multiplication identities, difference of squares, square of a sum, square of
+            a difference, cubes of sums and differences, live on the Algebraic Identities page. You
+            use them constantly from here on.
+          </p>
 
-          <p>The coefficients of {`$(a+b)^n$`} form Pascal's triangle:</p>
+          <h3>The Binomial Theorem</h3>
 
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>{`$n$`}</th>
-                <th>Expansion</th>
-                <th>Coefficients</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>0</td>
-                <td>{`$1$`}</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>{`$a + b$`}</td>
-                <td>1, 1</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>{`$a^2 + 2ab + b^2$`}</td>
-                <td>1, 2, 1</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>{`$a^3 + 3a^2b + 3ab^2 + b^3$`}</td>
-                <td>1, 3, 3, 1</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>{`$a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4$`}</td>
-                <td>1, 4, 6, 4, 1</td>
-              </tr>
-            </tbody>
-          </table>
+          <p>
+            To expand {`$(a+b)^n$`} for any positive integer {`$n$`}, you do not need to multiply{' '}
+            {`$n$`} brackets by hand. The Binomial Theorem gives every coefficient at once.
+          </p>
 
-          <p>Each entry is the sum of the two entries above it.</p>
+          <div className="lrn-eq lrn-eq-hero">
+            <span>{`$$(a+b)^n = \\sum_{k=0}^{n} \\binom{n}{k}\\, a^{n-k}\\, b^k$$`}</span>
+          </div>
+
+          <p>
+            The number {`$\\binom{n}{k}$`} (read "n choose k") is the{' '}
+            <strong>binomial coefficient</strong>:
+          </p>
+
+          <div className="lrn-eq lrn-eq-hero">
+            <span>{`$$\\binom{n}{k} = \\frac{n!}{k!\\,(n-k)!}$$`}</span>
+          </div>
+
+          <p>
+            Here {`$n! = n\\cdot(n-1)\\cdots 2\\cdot 1$`}, with {`$0! = 1$`} by convention. The same
+            numbers are row {`$n$`} of Pascal's triangle (see Algebraic Identities), the factorial
+            form lets you compute any coefficient without rebuilding the triangle.
+          </p>
+
+          <p>
+            Example with {`$n = 4$`}: {`$(a+b)^4 = a^4 + 4a^3b + 6a^2b^2 + 4ab^3 + b^4$`}.
+          </p>
+
+          <p>
+            Example with {`$n = 5$`}:{' '}
+            {`$(a+b)^5 = a^5 + 5a^4b + 10a^3b^2 + 10a^2b^3 + 5ab^4 + b^5$`}.
+          </p>
+
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Picking out one coefficient</span>
+            <p>
+              To find the coefficient of {`$x^5$`} in {`$(2x - 3)^8$`}, pick the term with{' '}
+              {`$k = 3$`}, since {`$(2x)^{8-k}$`} gives {`$x^5$`} when {`$8 - k = 5$`}.
+            </p>
+            <p>
+              That term is{' '}
+              {`$\\binom{8}{3}(2x)^5(-3)^3 = 56 \\cdot 32 \\cdot (-27)\\, x^5 = -48{,}384\\, x^5$`}.
+              The coefficient is {`$-48{,}384$`}.
+            </p>
+          </div>
 
           <h3>Degree Rules</h3>
 
@@ -201,6 +176,10 @@ function useConfig() {
               <p>
                 {`$\\deg(P \\cdot Q) = \\deg(P) + \\deg(Q)$`}. The leading terms multiply, and no
                 cancellation can lower the degree.
+              </p>
+              <p>
+                Example: {`$P = 2x^2 + 3x$`} (degree 2) times {`$Q = x^3 + 1$`} (degree 3) has
+                degree 5. The leading product is {`$2x^2 \\cdot x^3 = 2x^5$`}.
               </p>
             </div>
           </div>
@@ -218,35 +197,6 @@ function useConfig() {
               </p>
             </div>
           </div>
-
-          <div className="lrn-faded">
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-              <p>Expand {`$(a+b)^3$`} step by step:</p>
-              <ol className="lrn-list">
-                <li>Write {`$(a+b)^3 = (a+b) \\cdot (a+b)^2$`}.</li>
-                <li>Expand {`$(a+b)^2 = a^2 + 2ab + b^2$`}.</li>
-                <li>
-                  Multiply: {`$(a+b)(a^2 + 2ab + b^2) = a^3 + 2a^2b + ab^2 + a^2b + 2ab^2 + b^3$`}.
-                </li>
-                <li>Collect: {`$a^3 + 3a^2b + 3ab^2 + b^3$`}.</li>
-              </ol>
-            </div>
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">YOUR TURN</span>
-              <p>Expand {`$(x+2)^3$`}.</p>
-              <ol className="lrn-list">
-                <li>First compute {`$(x+2)^2 = x^2 + \\underline{\\phantom{4x}} + 4$`}.</li>
-                <li>
-                  Then multiply by {`$(x+2)$`}: {`$x^3 + \\underline{\\phantom{6x^2}} + 12x + 8$`}.
-                </li>
-              </ol>
-            </div>
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
-              <p>Expand {`$(2x-1)^3$`} completely.</p>
-            </div>
-          </div>
         </>,
 
         <>
@@ -260,9 +210,10 @@ function useConfig() {
 
           <h3>Common Factor</h3>
 
-          <p>Always look for a common factor first. If every term shares a factor, pull it out.</p>
-
-          <p>Example: {`$6x^3 + 9x^2 = 3x^2(2x + 3)$`}.</p>
+          <p>
+            Always look for a shared factor first and pull it out, as in Algebraic Foundations.
+            Example: {`$6x^3 + 9x^2 = 3x^2(2x + 3)$`}.
+          </p>
 
           <h3>Grouping</h3>
 
@@ -275,6 +226,18 @@ function useConfig() {
             it out finishes the job.
           </p>
 
+          <p>
+            The choice of pairing matters. For {`$2x^3 - 6x^2 + x - 3$`}, pair as{' '}
+            {`$(2x^3 - 6x^2) + (x - 3) = 2x^2(x - 3) + 1(x - 3) = (x - 3)(2x^2 + 1)$`}. Pairing{' '}
+            {`$(2x^3 + x) + (-6x^2 - 3) = x(2x^2 + 1) - 3(2x^2 + 1) = (x - 3)(2x^2 + 1)$`} also
+            works.
+          </p>
+
+          <p>
+            Pair {`$(2x^3 - 3) + (-6x^2 + x)$`} and neither group factors cleanly. If the first
+            pairing fails, try the other.
+          </p>
+
           <h3>Difference and Sum of Cubes</h3>
 
           <div className="lrn-eq lrn-eq-hero">
@@ -284,11 +247,6 @@ function useConfig() {
           <div className="lrn-eq lrn-eq-hero">
             <span>{`$$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$$`}</span>
           </div>
-
-          <p>
-            Expanding {`$(a-b)(a^2+ab+b^2)$`} gives {`$a^3+a^2b+ab^2-a^2b-ab^2-b^3 = a^3-b^3$`}. The
-            middle terms cancel in pairs.
-          </p>
 
           <p>Difference of cubes: {`$8x^3 - 27 = (2x)^3 - 3^3 = (2x-3)(4x^2+6x+9)$`}.</p>
           <p>Sum of cubes: {`$x^3 + 1 = (x+1)(x^2-x+1)$`}.</p>
@@ -307,104 +265,12 @@ function useConfig() {
             {`$(a-b)(a^{n-1} + a^{n-2}b + \\cdots + b^{n-1})$`}. All signs are positive.
           </p>
 
-          <h3>Sophie Germain Identity</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$a^4 + 4b^4 = (a^2 + 2ab + 2b^2)(a^2 - 2ab + 2b^2)$$`}</span>
-          </div>
-
-          <p>
-            This is the rare factorization of a sum of fourth powers. The trick: add and subtract{' '}
-            {`$4a^2b^2$`} to complete a square, then use difference of squares.
-          </p>
-
-          <div className="lrn-proof">
-            <span className="lrn-proof-header">Derivation</span>
-            <div className="lrn-proof-step">
-              <span className="lrn-proof-step-num">1.</span>
-              <div className="lrn-proof-step-content">
-                {`$a^4 + 4b^4 = a^4 + 4a^2b^2 + 4b^4 - 4a^2b^2$`}
-              </div>
-            </div>
-            <div className="lrn-proof-step">
-              <span className="lrn-proof-step-num">2.</span>
-              <div className="lrn-proof-step-content">{`$= (a^2 + 2b^2)^2 - (2ab)^2$`}</div>
-            </div>
-            <div className="lrn-proof-step">
-              <span className="lrn-proof-step-num">3.</span>
-              <div className="lrn-proof-step-content">
-                Apply difference of squares with {`$A = a^2 + 2b^2$`} and {`$B = 2ab$`}.
-              </div>
-            </div>
-            <div className="lrn-qed">Q.E.D.</div>
-          </div>
-
           <h3>What Does Not Factor Over the Reals</h3>
 
           <p>
-            {`$a^2 + b^2$`} has no real factorization. Any real factorization would give it real
-            roots, but {`$x^2 + 1 = 0$`} has no real solution.
-          </p>
-
-          <p>
-            {`$a^4 + b^4$`} factors only with irrational coefficients:{' '}
-            {`$(a^2 + \\sqrt{2}\\,ab + b^2)(a^2 - \\sqrt{2}\\,ab + b^2)$`}. The Sophie Germain
-            identity needs the extra factor of 4.
-          </p>
-
-          <h3>Newton's Identity</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$a^3 + b^3 + c^3 - 3abc = (a + b + c)(a^2 + b^2 + c^2 - ab - bc - ca)$$`}</span>
-          </div>
-
-          <p>
-            Use this whenever you see three cubes minus three times a product. If{' '}
-            {`$a + b + c = 0$`}, the right side is zero, so {`$a^3 + b^3 + c^3 = 3abc$`}.
-          </p>
-
-          <h3>Complex Numbers and the Fundamental Theorem</h3>
-
-          <p>
-            Some polynomials never factor over the reals. {`$x^2 + 1$`} is the smallest example. The
-            number {`$i$`} is defined so that {`$i^2 = -1$`}. Then {`$x^2 + 1 = (x-i)(x+i)$`}.
-          </p>
-
-          <div className="lrn-insight">
-            <strong>Fundamental Theorem of Algebra.</strong>
-            <p>
-              Every degree-{`$n$`} polynomial has exactly {`$n$`} complex roots, counted with
-              multiplicity. Each root {`$r$`} contributes a factor {`$(x - r)$`}.
-            </p>
-          </div>
-
-          <h3>Worked Example Factor x⁶ − y⁶</h3>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Step 1: difference of squares</span>
-              <p className="lrn-step-content">
-                {`$x^6 - y^6 = (x^3)^2 - (y^3)^2 = (x^3 - y^3)(x^3 + y^3)$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Step 2: apply cube identities</span>
-              <p className="lrn-step-content">
-                {`$x^3 - y^3 = (x - y)(x^2 + xy + y^2)$`} and{' '}
-                {`$x^3 + y^3 = (x + y)(x^2 - xy + y^2)$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Step 3: combine</span>
-              <p className="lrn-step-content">
-                {`$x^6 - y^6 = (x - y)(x + y)(x^2 + xy + y^2)(x^2 - xy + y^2)$`}.
-              </p>
-            </div>
-          </div>
-
-          <p>
-            Starting with difference of squares is usually simpler. Starting with difference of
-            cubes ({`$x^6 - y^6 = (x^2)^3 - (y^2)^3$`}) also works and gives the same final answer.
+            {`$a^2 + b^2$`} has no real factorization, because {`$x^2 + 1 = 0$`} has no real root
+            (see Quadratic Equations). {`$a^4 + b^4$`} factors only with irrational coefficients:{' '}
+            {`$(a^2 + \\sqrt{2}\\,ab + b^2)(a^2 - \\sqrt{2}\\,ab + b^2)$`}.
           </p>
         </>,
 
@@ -433,16 +299,11 @@ function useConfig() {
           </div>
 
           <p>
-            These match the rules for ordinary fractions. To add or subtract, put both fractions
-            over a common denominator. To divide, multiply by the reciprocal.
+            Same four operations as algebraic fractions in Algebraic Foundations, extended to
+            polynomial top and bottom.
           </p>
 
           <h3>Cancellation</h3>
-
-          <p>
-            You may cancel a common factor only where it is nonzero. Cancelling a factor that hits
-            zero somewhere hides a real domain restriction.
-          </p>
 
           <div className="lrn-callout lrn-warning">
             <span className="lrn-callout-label">Warning</span>
@@ -453,19 +314,6 @@ function useConfig() {
               forbidden values before you cancel.
             </p>
           </div>
-
-          <h3>Harmonic Mean</h3>
-
-          <p>
-            The <strong>harmonic mean</strong> of two numbers {`$a$`} and {`$b$`} is{' '}
-            {`$\\frac{2ab}{a+b}$`}. It equals the reciprocal of the average of {`$\\frac{1}{a}$`}{' '}
-            and {`$\\frac{1}{b}$`}.
-          </p>
-
-          <p>
-            It is the right "average" for rates: if a trip is half at speed {`$a$`} and half at
-            speed {`$b$`}, the average speed is the harmonic mean, not the arithmetic mean.
-          </p>
         </>,
 
         <>
@@ -573,7 +421,8 @@ function useConfig() {
           <h3>Worked Example 3 x³ ÷ (2x − 3)</h3>
 
           <p>
-            A non-monic divisor produces fractional coefficients in the quotient. That is normal.
+            A divisor with leading coefficient not 1 produces fractional coefficients in the
+            quotient. That is normal.
           </p>
 
           <div className="lrn-steps">
@@ -635,13 +484,89 @@ function useConfig() {
                 Divide both sides by {`$(x - 1)$`}, valid for {`$x \\neq 1$`}.
               </div>
             </div>
-            <div className="lrn-qed">Q.E.D.</div>
+            <div className="lrn-qed">End of proof.</div>
           </div>
 
           <p>
             Setting {`$x = 2$`} gives a classic result:{' '}
             {`$1 + 2 + 4 + \\cdots + 2^{n-1} = 2^n - 1$`}.
           </p>
+
+          <div className="lrn-insight">
+            <strong>Payoff.</strong>
+            <p>
+              You can now reduce any improper rational expression to a quotient plus a proper
+              remainder. That is the entry requirement for partial fractions later on this page.
+            </p>
+          </div>
+        </>,
+
+        <>
+          <h2>Synthetic Division</h2>
+
+          <p>
+            When the divisor is linear of the form {`$(x - a)$`}, synthetic division gives the same
+            quotient and remainder as long division, using only the coefficients, with no algebra
+            in the margin.
+          </p>
+
+          <h3>The Procedure</h3>
+
+          <ol className="lrn-list">
+            <li>
+              Write the coefficients of the dividend in order of decreasing degree. Use 0 for any
+              missing power.
+            </li>
+            <li>Write the divisor's root {`$a$`} to the left.</li>
+            <li>Bring the first coefficient straight down.</li>
+            <li>
+              Multiply that number by {`$a$`} and write the result under the next coefficient. Add
+              the column.
+            </li>
+            <li>Repeat until the last column is added.</li>
+            <li>
+              The last number is the remainder. The numbers before it are the coefficients of the
+              quotient, which has degree one less than the dividend.
+            </li>
+          </ol>
+
+          <h3>Worked Example Divide 2x³ + 3x² − 11x − 6 by (x − 2)</h3>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Set up</span>
+              <p className="lrn-step-content">
+                Coefficients: 2, 3, −11, −6. Divisor root: {`$a = 2$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Bring down and multiply-add</span>
+              <p className="lrn-step-content">
+                Bring 2 down. Multiply: {`$2 \\cdot 2 = 4$`}, add to 3: gives 7. Multiply:{' '}
+                {`$7 \\cdot 2 = 14$`}, add to −11: gives 3. Multiply: {`$3 \\cdot 2 = 6$`}, add to
+                −6: gives 0.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Read the answer</span>
+              <p className="lrn-step-content">
+                Bottom row: 2, 7, 3, 0. Quotient {`$2x^2 + 7x + 3$`}, remainder 0.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            The remainder is 0, so {`$(x - 2)$`} divides the dividend exactly:{' '}
+            {`$2x^3 + 3x^2 - 11x - 6 = (x - 2)(2x^2 + 7x + 3) = (x - 2)(2x + 1)(x + 3)$`}.
+          </p>
+
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">When to use which</span>
+            <p>
+              Long division handles any divisor. Synthetic division is faster, but only when the
+              divisor has the form {`$(x - a)$`}.
+            </p>
+          </div>
         </>,
 
         <>
@@ -666,7 +591,7 @@ function useConfig() {
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Remainder Theorem</span>
-              <p>Computes only the remainder, instantly, by evaluating {`$P(a)$`}.</p>
+              <p>Computes only the remainder, right away, by evaluating {`$P(a)$`}.</p>
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Long Division</span>
@@ -735,7 +660,7 @@ function useConfig() {
               <span className="lrn-proof-step-num">3.</span>
               <div className="lrn-proof-step-content">So {`$k \\leq n$`}.</div>
             </div>
-            <div className="lrn-qed">Q.E.D.</div>
+            <div className="lrn-qed">End of proof.</div>
           </div>
 
           <h3>Multiplicity</h3>
@@ -750,13 +675,505 @@ function useConfig() {
           <div className="lrn-insight">
             <strong>The bound has teeth.</strong>
             <p>
-              If a polynomial of degree at most {`$n$`} vanishes at {`$n + 1$`} distinct points, it
-              is the zero polynomial. This is the lever behind proving polynomial identities.
+              If a polynomial of degree at most {`$n$`} becomes zero at {`$n + 1$`} distinct points,
+              it is the zero polynomial. This is the lever behind proving polynomial identities.
             </p>
           </div>
 
           <div className="lrn-graph">
             <PolynomialCurveViz />
+          </div>
+        </>,
+
+        <>
+          <h2>Graphs of Polynomial Functions</h2>
+
+          <p>
+            The graph of a polynomial is one smooth, unbroken curve. It has no gaps, no corners, and
+            no jumps. Its real zeros are exactly the x-intercepts.
+          </p>
+
+          <h3>End Behavior</h3>
+
+          <p>
+            End behavior means what the graph does as {`$x$`} runs far left and far right. Only the
+            leading term controls it. The degree's parity and the leading coefficient's sign fix all
+            four cases.
+          </p>
+
+          <table className="lrn-table">
+            <thead>
+              <tr>
+                <th>Degree</th>
+                <th>Leading coefficient</th>
+                <th>{`$x \\to -\\infty$`}</th>
+                <th>{`$x \\to +\\infty$`}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Odd</td>
+                <td>Positive</td>
+                <td>{`$y \\to -\\infty$`}</td>
+                <td>{`$y \\to +\\infty$`}</td>
+              </tr>
+              <tr>
+                <td>Odd</td>
+                <td>Negative</td>
+                <td>{`$y \\to +\\infty$`}</td>
+                <td>{`$y \\to -\\infty$`}</td>
+              </tr>
+              <tr>
+                <td>Even</td>
+                <td>Positive</td>
+                <td>{`$y \\to +\\infty$`}</td>
+                <td>{`$y \\to +\\infty$`}</td>
+              </tr>
+              <tr>
+                <td>Even</td>
+                <td>Negative</td>
+                <td>{`$y \\to -\\infty$`}</td>
+                <td>{`$y \\to -\\infty$`}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            Example: {`$P(x) = -2x^4 + 5x^3 + 4x - 7$`} has even degree and a negative leading
+            coefficient. So {`$y \\to -\\infty$`} at both ends.
+          </p>
+
+          <p>
+            Example: {`$P(x) = 3x^5 - 5x^3 + 2x$`} has odd degree and a positive leading
+            coefficient. So {`$y \\to -\\infty$`} on the left and {`$y \\to +\\infty$`} on the
+            right.
+          </p>
+
+          <h3>Behavior at a Zero Matches Its Multiplicity</h3>
+
+          <p>
+            Near a zero {`$c$`} of multiplicity {`$m$`}, the graph behaves in one of two ways. The
+            parity of {`$m$`} decides which.
+          </p>
+
+          <div className="lrn-compare">
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Odd multiplicity</span>
+              <p>
+                The graph crosses the x-axis at {`$c$`}. It flattens more as {`$m$`} grows.
+              </p>
+            </div>
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Even multiplicity</span>
+              <p>The graph touches the x-axis at {`$c$`} and turns back. It never crosses.</p>
+            </div>
+          </div>
+
+          <p>
+            Example: {`$P(x) = x^4(x - 2)^3(x + 1)^2$`} has zeros {`$0$`}, {`$2$`}, and {`$-1$`}
+            with multiplicities 4, 3, and 2. The graph touches at {`$0$`} and {`$-1$`} (even), and
+            crosses at {`$2$`} (odd).
+          </p>
+
+          <h3>Turning Points</h3>
+
+          <p>
+            A turning point is a local high or low point on the curve. A polynomial of degree{' '}
+            {`$n$`} has at most {`$n - 1$`} turning points. It may have fewer.
+          </p>
+
+          <p>
+            Example: {`$P(x) = x^5$`} has degree 5 but no turning point at all. The bound only sets
+            a ceiling.
+          </p>
+
+          <h3>The Intermediate Value Theorem</h3>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Intermediate Value Theorem for polynomials</span>
+            <div className="lrn-definition-desc">
+              <p>
+                If {`$P(a)$`} and {`$P(b)$`} have opposite signs, then {`$P$`} has at least one zero
+                between {`$a$`} and {`$b$`}.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            A sign change traps a zero. So you can locate roots by testing values until the sign
+            flips. Between two neighbouring zeros the graph stays entirely above or entirely below
+            the axis.
+          </p>
+        </>,
+
+        <>
+          <h2>Solving Polynomial Equations by the Factor Theorem</h2>
+
+          <p>
+            The Factor Theorem becomes a method as soon as you can find one root. The plan: spot a
+            root by inspection, divide it out, then solve the smaller polynomial that remains.
+          </p>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Step 1: search for an integer root</span>
+              <p className="lrn-step-content">
+                Test small integers (often {`$\\pm 1$`}, {`$\\pm 2$`}, {`$\\pm 3$`}). If{' '}
+                {`$P(a) = 0$`}, then {`$(x - a)$`} is a factor.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Step 2: divide</span>
+              <p className="lrn-step-content">
+                Use long or synthetic division to write {`$P(x) = (x - a) \\cdot Q(x)$`}, where{' '}
+                {`$Q$`} has degree one less than {`$P$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Step 3: solve the reduced polynomial</span>
+              <p className="lrn-step-content">
+                Solve {`$Q(x) = 0$`} by any method available, factoring, the quadratic formula, or
+                repeating Steps 1–2 if {`$Q$`} is still cubic or higher.
+              </p>
+            </div>
+          </div>
+
+          <h3>Worked Example Solve x³ − 6x² + 11x − 6 = 0</h3>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Hunt for a root</span>
+              <p className="lrn-step-content">
+                Try {`$x = 1$`}: {`$1 - 6 + 11 - 6 = 0$`}. So {`$(x - 1)$`} is a factor.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Divide by (x − 1)</span>
+              <p className="lrn-step-content">
+                Synthetic division with {`$a = 1$`} on 1, −6, 11, −6: bring 1; {`$1 \\cdot 1 = 1$`},
+                −6 + 1 = −5; {`$-5 \\cdot 1 = -5$`}, 11 − 5 = 6; {`$6 \\cdot 1 = 6$`}, −6 + 6 = 0.
+                Quotient {`$x^2 - 5x + 6$`}, remainder 0.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Solve the quadratic</span>
+              <p className="lrn-step-content">
+                {`$x^2 - 5x + 6 = (x - 2)(x - 3) = 0$`}, so {`$x = 2$`} or {`$x = 3$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">All three roots</span>
+              <p className="lrn-step-content">
+                {`$x = 1, 2, 3$`}. Therefore {`$x^3 - 6x^2 + 11x - 6 = (x - 1)(x - 2)(x - 3)$`}.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            Try this yourself on {`$x^3 + 2x^2 - 5x - 6 = 0$`}. Spotting {`$x = -1$`} gives the
+            factorization {`$(x + 1)(x + 3)(x - 2)$`}, with roots {`$-1, -3, 2$`}.
+          </p>
+        </>,
+
+        <>
+          <h2>The Rational Root Theorem</h2>
+
+          <p>
+            What if no small integer works? The Rational Root Theorem narrows the search to a short
+            list of fractions, for any polynomial with integer coefficients.
+          </p>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Rational Root Theorem</span>
+            <div className="lrn-definition-desc">
+              <p>
+                Suppose {`$P(x) = a_n x^n + a_{n-1} x^{n-1} + \\cdots + a_1 x + a_0$`} has integer
+                coefficients with {`$a_n \\neq 0$`} and {`$a_0 \\neq 0$`}. If a fraction{' '}
+                {`$\\tfrac{p}{q}$`} in lowest terms is a root of {`$P$`}, then {`$p$`} divides{' '}
+                {`$a_0$`} and {`$q$`} divides {`$a_n$`}.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            In words: the numerator of any rational root divides the constant term; the denominator
+            divides the leading coefficient. The theorem only narrows the search. Each candidate
+            still needs a check by substitution.
+          </p>
+
+          <h3>Worked Example Solve 2x³ + x² − 7x − 6 = 0</h3>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">List the candidates</span>
+              <p className="lrn-step-content">
+                Constant {`$a_0 = -6$`}, leading {`$a_n = 2$`}. Numerator {`$p$`} divides 6:{' '}
+                {`$p \\in \\{\\pm 1, \\pm 2, \\pm 3, \\pm 6\\}$`}. Denominator {`$q$`} divides 2:{' '}
+                {`$q \\in \\{\\pm 1, \\pm 2\\}$`}. Candidates:{' '}
+                {`$\\pm 1, \\pm 2, \\pm 3, \\pm 6, \\pm \\tfrac{1}{2}, \\pm \\tfrac{3}{2}$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Test until one works</span>
+              <p className="lrn-step-content">
+                {`$P(-1) = -2 + 1 + 7 - 6 = 0$`}. So {`$(x + 1)$`} is a factor.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Divide and finish</span>
+              <p className="lrn-step-content">
+                {`$2x^3 + x^2 - 7x - 6 \\div (x + 1) = 2x^2 - x - 6$`}. Factor:{' '}
+                {`$2x^2 - x - 6 = (2x + 3)(x - 2)$`}. All roots: {`$x = -1, -\\tfrac{3}{2}, 2$`}.
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-callout lrn-warning">
+            <span className="lrn-callout-label">What the theorem misses</span>
+            <p>
+              Irrational and complex roots are out of reach. {`$x^2 - 2 = 0$`} has roots{' '}
+              {`$\\pm \\sqrt{2}$`}, which the theorem never lists. Use it to rule out, not to prove.
+            </p>
+          </div>
+        </>,
+
+        <>
+          <h2>Counting Real Zeros Descartes' Rule and Bounds</h2>
+
+          <p>
+            The Rational Root Theorem lists candidates. Two more tools cut that list down before you
+            test it. Both save work on higher-degree polynomials.
+          </p>
+
+          <h3>Variations in Sign</h3>
+
+          <p>
+            Write the polynomial in standard form. Drop any zero terms. A{' '}
+            <strong>variation in sign</strong> happens whenever two neighbouring coefficients have
+            opposite signs.
+          </p>
+
+          <p>
+            Example: {`$5x^7 - 3x^5 + x^4 + 2x^2 + x - 3$`} has three sign changes. Count the
+            switches, not the terms.
+          </p>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Descartes' Rule of Signs</span>
+            <div className="lrn-definition-desc">
+              <p>
+                The number of positive real zeros of {`$P(x)$`} equals the sign variations of{' '}
+                {`$P(x)$`}, or is less than that by an even number.
+              </p>
+              <p>
+                The number of negative real zeros equals the sign variations of {`$P(-x)$`}, or is
+                less than that by an even number.
+              </p>
+            </div>
+          </div>
+
+          <h3>Worked Example Count the zeros of x³ + 5x² + 7x + 3</h3>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Positive zeros</span>
+              <p className="lrn-step-content">
+                Signs of {`$P(x)$`}: {`$+, +, +, +$`}. Zero sign changes, so {`$P$`} has no positive
+                zero.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Negative zeros</span>
+              <p className="lrn-step-content">
+                {`$P(-x) = -x^3 + 5x^2 - 7x + 3$`}. Signs: {`$-, +, -, +$`}. Three sign changes, so{' '}
+                {`$P$`} has three or one negative zeros.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Confirm</span>
+              <p className="lrn-step-content">
+                Factoring gives {`$(x + 1)^2(x + 3)$`}. The zeros are {`$-1$`} (twice) and {`$-3$`}{' '}, three negative zeros, all counted.
+              </p>
+            </div>
+          </div>
+
+          <h3>Upper and Lower Bounds</h3>
+
+          <p>
+            A number {`$b$`} is an <strong>upper bound</strong> for the zeros when no zero exceeds
+            it. A number {`$a$`} is a <strong>lower bound</strong> when no zero falls below it. You
+            test a bound with synthetic division.
+          </p>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Upper and Lower Bounds Theorem</span>
+            <div className="lrn-definition-desc">
+              <p>
+                Divide {`$P(x)$`} by {`$(x - b)$`} with {`$b > 0$`}. If the bottom row has no
+                negative entry, then {`$b$`} is an upper bound.
+              </p>
+              <p>
+                Divide {`$P(x)$`} by {`$(x - a)$`} with {`$a < 0$`}. If the bottom row's signs
+                alternate, then {`$a$`} is a lower bound. Treat a {`$0$`} as either sign.
+              </p>
+            </div>
+          </div>
+
+          <h3>Worked Example Bound the zeros of x⁴ − 3x² + 2x − 5</h3>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Test b = 2</span>
+              <p className="lrn-step-content">
+                Synthetic division by {`$(x - 2)$`} on {`$1, 0, -3, 2, -5$`} gives bottom row{' '}
+                {`$1, 2, 1, 4, 3$`}. No negative entry, so {`$2$`} is an upper bound.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Test a = −3</span>
+              <p className="lrn-step-content">
+                Synthetic division by {`$(x + 3)$`} gives bottom row {`$1, -3, 6, -16, 43$`}. The
+                signs alternate, so {`$-3$`} is a lower bound.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Conclusion</span>
+              <p className="lrn-step-content">
+                Every real zero lies between {`$-3$`} and {`$2$`}. The search shrinks to that
+                window.
+              </p>
+            </div>
+          </div>
+        </>,
+
+        <>
+          <h2>Complex Zeros and Complete Factorization</h2>
+
+          <p>
+            The Maximum Roots Theorem bounds distinct real roots. Over the complex numbers the count
+            becomes exact. This is the deepest fact about polynomials.
+          </p>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Fundamental Theorem of Algebra</span>
+            <div className="lrn-definition-desc">
+              <p>
+                Every polynomial of degree at least 1, with complex coefficients, has at least one
+                complex zero.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            Apply the Factor Theorem, peel off one zero, and repeat on the smaller quotient. Each
+            step removes one factor.
+          </p>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Complete Factorization Theorem</span>
+            <div className="lrn-definition-desc">
+              <p>
+                A polynomial of degree {`$n$`} factors as{' '}
+                {`$P(x) = a(x - c_1)(x - c_2)\\cdots(x - c_n)$`}, where the {`$c_i$`} are its
+                complex zeros and {`$a$`} is the leading coefficient.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            Counted with multiplicity, a degree-{`$n$`} polynomial has exactly {`$n$`} complex
+            zeros. This sharpens the "at most {`$n$`} distinct roots" bound proved earlier.
+          </p>
+
+          <h3>Complex Zeros Come in Pairs</h3>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Conjugate Zeros Theorem</span>
+            <div className="lrn-definition-desc">
+              <p>
+                Suppose {`$P$`} has real coefficients. If {`$a + bi$`} is a zero, then its conjugate{' '}
+                {`$a - bi$`} is a zero too.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            So complex zeros of a real polynomial always arrive in matched pairs. A real polynomial
+            of odd degree therefore has at least one real zero. (Complex arithmetic lives on the
+            Complex Numbers page.)
+          </p>
+
+          <h3>Worked Example Build a polynomial from a complex zero</h3>
+
+          <p>
+            Find a degree-3 polynomial with integer coefficients and zeros {`$\\tfrac{1}{2}$`} and{' '}
+            {`$3 + i$`}.
+          </p>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Add the conjugate</span>
+              <p className="lrn-step-content">
+                Since {`$3 + i$`} is a zero, {`$3 - i$`} is a zero too. Three zeros give a degree-3
+                polynomial.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Multiply the conjugate pair</span>
+              <p className="lrn-step-content">
+                {`$[x - (3 + i)][x - (3 - i)] = (x - 3)^2 - i^2 = x^2 - 6x + 10$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Clear the fraction</span>
+              <p className="lrn-step-content">
+                {`$P(x) = a\\left(x - \\tfrac{1}{2}\\right)(x^2 - 6x + 10)$`}. Set {`$a = 2$`}:{' '}
+                {`$P(x) = 2x^3 - 13x^2 + 26x - 10$`}.
+              </p>
+            </div>
+          </div>
+
+          <h3>Factoring over the Reals</h3>
+
+          <p>
+            If you avoid complex numbers, you cannot always reach linear factors. But you can always
+            reach linear and quadratic ones.
+          </p>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Linear and Quadratic Factors Theorem</span>
+            <div className="lrn-definition-desc">
+              <p>
+                Every polynomial with real coefficients factors into linear factors and irreducible
+                quadratic factors, all with real coefficients.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            Each conjugate pair {`$a \\pm bi$`} multiplies to a real quadratic{' '}
+            {`$x^2 - 2ax + (a^2 + b^2)$`} with no real root. That is the source of every irreducible
+            quadratic. It is exactly the factored denominator the Partial Fractions section below
+            requires.
+          </p>
+
+          <h3>Worked Example Factor x⁴ + 2x² − 8</h3>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Over the reals</span>
+              <p className="lrn-step-content">
+                {`$x^4 + 2x^2 - 8 = (x^2 - 2)(x^2 + 4) = (x - \\sqrt{2})(x + \\sqrt{2})(x^2 + 4)$`}.
+                The factor {`$x^2 + 4$`} is irreducible.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Over the complex numbers</span>
+              <p className="lrn-step-content">
+                Split the last factor: {`$x^2 + 4 = (x - 2i)(x + 2i)$`}. So{' '}
+                {`$P(x) = (x - \\sqrt{2})(x + \\sqrt{2})(x - 2i)(x + 2i)$`}.
+              </p>
+            </div>
           </div>
         </>,
 
@@ -852,7 +1269,8 @@ function useConfig() {
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">2.</span>
               <div className="lrn-proof-step-content">
-                Then {`$P - Q$`} has degree at most {`$n$`} and vanishes at {`$n + 1$`} points.
+                Then {`$P - Q$`} has degree at most {`$n$`} and becomes zero at {`$n + 1$`}
+                points.
               </div>
             </div>
             <div className="lrn-proof-step">
@@ -861,7 +1279,7 @@ function useConfig() {
                 By the Maximum Roots Theorem, {`$P - Q$`} is the zero polynomial. So {`$P = Q$`}.
               </div>
             </div>
-            <div className="lrn-qed">Q.E.D.</div>
+            <div className="lrn-qed">End of proof.</div>
           </div>
 
           <h3>Reconstructing from Values Linear Case</h3>
@@ -926,762 +1344,99 @@ function useConfig() {
         </>,
 
         <>
-          <h2>Exponential Functions</h2>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Exponential function</span>
-            <div className="lrn-definition-desc">
-              <p>
-                {`$f(x) = a \\cdot b^x$`} where {`$a$`} is a constant and {`$b > 0$`},{' '}
-                {`$b \\neq 1$`} is the <strong>base</strong>.
-              </p>
-            </div>
-          </div>
-
+          <h2>The Identity Principle</h2>
           <p>
-            The base cannot equal 1, because {`$1^x = 1$`} gives a constant. The base must be
-            positive: if {`$b = -2$`} and {`$x = \\frac{1}{2}$`}, you need {`$\\sqrt{-2}$`}, which
-            is not real.
+            If {`$Ax + B = Cx + D$`} is true for <em>every</em> value of {`$x$`}, then {`$A = C$`}{' '}
+            and {`$B = D$`}.
           </p>
-
-          <h3>Shape and Range</h3>
-
-          <p>
-            For {`$f(x) = b^x$`} with {`$b > 1$`}:
-          </p>
-
-          <ul className="lrn-list">
-            <li>Domain: all real numbers.</li>
-            <li>Range: {`$(0, \\infty)$`} always positive, never zero.</li>
-            <li>
-              As {`$x \\to \\infty$`}, {`$f(x) \\to \\infty$`} (explodes).
-            </li>
-            <li>
-              As {`$x \\to -\\infty$`}, {`$f(x) \\to 0$`} (horizontal asymptote at {`$y = 0$`}).
-            </li>
-          </ul>
-
-          <p>
-            Example: {`$f(x) = 3 \\cdot 5^x - 4$`}. The piece {`$3 \\cdot 5^x$`} has range{' '}
-            {`$(0, \\infty)$`}. Subtracting 4 shifts the range to {`$(-4, \\infty)$`}.
-          </p>
-
-          <h3>Solving by Matching Bases</h3>
-
-          <p>If both sides become powers of the same base, set the exponents equal.</p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Example Solve 5^(2r−3) = 25</span>
-              <p className="lrn-step-content">
-                Rewrite {`$25 = 5^2$`}, so {`$5^{2r-3} = 5^2$`}. Match exponents: {`$2r - 3 = 2$`},
-                giving {`$r = \\frac{5}{2}$`}.
-              </p>
-            </div>
-          </div>
-
-          <p>
-            This works because {`$b^x$`} is one-to-one for {`$b > 0$`}, {`$b \\neq 1$`}: equal
-            outputs force equal inputs.
-          </p>
-
-          <h3>Solving by Rewriting Both Sides</h3>
-
-          <p>When the bases differ, rewrite one as a power of the other.</p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Example Solve 2^(6y) = 16^(2y)</span>
-              <p className="lrn-step-content">
-                Rewrite {`$16 = 2^4$`}, so {`$16^{2y} = (2^4)^{2y} = 2^{8y}$`}. The equation becomes{' '}
-                {`$2^{6y} = 2^{8y}$`}, giving {`$6y = 8y$`}, so {`$y = 0$`}.
-              </p>
-            </div>
-          </div>
-
-          <h3>Solving by Substitution</h3>
-
-          <p>
-            When the same exponential appears with different exponents, substitute a new variable to
-            turn the equation into a polynomial one.
-          </p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Example Solve 4^x − 33·2^(x−1) + 8 = 0</span>
-              <p className="lrn-step-content">
-                Note {`$4^x = (2^2)^x = (2^x)^2$`} and {`$2^{x-1} = \\frac{1}{2} \\cdot 2^x$`}. Let{' '}
-                {`$y = 2^x$`}. The equation becomes {`$y^2 - \\frac{33}{2}y + 8 = 0$`}, or{' '}
-                {`$2y^2 - 33y + 16 = 0$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Solve the quadratic</span>
-              <p className="lrn-step-content">
-                Factor: {`$(2y - 1)(y - 16) = 0$`}, giving {`$y = \\frac{1}{2}$`} or {`$y = 16$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Back-substitute</span>
-              <p className="lrn-step-content">
-                {`$2^x = \\frac{1}{2}$`} gives {`$x = -1$`}. {`$2^x = 16$`} gives {`$x = 4$`}.
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-callout lrn-warning">
-            <span className="lrn-callout-label">Watch the parentheses</span>
-            <p>
-              {`$(a^b)^c = a^{bc}$`} the exponents multiply. Without parentheses, {`$a^{b^c}$`}{' '}
-              means {`$a$`} raised to {`$b^c$`}, which is different. Write {`$2^{3^2}$`} ={' '}
-              {`$2^9 = 512$`}, but {`$(2^3)^2 = 2^6 = 64$`}.
-            </p>
-          </div>
-        </>,
-
-        <>
-          <h2>Simple vs. Compound Interest</h2>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Simple Interest</span>
-              <p>Adds the same fixed amount each year. Linear growth.</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Compound Interest</span>
-              <p>Multiplies by the same factor each year. Exponential growth.</p>
-            </div>
-          </div>
-
-          <h3>Simple Interest</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$\\text{Total} = \\left(1 + \\frac{nr}{100}\\right) \\cdot k$$`}</span>
-          </div>
-
-          <p>
-            {`$k$`} is the starting amount, {`$r$`} is the annual rate as a percentage, and {`$n$`}{' '}
-            is the number of years.
-          </p>
-
-          <p>
-            Example: $5,000 at 9% for 4 years gives{' '}
-            {`$5{,}000 \\cdot (1 + 4 \\cdot 0.09) = 5{,}000 \\cdot 1.36 = \\$6{,}800$`}.
-          </p>
-
-          <h3>Compound Interest (Annual)</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$\\text{Total} = \\left(1 + \\frac{r}{100}\\right)^n \\cdot k$$`}</span>
-          </div>
-
-          <p>
-            Example: $5,000 at 9% compounded annually for 4 years gives{' '}
-            {`$5{,}000 \\cdot (1.09)^4 \\approx \\$7{,}058$`}.
-          </p>
-
-          <p>
-            Each year, you earn interest on the new balance principal plus all prior interest.
-            Repeated multiplication outpaces repeated addition, so the gap with simple interest
-            widens over time.
-          </p>
-        </>,
-
-        <>
-          <h2>Compounding Frequency, e, and Present Value</h2>
-
-          <h3>Compounding m Times Per Year</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$\\text{Total} = \\left(1 + \\frac{r}{100m}\\right)^{nm} \\cdot k$$`}</span>
-          </div>
-
-          <p>
-            Each period gets {`$\\frac{r}{m}$`} percent interest, and there are {`$nm$`} periods
-            over {`$n$`} years. More periods mean earlier compounding, which raises the total.
-          </p>
-
-          <p>
-            Example: $10,000 at 14%. Annually: {`$\\$11{,}400$`}. Monthly:{' '}
-            {`$10{,}000 \\cdot (1 + \\frac{0.14}{12})^{12} \\approx \\$11{,}493$`}.
-          </p>
-
-          <h3>Euler's Number e</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$e = \\lim_{n \\to \\infty} \\left(1 + \\frac{1}{n}\\right)^n \\approx 2.71828$$`}</span>
-          </div>
-
-          <p>
-            As {`$m \\to \\infty$`}, the compound interest formula approaches a clean limit. Each
-            year's balance multiplies by {`$e^{\\tfrac{r}{100}}$`}, so:
-          </p>
-
-          <div className="lrn-eq">
-            <span>{`$$\\text{Total (continuous)} = k \\cdot e^{\\tfrac{rn}{100}}$$`}</span>
-          </div>
-
-          <p>
-            Compounding more frequently always raises the total, but the gains shrink. The
-            continuous limit is the ceiling.
-          </p>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Annual</span>
-              <p>{`$10{,}000 \\cdot 1.14 = \\$11{,}400$`}</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Continuous</span>
-              <p>{`$10{,}000 \\cdot e^{0.14} \\approx \\$11{,}502.74$`}</p>
-            </div>
-          </div>
-
-          <h3>Present Value</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$PV = \\frac{\\text{Future Amount}}{(1 + \\frac{r}{100})^n}$$`}</span>
-          </div>
-
-          <p>
-            Present value reverses compound interest. To have a target future amount, you ask: what
-            must you invest today, given the rate?
-          </p>
-
-          <p>
-            Example: To have $1,000,000 in 10 years at 10% compounded semi-annually. The rate per
-            period is 5%, with 20 periods:
-          </p>
-
-          <div className="lrn-eq">
-            <span>{`$$PV = \\frac{1{,}000{,}000}{(1.05)^{20}} \\approx \\$376{,}889.48$$`}</span>
-          </div>
-
-          <h3>Loan Payments</h3>
-
-          <p>
-            A loan is solved by setting the present value of all future payments equal to the loan
-            amount.
-          </p>
-
-          <p>Example a $10,000 loan at 6% repaid in three equal annual payments {`$P$`}:</p>
-
-          <div className="lrn-eq">
-            <span>{`$$\\frac{P}{1.06} + \\frac{P}{1.06^2} + \\frac{P}{1.06^3} = 10{,}000$$`}</span>
-          </div>
-
-          <p>
-            The sum of discount factors is about {`$2.6730$`}, giving {`$P \\approx \\$3{,}741.10$`}
-            .
-          </p>
-
-          <h3>Rule of 72</h3>
-
-          <div className="lrn-insight">
-            <strong>
-              Money at {`$r\\%$`} annually doubles in approximately {`$\\frac{72}{r}$`} years.
-            </strong>
-            <p>
-              At 6%, it takes about 12 years. At 8%, about 9 years. The rule is mental arithmetic,
-              not exact.
-            </p>
-          </div>
-
-          <p>
-            Doubling means {`$(1 + \\frac{r}{100})^t = 2$`}. Taking logarithms:{' '}
-            {`$t = \\frac{\\ln 2}{\\ln(1 + \\frac{r}{100})}$`}. For small {`$r$`},{' '}
-            {`$\\ln(1 + \\frac{r}{100}) \\approx \\frac{r}{100}$`}, so{' '}
-            {`$t \\approx 100 \\ln \\frac{2}{r} \\approx \\frac{69.3}{r}$`}. We use 72 instead of
-            69.3 because 72 has more whole-number divisors.
-          </p>
-        </>,
-
-        <>
-          <h2>Logarithms</h2>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Logarithm</span>
-            <div className="lrn-definition-desc">
-              <p>
-                {`$\\log_a b = c$`} means {`$a^c = b$`}. The base {`$a$`} is positive and not 1. The
-                argument {`$b$`} must be positive. The answer {`$c$`} can be any real number.
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Logarithmic form</span>
-              <p>
-                {`$\\log_a b = c$`} asks "{`$a$`} to what power gives {`$b$`}?"
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Exponential form</span>
-              <p>{`$a^c = b$`} the answer stated as a power.</p>
-            </div>
-          </div>
-
-          <h3>Evaluating</h3>
-
-          <p>
-            Example: {`$\\log_3 81 = 4$`}, because {`$3^4 = 81$`}. The skill is recognizing powers
-            of the base. Try {`$3^1 = 3$`}, {`$3^2 = 9$`}, {`$3^3 = 27$`}, {`$3^4 = 81$`}.
-          </p>
-
-          <h3>Two Special Bases</h3>
-
-          <ul className="lrn-list">
-            <li>
-              <strong>Common logarithm</strong>: base 10, written {`$\\log x$`} (no base shown).
-            </li>
-            <li>
-              <strong>Natural logarithm</strong>: base {`$e \\approx 2.71828$`}, written{' '}
-              {`$\\ln x$`}.
-            </li>
-          </ul>
-
-          <h3>Inverse of Exponential</h3>
-
-          <p>
-            {`$f(x) = \\log_a x$`} and {`$g(x) = a^x$`} are <strong>inverses</strong>. Their graphs
-            are reflections across the line {`$y = x$`}.
-          </p>
-
-          <div className="lrn-graph">
-            <LogExpInverseViz />
-          </div>
-
           <div className="lrn-proof">
-            <span className="lrn-proof-header">Proof they invert each other</span>
+            <span className="lrn-proof-header">Proof</span>
             <div className="lrn-proof-step">
-              <span className="lrn-proof-step-num">1.</span>
               <div className="lrn-proof-step-content">
-                {`$f(g(x)) = \\log_a(a^x) = x$`} (by definition).
+                <p>The equation holds for every {`$x$`}, so in particular:</p>
+                <ul className="lrn-list">
+                  <li>
+                    Plug {`$x = 0$`}: {`$B = D$`}.
+                  </li>
+                  <li>
+                    Plug {`$x = 1$`}: {`$A + B = C + D$`}. Subtract {`$B = D$`}: {`$A = C$`}.
+                  </li>
+                </ul>
               </div>
             </div>
-            <div className="lrn-proof-step">
-              <span className="lrn-proof-step-num">2.</span>
-              <div className="lrn-proof-step-content">
-                {`$g(f(x)) = a^{\\log_a x} = x$`} (by definition).
-              </div>
-            </div>
-            <div className="lrn-qed">Q.E.D.</div>
+            <div className="lrn-qed">End of proof.</div>
           </div>
-
-          <h3>Laws of Logarithms</h3>
-
-          <ul className="lrn-list">
-            <li>
-              <strong>Product law:</strong> {`$\\log_b(cd) = \\log_b c + \\log_b d$`}
-            </li>
-            <li>
-              <strong>Quotient law:</strong> {`$\\log_b(\\frac{c}{d}) = \\log_b c - \\log_b d$`}
-            </li>
-            <li>
-              <strong>Power law:</strong> {`$\\log_b(c^n) = n \\log_b c$`}
-            </li>
-            <li>
-              <strong>Change of base:</strong> {`$\\log_a b = \\dfrac{\\log_c b}{\\log_c a}$`} for
-              any valid base {`$c$`}
-            </li>
-            <li>
-              <strong>Identity:</strong> {`$\\log_a a^p = p$`} and {`$a^{\\log_a x} = x$`}
-            </li>
-          </ul>
-
           <p>
-            The product law converts multiplication into addition. Slide rules exploited this: by
-            placing logarithmic scales side by side, sliding one over the other adds distances, and
-            therefore multiplies the corresponding numbers.
+            The same idea extends to polynomials of any degree. Two polynomials that agree at every
+            value of the input have the same coefficients. This lets you match coefficients directly
+            when an equation must hold for all {`$x$`}.
           </p>
-
-          <p>
-            The product law follows from the exponent law {`$a^m \\cdot a^n = a^{m+n}$`}. If{' '}
-            {`$c = a^m$`} and {`$d = a^n$`}, then {`$cd = a^{m+n}$`}, so{' '}
-            {`$\\log_a(cd) = m + n = \\log_a c + \\log_a d$`}.
-          </p>
-
-          <h3>Solving Logarithmic Equations</h3>
-
-          <p>General method: isolate the logarithm, then switch to exponential form.</p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Example Solve y = 2 + 3 log_5(2x + 1) for x</span>
-              <p className="lrn-step-content">
-                Subtract 2 and divide by 3: {`$\\frac{y - 2}{3} = \\log_5(2x + 1)$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Switch to exponential form</span>
-              <p className="lrn-step-content">{`$5^{\\tfrac{(y-2)}{3}} = 2x + 1$`}.</p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Solve for x</span>
-              <p className="lrn-step-content">{`$x = \\dfrac{5^{\\tfrac{(y-2)}{3}} - 1}{2}$`}.</p>
-            </div>
-          </div>
-
-          <div className="lrn-callout lrn-tip">
-            <span className="lrn-callout-label">Real-world use Richter scale</span>
-            <p>
-              Earthquake magnitude is {`$\\log_{10}$`} of seismic amplitude relative to a baseline.
-              A magnitude-6 quake has 10 times the amplitude of a magnitude-5 quake, and 100 times
-              the amplitude of a magnitude-4 quake.
-            </p>
-          </div>
-        </>,
-
-        <>
-          <h2>Radical Functions</h2>
-
-          <h3>Square vs. Cube Roots</h3>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Square root {`$\\sqrt{x}$`}</span>
-              <p>Domain {`$[0, \\infty)$`}. No real number squares to give a negative result.</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Cube root {`$\\sqrt[3]{x}$`}</span>
-              <p>Domain all reals. Cubing a negative gives a negative: {`$\\sqrt[3]{-8} = -2$`}.</p>
-            </div>
-          </div>
-
-          <p>
-            <strong>General rule for nth roots:</strong> if {`$n$`} is even, the radicand must be{' '}
-            {`$\\geq 0$`}. If {`$n$`} is odd, all real inputs are allowed.
-          </p>
-
-          <p>
-            For {`$x > 1$`}: {`$\\sqrt{x} > \\sqrt[3]{x}$`}. For {`$0 < x < 1$`}:{' '}
-            {`$\\sqrt{x} < \\sqrt[3]{x}$`}. The two graphs cross at {`$x = 0$`} and {`$x = 1$`}.
-          </p>
-
-          <h3>Transformations</h3>
-
-          <p>
-            Example: {`$f(x) = 2\\sqrt{x - 3} + 1$`} starts from {`$y = \\sqrt{x}$`}, shifts right
-            3, stretches by 2, shifts up 1. Domain {`$x \\geq 3$`}; range {`$f \\geq 1$`}.
-          </p>
-
-          <h3>Solving Radical Equations</h3>
 
           <div className="lrn-callout lrn-warning">
-            <span className="lrn-callout-label">Squaring creates extraneous solutions</span>
+            <span className="lrn-callout-label">Sample values are not a proof</span>
             <p>
-              Squaring both sides of an equation can introduce solutions that satisfy the squared
-              equation but not the original. Always check candidates in the original.
+              The polynomials {`$P(x) = x^2$`} and {`$Q(x) = x$`} agree at {`$x = 0$`} and{' '}
+              {`$x = 1$`}, but they differ at {`$x = 2$`}: {`$P(2) = 4$`} and {`$Q(2) = 2$`}. To
+              prove equality, expand both sides into standard form and compare coefficients term by
+              term.
             </p>
-          </div>
-
-          <h3>Worked Example One Radical</h3>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Solve √(x² + 9) = 2x − 3</span>
-              <p className="lrn-step-content">
-                Square: {`$x^2 + 9 = (2x - 3)^2 = 4x^2 - 12x + 9$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Rearrange</span>
-              <p className="lrn-step-content">
-                {`$0 = 3x^2 - 12x = 3x(x - 4)$`}. Candidates: {`$x = 0$`} and {`$x = 4$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Check x = 0</span>
-              <p className="lrn-step-content">
-                Left: {`$\\sqrt{9} = 3$`}. Right: {`$-3$`}. Not equal extraneous.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Check x = 4</span>
-              <p className="lrn-step-content">
-                Left: {`$\\sqrt{25} = 5$`}. Right: {`$5$`}. Valid. Only solution: {`$x = 4$`}.
-              </p>
-            </div>
-          </div>
-
-          <p>
-            Squaring loses sign information. {`$3 = -3$`} is false, but {`$3^2 = (-3)^2$`} is true.
-            The squared step accepted a false solution.
-          </p>
-
-          <h3>Worked Example Two Radicals</h3>
-
-          <p>
-            Solve {`$\\sqrt{2x + 10} - \\sqrt{7 - x} = \\sqrt{2x - 2}$`}. Move one radical to the
-            other side, then square. Repeat until no radicals remain.
-          </p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Step 1: isolate one radical</span>
-              <p className="lrn-step-content">
-                {`$\\sqrt{2x + 10} = \\sqrt{2x - 2} + \\sqrt{7 - x}$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Step 2: square both sides</span>
-              <p className="lrn-step-content">
-                {`$2x + 10 = (2x - 2) + 2\\sqrt{(2x-2)(7-x)} + (7 - x)$`}, which simplifies to{' '}
-                {`$x + 5 = 2\\sqrt{(2x-2)(7-x)}$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Step 3: square again</span>
-              <p className="lrn-step-content">
-                {`$(x + 5)^2 = 4(2x - 2)(7 - x)$`}. Expand and solve the resulting polynomial.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Step 4: check every candidate</span>
-              <p className="lrn-step-content">
-                Each squaring step may produce extraneous roots. Plug every solution back into the
-                original equation; keep only those that satisfy it.
-              </p>
-            </div>
           </div>
         </>,
 
         <>
-          <h2>Absolute Value</h2>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$|x| = \\begin{cases} x & \\text{if } x \\geq 0 \\\\ -x & \\text{if } x < 0 \\end{cases}$$`}</span>
-          </div>
+          <h2>Partial Fractions</h2>
 
           <p>
-            For negative {`$x$`}, {`$-x$`} is positive: {`$|-3| = -(-3) = 3$`}. The result is always
-            non-negative.
-          </p>
-
-          <h3>Distance Interpretation</h3>
-
-          <p>
-            {`$|x|$`} is the distance from {`$x$`} to 0 on the number line. More generally:
-          </p>
-
-          <div className="lrn-insight">
-            <strong>
-              {`$|x - y|$`} is the distance between {`$x$`} and {`$y$`}.
-            </strong>
-            <p>
-              {`$|3 - 5| = 2$`}, and {`$|7 - 5| = 2$`} both points sit 2 units from 5.
-            </p>
-          </div>
-
-          <h3>Triangle Inequality</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$|a + b| \\leq |a| + |b|$$`}</span>
-          </div>
-
-          <p>
-            Equality holds exactly when {`$a$`} and {`$b$`} have the same sign (or one is zero).
+            Adding fractions combines two pieces into one larger expression. Partial fraction
+            decomposition runs that process in reverse. Given a complicated rational expression, you
+            split it into a sum of simpler pieces, one for each factor of the denominator.
           </p>
 
           <p>
-            Check: {`$|3 + 4| = 7 = |3| + |4|$`} same sign, equal.{' '}
-            {`$|3 + (-4)| = 1 < 7 = |3| + |-4|$`} opposite signs, strict inequality.
+            The payoff is concrete: simpler pieces are easier to manipulate, easier to evaluate, and
+            easier to integrate later in calculus.
           </p>
 
-          <h3>Solving |2x − 9| = 5</h3>
-
-          <p>Two clean methods, both giving the same answer.</p>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Casework</span>
-              <p>
-                Either {`$2x - 9 = 5$`} (gives {`$x = 7$`}) or {`$2x - 9 = -5$`} (gives {`$x = 2$`}
-                ). Both check.
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Squaring</span>
-              <p>
-                {`$(2x - 9)^2 = 25$`}, so {`$4x^2 - 36x + 56 = 0$`}, factoring as{' '}
-                {`$(x - 2)(x - 7) = 0$`}. Same two solutions.
-              </p>
-            </div>
-          </div>
+          <h3>The Setup</h3>
 
           <p>
-            Casework scales to multiple absolute values. Squaring is faster for a single absolute
-            value, but it may introduce extraneous roots always verify in the original.
-          </p>
-
-          <h3>Sum of Absolute Values</h3>
-
-          <p>
-            Example: {`$f(x) = |x - 3| + |x + 2|$`}. The breakpoints are {`$x = -2$`} and{' '}
-            {`$x = 3$`}.
-          </p>
-
-          <ul className="lrn-list">
-            <li>
-              {`$x < -2$`}: both inside expressions negative.{' '}
-              {`$f(x) = (3 - x) + (-x - 2) = 1 - 2x$`}.
-            </li>
-            <li>
-              {`$-2 \\leq x < 3$`}: {`$f(x) = (3 - x) + (x + 2) = 5$`}.
-            </li>
-            <li>
-              {`$x \\geq 3$`}: both positive. {`$f(x) = (x - 3) + (x + 2) = 2x - 1$`}.
-            </li>
-          </ul>
-
-          <p>
-            The minimum value is 5, achieved across the entire interval {`$[-2, 3]$`}. Between the
-            breakpoints, the two {`$x$`} terms cancel, leaving a constant.
-          </p>
-        </>,
-
-        <>
-          <h2>Floor, Ceiling, Fractional Part, Sign</h2>
-
-          <ul className="lrn-list">
-            <li>
-              <strong>Floor</strong> {`$\\lfloor x \\rfloor$`}: the greatest integer {`$\\leq x$`}.{' '}
-              {`$\\lfloor 2.7 \\rfloor = 2$`}, {`$\\lfloor -5.3 \\rfloor = -6$`}.
-            </li>
-            <li>
-              <strong>Ceiling</strong> {`$\\lceil x \\rceil$`}: the smallest integer {`$\\geq x$`}.{' '}
-              {`$\\lceil 3.5 \\rceil = 4$`}, {`$\\lceil -2.1 \\rceil = -2$`}.
-            </li>
-            <li>
-              <strong>Fractional part</strong> {`$\\{x\\} = x - \\lfloor x \\rfloor$`}. Always
-              satisfies {`$0 \\leq \\{x\\} < 1$`}.
-            </li>
-            <li>
-              <strong>Sign function</strong>: {`$\\operatorname{sgn}(x) = 1$`} if {`$x > 0$`},{' '}
-              {`$0$`} if {`$x = 0$`}, {`$-1$`} if {`$x < 0$`}.
-            </li>
-          </ul>
-
-          <div className="lrn-callout lrn-warning">
-            <span className="lrn-callout-label">Floor of a negative is not "drop the decimal"</span>
-            <p>
-              {`$\\lfloor -5.3 \\rfloor = -6$`}, not {`$-5$`}. Floor rounds toward {`$-\\infty$`}.
-              Since {`$-6 < -5.3 < -5$`}, the greatest integer below {`$-5.3$`} is {`$-6$`}.
-            </p>
-          </div>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$\\lfloor x \\rfloor + \\{x\\} = x$$`}</span>
-          </div>
-
-          <p>
-            The defining relation. For {`$x = 3.14$`}: {`$3 + 0.14 = 3.14$`}. For {`$x = -5.3$`}:{' '}
-            {`$\\lfloor -5.3 \\rfloor = -6$`} and {`$\\{-5.3\\} = -5.3 - (-6) = 0.7$`}, and{' '}
-            {`$-6 + 0.7 = -5.3$`}.
-          </p>
-
-          <div className="lrn-graph">
-            <FloorStaircaseViz />
-          </div>
-
-          <p>
-            The floor function is a staircase. Each step is a horizontal segment, closed at the left
-            integer, open at the right.
-          </p>
-        </>,
-
-        <>
-          <h2>Rational Functions</h2>
-
-          <p>
-            A <strong>rational function</strong> is one polynomial divided by another:{' '}
-            {`$f(x) = \\frac{P(x)}{Q(x)}$`}. Its domain excludes any value where {`$Q(x) = 0$`}.
-          </p>
-
-          <h3>Asymptotes</h3>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Vertical asymptote</span>
-              <p>
-                {`$x = c$`} where {`$Q(c) = 0$`} and {`$P(c) \\neq 0$`}. Near {`$c$`}, the function
-                blows up to {`$\\pm \\infty$`}.
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Horizontal asymptote</span>
-              <p>
-                {`$y \\to k$`} as {`$|x| \\to \\infty$`}. Found by comparing degrees of {`$P$`} and{' '}
-                {`$Q$`}.
-              </p>
-            </div>
-          </div>
-
-          <p>
-            Example: {`$f(x) = \\dfrac{3x - 4}{x + 5}$`}. Vertical asymptote at {`$x = -5$`}. For
-            large {`$|x|$`}, the {`$3x$`} and {`$x$`} dominate, so {`$f(x) \\to 3$`}. Horizontal
-            asymptote: {`$y = 3$`}.
-          </p>
-
-          <h3>Slant Asymptote</h3>
-
-          <p>
-            When {`$\\deg P = \\deg Q + 1$`}, polynomial long division gives a linear quotient plus
-            a proper remainder. The linear quotient is the slant asymptote.
+            Two conditions before you start. First, the fraction must be <strong>proper</strong>:
+            the numerator's degree is less than the denominator's. If not, long-divide first (Case 4
+            below). Second, fully factor the denominator into linear and irreducible quadratic
+            pieces.
           </p>
 
           <p>
-            Example: {`$\\dfrac{x^2 + 1}{x} = x + \\dfrac{1}{x}$`}. The remainder{' '}
-            {`$\\frac{1}{x} \\to 0$`} for large {`$|x|$`}, so the slant asymptote is {`$y = x$`}.
+            Each factor in the denominator contributes a standard piece on the right side. The shape
+            of that piece depends on the factor type.
           </p>
 
-          <h3>Solving Rational Equations</h3>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Example Solve x/(x − 2) + 3/(x − 5) = −1</span>
-              <p className="lrn-step-content">
-                Multiply both sides by {`$(x - 2)(x - 5)$`}:{' '}
-                {`$x(x - 5) + 3(x - 2) = -(x - 2)(x - 5)$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Expand and collect</span>
-              <p className="lrn-step-content">
-                {`$x^2 - 2x - 6 = -x^2 + 7x - 10$`}, giving {`$2x^2 - 9x + 4 = 0$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Factor and check</span>
-              <p className="lrn-step-content">
-                {`$(2x - 1)(x - 4) = 0$`}. So {`$x = \\frac{1}{2}$`} or {`$x = 4$`}. Neither is 2 or
-                5, so both are valid.
-              </p>
-            </div>
-          </div>
-
-          <h3>Partial Fractions</h3>
+          <h3>Case 1: Distinct Linear Factors</h3>
 
           <p>
-            Partial fraction decomposition splits a complicated rational expression into a sum of
-            simpler ones useful for integration, algebraic manipulation, and Laplace-style
-            transforms.
+            For each distinct linear factor {`$(x - a)$`}, write one term {`$\\dfrac{A}{x - a}$`}
+            with a constant on top.
           </p>
 
           <div className="lrn-steps">
             <div className="lrn-step">
-              <span className="lrn-step-title">Example Decompose 2x / (x² − 5x + 6)</span>
+              <span className="lrn-step-title">Decompose 2x / (x² − 5x + 6)</span>
               <p className="lrn-step-content">
-                Factor: {`$x^2 - 5x + 6 = (x - 3)(x - 2)$`}. Write{' '}
+                Factor the denominator: {`$x^2 - 5x + 6 = (x - 3)(x - 2)$`}. Write{' '}
                 {`$\\dfrac{2x}{(x-3)(x-2)} = \\dfrac{A}{x-3} + \\dfrac{B}{x-2}$`}.
               </p>
             </div>
             <div className="lrn-step">
-              <span className="lrn-step-title">Solve for A and B</span>
+              <span className="lrn-step-title">Clear the fractions</span>
               <p className="lrn-step-content">
-                Multiply through: {`$2x = A(x - 2) + B(x - 3)$`}. Set {`$x = 3$`}: {`$6 = A$`}. Set{' '}
-                {`$x = 2$`}: {`$4 = -B$`}, so {`$B = -4$`}.
+                Multiply both sides by {`$(x-3)(x-2)$`}: {`$2x = A(x - 2) + B(x - 3)$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Cover-up trick</span>
+              <p className="lrn-step-content">
+                Set {`$x = 3$`} to kill the {`$B$`} term: {`$6 = A \\cdot 1$`}, so {`$A = 6$`}. Set{' '}
+                {`$x = 2$`} to kill the {`$A$`} term: {`$4 = B \\cdot (-1)$`}, so {`$B = -4$`}.
               </p>
             </div>
             <div className="lrn-step">
@@ -1693,149 +1448,173 @@ function useConfig() {
           </div>
 
           <p>
-            Plugging in the roots of the denominator (the "cover-up" trick) isolates one unknown at
-            a time, because the corresponding factor becomes zero on the right.
+            Plugging in the roots of the denominator (the <strong>cover-up trick</strong>) isolates
+            one unknown at a time, because the corresponding factor becomes zero on the right.
           </p>
-        </>,
 
-        <>
-          <h2>Piecewise Defined Functions</h2>
+          <h3>Case 2: Repeated Linear Factors</h3>
 
           <p>
-            A <strong>piecewise function</strong> applies different rules to different inputs.
-            Absolute value, floor, ceiling, and tax brackets are all piecewise.
+            A factor {`$(x - a)^m$`} that repeats {`$m$`} times contributes {`$m$`} terms:
           </p>
 
-          <h3>Worked Example</h3>
-
-          <p>Define</p>
-
-          <div className="lrn-eq">
-            <span>{`$$f(n) = \\begin{cases} n + 3 & \\text{if } n \\text{ is odd} \\\\ \\frac{n}{2} & \\text{if } n \\text{ is even} \\end{cases}$$`}</span>
+          <div className="lrn-eq lrn-eq-hero">
+            <span>{`$$\\frac{A_1}{x - a} + \\frac{A_2}{(x - a)^2} + \\cdots + \\frac{A_m}{(x - a)^m}$$`}</span>
           </div>
 
           <p>
-            Find {`$k$`} such that {`$f(f(f(k))) = 27$`}.
+            Each power of the repeated factor needs its own constant on top. Why? Because{' '}
+            {`$\\dfrac{A}{(x-a)^m}$`} alone is not enough degrees of freedom to match a general
+            numerator.
           </p>
 
           <div className="lrn-steps">
             <div className="lrn-step">
-              <span className="lrn-step-title">Work backwards from 27</span>
+              <span className="lrn-step-title">Decompose x / ((x − 1)(x + 1)²)</span>
               <p className="lrn-step-content">
-                27 is odd. To get 27 from the odd branch we'd need {`$n + 3 = 27$`}, so {`$n = 24$`}
-                . So {`$f(f(k)) = 24$`}.
+                Set up:{' '}
+                {`$\\dfrac{x}{(x-1)(x+1)^2} = \\dfrac{A}{x-1} + \\dfrac{B}{x+1} + \\dfrac{C}{(x+1)^2}$`}
+                .
               </p>
             </div>
             <div className="lrn-step">
-              <span className="lrn-step-title">Next step back</span>
+              <span className="lrn-step-title">Clear fractions</span>
+              <p className="lrn-step-content">{`$x = A(x+1)^2 + B(x-1)(x+1) + C(x-1)$`}.</p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Cover-up at the roots</span>
               <p className="lrn-step-content">
-                24 is even. From the even branch: {`$\\frac{n}{2} = 24$`}, so {`$n = 48$`}. So{' '}
-                {`$f(k) = 48$`}.
+                Set {`$x = 1$`}: {`$1 = A(4)$`}, so {`$A = \\tfrac{1}{4}$`}. Set {`$x = -1$`}:{' '}
+                {`$-1 = C(-2)$`}, so {`$C = \\tfrac{1}{2}$`}.
               </p>
             </div>
             <div className="lrn-step">
-              <span className="lrn-step-title">Try odd k</span>
+              <span className="lrn-step-title">Equate coefficients for B</span>
               <p className="lrn-step-content">
-                {`$k = 105$`} (odd): {`$f(105) = 108$`}, {`$f(108) = 54$`}, {`$f(54) = 27$`}.
-                Confirmed: {`$k = 105$`}.
+                Cover-up only catches {`$A$`} and {`$C$`}. To get {`$B$`}, match coefficients of{' '}
+                {`$x^2$`}: on the left, 0. On the right, {`$A + B = \\tfrac{1}{4} + B$`}. So{' '}
+                {`$B = -\\tfrac{1}{4}$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Result</span>
+              <p className="lrn-step-content">
+                {`$\\dfrac{x}{(x-1)(x+1)^2} = \\dfrac{1}{4(x-1)} - \\dfrac{1}{4(x+1)} + \\dfrac{1}{2(x+1)^2}$`}
+                .
               </p>
             </div>
           </div>
 
-          <p>
-            Working backwards turns a search into a chain of forced choices. Each branch of the
-            piecewise definition determines the preimage at that step.
-          </p>
-
-          <h3>Continuity</h3>
+          <h3>Case 3: Irreducible Quadratic Factor</h3>
 
           <p>
-            A function is <strong>continuous</strong> at a point if its graph has no gap, jump, or
-            hole there. Piecewise functions can be discontinuous at boundaries where the rule
-            switches.
+            A quadratic {`$x^2 + bx + c$`} is <strong>irreducible</strong> over the reals when its
+            discriminant {`$b^2 - 4c$`} is negative, it has no real roots, so it does not split
+            into two real linear factors.
           </p>
 
           <p>
-            Example: {`$f(x) = x$`} for {`$x < 1$`} and {`$f(x) = x + 2$`} for {`$x \\geq 1$`}. The
-            left piece approaches 1 as {`$x \\to 1$`}; the right piece equals 3 at {`$x = 1$`}. The
-            graph jumps by 2 at {`$x = 1$`} a jump discontinuity.
-          </p>
-        </>,
-
-        <>
-          <h2>Roots of Unity</h2>
-
-          <p>
-            The <strong>{`$n$`}-th roots of unity</strong> are the {`$n$`} complex solutions of{' '}
-            {`$x^n = 1$`}, equivalently {`$x^n - 1 = 0$`}.
+            For each irreducible quadratic factor, the numerator must be a full linear expression{' '}
+            {`$(Ax + B)$`}, not a constant.
           </p>
 
-          <ul className="lrn-list">
-            <li>
-              {`$n = 2$`}: {`$1$`} and {`$-1$`}.
-            </li>
-            <li>{`$n = 3$`}: three points spaced 120° apart on the unit circle.</li>
-            <li>
-              {`$n = 4$`}: {`$1, i, -1, -i$`} a square.
-            </li>
-            <li>{`$n = 6$`}: six vertices of a regular hexagon.</li>
-          </ul>
-
-          <p>
-            All roots sit on the unit circle (each has magnitude 1) and are spaced by{' '}
-            {`$\\frac{360°}{n}$`}. Equal spacing at equal radius gives the vertices of a regular{' '}
-            {`$n$`}-gon.
-          </p>
-
-          <p>
-            From the geometric sum formula, {`$x^n - 1 = (x - 1)(x^{n-1} + x^{n-2} + \\cdots + 1)$`}
-            . So 1 is always a root, and the other {`$n - 1$`} roots satisfy{' '}
-            {`$x^{n-1} + x^{n-2} + \\cdots + 1 = 0$`}.
-          </p>
-        </>,
-
-        <>
-          <h2>Connections</h2>
-
-          <div className="lrn-insight">
-            <strong>Logarithms and exponentials are inverse operations.</strong>
-            <p>
-              {`$a^c = b$`} and {`$\\log_a b = c$`} say the same thing. Every exponential equation
-              has a logarithmic twin.
-            </p>
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Decompose (x² + 1) / ((x + 1)(x² + x + 1))</span>
+              <p className="lrn-step-content">
+                The quadratic {`$x^2 + x + 1$`} has discriminant {`$1 - 4 = -3 < 0$`}, so it is
+                irreducible. Set up:{' '}
+                {`$\\dfrac{x^2 + 1}{(x+1)(x^2+x+1)} = \\dfrac{A}{x+1} + \\dfrac{Bx + C}{x^2+x+1}$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Clear fractions</span>
+              <p className="lrn-step-content">{`$x^2 + 1 = A(x^2 + x + 1) + (Bx + C)(x + 1)$`}.</p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Cover-up at x = −1</span>
+              <p className="lrn-step-content">
+                {`$1 + 1 = A(1 - 1 + 1) = A$`}, so {`$A = 2$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Equate coefficients</span>
+              <p className="lrn-step-content">
+                Match {`$x^2$`}: {`$1 = A + B = 2 + B$`}, so {`$B = -1$`}. Match constants:{' '}
+                {`$1 = A + C = 2 + C$`}, so {`$C = -1$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Result</span>
+              <p className="lrn-step-content">
+                {`$\\dfrac{x^2 + 1}{(x+1)(x^2+x+1)} = \\dfrac{2}{x+1} - \\dfrac{x + 1}{x^2+x+1}$`}.
+              </p>
+            </div>
           </div>
 
-          <div className="lrn-insight">
-            <strong>Compound interest is an exponential function.</strong>
-            <p>
-              {`$\\text{Total} = k(1 + \\frac{r}{100})^n$`} is {`$k \\cdot b^n$`} with{' '}
-              {`$b = 1 + \\frac{r}{100}$`}. Continuous compounding plugs in {`$e$`}.
-            </p>
+          <h3>Case 4: Improper Rational Expression</h3>
+
+          <p>
+            If the numerator's degree is greater than or equal to the denominator's, long-divide
+            first. Decompose only the proper remainder.
+          </p>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">Decompose x³ / (x² − 1)</span>
+              <p className="lrn-step-content">
+                Degrees: numerator 3, denominator 2. Long-divide: {`$x^3 = x \\cdot (x^2 - 1) + x$`}
+                . So {`$\\dfrac{x^3}{x^2 - 1} = x + \\dfrac{x}{x^2 - 1}$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Decompose the proper remainder</span>
+              <p className="lrn-step-content">
+                {`$\\dfrac{x}{x^2 - 1} = \\dfrac{A}{x - 1} + \\dfrac{B}{x + 1}$`}. Clear:{' '}
+                {`$x = A(x + 1) + B(x - 1)$`}. At {`$x = 1$`}: {`$A = \\tfrac{1}{2}$`}. At{' '}
+                {`$x = -1$`}: {`$B = \\tfrac{1}{2}$`}.
+              </p>
+            </div>
+            <div className="lrn-step">
+              <span className="lrn-step-title">Result</span>
+              <p className="lrn-step-content">
+                {`$\\dfrac{x^3}{x^2 - 1} = x + \\dfrac{1}{2(x - 1)} + \\dfrac{1}{2(x + 1)}$`}.
+              </p>
+            </div>
           </div>
 
-          <div className="lrn-insight">
-            <strong>Absolute value, floor, ceiling, sign all piecewise.</strong>
-            <p>
-              Each one applies different rules to different input ranges. Absolute value is the
-              simplest case.
-            </p>
+          <h3>Two Methods, Same Answer</h3>
+
+          <div className="lrn-compare">
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Cover-up</span>
+              <p>
+                Set {`$x$`} to a root of the denominator. The corresponding factor on the right
+                becomes zero, leaving one unknown.
+              </p>
+              <p>Fast. Only catches constants on top of distinct linear factors.</p>
+            </div>
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Equating coefficients</span>
+              <p>
+                Expand both sides and match powers of {`$x$`} term by term. Each match gives one
+                linear equation in the unknowns.
+              </p>
+              <p>Slower but always works, required for repeated and quadratic cases.</p>
+            </div>
           </div>
 
-          <div className="lrn-insight">
-            <strong>The Remainder Theorem links values and factors.</strong>
-            <p>
-              {`$P(a)$`} is the remainder when {`$P$`} is divided by {`$(x - a)$`}. So{' '}
-              {`$P(a) = 0$`} means {`$(x - a)$`} is a factor.
-            </p>
-          </div>
+          <p>
+            The two methods often combine: cover-up handles the easy unknowns, equating coefficients
+            picks up the rest.
+          </p>
 
           <div className="lrn-insight">
-            <strong>
-              Constant {`$k$`}-th differences mean degree {`$k$`}.
-            </strong>
+            <strong>Why this matters.</strong>
             <p>
-              Finite differences are the discrete shadow of derivatives. A degree-{`$k$`} polynomial
-              has constant {`$k$`}-th differences over equally spaced inputs.
+              Partial fractions break down a hard expression into pieces you already know how to
+              handle. The technique simplifies algebra now, and it is the standard route for
+              integrating rational functions in A2 calculus.
             </p>
           </div>
         </>
@@ -1849,75 +1628,27 @@ function useConfig() {
       },
       {
         q: 'A polynomial of degree at most 2 is zero at x = 1, x = 2, and x = 3. What must be true?',
-        a: 'It must be the zero polynomial. A nonzero polynomial of degree n has at most n distinct roots. Degree ≤ 2 with 3 roots is impossible unless every coefficient is zero.'
-      },
-      {
-        q: 'Solve $5^{2r-3} = 25$ for r.',
-        a: 'Rewrite 25 = 5². Match exponents: 2r − 3 = 2, so r = 5/2.'
-      },
-      {
-        q: 'You invest $5,000 at 9% simple interest. How much do you have after 6 years?',
-        a: 'Total = 5,000(1 + 6 × 0.09) = 5,000 × 1.54 = $7,700. Each year adds 9% of the original $5,000 = $450; six years adds $2,700.'
+        a: 'It must be the zero polynomial. A nonzero polynomial of degree n has at most n distinct roots. Degree at most 2 with 3 roots forces every coefficient to zero.'
       },
       {
         q: 'What is the remainder when $P(x) = x^4$ is divided by $(x-2)$?',
         a: 'By the Remainder Theorem, the remainder is P(2) = 16. No long division needed.'
       },
       {
-        q: 'You double the compounding frequency on a savings account. Does the final amount double, slightly increase, or stay the same?',
-        a: 'It slightly increases. Earlier compounding earns interest on interest sooner. The gain shrinks at higher frequencies and approaches the continuous-compounding limit $k \\cdot e^{\\tfrac{rn}{100}}$.'
-      },
-      {
         q: 'Factor $a^3 - b^3$ completely.',
         a: '$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$. Verify by expanding: the cross terms cancel.'
-      },
-      {
-        q: 'What is the domain and range of $f(x) = 2\\sqrt{x-3} + 1$?',
-        a: 'Domain: x ≥ 3. Range: f ≥ 1. The minimum of $\\sqrt{x-3}$ is 0 at x = 3, giving f(3) = 1.'
-      },
-      {
-        q: 'Evaluate $\\log_3 81$.',
-        a: '$\\log_3 81 = 4$, because $3^4 = 81$. The logarithm asks "3 to what power equals 81?"'
-      },
-      {
-        q: 'Why is $\\lfloor -5.3 \\rfloor = -6$, not $-5$?',
-        a: 'Floor rounds toward $-\\infty$. Since $-6 < -5.3 < -5$, the greatest integer not exceeding $-5.3$ is $-6$. This is different from rounding to the nearest integer.'
-      },
-      {
-        q: 'Factor $x^4 + 4$ using the Sophie Germain identity.',
-        a: 'Sophie Germain: $a^4 + 4b^4 = (a^2 + 2ab + 2b^2)(a^2 - 2ab + 2b^2)$. Set a = x, b = 1: $x^4 + 4 = (x^2 + 2x + 2)(x^2 - 2x + 2)$. It works because $x^4 + 4 = (x^2 + 2)^2 - (2x)^2$, a difference of squares.'
       },
       {
         q: 'Divide $(x^3 + 2x)$ by $(x^2 - x + 1)$.',
         a: 'Step 1: $\\frac{x^3}{x^2} = x$. Multiply: $x^3 - x^2 + x$. Subtract: $x^2 + x$. Step 2: $\\frac{x^2}{x^2} = 1$. Multiply: $x^2 - x + 1$. Subtract: $2x - 1$. Quotient $x + 1$, remainder $2x - 1$.'
       },
       {
-        q: 'An investor wants $1,000,000 in 10 years at 10% compounded semi-annually. How much to invest today?',
-        a: 'Rate per period = 5%, periods = 20. PV = 1,000,000 / $(1.05)^{20}$ ≈ $376,889.48. Present value reverses compound interest.'
-      },
-      {
-        q: 'Solve $\\sqrt{x^2 + 9} = 2x - 3$ and check for extraneous solutions.',
-        a: 'Square: $x^2 + 9 = 4x^2 - 12x + 9$, so $3x(x - 4) = 0$. Candidates x = 0 and x = 4. Check x = 0: $\\sqrt{9} = 3 \\neq -3$ extraneous. Check x = 4: $\\sqrt{25} = 5 = 5$ valid. Only x = 4.'
-      },
-      {
-        q: 'Decompose $\\frac{2x}{x^2 - 5x + 6}$ into partial fractions.',
-        a: 'Factor denominator: $(x - 3)(x - 2)$. Write A/(x − 3) + B/(x − 2). Multiply: $2x = A(x - 2) + B(x - 3)$. Set x = 3: A = 6. Set x = 2: B = −4. Result: $\\frac{6}{x-3} - \\frac{4}{x-2}$.'
+        q: 'Once you can factor a denominator like $x^2 - 5x + 6$, what does that let you do to a rational expression built on it?',
+        a: 'You can split the single fraction back into a sum of simpler fractions, one per factor. This reverse-of-addition technique is partial fraction decomposition.'
       },
       {
         q: 'What is the maximum number of distinct roots of a degree-4 polynomial? If it has 5, what must be true?',
-        a: 'At most 4 distinct roots. If it had 5, it would have to be the zero polynomial. Each distinct root contributes one linear factor; degrees add.'
-      },
-      {
-        q: 'Compare $10,000 at 14% (a) compounded annually vs. (b) compounded monthly.',
-        a: '(a) Annual: 10,000 × 1.14 = $11,400. (b) Monthly: 10,000 × $(1 + 0.14/12)^{12}$ ≈ $11,493. Monthly earns about $93 more by compounding interest on a slightly larger base each period.'
-      },
-      {
-        q: 'Solve $|2x - 9| = 5$.',
-        a: 'Casework: 2x − 9 = 5 gives x = 7; 2x − 9 = −5 gives x = 2. Both check: |2(7) − 9| = 5 and |2(2) − 9| = 5.'
-      },
-      {
-        q: 'A $10,000 loan at 6% is repaid in three equal annual payments P. Find P.',
-        a: 'Set present value of payments equal to loan: P/1.06 + P/1.06² + P/1.06³ = 10,000. The discount-factor sum ≈ 2.6730. So P ≈ $3,741.10.'
+        a: 'At most 4 distinct roots. If it had 5, it would have to be the zero polynomial. Each distinct root contributes one linear factor, and degrees add.'
       },
       {
         q: 'If $P(a) = 0$, what does that tell you about the factorization of P?',
@@ -1925,35 +1656,11 @@ function useConfig() {
       },
       {
         q: 'Write $x^3 + 1$ in factored form and verify by expanding.',
-        a: 'Sum of cubes: $x^3 + 1 = (x + 1)(x^2 - x + 1)$. Expand: $x^3 - x^2 + x + x^2 - x + 1 = x^3 + 1$. ✓'
-      },
-      {
-        q: 'Convert $\\log_5(2x + 1) = \\frac{(y - 2)}{3}$ into x in terms of y.',
-        a: 'Switch to exponential form: $5^{\\tfrac{(y-2)}{3}} = 2x + 1$. Subtract 1, divide by 2: $x = \\frac{5^{\\tfrac{(y-2)}{3}} - 1}{2}$.'
-      },
-      {
-        q: "Newton's identity: $a^3 + b^3 + c^3 - 3abc = (a+b+c)(a^2+b^2+c^2-ab-bc-ca)$. If $a+b+c=0$ and $abc = 6$, find $a^3 + b^3 + c^3$.",
-        a: 'The right side is zero, so $a^3 + b^3 + c^3 = 3abc = 18$.'
-      },
-      {
-        q: 'Compute $\\lfloor 3.14 \\rfloor + \\{3.14\\}$. Is the result a coincidence?',
-        a: '3 + 0.14 = 3.14. Not a coincidence this is the defining identity $\\lfloor x \\rfloor + \\{x\\} = x$.'
+        a: 'Sum of cubes: $x^3 + 1 = (x + 1)(x^2 - x + 1)$. Expand: $x^3 - x^2 + x + x^2 - x + 1 = x^3 + 1$.'
       },
       {
         q: 'Prove $1 + x + x^2 + \\cdots + x^{n-1} = \\frac{x^n - 1}{x - 1}$ for $x \\neq 1$.',
         a: 'Multiply the left side by $(x - 1)$: every middle term cancels, leaving $x^n - 1$. Divide both sides by $x - 1$, which is allowed since $x \\neq 1$.'
-      },
-      {
-        q: 'Find all asymptotes of $f(x) = \\frac{3x - 4}{x + 5}$.',
-        a: 'Vertical: x + 5 = 0, so x = −5. Horizontal: leading-coefficient ratio 3/1 = 3, so y = 3. For large |x|, f approaches 3 but never reaches it.'
-      },
-      {
-        q: 'Why is the domain of $\\sqrt{x}$ restricted to $x \\geq 0$, but $\\sqrt[3]{x}$ has all real numbers?',
-        a: 'No real number squares to give a negative result, so $\\sqrt{x}$ has no real value for x < 0. Cubing a negative gives a negative, so $\\sqrt[3]{-8} = -2$. Even-index roots need non-negative inputs; odd-index roots take all reals.'
-      },
-      {
-        q: 'You solve $|f(x)| = c$ by splitting into two cases. What must you check for each solution?',
-        a: 'Each case carries a sign condition: one assumes f(x) ≥ 0, the other f(x) < 0. After solving, plug each candidate back into the case it came from. Discard any that violate its condition.'
       },
       {
         q: 'A polynomial is zero at x = 1 and x = 2. Does $(x-1)(x-2)$ divide P(x)?',
@@ -1964,56 +1671,84 @@ function useConfig() {
         a: 'Expand $(x^2 + x + 2)(x + 1) = x^3 + 2x^2 + 3x + 2$. So $P(x) = (x^2 + x + 2)(x + 1) + 2$. Quotient Q = $x^2 + x + 2$, remainder R = 2.'
       },
       {
-        q: 'Simplify $5x^2y + 3x^2y - 2x^2y$.',
-        a: 'All three are like terms. Add coefficients: (5 + 3 − 2)x²y = 6x²y.'
-      },
-      {
-        q: 'Solve $4^x - 33 \\cdot 2^{x-1} + 8 = 0$.',
-        a: 'Let $y = 2^x$. Then $4^x = y^2$ and $2^{x-1} = \\frac{y}{2}$. The equation becomes $2y^2 - 33y + 16 = 0$, factoring as $(2y - 1)(y - 16) = 0$. So $y = \\frac{1}{2}$ or $y = 16$, giving $x = -1$ or $x = 4$.'
-      },
-      {
-        q: 'Solve: $f(n) = n + 3$ if n odd, $f(n) = \\frac{n}{2}$ if n even. Find k such that $f(f(f(k))) = 27$.',
-        a: 'Work backwards. f(?) = 27 (odd) needs ? + 3 = 27, so ? = 24. f(?) = 24 (even branch) needs ?/2 = 24, so ? = 48. Try odd k = 105: f(105) = 108, f(108) = 54, f(54) = 27. So k = 105.'
-      },
-      {
-        q: 'Show $a^4 + 4b^4 = (a^2 + 2ab + 2b^2)(a^2 - 2ab + 2b^2)$.',
-        a: 'Add and subtract $4a^2b^2$: $a^4 + 4b^4 = a^4 + 4a^2b^2 + 4b^4 - 4a^2b^2 = (a^2 + 2b^2)^2 - (2ab)^2$. This is a difference of squares with $A = a^2 + 2b^2$ and $B = 2ab$.'
-      },
-      {
-        q: 'For $P(x) = x^2 - x - 4$, compute first and second differences at x = 0, 1, 2, 3, 4. What do they say about the degree?',
-        a: 'Values: −4, −4, −2, 2, 8. First differences: 0, 2, 4, 6. Second differences: 2, 2, 2 (constant). Constant second differences mean degree 2.'
-      },
-      {
-        q: 'Simple vs. compound interest: $5,000 at 9% for 4 years. Compute both and explain the gap.',
-        a: 'Simple: 5,000 × 1.36 = $6,800. Compound: 5,000 × $(1.09)^4$ ≈ $7,058. Gap ≈ $258. Compound earns 9% on a growing balance each year instead of just on the original.'
-      },
-      {
         q: 'Factor by grouping: $ab + ac + b^2 + bc$.',
         a: '$(ab + ac) + (b^2 + bc) = a(b + c) + b(b + c) = (a + b)(b + c)$.'
       },
       {
-        q: 'Solve $\\log_n 3 = -\\frac{3}{2}$ for n.',
-        a: 'Switch to exponential form: $n^{-\\tfrac{3}{2}} = 3$. Raise both sides to power $-\\frac{2}{3}$: $n = 3^{-\\tfrac{2}{3}} = \\frac{1}{\\sqrt[3]{9}}$. Equivalently, $n = \\frac{\\sqrt[3]{9}}{9} = \\sqrt[3]{\\frac{1}{9}}$.'
-      },
-      {
-        q: 'Reconstruct the linear polynomial P given P(1) = 7 and P(2) = 5.',
-        a: 'Write P(x) = mx + b. From m + b = 7 and 2m + b = 5: m = −2, b = 9. So P(x) = −2x + 9. Check: P(1) = 7, P(2) = 5. ✓'
-      },
-      {
         q: 'Why does cancelling PX / QX = P/Q require X ≠ 0? Give a concrete failure.',
-        a: 'Cancelling means dividing by X. Division by zero is undefined. Example: $\\frac{(x^3 + x^2 + x + 1)}{(x^2 - 1)}$ factors as $\\frac{(x+1)(x^2+1)}{(x+1)(x-1)}$. Cancelling $(x+1)$ gives $\\frac{(x^2+1)}{(x-1)}$, which looks defined at x = −1. But the original was undefined at x = −1 (the original $x^2 - 1$ is zero there). The cancellation hid a real restriction.'
+        a: 'Cancelling means dividing by X. Division by zero is undefined. Example: $\\frac{x^3 + x^2 + x + 1}{x^2 - 1}$ factors as $\\frac{(x+1)(x^2+1)}{(x+1)(x-1)}$. Cancelling $(x+1)$ gives $\\frac{x^2+1}{x-1}$, which looks defined at x = −1. But the original was undefined at x = −1 because $x^2 - 1$ is zero there.'
       },
       {
         q: 'Prove that a polynomial of degree at most n is determined uniquely by n + 1 values.',
-        a: 'Suppose P and Q both have degree ≤ n and agree at n + 1 distinct points. Then P − Q has degree ≤ n and vanishes at n + 1 points. By the Maximum Roots Theorem (nonzero degree-n polynomial has at most n distinct roots), P − Q must be the zero polynomial. So P = Q.'
+        a: 'Suppose P and Q both have degree at most n and agree at n + 1 distinct points. Then P − Q has degree at most n and becomes zero at n + 1 points. By the Maximum Roots Theorem, P − Q must be the zero polynomial. So P = Q.'
       },
       {
-        q: 'State and verify the triangle inequality with $a = 3$, $b = -4$.',
-        a: '$|a + b| \\leq |a| + |b|$. Plug in: $|3 + (-4)| = |-1| = 1$. $|3| + |-4| = 3 + 4 = 7$. Then 1 ≤ 7. Strict inequality because a and b have opposite signs.'
+        q: 'Use synthetic division to divide $2x^3 + 3x^2 - 11x - 6$ by $(x - 2)$.',
+        a: 'Coefficients 2, 3, −11, −6 with $a = 2$. Bring 2. Then $2 \\cdot 2 = 4$, $3 + 4 = 7$. Then $7 \\cdot 2 = 14$, $-11 + 14 = 3$. Then $3 \\cdot 2 = 6$, $-6 + 6 = 0$. Quotient $2x^2 + 7x + 3$, remainder 0. Factored form: $(x - 2)(2x + 1)(x + 3)$.'
       },
       {
-        q: 'Find the slant asymptote of $f(x) = \\frac{x^2 + 1}{x}$.',
-        a: 'Long division: $f(x) = x + \\frac{1}{x}$. The remainder term $\\frac{1}{x}$ vanishes as $|x| \\to \\infty$, so the slant asymptote is $y = x$.'
+        q: 'Solve $x^3 - 6x^2 + 11x - 6 = 0$ by the Factor Theorem.',
+        a: 'Test $x = 1$: $1 - 6 + 11 - 6 = 0$, so $(x - 1)$ is a factor. Divide: $x^3 - 6x^2 + 11x - 6 = (x - 1)(x^2 - 5x + 6) = (x - 1)(x - 2)(x - 3)$. Roots: $x = 1, 2, 3$.'
+      },
+      {
+        q: 'Solve $x^3 + 2x^2 - 5x - 6 = 0$ by the Factor Theorem.',
+        a: 'Test $x = -1$: $-1 + 2 + 5 - 6 = 0$, so $(x + 1)$ is a factor. Divide: $x^3 + 2x^2 - 5x - 6 = (x + 1)(x^2 + x - 6) = (x + 1)(x + 3)(x - 2)$. Roots: $x = -1, -3, 2$.'
+      },
+      {
+        q: 'List the rational root candidates for $2x^3 - 3x^2 - 11x + 6 = 0$, then find all roots.',
+        a: 'Constant 6, leading 2. Numerators $p$ divide 6; denominators $q$ divide 2. Candidates: $\\pm 1, \\pm 2, \\pm 3, \\pm 6, \\pm \\tfrac{1}{2}, \\pm \\tfrac{3}{2}$. Testing $x = -2$ gives 0, so $(x + 2)$ is a factor. Dividing: $2x^2 - 7x + 3 = (2x - 1)(x - 3)$. All roots: $x = -2, \\tfrac{1}{2}, 3$.'
+      },
+      {
+        q: 'Find the coefficient of $x^5$ in $(2x - 3)^8$.',
+        a: 'General term $\\binom{8}{k}(2x)^{8-k}(-3)^k$. For $x^5$ we need $8 - k = 5$, so $k = 3$. The term is $\\binom{8}{3}(2x)^5(-3)^3 = 56 \\cdot 32 \\cdot (-27)\\, x^5 = -48{,}384\\, x^5$. Coefficient $-48{,}384$.'
+      },
+      {
+        q: 'Decompose $\\dfrac{3}{(x-1)^2 (x+2)}$ into partial fractions.',
+        a: 'Set up $\\dfrac{A}{x-1} + \\dfrac{B}{(x-1)^2} + \\dfrac{C}{x+2}$. Clear: $3 = A(x-1)(x+2) + B(x+2) + C(x-1)^2$. Cover-up at $x = 1$: $3 = 3B$, so $B = 1$. Cover-up at $x = -2$: $3 = 9C$, so $C = \\tfrac{1}{3}$. Compare $x^2$: $0 = A + C$, so $A = -\\tfrac{1}{3}$. Result: $-\\dfrac{1}{3(x-1)} + \\dfrac{1}{(x-1)^2} + \\dfrac{1}{3(x+2)}$.'
+      },
+      {
+        q: 'Decompose $\\dfrac{4}{(x-1)(x^2+3)}$ into partial fractions.',
+        a: 'The quadratic $x^2 + 3$ has discriminant $-12 < 0$, so it is irreducible. Set up $\\dfrac{A}{x-1} + \\dfrac{Bx + C}{x^2 + 3}$. Clear: $4 = A(x^2 + 3) + (Bx + C)(x - 1)$. Cover-up at $x = 1$: $4 = 4A$, so $A = 1$. Compare $x^2$: $0 = A + B$, so $B = -1$. Compare constants: $4 = 3A - C$, so $C = -1$. Result: $\\dfrac{1}{x-1} - \\dfrac{x + 1}{x^2 + 3}$.'
+      },
+      {
+        q: 'Decompose $\\dfrac{x^2}{x - 1}$ into a polynomial plus a proper rational expression.',
+        a: 'Numerator degree 2, denominator degree 1, so long-divide first. $x^2 = (x - 1)(x + 1) + 1$. Therefore $\\dfrac{x^2}{x - 1} = x + 1 + \\dfrac{1}{x - 1}$.'
+      },
+      {
+        q: 'Describe the end behavior of $P(x) = -x^3 + 4x^2 - 1$.',
+        a: 'Odd degree with a negative leading coefficient. So $y \\to +\\infty$ as $x \\to -\\infty$, and $y \\to -\\infty$ as $x \\to +\\infty$. Only the leading term $-x^3$ matters.'
+      },
+      {
+        q: 'For $P(x) = (x - 1)^2 (x + 4)^3$, at which x-intercepts does the graph cross the axis, and where does it only touch?',
+        a: 'The zero $x = -4$ has multiplicity 3 (odd), so the graph crosses there. The zero $x = 1$ has multiplicity 2 (even), so the graph touches and turns back without crossing.'
+      },
+      {
+        q: 'What is the greatest possible number of turning points of a degree-6 polynomial?',
+        a: 'At most $6 - 1 = 5$ turning points. A degree-$n$ polynomial has at most $n - 1$. It may have fewer, for example, $x^6$ has just one.'
+      },
+      {
+        q: 'Use the Intermediate Value Theorem to show $P(x) = x^3 - x - 5$ has a real zero between 1 and 2.',
+        a: '$P(1) = 1 - 1 - 5 = -5$ and $P(2) = 8 - 2 - 5 = 1$. The signs are opposite, so by the Intermediate Value Theorem a zero lies between $x = 1$ and $x = 2$.'
+      },
+      {
+        q: "Use Descartes' Rule of Signs on $P(x) = x^3 - 4x^2 + x + 6$, then find all roots.",
+        a: 'Signs of $P(x)$: $+, -, +, +$, two sign changes, so two or zero positive zeros. $P(-x) = -x^3 - 4x^2 - x + 6$ has signs $-, -, -, +$, one change, so one negative zero. Factoring: $(x + 1)(x - 2)(x - 3)$, roots $-1, 2, 3$ (two positive, one negative).'
+      },
+      {
+        q: 'Show that all real zeros of $P(x) = x^3 - 3x^2 - 4x + 12$ lie between −3 and 4 using the Upper and Lower Bounds Theorem.',
+        a: 'Synthetic division by $(x - 4)$ on $1, -3, -4, 12$ gives bottom row $1, 1, 0, 12$, no negative entry, so 4 is an upper bound. Division by $(x + 3)$ gives $1, -6, 14, -30$, alternating signs, so −3 is a lower bound. Every real zero lies between −3 and 4. (The roots are $-2, 2, 3$.)'
+      },
+      {
+        q: 'A degree-3 polynomial with real coefficients has zeros $2$ and $1 + 2i$. Find it, taking leading coefficient 1.',
+        a: 'By the Conjugate Zeros Theorem, $1 - 2i$ is also a zero. The conjugate pair multiplies to $(x - 1)^2 + 4 = x^2 - 2x + 5$. Then $P(x) = (x - 2)(x^2 - 2x + 5) = x^3 - 4x^2 + 9x - 10$.'
+      },
+      {
+        q: 'Factor $x^4 - 16$ into linear and irreducible quadratic factors over the reals, then completely over the complex numbers.',
+        a: 'Over the reals: $x^4 - 16 = (x^2 - 4)(x^2 + 4) = (x - 2)(x + 2)(x^2 + 4)$, and $x^2 + 4$ is irreducible. Over the complex numbers: split $x^2 + 4 = (x - 2i)(x + 2i)$, giving $(x - 2)(x + 2)(x - 2i)(x + 2i)$.'
+      },
+      {
+        q: 'A degree-5 polynomial with real coefficients has $i$ and $2i$ among its zeros. How many real zeros must it have, at least?',
+        a: 'By the Conjugate Zeros Theorem, $-i$ and $-2i$ are also zeros. That accounts for four complex zeros. A degree-5 polynomial has exactly five zeros with multiplicity, so at least one remaining zero must be real.'
       }
     ],
 
@@ -2039,20 +1774,8 @@ function useConfig() {
               with equality unless leading terms cancel.
             </li>
             <li>
-              <strong>Equality of polynomials:</strong> equal iff coefficients match term by term
-              after collecting. Sample values are not a proof.
-            </li>
-          </ul>
-
-          <h2>Key Product Identities</h2>
-          <ul className="lrn-list">
-            <li>{`$(a + b)(a - b) = a^2 - b^2$`}</li>
-            <li>{`$(a + b)^2 = a^2 + 2ab + b^2$`}</li>
-            <li>{`$(a - b)^2 = a^2 - 2ab + b^2$`}</li>
-            <li>{`$(a + b)^3 = a^3 + 3a^2b + 3ab^2 + b^3$`}</li>
-            <li>{`$(a - b)^3 = a^3 - 3a^2b + 3ab^2 - b^3$`}</li>
-            <li>
-              Pascal's triangle row {`$n$`}: coefficients of {`$(a + b)^n$`}.
+              <strong>Equality of polynomials:</strong> equal if and only if coefficients match term
+              by term after collecting. Sample values are not a proof.
             </li>
           </ul>
 
@@ -2065,14 +1788,6 @@ function useConfig() {
               <strong>Sum of cubes:</strong> {`$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$`}
             </li>
             <li>
-              <strong>Sophie Germain:</strong>{' '}
-              {`$a^4 + 4b^4 = (a^2 + 2ab + 2b^2)(a^2 - 2ab + 2b^2)$`}
-            </li>
-            <li>
-              <strong>Newton's identity:</strong>{' '}
-              {`$a^3 + b^3 + c^3 - 3abc = (a + b + c)(a^2 + b^2 + c^2 - ab - bc - ca)$`}
-            </li>
-            <li>
               <strong>Geometric sum:</strong>{' '}
               {`$\\frac{x^n - 1}{x - 1} = x^{n-1} + x^{n-2} + \\cdots + 1$`} for {`$x \\neq 1$`}
             </li>
@@ -2081,8 +1796,8 @@ function useConfig() {
               {`$a^n + b^n = (a + b)(a^{n-1} - a^{n-2}b + \\cdots + b^{n-1})$`} for odd {`$n$`}
             </li>
             <li>
-              <strong>Does not factor over reals:</strong> {`$a^2 + b^2$`}, also {`$a^4 + b^4$`}{' '}
-              without {`$\\sqrt{2}$`} coefficients.
+              <strong>Does not factor over reals:</strong> {`$a^2 + b^2$`} has no real
+              factorization.
             </li>
           </ul>
 
@@ -2104,9 +1819,6 @@ function useConfig() {
             <li>
               <strong>Cancellation:</strong> {`$\\frac{PX}{QX} = \\frac{P}{Q}$`} provided{' '}
               {`$X \\neq 0$`}.
-            </li>
-            <li>
-              <strong>Harmonic mean:</strong> {`$\\frac{2ab}{a + b}$`}
             </li>
           </ul>
 
@@ -2139,6 +1851,40 @@ function useConfig() {
             </tbody>
           </table>
 
+          <h2>Synthetic Division</h2>
+          <ul className="lrn-list">
+            <li>
+              <strong>When to use:</strong> divisor of the form {`$(x - a)$`} only.
+            </li>
+            <li>
+              <strong>Procedure:</strong> write dividend coefficients (0 for missing powers); bring
+              down the first; multiply by {`$a$`}, add to the next coefficient; repeat.
+            </li>
+            <li>
+              <strong>Read-off:</strong> last number is the remainder; the rest are the quotient
+              coefficients, with degree one less than the dividend.
+            </li>
+          </ul>
+
+          <h2>Binomial Theorem</h2>
+          <ul className="lrn-list">
+            <li>
+              <strong>Expansion:</strong>{' '}
+              {`$(a + b)^n = \\sum_{k=0}^{n} \\binom{n}{k}\\, a^{n-k} b^k$`}.
+            </li>
+            <li>
+              <strong>Binomial coefficient:</strong> {`$\\binom{n}{k} = \\dfrac{n!}{k!\\,(n-k)!}$`}.
+            </li>
+            <li>
+              <strong>General term:</strong> the {`$(k+1)$`}-th term is{' '}
+              {`$\\binom{n}{k}\\, a^{n-k} b^k$`}; use it to pick a single coefficient.
+            </li>
+            <li>
+              <strong>Pascal connection:</strong> row {`$n$`} of Pascal's triangle lists{' '}
+              {`$\\binom{n}{0}, \\binom{n}{1}, \\ldots, \\binom{n}{n}$`}.
+            </li>
+          </ul>
+
           <h2>Remainder Theorem, Factor Theorem, Roots</h2>
           <ul className="lrn-list">
             <li>
@@ -2146,8 +1892,8 @@ function useConfig() {
               {`$P(a)$`}.
             </li>
             <li>
-              <strong>Factor Theorem:</strong> {`$(x - a)$`} is a factor of {`$P(x)$`} iff{' '}
-              {`$P(a) = 0$`}.
+              <strong>Factor Theorem:</strong> {`$(x - a)$`} is a factor of {`$P(x)$`} if and only
+              if {`$P(a) = 0$`}.
             </li>
             <li>
               <strong>Maximum roots:</strong> a degree-{`$n$`} polynomial has at most {`$n$`}{' '}
@@ -2156,7 +1902,109 @@ function useConfig() {
             <li>
               <strong>Multiplicity:</strong> {`$(x - 1)^2$`} has one distinct root counted twice.
             </li>
+            <li>
+              <strong>Rational Root Theorem:</strong> for integer-coefficient {`$P$`}, any rational
+              root {`$\\tfrac{p}{q}$`} in lowest terms has {`$p$`} dividing the constant term and{' '}
+              {`$q$`} dividing the leading coefficient.
+            </li>
+            <li>
+              <strong>Factor-Theorem application:</strong> find one root by inspection (or by the
+              Rational Root Theorem), divide it out, then solve the reduced polynomial.
+            </li>
           </ul>
+
+          <h2>Graphs of Polynomial Functions</h2>
+          <ul className="lrn-list">
+            <li>
+              <strong>End behavior:</strong> set by the leading term. Odd degree sends the ends
+              opposite ways; even degree sends them the same way. A negative leading coefficient
+              flips both.
+            </li>
+            <li>
+              <strong>Zero of odd multiplicity:</strong> the graph crosses the x-axis there.
+            </li>
+            <li>
+              <strong>Zero of even multiplicity:</strong> the graph touches the x-axis and turns
+              back.
+            </li>
+            <li>
+              <strong>Turning points:</strong> a degree-{`$n$`} polynomial has at most {`$n - 1$`}.
+            </li>
+            <li>
+              <strong>Intermediate Value Theorem:</strong> opposite signs at {`$a$`} and {`$b$`}
+              force a zero between them.
+            </li>
+          </ul>
+
+          <h2>Counting and Factoring All Zeros</h2>
+          <ul className="lrn-list">
+            <li>
+              <strong>Descartes' Rule of Signs:</strong> positive zeros equal the sign variations of{' '}
+              {`$P(x)$`}, or fewer by an even number; negative zeros use {`$P(-x)$`}.
+            </li>
+            <li>
+              <strong>Upper/Lower Bounds:</strong> synthetic-divide by {`$(x - b)$`}, {`$b > 0$`};
+              no negative entry means {`$b$`} is an upper bound. Alternating signs from{' '}
+              {`$(x - a)$`}, {`$a < 0$`}, means {`$a$`} is a lower bound.
+            </li>
+            <li>
+              <strong>Fundamental Theorem of Algebra:</strong> every polynomial of degree at least 1
+              has a complex zero; a degree-{`$n$`} polynomial has exactly {`$n$`} complex zeros with
+              multiplicity.
+            </li>
+            <li>
+              <strong>Conjugate Zeros Theorem:</strong> for real coefficients, {`$a + bi$`} a zero
+              forces {`$a - bi$`} a zero.
+            </li>
+            <li>
+              <strong>Linear and Quadratic Factors:</strong> every real polynomial factors into real
+              linear and irreducible quadratic factors.
+            </li>
+          </ul>
+
+          <h2>Partial Fractions</h2>
+          <ul className="lrn-list">
+            <li>
+              <strong>Setup:</strong> fraction must be proper (long-divide first if not); then
+              factor the denominator fully into linear and irreducible quadratic pieces.
+            </li>
+            <li>
+              <strong>Cover-up trick:</strong> set {`$x$`} equal to a root of the denominator to
+              isolate one unknown numerator.
+            </li>
+            <li>
+              <strong>Equating coefficients:</strong> expand both sides and match powers of {`$x$`}.
+              Required for repeated and quadratic cases.
+            </li>
+          </ul>
+          <table className="lrn-table">
+            <thead>
+              <tr>
+                <th>Factor in denominator</th>
+                <th>Term in decomposition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{`$(x - a)$`} (distinct linear)</td>
+                <td>{`$\\dfrac{A}{x - a}$`}</td>
+              </tr>
+              <tr>
+                <td>{`$(x - a)^m$`} (repeated linear)</td>
+                <td>
+                  {`$\\dfrac{A_1}{x - a} + \\dfrac{A_2}{(x - a)^2} + \\cdots + \\dfrac{A_m}{(x - a)^m}$`}
+                </td>
+              </tr>
+              <tr>
+                <td>{`$x^2 + bx + c$`} (irreducible quadratic)</td>
+                <td>{`$\\dfrac{Ax + B}{x^2 + bx + c}$`}</td>
+              </tr>
+              <tr>
+                <td>deg(num) ≥ deg(den) (improper)</td>
+                <td>Long-divide first; decompose the proper remainder</td>
+              </tr>
+            </tbody>
+          </table>
 
           <h2>Values and Interpolation</h2>
           <ul className="lrn-list">
@@ -2192,236 +2040,6 @@ function useConfig() {
             </tbody>
           </table>
 
-          <h2>Interest Formulas</h2>
-          <ul className="lrn-list">
-            <li>
-              <strong>Simple interest:</strong> {`$\\text{Total} = (1 + \\frac{nr}{100}) \\cdot k$`}
-            </li>
-            <li>
-              <strong>Compound (annual):</strong>{' '}
-              {`$\\text{Total} = (1 + \\frac{r}{100})^n \\cdot k$`}
-            </li>
-            <li>
-              <strong>Compound (m times/year):</strong>{' '}
-              {`$\\text{Total} = (1 + \\frac{r}{(100m)})^{nm} \\cdot k$`}
-            </li>
-            <li>
-              <strong>Continuous compounding:</strong>{' '}
-              {`$\\text{Total} = k \\cdot e^{\\tfrac{rn}{100}}$`}
-            </li>
-            <li>
-              <strong>Present value:</strong>{' '}
-              {`$PV = \\frac{\\text{Future amount}}{(1 + \\frac{r}{100})^n}$`}
-            </li>
-            <li>
-              <strong>Rule of 72:</strong> doubling time {`$\\approx \\frac{72}{r}$`} years at{' '}
-              {`$r\\%$`}.
-            </li>
-          </ul>
-
-          <h2>Exponentials and Logarithms</h2>
-          <ul className="lrn-list">
-            <li>
-              <strong>Exponential function:</strong> {`$f(x) = a \\cdot b^x$`}, {`$b > 0$`},{' '}
-              {`$b \\neq 1$`}.
-            </li>
-            <li>
-              <strong>Euler's number:</strong>{' '}
-              {`$e = \\lim_{n \\to \\infty}(1 + \\frac{1}{n})^n \\approx 2.71828$`}
-            </li>
-            <li>
-              <strong>Equivalence:</strong> {`$\\log_a b = c \\iff a^c = b$`}
-            </li>
-            <li>
-              <strong>Identity:</strong> {`$\\log_a a^p = p$`} and {`$a^{\\log_a x} = x$`}
-            </li>
-            <li>
-              <strong>Product:</strong> {`$\\log_b(cd) = \\log_b c + \\log_b d$`}
-            </li>
-            <li>
-              <strong>Quotient:</strong> {`$\\log_b(\\frac{c}{d}) = \\log_b c - \\log_b d$`}
-            </li>
-            <li>
-              <strong>Power:</strong> {`$\\log_b(c^n) = n \\log_b c$`}
-            </li>
-            <li>
-              <strong>Change of base:</strong> {`$\\log_a b = \\frac{\\log_c b}{\\log_c a}$`}
-            </li>
-          </ul>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Base</th>
-                <th>Notation</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Common logarithm</td>
-                <td>10</td>
-                <td>{`$\\log x$`} (no base)</td>
-              </tr>
-              <tr>
-                <td>Natural logarithm</td>
-                <td>{`$e$`}</td>
-                <td>{`$\\ln x$`}</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h2>Absolute Value, Floor, Ceiling, Sign</h2>
-          <ul className="lrn-list">
-            <li>
-              <strong>Absolute value:</strong> {`$|x| = x$`} if {`$x \\geq 0$`}, else {`$-x$`}.
-            </li>
-            <li>
-              <strong>Distance:</strong> {`$|x - y|$`} is the distance between {`$x$`} and {`$y$`}{' '}
-              on the number line.
-            </li>
-            <li>
-              <strong>Triangle inequality:</strong> {`$|a + b| \\leq |a| + |b|$`}, equality iff same
-              sign.
-            </li>
-            <li>
-              <strong>Floor:</strong> {`$\\lfloor x \\rfloor$`} = greatest integer {`$\\leq x$`}.
-            </li>
-            <li>
-              <strong>Ceiling:</strong> {`$\\lceil x \\rceil$`} = smallest integer {`$\\geq x$`}.
-            </li>
-            <li>
-              <strong>Fractional part:</strong> {`$\\{x\\} = x - \\lfloor x \\rfloor$`},{' '}
-              {`$0 \\leq \\{x\\} < 1$`}.
-            </li>
-            <li>
-              <strong>Identity:</strong> {`$\\lfloor x \\rfloor + \\{x\\} = x$`}
-            </li>
-            <li>
-              <strong>Sign:</strong> {`$\\operatorname{sgn}(x) = 1, 0, -1$`} for {`$x > 0$`},{' '}
-              {`$x = 0$`}, {`$x < 0$`}.
-            </li>
-          </ul>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>{`$x$`}</th>
-                <th>{`$\\lfloor x \\rfloor$`}</th>
-                <th>{`$\\lceil x \\rceil$`}</th>
-                <th>{`$\\{x\\}$`}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>2.7</td>
-                <td>2</td>
-                <td>3</td>
-                <td>0.7</td>
-              </tr>
-              <tr>
-                <td>−5.3</td>
-                <td>−6</td>
-                <td>−5</td>
-                <td>0.7</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>3</td>
-                <td>3</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>−2.1</td>
-                <td>−3</td>
-                <td>−2</td>
-                <td>0.9</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h2>Rational and Special Functions</h2>
-          <ul className="lrn-list">
-            <li>
-              <strong>Vertical asymptote:</strong> {`$x = c$`} where {`$Q(c) = 0$`} and{' '}
-              {`$P(c) \\neq 0$`}.
-            </li>
-            <li>
-              <strong>Horizontal asymptote:</strong>{' '}
-              {`$y = \\frac{\\text{leading coeff of } P}{\\text{leading coeff of } Q}$`} when{' '}
-              {`$\\deg P = \\deg Q$`}; {`$y = 0$`} when {`$\\deg P < \\deg Q$`}.
-            </li>
-            <li>
-              <strong>Slant asymptote:</strong> when {`$\\deg P = \\deg Q + 1$`}, long division
-              yields a linear quotient the asymptote.
-            </li>
-          </ul>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Function</th>
-                <th>Domain</th>
-                <th>Range</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{`$\\sqrt{x}$`}</td>
-                <td>{`$[0, \\infty)$`}</td>
-                <td>{`$[0, \\infty)$`}</td>
-                <td>Even root: non-negative inputs only</td>
-              </tr>
-              <tr>
-                <td>{`$\\sqrt[3]{x}$`}</td>
-                <td>all reals</td>
-                <td>all reals</td>
-                <td>Odd root: all reals</td>
-              </tr>
-              <tr>
-                <td>{`$|x|$`}</td>
-                <td>all reals</td>
-                <td>{`$[0, \\infty)$`}</td>
-                <td>Always non-negative</td>
-              </tr>
-              <tr>
-                <td>{`$\\lfloor x \\rfloor$`}</td>
-                <td>all reals</td>
-                <td>integers</td>
-                <td>Step function</td>
-              </tr>
-              <tr>
-                <td>{`$\\lceil x \\rceil$`}</td>
-                <td>all reals</td>
-                <td>integers</td>
-                <td>Step function</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h2>Solving {`$|f(x)| = c$`}</h2>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Method</th>
-                <th>Steps</th>
-                <th>Watch out</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Casework</td>
-                <td>
-                  {`$f(x) = c$`} or {`$f(x) = -c$`}
-                </td>
-                <td>Check each solution against its case's sign condition</td>
-              </tr>
-              <tr>
-                <td>Squaring</td>
-                <td>{`$[f(x)]^2 = c^2$`}</td>
-                <td>May produce extraneous roots always verify</td>
-              </tr>
-            </tbody>
-          </table>
-
           <h2>Common Errors</h2>
           <table className="lrn-table">
             <thead>
@@ -2433,35 +2051,9 @@ function useConfig() {
             </thead>
             <tbody>
               <tr>
-                <td>Radical equation</td>
-                <td>Forgetting to check for extraneous roots</td>
-                <td>Substitute every candidate back into the original</td>
-              </tr>
-              <tr>
-                <td>Absolute value casework</td>
-                <td>Skipping the sign condition</td>
-                <td>Verify each solution satisfies its case</td>
-              </tr>
-              <tr>
-                <td>Floor of a negative</td>
-                <td>{`$\\lfloor -5.3 \\rfloor = -5$`}</td>
-                <td>
-                  {`$\\lfloor -5.3 \\rfloor = -6$`} floor rounds toward {`$-\\infty$`}
-                </td>
-              </tr>
-              <tr>
                 <td>Cancelling rational expressions</td>
                 <td>Cancelling without listing where the factor is zero</td>
                 <td>Note every value that makes the cancelled factor zero</td>
-              </tr>
-              <tr>
-                <td>Iterated exponents</td>
-                <td>
-                  {`$(a^b)^c$`} treated as {`$a^{b^c}$`}
-                </td>
-                <td>
-                  {`$(a^b)^c = a^{bc}$`}; without parentheses, {`$a^{b^c}$`} is different
-                </td>
               </tr>
             </tbody>
           </table>
@@ -2470,7 +2062,7 @@ function useConfig() {
     },
 
     customCss:
-      '.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }'
+      '.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }'
   }
 
   return config

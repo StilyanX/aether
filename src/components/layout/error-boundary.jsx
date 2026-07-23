@@ -13,6 +13,17 @@ const isChunkError = err =>
     err?.message || ''
   )
 
+// A 3D viz that fails to get a WebGL context throws asynchronously (react-three-
+// fiber mounts the renderer inside an effect), so the failure escapes React's
+// error boundaries and surfaces as an unhandled rejection / window error. Without
+// this guard the app-level boundary treats one broken viz as a whole-app fault.
+// Scene3D already degrades these gracefully in place; this refuses to escalate a
+// stray one to a full-app fault.
+const isRecoverableVizError = err =>
+  /WebGL|WebGLRenderer|Error creating WebGL context|context could not be created/i.test(
+    err?.message || ''
+  )
+
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props)
@@ -25,6 +36,7 @@ class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     this.setState({ errorInfo })
+    this.props.onError?.(error)
     logError(error, {
       correlationId: this.state.correlationId,
       level: this.props.level || 'app',
@@ -36,6 +48,10 @@ class ErrorBoundary extends Component {
     if ((this.props.level || 'app') !== 'app') return
     this.handleWindowError = event => {
       const err = event.error || new Error(event.message || 'Unhandled error')
+      if (isRecoverableVizError(err)) {
+        logError(err, { source: 'window.error', level: 'app', recovered: true })
+        return
+      }
       this.setState({
         hasError: true,
         error: err,
@@ -47,6 +63,10 @@ class ErrorBoundary extends Component {
     this.handleRejection = event => {
       const reason = event.reason
       const err = reason instanceof Error ? reason : new Error(String(reason))
+      if (isRecoverableVizError(err)) {
+        logError(err, { source: 'unhandledrejection', level: 'app', recovered: true })
+        return
+      }
       this.setState({
         hasError: true,
         error: err,

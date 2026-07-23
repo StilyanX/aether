@@ -123,6 +123,9 @@ export function useFSRS(topicSlug, cards) {
   const { reviewQueue, newQueue } = useMemo(() => {
     if (!idbCards) return { reviewQueue: [], newQueue: [] }
     const now = new Date()
+    // Learn-ahead: pull cards due within the next N minutes into today's queue,
+    // so a session doesn't run dry seconds before the next card unlocks.
+    const horizon = new Date(now.getTime() + (settings.learnAheadMinutes || 0) * 60000)
     const cardMap = new Map(idbCards.map(c => [c.id, c]))
     const review = []
     const newCards = []
@@ -132,13 +135,13 @@ export function useFSRS(topicSlug, cards) {
       const record = cardMap.get(id)
       if (!record || record.state === State.New || record.state === 0) {
         newCards.push({ ...card, index, id, record: record ?? null })
-      } else if (new Date(record.due) <= now) {
+      } else if (new Date(record.due) <= horizon) {
         review.push({ ...card, index, id, record })
       }
     })
 
     return { reviewQueue: review, newQueue: newCards }
-  }, [idbCards, cards, topicSlug])
+  }, [idbCards, cards, topicSlug, settings.learnAheadMinutes])
 
   const pacing = DIFFICULTY_PACING[settings.difficulty] ?? DIFFICULTY_PACING.auto
   const reviewCount = reviewQueue.length
@@ -280,9 +283,21 @@ export function useFSRS(topicSlug, cards) {
       .filter(d => d > now)
       .sort((a, b) => a - b)
     if (!future.length) return null
-    const diff = Math.ceil((future[0] - now) / 86400000)
-    return diff <= 1 ? 'tomorrow' : `in ${diff} days`
-  }, [idbCards])
+
+    // "Day starts at" defines when today's studying day rolls into the next -
+    // a card due at 1am reads as "later today" if the day hasn't rolled yet.
+    const [dh, dm] = (settings.dayStartsAt || '04:00').split(':').map(Number)
+    const dayBoundary = new Date(now)
+    dayBoundary.setHours(dh, dm, 0, 0)
+    if (dayBoundary <= now) dayBoundary.setDate(dayBoundary.getDate() + 1)
+
+    if (future[0] < dayBoundary) return 'later today'
+    const followingBoundary = new Date(dayBoundary)
+    followingBoundary.setDate(followingBoundary.getDate() + 1)
+    if (future[0] < followingBoundary) return 'tomorrow'
+    const diff = Math.ceil((future[0] - dayBoundary) / 86400000) + 1
+    return `in ${diff} days`
+  }, [idbCards, settings.dayStartsAt])
 
   return {
     loading: idbCards === null,

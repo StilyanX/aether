@@ -1,12 +1,13 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
 import { AveragingViz as AveragingVizAether } from '../../../../../components/viz'
+import { SmallDenominatorStem } from '../../../../../components/viz'
 
 const config = {
   cssPrefix: 'acpt',
   documentTitle: 'Averaging and Canonical Perturbation Theory - AETHER',
   learning: {
     groupTitle: 'Perturbation Theory and Advanced Topics',
-    category: 'Mathematical Methods of Classical Mechanics (Arnold)',
+    category: 'Perturbation Theory and Advanced Topics',
     title: 'Averaging and Canonical Perturbation Theory',
     subtitle:
       'Integrable systems, action-angle variables, conditionally periodic motion, averaging principle, adiabatic invariants.',
@@ -31,27 +32,15 @@ const config = {
         </div>
 
         <p>
-          A <strong>Hamiltonian system</strong> describes how a physical system evolves. The phase
-          space has {`$2n$`} dimensions, where {`$n$`} is the number of degrees of freedom. A point
-          in phase space gives you the full state: all positions {`$q_1, \\ldots, q_n$`} and all
-          momenta {`$p_1, \\ldots, p_n$`}.
-        </p>
-
-        <p>
-          A <strong>first integral</strong> (also called a conserved quantity) is a function{' '}
-          {`$F(p, q)$`} that does not change along trajectories. The condition is:{' '}
-          {`$\\{H, F\\} = 0$`}, where {`$\\{H, F\\}$`} is the <strong>Poisson bracket</strong>:{' '}
+          You already know the pieces from the earlier pages on Hamiltonian systems and
+          conditionally periodic motion: a Hamiltonian on a {`$2n$`}-dimensional phase space, a{' '}
+          <strong>first integral</strong> {`$F$`} as a conserved quantity ({`$\\{H, F\\} = 0$`} with
+          the Poisson bracket{' '}
           {`$\\{H, F\\} = \\sum_i \\frac{\\partial H}{\\partial p_i}\\frac{\\partial F}{\\partial q_i} - \\frac{\\partial H}{\\partial q_i}\\frac{\\partial F}{\\partial p_i}$`}
-          . It measures how much {`$F$`} changes along the flow of {`$H$`}. When it is zero, {`$F$`}{' '}
-          does not change. Geometrically, {`$F = \\mathrm{const}$`} defines a surface that the
-          trajectory never leaves.
-        </p>
-
-        <p>
-          <strong>What involution means.</strong> Two functions {`$F_i$`} and {`$F_j$`} are{' '}
-          <strong>in involution</strong> if their Poisson bracket is zero: {`$\\{F_i, F_j\\} = 0$`}.
-          This is a compatibility condition. It means the two conserved quantities are compatible:
-          knowing one does not force the other to change.
+          ), and two integrals being <strong>in involution</strong> when {`$\\{F_i, F_j\\} = 0$`}.
+          Involution is a compatibility condition: knowing one integral does not force the other to
+          change. This page picks up at the consequence: what those {`$n$`} integrals do to the
+          shape of the motion.
         </p>
 
         <div className="lrn-elaborate">
@@ -134,18 +123,22 @@ const config = {
 
         <p>
           <strong>Lemma 1: the tangent vectors commute.</strong> For each first integral {`$F_i$`},
-          define the <strong>Hamiltonian vector field</strong> {`$X_{F_i}$`}, the unique vector
-          field satisfying {`$\\omega^2(X_{F_i}, \\cdot) = dF_i(\\cdot)$`}. These {`$n$`} vector
-          fields on {`$M_f$`} are linearly independent, and they commute:{' '}
+          define the <strong>Hamiltonian vector field</strong> {`$X_{F_i}$`} (the flow direction the
+          integral {`$F_i$`} generates), the unique vector field satisfying{' '}
+          {`$\\omega^2(X_{F_i}, \\cdot) = dF_i(\\cdot)$`}. Here {`$\\omega^2$`} is the symplectic
+          2-form (not a frequency squared) and {`$dF_i$`} is the gradient 1-form of {`$F_i$`}; the
+          equation says the flow of {`$F_i$`} is the symplectic rotation of its gradient. These{' '}
+          {`$n$`} vector fields on {`$M_f$`} are linearly independent, and they commute:{' '}
           {`$[X_{F_i}, X_{F_j}] = X_{\\{F_i, F_j\\}} = X_0 = 0$`}.
         </p>
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            The Poisson bracket and the Lie bracket of vector fields are compatible: the Lie bracket
-            of two Hamiltonian vector fields equals the Hamiltonian vector field of their Poisson
-            bracket, {`$[X_{F_i}, X_{F_j}] = X_{\\{F_i, F_j\\}}$`}. Since {`$\\{F_i, F_j\\} = 0$`}{' '}
+            The map {`$F \\mapsto X_F$`} from functions to Hamiltonian vector fields is a standard
+            Lie algebra homomorphism: it always sends the Poisson bracket to the Lie bracket of
+            vector fields, {`$[X_{F_i}, X_{F_j}] = X_{\\{F_i, F_j\\}}$`}. This is a structural fact
+            about the symplectic form, not a special assumption. Since {`$\\{F_i, F_j\\} = 0$`}{' '}
             (involution), {`$X_{\\{F_i, F_j\\}} = 0$`}, so the vector fields commute.
           </p>
         </div>
@@ -161,11 +154,11 @@ const config = {
         <p>
           <strong>Why this is true (sketch).</strong> The {`$n$`} commuting vector fields define a
           group action of {`$\\mathbb{R}^n$`} on {`$M$`}. The map {`$g: \\mathbb{R}^n \\to M$`}{' '}
-          given by {`$g(t) = g^t x_0$`} is a local diffeomorphism. The{' '}
-          <strong>stationary group</strong> {`$\\Gamma = \\{t : g^t x_0 = x_0\\}$`} is a discrete
-          subgroup of {`$\\mathbb{R}^n$`}. On a compact manifold, {`$\\Gamma$`} must be a{' '}
-          <strong>lattice</strong> (it spans all of {`$\\mathbb{R}^n$`}). Then{' '}
-          {`$M \\cong \\mathbb{R}^n / \\Gamma \\cong T^n$`}.
+          given by {`$g(t) = g^t x_0$`} is a local diffeomorphism (a smooth, smoothly invertible map
+          near each point). The <strong>stationary group</strong>{' '}
+          {`$\\Gamma = \\{t : g^t x_0 = x_0\\}$`} is a discrete subgroup of {`$\\mathbb{R}^n$`}. On
+          a compact manifold, {`$\\Gamma$`} must be a <strong>lattice</strong> (it spans all of{' '}
+          {`$\\mathbb{R}^n$`}). Then {`$M \\cong \\mathbb{R}^n / \\Gamma \\cong T^n$`}.
         </p>
 
         <div className="lrn-self-explain">
@@ -220,12 +213,9 @@ const config = {
         </p>
 
         <p>
-          <strong>Constructive proof.</strong> Pick the nonzero vector {`$e_1 \\in \\Gamma$`}{' '}
-          closest to the origin. Then {`$\\Gamma \\cap \\mathbb{R} e_1 = \\mathbb{Z} e_1$`}. If
-          there are elements of {`$\\Gamma$`} not on this line, pick the one closest to it in the
-          transverse direction; call it {`$e_2$`}. Continue. At each step the new vector is the one
-          nearest to the span of the previous ones. After at most {`$n$`} steps,{' '}
-          {`$\\Gamma = \\mathbb{Z} e_1 + \\cdots + \\mathbb{Z} e_k$`}.
+          <strong>How the basis is built.</strong> Take the shortest nonzero vector for {`$e_1$`},
+          then the shortest vector off that line for {`$e_2$`}, and so on. After at most {`$n$`}{' '}
+          such steps, {`$\\Gamma = \\mathbb{Z} e_1 + \\cdots + \\mathbb{Z} e_k$`}.
         </p>
 
         <p>
@@ -283,8 +273,8 @@ const config = {
           </li>
           <li>
             The symplectic form takes the canonical form:{' '}
-            {`$\\omega^2 = \\sum_i dI_i \\wedge d\\varphi_i$`}. (Here {`$\\omega^2$`} is Arnold's
-            notation for the symplectic 2-form - not the square of a frequency. It is the geometric
+            {`$\\omega^2 = \\sum_i dI_i \\wedge d\\varphi_i$`}. (Here {`$\\omega^2$`} is our
+            notation for the symplectic 2-form, not the square of a frequency. It is the geometric
             structure that pairs positions with momenta.)
           </li>
           <li>
@@ -320,7 +310,7 @@ const config = {
             <summary>Check your thinking</summary>
             <p>
               The area enclosed by the oval is the most natural size variable. It is symplectically
-              invariant and increases monotonically with energy.
+              invariant and increases steadily with energy.
             </p>
           </details>
         </div>
@@ -402,9 +392,8 @@ const config = {
           {`$H = \\frac{1}{2}p^2 - \\cos q$`}. For {`$h < 1$`} (motion below the separatrix), the
           level set {`$M_h$`} is a compact closed curve. The action{' '}
           {`$I(h) = \\frac{1}{2\\pi} \\oint p \\, dq$`} must be computed numerically for general{' '}
-          {`$h$`}. The key point is that {`$I$`} is well-defined and increases monotonically from{' '}
-          {`$0$`} (at the stable equilibrium {`$h = -1$`}) to a maximum at the separatrix{' '}
-          {`$h = 1$`}.
+          {`$h$`}. The key point is that {`$I$`} is well-defined and increases steadily from {`$0$`}{' '}
+          (at the stable equilibrium {`$h = -1$`}) to a maximum at the separatrix {`$h = 1$`}.
         </p>
 
         <div className="lrn-self-explain">
@@ -413,8 +402,9 @@ const config = {
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
             <p>
-              The separatrix is a homoclinic orbit with finite area. The period diverges (it takes
-              infinitely long to reach the unstable equilibrium), but the area stays finite.
+              The separatrix is a homoclinic orbit (a path that leaves the unstable equilibrium and
+              returns to the same point) with finite area. The period diverges, since it takes
+              infinitely long to reach the unstable equilibrium, but the area stays finite.
             </p>
           </details>
         </div>
@@ -609,6 +599,20 @@ const config = {
         </div>
 
         <p>
+          <strong>First, the tool: the Fourier series on a torus.</strong> Any smooth function on
+          the torus splits into a sum of pure waves, one for each integer vector{' '}
+          {`$k = (k_1, \\ldots, k_n)$`}:
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$f(\\varphi) = \\sum_{k \\in \\mathbb{Z}^n} \\hat{f}_k \\, e^{i k \\cdot \\varphi}, \\quad k \\cdot \\varphi = k_1 \\varphi_1 + \\cdots + k_n \\varphi_n$$`}</div>
+        <p>
+          The coefficient {`$\\hat{f}_k$`} measures how much of the wave{' '}
+          {`$e^{i k \\cdot \\varphi}$`} is in {`$f$`}. The single term {`$k = 0$`} is a constant,
+          equal to the average of {`$f$`}; every other term oscillates and has zero average. This
+          split is what makes the averaging proofs below work: you check each pure wave on its own,
+          then add them up.
+        </p>
+
+        <p>
           <strong>The space average.</strong> For a function {`$f(\\varphi)$`} on the torus{' '}
           {`$T^n$`}, the space average is:
         </p>
@@ -716,7 +720,7 @@ const config = {
               limit.
             </p>
           </div>
-          <div className="lrn-faded-phase">
+          <div className="lrn-faded-phase lrn-faded-partial">
             <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
             <ol className="lrn-list">
               <li>
@@ -806,7 +810,10 @@ const config = {
         <div className="lrn-eq">{`$$\\det\\!\\left(\\frac{\\partial^2 H}{\\partial I^2}\\right) = \\det\\!\\left(\\frac{\\partial \\omega}{\\partial I}\\right) \\neq 0$$`}</div>
         <p>
           This means the frequencies change as the action changes. It ensures that different tori
-          have genuinely different frequency vectors.
+          have genuinely different frequency vectors. Nondegeneracy is the condition behind{' '}
+          <strong>KAM theory</strong>, which says most invariant tori survive a small perturbation
+          as long as their frequencies stay far from resonance. The later section on small
+          denominators makes this precise.
         </p>
 
         <div className="lrn-compare">
@@ -882,16 +889,20 @@ const config = {
         </p>
 
         <p>
-          <strong>Historical note.</strong> Gauss discovered the averaging principle by distributing
-          the mass of each planet proportionally along its orbit. There is no satisfactory general
-          proof for {`$n > 1$`} frequencies.
+          The single-frequency version of this principle, with its rigorous error bound, is carried
+          by the earlier Hannay-angle page. Here we work the multi-frequency case, where {`$k$`}{' '}
+          fast angles raise the new problem of resonance. There is no satisfactory general proof of
+          the averaging principle for {`$k > 1$`} frequencies.
         </p>
 
         <p>
-          <strong>Crucial result for Hamiltonian systems.</strong> In a nondegenerate Hamiltonian
+          <strong>Key result for Hamiltonian systems.</strong> In a nondegenerate Hamiltonian
           system, the average of {`$g$`} is exactly zero: {`$\\bar{g} = 0$`}. The averaged actions
-          have no secular drift. This is the <strong>Laplace theorem</strong>: the semi-major axes
-          of planetary orbits have no secular perturbations (to first order).
+          have no <strong>secular drift</strong>. A secular term is a steady one-way drift that
+          builds up over time, not an oscillation: an oscillation cancels over a cycle, while a
+          secular term keeps adding up. So {`$\\bar{g} = 0$`} means the actions only wobble, they do
+          not creep. This is the <strong>Laplace theorem</strong>: the semi-major axes of planetary
+          orbits have no secular perturbations, to first order.
         </p>
 
         <div className="lrn-elaborate">
@@ -910,16 +921,50 @@ const config = {
             <span className="lrn-compare-title">Hamiltonian System</span>
             <p>
               {`$\\bar{g} = 0$`} exactly. No first-order secular drift of actions. Laplace theorem:
-              semi-major axes are stable.
+              semi-major axes have no first-order secular drift.
             </p>
           </div>
           <div className="lrn-compare-col">
             <span className="lrn-compare-title">General System</span>
             <p>
-              {`$\\bar{g}$`} need not be zero. Actions can drift secularly. Averaging principle is a
-              heuristic without general proof.
+              {`$\\bar{g}$`} need not be zero. Actions can drift steadily. The averaging principle
+              is an unproven rule of thumb for the general case.
             </p>
           </div>
+        </div>
+
+        <p>
+          <strong>Worked example: averaging with two fast angles, near resonance.</strong> Take a
+          single action {`$I$`} driven by two fast angles, with
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$\\dot{I} = \\varepsilon\\, g(\\varphi_1, \\varphi_2), \\quad g = \\cos\\varphi_1 + \\tfrac{1}{2}\\cos(\\varphi_1 - \\varphi_2), \\quad \\dot{\\varphi}_1 = \\omega_1, \\; \\dot{\\varphi}_2 = \\omega_2$$`}</div>
+        <p>
+          <strong>Step 1: average over the full 2-torus.</strong> Integrate {`$g$`} over both angles
+          from {`$0$`} to {`$2\\pi$`}. Each cosine has zero average, so{' '}
+          {`$\\bar{g} = (2\\pi)^{-2}\\!\\int_0^{2\\pi}\\!\\!\\int_0^{2\\pi} g\\,d\\varphi_1 d\\varphi_2 = 0$`}
+          . Full-torus averaging predicts no drift of {`$I$`}.
+        </p>
+        <p>
+          <strong>Step 2: check the frequencies.</strong> The dangerous integer vector is{' '}
+          {`$k = (1, -1)$`}, giving {`$k \\cdot \\omega = \\omega_1 - \\omega_2$`}. When{' '}
+          {`$\\omega_1$`} and {`$\\omega_2$`} are far apart, both cosines are genuinely fast and the
+          Step 1 average is trustworthy: {`$I$`} only wobbles.
+        </p>
+        <p>
+          <strong>Step 3: move near resonance.</strong> Let {`$\\omega_1 - \\omega_2 = \\delta$`} be
+          small. Then the combination {`$\\varphi_1 - \\varphi_2 = \\delta t + \\text{const}$`}{' '}
+          drifts slowly, so the term {`$\\tfrac{1}{2}\\cos(\\varphi_1 - \\varphi_2)$`} is no longer
+          fast. It cannot be averaged away. Over a time {`$\\sim 1/\\delta$`} it holds nearly one
+          sign, and {`$I$`} drifts by a real amount {`$\\sim \\varepsilon/\\delta$`}. The full-torus
+          average missed it.
+        </p>
+        <div className="lrn-insight">
+          <p>
+            This is the small-denominator effect in plain sight. The resonant combination{' '}
+            {`$k \\cdot \\omega = \\delta \\to 0$`} is exactly the vanishing denominator from the
+            homological equation. Near resonance, you must average only over the fast angle and keep
+            the slow resonant combination as a real variable.
+          </p>
         </div>
       </>,
 
@@ -954,239 +999,132 @@ const config = {
           {`$[0, \\frac{1}{\\varepsilon}]$`}.
         </p>
 
-        <AveragingVizAether />
+        <figure>
+          <AveragingVizAether />
+          <figcaption>
+            The jagged curve is the true action {`$I(t)$`}: it oscillates as the fast angle winds.
+            The smooth curve is the averaged action {`$J(t)$`}. The shaded band is the{' '}
+            {`$O(\\varepsilon)$`} gap the theorem guarantees: {`$I(t)$`} never strays outside it
+            over {`$[0, \\frac{1}{\\varepsilon}]$`}.
+          </figcaption>
+        </figure>
 
         <p>
           <strong>Scope of the theorem.</strong> The theorem is proved only for single-frequency (
-          {`$k=1$`}) systems. For multi-frequency systems, no satisfactory general proof exists.
-          Arnold's text explicitly notes this gap. The averaging principle is believed to hold but
-          is not proved in general.
+          {`$k=1$`}) systems. For multi-frequency systems, no satisfactory general proof exists. The
+          averaging principle is believed to hold but is not proved in general. The obstruction is
+          the small denominators: with several fast angles, some integer combination{' '}
+          {`$k \\cdot \\omega$`} can approach zero, and the bounded-correction argument above fails.
         </p>
       </>,
 
       <>
-        <h2>Proof of the Averaging Theorem</h2>
+        <h2>The Zero-Mean Condition Behind the Proof</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
           <p>
-            To show {`$I(t)$`} and {`$J(t)$`} stay close, you need to control the difference{' '}
-            {`$I - J$`}. What kind of change of variables might convert the rapidly oscillating
-            terms into something small?
+            To show {`$I(t)$`} and {`$J(t)$`} stay close, you change variables to{' '}
+            {`$P = I + \\varepsilon k(I, \\varphi)$`} and choose {`$k$`} to cancel the oscillating
+            part of {`$g$`}. For {`$k$`} to stay bounded, what must be true of the part of {`$g$`}{' '}
+            you are integrating?
           </p>
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              A near-identity transformation {`$P = I + \\varepsilon k(I, \\varphi)$`} that absorbs
-              the oscillating part of {`$g$`} into the correction {`$k$`}.
+              It must have zero average. Integrating a piece with nonzero average grows without
+              bound; only the zero-mean part {`$\\tilde{g} = g - \\bar{g}$`} integrates to a
+              bounded, periodic correction.
             </p>
           </details>
         </div>
 
         <p>
-          <strong>Proof strategy.</strong> The proof uses the method of variation of constants.
-          Define new variables {`$P = I + \\varepsilon k(I, \\varphi)$`}, where {`$k$`} is chosen to
-          cancel the rapidly oscillating part of {`$g$`}.
+          The single-frequency averaging theorem is proved with a near-identity change of variables{' '}
+          {`$P = I + \\varepsilon k(I, \\varphi)$`}, where {`$k$`} absorbs the oscillating part of{' '}
+          {`$g$`}. The earlier page on the Hannay angle carries that proof in full: the choice of{' '}
+          {`$k$`}, the cancellation of the {`$O(\\varepsilon)$`} terms, the Gronwall step that turns
+          an {`$O(\\varepsilon^2)$`} remainder over time {`$\\frac{1}{\\varepsilon}$`} into an{' '}
+          {`$O(\\varepsilon)$`} bound. We do not repeat it here. We pull out the one fact that the
+          rest of this page builds on.
         </p>
 
-        <div className="lrn-steps">
-          <div className="lrn-step">
-            <span className="lrn-step-title">Step 1: Choose k</span>
-            <p className="lrn-step-content">
-              We need {`$\\frac{dk}{d\\varphi} = -\\frac{1}{\\omega} \\tilde{g}$`}. Define{' '}
-              {`$k(P, \\varphi) = -\\int_0^\\varphi \\frac{\\tilde{g}(P, \\psi)}{\\omega(P)} \\, d\\psi$`}
-              , where {`$\\tilde{g} = g - \\bar{g}$`} is the zero-mean part of {`$g$`}.
-            </p>
-          </div>
-          <div className="lrn-step">
-            <span className="lrn-step-title">Step 2: Equation for P</span>
-            <p className="lrn-step-content">
-              Compute{' '}
-              {`$\\dot{P} = \\dot{I} + \\varepsilon \\frac{\\partial k}{\\partial I} \\dot{I} + \\varepsilon \\frac{\\partial k}{\\partial \\varphi} \\dot{\\varphi}$`}
-              . By construction, the {`$O(\\varepsilon)$`} oscillating terms cancel. What remains is{' '}
-              {`$\\dot{P} = \\varepsilon \\bar{g}(P) + R$`}, where the remainder {`$R$`} is of order{' '}
-              {`$\\varepsilon^2$`}.
-            </p>
-          </div>
-          <div className="lrn-step">
-            <span className="lrn-step-title">Step 3: Comparison</span>
-            <p className="lrn-step-content">
-              The averaged system satisfies {`$\\dot{J} = \\varepsilon \\bar{g}(J)$`}. The
-              difference {`$P - J$`} has right-hand side of order {`$\\varepsilon^2$`}. By the
-              Gronwall inequality, {`$|P(t) - J(t)| = O(\\varepsilon)$`} over time{' '}
-              {`$\\frac{1}{\\varepsilon}$`}.
-            </p>
-          </div>
-          <div className="lrn-step">
-            <span className="lrn-step-title">Step 4: Convert Back</span>
-            <p className="lrn-step-content">
-              Since {`$P = I + \\varepsilon k$`} and {`$k$`} is bounded,{' '}
-              {`$|I - P| = O(\\varepsilon)$`}. Therefore{' '}
-              {`$|I(t) - J(t)| \\leq |I - P| + |P - J| = O(\\varepsilon)$`}.
-            </p>
-          </div>
-        </div>
+        <p>
+          <strong>The solvability condition.</strong> You must set{' '}
+          {`$\\frac{dk}{d\\varphi} = -\\frac{1}{\\omega}\\,\\tilde{g}$`}, so that{' '}
+          {`$k(P, \\varphi) = -\\int_0^\\varphi \\frac{\\tilde{g}(P, \\psi)}{\\omega(P)}\\,d\\psi$`}
+          . This {`$k$`} stays bounded and periodic only because {`$\\tilde{g} = g - \\bar{g}$`} has
+          zero average. If {`$g$`} had a nonzero average left in it, the integral would grow without
+          bound and the change of variables would not be small. So the correction exists exactly
+          when you have first subtracted the average.
+        </p>
 
-        <div className="lrn-faded">
-          <div className="lrn-faded-phase">
-            <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-            <p>
-              The Gronwall lemma application: (1) set up the integral inequality for {`$|P - J|$`};
-              (2) bound the right-hand side by {`$c \\varepsilon^2 t$`}; (3) apply Gronwall to get{' '}
-              {`$|P(t) - J(t)| \\leq C \\varepsilon^2 t$`}; (4) set{' '}
-              {`$t = \\frac{1}{\\varepsilon}$`} to get {`$C\\varepsilon$`}.
-            </p>
-          </div>
-          <div className="lrn-faded-phase">
-            <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-            <ol className="lrn-list">
-              <li>Write the ODE for {`$u(t) = |P(t) - J(t)|$`}.</li>
-              <li>
-                Bound {`$\\dot{u}$`} using the {`$O(\\varepsilon^2)$`} remainder.
-              </li>
-              <li>Integrate to get {`$u(t) \\leq C\\varepsilon^2 t$`}.</li>
-            </ol>
-          </div>
-          <div className="lrn-faded-phase">
-            <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
-            <p>
-              Verify that at {`$t = \\frac{1}{\\varepsilon}$`}, the bound{' '}
-              {`$C\\varepsilon^2 \\cdot \\frac{1}{\\varepsilon} = C\\varepsilon$`} is indeed{' '}
-              {`$O(\\varepsilon)$`}.
-            </p>
-          </div>
-        </div>
-
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
+        <div className="lrn-insight">
           <p>
-            Why does the remainder {`$R$`} being {`$O(\\varepsilon^2)$`} suffice to control the
-            difference over time {`$\\frac{1}{\\varepsilon}$`}?
+            This zero-mean condition is the one-frequency shadow of the small denominators. With one
+            fast angle, dividing by {`$\\omega$`} is always safe. With several fast angles, the same
+            step divides by {`$k \\cdot \\omega$`}, which can come close to zero. The
+            single-frequency proof works precisely because that denominator can never be small.
           </p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              Because integrating {`$O(\\varepsilon^2)$`} over time {`$\\frac{1}{\\varepsilon}$`}{' '}
-              gives {`$O(\\varepsilon^2 \\cdot \\frac{1}{\\varepsilon}) = O(\\varepsilon)$`}. The
-              small size of {`$R$`} and the limited time interval conspire to keep the error small.
-            </p>
-          </details>
-        </div>
-
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Averaging Principle (Heuristic)</span>
-            <p>
-              Replace oscillating system by its average. No rigorous error bound. No general proof
-              for multi-frequency. Used broadly in practice.
-            </p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Averaging Theorem (Rigorous)</span>
-            <p>
-              Proves {`$|I(t) - J(t)| < c\\varepsilon$`} for{' '}
-              {`$t \\in [0, \\frac{1}{\\varepsilon}]$`}. Single-frequency only. Method of variation
-              of constants.
-            </p>
-          </div>
         </div>
       </>,
 
       <>
-        <h2>Adiabatic Invariants</h2>
+        <h2>Adiabatic Invariants: Action Under Slow Change</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
           <p>
-            A pendulum swings with slowly increasing length. Do you expect the amplitude to grow,
-            shrink, or stay roughly constant as the length increases?
+            A pendulum swings while its length grows slowly. The action {`$I = \\frac{h}{\\omega}$`}{' '}
+            stays nearly fixed. As the pendulum lengthens, does the swing's angular amplitude grow
+            or shrink?
           </p>
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              The amplitude grows. The action {`$I = \\frac{h}{\\omega}$`} is conserved. For small
-              swings, {`$h \\approx \\frac{1}{2}\\omega^2 A^2$`} where {`$A$`} is amplitude, so{' '}
-              {`$A^2 = \\frac{2h}{\\omega^2} = \\frac{2I}{\\omega}$`}. As {`$\\omega$`} decreases
-              (longer pendulum), {`$A^2 = \\frac{2I}{\\omega}$`} grows. The amplitude grows even as
-              the energy drops.
+              The angular amplitude shrinks. A longer pendulum has lower frequency, but the action
+              fixes a combination of length and amplitude. Working it out gives{' '}
+              {`$\\theta_{\\max} \\propto L^{-3/4}$`}: the swing narrows as the pendulum lengthens.
             </p>
           </details>
         </div>
 
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">Adiabatic Invariant</span>
-          <div className="lrn-definition-desc">
-            <p>
-              A quantity {`$I(p, q; \\lambda)$`} is an <strong>adiabatic invariant</strong> for{' '}
-              {`$H(p, q; \\varepsilon t)$`} if{' '}
-              {`$|I(p(t), q(t); \\varepsilon t) - I(p(0), q(0); 0)| < \\kappa$`} for all{' '}
-              {`$t \\in [0, \\frac{1}{\\varepsilon}]$`}. The parameter{' '}
-              {`$\\lambda = \\varepsilon t$`} changes slowly, and {`$I$`} stays within {`$\\kappa$`}{' '}
-              of its initial value for the entire slow time scale.
-            </p>
-          </div>
-        </div>
-
         <p>
-          <strong>The action is an adiabatic invariant.</strong> For a slowly varying 1D
-          Hamiltonian, the action variable{' '}
-          {`$I(p, q; \\lambda) = \\frac{1}{2\\pi} \\Pi(h; \\lambda)$`} (the area enclosed by the
-          phase curve divided by {`$2\\pi$`}) is an adiabatic invariant.
+          You already met adiabatic invariants for a slowly changing system. An adiabatic invariant
+          stays within a small bound over the whole slow time scale{' '}
+          {`$[0, \\frac{1}{\\varepsilon}]$`}, even though it is not exactly conserved. The headline
+          fact is that the action variable {`$I = \\frac{1}{2\\pi}\\Pi(h; \\lambda)$`} (the
+          phase-area divided by {`$2\\pi$`}) is an adiabatic invariant of a slowly varying
+          one-degree-of-freedom system. The slow harmonic oscillator ({`$I = \\frac{h}{\\omega}$`},
+          energy tracks frequency), the ball between slowly moving walls ({`$vl = \\text{const}$`}),
+          and the link to the quantum number are all standard examples carried by the earlier
+          adiabatic-invariants page.
         </p>
 
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">First Integral</span>
-            <p>
-              Exactly conserved for all time: {`$F(p(t), q(t)) = F(p(0), q(0))$`} exactly. Does not
-              require slow variation of parameters.
-            </p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Adiabatic Invariant</span>
-            <p>
-              Only approximately conserved (to {`$O(\\varepsilon)$`}) over time interval{' '}
-              {`$[0, \\frac{1}{\\varepsilon}]$`}. Requires slowly varying parameter. Every first
-              integral is adiabatically invariant, but not vice versa.
-            </p>
-          </div>
-        </div>
-
         <p>
-          <strong>Adiabatic invariant of the harmonic oscillator.</strong> For{' '}
-          {`$H = \\frac{a^2}{2}p^2 + \\frac{b^2}{2}q^2$`} with {`$\\omega = ab$`} slowly varying:
-        </p>
-        <div className="lrn-eq lrn-eq-display">{`$$I = \\frac{h}{\\omega}$$`}</div>
-        <p>
-          As {`$\\omega$`} changes slowly, {`$I = \\frac{h}{\\omega}$`} remains approximately
-          constant. If {`$\\omega$`} doubles, the energy {`$h = I\\omega$`} doubles too.
+          What this page adds is the proof, built from the averaging machinery above, and one
+          quantitative law worth deriving in full.
         </p>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            The ratio {`$I = \\frac{h}{\\omega}$`} is the energy divided by the frequency. For a
-            quantum harmonic oscillator, this is proportional to the quantum number {`$n$`}{' '}
-            (Planck's {`$E = n\\hbar\\omega$`}). The adiabatic invariant is the classical precursor
-            of the quantum number: it is the quantity that does not change when the system changes
-            slowly, and it determines which quantum state the system ends up in after a slow change.
-          </p>
-        </div>
-
         <p>
-          <strong>Example: elastic ball between slowly varying walls.</strong> A ball bouncing
-          between two walls separated by distance {`$l$`} has adiabatic invariant {`$vl$`} (velocity
-          times wall separation). As the walls move together slowly, {`$vl = \\text{const}$`}, so
-          the velocity increases as {`$v \\propto \\frac{1}{l}$`}.
+          <strong>The lengthening pendulum, in numbers.</strong> A pendulum of length {`$L$`} has
+          small-swing frequency {`$\\omega = \\sqrt{g/L} \\propto L^{-1/2}$`}. Its energy at angular
+          amplitude {`$\\theta_{\\max}$`} is {`$h = \\frac{1}{2}mgL\\,\\theta_{\\max}^2$`} (the
+          effective spring constant is {`$mgL$`}). So the action is
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$I = \\frac{h}{\\omega} = \\frac{\\tfrac{1}{2}mgL\\,\\theta_{\\max}^2}{\\sqrt{g/L}} = \\tfrac{1}{2}m\\sqrt{g}\\,L^{3/2}\\,\\theta_{\\max}^2$$`}</div>
+        <p>
+          Adiabatic invariance holds {`$I$`} fixed as {`$L$`} grows slowly. So{' '}
+          {`$L^{3/2}\\theta_{\\max}^2 = \\text{const}$`}, which gives{' '}
+          {`$\\theta_{\\max} \\propto L^{-3/4}$`}. The swing narrows as the pendulum lengthens.
         </p>
 
         <div className="lrn-callout lrn-warning">
           <span className="lrn-callout-label">Warning</span>
           <p>
-            The ball-between-walls result does not formally follow from the averaging theorem
-            because the collisions are instantaneous - the velocity jumps discontinuously - and the
-            averaging theorem requires smooth equations of motion. The result holds empirically but
-            requires separate justification.
+            The ball-between-walls result does not formally follow from the averaging theorem,
+            because the collisions are instant. The velocity jumps, and the averaging theorem needs
+            smooth equations of motion. The result still holds, but it needs separate justification.
           </p>
         </div>
       </>,
@@ -1216,7 +1154,11 @@ const config = {
               At each time {`$t$`}, transform {`$(p, q) \\to (I, \\varphi)$`} using the action-angle
               variables for the frozen Hamiltonian {`$H(\\cdot; \\lambda)$`} with{' '}
               {`$\\lambda = \\varepsilon t$`} fixed. This gives a new Hamiltonian:{' '}
-              {`$K = H_0(I, \\lambda) + \\varepsilon \\frac{\\partial S}{\\partial \\lambda}$`}.
+              {`$K = H_0(I, \\lambda) + \\varepsilon \\frac{\\partial S}{\\partial \\lambda}$`}. The
+              extra {`$\\varepsilon \\frac{\\partial S}{\\partial \\lambda}$`} appears because the
+              transformation depends on time through {`$\\lambda$`}: a time-dependent canonical
+              transformation adds the partial time-derivative of its generating function to the
+              Hamiltonian.
             </p>
           </div>
           <div className="lrn-step">
@@ -1261,13 +1203,300 @@ const config = {
             </p>
           </details>
         </div>
+      </>,
+
+      <>
+        <h2>Canonical Perturbation Theory: The Order-by-Order Idea</h2>
+
+        <div className="lrn-predict">
+          <span className="lrn-predict-label">PREDICT</span>
+          <p>
+            You know action-angle variables make an integrable Hamiltonian depend on the action{' '}
+            {`$I$`} alone, so the angle drops out. Now add a small term{' '}
+            {`$\\varepsilon H_1(I, \\varphi)$`} that brings the angle back. What single change of
+            coordinates would you reach for to make the angle drop out again?
+          </p>
+          <details className="lrn-predict-reveal">
+            <summary>Check your thinking</summary>
+            <p>
+              A canonical transformation, built from a generating function. You already used one to
+              construct action-angle variables. The new idea is to build it as a power series in{' '}
+              {`$\\varepsilon$`} and remove the angle one order at a time.
+            </p>
+          </details>
+        </div>
+
+        <p>
+          The averaging principle told you what the slow drift of the actions looks like on average.
+          Canonical perturbation theory does something sharper. It builds an explicit change of
+          coordinates that pushes the angle dependence to higher and higher order in{' '}
+          {`$\\varepsilon$`}. After the change, the Hamiltonian looks integrable again, up to a
+          controlled error.
+        </p>
+
+        <p>
+          <strong>The setup.</strong> Start from a near-integrable Hamiltonian in action-angle
+          variables of the unperturbed system:
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$H(I, \\varphi) = H_0(I) + \\varepsilon H_1(I, \\varphi) + \\varepsilon^2 H_2(I, \\varphi) + \\cdots$$`}</div>
+        <p>
+          The unperturbed part {`$H_0(I)$`} depends on the action alone. The frequencies are{' '}
+          {`$\\omega(I) = \\frac{\\partial H_0}{\\partial I}$`}. The perturbation terms{' '}
+          {`$H_1, H_2, \\ldots$`} depend on the angle and spoil that nice form. The goal is to find
+          new action-angle variables {`$(I', \\varphi')$`} in which the angle dependence is gone, at
+          least to the order you work to.
+        </p>
+
+        <p>
+          <strong>The plan.</strong> Look for a canonical transformation close to the identity,
+          built from a generating function expanded in powers of {`$\\varepsilon$`}:
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$S(I', \\varphi) = I' \\cdot \\varphi + \\varepsilon S_1(I', \\varphi) + \\varepsilon^2 S_2(I', \\varphi) + \\cdots$$`}</div>
+        <p>
+          The leading term {`$I' \\cdot \\varphi$`} is the identity transformation. Each correction{' '}
+          {`$S_n$`} is chosen to cancel the angle-dependent part of the Hamiltonian at order{' '}
+          {`$\\varepsilon^n$`}. You build the transformation one order at a time, hence "order by
+          order."
+        </p>
+
+        <div className="lrn-elaborate">
+          <span className="lrn-elaborate-label">WHY A GENERATING FUNCTION?</span>
+          <p>
+            A generating function automatically produces a canonical transformation: the new
+            coordinates inherit the symplectic structure, so Hamilton's equations keep their form. A
+            mixed-variable generating function {`$S(I', \\varphi)$`} of the old angle and new action
+            gives {`$I = \\frac{\\partial S}{\\partial \\varphi}$`} and{' '}
+            {`$\\varphi' = \\frac{\\partial S}{\\partial I'}$`}. With{' '}
+            {`$S = I' \\cdot \\varphi + O(\\varepsilon)$`}, this is the identity plus a small
+            correction.
+          </p>
+        </div>
+      </>,
+
+      <>
+        <h2>The Homological Equation</h2>
+
+        <div className="lrn-predict">
+          <span className="lrn-predict-label">PREDICT</span>
+          <p>
+            You want to choose {`$S_1$`} so the first-order angle dependence cancels. The angle
+            dependence is some function {`$H_1(I, \\varphi)$`}. Part of it has zero average over the
+            angle, part of it is the average itself. Which part do you think you can cancel, and
+            which part is stuck?
+          </p>
+          <details className="lrn-predict-reveal">
+            <summary>Check your thinking</summary>
+            <p>
+              You can cancel the zero-average part. The average part cannot be cancelled by any
+              change of coordinates: it has to stay and shift the new Hamiltonian. This is the same
+              zero-mean split you met in the averaging proof.
+            </p>
+          </details>
+        </div>
+
+        <p>
+          <strong>Collect the first-order terms.</strong> Substitute the series for {`$S$`} into the
+          relations {`$I = \\frac{\\partial S}{\\partial \\varphi}$`} and write the new Hamiltonian{' '}
+          {`$K(I') = H(I, \\varphi)$`}. Matching powers of {`$\\varepsilon$`} at order{' '}
+          {`$\\varepsilon^1$`} gives one equation for the unknown {`$S_1$`}:
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$\\omega(I') \\cdot \\frac{\\partial S_1}{\\partial \\varphi} + H_1(I', \\varphi) = \\bar{H}_1(I')$$`}</div>
+        <p>
+          This is the <strong>homological equation</strong>. The known input is {`$H_1$`}. The
+          unknown is {`$S_1$`}. The right side {`$\\bar{H}_1$`} is the angle-average of {`$H_1$`},
+          and it becomes the first-order correction to the new Hamiltonian. The same equation reads{' '}
+          {`$\\{S_1, H_0\\} + H_1 = \\bar{H}_1$`} using the Poisson bracket, since{' '}
+          {`$\\{S_1, H_0\\} = -\\omega \\cdot \\frac{\\partial S_1}{\\partial \\varphi}$`}.
+        </p>
+
+        <div className="lrn-elaborate">
+          <span className="lrn-elaborate-label">WHY THE AVERAGE SURVIVES</span>
+          <p>
+            Write {`$H_1 = \\bar{H}_1 + \\tilde{H}_1$`}, where {`$\\bar{H}_1$`} is the angle-average
+            and {`$\\tilde{H}_1$`} has zero average. The operator{' '}
+            {`$\\omega \\cdot \\frac{\\partial}{\\partial \\varphi}$`} turns any periodic function
+            into one with zero average, because a derivative of a periodic function integrates to
+            zero over a full cycle. So the left side can only ever produce the zero-average part.
+            The average {`$\\bar{H}_1$`} cannot be cancelled. It must move into the new Hamiltonian{' '}
+            {`$K = H_0 + \\varepsilon \\bar{H}_1 + O(\\varepsilon^2)$`}. This matches the averaging
+            principle exactly: the surviving first-order effect is the average of the perturbation.
+          </p>
+        </div>
+
+        <p>
+          <strong>Solving by Fourier series.</strong> Expand both the known perturbation and the
+          unknown generator in the angle Fourier series:{' '}
+          {`$\\tilde{H}_1 = \\sum_{k \\neq 0} \\hat{H}_{1,k}(I') \\, e^{i k \\cdot \\varphi}$`} and{' '}
+          {`$S_1 = \\sum_{k \\neq 0} \\hat{S}_{1,k}(I') \\, e^{i k \\cdot \\varphi}$`}. The operator{' '}
+          {`$\\omega \\cdot \\frac{\\partial}{\\partial \\varphi}$`} multiplies the {`$k$`}-th mode
+          by {`$i (k \\cdot \\omega)$`}. Matching modes in the homological equation gives each
+          coefficient:
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$\\hat{S}_{1,k}(I') = \\frac{i\\,\\hat{H}_{1,k}(I')}{k \\cdot \\omega(I')}, \\quad k \\neq 0$$`}</div>
+        <p>
+          So the homological equation has an explicit solution: divide each Fourier mode of the
+          perturbation by {`$k \\cdot \\omega$`}. The {`$k = 0$`} mode is exactly the average{' '}
+          {`$\\bar{H}_1$`}, which we already moved to the right side.
+        </p>
+      </>,
+
+      <>
+        <h2>Small Denominators and Resonance</h2>
+
+        <div className="lrn-predict">
+          <span className="lrn-predict-label">PREDICT</span>
+          <p>
+            The first-order generator divides each Fourier mode by {`$k \\cdot \\omega$`}. The
+            frequencies {`$\\omega$`} are fixed numbers. What goes wrong if, for some integer vector{' '}
+            {`$k$`}, the combination {`$k \\cdot \\omega$`} happens to be very close to zero?
+          </p>
+          <details className="lrn-predict-reveal">
+            <summary>Check your thinking</summary>
+            <p>
+              The coefficient {`$\\hat{S}_{1,k} = i\\hat{H}_{1,k}/(k \\cdot \\omega)$`} blows up. A
+              tiny denominator makes the correction huge, so the "small" transformation is no longer
+              small. The expansion can fail near such frequencies.
+            </p>
+          </details>
+        </div>
+
+        <p>
+          <strong>The small-denominator problem.</strong> Each Fourier coefficient of the generator
+          carries the factor {`$1/(k \\cdot \\omega)$`}. When the frequencies are rationally
+          independent, {`$k \\cdot \\omega$`} is never exactly zero for {`$k \\neq 0$`}. But it can
+          come arbitrarily close to zero. These are the <strong>small denominators</strong>. A
+          near-resonant combination {`$k \\cdot \\omega \\approx 0$`} makes the matching coefficient{' '}
+          {`$\\hat{S}_{1,k}$`} enormous, and the order-by-order series can stop converging.
+        </p>
+
+        <div className="lrn-callout lrn-warning">
+          <span className="lrn-callout-label">Warning</span>
+          <p>
+            An exact resonance {`$k \\cdot \\omega = 0$`} makes the denominator vanish. Then that
+            Fourier mode of the perturbation cannot be cancelled at all by a near-identity
+            transform. The standard expansion breaks down at and near resonances. This is the same
+            obstruction you saw with degenerate frequencies: when {`$k \\cdot \\omega = 0$`}, the
+            trajectory is trapped on a sub-torus and averaging over the full torus is no longer
+            valid.
+          </p>
+        </div>
+
+        <p>
+          <strong>The link back to the zero-mean condition.</strong> In the single-frequency
+          averaging proof, you needed {`$\\tilde{g} = g - \\bar{g}$`} to have zero average so the
+          correction {`$k$`} stayed bounded. The small denominator is the multi-frequency shadow of
+          that same fact. With one fast angle, {`$k \\cdot \\omega = k\\,\\omega$`} is never small
+          for {`$k \\neq 0$`}, so the correction is always bounded. With several fast angles, some
+          integer combination can drive {`$k \\cdot \\omega$`} toward zero, and the bound is lost.
+        </p>
+
+        <SmallDenominatorStem />
+
+        <p>
+          <strong>KAM theory in one sentence.</strong> The Kolmogorov-Arnold-Moser theorem says most
+          invariant tori survive a small perturbation, as long as their frequencies stay far enough
+          from every resonance. "Far enough" means a <strong>Diophantine condition</strong>:{' '}
+          {`$|k \\cdot \\omega| \\geq \\gamma\\,|k|^{-\\tau}$`} for all nonzero integer {`$k$`},
+          with fixed constants {`$\\gamma > 0$`} and {`$\\tau > 0$`}. Tori whose frequencies meet
+          this condition control the small denominators, so the perturbation series can be made to
+          converge and the torus persists, slightly deformed.
+        </p>
+
+        <div className="lrn-elaborate">
+          <span className="lrn-elaborate-label">WHY THE DIOPHANTINE CONDITION HELPS</span>
+          <p>
+            The Diophantine bound puts a floor under every denominator: {`$|k \\cdot \\omega|$`}{' '}
+            cannot shrink faster than {`$|k|^{-\\tau}$`}. The Fourier coefficients of a smooth
+            perturbation shrink faster than any power of {`$|k|$`}. So the dangerous{' '}
+            {`$1/(k \\cdot \\omega)$`} growth is beaten by the fast decay of {`$\\hat{H}_{1,k}$`},
+            and the corrected series stays under control. Frequencies too close to resonance fail
+            this bound, and their tori can break up.
+          </p>
+        </div>
+      </>,
+
+      <>
+        <h2>Worked Example: First-Order Frequency Shift of a Quartic Oscillator</h2>
+
+        <div className="lrn-predict">
+          <span className="lrn-predict-label">PREDICT</span>
+          <p>
+            Take a harmonic oscillator and add a small {`$\\varepsilon q^4$`} term. The pure
+            oscillator has one frequency for every amplitude. Do you expect the small {`$q^4$`} term
+            to make the frequency depend on amplitude?
+          </p>
+          <details className="lrn-predict-reveal">
+            <summary>Check your thinking</summary>
+            <p>
+              Yes. A real spring stiffens at large stretch. The {`$q^4$`} term adds stiffness that
+              grows with amplitude, so the frequency rises with the action. Canonical perturbation
+              theory computes exactly how much, to first order.
+            </p>
+          </details>
+        </div>
+
+        <p>
+          <strong>The system.</strong> Take the unit harmonic oscillator with a small quartic term:
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$H = \\frac{1}{2}p^2 + \\frac{1}{2}q^2 + \\varepsilon\\, q^4$$`}</div>
+        <p>
+          The unperturbed part {`$H_0 = \\frac{1}{2}(p^2 + q^2)$`} has frequency {`$\\omega_0 = 1$`}
+          . In its action-angle variables {`$q = \\sqrt{2I}\\,\\sin\\varphi$`},{' '}
+          {`$p = \\sqrt{2I}\\,\\cos\\varphi$`}, so {`$H_0 = I$`}. The perturbation is{' '}
+          {`$\\varepsilon H_1 = \\varepsilon q^4 = \\varepsilon\\,(2I)^2 \\sin^4\\varphi = 4\\varepsilon I^2 \\sin^4\\varphi$`}
+          .
+        </p>
+
+        <p>
+          <strong>Step 1: average the perturbation.</strong> The first-order frequency shift comes
+          from the angle-average of {`$H_1$`}. Use {`$\\overline{\\sin^4\\varphi} = \\frac{3}{8}$`}{' '}
+          (average over a full cycle):
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$\\bar{H}_1(I) = 4 I^2 \\cdot \\overline{\\sin^4\\varphi} = 4 I^2 \\cdot \\frac{3}{8} = \\frac{3}{2} I^2$$`}</div>
+
+        <p>
+          <strong>Step 2: read off the new Hamiltonian.</strong> The homological equation removes
+          the zero-mean part of {`$H_1$`} into the generator {`$S_1$`}. The surviving first-order
+          Hamiltonian keeps only the average:
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$K(I) = I + \\varepsilon\\,\\frac{3}{2} I^2 + O(\\varepsilon^2)$$`}</div>
+
+        <p>
+          <strong>Step 3: read off the frequency.</strong> The frequency is{' '}
+          {`$\\omega = \\frac{\\partial K}{\\partial I}$`}:
+        </p>
+        <div className="lrn-eq lrn-eq-display">{`$$\\omega(I) = 1 + 3\\varepsilon I + O(\\varepsilon^2)$$`}</div>
+        <p>
+          The frequency now rises with the action. The amplitude-independent frequency of the pure
+          oscillator is gone: the quartic term makes the oscillator stiffen as it swings wider. This
+          is the first-order frequency shift, and it is exactly the kind of result canonical
+          perturbation theory delivers.
+        </p>
+
+        <div className="lrn-self-explain">
+          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
+          <p>
+            Why did only the average {`$\\frac{3}{2} I^2$`} matter for the frequency, and not the
+            full {`$4 I^2 \\sin^4\\varphi$`}?
+          </p>
+          <details className="lrn-self-explain-reveal">
+            <summary>Expert explanation</summary>
+            <p>
+              The angle-dependent part of {`$\\sin^4\\varphi$`} oscillates and averages to zero over
+              a cycle. The homological equation absorbs that oscillating part into the change of
+              coordinates {`$S_1$`}. Only the constant piece {`$\\frac{3}{8}$`} survives into the
+              new Hamiltonian, and the frequency is its derivative in {`$I$`}. The oscillating part
+              shifts where the orbit sits, not how fast it goes on average.
+            </p>
+          </details>
+        </div>
       </>
     ]
   },
   practice: [
     {
       q: `What condition must $n$ functions $F_1, \\ldots, F_n$ satisfy to be "in involution"?`,
-      a: `Their pairwise Poisson brackets must all vanish: $\\{F_i, F_j\\} = 0$ for all $i, j$. This means the flows generated by each $F_i$ commute with each other. The integrals are compatible: knowing one does not force the other to change, so they can all be simultaneously constant along trajectories.`
+      a: `Their pairwise Poisson brackets must all vanish: $\\{F_i, F_j\\} = 0$ for all $i, j$. This means the flows generated by each $F_i$ commute with each other. The integrals are compatible: knowing one does not force the other to change, so they can all be constant at once along trajectories.`
     },
     {
       q: `State Liouville's theorem on integrable systems.`,
@@ -1346,7 +1575,7 @@ const config = {
       a: `For $\\dot{\\varphi} = \\omega(I) + \\varepsilon f$, $\\dot{I} = \\varepsilon g$, with $I(0) = J(0)$: there exists a positive constant $c$ such that $|I(t) - J(t)| < c \\varepsilon$ for all $t \\in [0, \\frac{1}{\\varepsilon}]$. The true solution stays within $O(\\varepsilon)$ of the averaged solution over the slow time scale.`
     },
     {
-      q: `Outline the proof of the averaging theorem (method of variation of constants).`,
+      q: `Outline the proof of the averaging theorem (near-identity averaging transformation).`,
       a: `Step 1: set $P = I + \\varepsilon k(I, \\varphi)$ where $\\frac{dk}{d\\varphi} = -\\frac{1}{\\omega} \\tilde{g}$ and $\\tilde{g} = g - \\bar{g}$ is the zero-mean part. Step 2: show $\\dot{P} = \\varepsilon \\bar{g}(P) + O(\\varepsilon^2)$ (the oscillating terms cancel). Step 3: compare with $\\dot{J} = \\varepsilon \\bar{g}(J)$; the difference $P - J$ has a right-hand side of $O(\\varepsilon^2)$, so by Gronwall: $|P(t) - J(t)| = O(\\varepsilon)$ over time $\\frac{1}{\\varepsilon}$. Step 4: $I = P + O(\\varepsilon)$, so $|I - J| = O(\\varepsilon)$.`
     },
     {
@@ -1363,11 +1592,35 @@ const config = {
     },
     {
       q: `A ball bounces between walls separated by distance $l$ with velocity $v$. What is the adiabatic invariant?`,
-      a: `The adiabatic invariant is $vl$ (velocity times wall separation). As the walls slowly come together, $vl = \\text{const}$, so $v$ increases as $\\frac{1}{l}$. Note: this does not formally follow from the averaging theorem because the collisions are instantaneous - the velocity jumps discontinuously - and the theorem requires smooth equations of motion. The result holds empirically.`
+      a: `The adiabatic invariant is $vl$ (velocity times wall separation). As the walls slowly come together, $vl = \\text{const}$, so $v$ increases as $\\frac{1}{l}$. Note: this does not formally follow from the averaging theorem because the collisions are instantaneous - the velocity jumps discontinuously - and the theorem requires smooth equations of motion. The result holds by observation.`
     },
     {
       q: `Outline the proof that the action variable is adiabatically invariant.`,
       a: `Step 1: transform $(p, q) \\to (I, \\varphi)$ using action-angle variables for the frozen Hamiltonian $H(\\cdot; \\lambda)$. The new Hamiltonian is $K = H_0(I, \\lambda) + \\frac{\\varepsilon \\partial S}{\\partial \\lambda}$. Step 2: equations are $\\dot{I} = \\varepsilon g$ where $g = -\\frac{\\partial\\frac{\\varepsilon \\partial S}{\\partial \\lambda}}{\\partial \\varphi}$. Step 3: average $g$ over $\\varphi$: $\\bar{g} = 0$ (it is a $\\varphi$-derivative of a periodic function). Step 4: apply averaging theorem to conclude $|I(t) - I(0)| = O(\\varepsilon)$.`
+    },
+    {
+      q: `In canonical perturbation theory, what form does the generating function take, and what does each correction term do?`,
+      a: `It is a near-identity transformation expanded in $\\varepsilon$: $S(I', \\varphi) = I' \\cdot \\varphi + \\varepsilon S_1 + \\varepsilon^2 S_2 + \\cdots$. The leading term $I' \\cdot \\varphi$ is the identity. Each $S_n$ is chosen to cancel the angle-dependent part of the Hamiltonian at order $\\varepsilon^n$, removing the angle dependence one order at a time.`
+    },
+    {
+      q: `Write the homological equation and explain what is known and what is unknown.`,
+      a: `$\\omega(I') \\cdot \\frac{\\partial S_1}{\\partial \\varphi} + H_1(I', \\varphi) = \\bar{H}_1(I')$, equivalently $\\{S_1, H_0\\} + H_1 = \\bar{H}_1$. The known input is the perturbation $H_1$. The unknown is the generator $S_1$. The right side $\\bar{H}_1$ is the angle-average of $H_1$, which cannot be cancelled and becomes the first-order correction to the new Hamiltonian.`
+    },
+    {
+      q: `Why does the angle-average $\\bar{H}_1$ survive into the new Hamiltonian instead of being cancelled?`,
+      a: `The operator $\\omega \\cdot \\frac{\\partial}{\\partial \\varphi}$ turns any periodic function into one with zero average, since a derivative of a periodic function integrates to zero over a cycle. So the left side of the homological equation can only ever produce the zero-average part. The average $\\bar{H}_1$ lies outside its range, so it must stay and shift the Hamiltonian: $K = H_0 + \\varepsilon \\bar{H}_1 + O(\\varepsilon^2)$.`
+    },
+    {
+      q: `Solving the homological equation by Fourier series gives $\\hat{S}_{1,k} = i\\hat{H}_{1,k}/(k \\cdot \\omega)$. What is the small-denominator problem?`,
+      a: `Each Fourier coefficient of the generator carries the factor $1/(k \\cdot \\omega)$. When some integer combination $k \\cdot \\omega$ comes close to zero (near-resonance), the coefficient $\\hat{S}_{1,k}$ blows up and the near-identity transformation is no longer small. At an exact resonance $k \\cdot \\omega = 0$ the denominator vanishes and that mode cannot be cancelled at all, so the order-by-order series can stop converging.`
+    },
+    {
+      q: `What does the Diophantine condition say, and why does it rescue the perturbation series?`,
+      a: `It says $|k \\cdot \\omega| \\geq \\gamma\\,|k|^{-\\tau}$ for all nonzero integer $k$, with fixed $\\gamma, \\tau > 0$. It puts a floor under every denominator. The Fourier coefficients of a smooth perturbation decay faster than any power of $|k|$, so that fast decay beats the controlled $1/(k\\cdot\\omega)$ growth and the corrected series converges. This is the KAM condition under which a torus survives the perturbation.`
+    },
+    {
+      q: `For $H = \\frac{1}{2}p^2 + \\frac{1}{2}q^2 + \\varepsilon q^4$, compute the first-order frequency shift using canonical perturbation theory.`,
+      a: `In action-angle variables of the unit oscillator, $q = \\sqrt{2I}\\sin\\varphi$, so $H_1 = q^4 = 4I^2 \\sin^4\\varphi$. The average is $\\bar{H}_1 = 4I^2 \\cdot \\overline{\\sin^4\\varphi} = 4I^2 \\cdot \\frac{3}{8} = \\frac{3}{2}I^2$. The new Hamiltonian is $K(I) = I + \\frac{3}{2}\\varepsilon I^2 + O(\\varepsilon^2)$, so the frequency is $\\omega(I) = \\frac{\\partial K}{\\partial I} = 1 + 3\\varepsilon I + O(\\varepsilon^2)$. The frequency rises with amplitude.`
     }
   ],
   reference: {
@@ -1411,7 +1664,7 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">Topology by Lattice Rank</span>
           <div className="lrn-definition-desc">
-            <p>{`$\\frac{\\mathbb{R}^n}{\\Gamma \\cong T^k} \\times \\mathbb{R}^{n-k}$`}</p>
+            <p>{`$\\mathbb{R}^n/\\Gamma \\cong T^k \\times \\mathbb{R}^{n-k}$`}</p>
             <p>
               When to use: classifying the topology of level sets from the rank {`$k$`} of the
               stationary subgroup {`$\\Gamma$`}. When {`$k = n$`}: compact torus {`$T^n$`}{' '}
@@ -1617,7 +1870,9 @@ const config = {
                 Single-frequency Hamiltonian: rigorous theorem {`$|I-J| < c\\varepsilon$`} for{' '}
                 {`$t \\in [0, \\frac{1}{\\varepsilon}]$`}.
               </li>
-              <li>Multi-frequency Hamiltonian: heuristic only. No satisfactory general proof.</li>
+              <li>
+                Multi-frequency Hamiltonian: unproven rule of thumb. No satisfactory general proof.
+              </li>
               <li>Nondegenerate Hamiltonian: {`$\\bar{g} = 0$`} exactly (Laplace theorem).</li>
             </ul>
           </div>
@@ -1649,8 +1904,8 @@ const config = {
                 {`$I = \\frac{h}{\\omega}$`}. Energy proportional to frequency.
               </li>
               <li>
-                Pendulum with slowly varying length: {`$I$`} (action). Amplitude{' '}
-                {`$\\propto (\\frac{I}{I_0})^{\\tfrac{3}{4}}$`}.
+                Pendulum with slowly varying length {`$L$`}: {`$I = \\frac{h}{\\omega}$`}
+                (action). Angular amplitude {`$\\theta_{\\max} \\propto L^{-3/4}$`}.
               </li>
               <li>
                 Ball between walls with slowly varying separation {`$l$`}: {`$vl$`} (velocity times
@@ -1659,11 +1914,79 @@ const config = {
             </ul>
           </div>
         </div>
+      </>,
+
+      <>
+        <h2>Canonical Perturbation Theory</h2>
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Expansions</span>
+          <div className="lrn-definition-desc">
+            <p>
+              {`$H = H_0(I) + \\varepsilon H_1 + \\varepsilon^2 H_2 + \\cdots$`}; generator{' '}
+              {`$S = I' \\cdot \\varphi + \\varepsilon S_1 + \\varepsilon^2 S_2 + \\cdots$`}
+            </p>
+            <p>
+              When to use: a near-integrable Hamiltonian where you want new coordinates that remove
+              angle dependence order by order.
+            </p>
+          </div>
+        </div>
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Homological Equation (first order)</span>
+          <div className="lrn-definition-desc">
+            <p>
+              {`$\\omega(I') \\cdot \\frac{\\partial S_1}{\\partial \\varphi} + H_1 = \\bar{H}_1$`},
+              equivalently {`$\\{S_1, H_0\\} + H_1 = \\bar{H}_1$`}
+            </p>
+            <p>
+              When to use: solving for the first-order generator {`$S_1$`}; the average{' '}
+              {`$\\bar{H}_1$`} is the surviving correction{' '}
+              {`$K = H_0 + \\varepsilon \\bar{H}_1 + O(\\varepsilon^2)$`}.
+            </p>
+          </div>
+        </div>
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Fourier Solution and Small Denominators</span>
+          <div className="lrn-definition-desc">
+            <p>{`$\\hat{S}_{1,k}(I') = \\frac{i\\,\\hat{H}_{1,k}}{k \\cdot \\omega}, \\quad k \\neq 0$`}</p>
+            <p>
+              When to use: reading off the generator mode by mode. Each carries{' '}
+              {`$1/(k \\cdot \\omega)$`}; near-resonant {`$k \\cdot \\omega \\to 0$`} gives small
+              denominators that can break convergence.
+            </p>
+          </div>
+        </div>
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Diophantine (KAM) Condition</span>
+          <div className="lrn-definition-desc">
+            <p>
+              {`$|k \\cdot \\omega| \\geq \\gamma\\,|k|^{-\\tau}$`} for all{' '}
+              {`$k \\in \\mathbb{Z}^n \\setminus \\{0\\}$`}
+            </p>
+            <p>
+              When to use: checking whether a torus survives the perturbation; frequencies meeting
+              this bound control small denominators, so the torus persists slightly deformed.
+            </p>
+          </div>
+        </div>
+        <div className="lrn-definition">
+          <span className="lrn-definition-term">Quartic Oscillator Frequency Shift</span>
+          <div className="lrn-definition-desc">
+            <p>
+              {`$H = \\frac{1}{2}p^2 + \\frac{1}{2}q^2 + \\varepsilon q^4$`}:{' '}
+              {`$\\omega(I) = 1 + 3\\varepsilon I + O(\\varepsilon^2)$`}
+            </p>
+            <p>
+              When to use: worked benchmark; from {`$\\bar{H}_1 = \\frac{3}{2} I^2$`} and{' '}
+              {`$\\omega = \\frac{\\partial K}{\\partial I}$`}.
+            </p>
+          </div>
+        </div>
       </>
     ]
   },
   customCss: `
-    .MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }
+    .MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }
   `
 }
 

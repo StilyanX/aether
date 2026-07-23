@@ -3,11 +3,11 @@ import { CoadjointOrbitSphere, JacobiGeodesicDeviation } from '../../../../../co
 
 const config = {
   cssPrefix: 'mmr',
-  documentTitle: 'Momentum Maps and Reduction - AETHER',
+  documentTitle: 'Curvature, Geodesic Flow, and the Limits of Prediction - AETHER',
   learning: {
     groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
-    category: 'Mathematical Methods of Classical Mechanics (Arnold)',
-    title: 'Momentum Maps and Reduction',
+    category: 'Classical Mechanics',
+    title: 'Curvature, Geodesic Flow, and the Limits of Prediction',
     subtitle:
       'Riemannian curvature, Jacobi equation, geodesics on Lie groups, Euler equations for rigid body and ideal fluid, exponential instability.',
     sections: [
@@ -40,10 +40,10 @@ const config = {
 
         <p>
           <strong>Example: parallel translation on a sphere.</strong> Carry a vector around a
-          right-angle spherical triangle. Start at the north pole pointing south along one meridian.
-          Carry it to the equator, along the equator by 90 degrees, then back to the north pole. The
-          vector has rotated by 90 degrees. The rotation equals the area of the triangle on the
-          sphere divided by {`$R^2$`}.
+          right-angle spherical triangle. Start at the north pole pointing south along one meridian
+          (a line of longitude running pole to pole). Carry it to the equator, along the equator by
+          90 degrees, then back to the north pole. The vector has rotated by 90 degrees. The
+          rotation equals the area of the triangle on the sphere divided by {`$R^2$`}.
         </p>
 
         <div className="lrn-self-explain">
@@ -52,9 +52,10 @@ const config = {
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
             <p>
-              By the Gauss-Bonnet theorem, the total rotation of a vector around a closed curve
-              equals {`$\\int_D K \\, dS = K \\cdot \\text{Area}(D)$`} for constant {`$K$`}. For a
-              sphere of radius {`$R$`}, {`$K = R^{-2}$`}, so the rotation is{' '}
+              By the Gauss-Bonnet theorem (a result that ties total curvature inside a loop to the
+              turning of a vector carried around it), the total rotation of a vector around a closed
+              curve equals {`$\\int_D K \\, dS = K \\cdot \\text{Area}(D)$`} for constant {`$K$`}.
+              For a sphere of radius {`$R$`}, {`$K = R^{-2}$`}, so the rotation is{' '}
               {`$\\frac{\\text{Area}(D)}{R^2}$`}. For the right-angle triangle covering{' '}
               {`$\\tfrac{1}{8}$`} of the sphere, Area {`$= \\frac{\\pi R^2}{2}$`}, giving rotation{' '}
               {`$\\frac{\\pi}{2} = 90°$`}.
@@ -64,8 +65,9 @@ const config = {
 
         <p>
           <strong>Example: the 60th parallel.</strong> Carry a vector around the 60th parallel (at
-          latitude {`$\\lambda = 60°$`}). The rotation angle is{' '}
-          {`$2\\pi(1 - \\sin \\lambda) \\approx 50°$`}. The Earth's curvature causes the rotation.
+          latitude {`$\\lambda = 60°$`}). The parallel-transport holonomy is{' '}
+          {`$2\\pi(1 - \\sin \\lambda) \\approx 50°$`}. The Foucault pendulum is the physical
+          application of this holonomy.
         </p>
 
         <p>
@@ -76,7 +78,12 @@ const config = {
           <li>
             Sphere of radius {`$R$`}: {`$K = R^{-2}$`}.
           </li>
-          <li>Lobachevsky plane: {`$K = -1$`}.</li>
+          <li>
+            Lobachevsky plane (also called the hyperbolic plane): {`$K = -1$`}. It is the upper
+            half-plane {`$y > 0$`} with metric {`$ds^2 = \\frac{dx^2 + dy^2}{y^2}$`}, and its
+            geodesics are the half-circles and vertical lines that meet the {`$x$`}-axis at right
+            angles.
+          </li>
         </ul>
       </>,
 
@@ -124,7 +131,8 @@ const config = {
         <p>
           <strong>Why curvature is intrinsic.</strong> The curvature {`$K$`} does not change when
           you bend the surface (without stretching). A flat piece of paper rolled into a cylinder
-          still has {`$K = 0$`}. Intrinsic means it is the same for any two isometric surfaces.
+          still has {`$K = 0$`}. Intrinsic means it is the same for any two isometric surfaces
+          (surfaces you can lay onto each other without stretching distances).
         </p>
 
         <div className="lrn-elaborate">
@@ -202,8 +210,11 @@ const config = {
         <p>
           <strong>Formal definition.</strong> Parallel translation on a Riemannian manifold{' '}
           {`$(M, g)$`} along a curve {`$\\gamma$`} is the unique operation that: preserves the inner
-          product {`$\\langle \\cdot, \\cdot \\rangle$`} between transported vectors, and has zero
-          covariant derivative along {`$\\gamma$`}: {`$\\nabla_{\\dot{\\gamma}} \\xi = 0$`}.
+          product {`$\\langle \\cdot, \\cdot \\rangle$`} (the rule for lengths and angles) between
+          transported vectors, and has zero covariant derivative along {`$\\gamma$`}:{' '}
+          {`$\\nabla_{\\dot{\\gamma}} \\xi = 0$`}. (The covariant derivative is the geometry-aware
+          rate of change of a vector field, defined fully two sections from now; for the moment,
+          read "zero covariant derivative" as "not turning, as seen on the surface.")
         </p>
 
         <div className="lrn-compare">
@@ -245,9 +256,11 @@ const config = {
 
         <p>
           <strong>The curvature tensor.</strong> In higher dimensions, curvature is a{' '}
-          <strong>skew-symmetric operator-valued 2-form</strong> {`$\\Omega(\\xi, \\eta)$`}. For two
-          tangent vectors {`$\\xi, \\eta$`} at a point, {`$\\Omega(\\xi, \\eta)$`} is a linear
-          operator on the tangent space.
+          <strong>skew-symmetric operator-valued 2-form</strong> {`$\\Omega(\\xi, \\eta)$`}. Skew-
+          symmetric means swapping the two inputs flips the sign:{' '}
+          {`$\\Omega(\\eta, \\xi) = -\\Omega(\\xi, \\eta)$`}. For two tangent vectors{' '}
+          {`$\\xi, \\eta$`} at a point, {`$\\Omega(\\xi, \\eta)$`} is a linear operator on the
+          tangent space.
         </p>
 
         <p>
@@ -293,10 +306,10 @@ const config = {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              The ordinary derivative measures change in the ambient space and points partly
-              outward. Parallel-translating the displaced vector back to the base point along the
-              geodesic removes that outward component and leaves the true geometric rate of change
-              on the surface.
+              The ordinary derivative measures change in the ambient space (the full surrounding 3D
+              space the surface sits in) and points partly outward. Parallel-translating the
+              displaced vector back to the base point along the geodesic removes that outward
+              component and leaves the true geometric rate of change on the surface.
             </p>
           </details>
         </div>
@@ -315,7 +328,24 @@ const config = {
           are:
         </p>
         <div className="lrn-eq">{`$$\\Gamma^k_{ij} = \\frac{1}{2}\\, g^{kl}\\!\\left(\\partial_i g_{jl} + \\partial_j g_{il} - \\partial_l g_{ij}\\right)$$`}</div>
-        <p>These encode how the coordinate basis vectors change as you move.</p>
+        <p>
+          Here {`$g_{ij}$`} is the metric (the matrix giving lengths and angles) and {`$g^{kl}$`} is
+          its matrix inverse. These encode how the coordinate basis vectors change as you move.
+        </p>
+
+        <p>
+          <strong>Worked example: the unit sphere.</strong> Use latitude-style coordinates{' '}
+          {`$(\\theta, \\varphi)$`}, where the metric is {`$g_{\\theta\\theta} = 1$`},{' '}
+          {`$g_{\\varphi\\varphi} = \\sin^2\\theta$`} (off-diagonal terms zero). The only metric
+          piece that varies is {`$g_{\\varphi\\varphi}$`}, with{' '}
+          {`$\\partial_\\theta g_{\\varphi\\varphi} = 2\\sin\\theta\\cos\\theta$`}. Plugging in and
+          using {`$g^{\\theta\\theta} = 1$`} gives one of the two nonzero symbols:
+        </p>
+        <div className="lrn-eq">{`$$\\Gamma^\\theta_{\\varphi\\varphi} = -\\tfrac{1}{2}\\,\\partial_\\theta g_{\\varphi\\varphi} = -\\sin\\theta\\cos\\theta$$`}</div>
+        <p>
+          The other nonzero symbol is {`$\\Gamma^\\varphi_{\\theta\\varphi} = \\cot\\theta$`}. These
+          two numbers are exactly what bends straight coordinate lines into great-circle geodesics.
+        </p>
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -438,12 +468,9 @@ const config = {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            Suppose initial error is {`$\\delta_0$`} and tolerance is {`$\\Delta$`}. The error grows
-            to {`$\\delta_0 e^{\\lambda t}$`}, which exceeds {`$\\Delta$`} at{' '}
-            {`$t = \\frac{1}{\\lambda}\\ln\\frac{\\Delta}{\\delta_0}$`}. Improving precision by
-            halving {`$\\delta_0$`} only adds {`$\\frac{\\ln 2}{\\lambda}$`} to the horizon. You
-            cannot push the horizon to infinity by finite precision improvement. The limit is
-            fundamental, not technological.
+            The characteristic exponent {`$\\lambda$`} sets a hard limit on how far ahead you can
+            predict a negatively curved system. The Weather Prediction section below works out this
+            limit in full and shows why finite precision cannot beat it.
           </p>
         </div>
 
@@ -471,22 +498,24 @@ const config = {
 
         <p>
           <strong>Ergodicity.</strong> On compact manifolds of negative curvature, the geodesic flow
-          is <strong>ergodic</strong>: time averages of any function equal space averages (proved by
-          Sinai and Anosov in the 1960s). The exponential divergence of geodesics makes the system
-          mix thoroughly.
+          is <strong>ergodic</strong>: the time average of any quantity equals its space average.
+          The exponential divergence of geodesics makes the system mix thoroughly. This is the
+          best-understood family of chaotic flows.
         </p>
 
         <p>
           <strong>Structural stability.</strong> The geodesic flow on a compact negative-curvature
-          manifold is <strong>structurally stable</strong> (Anosov 1967, proving Smale's 1961
-          conjecture). Small perturbations of the flow are topologically conjugate to the original.
+          manifold is <strong>structurally stable</strong>: a small change to the flow gives a new
+          flow that is <strong>topologically conjugate</strong> to the old one. (Topologically
+          conjugate means a continuous change of coordinates turns one flow exactly into the other,
+          so they have the same orbit structure.)
         </p>
 
         <p>
           <strong>Boltzmann ergodic hypothesis.</strong> The hypothesis that the time average of a
-          gas equals the phase-space average was proved for elastic balls by Sinai (Russian
-          Mathematical Surveys 25, 1970). The key tool was the exponential instability of geodesic
-          flows on compact manifolds of negative curvature.
+          gas equals its phase-space average is known to hold for a gas of elastic balls. The key
+          tool is exactly this exponential instability: the balls scatter like geodesics on a
+          negatively curved manifold, and that mixing forces the averages to agree.
         </p>
 
         <div className="lrn-elaborate">
@@ -494,9 +523,10 @@ const config = {
           <p>
             Ergodicity requires thorough mixing. Negative curvature causes nearby geodesics to
             diverge exponentially, which means every neighborhood of every trajectory eventually
-            covers all of {`$T_1 M$`} (the unit tangent bundle). This is the Anosov (hyperbolic)
-            property, from which ergodicity follows: no proper invariant subset of positive measure
-            can survive the mixing.
+            covers all of {`$T_1 M$`}, the <strong>unit tangent bundle</strong> (the space of every
+            position paired with every unit-length direction you could head off in). This is the
+            hyperbolic, or Anosov, property, from which ergodicity follows: no proper invariant
+            subset of positive measure can survive the mixing.
           </p>
         </div>
       </>,
@@ -522,34 +552,63 @@ const config = {
         <p>
           <strong>Setup.</strong> Let {`$G$`} be a Lie group (a group that is also a smooth
           manifold). The <strong>Lie algebra</strong> {`$\\mathfrak{g}$`} is the tangent space at
-          the identity with the commutator bracket {`$[\\xi, \\eta]$`}.
+          the identity with the commutator bracket {`$[\\xi, \\eta]$`} (the operation that measures
+          how much two infinitesimal motions fail to commute, the way two rotations about different
+          axes do not commute).
         </p>
 
         <p>
           <strong>Adjoint representation.</strong> The <strong>adjoint representation</strong>{' '}
           {`$\\text{Ad}_g: \\mathfrak{g} \\to \\mathfrak{g}$`} is the derivative of conjugation by{' '}
           {`$g$`} (conjugation means {`$h \\mapsto ghg^{-1}$`}: sandwich {`$h$`} between {`$g$`} and{' '}
-          {`$g^{-1}$`}): {`$\\text{Ad}_g = (R_{g^{-1}} L_g)_{*e}$`}. The infinitesimal form is:{' '}
+          {`$g^{-1}$`}): {`$\\text{Ad}_g = (R_{g^{-1}} L_g)_{*e}$`}. The subscript {`$*e$`} means
+          "the derivative of the map, taken at the identity {`$e$`}": the pushforward is just the
+          derivative of a translation map. The infinitesimal form is:{' '}
           {`$\\text{ad}_\\xi(\\eta) = [\\xi, \\eta]$`}.
         </p>
 
         <p>
-          <strong>Co-adjoint representation.</strong> The <strong>co-adjoint representation</strong>{' '}
-          {`$\\text{Ad}^*$`} acts on the dual space {`$\\mathfrak{g}^*$`} (the set of all linear
-          functions {`$\\mathfrak{g} \\to \\mathbb{R}$`}) by:{' '}
-          {`$(\\text{Ad}^*_g f)(\\xi) = f(\\text{Ad}_{g^{-1}} \\xi)$`}. It satisfies{' '}
-          {`$\\text{Ad}^*_{gh} = \\text{Ad}^*_h \\text{Ad}^*_g$`}.
+          <strong>The dual space and pairing.</strong> The <strong>dual space</strong>{' '}
+          {`$\\mathfrak{g}^*$`} is the set of all linear functions{' '}
+          {`$\\mathfrak{g} \\to \\mathbb{R}$`}. For {`$x \\in \\mathfrak{g}^*$`} and{' '}
+          {`$\\xi \\in \\mathfrak{g}$`}, the <strong>pairing</strong>{' '}
+          {`$\\langle x, \\xi \\rangle$`} just means "feed the vector {`$\\xi$`} into the function{' '}
+          {`$x$`} and read off the number." It is the natural way a covector eats a vector.
         </p>
 
         <p>
-          <strong>Symplectic form on co-adjoint orbit.</strong> Each co-adjoint orbit{' '}
-          {`$\\mathcal{O} \\subset \\mathfrak{g}^*$`} carries a natural symplectic form (the{' '}
-          <strong>Kirillov form</strong>):
+          <strong>Co-adjoint representation.</strong> The <strong>co-adjoint representation</strong>{' '}
+          {`$\\text{Ad}^*$`} acts on {`$\\mathfrak{g}^*$`} by:{' '}
+          {`$(\\text{Ad}^*_g f)(\\xi) = f(\\text{Ad}_{g^{-1}} \\xi)$`}. It satisfies{' '}
+          {`$\\text{Ad}^*_{gh} = \\text{Ad}^*_h \\text{Ad}^*_g$`}. Its infinitesimal form{' '}
+          {`$\\text{ad}^*$`} is the <strong>dual map</strong> of {`$\\text{ad}$`}: it is fixed by{' '}
+          {`$\\langle \\text{ad}^*_a x, \\xi \\rangle = \\langle x, [a, \\xi] \\rangle$`} for every{' '}
+          {`$\\xi$`}. In words, {`$\\text{ad}^*_a$`} is the action on the dual side that mirrors
+          taking the bracket with {`$a$`} on the vector side.
+        </p>
+
+        <p>
+          <strong>Symplectic form on co-adjoint orbit.</strong> A <strong>co-adjoint orbit</strong>{' '}
+          is the set of all points {`$\\text{Ad}^*_g x$`} you reach by acting on a fixed{' '}
+          {`$x \\in \\mathfrak{g}^*$`} with every group element {`$g$`}. Each orbit{' '}
+          {`$\\mathcal{O} \\subset \\mathfrak{g}^*$`} carries a natural{' '}
+          <strong>symplectic form</strong>: a smooth rule that measures the oriented area spanned by
+          two tangent vectors, the structure that lets Hamilton's equations live on the orbit. This
+          one is the <strong>Kirillov form</strong>:
         </p>
         <div className="lrn-eq">{`$$\\Omega(\\xi_1, \\xi_2) = \\langle x, [a_1, a_2] \\rangle, \\quad \\xi_i = \\text{ad}^*_{a_i} x$$`}</div>
         <p>
-          where {`$\\text{ad}^*_{a_i} x$`} is the infinitesimal co-adjoint action of {`$a_i$`} at
-          the point {`$x$`}: the tangent vector to the orbit generated by {`$a_i$`}.
+          where {`$\\text{ad}^*_{a_i} x$`} is the tangent vector to the orbit at {`$x$`} generated
+          by {`$a_i$`}. The form is <strong>non-degenerate</strong> (no nonzero tangent vector pairs
+          to zero with everything), so each orbit really is a symplectic manifold.
+        </p>
+
+        <p>
+          <strong>Concrete anchor: {`$SO(3)$`}.</strong> Keep one picture in mind for all of this.
+          For the rotation group, {`$\\mathfrak{g}^*$`} is 3D angular-momentum space, and the
+          co-adjoint orbits are the spheres {`$|M| = \\text{const}$`}. The Kirillov form is then
+          just the standard area form on each sphere. The rigid-body section below works this out in
+          full.
         </p>
 
         <div className="lrn-elaborate">
@@ -592,6 +651,14 @@ const config = {
         </p>
 
         <p>
+          <strong>Free motion is geodesic motion.</strong> When the only energy is kinetic{' '}
+          {`$T = \\frac{1}{2}\\langle \\dot q, \\dot q\\rangle$`}, the Euler-Lagrange equations are
+          exactly the geodesic equations of that metric. So a free rigid body, with no forces or
+          torques, traces a geodesic on its configuration group. This is why "free motion" and
+          "geodesic" mean the same thing throughout this page.
+        </p>
+
+        <p>
           <strong>The B operator.</strong> Euler's equation lives on {`$\\mathfrak{g}$`}, but the
           co-adjoint action lives on {`$\\mathfrak{g}^*$`}. To write everything on{' '}
           {`$\\mathfrak{g}$`}, we define {`$B(c, a) \\in \\mathfrak{g}$`} by:{' '}
@@ -599,6 +666,17 @@ const config = {
           {`$b \\in \\mathfrak{g}$`}. This is the co-adjoint action pulled back to{' '}
           {`$\\mathfrak{g}$`}
           via the inertia operator: {`$B(c,a) = A^{-1}\\text{ad}^*_a(Ac)$`}.
+        </p>
+
+        <p>
+          <strong>The B operator for {`$SO(3)$`}.</strong> For the rigid body, {`$\\mathfrak{g}$`}{' '}
+          is 3D space, the bracket {`$[a, b]$`} is the cross product, and the coadjoint action
+          becomes that same bracket. So the abstract formula becomes concrete:
+        </p>
+        <div className="lrn-eq">{`$$B(c, a) = A^{-1}[a, Ac]$$`}</div>
+        <p>
+          where {`$A$`} is the inertia operator. This is the version that appears directly in
+          Euler's equation below.
         </p>
 
         <div className="lrn-elaborate">
@@ -779,13 +857,17 @@ const config = {
         </div>
 
         <p>
-          <strong>Curvature formula (Theorem 10).</strong> For a Lie group {`$G$`} with
-          left-invariant metric and orthonormal {`$\\xi, \\eta$`}:
+          <strong>Curvature formula.</strong> For a Lie group {`$G$`} with left-invariant metric and
+          orthonormal {`$\\xi, \\eta$`}:
         </p>
         <div className="lrn-eq">{`$$K_{\\xi, \\eta} = \\langle \\delta, \\delta \\rangle + 2\\langle \\alpha, \\beta \\rangle - 3\\langle \\alpha, \\alpha \\rangle - 4\\langle B_\\xi, B_\\eta \\rangle$$`}</div>
         <p>
           where {`$\\alpha = \\frac{1}{2}[\\xi, \\eta]_\\mathfrak{g}$`},{' '}
           {`$\\beta = \\frac{1}{2}B(\\xi, \\eta)$`}, {`$\\delta = \\frac{1}{2}(\\alpha - \\beta)$`}.
+          The vectors {`$B_\\xi$`} and {`$B_\\eta$`} are the values of the {`$B$`} operator built
+          from {`$\\xi$`} and {`$\\eta$`} alone. Every piece is built from the bracket{' '}
+          {`$[\\xi, \\eta]$`} and the {`$B$`} operator you just met. The formula looks busy, but the
+          payoff comes from the special case below, where almost all of it cancels.
         </p>
 
         <p>
@@ -827,15 +909,18 @@ const config = {
         </div>
 
         <p>
-          <strong>The geometric picture.</strong> The configuration of an ideal fluid in region{' '}
-          {`$D$`} is a volume-preserving diffeomorphism {`$g: D \\to D$`}. The group{' '}
-          {`$\\text{SDiff}(D)$`} of volume-preserving diffeomorphisms is the configuration space.
+          <strong>The geometric picture.</strong> A <strong>diffeomorphism</strong> is a smooth,
+          smoothly invertible map of a space to itself: a way of stirring the region without tearing
+          it. The configuration of an ideal fluid in region {`$D$`} is a volume-preserving
+          diffeomorphism {`$g: D \\to D$`} (one that stirs without compressing any part). The group{' '}
+          {`$\\text{SDiff}(D)$`} of all such maps is the configuration space.
         </p>
 
         <p>
           <strong>Geodesics = fluid flows.</strong> The flow of an ideal fluid is a geodesic in the
           right-invariant {`$L^2$`} metric on {`$\\text{SDiff}(D)$`}: the kinetic energy{' '}
-          {`$T = \\frac{1}{2}\\int_D |v|^2 \\, dx$`} defines the metric.
+          {`$T = \\frac{1}{2}\\int_D |v|^2 \\, dx$`} defines the metric. (The {`$L^2$`} metric just
+          measures the size of a velocity field by integrating its square over the region.)
         </p>
 
         <div className="lrn-elaborate">
@@ -874,6 +959,11 @@ const config = {
           {`$\\text{div}\\, v = 0$`}):
         </p>
         <div className="lrn-eq">{`$$\\frac{\\partial v}{\\partial t} = v \\wedge \\text{curl}\\, v + \\text{grad}\\, \\alpha, \\quad \\alpha = -p - \\frac{|v|^2}{2}$$`}</div>
+        <p>
+          Here {`$\\wedge$`} is the ordinary vector cross product, and {`$p$`} is the pressure: an
+          unknown field that adjusts itself at every point to keep the flow incompressible (
+          {`$\\text{div}\\, v = 0$`}).
+        </p>
 
         <p>
           <strong>Vorticity equation.</strong> Taking the curl:
@@ -886,8 +976,9 @@ const config = {
           <p>
             The Lie bracket {`$[v, w]$`} measures the infinitesimal failure of the flows of {`$v$`}{' '}
             and {`$w$`} to commute. In the fluid, the vorticity is "frozen" into the fluid: it moves
-            with fluid particles. The equation {`$\\partial_t \\omega = [v, \\omega]$`} (Lie
-            derivative) is exactly the statement that vorticity is Lie-transported by the flow.
+            with fluid particles. The equation {`$\\partial_t \\omega = [v, \\omega]$`} uses the{' '}
+            <strong>Lie derivative</strong> (the rate of change of one field as it is dragged along
+            the flow of another). It says exactly that the vorticity is carried along by the flow.
           </p>
         </div>
       </>,
@@ -911,9 +1002,17 @@ const config = {
         </div>
 
         <p>
-          <strong>Kelvin's circulation theorem (Theorem 12).</strong> The circulation{' '}
+          <strong>Isovorticial fields.</strong> Two velocity fields are{' '}
+          <strong>isovorticial</strong> when one can be carried into the other by the flow without
+          changing the vorticity pattern. They share the same vorticity, just relabeled by where the
+          fluid has moved.
+        </p>
+
+        <p>
+          <strong>Kelvin's circulation theorem.</strong> You already know that the circulation{' '}
           {`$\\oint_\\gamma v \\cdot dl$`} around any closed contour {`$\\gamma$`} moving with the
-          fluid does not change over time. This is equivalent to the vorticity equation.
+          fluid does not change over time. Here it gets a geometric reading: it is exactly the
+          statement that vorticity is Lie-transported by the flow.
         </p>
 
         <p>
@@ -933,7 +1032,7 @@ const config = {
             <p>
               Vorticity is a vector field. Co-adjoint orbit structure is far more complicated. No
               complete list of conserved quantities. Whether smooth solutions exist for all time is
-              an open problem - one of the seven Clay Millennium Prize Problems.
+              a famous unsolved problem.
             </p>
           </div>
         </div>
@@ -960,11 +1059,11 @@ const config = {
         </div>
 
         <p>
-          <strong>Stability theorem (Theorem 13).</strong> In 2D, a flow with velocity field {`$v$`}{' '}
-          can be encoded by a single scalar called the <strong>stream function</strong>{' '}
-          {`$\\psi_0$`}: the velocity is {`$v = (-\\partial_y \\psi_0,\\, \\partial_x \\psi_0)$`}.
-          The vorticity is {`$\\omega_0 = \\Delta \\psi_0$`}, where {`$\\Delta$`} is the Laplacian
-          (sum of second partial derivatives). The stationary flow {`$v_0$`} is stable if:
+          <strong>Stability theorem.</strong> In 2D, a flow with velocity field {`$v$`} can be
+          encoded by a single scalar called the <strong>stream function</strong> {`$\\psi_0$`}: the
+          velocity is {`$v = (-\\partial_y \\psi_0,\\, \\partial_x \\psi_0)$`}. The vorticity is{' '}
+          {`$\\omega_0 = \\Delta \\psi_0$`}, where {`$\\Delta$`} is the Laplacian (sum of second
+          partial derivatives). The stationary flow {`$v_0$`} is stable if:
         </p>
         <ol className="lrn-list">
           <li>
@@ -1011,8 +1110,8 @@ const config = {
         </div>
 
         <p>
-          <strong>Theorem 14 (Curvature formula for {`$\\text{SDiff}(T^2)$`}).</strong> For the
-          torus {`$T^2 = \\{(x, y) \\mod 2\\pi\\}$`} with area {`$S$`}, the Fourier basis{' '}
+          <strong>Curvature formula for {`$\\text{SDiff}(T^2)$`}.</strong> For the torus{' '}
+          {`$T^2 = \\{(x, y) \\mod 2\\pi\\}$`} with area {`$S$`}, the Fourier basis{' '}
           {`$e_k = e^{ik \\cdot x}$`} (here {`$k = (k_1, k_2)$`} is a pair of integers and{' '}
           {`$x = (x_1, x_2)$`} is the 2D coordinate on the torus) satisfies:
         </p>
@@ -1024,22 +1123,24 @@ const config = {
         </ul>
 
         <p>
-          <strong>Theorem 15 (Curvature via Fourier coefficients).</strong> The sectional curvature
-          of {`$S_0 \\text{Diff}(T^2)$`} satisfies:
+          <strong>Curvature via Fourier coefficients.</strong> The sectional curvature of{' '}
+          {`$S_0 \\text{Diff}(T^2)$`} satisfies:
         </p>
         <div className="lrn-eq">{`$$\\langle \\Omega(\\xi, \\eta), \\xi \\rangle = -\\frac{S}{4} \\sum a^2_{k,l} |x_l + x_{l+2k}|^2 \\leq 0$$`}</div>
         <p>
-          This is negative or zero: the group has <strong>non-positive curvature</strong>.
+          Here {`$x_l$`} is the Fourier coefficient of the velocity field on the mode {`$e_l$`}, and{' '}
+          {`$a_{k,l} = k \\wedge l = k_1 l_2 - k_2 l_1$`} is the bracket coefficient from{' '}
+          {`$[e_k, e_l] = (k \\wedge l) e_{k+l}$`}. The result is negative or zero: the group has{' '}
+          <strong>non-positive curvature</strong>.
         </p>
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            The coefficients {`$a_{k,l}$`} come from expressing the Lie bracket{' '}
-            {`$[e_k, e_l] = (k \\wedge l)e_{k+l}$`} in terms of the basis. The sum{' '}
-            {`$\\sum a^2_{k,l}|x_l + x_{l+2k}|^2$`} adds up contributions from all pairs of Fourier
-            modes interacting through the bracket. Every term is non-negative, so the whole
-            curvature is non-positive.
+            The sum {`$\\sum a^2_{k,l}|x_l + x_{l+2k}|^2$`} adds up contributions from all pairs of
+            Fourier modes interacting through the bracket. Every term is a square times a square, so
+            every term is non-negative. The minus sign in front then makes the whole curvature
+            non-positive.
           </p>
         </div>
       </>,
@@ -1101,10 +1202,9 @@ const config = {
         </div>
 
         <p>
-          <strong>Conclusion.</strong> The fundamental limit on weather prediction is not
-          technological (better computers) but geometric (negative curvature of the dynamical
-          group). Any initial error, no matter how small, eventually grows to the scale of the whole
-          system.
+          <strong>Conclusion.</strong> The limit on weather prediction is geometric, not
+          technological. It comes from the negative curvature of the flow group, so no computer can
+          remove it.
         </p>
       </>
     ]
@@ -1140,7 +1240,7 @@ const config = {
     },
     {
       q: `What is the characteristic path length $s$ for exponential instability?`,
-      a: `$s = \\frac{1}{\\lambda}$, where $\\lambda$ is the characteristic exponent $\\lambda = \\lim_{T\\to\\infty} \\frac{1}{T} \\max \\ln|\\xi(t)|$. After traveling distance $s$, two nearby geodesics have diverged by a factor of $e$.`
+      a: `$s = \\frac{1}{\\lambda}$, where $\\lambda$ is the characteristic exponent (the exponential growth rate of geodesic separation). On a surface of constant negative curvature $K$, $\\lambda = \\sqrt{|K|}$. After traveling distance $s$, two nearby geodesics have diverged by a factor of $e$.`
     },
     {
       q: `Why does negative curvature on a compact manifold imply ergodicity of the geodesic flow?`,
@@ -1188,15 +1288,15 @@ const config = {
     },
     {
       q: `What sign is the sectional curvature of $S_0\\text{Diff}(T^2)$?`,
-      a: `Non-positive: $\\langle \\Omega(\\xi, \\eta), \\xi \\rangle = -\\frac{S}{4} \\sum a^2_{k,l} |x_l + x_{l+2k}|^2 \\leq 0$ (Theorem 15). The group of volume-preserving diffeomorphisms of the torus has non-positive curvature everywhere.`
+      a: `Non-positive: $\\langle \\Omega(\\xi, \\eta), \\xi \\rangle = -\\frac{S}{4} \\sum a^2_{k,l} |x_l + x_{l+2k}|^2 \\leq 0$, where $x_l$ are the Fourier coefficients of the velocity field and $a_{k,l} = k \\wedge l$ are the bracket coefficients. Every term in the sum is non-negative, so the group of volume-preserving diffeomorphisms of the torus has non-positive curvature everywhere.`
     },
     {
       q: `Why does negative curvature of $S_0\\text{Diff}(T^2)$ imply a finite weather prediction horizon?`,
       a: `Negative curvature causes geodesics (fluid trajectories) to diverge exponentially. The characteristic exponent $\\lambda > 0$ means initial errors grow as $e^{\\lambda t}$. An initial error $\\delta_0$ exceeds tolerance $\\Delta$ at time $t = \\frac{1}{\\lambda}\\ln\\frac{\\Delta}{\\delta_0}$. This is finite for any $\\delta_0 > 0$, and cannot be made infinite by improving initial data.`
     },
     {
-      q: `What does the Boltzmann ergodic hypothesis state, and who proved it for elastic balls?`,
-      a: `The hypothesis states that the time average of a gas equals the phase-space average. For elastic balls (hard-sphere gas), this was proved by Sinai (Russian Mathematical Surveys 25, 1970). The key tool was the exponential instability of geodesic flows on compact manifolds of negative curvature.`
+      q: `The Boltzmann ergodic hypothesis says the time average of a gas equals its phase-space average. What geometric fact makes this true for a gas of elastic balls?`,
+      a: `A gas of elastic balls behaves like a geodesic flow on a manifold of negative curvature: each collision scatters trajectories the way negative curvature spreads nearby geodesics apart. The exponential instability mixes the system thoroughly. This mixing is exactly what ergodicity requires, so the time average equals the phase-space average.`
     },
     {
       q: `For the Lobachevsky plane $ds^2 = \\frac{dx^2 + dy^2}{y^2}$, what are the geodesics?`,
@@ -1212,20 +1312,20 @@ const config = {
     },
     {
       q: `What is the physical content of Kelvin's circulation theorem? State it precisely and give one consequence.`,
-      a: `Theorem 12: the circulation $\\Gamma(t) = \\oint_{\\gamma(t)} v \\cdot dl$ around any closed contour $\\gamma(t)$ moving with the fluid particles is constant: $\\frac{d\\Gamma}{dt} = 0$. One consequence: if a region of fluid has zero vorticity initially, it has zero vorticity for all time (vorticity cannot be created or destroyed in ideal flow, only transported).`
+      a: `The circulation $\\Gamma(t) = \\oint_{\\gamma(t)} v \\cdot dl$ around any closed contour $\\gamma(t)$ moving with the fluid particles is constant: $\\frac{d\\Gamma}{dt} = 0$. One consequence: if a region of fluid has zero vorticity initially, it has zero vorticity for all time (vorticity cannot be created or destroyed in ideal flow, only transported).`
     },
     {
       q: `Why does free rigid body motion define a geodesic on $SO(3)$?`,
       a: `Free rigid body motion has no external forces or torques: it is "inertial" motion in the configuration space. The kinetic energy $T = \\frac{1}{2}\\langle A\\omega_c, \\omega_c \\rangle$ defines a left-invariant Riemannian metric on $SO(3)$. Euler-Lagrange equations for a free particle in a Riemannian manifold are exactly the geodesic equations. The free rigid body satisfies these equations.`
     },
     {
-      q: `For the tradewind model, the curvature satisfies $-\\frac{2}{S} \\leq K \\leq 0$ and the characteristic path length is $s = \\sqrt{2S}$. If $S = 4$ (in normalized units), compute $s$ and the minimum characteristic exponent.`,
-      a: `$s = \\sqrt{2 \\cdot 4} = \\sqrt{8} = 2\\sqrt{2} \\approx 2.83$. The characteristic exponent: $\\lambda = \\frac{1}{s} = \\frac{1}{2\\sqrt{2}} \\approx 0.35$. The maximum curvature is $K = -\\frac{2}{S} = -\\tfrac{1}{2}$, giving $\\lambda_{\\max} = \\sqrt{\\tfrac{1}{2}} \\approx 0.71$.`
+      q: `For the atmosphere modeled as ideal flow on a torus of area $S$, the characteristic path length is $s = \\sqrt{2S}$. If $S = 4$ (in normalized units), compute $s$ and the characteristic exponent $\\lambda$.`,
+      a: `$s = \\sqrt{2 \\cdot 4} = \\sqrt{8} = 2\\sqrt{2} \\approx 2.83$. The characteristic exponent is the reciprocal of the path length: $\\lambda = \\frac{1}{s} = \\frac{1}{2\\sqrt{2}} \\approx 0.35$. Errors grow by a factor of $e$ over each path length $s$.`
     }
   ],
   reference: {
     category: 'Quick Reference',
-    title: 'Momentum Maps and Reduction',
+    title: 'Curvature, Geodesic Flow, and the Limits of Prediction',
     sections: [
       <>
         <h2>Riemannian Curvature</h2>
@@ -1344,7 +1444,7 @@ const config = {
           <div className="lrn-definition-desc">
             <p>
               {`$\\Omega(\\xi_1, \\xi_2) = \\langle x, [a_1, a_2] \\rangle$`},{' '}
-              {`$\\xi_i = \\{a_i, x\\}$`}
+              {`$\\xi_i = \\text{ad}^*_{a_i} x$`}
             </p>
             <p>
               When to use: the natural symplectic form on any co-adjoint orbit; makes each orbit a
@@ -1406,14 +1506,13 @@ const config = {
           </div>
         </div>
         <div className="lrn-definition">
-          <span className="lrn-definition-term">
-            Curvature of {`$S_0\\text{Diff}(T^2)$`} (Theorem 15)
-          </span>
+          <span className="lrn-definition-term">Curvature of {`$S_0\\text{Diff}(T^2)$`}</span>
           <div className="lrn-definition-desc">
             <p>{`$\\langle \\Omega(\\xi,\\eta), \\xi \\rangle = -\\frac{S}{4} \\sum a^2_{k,l} |x_l + x_{l+2k}|^2 \\leq 0$`}</p>
             <p>
-              When to use: bounding the sectional curvature of the diffeomorphism group; all
-              sections have non-positive curvature.
+              Here {`$x_l$`} is the Fourier coefficient of the velocity field on the mode {`$e_l$`},
+              and {`$a_{k,l} = k \\wedge l = k_1 l_2 - k_2 l_1$`} is the bracket coefficient. Every
+              term in the sum is non-negative, so the curvature is non-positive in every section.
             </p>
           </div>
         </div>
@@ -1451,7 +1550,7 @@ const config = {
     ]
   },
   customCss: `
-    .MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }
+    .MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }
   `
 }
 

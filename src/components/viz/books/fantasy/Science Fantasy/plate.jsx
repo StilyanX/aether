@@ -1,10 +1,17 @@
-// Painting-card wrapper used by book chapter pages to display plates / artwork.
+// Painting-card wrapper used by book pages to display plates / artwork.
 // Identical copy from the-shadow-of-the-torturer and the-claw-of-the-conciliator
-// per-chapter dirs (verified byte-identical at migration time).
-export function Plate({ src, alt, caption, credit }) {
-  return (
+// per-section dirs (verified byte-identical at migration time).
+//
+// id/title are optional: when given, the figure renders inside the shared
+// VizFigure frame (header strip + fullscreen/zoom) like every other
+// visualization. Omitted, it renders bare as before - existing callers are
+// unaffected.
+import { VizFigure } from '../../../../viz-figure'
+
+export function Plate({ src, alt, caption, credit, id, title, width, height }) {
+  const figure = (
     <figure className="lrn-figure">
-      <img src={src} alt={alt} loading="lazy" />
+      <img src={src} alt={alt} width={width} height={height} loading="lazy" />
       <figcaption>
         {caption}
         {credit && (
@@ -22,5 +29,13 @@ export function Plate({ src, alt, caption, credit }) {
         )}
       </figcaption>
     </figure>
+  )
+
+  if (!title) return figure
+
+  return (
+    <VizFigure aspect="auto" title={title}>
+      {figure}
+    </VizFigure>
   )
 }

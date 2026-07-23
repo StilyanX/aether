@@ -1,4 +1,5 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import { VizFigure } from '../../../../components/viz-figure'
 
 function useConfig() {
   const config = {
@@ -29,26 +30,37 @@ function useConfig() {
             </details>
           </div>
           <p>
-            The Holocene is the geological period from 11,700 years ago to today. It began when
-            global temperatures stabilized after the last Ice Age. Ice sheets melted. Sea levels
-            rose. Coastlines redrew themselves. Forests spread across Europe and Asia. Deserts
-            shifted. Rainfall patterns changed across Africa.
-          </p>
-          <p>
-            A stable climate keeps seasons predictable. People can plan harvests, store food, and
-            build heavy houses. None of those investments pay off when storms and droughts shift
-            every decade. The Holocene cut that gamble. Settling down became rational.
+            Picture a village that can finally stay put. For the first time, the rains come on
+            schedule, the same plants ripen each year, and the river does not freeze the world
+            solid. That is the gift of the Holocene, the warm, stable epoch you met in Module 3 that
+            began about 11,700 years ago and runs to today. With steady seasons, people could plan
+            harvests, store food, and build heavy houses. None of those investments pay off when
+            storms and droughts shift every decade. The Holocene cut that gamble. Settling down
+            became rational.
           </p>
           <p>
             Human groups responded in very different ways. Some intensified hunting and gathering.
             Some built permanent villages. Some domesticated plants and animals. Some did all three
-            in different sequences. This module covers four regions: Australia and the Indo-Pacific,
-            the Americas, Africa, and Europe. Each took its own path.
+            in different sequences. This module covers four regions and asks the same question of
+            each: when the climate steadied, what did people do? We travel through Australia and the
+            Indo-Pacific, then the Americas, then Africa, then Europe. None copied the others. Each
+            took its own path.
           </p>
           <p>
-            These patterns still shape today's world. The languages most people speak descend from
-            Holocene farming expansions. The crops on your plate come from Holocene farmers. The
-            borders of modern states often follow paths cleared by Holocene farming.
+            A few period words will come up again and again, so meet them once here, in order. The
+            Mesolithic is the Middle Stone Age, the foraging stage right after the Ice Age. The
+            Neolithic is the New Stone Age of farming villages, polished stone tools, and
+            domesticated crops. The Copper Age comes next, when people first worked copper. Then the
+            Bronze Age, when they mixed copper with tin, and the Iron Age after that. These stages
+            started at different times in different places, and some regions skipped a stage
+            entirely.
+          </p>
+          <p>
+            One more tool before we start: how to read a debate. Again and again you will see two or
+            three rival explanations laid side by side. That is how archaeologists work. Each
+            position rests on certain evidence. The job is to ask what each side leans on, then
+            judge which one the current evidence favors. Watch for that move throughout this module.
+            By the end you should be able to do it yourself.
           </p>
         </>,
 
@@ -76,18 +88,18 @@ function useConfig() {
             From about 9000 to 8000 BCE, groups recolonized the Australian interior as warming made
             inland areas habitable again. From around 5000 BCE onward, the archaeological record
             shows intensification: getting more food from the same land by working it harder. Backed
-            microliths appeared. These are small, sharp stone flakes hafted onto handles or shafts.
-            Grinding stones became common, letting people process a wider range of seeds and plant
-            foods. Tool kits got more specialized, not simpler. Backed microliths take more steps to
-            make than older flake tools, so more time and skill went into each one. That signals
-            population growth and harder land use, not fashion.
+            microliths appeared. These are small, sharp stone flakes attached (hafted) onto handles
+            or shafts. Grinding stones became common, letting people process a wider range of seeds
+            and plant foods. Tool kits got more specialized, not simpler. Backed microliths take
+            more steps to make than older flake tools, so more time and skill went into each one.
+            That signals population growth and harder land use, not fashion.
           </p>
           <p>
             Wilgie Mia in Western Australia shows long-term ochre mining. Lake Moondarra in
             Queensland has stone arrangements suggesting social and ritual gatherings. Toolondo in
-            Victoria preserves channels dug to trap eels: deliberate aquaculture without farming.
-            Ngarrabulgan in Queensland was a sacred mountain that shaped movement patterns across
-            hundreds of kilometers.
+            Victoria preserves channels dug to trap eels: deliberate aquaculture (farming water
+            animals) without farming plants. Ngarrabulgan in Queensland was a sacred mountain that
+            shaped movement patterns across hundreds of kilometers.
           </p>
           <div className="lrn-compare">
             <div className="lrn-compare-item">
@@ -110,10 +122,11 @@ function useConfig() {
           <h3>New Guinea: Early Agriculture at Kuk Swamp</h3>
           <p>
             New Guinea took a different path. At Kuk Swamp in the highlands, archaeologists found
-            drainage ditches and taro cultivation by about 7000 BCE. That makes Kuk Swamp one of the
-            earliest sites of independent plant cultivation anywhere in the world. The taro served
-            at a Hawaiian luau today traces back to this same New Guinea source. Ground-edge axes
-            appear across the island during the Holocene, fitting expanding agriculture and forest
+            drainage ditches and taro cultivation by about 7000 BCE. Taro is a starchy root food.
+            That makes Kuk Swamp one of the earliest sites of independent plant cultivation anywhere
+            in the world. The taro served at a Hawaiian luau today traces back to this same New
+            Guinea source. Ground-edge axes (axes with a sharpened, polished cutting edge) appear
+            across the island during the Holocene, fitting expanding agriculture and forest
             clearance. New Guinea's wet highlands had good candidates for domestication. Australia
             did not. The two islands sit next door but diverged because of what their wild plants
             and animals allowed. Farming is a response to opportunity, not a single cultural
@@ -155,38 +168,44 @@ function useConfig() {
           <h3>Lapita and the Colonization of Oceania</h3>
           <p>
             The Lapita cultural complex marks the expansion of Austronesian-connected peoples into
-            the Pacific. Lapita pottery is recognizable by its dentate-stamped geometric patterns.
-            Dentate-stamped means the surface was pressed with a small toothed tool. The pottery
-            appears from around 3500 BCE. It spreads east across Island Melanesia and into
+            the Pacific. A cultural complex is a bundle of tools, pottery, and habits that travel
+            together as one package. Lapita pottery is recognizable by its dentate-stamped geometric
+            patterns. Dentate-stamped means the surface was pressed with a small toothed tool. The
+            pottery appears from around 3500 BCE. It spreads east across Island Melanesia and into
             Polynesia.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Decorated_Lapita_potsherd_from_Bourewa%2C_Fiji.jpg"
-              alt="Decorated Lapita potsherd from Bourewa, Fiji, showing dentate-stamped geometric patterns"
-              loading="lazy"
-            />
-            <figcaption>
-              Decorated Lapita potsherd from Bourewa, Fiji. The toothed-tool pattern is the
-              signature mark of Lapita pottery across thousands of kilometers of Pacific Ocean.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Decorated_Lapita_potsherd_from_Bourewa,_Fiji.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>
             Key Lapita sites include Talepakemalai on the Mussau Islands and Teouma on Vanuatu.
-            Teouma is a Lapita cemetery whose skeletal DNA clusters with Taiwan-origin populations,
-            confirming Lapita as a real migrating people, not just a pottery style adopted by
-            locals. The same dentate-stamped style appearing across thousands of kilometers within a
+            Teouma is a Lapita cemetery. Its skeletal DNA clusters with Taiwan-origin populations.
+            That confirms Lapita was a real migrating people, not just a pottery style locals
+            copied. The same dentate-stamped style appearing across thousands of kilometers within a
             few centuries is not slow drift. It is active, canoe-based colonization. The voyagers
             carried pigs, chickens, dogs, and domesticated plants. By around 1000 BCE, they had
             reached Tonga and Samoa, the ancestral homeland of Polynesian culture.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="LAPITA DENTATE-STAMPED POTTERY">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Decorated_Lapita_potsherd_from_Bourewa%2C_Fiji.jpg"
+                alt="Decorated Lapita potsherd with dentate-stamped geometric patterns"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'Lapita potsherd from Bourewa, Fiji, pressed with a small toothed tool. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Decorated_Lapita_potsherd_from_Bourewa,_Fiji.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <div className="lrn-compare">
             <div className="lrn-compare-item">
               <strong>Colonist model (supported by ancient DNA)</strong>
@@ -211,25 +230,6 @@ function useConfig() {
             against the wind. Polynesian navigators read stars, ocean swells, wave patterns, and the
             behavior of birds. They oriented themselves across open water without instruments.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Hokule%27a.jpg"
-              alt="Hokule'a, the Hawaiian double-hulled voyaging canoe, sailing on open water"
-              loading="lazy"
-            />
-            <figcaption>
-              Hokule'a, a reconstructed Hawaiian double-hulled voyaging canoe. Polynesian navigators
-              used star paths, wave patterns, and bird behavior to cross thousands of kilometers of
-              open Pacific without instruments.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Hokule%27a.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>
             From Tonga and Samoa, Polynesians colonized the far corners of the Pacific. Easter
             Island (Rapa Nui) was reached around 200 to 300 CE. Hawaii was colonized around the same
@@ -237,36 +237,39 @@ function useConfig() {
             Island nations of Tonga, Samoa, Hawaii, Aotearoa New Zealand, and many others descend
             from these voyagers.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/72/Ahu_Tongariki.jpg"
-              alt="Ahu Tongariki, a row of fifteen moai statues on Easter Island"
-              loading="lazy"
-            />
-            <figcaption>
-              Ahu Tongariki on Easter Island: fifteen moai statues restored to their platform.
-              Building these required enormous coordinated labor. The island later suffered severe
-              deforestation and societal stress. The moai still draw visitors from around the world
-              today.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Ahu_Tongariki.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>
             Easter Island carried this pattern to its breaking point. Forests vanished as the
             population grew and moai-building stripped wood for transport. Rats ate the palm seeds
             and stopped the forests from regrowing. Without wood, canoes and houses got hard to
             build. Soil eroded. Crops failed. The island became a warning about pushing a closed
             ecosystem past its limits. Hawaii, Tonga, and Samoa avoided the same fate by managing
-            island resources more carefully. Centuries later, the same Austronesian world built
-            Borobudur (a Buddhist monument) and Prambanan (a Hindu monument) on Java, both tied into
-            South Asian trade and religious networks.
+            island resources more carefully. (Much later, well past our Holocene window, the same
+            Austronesian world built Borobudur and Prambanan on Java in the 1st millennium CE. Both
+            monuments show how deeply Island Southeast Asia stayed tied into South Asian trade.)
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="MOAI ROW, AHU TONGARIKI">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/72/Ahu_Tongariki.jpg"
+                alt="Row of standing moai statues on a stone platform at Ahu Tongariki"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'Restored moai row at Ahu Tongariki, Easter Island (Rapa Nui). '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Ahu_Tongariki.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>The Tasmanian Fish Cessation Debate</h3>
           <p>
@@ -321,15 +324,15 @@ function useConfig() {
           </p>
           <p>
             Guilá Naquitz in Oaxaca, Mexico provides the earliest evidence. Squash cultivation
-            appears around 9000 BCE. The shift from teosinte (the wild ancestor of maize) to fully
+            appears around 9000 BCE. Teosinte is the wild ancestor of maize. The shift to fully
             domesticated maize took thousands of years, roughly 7000 to 5000 BCE. Teosinte has a
             small, hard cob with only a few kernels. Maize has a large soft cob with many kernels.
-            Without any understanding of genetics, farmers could only select the best plants by eye
-            each generation. Building enough change to turn teosinte into modern maize required
-            thousands of planting seasons. Mesoamerican farmers had no contact with their Near
-            Eastern counterparts, who were doing the same with wheat and barley at roughly the same
-            time from different wild species. That parallel invention is the strongest single piece
-            of evidence that agriculture is a predictable response to the right conditions, not a
+            This is the slow, unconscious selection you met in Module 3: farmers kept the best
+            plants by eye each generation, with no idea of genes, and the crop changed over
+            thousands of seasons. Mesoamerican farmers had no contact with the farmers in the Near
+            East. Those farmers were doing the same with wheat and barley at the same time, from
+            different wild species. That parallel invention is the strongest single piece of
+            evidence that agriculture is a predictable response to the right conditions, not a
             single cultural accident that spread.
           </p>
 
@@ -337,31 +340,57 @@ function useConfig() {
           <p>
             Long before maize arrived, people in Eastern North America were already growing their
             own set of crops. The Eastern Agricultural Complex (from about 5000 BCE) included
-            goosefoot (chenopod), sunflower, sumpweed (marsh elder), and maygrass. Koster in
-            Illinois is a stratified site showing long-term Archaic occupation. Watson Brake in
-            Louisiana is a mound complex dated to about 3500 BCE, one of the earliest
-            monument-building sites in North America. Archaic foragers built it without farming,
-            which directly cuts against the idea that monuments require an agricultural surplus.
+            goosefoot (chenopod), sunflower, sumpweed (marsh elder), and maygrass. This was the
+            Archaic period in North America, roughly 8000 to 2000 BCE, when foragers spread out
+            after the Ice Age. Koster in Illinois is a stratified site (one with layers stacked over
+            time) showing long-term Archaic occupation. Watson Brake in Louisiana is a mound complex
+            dated to about 3500 BCE, one of the earliest monument-building sites in North America.
+            Archaic foragers built it without farming. Like Göbekli Tepe in Module 3, it shows
+            monuments can come before farming, not after it.
           </p>
           <p>
-            Poverty Point in Louisiana flourished between 1700 and 1100 BCE. It was a large
-            earthwork complex whose builders moved red jasper and magnetite from sources hundreds of
-            kilometers away. Foragers usually carry only what they can use locally. Long-distance
-            movement of prestige stone signals strong social networks and surplus time. Even
-            non-farmers can run wide exchange systems when the food base is rich and stable.
-            Windover in Florida is an Archaic wet site where waterlogged conditions preserved
-            textiles and even brain tissue, giving a rare window into Archaic material life.
+            Poverty Point in Louisiana thrived between 1700 and 1100 BCE. It was a large earthwork
+            complex. Its builders moved red jasper and magnetite from sources hundreds of kilometers
+            away. Foragers usually carry only what they can use locally. Long-distance movement of
+            prestige stone signals strong social networks and surplus time. Even non-farmers can run
+            wide exchange systems when the food base is rich and stable. Windover in Florida is an
+            Archaic wet site. Waterlogged conditions there preserved textiles and even brain tissue.
+            It gives a rare window into Archaic material life.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="POVERTY POINT EARTHWORKS">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/9/98/Poverty_Point_Aerial_HRoe_2014.jpg"
+                alt="Aerial reconstruction showing concentric semicircular earthwork ridges at Poverty Point"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Aerial reconstruction of the concentric earthwork ridges at Poverty Point, Louisiana. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Poverty_Point_Aerial_HRoe_2014.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>Southwestern North America: Early Farming Villages</h3>
           <p>
             Maize farming reached the American Southwest by a different route. Las Capas in Arizona
             shows irrigation-based maize farming by about 1200 BCE. Cerro Juanaqueña in Chihuahua
             shows terraced hillside farming. Both sites show Southwestern groups adapting
-            Mesoamerican maize to dry country through engineered water management. Irrigation moves
-            water to crops instead of farming only where rain falls. It requires labor coordination,
-            land tenure, and seasonal planning. It signals a deeper commitment to a fixed place than
-            rainfall farming does.
+            Mesoamerican maize to dry country through engineered water management. As Module 3
+            showed, irrigation signals a deep commitment to a fixed place. It takes labor
+            coordination, land tenure, and seasonal planning that rain-fed farming does not.
           </p>
           <div className="lrn-compare">
             <div className="lrn-compare-item">
@@ -382,15 +411,40 @@ function useConfig() {
 
           <h3>South America: Coastal Economies and the Chinchorro</h3>
           <p>
-            Along the Peruvian coast, pre-ceramic (without pottery) societies built rich economies
-            on the sea. La Paloma, Chilca, and the Ring Site show coastal communities living from
-            fish, shellfish, and sea mammals long before farming mattered. The Chinchorro people of
-            northern Chile mummified their dead on purpose from about 5000 to 3000 BCE, using clay,
-            paint, sticks, and reeds to rebuild and preserve bodies. These are among the world's
-            oldest intentional mummies. Pedra Pintada in the Amazon shows early forager occupation
-            there too, with evidence that Amazonian groups actively shaped their forests rather than
-            just living in them.
+            Along the Peruvian coast, pre-ceramic societies (the aceramic, before-pottery stage from
+            Module 3) built rich economies on the sea. La Paloma, Chilca, and the Ring Site show
+            coastal communities living from fish, shellfish, and sea mammals long before farming
+            mattered. The Chinchorro people of northern Chile mummified their dead on purpose, from
+            about 5000 to 3000 BCE. They used clay, paint, sticks, and reeds to rebuild and preserve
+            bodies. These are among the world's oldest intentional mummies. Pedra Pintada in the
+            Amazon shows early forager occupation there too, with evidence that Amazonian groups
+            actively shaped their forests rather than just living in them.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="CHINCHORRO MUMMIES">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Chinchorro_mummy_bodies_Arica.jpg"
+                alt="Chinchorro mummy bodies preserved with clay and reeds, Arica"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Chinchorro mummies from Arica, northern Chile, rebuilt with clay, sticks, and reeds. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Chinchorro_mummy_bodies_Arica.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>Norte Chico / Caral: Civilization Without Ceramics</h3>
           <p>
@@ -404,36 +458,41 @@ function useConfig() {
             highland exchange; quipus handled the accounting. Same rough date as Mesopotamia,
             completely different ingredients.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/75/Caral_Peru.JPG"
-              alt="Pyramid mound at the ancient city of Caral in Peru, the oldest city in the Americas"
-              loading="lazy"
-            />
-            <figcaption>
-              A pyramid mound at Caral, Peru. Caral and the Norte Chico sites built monumental
-              architecture by about 3200 BCE without using pottery or writing. Their economy was
-              built on maritime resources and cotton.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Caral_Peru.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="PIRÁMIDE MAYOR, CARAL">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Mayor_Pyramid_and_circular_enclosure._Caral%2C_Peru.jpg"
+                alt="Mayor Pyramid and circular sunken enclosure at Caral, Peru"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'Pirámide Mayor and its sunken circular plaza at Caral, coastal Peru. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Mayor_Pyramid_and_circular_enclosure._Caral,_Peru.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 2.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <h3>Andean Highlands: Camelids and Tuber Agriculture</h3>
           <p>
             In the Andean highlands, a separate domestication process was underway. Pachamachay and
             Telarmachay are high herding sites where people managed llamas and alpacas, bred from
-            the wild guanaco and vicuña. Quinoa and potatoes were also domesticated up here, in
-            country too high and cold for maize. Both crops are global staples today. Llamas and
-            alpacas are the only large domesticated animals native to the Americas. They gave meat,
-            fiber, and pack transport. Without pack animals, goods move only as far as a person can
-            carry them. With llamas, goods crossed thousands of kilometers of mountain terrain. That
-            made Andean economic integration possible.
+            the wild guanaco and vicuña. People also domesticated quinoa and potatoes up here, in
+            country too high and cold for maize. The potato is a tuber, an underground food plant.
+            Both crops are global staples today. Llamas and alpacas are the only large domesticated
+            animals native to the Americas. They gave meat, fiber, and pack transport. Without pack
+            animals, goods move only as far as a person can carry them. With llamas, goods crossed
+            thousands of kilometers of mountain terrain. That made Andean economic integration
+            possible.
           </p>
         </>,
 
@@ -459,37 +518,43 @@ function useConfig() {
           <p>
             From about 11,000 BCE, Africa entered the African Humid Period. The Sahara received much
             more rainfall than today. Lakes formed. Grasslands spread. Cattle, hippos, and fish
-            lived across the region. Nabta Playa in Sudan/Egypt shows cattle pastoralism by about
-            9000 BCE, with Bir Kiseiba nearby giving similar evidence. These are among the earliest
-            cattle-herding sites anywhere in the world. Whether the cattle were domesticated locally
-            from African wild stock (Bos primigenius africanus) or arrived already domesticated from
-            Southwest Asia is unresolved. Genetics shows both contributions in African cattle.
+            lived across the region. Nabta Playa in Sudan/Egypt shows cattle pastoralism (a life
+            built around herding cattle) by about 9000 BCE, with Bir Kiseiba nearby giving similar
+            evidence. These are among the earliest cattle-herding sites anywhere in the world. Were
+            the cattle domesticated locally from African wild stock (Bos primigenius africanus, the
+            African wild cattle)? Or did they arrive already domesticated from Southwest Asia? This
+            is unresolved. Genetics shows both contributions in African cattle.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/fd/La_vache_qui_pleure.jpg"
-              alt="Saharan rock art from Tassili n'Ajjer showing cattle and human figures from the African Humid Period"
-              loading="lazy"
-            />
-            <figcaption>
-              "The Crying Cow," Saharan rock art from Tassili n'Ajjer, Algeria. People made this art
-              during the African Humid Period, when cattle pastoralism flourished across the Sahara.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:La_vache_qui_pleure.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="NABTA PLAYA CALENDAR CIRCLE">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Calendar_aswan.JPG"
+                alt="Reconstructed Nabta Playa stone calendar circle on display at Aswan"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'Reconstructed Nabta Playa calendar circle, shown at the Nubia Museum in Aswan. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Calendar_aswan.JPG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>
-            Early Khartoum on the Nile shows hunter-fishers using wavy-line pottery. Jebel Sahaba is
-            a Mesolithic cemetery whose dead carry embedded projectile points: evidence of organized
-            violence. Around 5000 BCE the African Humid Period ended. The Sahara dried. Communities
-            moved south, east, and toward the Nile. That mass migration spread cattle herding into
-            sub-Saharan Africa and concentrated population along the Nile, setting up the rise of
-            Egypt.
+            Early Khartoum on the Nile shows hunter-fishers using pottery decorated with wavy lines.
+            Jebel Sahaba is a Mesolithic cemetery whose dead carry embedded projectile points:
+            evidence of organized violence. Around 5000 BCE the African Humid Period ended. The
+            Sahara dried. Communities moved south, east, and toward the Nile. That mass migration
+            spread cattle herding into sub-Saharan Africa and concentrated population along the
+            Nile, setting up the rise of Egypt.
           </p>
 
           <h3>North and Northeast Africa: The Nile Valley and Egypt</h3>
@@ -500,28 +565,34 @@ function useConfig() {
             Nile flood plain silt. Egypt's connections ran north and east to the Near East as much
             as south to sub-Saharan Africa. The Badarian and Naqada cultures (4500 to 3100 BCE) show
             rising social complexity, craft specialization, and elite burials. By about 3100 BCE the
-            Narmer Palette documents the unification of Upper and Lower Egypt, showing a king
+            Narmer Palette documents the unification of Upper and Lower Egypt. It shows a king
             defeating enemies and wearing the crowns of both halves. It marks the start of the
             pharaonic state tradition.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/b/be/Narmer_Palette.jpg"
-              alt="The Narmer Palette, a ceremonial slate palette from around 3100 BCE showing the king of unified Egypt"
-              loading="lazy"
-            />
-            <figcaption>
-              The Narmer Palette (c. 3100 BCE). It shows King Narmer wearing the crowns of Upper and
-              Lower Egypt. It marks the start of the pharaonic state tradition and is one of the
-              earliest pieces of Egyptian narrative art.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Narmer_Palette.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="NARMER PALETTE">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/b/be/Narmer_Palette.jpg"
+                alt="The greywacke Narmer Palette showing a king and registers of carved figures"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The greywacke Narmer Palette, recording the unification of Upper and Lower Egypt. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Narmer_Palette.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>
             Djoser built the Step Pyramid at Saqqara around 2950 BCE. The pyramids of the Old
@@ -549,14 +620,36 @@ function useConfig() {
             South of Egypt, Nubian civilizations grew along the upper Nile. Kerma was an urban
             center by about 2000 BCE. Aksum in Ethiopia became a Christian state around 700 CE. Its
             Red Sea position gave it control over trade between the Mediterranean, Arabia, and
-            India. That trade funded enormous stone stelae (the largest fallen stele measured 33
-            meters and weighed 517 tonnes) and its own coinage in gold, silver, and copper. Coinage
-            requires a standardized exchange medium, a state to back it, and an economy big enough
-            to need it: Aksum had all three. Quseir al-Qadim on Egypt's Red Sea coast was a port
-            linking African goods into the Indian Ocean network, showing that Egypt's connections
-            ran east as well as north. The Ethiopian Orthodox Church traces directly back to Aksum's
-            Christianization and remains one of the oldest Christian traditions in the world today.
+            India. That trade funded enormous stone stelae (tall carved standing stones) and Aksum's
+            own coinage in gold, silver, and copper. The largest fallen stele measured 33 meters and
+            weighed 517 tonnes. Coinage requires a standard exchange medium, a state to back it, and
+            an economy big enough to need it. Aksum had all three. Quseir al-Qadim on Egypt's Red
+            Sea coast was a port linking African goods into the Indian Ocean network. It shows
+            Egypt's connections ran east as well as north.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="GREAT STELE, AKSUM">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/01/The_Great_Obelisk%2C_Axum_%282812691618%29.jpg"
+                alt="The Great Obelisk carved stele at the North Stelae Park in Aksum"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'The Great Obelisk, a carved stele in the North Stelae Park at Aksum, Ethiopia. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:The_Great_Obelisk,_Axum_(2812691618).jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>Sub-Saharan Africa: Independent Crops and the Bantu Expansion</h3>
           <p>
@@ -567,41 +660,23 @@ function useConfig() {
             or rebreeding to survive here. The African crops were already fit. Sorghum and pearl
             millet still feed hundreds of millions of people across Africa and South Asia today.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/7c/A_closeup_of_Pearl_Millet_%28Cumbu%29.JPG"
-              alt="Close-up of pearl millet (Pennisetum glaucum), one of the key crops domesticated in sub-Saharan Africa"
-              loading="lazy"
-            />
-            <figcaption>
-              Pearl millet (Pennisetum glaucum), domesticated in sub-Saharan Africa. It tolerates
-              dry seasons better than wheat or barley. It is still a staple grain for many African
-              farming families.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:A_closeup_of_Pearl_Millet_(Cumbu).JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>
             Using cattle for milk, hides, and pulling plows is called the secondary products
-            revolution. African herders joined this shift. Sanga-type cattle (a cross of humpless
-            taurine stock from Europe and the Near East with humped zebu stock from South Asia) were
-            better adapted to African disease environments, making cattle herding viable in country
-            hostile to either pure breed.
+            revolution. African herders joined this shift. Sanga-type cattle were a cross of
+            humpless taurine stock from Europe and the Near East with humped zebu stock from South
+            Asia. They were better adapted to African disease environments. That made cattle herding
+            viable in country hostile to either pure breed.
           </p>
           <p>
-            The Bantu expansion is one of the great demographic events of African history. From a
-            proto-homeland near Shum Laka in Cameroon, Bantu-speaking communities carried
-            pottery-making, farming, and (later) ironworking south and east across sub-Saharan
-            Africa, starting before 1000 BCE and reaching southern Africa by 300 to 700 CE. Silver
-            Leaves, Broederstroom, and Lydenburg in South Africa document the southern arrival. The
-            Bantu language family today includes more than 500 living languages spoken by over 350
-            million people. The expansion is the clearest African example of a technology package
-            moving with a population rather than through abstract copying.
+            The Bantu expansion is one of the great demographic events of African history.
+            Bantu-speaking communities started from a proto-homeland near Shum Laka in Cameroon.
+            They carried pottery-making, farming, and later ironworking south and east across
+            sub-Saharan Africa. The spread started before 1000 BCE and reached southern Africa by
+            300 to 700 CE. Silver Leaves, Broederstroom, and Lydenburg in South Africa document the
+            southern arrival. The Bantu language family today includes more than 500 living
+            languages spoken by over 350 million people. The expansion is the clearest African
+            example of a technology package moving with a population rather than through abstract
+            copying.
           </p>
 
           <h3>Ironworking in Africa: The Independence Debate</h3>
@@ -611,26 +686,13 @@ function useConfig() {
             Great Lakes is the key East African site. In Nigeria, the Nok culture (500 BCE to 500
             CE) produced both terracotta sculptures and iron tools.
           </p>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              Did Africa develop iron on its own, or did the knowledge come from Southwest Asia?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                Most researchers favor independent invention. African iron methods look different
-                from Southwest Asian ones, and many African regions skipped the bronze age entirely,
-                which is hard to explain through borrowing.
-              </p>
-            </details>
-          </div>
           <p>
-            If Africa invented ironworking on its own, it was a third center of iron technology
-            after Anatolia and South Asia. Many regions also went straight from stone tools to iron
-            with no bronze age in between. That breaks the textbook "stone, bronze, iron" sequence
-            and shows the path of technology depends on what materials and needs are locally to
-            hand, not a universal ladder.
+            Did Africa develop iron on its own, or did the knowledge come from Southwest Asia? Most
+            researchers favor independent invention. If Africa invented ironworking on its own, it
+            was a third center of iron technology after Anatolia and South Asia. Many regions also
+            went straight from stone tools to iron with no bronze age in between. That breaks the
+            textbook "stone, bronze, iron" sequence. It shows the path of technology depends on what
+            materials and needs are locally to hand, not a universal ladder.
           </p>
           <div className="lrn-compare">
             <div className="lrn-compare-item">
@@ -651,31 +713,37 @@ function useConfig() {
 
           <h3>Nok Culture</h3>
           <p>
-            The Nok culture on the Jos Plateau of Nigeria flourished from about 500 BCE to 500 CE.
-            It produced distinctive terracotta sculptures: life-sized and near-life-sized human and
+            The Nok culture on the Jos Plateau of Nigeria thrived from about 500 BCE to 500 CE. It
+            produced distinctive terracotta sculptures: life-sized and near-life-sized human and
             animal figures with hollow interiors and detailed faces. They are among the oldest known
             figurative sculpture traditions in sub-Saharan Africa. Nok also practiced early iron
             smelting. Together, the sculptures and the iron evidence show a society with both
             technological and artistic depth centuries before any European or Islamic contact.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Nok_sculpture_Louvre_70-1998-11-1.jpg"
-              alt="Nok terracotta sculpture from Nigeria, depicting a seated figure, in the Louvre Museum"
-              loading="lazy"
-            />
-            <figcaption>
-              Nok terracotta sculpture (Nigeria, c. 500 BCE to 500 CE), Louvre Museum. The Nok
-              people made some of the oldest known figurative sculpture in sub-Saharan Africa and
-              also smelted iron.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Nok_sculpture_Louvre_70-1998-11-1.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="NOK TERRACOTTA HEAD">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Male_Head%2C_Nok_culture%2C_Kaduna%2C_Plateau%2C_or_Nassarawa_state%2C_Nigeria%2C_550-50_BC%2C_terracotta_-_Brooklyn_Museum_-_Brooklyn%2C_NY_-_DSC08511.JPG"
+                alt="Nok culture terracotta male head with triangular pierced eyes"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Nok terracotta head from Nigeria, with the triangular pierced eyes typical of the style. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Male_Head,_Nok_culture,_Kaduna,_Plateau,_or_Nassarawa_state,_Nigeria,_550-50_BC,_terracotta_-_Brooklyn_Museum_-_Brooklyn,_NY_-_DSC08511.JPG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <h3>West African Urbanism, Trade, and Art</h3>
@@ -684,17 +752,18 @@ function useConfig() {
             sites in West Africa. It developed with no clear king, palace, or central temple at its
             core. Instead, neighborhood-sized communities clustered together, each keeping its own
             work and identity. The city was the sum of groups choosing to live close, not a single
-            ruling center pulling them in. Archaeologists call this synoecism (social aggregation
-            from multiple communities), and it directly challenges the assumption that cities
-            require states.
+            ruling center pulling them in. Archaeologists call this synoecism: social aggregation
+            from multiple communities. It directly challenges the assumption that cities require
+            states.
           </p>
           <p>
             Trans-Saharan trade moved gold, salt, slaves, and copper across the desert. Cowrie
             shells from the Maldives reached Saharan trade routes, showing the long-distance reach
             of these networks. Igbo-Ukwu in southeastern Nigeria (9th to 10th centuries CE) held a
-            hoard of 685 copper and bronze objects (cast in lost-wax technique) plus 165,000 beads.
-            The raw materials had to come from distant sources, so a non-state community controlled
-            wealth and exchange on a wide scale.
+            hoard of 685 copper and bronze objects plus 165,000 beads. The metal objects were made
+            by lost-wax casting, where a wax model is wrapped in clay, then melted out so molten
+            metal fills the gap. The raw materials had to come from distant sources, so a non-state
+            community controlled wealth and exchange on a wide scale.
           </p>
 
           <h3>Eastern and Southern Africa: Swahili Coast and Great Zimbabwe</h3>
@@ -702,33 +771,37 @@ function useConfig() {
             From around 700 CE onward, Indian Ocean trade transformed East Africa's coast. Gedi,
             Shanga, Kilwa, and Kaole grew into wealthy Swahili trading towns connected to Arabia,
             India, and China. Goods moved both ways: gold, ivory, iron, and enslaved people went
-            out; cloth, porcelain, and other goods came in. Inland, Great Zimbabwe flourished
-            between 1300 and 1450 CE on the Zimbabwe Plateau, controlling gold-producing country in
-            its hinterland. Gold reached Swahili ports and entered the Indian Ocean trade; cloth and
-            porcelain came back. Chinese porcelain found at Great Zimbabwe confirms the link. Its
-            stone enclosures are the largest pre-colonial stone structures in sub-Saharan Africa.
-            They worked as walls and as symbols of power. The modern country takes its name from the
-            site. The Zimbabwe plateau states (Khami, Mapungubwe, and others) rose and fell in
-            sequence.
+            out; cloth, porcelain, and other goods came in. Inland, Great Zimbabwe grew rich and
+            busy between 1300 and 1450 CE on the Zimbabwe Plateau, controlling gold-producing
+            country in its hinterland. Gold reached Swahili ports and entered the Indian Ocean
+            trade; cloth and porcelain came back. Chinese porcelain found at Great Zimbabwe confirms
+            the link. Its stone enclosures are the largest pre-colonial stone structures in
+            sub-Saharan Africa. They worked as walls and as symbols of power. The modern country
+            takes its name from the site. The Zimbabwe plateau states (Khami, Mapungubwe, and
+            others) rose and fell in sequence.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Wall_of_the_great_enclosure%2C_Great_Zimbabwe.JPG"
-              alt="Stone wall of the Great Enclosure at Great Zimbabwe, southern Africa"
-              loading="lazy"
-            />
-            <figcaption>
-              Stone wall of the Great Enclosure at Great Zimbabwe (Zimbabwe, c. 1300 to 1450 CE). It
-              is the largest pre-colonial stone structure in sub-Saharan Africa. The country
-              Zimbabwe takes its name from this site.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Wall_of_the_great_enclosure,_Great_Zimbabwe.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="CONICAL TOWER, GREAT ZIMBABWE">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Conical_tower_%E2%80%93_Great_Zimbabwe.jpg"
+                alt="Conical dry-stone tower within the Great Enclosure walls at Great Zimbabwe"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'The Conical Tower inside the dry-stone Great Enclosure at Great Zimbabwe. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Conical_tower_%E2%80%93_Great_Zimbabwe.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 3.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
         </>,
 
@@ -756,59 +829,47 @@ function useConfig() {
             The Mesolithic began in Europe after postglacial warming was complete around 9600 BCE.
             Sea levels rose. Britain separated from mainland Europe around 7000 BCE. Forests spread
             north. The large herd animals of the Ice Age were mostly gone. Mesolithic Europeans were
-            not simple nomads. They built composite tools, canoes, and fishing gear, and several
-            communities settled down year-round (this is called sedentism).
+            not simple nomads. They built composite tools (tools made of several parts joined
+            together), canoes, and fishing gear. Several communities even settled down year-round,
+            the sedentism you met in Module 3.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/62/Star_Carr_headdress_cropped.JPG"
-              alt="Star Carr antler frontlet, a deer skull cap with antlers attached, used by Mesolithic people around 8700 BCE"
-              loading="lazy"
-            />
-            <figcaption>
-              Star Carr antler frontlet (deer skull cap with antlers attached), c. 8700 BCE,
-              northeast England. These ritual objects show that Mesolithic Europeans invested in
-              symbolic life long before farming arrived.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Star_Carr_headdress_cropped.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>
             Lepenski Vir on the Iron Gates of the Danube in Serbia ran from about 9500 to 5500 BCE.
             It had trapezoidal stone-paved house floors in a planned layout and unique fish-faced
-            stone sculptures. Farming communities lived nearby for centuries before Lepenski Vir was
-            abandoned, so hunter-gatherers clearly did not flip to farming the moment farmers showed
-            up next door.
+            stone sculptures. Farming communities lived nearby for centuries before people left
+            Lepenski Vir. So hunter-gatherers clearly did not flip to farming the moment farmers
+            showed up next door.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Lepenski_Vir_Head.JPG"
-              alt="Stone sculpture from Lepenski Vir showing a fish-human face, from a Mesolithic site on the Danube"
-              loading="lazy"
-            />
-            <figcaption>
-              Fish-faced stone sculpture from Lepenski Vir, Serbia. These unique sculptures are
-              found in planned stone-paved houses at one of the most unusual Mesolithic sites in
-              Europe.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Lepenski_Vir_Head.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="LEPENSKI VIR SCULPTURES">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/d/d0/The_Lepenski_Vir_sculptures.jpg"
+                alt="Carved fish-faced sandstone sculptures from Lepenski Vir"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'Fish-faced sandstone sculptures from Lepenski Vir on the Danube, Serbia. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:The_Lepenski_Vir_sculptures.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>
             Ertebølle in Denmark, plus Skateholm and Vedbaek in Scandinavia, were complex coastal
             Mesolithic communities. Shell middens, cemeteries, and heavy use of marine resources
             mark these sites. Ertebølle people resisted farming for centuries even as Neolithic
-            farmers expanded nearby, because rich coastal foraging worked better in their
+            farmers expanded nearby. The Neolithic, the New Stone Age you met in Module 3, is the
+            farming stage marked by villages, polished stone tools, and domesticated crops and
+            animals. Rich coastal foraging simply worked better for the Ertebølle in their
             environment. Olenii Ostrov in Karelia, Russia, holds the earliest large Mesolithic
             cemetery, with 400 burials. Téviec in Brittany is another Mesolithic cemetery, with
             evidence of violent deaths. Cemeteries require people to return to the same place again
@@ -819,108 +880,78 @@ function useConfig() {
 
           <h3>The Spread of Farming into Europe</h3>
           <p>
-            Farming spread into Europe from Anatolia (modern Turkey). Researchers can now read
-            skeletal DNA from ancient teeth and bones. The DNA of early European farmers clusters
-            with Anatolian populations, not with local European Mesolithic people. The farmers were
-            migrants, not converts. Farming arrived in Greece first, by about 6600 BCE, at sites
-            like Nea Nikomedeia, Argissa, and Karanovo.
+            Module 3 already settled the big question: the first European farmers were Anatolian
+            migrants, not local foragers who copied farming. Ancient DNA proved it. Here we follow
+            where they went. Farming arrived in Greece first, by about 6600 BCE, at sites like Nea
+            Nikomedeia, Argissa, and Karanovo.
           </p>
-          <div className="lrn-compare">
-            <div className="lrn-compare-item">
-              <strong>Migrating farmers (now confirmed by ancient DNA)</strong>
-              <p>
-                Anatolian farmers migrated into Europe carrying their genes and farming package.
-                Ancient DNA strongly supports this for the initial wave.
-              </p>
-            </div>
-            <div className="lrn-compare-item">
-              <strong>Indigenous adoption model</strong>
-              <p>
-                Local European hunter-gatherers adopted farming from neighbors. Ancient DNA now
-                largely rules this out for the first wave, though later mixing did occur.
-              </p>
-            </div>
-          </div>
           <p>
             From Greece, farming took two main routes. One ran along the Mediterranean coast and
             used Cardial Ware (pottery decorated with pressed shells). The other went through
-            Central Europe: the Bandkeramik or LBK culture (LBK is short for the German
-            Linearbandkeramik, the linear-pottery culture). LBK farmers moved along river terraces,
+            Central Europe: the Bandkeramik or LBK culture. LBK is short for the German
+            Linearbandkeramik, the linear-pottery culture. LBK farmers moved along river terraces,
             built long timber houses, and set up cemeteries from around 5600 BCE. The
             Trypillia/Tripolye mega-sites in Ukraine (Maydanetske, Taljanky) reached up to 360
-            hectares and housed 5000 to 8000 people, but they were occupied briefly and abandoned.
-            They are among the largest pre-urban settlements in human history. They are not true
-            cities.
+            hectares and housed 5000 to 8000 people. They are among the largest pre-urban
+            settlements in human history. But they are not true cities. People did not all live
+            there at once, and each site lasted only a short time before its people burned it and
+            moved on.
           </p>
 
           <h3>Violence Among LBK Farmers</h3>
           <p>
-            The Bandkeramik expansion was not peaceful. At Talheim in Germany, a pit held 34 people
-            killed by axe blows in the late 6th millennium BCE. Herxheim in the Rhineland shows
-            cannibalism and ritual dismemberment. Schletz in Austria is another LBK massacre site.
-            The pattern points to competition for land among expanding farming communities.
-            Agriculture created something worth fighting over: fixed fields, stored grain, and
-            territory.
+            The Bandkeramik expansion was not peaceful. The Talheim massacre you met in Module 3, 34
+            farmers killed with axe blows, comes from this same LBK world. Talheim was not alone.
+            Herxheim in the Rhineland shows cannibalism and ritual dismemberment. Schletz in Austria
+            is another LBK massacre site. The pattern points to competition for land among expanding
+            farming communities. Agriculture created something worth fighting over: fixed fields,
+            stored grain, and territory.
           </p>
 
           <h3>Varna Cemetery and Early Social Inequality</h3>
           <p>
             The Varna cemetery on the Bulgarian Black Sea coast (4560 to 4450 BCE) holds the richest
-            Early Copper Age burials yet found. Some graves contain over 980 gold objects each:
-            penis sheaths, pectorals, animal-shaped appliqués, and beads. Other graves contain none.
-            Copper mines at Ai Bunar in Bulgaria and Rudna Glava in Serbia were already running by
-            about 5100 BCE. The gap between rich and poor graves shows that social hierarchy was
-            already institutionalized in Europe over 6000 years ago, well before writing or any
-            state.
+            Early Copper Age burials yet found. The Copper Age is the stretch when people first
+            worked copper, after the Neolithic but before they learned to make bronze. Some graves
+            contain over 980 gold objects each: penis sheaths, pectorals, animal-shaped appliqués,
+            and beads. Other graves contain none. Copper mines at Ai Bunar in Bulgaria and Rudna
+            Glava in Serbia were already running by about 5100 BCE. The gap between rich and poor
+            graves shows that social hierarchy was already institutionalized in Europe over 6000
+            years ago, well before writing or any state.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Burial_with_gold_treasure%2C_4600-4200_BC%2C_AM_Varna%2C_Varm25.jpg"
-              alt="Burial with skeleton and gold treasure at the Varna Necropolis, Bulgaria, 4600 to 4200 BCE"
-              loading="lazy"
-            />
-            <figcaption>
-              Gold-rich burial from the Varna cemetery, Bulgaria (4600 to 4200 BCE). Some graves
-              contain over 980 gold objects. Others contain none. The contrast shows social
-              hierarchy was already in place in Europe over 6000 years ago.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Burial_with_gold_treasure,_4600-4200_BC,_AM_Varna,_Varm25.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="VARNA GRAVE 43">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/77/Grave_43_%28Varna_Archaeology_Museum%29_%2836755886415%29.jpg"
+                alt="Grave 43 at Varna with a skeleton and abundant gold burial objects"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {"Grave 43 at Varna, a man buried with some of the world's oldest gold. "}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Grave_43_(Varna_Archaeology_Museum)_(36755886415).jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <h3>The Iceman: A Snapshot of Copper Age Life</h3>
           <p>
             Otzi the Iceman died around 3300 to 3200 BCE in the Alps. Organic materials almost never
             survive 5000 years. His freeze-dried body preserved a copper axe, an unfinished yew bow,
-            a quiver with arrows, clothing, and even the contents of his last meals. He had been
-            shot in the shoulder with an arrow and died from the wound. Otzi shows what an
+            a quiver with arrows, and clothing. It even preserved the contents of his last meals. He
+            had been shot in the shoulder with an arrow and died from the wound. Otzi shows what an
             individual Copper Age person actually used day to day. The arrow in his shoulder shows
             individual-level violence, matching the group massacre sites from earlier LBK farmers.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Otzi-Quinson.jpg"
-              alt="Reconstruction of Otzi the Iceman, the freeze-dried Copper Age body found in the Alps"
-              loading="lazy"
-            />
-            <figcaption>
-              Reconstruction of Otzi the Iceman (Prehistory Museum of Quinson, France). Otzi died
-              around 3300 to 3200 BCE. His freeze-dried body preserved tools, clothing, and even his
-              last meals, giving rare detail about Copper Age daily life.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Otzi-Quinson.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
 
           <h3>Megalithic Monuments</h3>
           <p>
@@ -930,68 +961,58 @@ function useConfig() {
             up around 3200 BCE. Newgrange is a passage grave aligned so that sunlight enters the
             chamber at the winter solstice sunrise. That alignment required careful astronomical
             work over many years, and the construction itself required large-scale coordinated
-            labor. Neolithic communities here were organizing collective work, tracking celestial
-            events, and keeping ties to their ancestral dead, all before any metal or writing.
+            labor. Neolithic communities here organized collective work, tracked celestial events,
+            and kept ties to their ancestral dead. They did all of this before any metal or writing.
           </p>
           <p>
             Builders raised Stonehenge in Wiltshire in phases, starting around 2950 BCE. Workers
-            raised the great sarsen stone circle between 2500 and 2400 BCE. The bluestones came from
-            the Preseli hills of Wales, over 200 kilometers away. Durrington Walls and Woodhenge
-            form a wider ceremonial landscape, and feasting evidence there suggests big seasonal
-            gatherings. Millions still visit Stonehenge each year.
+            raised the great sarsen stone circle (sarsen is a hard local sandstone) between 2500 and
+            2400 BCE. The bluestones came from the Preseli hills of Wales, over 200 kilometers away.
+            Durrington Walls and Woodhenge form a wider ceremonial landscape, and feasting evidence
+            there suggests big seasonal gatherings. Millions still visit Stonehenge each year. The
+            three-way debate over what Stonehenge was for, observatory or healing site or ancestral
+            memorial, is the multivocality case you met in Module 1. Most researchers accept that it
+            served several of these roles at once.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Stonehenge%2C_Salisbury.JPG"
-              alt="Stonehenge on Salisbury Plain, Wiltshire, England, showing the sarsen stone circle"
-              loading="lazy"
-            />
-            <figcaption>
-              Stonehenge, Wiltshire, England. Workers raised the sarsen stone circle between 2500
-              and 2400 BCE. Bluestones came from Wales, over 200 km away. This shows the organized
-              labor and wide connections of Neolithic British society.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Stonehenge,_Salisbury.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="STONEHENGE SARSEN CIRCLE">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Stonehenge2007_07_30.jpg"
+                alt="Stonehenge sarsen stone circle with horizontal lintels"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'The sarsen stone circle with its lintels at Stonehenge, Wiltshire. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Stonehenge2007_07_30.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
-          <div className="lrn-compare">
-            <div className="lrn-compare-item">
-              <strong>Ancestor veneration</strong>
-              <p>
-                Stonehenge as a burial monument and place for honoring the dead. Human bones in the
-                monument support this.
-              </p>
-            </div>
-            <div className="lrn-compare-item">
-              <strong>Astronomical calendar</strong>
-              <p>Midwinter sunset and midsummer sunrise alignment shows astronomical function.</p>
-            </div>
-            <div className="lrn-compare-item">
-              <strong>Healing center</strong>
-              <p>
-                Isotope analysis suggests people traveled from far away, possibly seeking healing.
-                Most researchers accept multiple overlapping functions.
-              </p>
-            </div>
-          </div>
 
           <h3>The Steppe Migration and Bell Beakers</h3>
           <p>
             Around 2800 BCE, a second major population movement reached Europe, this time from the
             Eurasian steppes. The Yamnaya culture brought horses, wheeled vehicles, and a new
             genetic signature. Within only a few centuries, steppe ancestry replaced up to 75% of
-            Central European genetic heritage. Three out of every four Central European ancestors
-            were replaced by people from the steppe. This was mass migration, not slow cultural
-            copying. The Yamnaya expansion is linked to the spread of Indo-European languages, the
-            family that includes English, Spanish, French, German, Russian, Hindi, Persian, and
-            Greek. Billions of people today speak a language descended from it. Soon after, from
-            about 2400 BCE, the Bell Beaker phenomenon spread across Europe with a recognizable kit:
-            pottery beakers, copper daggers, archery equipment, and gold ornaments.
+            Central European genetic heritage. People from the steppe replaced three out of every
+            four Central European ancestors. This was mass migration, not slow cultural copying. The
+            Yamnaya expansion is linked to the spread of Indo-European languages. That family
+            includes English, Spanish, French, German, Russian, Hindi, Persian, and Greek. Billions
+            of people today speak a language descended from it. Soon after, from about 2400 BCE, the
+            Bell Beaker phenomenon spread across Europe. It came with a recognizable kit: pottery
+            beakers, copper daggers, archery equipment, and gold ornaments. One of the richest Bell
+            Beaker graves is the Amesbury Archer, buried near Stonehenge around 2300 BCE. The oxygen
+            in his tooth enamel shows he grew up in the Alps, not Britain, so the spread moved real
+            people, not just pots.
           </p>
 
           <h3>Bronze Age Europe</h3>
@@ -1004,38 +1025,61 @@ function useConfig() {
             Bronze made elite weapons and tools, so demand stayed high for centuries.
           </p>
           <p>
-            The Trundholm sun chariot (bronze, Denmark, about 1650 BCE) and the Nebra sky-disk
-            (bronze and gold, Germany, about 1600 BCE) show both technical skill and symbolic depth.
-            The Nebra disk depicts the moon, the Pleiades, and a solar arc: the oldest known
-            concrete picture of astronomical phenomena. Urnfield cultures (named for their cremation
-            burials in fields of urns) dominated Europe between about 1300 and 700 BCE. Biskupin in
-            Poland is a well-preserved Urnfield timber township from about 700 BCE.
+            Two finds show both technical skill and symbolic depth: the Trundholm sun chariot
+            (bronze, Denmark, about 1650 BCE) and the Nebra sky-disk (bronze and gold, Germany,
+            about 1600 BCE). The Nebra disk depicts the moon, the Pleiades (a bright star cluster),
+            and a solar arc: the oldest known concrete picture of astronomical phenomena. Urnfield
+            cultures (named for their cremation burials in fields of urns) dominated Europe between
+            about 1300 and 700 BCE. Biskupin in Poland is a well-preserved Urnfield timber township
+            from about 700 BCE.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="NEBRA SKY DISK">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/9/96/1600_Himmelsscheibe_von_Nebra_sky_disk_anagoria.jpg"
+                alt="The Nebra sky disk with gold moon, sun arc, and star cluster inlays"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'The Nebra sky disk shows the moon, a solar arc, and the Pleiades star cluster. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:1600_Himmelsscheibe_von_Nebra_sky_disk_anagoria.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>Hallstatt Iron Age and Social Complexity</h3>
           <p>
             The Hallstatt Iron Age (700 to 480 BCE) saw hilltop "princely centers" rise in central
             and western Europe. Heuneburg in Bavaria had a Mediterranean-style mud-brick wall.
             Hochdorf in Germany held a "princely" grave from about 530 BCE, with a bronze couch, a
-            dismantled wagon, and gold ornaments. Vix in Burgundy held the Vix krater, a massive
-            Greek bronze mixing vessel deposited around 530 BCE. The graves concentrate enormous
-            wealth: imported Mediterranean luxury goods, feasting equipment, and warrior symbols.
-            The pattern points to a small elite controlling trade routes between the Mediterranean
-            and northern Europe. Their access to Greek and Etruscan goods gave them prestige. The
-            graves are performances of social power, not just burials.
+            dismantled wagon, and gold ornaments. The grave at Vix in Burgundy held the Vix krater,
+            the giant Greek bronze vessel you met in Module 5 as a diplomatic gift to an indigenous
+            ruler. These graves are performances of social power, not just burials. A small elite
+            controlled trade between the Mediterranean and the north, and they wore that wealth into
+            the ground with them.
           </p>
 
           <h3>Who Were the Celts?</h3>
           <p>
             The Celts are one of the most debated categories in European archaeology. Greek and
-            Roman writers applied "Celtic" to many peoples they saw as culturally similar, but those
-            peoples had diverse local identities. The label is used three ways today: ethnic,
+            Roman writers applied "Celtic" to many peoples they saw as culturally similar. But those
+            peoples had diverse local identities. People use the label three ways today: ethnic,
             art-style, and linguistic. They do not all refer to the same thing. The La Tène art
             style (an Iron Age style named after a Swiss lake site) spread across a wide area from
             about 500 BCE, but not everyone who used it spoke Celtic languages. Ancient DNA shows
             that Iron Age Europe was genetically diverse even within what Romans called Celtic
-            territory. Rome felt the Celtic world directly: Celts sacked Rome in 390 BCE, and Julius
-            Caesar conquered Gaul between 58 and 51 BCE.
+            territory. The lesson is that ancient ethnic labels are slippery and rarely line up with
+            genes, language, and art all at once.
           </p>
           <div className="lrn-compare">
             <div className="lrn-compare-item">
@@ -1137,6 +1181,15 @@ function useConfig() {
             as constraint, not climate as cause.
           </p>
 
+          <h3>What You Can Now Do</h3>
+          <p>
+            Look back at how often this module set two or three readings side by side: colonists or
+            local copiers in the Pacific, taboo or shortage or trash habits in Tasmania, ethnic or
+            art-style or language for the Celts. You can now read a debate the way archaeologists
+            do. Name each position, ask what evidence it rests on, and judge which one today's data
+            favors. That skill outlasts any single date or site.
+          </p>
+
           <div className="lrn-insight">
             <span className="lrn-insight-label">KEY INSIGHT</span>
             <p>
@@ -1169,7 +1222,7 @@ function useConfig() {
         },
         {
           q: 'If a society today spoke Tagalog, Malay, or Hawaiian, what past expansion would you point to as the deep source of its language?',
-          a: 'The Austronesian dispersal out of Taiwan, beginning around 3000 BCE. Tagalog, Malay, Indonesian, Hawaiian, and Malagasy are all Austronesian languages. They descend from the same Taiwan-origin family that spread south through the Philippines and then across the Pacific and Indian Oceans.'
+          a: 'The Austronesian dispersal out of Taiwan, beginning around 3000 BCE. Tagalog, Malay, Indonesian, Hawaiian, and Malagasy are all Austronesian languages. They descend from the same Taiwan-origin family. It spread south through the Philippines, then across the Pacific and Indian Oceans.'
         },
         {
           q: 'What are backed microliths and what does their appearance in Australia signal?',
@@ -1185,7 +1238,7 @@ function useConfig() {
         },
         {
           q: 'Why is it significant that Polynesian voyaging reached Easter Island and Hawaii?',
-          a: 'These are among the most remote inhabited places on Earth. Reaching them required deliberate navigation using stars, wave patterns, and bird behavior. The colonization of Remote Oceania proves that Polynesian canoe technology and navigational knowledge were sufficient for sustained long-distance exploration across open ocean. It is one of the greatest feats of maritime exploration in human history.'
+          a: 'These are among the most remote inhabited places on Earth. Reaching them required deliberate navigation using stars, wave patterns, and bird behavior. The colonization of Remote Oceania proves Polynesian canoe technology and navigation were enough for sustained long-distance exploration. They crossed open ocean again and again. It is one of the greatest feats of maritime exploration in human history.'
         },
         {
           q: 'What is the Lapita cemetery at Teouma and what does it tell us about Lapita identity?',
@@ -1229,7 +1282,7 @@ function useConfig() {
         },
         {
           q: 'At Guilá Naquitz in Oaxaca, what evidence of early cultivation was found?',
-          a: 'Archaeologists found squash cultivation evidence going back to about 9000 BCE, and transitional maize-teosinte cobs showing the early stages of maize domestication. Guilá Naquitz is the key site for the earliest Mesoamerican domestication evidence.'
+          a: 'Archaeologists found squash cultivation evidence going back to about 9000 BCE. They also found transitional maize-teosinte cobs showing the early stages of maize domestication. Guilá Naquitz is the key site for the earliest Mesoamerican domestication evidence.'
         },
         {
           q: 'Why is the absence of ceramics at Norte Chico / Caral surprising?',
@@ -1237,7 +1290,7 @@ function useConfig() {
         },
         {
           q: 'What was Poverty Point and why does it challenge assumptions about social complexity?',
-          a: 'Poverty Point in Louisiana (1700 to 1100 BCE) was a large earthwork complex with evidence of long-distance exchange in red jasper and magnetite. It was built by Archaic foragers, not farmers. It challenges the assumption that complex societies with monuments and trade networks require agriculture as a prerequisite.'
+          a: 'Poverty Point in Louisiana (1700 to 1100 BCE) was a large earthwork complex with evidence of long-distance exchange in red jasper and magnetite. It was built by Archaic foragers, not farmers. It challenges the assumption that complex societies with monuments and trade networks require farming first.'
         },
         {
           q: 'What crops did Andean highland societies domesticate, and how do they differ from Mesoamerican domesticates?',
@@ -1253,7 +1306,7 @@ function useConfig() {
         },
         {
           q: 'Why did farming spread into the American Southwest through irrigation and terracing rather than simple field systems?',
-          a: 'The American Southwest is semi-arid. Rainfall is insufficient and unreliable for unirrigated farming in many areas. Maize requires consistent moisture. Irrigation at sites like Las Capas (about 1200 BCE) and terracing at Cerro Juanaqueña were necessary changes. Southwestern farmers took a Mesoamerican crop and engineered water management systems to make it work in a drier environment.'
+          a: 'The American Southwest is semi-arid. There is not enough rain, and it does not come at steady times, so unwatered farming fails in many areas. Maize requires consistent moisture. Irrigation at sites like Las Capas (about 1200 BCE) and terracing at Cerro Juanaqueña were necessary changes. Southwestern farmers took a Mesoamerican crop and engineered water management systems to make it work in a drier environment.'
         },
         {
           q: 'What crops formed the "Three Sisters" of Mesoamerican agriculture and why are they nutritionally significant together?',
@@ -1301,11 +1354,11 @@ function useConfig() {
         },
         {
           q: 'What is Jenné-jeno and why does it challenge older ideas about African urbanism?',
-          a: 'Jenné-jeno in Mali was founded around 250 BCE. It became one of the earliest urban centers in West Africa. It developed without strong evidence of centralized political control or a state apparatus. Earlier theories held that cities require states. Jenné-jeno suggests that social aggregation from multiple communities (synoecism) can produce urban-scale settlements without central authority.'
+          a: 'Jenné-jeno in Mali was founded around 250 BCE. It became one of the earliest urban centers in West Africa. It developed without strong evidence of a clear central government. Earlier theories held that cities require states. Jenné-jeno suggests that social aggregation from multiple communities (synoecism) can produce urban-scale settlements without central authority.'
         },
         {
           q: "What is the significance of Igbo-Ukwu's bronze hoard?",
-          a: 'Igbo-Ukwu in Nigeria (9th to 10th centuries CE) contained 685 copper and bronze objects plus 165,000 beads. This wealth in a non-state community shows that sophisticated metalworking and long-distance trade networks existed outside major African state societies. The raw materials had to come from distant sources. That proves Igbo-Ukwu was embedded in wide exchange networks.'
+          a: 'Igbo-Ukwu in Nigeria (9th to 10th centuries CE) contained 685 copper and bronze objects plus 165,000 beads. This wealth sat in a non-state community. It shows sophisticated metalworking and long-distance trade networks existed outside major African states. The raw materials had to come from distant sources. That proves Igbo-Ukwu was embedded in wide exchange networks.'
         },
         {
           q: 'What is synoecism in the context of African archaeology?',
@@ -1317,7 +1370,7 @@ function useConfig() {
         },
         {
           q: 'What does the secondary products revolution mean for African cattle-herding societies?',
-          a: 'The secondary products revolution refers to using animals for products beyond meat: milk, hides, and traction for plowing. For African cattle-herding societies, this multiplied the value of each animal. A cow that was eaten once could instead provide milk for years. Sanga-type cattle (a taurine-zebu cross) were suited to African disease environments and gave African herders more productive animals than pure European or Asian breeds.'
+          a: 'The secondary products revolution refers to using animals for products beyond meat: milk, hides, and traction for plowing. For African cattle-herding societies, this multiplied the value of each animal. A cow that was eaten once could instead provide milk for years. Sanga-type cattle were a taurine-zebu cross. They suited African disease environments. They gave herders more productive animals than pure European or Asian breeds.'
         },
         {
           q: 'What is the Swahili coast and how did Indian Ocean trade shape it?',
@@ -1325,7 +1378,7 @@ function useConfig() {
         },
         {
           q: 'What is the relationship between the Indian Ocean trade network and Great Zimbabwe?',
-          a: "Great Zimbabwe (1300 to 1450 CE) on the Zimbabwe Plateau accumulated wealth through control of gold and ivory trade linking the African interior to Swahili coast ports. Chinese porcelain found at Great Zimbabwe reflects connections to the Indian Ocean trade network. The state's rise was directly tied to its position as a regional power in the Indian Ocean exchange system."
+          a: "Great Zimbabwe (1300 to 1450 CE) sat on the Zimbabwe Plateau. It accumulated wealth by controlling gold and ivory trade. That trade linked the African interior to Swahili coast ports. Chinese porcelain found at Great Zimbabwe reflects connections to the Indian Ocean trade network. The state's rise was directly tied to its position as a regional power in the Indian Ocean exchange system."
         },
         {
           q: 'What did Aksum contribute to African state development?',
@@ -1337,11 +1390,11 @@ function useConfig() {
         },
         {
           q: 'What is the Sanga-type cattle and why does it matter for African pastoralism?',
-          a: 'Sanga-type cattle result from crossing taurine cattle (the original Near Eastern domestic stock) with zebu cattle introduced from South Asia. The resulting animals are better adapted to African disease environments. They have greater resistance to trypanosomiasis than either parent stock. Sanga-type diversity expanded the range of cattle herding in Africa and made pastoralism viable in environments where neither pure breed thrived.'
+          a: 'Sanga-type cattle result from crossing taurine cattle (the original Near Eastern domestic stock) with zebu cattle introduced from South Asia. The resulting animals are better adapted to African disease environments. They resist trypanosomiasis (a deadly cattle disease spread by tsetse flies) better than either parent stock. Sanga-type diversity expanded the range of cattle herding in Africa. It made pastoralism viable where neither pure breed thrived.'
         },
         {
           q: 'What is the Nok culture of Nigeria?',
-          a: 'The Nok culture on the Jos Plateau of Nigeria flourished from about 500 BCE to 500 CE. It produced distinctive terracotta sculptures and evidence of early ironworking. Nok is significant as both an early center of African iron technology and as a source of sophisticated representational art predating later West African bronze traditions.'
+          a: 'The Nok culture on the Jos Plateau of Nigeria thrived from about 500 BCE to 500 CE. It produced distinctive terracotta sculptures and evidence of early ironworking. Nok is significant as both an early center of African iron technology and as a source of sophisticated representational art predating later West African bronze traditions.'
         },
         {
           q: "What is the significance of Nabta Playa's stone calendar circle?",
@@ -1357,7 +1410,7 @@ function useConfig() {
         },
         {
           q: 'If a modern society wanted to intensify food production in a savanna region without adopting new crops from outside, what Holocene African examples would support that strategy?',
-          a: 'Sub-Saharan African societies domesticated sorghum, pearl millet, and yams from local wild plants, entirely independent of Near Eastern crops. These crops were already adapted to savanna rainfall patterns. A modern society in a savanna region could follow the same principle: identify locally adapted species and breed from them, rather than importing crops that need irrigation or rebreeding to function.'
+          a: 'Sub-Saharan African societies domesticated sorghum, pearl millet, and yams from local wild plants, entirely independent of Near Eastern crops. These crops were already adapted to savanna rainfall patterns. A modern savanna society could follow the same principle. Find locally adapted species and breed from them. Do not import crops that need irrigation or rebreeding.'
         },
         {
           q: 'What is the Nile flood agriculture model and how does it differ from rain-fed farming?',
@@ -1365,19 +1418,19 @@ function useConfig() {
         },
         {
           q: 'What does the Narmer Palette document and why does it matter?',
-          a: 'The Narmer Palette (c. 3000 BCE) documents the unification of Upper and Lower Egypt. It shows a king defeating enemies and wearing the crowns of both halves of Egypt. It matters because it marks the beginning of the pharaonic state tradition: a centralized monarchy, narrative monumental art, and state ideology all appear together. It is one of the earliest known pieces of Egyptian narrative art.'
+          a: 'The Narmer Palette (c. 3000 BCE) documents the unification of Upper and Lower Egypt. It shows a king defeating enemies and wearing the crowns of both halves of Egypt. It marks the beginning of the pharaonic state tradition. A centralized monarchy, narrative monumental art, and state ideology all appear together. It is one of the earliest known pieces of Egyptian narrative art.'
         },
         {
           q: 'Why is the Egyptian question of writing origins (independent invention vs. Mesopotamian stimulus) significant?',
-          a: 'If Egyptian writing was invented independently of Mesopotamian cuneiform, it is a second independent invention of writing. That would mean writing, like agriculture, was invented multiple times when the social conditions were right. If contact with Mesopotamia stimulated it, that shows how powerful ideas spread without full cultural transfer. Either answer has broad implications for how we think about cognitive and cultural development.'
+          a: 'If Egyptian writing was invented independently of Mesopotamian cuneiform, it is a second independent invention of writing. That would mean writing, like agriculture, was invented multiple times when the social conditions were right. If contact with Mesopotamia stimulated it, that shows how powerful ideas spread without full cultural transfer. Either answer has broad implications for how we think about how human thinking and culture grow.'
         }
       ],
 
       // Europe
       [
         {
-          q: 'What did ancient DNA reveal about the spread of farming into Europe?',
-          a: 'Ancient DNA showed that early European farmers were migrants from Anatolia, not local hunter-gatherers who adopted agriculture. The DNA of early farmers clusters with Anatolian populations, not with European Mesolithic people. That settled the long debate in favor of farmer migration.'
+          q: 'Once Anatolian farmers reached Greece, what two routes carried farming deeper into Europe?',
+          a: 'One route ran along the Mediterranean coast and used Cardial Ware, pottery decorated with pressed shells. The other went through Central Europe as the LBK (Linearbandkeramik) culture, with long timber houses and river-terrace villages from about 5600 BCE. Both routes spread the same farming package that Anatolian migrants first brought.'
         },
         {
           q: 'The LBK farmers spread rapidly across Europe. If a modern population were to expand rapidly into a new continent today, what pattern from the LBK expansion would you predict?',
@@ -1393,11 +1446,11 @@ function useConfig() {
         },
         {
           q: 'What did the Yamnaya expansion bring to Europe and when?',
-          a: 'Around 2800 BCE, the Yamnaya culture from the Eurasian steppes expanded into Europe. It brought horses, wheeled vehicles, and its own genetic signature. Ancient DNA shows that steppe ancestry replaced up to 75% of Central European genetic heritage within a few centuries. The Yamnaya expansion is linked to the spread of Corded Ware pottery and to Indo-European languages.'
+          a: 'Around 2800 BCE, the Yamnaya culture from the Eurasian steppes expanded into Europe. It brought horses, wheeled vehicles, and its own genetic signature. Ancient DNA shows that steppe ancestry replaced up to 75% of Central European genetic heritage within a few centuries. The Yamnaya expansion is linked to the spread of Indo-European languages.'
         },
         {
           q: 'What does the Amesbury Archer burial tell us about Bell Beaker connections across Europe?',
-          a: 'The Amesbury Archer burial is the richest Bell Beaker grave in Britain. The man was 35 to 45 years old. Isotope analysis of his teeth shows he grew up in mainland Europe, not Britain. This confirms that the Bell Beaker phenomenon involved real movement of people across long distances, not just the adoption of pottery styles by local populations.'
+          a: 'The Amesbury Archer burial is the richest Bell Beaker grave in Britain. The man was 35 to 45 years old. Isotope analysis of his teeth shows he grew up in the Alps region of mainland Europe, not Britain. This confirms the Bell Beaker phenomenon involved real movement of people across long distances. It was not just locals adopting pottery styles.'
         },
         {
           q: 'What makes Star Carr significant among Mesolithic European sites?',
@@ -1405,7 +1458,7 @@ function useConfig() {
         },
         {
           q: 'If a population of foragers in a resource-rich coastal zone began experiencing population growth, what would you predict about their social organization based on Holocene patterns?',
-          a: 'Based on sites like Poverty Point, Ertebølle, and the Peruvian coast, you would predict increased social complexity without farming. Rich predictable resources allow sedentism. Sedentism enables storage. Storage creates wealth differences. Wealth differences produce social hierarchy. Monument-building, long-distance trade, and elaborate burial practices are all predictable outcomes of resource-rich sedentary foraging.'
+          a: 'Based on sites like Poverty Point, Ertebølle, and the Peruvian coast, you would predict increased social complexity without farming. Rich predictable resources allow sedentism. Sedentism enables storage. Storage creates wealth differences. Wealth differences produce social hierarchy. Monument-building, long-distance trade, and carefully made burials are all predictable outcomes of resource-rich sedentary foraging.'
         },
         {
           q: 'What is the Bell Beaker phenomenon and what did it spread?',
@@ -1425,7 +1478,7 @@ function useConfig() {
         },
         {
           q: 'What makes Newgrange in Ireland significant for understanding megalithic monument building?',
-          a: 'Newgrange (about 3200 BCE) is a passage grave aligned so that sunlight enters the burial chamber at winter solstice sunrise. This required precise astronomical observation and planning. The engineering of the passage alignment proves intentional celestial orientation. Combined with its function as a burial monument, Newgrange shows that ritual, astronomy, and ancestor veneration were integrated in Atlantic European megalithic traditions.'
+          a: 'Newgrange (about 3200 BCE) is a passage grave aligned so that sunlight enters the burial chamber at winter solstice sunrise. This required precise astronomical observation and planning. The engineering of the passage alignment proves intentional celestial orientation. Newgrange also worked as a burial monument. It shows that Atlantic European megalithic traditions wove together ritual, astronomy, and ancestor veneration.'
         },
         {
           q: 'How does the Trypillia mega-site phenomenon differ from true urban centers?',
@@ -1441,7 +1494,7 @@ function useConfig() {
         },
         {
           q: 'What is the La Tène art style and why is the question "who were the Celts?" difficult to answer?',
-          a: 'La Tène is an Iron Age art style appearing from about 500 BCE. Romans associated it with peoples they called Celts. The difficulty is that "Celtic" as a label is used three ways: as an ethnic identity, an art-style tradition, and a linguistic family. These three categories do not overlap cleanly. Not everyone who used La Tène art spoke Celtic languages. Ancient DNA shows genetic diversity within what Romans called Celtic territory.'
+          a: 'La Tène is an Iron Age art style appearing from about 500 BCE. Romans associated it with peoples they called Celts. The trouble is the "Celtic" label means three things. People use it for an ethnic identity, an art-style tradition, and a language family. These three categories do not overlap cleanly. Not everyone who used La Tène art spoke Celtic languages. Ancient DNA shows genetic diversity within what Romans called Celtic territory.'
         },
         {
           q: 'Imagine you are an archaeologist who finds a site with elaborate burials containing huge amounts of gold but no writing or known political structure. Based on Varna, what would you infer?',
@@ -1449,27 +1502,23 @@ function useConfig() {
         },
         {
           q: 'Why does the spread of the Bandkeramik / LBK culture into Europe from about 5600 BCE constitute evidence for farmer migration rather than indigenous adoption?',
-          a: 'LBK farmers moved along river terraces with a consistent package: long timber houses, specific pottery, cemeteries, and domesticated animals. This package appears suddenly in regions that had Mesolithic forager populations. The LBK package is so internally consistent and geographically coherent that it cannot be explained by independent invention at each location. Ancient DNA confirms the biological difference between LBK farmers and contemporary Mesolithic people.'
+          a: 'LBK farmers moved along river terraces with a consistent package: long timber houses, specific pottery, cemeteries, and domesticated animals. This package appears suddenly in regions that had Mesolithic forager populations. The LBK package is too internally consistent and too geographically coherent for independent invention at each location. The match rules that out. Ancient DNA confirms the biological difference between LBK farmers and contemporary Mesolithic people.'
         },
         {
           q: 'What does the Vix krater tell us about Iron Age European trade networks?',
-          a: "The Vix krater (deposited about 530 BCE in Burgundy) is the largest surviving Classical metal vessel. It was made in Greece and found in a woman's grave in Iron Age France. This shows that elite Iron Age Europeans at Hallstatt princely centers had direct access to high-quality Greek imports. The trade routes connecting Mediterranean craftspeople to Celtic elites were functioning at a continental scale."
+          a: "The Vix krater (deposited about 530 BCE in Burgundy) is the largest surviving Classical metal vessel. Greek craftspeople made it. Diggers found it in a woman's grave in Iron Age France. This shows that elite Iron Age Europeans at Hallstatt princely centers had direct access to high-quality Greek imports. The trade routes connecting Mediterranean craftspeople to Celtic elites worked at a continental scale."
         },
         {
           q: 'What does the Nebra sky-disk reveal about Bronze Age European cosmology?',
-          a: 'The Nebra sky-disk (bronze and gold, Germany, about 1600 BCE) shows a moon, stars including the Pleiades, and a solar ship or horizon arc. It is the oldest known concrete depiction of astronomical phenomena. Combined with the Trundholm sun chariot (Denmark, about 1650 BCE), it shows that Bronze Age Europeans had sophisticated celestial symbolism. Astronomical observation was integrated into elite religious practice.'
+          a: 'The Nebra sky-disk (bronze and gold, Germany, about 1600 BCE) shows the moon, the Pleiades star cluster, and a solar arc. It is the oldest known concrete depiction of astronomical phenomena. Combined with the Trundholm sun chariot (Denmark, about 1650 BCE), it shows that Bronze Age Europeans had sophisticated celestial symbolism. They wove astronomical observation into elite religious practice.'
         },
         {
           q: 'What is the Ertebølle culture and what does it show about Mesolithic complexity?',
           a: 'Ertebølle in Denmark was a complex coastal Mesolithic culture living from maritime resources. Shell middens, cemeteries, and evidence of intensive fish and sea mammal use mark the sites. Ertebølle people did not adopt farming when early Neolithic farmers appeared nearby. They resisted agriculture for centuries. That shows rich coastal foraging was a viable and preferred alternative to farming in productive coastal environments.'
         },
         {
-          q: 'What do the bog bodies of northern Europe (Oldcroghan Man, Lindow Man, Grauballe Man) suggest about Iron Age religion?',
-          a: 'Bog bodies show signs of ritual killing: multiple causes of death, a last ritual meal, and deposition in watery places sacred in northern European Iron Age religion. They cluster geographically and in time, suggesting a shared ritual tradition of sacrifice at the boundary between water and land, places that felt sacred to people then. Bog deposition was not random disposal. It was intentional placement.'
-        },
-        {
           q: 'When and where did the Bronze Age begin, and what was its key technological innovation?',
-          a: 'The Bronze Age began in Central Europe around 2300 BCE. Its key innovation was combining copper and tin to make bronze, a stronger and more workable alloy than copper alone. Tin sources were scarce. That drove long-distance trade networks across Europe. Elite warrior graves, hoards like Bresinchen, and astronomical bronzes like the Nebra sky-disk all date from the Bronze Age.'
+          a: 'The Bronze Age began in Central Europe around 2300 BCE. Its key innovation was combining copper and tin to make bronze, a stronger and more workable alloy than copper alone. Tin sources were scarce. That drove long-distance trade networks across Europe. Elite warrior graves and astronomical bronzes like the Nebra sky-disk all date from the Bronze Age.'
         },
         {
           q: 'What were megalithic monuments and where were they built?',
@@ -1485,7 +1534,7 @@ function useConfig() {
         },
         {
           q: 'If a society today faced a sudden global climate stabilization after centuries of unstable weather, what changes would the Holocene record predict?',
-          a: 'You would predict permanent settlement, food storage, monument-building, and the rise of social hierarchies tied to surplus and territory. Predictable seasons let people plan harvests, dig wells, and build heavy houses. None of those investments pay off in shifting weather. The Holocene record shows that climate stability is what made permanent settlement, farming, and complex society pay off across four continents.'
+          a: 'You would predict permanent settlement, food storage, monument-building, and the rise of social hierarchies tied to surplus and territory. Predictable seasons let people plan harvests, dig wells, and build heavy houses. None of those investments pay off in shifting weather. The Holocene record is clear. Climate stability is what made permanent settlement, farming, and complex society pay off across four continents.'
         },
         {
           q: 'What is intensification in archaeology?',
@@ -1493,7 +1542,7 @@ function useConfig() {
         },
         {
           q: 'Why do Holocene populations across all four world regions invest in ritual monuments even when subsistence is difficult?',
-          a: 'Ritual requires coordination. Coordination creates shared identity. Shared identity binds groups together. It makes collective labor possible. It justifies social hierarchies that distribute food and protection. Ritual monuments are not luxuries added after survival is secured. They are tools for maintaining the social structures that make group survival possible. Societies that coordinate effectively outcompete those that cannot, so ritual investment has a direct functional payoff.'
+          a: 'Ritual requires coordination. Coordination creates shared identity. Shared identity binds groups together. It makes collective labor possible. It justifies social hierarchies that distribute food and protection. Ritual monuments are not luxuries people add once survival is safe. They are tools for maintaining the social structures that make group survival possible. Societies that coordinate effectively outcompete those that cannot, so ritual investment has a direct functional payoff.'
         },
         {
           q: 'How does climate determinism differ from the "climate as constraint" view, and which is better supported by Holocene evidence?',
@@ -1568,10 +1617,7 @@ function useConfig() {
               </div>
               <div className="ref-item">
                 <strong>~3500 BCE</strong>
-                <p>
-                  Lapita expansion begins. Watson Brake mound complex (Louisiana). Los Millares
-                  established.
-                </p>
+                <p>Lapita expansion begins. Watson Brake mound complex (Louisiana).</p>
               </div>
               <div className="ref-item">
                 <strong>~3300 to 3200 BCE</strong>
@@ -1591,13 +1637,13 @@ function useConfig() {
               <div className="ref-item">
                 <strong>~2800 BCE</strong>
                 <p>
-                  Yamnaya steppe expansion into Europe. Corded Ware appears. Steppe ancestry
-                  replaces up to 75% of Central European genetics.
+                  Yamnaya steppe expansion into Europe. Steppe ancestry replaces up to 75% of
+                  Central European genetics.
                 </p>
               </div>
               <div className="ref-item">
                 <strong>~2400 BCE</strong>
-                <p>Bell Beakers spread across Europe. Ross Island copper mine begins (Ireland).</p>
+                <p>Bell Beakers spread across Europe.</p>
               </div>
               <div className="ref-item">
                 <strong>~2300 BCE</strong>
@@ -1906,10 +1952,10 @@ function useConfig() {
               <div className="ref-item">
                 <strong>Bantu expansion</strong>
                 <p>
-                  Spread of Bantu-language farming communities from Shum Laka (Cameroon) southward
-                  and eastward across sub-Saharan Africa. Carried pottery-making, farming, and
-                  ironworking. Before 1000 BCE to 300 to 700 CE. Modern Bantu languages are spoken
-                  by 350 million people today.
+                  Bantu-language farming communities spread from Shum Laka (Cameroon) south and east
+                  across sub-Saharan Africa. Carried pottery-making, farming, and ironworking.
+                  Before 1000 BCE to 300 to 700 CE. 350 million people speak modern Bantu languages
+                  today.
                 </p>
               </div>
               <div className="ref-item">
@@ -2099,14 +2145,6 @@ function useConfig() {
                   event produces different outcomes in different regions.
                 </p>
               </div>
-              <div className="ref-item">
-                <strong>Rock art interpretation (Valcamonica, Tanum)</strong>
-                <p>
-                  Position 1: Mythological/cosmological narratives. Position 2: Everyday life
-                  (hunting, farming). Position 3: Ritual context. Evidence supports all three at
-                  different sites. The debate shows limits of interpretation for symbolic materials.
-                </p>
-              </div>
             </div>
           </div>
         </>,
@@ -2229,14 +2267,6 @@ function useConfig() {
                 <p>
                   Clay, paint, sticks, and reeds used to preserve bodies (~5000 to 3000 BCE,
                   northern Chile). World's oldest intentional mummification materials.
-                </p>
-              </div>
-              <div className="ref-item">
-                <strong>Bog bodies</strong>
-                <p>
-                  Oldcroghan Man, Lindow Man, Grauballe Man. Iron Age northern European bodies
-                  preserved in peat. Show signs of ritual killing and deposition in watery places
-                  sacred in northern European religion.
                 </p>
               </div>
             </div>

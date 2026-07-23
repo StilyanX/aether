@@ -1,5 +1,6 @@
 import React from 'react'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import { VizFigure } from '../../../../components/viz-figure'
 
 function useConfig() {
   return {
@@ -14,16 +15,19 @@ function useConfig() {
         'The final part of The Human Past. Mesoamerica, the Andes, Amazonia, North America, and a global synthesis of human complexity.',
       sections: [
         <>
+          <h2>What Makes a Society Complex</h2>
           <p>
             A complex society is one that supports specialists. Most people farm. Others rule,
             build, fight, pray, write, or count full time. To feed those specialists a community
-            needs three things: food surpluses, shared rules, and ways to record what is owed.
+            needs three things: food surpluses, shared rules, and ways to record what is owed. A
+            surplus is extra food beyond what the growers themselves eat.
           </p>
           <p>
             By 1500 BCE, peoples on several continents had crossed that line. By 1500 CE, the
             Americas held two empires, dozens of city states, hundreds of chiefdoms, and complex
-            fisher societies on the Pacific coast. They built cities without writing, ran empires
-            without iron, and worked metal as art.
+            fisher societies on the Pacific coast. A chiefdom has a hereditary leader but no full
+            bureaucracy or written law. They built cities without writing, ran empires without iron,
+            and worked metal as art.
           </p>
           <p>
             This module covers three regions and one synthesis. Mesoamerica runs from central Mexico
@@ -125,18 +129,30 @@ function useConfig() {
             </li>
           </ul>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f0/Xalapa_Museum%2C_Veracruz%2C_La_Venta%2C_Olmec_%2814038749787%29.jpg"
-              alt="Olmec colossal stone head, Museum of Anthropology, Xalapa"
-            />
-            <figcaption>
-              Olmec colossal head, Museum of Anthropology, Xalapa. These basalt portraits of Olmec
-              rulers weigh up to 20 tonnes and were hauled from volcanoes 60 km away.{' '}
-              <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer">
-                Source: Wikimedia Commons
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Olmec Colossal Head 1, San Lorenzo">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/09/Olmec_Head_No._1_at_Xalapa%2C_Veracruz%2C_Mexico.jpg"
+                alt="Colossal basalt head of an Olmec ruler wearing a helmet, from San Lorenzo"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Colossal Head 1 from San Lorenzo, a basalt portrait of an Olmec ruler in a helmet. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Olmec_Head_No._1_at_Xalapa,_Veracruz,_Mexico.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <div className="lrn-elaborate">
@@ -190,10 +206,11 @@ function useConfig() {
             <li>
               For longer dates, the Maya invented the Long Count. It is a positional number system
               with five places (kin, uinal, tun, k'atun, baktun) counting days from a mythological
-              creation date, August 11, 3114 BCE in the standard correlation. Each Long Count date
-              is unique. On December 12, 2012, the count rolled from 12.19.19.17.19 to 13.0.0.0.0,
-              completing the thirteenth baktun. Despite popular predictions, nothing collapsed. The
-              calendar simply began the fourteenth baktun.
+              creation date, August 11, 3114 BCE in the standard correlation. The five places count
+              1-day, 20-day, 360-day, 7,200-day, and 144,000-day units. A baktun is about 394 years.
+              Each Long Count date is unique. On December 21, 2012, the count rolled from
+              12.19.19.17.19 to 13.0.0.0.0, completing the thirteenth baktun. Despite popular
+              predictions, nothing collapsed. The calendar simply began the fourteenth baktun.
             </li>
           </ul>
 
@@ -240,6 +257,12 @@ function useConfig() {
               specific kings.
             </li>
           </ul>
+
+          <p>
+            Scholars split Mesoamerican history into three periods. The Preclassic runs to about 250
+            CE. The Classic runs from about 250 to 900 CE. The Postclassic runs from about 900 to
+            1521 CE. The Epiclassic is a short bridge from about 600 to 900 CE.
+          </p>
 
           <h3>Late Preclassic Maya: Nakbé and El Mirador</h3>
           <p>
@@ -347,6 +370,32 @@ function useConfig() {
             </li>
           </ul>
 
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Street of the Dead, Teotihuacán">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Avenue_of_the_Dead_at_Teotihuacan_panorama_1.jpg"
+                alt="The Street of the Dead at Teotihuacán leading toward the Pyramid of the Moon"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Street of the Dead runs north through the city toward the Pyramid of the Moon. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Avenue_of_the_Dead_at_Teotihuacan_panorama_1.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">
               KEY CONTROVERSY: Did Teotihuacán Have Writing?
@@ -402,18 +451,56 @@ function useConfig() {
             </li>
           </ul>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/b/b5/L%C3%A1pida_del_sarc%C3%B3fago_de_Pakal_-_A742513.jpg"
-              alt="Pakal sarcophagus lid, Palenque"
-            />
-            <figcaption>
-              The carved lid of King Pakal's sarcophagus at Palenque, discovered in 1952. It shows
-              Pakal descending into the underworld at the moment of death.{' '}
-              <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer">
-                Source: Wikimedia Commons
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Tikal Temple I above the Great Plaza">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/03/Gran_Plaza_with_Temple_I_-_Tikal_Archaeological_Site_-_Peten_-_Guatemala_%2815684347430%29.jpg"
+                alt="The steep limestone pyramid of Tikal Temple I rising above the Great Plaza"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Temple I, the tomb-pyramid of Jasaw Chan Kawiil I, above the Great Plaza at Tikal. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Gran_Plaza_with_Temple_I_-_Tikal_Archaeological_Site_-_Peten_-_Guatemala_(15684347430).jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 2.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Sarcophagus lid of Pakal, Palenque">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Pakal_the_Great_tomb_lid.png"
+                alt="Line drawing of the carved sarcophagus lid showing Pakal at the world tree"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Drawing of the carved sarcophagus lid of Pakal, showing his descent into the underworld. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Pakal_the_Great_tomb_lid.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <div className="lrn-elaborate">
@@ -552,6 +639,56 @@ function useConfig() {
             </li>
           </ul>
 
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Coyolxauhqui Stone, Templo Mayor">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Mexico-3980_-_Coyolxauhqui_Stone_%282508259597%29.jpg"
+                alt="Carved circular stone showing the dismembered moon goddess Coyolxauhqui"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'The Coyolxauhqui Stone, found at the foot of the Templo Mayor in 1978. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Mexico-3980_-_Coyolxauhqui_Stone_(2508259597).jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 2.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Codex Mendoza, folio 2r">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Codex_Mendoza_folio_2r.jpg"
+                alt="Codex Mendoza page showing the eagle on a cactus at the founding of Tenochtitlan"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Codex Mendoza folio 2r: the founding of Tenochtitlan, blue canals dividing the island. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Codex_Mendoza_folio_2r.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
           <h3>Spanish Entry, 1519 to 1521</h3>
           <p>
             Hernán Cortés landed near Veracruz in April 1519 with about 500 Spaniards. He scuttled
@@ -600,12 +737,15 @@ function useConfig() {
         <>
           <h2>South America</h2>
           <p>
-            South America is two worlds touching. The Pacific coast of Peru is one of the driest
-            deserts on earth, broken by about 30 river valleys that drop from the Andes. The
-            highland sierra above runs at 3,000 to 4,500 meters, with vertical farming on terraces.
-            The Humboldt Current sweeps cold water north along the coast, feeding one of the richest
-            fisheries in the world. Every few years El Niño reverses the current, kills the fish,
-            and floods the deserts. Complex society in the Andes had to plan around this cycle.
+            The heartland here is the Central Andes, the culture area of coastal Peru and the
+            highlands. It is the Andean parallel to Mesoamerica. South America is two worlds
+            touching. The Pacific coast of Peru is one of the driest deserts on earth, broken by
+            about 30 river valleys that drop from the Andes. The highland sierra above runs at 3,000
+            to 4,500 meters, with vertical farming on terraces. The Humboldt Current sweeps cold
+            water north along the coast, feeding one of the richest fisheries in the world. El Niño
+            is a periodic warming of the Pacific that disrupts weather for a year or two. Every few
+            years it reverses the current, kills the fish, and floods the deserts. Complex society
+            in the Andes had to plan around this cycle.
           </p>
 
           <h3>The Preceramic Monuments, c. 3000 to 1800 BCE</h3>
@@ -613,10 +753,9 @@ function useConfig() {
             The earliest monumental architecture in the western hemisphere was built before pottery,
             before woven cloth, and before maize. Aspero on the coast and Caral inland in the Supe
             Valley have six platform mounds and sunken circular plazas. The largest mound at Caral
-            rises 18 meters. Michael Moseley first argued that fish from the rich Humboldt Current
-            alone fed this workforce. The current view is mixed: marine protein and irrigated valley
-            crops together carried the laborers. Cotton went into fishing nets, gourds into floats,
-            and irrigation was the new technology that linked the two.
+            rises 18 meters. Marine protein and irrigated valley crops together carried the
+            laborers. Cotton went into fishing nets, gourds into floats, and irrigation linked the
+            two.
           </p>
           <p>
             El Paraíso in the Casma Valley (c. 1800 BCE) introduced the U-shaped temple complex
@@ -627,9 +766,8 @@ function useConfig() {
           </p>
 
           <div className="lrn-insight">
-            Caral matters because it breaks a model. Old World cities followed pottery, then
-            agriculture, then writing. Caral built monuments before pottery and without writing at
-            all. Complexity has more than one route.
+            The Andean monumental tradition begins at Caral, covered earlier in the sequence as the
+            case that complexity has more than one route.
           </div>
 
           <h3>Chavín de Huántar and the Early Horizon, c. 900 to 200 BCE</h3>
@@ -645,10 +783,36 @@ function useConfig() {
           </p>
           <p>
             Pukara, near Lake Titicaca, was a partly rival ceremonial center. The Early Horizon also
-            brought tapestry weaving, dyeing, batik, and metallurgy: soldering, sweat welding,
-            repoussé, gold/silver/copper alloys. The technology that later civilizations used to
-            make Inca tumi knives and Sicán gold masks was forged here.
+            brought tapestry weaving, dyeing, and metalwork. One key skill was repoussé: hammering a
+            raised design out from the back of a metal sheet. Smiths forged the technology here that
+            later peoples used to make Inca tumi knives and Sicán gold masks.
           </p>
+
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="The Lanzón, Chavín de Huántar">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/69/El-lanzon.JPG"
+                alt="The Lanzon granite shaft carved with the fanged Staff God deity at Chavin"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Lanzon, a granite shaft carved with the fanged Staff God, deep inside Chavin. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:El-lanzon.JPG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.5.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>Andean Institutions: Ayllu and Kuraka</h3>
           <p>
@@ -670,8 +834,8 @@ function useConfig() {
           </div>
           <p>
             The Inca empire did not invent these. It absorbed them. Mit'a labor tax, quipu
-            recordkeeping, the four suyus, even the road system are built on ayllu and kuraka
-            backbones.
+            recordkeeping, the four suyus (a suyu is a quarter of the empire), even the road system
+            are built on ayllu and kuraka backbones.
           </p>
 
           <h3>Moche, c. 100 to 800 CE</h3>
@@ -683,13 +847,39 @@ function useConfig() {
             including faces of the dead.
           </p>
           <p>
-            In 1987 Walter Alva excavated the royal tombs at Sipán. Three warrior priest burials had
-            gold ornaments, turquoise, and shells from 1,000 kilometers north. The figures in the
-            tombs match figures in the Presentation Theme painted on Moche pottery: a recurring
+            In 1987, archaeologists excavated the royal tombs at Sipán. Three warrior priest burials
+            had gold ornaments, turquoise, and shells from 1,000 kilometers north. The figures in
+            the tombs match figures in the Presentation Theme painted on Moche pottery: a recurring
             scene where a warrior priest offers a cup of blood to a higher figure. The iconography
             was not myth. It recorded real ceremonies. At San José de Moro in the Jequetepeque
             Valley, priestess burials match the female figure in the same scene.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Regalia of the Lord of Sipán">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/77/Se%C3%B1or_de_Sipan_%28Detalle%29.jpg"
+                alt="Gold and turquoise regalia from the warrior-priest tomb at Sipan"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Gold and turquoise regalia from a Moche warrior-priest tomb at Sipan, excavated 1987. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Se%C3%B1or_de_Sipan_(Detalle).jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
           <p>
             Was Moche one state? Probably not. It looks more like a constellation of regional
             kingdoms sharing one art style and one ritual repertoire. The collapse came in three
@@ -698,24 +888,6 @@ function useConfig() {
             the floods began. Smaller Moche-derived centers (Galindo, San José de Moro, Pañamarca)
             carried on until about 800 CE.
           </p>
-
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/79/Tumba_del_Se%C3%B1or_de_Sip%C3%A1n.jpg"
-              alt="Reconstruction of the Lord of Sipán tomb, with gold ornaments and warrior regalia."
-              loading="lazy"
-            />
-            <figcaption>
-              Lord of Sipán tomb reconstruction. Sipán site museum, Lambayeque, Peru.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Tumba_del_Se%C3%B1or_de_Sip%C3%A1n.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Wikimedia Commons
-              </a>
-            </figcaption>
-          </figure>
 
           <h3>Nazca and Paracas</h3>
           <p>
@@ -732,8 +904,9 @@ function useConfig() {
           <p>
             Two highland states rose together. Wari near Ayacucho built planned administrative
             centers (Pikillaqta, Viracochapampa) across Peru. Each used the same rectangular grid:
-            walled compounds with identical rooms around courtyards. The repetition is the evidence
-            of direct rule.
+            walled compounds with identical rooms around courtyards. Identical plans across distant
+            sites mean one authority designed them. Communities left to themselves build
+            differently. The repetition is the evidence of direct rule.
           </p>
           <p>
             Tiwanaku stood at 3,850 meters near Lake Titicaca. It built the Akapana platform, the
@@ -743,6 +916,32 @@ function useConfig() {
             Chavín, a continuity stretching almost 2,000 years. Both collapsed around 1000 CE during
             a long drought visible in ice cores from the Quelccaya glacier.
           </p>
+
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Gateway of the Sun, Tiwanaku">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Tiwanaku%2C_Bolivia_-_Gate_of_the_Sun%2C_2017.jpg"
+                alt="The Gateway of the Sun at Tiwanaku, a single carved stone monolith with the Staff God"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Gateway of the Sun at Tiwanaku, one carved monolith topped by the Staff God. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Tiwanaku,_Bolivia_-_Gate_of_the_Sun,_2017.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>Sicán and Chimú, c. 750 to 1470 CE</h3>
           <p>
@@ -784,6 +983,32 @@ function useConfig() {
             tightly that a knife blade will not enter the joints.
           </p>
 
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Sacsayhuamán walls, Cuzco">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Sacsayhuam%C3%A1n_walls.jpg"
+                alt="Massive polygonal zigzag stone walls of Sacsayhuaman fitted without mortar"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The zigzag walls of Sacsayhuaman, huge stones fitted so tightly no blade enters the joints. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Sacsayhuam%C3%A1n_walls.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
           <h3>Mit'a, Quipu, and Roads</h3>
           <p>
             The mit'a was the Inca labor tax. Each ayllu owed labor time, not goods. The state fed
@@ -791,37 +1016,69 @@ function useConfig() {
             entire mountainsides, storehouses (qullqas) holding enough food for years, and royal
             estates like Machu Picchu.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Machu Picchu, Bingham expedition, 1912">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/86/Machupicchu_hb10.jpg"
+                alt="1912 photograph of the Machu Picchu terraces below the peak of Huayna Picchu"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'Machu Picchu, the royal estate, in a 1912 plate from the Bingham expedition. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Machupicchu_hb10.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
           <p>
             The quipu was the Inca recording device. It is a main cord with hanging cords; knots
             encode numbers. Knot type (overhand, long, figure eight) plus position (units, tens,
             hundreds) gives a decimal value. Color and cord position group records by region, year,
             and category. Trained quipucamayoq read them. The Inca state ran on quipus the way Egypt
-            ran on papyrus. Whether quipus also encoded narrative is debated; the recent Khipu
-            Database Project finds patterns that suggest some did, but no quipu has been read as
-            connected prose.
+            ran on papyrus. Whether quipus also encoded narrative is debated. Recent computer
+            analysis of surviving quipus finds patterns that suggest some did, but no quipu has been
+            read as connected prose.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Inca quipu (khipu)">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Inca_Quipu.jpg"
+                alt="An Inca quipu, a main cord with many knotted hanging cords in different colors"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A quipu: knots on hanging cords encode numbers, and cord color groups the records. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Inca_Quipu.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
           <p>
             Runa Simi, which the Spanish renamed Quechua, was imposed as the administrative language
             across the empire. About 8 million people still speak it today, from Ecuador to Bolivia.
           </p>
-
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Machu_Picchu%2C_Peru.jpg"
-              alt="Machu Picchu, the royal Inca estate above the Urubamba River."
-              loading="lazy"
-            />
-            <figcaption>
-              Machu Picchu. Built about 1450 as a royal estate for Pachacuti.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Machu_Picchu,_Peru.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Wikimedia Commons
-              </a>
-            </figcaption>
-          </figure>
 
           <h3>The Conquest of the Inca, 1532</h3>
           <p>
@@ -888,8 +1145,8 @@ function useConfig() {
           </ul>
 
           <div className="lrn-callout">
-            <strong>KEY CONTROVERSY: Carneiro's circumscription theory.</strong> Robert Carneiro
-            argued that states form where geographic barriers stop people from escaping conflict.
+            <strong>KEY CONTROVERSY: The circumscription theory.</strong> The circumscription theory
+            holds that states form where geographic barriers stop people from escaping conflict.
             With nowhere to flee, losers must submit, and political units consolidate. Coastal
             Peruvian valleys (desert on three sides, ocean on the fourth) fit perfectly. Open
             Amazonia does not, and yet Amazonia produced large complex societies that were not
@@ -931,10 +1188,11 @@ function useConfig() {
             scope. The Hopewell exchange network moved obsidian from Yellowstone, copper from Lake
             Superior, mica from the Appalachians, shark teeth and conch shells from the Gulf coast.
             Mound 25 at the Hopewell type site held over 100 burials with breastplates of hammered
-            copper, mica cutouts of human hands, and effigy pipes. The geometric earthworks at
-            Newark, Ohio, align with the 18.6 year lunar standstill cycle. Hopewell faded between
-            400 and 500 CE, not by catastrophe but by the slow contraction of the long distance
-            exchange network. Population kept growing; the trade itself stopped mattering.
+            copper, mica cutouts of human hands, and effigy pipes. The moon's rising point on the
+            horizon swings north and south over an 18.6-year cycle. The geometric earthworks at
+            Newark, Ohio, appear to frame the extremes of that swing. Hopewell faded between 400 and
+            500 CE, not by catastrophe but by the slow contraction of the long distance exchange
+            network. Population kept growing; the trade itself stopped mattering.
           </p>
           <p>
             <strong>Mississippian</strong> (c. 800 to 1500 CE) brought intensive maize farming and
@@ -947,24 +1205,6 @@ function useConfig() {
             mostly young women. A circle of cedar posts west of Monks Mound, called Woodhenge,
             marked the solstices and equinoxes. Cahokia was abandoned by 1350 CE.
           </p>
-
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Monks_Mound_in_July.JPG"
-              alt="Monks Mound at Cahokia, the largest pre-Columbian earthwork north of Mexico."
-              loading="lazy"
-            />
-            <figcaption>
-              Monks Mound at Cahokia, Illinois. 30.5 m tall.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Monks_Mound_in_July.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Wikimedia Commons
-              </a>
-            </figcaption>
-          </figure>
 
           <h3>The Southwest: Hohokam, Chaco, Mesa Verde</h3>
           <p>
@@ -989,24 +1229,6 @@ function useConfig() {
             not a residential capital. Pueblo Bonito sometimes held just a few dozen people. Then it
             filled with thousands for ceremonies, and emptied again.
           </p>
-
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/8/80/Pueblo_Bonito_Aerial.JPG"
-              alt="Pueblo Bonito at Chaco Canyon, aerial view of the D-shaped great house."
-              loading="lazy"
-            />
-            <figcaption>
-              Pueblo Bonito at Chaco Canyon, New Mexico. About 650 rooms.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Pueblo_Bonito_Aerial.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Wikimedia Commons
-              </a>
-            </figcaption>
-          </figure>
 
           <p>
             <strong>Mesa Verde</strong> (southwestern Colorado, Pueblo III period, c. 1150 to 1300
@@ -1057,10 +1279,10 @@ function useConfig() {
           </p>
           <p>
             L'Anse aux Meadows on the northern tip of Newfoundland is the only confirmed Norse site
-            in North America. Helge and Anne Stine Ingstad excavated it in the 1960s. It held eight
-            sod buildings, an iron smithy, and dates to about 1000 CE. The Vinland sagas describe
-            trade and fighting with Indigenous "Skraelings." The Norse abandoned it within decades.
-            The reasons are familiar: too far from supplies, too few settlers, local resistance.
+            in North America. Archaeologists excavated it in the 1960s. It held eight sod buildings,
+            an iron smithy, and dates to about 1000 CE. The Vinland sagas describe trade and
+            fighting with Indigenous "Skraelings." The Norse abandoned it within decades. The
+            reasons are familiar: too far from supplies, too few settlers, local resistance.
           </p>
 
           <div className="lrn-callout">
@@ -1082,10 +1304,11 @@ function useConfig() {
           <h3>Four Processes Behind Complexity</h3>
           <ol className="lrn-list">
             <li>
-              <strong>Demographic increase.</strong> Sedentary farming raises birth spacing and
-              fertility. Populations grow. Larger groups need more food per hectare, more
-              coordination, and more conflict resolution. Population pressure does not by itself
-              build a state, but no state appears without it.
+              <strong>Demographic increase.</strong> Settled farmers wean children sooner than
+              mobile foragers. So they have babies closer together, and populations grow faster.
+              Larger groups need more food per hectare, more coordination, and more conflict
+              resolution. Population pressure does not by itself build a state, but no state appears
+              without it.
             </li>
             <li>
               <strong>Intensification and degradation.</strong> To feed the growing population,
@@ -1096,12 +1319,9 @@ function useConfig() {
               also drain the environmental margin that buffers it.
             </li>
             <li>
-              <strong>Biological exchange.</strong> Disease, crops, and animals move with people. In
-              Eurasia, long animal domestication created an endemic disease pool and a partially
-              immune population. In the Americas, animal domestication was sparse (llama, alpaca,
-              guinea pig, turkey, dog), so the disease pool was thin. When 1492 joined the
-              hemispheres, the pathogen flow went mostly one way: Old World endemic diseases became
-              New World pandemics.
+              <strong>Biological exchange.</strong> Disease, crops, and animals move with people.
+              The disease asymmetry section below traces why the pathogens flowed only one way in
+              1492.
             </li>
             <li>
               <strong>Climate change.</strong> The Medieval Climate Anomaly (c. 950 to 1250 CE)
@@ -1114,9 +1334,9 @@ function useConfig() {
 
           <h3>Primary vs Secondary States</h3>
           <p>
-            A primary state is one that invented complex political organization on its own, without
-            copying a neighbor. A secondary state formed by responding to a nearby primary state,
-            often through trade, threat, or imitation.
+            The First Civilizations of the Old World split states into primary, which arose on their
+            own, and secondary, which copied a neighbor. The new data point here is the two American
+            rows.
           </p>
           <div className="lrn-compare">
             <table>
@@ -1157,8 +1377,10 @@ function useConfig() {
 
           <h3>The Stacking Model of Collapse</h3>
           <p>
-            Every well documented collapse in this module follows the same logic. No single cause
-            explains it. Four pressures stack, each weakening the buffers that absorb the next.
+            Every well documented collapse in this module follows the same logic. The four processes
+            above explain how complexity rises. These four pressures explain how it falls. No single
+            cause explains a collapse. Four pressures stack, each weakening the buffers that absorb
+            the next.
           </p>
           <ul className="lrn-list">
             <li>
@@ -1281,9 +1503,8 @@ function useConfig() {
               (in the Andes) without conventional writing. When the hemispheres reconnected in 1492,
               the meeting was catastrophic for the Americas, not because the Indigenous societies
               were less sophisticated, but because the Eurasian disease pool was older. Most of the
-              destruction was epidemiological, not technological. The cultures survived the
-              collapse. About 8 million people still speak Quechua, the language Cuzco imposed on
-              its empire. The civilizations are not in the past tense.
+              destruction was epidemiological, not technological. The civilizations are not in the
+              past tense.
             </p>
           </div>
         </>
@@ -1321,7 +1542,7 @@ function useConfig() {
       },
       {
         q: 'Why was the disease transfer in 1492 mostly one way?',
-        a: 'The Old World had longer animal domestication (cattle, pigs, sheep, horses) and a larger endemic crowd disease pool. The Americas domesticated few large animals (mostly llama, alpaca, turkey, guinea pig). Herd immunity existed in the Old World but not the New, so smallpox, measles, influenza, and typhus moved one direction and killed half or more of Indigenous Americans within a century.'
+        a: 'The Old World had longer animal domestication (cattle, pigs, sheep, horses) and a larger endemic crowd disease pool. The Americas domesticated few large animals (mostly llama, alpaca, turkey, guinea pig). Herd immunity existed in the Old World but not the New, so smallpox, measles, influenza, and mumps moved one direction and killed half or more of Indigenous Americans within a century.'
       },
       {
         q: 'What is the difference between a primary and a secondary state?',
@@ -1382,15 +1603,15 @@ function useConfig() {
                 population at least 80,000. Burned c. 550 CE.
               </div>
               <div className="ref-item">
-                <strong>Tikal</strong> c. 200 BCE to 900 CE. Major Maya lowland city. Siyaj K\'ak\'
+                <strong>Tikal</strong> c. 200 BCE to 900 CE. Major Maya lowland city. Siyaj K'ak'
                 arrives January 15, 378 CE.
               </div>
               <div className="ref-item">
-                <strong>Calakmul</strong> c. 250 to 900 CE. Tikal\'s great rival. Defeated Tikal 562
+                <strong>Calakmul</strong> c. 250 to 900 CE. Tikal's great rival. Defeated Tikal 562
                 CE.
               </div>
               <div className="ref-item">
-                <strong>Palenque</strong> c. 600 to 800 CE. Pakal\'s tomb in Temple of the
+                <strong>Palenque</strong> c. 600 to 800 CE. Pakal's tomb in Temple of the
                 Inscriptions.
               </div>
               <div className="ref-item">
@@ -1533,7 +1754,7 @@ function useConfig() {
                 <strong>Thule</strong> expansion c. 1000 CE. Ancestors of modern Inuit.
               </div>
               <div className="ref-item">
-                <strong>L\'Anse aux Meadows</strong> c. 1000 CE. Only confirmed Norse site in North
+                <strong>L'Anse aux Meadows</strong> c. 1000 CE. Only confirmed Norse site in North
                 America.
               </div>
             </div>
@@ -1573,7 +1794,7 @@ function useConfig() {
             </li>
             <li>
               <strong>Long Count:</strong> Maya cumulative day count from a zero date of August 11,
-              3114 BCE. Rolled into the 14th baktun on December 12, 2012.
+              3114 BCE. Rolled into the 14th baktun on December 21, 2012.
             </li>
             <li>
               <strong>Altépetl:</strong> Aztec city state, the basic political unit; the empire was
@@ -1611,7 +1832,7 @@ function useConfig() {
               <strong>Kuraka:</strong> hereditary Andean noble ruling an ayllu or cluster of ayllus.
             </li>
             <li>
-              <strong>Mit\'a:</strong> Inca labor tax owed by each ayllu in worker time.
+              <strong>Mit'a:</strong> Inca labor tax owed by each ayllu in worker time.
             </li>
             <li>
               <strong>Quipu:</strong> Andean knotted cord recording device. Numbers encoded by knot
@@ -1636,8 +1857,8 @@ function useConfig() {
               charcoal, bone, and organics.
             </li>
             <li>
-              <strong>Circumscription theory:</strong> Carneiro\'s hypothesis that states form where
-              geography stops people from fleeing conflict.
+              <strong>Circumscription theory:</strong> the idea that states form where geography
+              stops people from fleeing conflict.
             </li>
             <li>
               <strong>Stacking model of collapse:</strong> reading collapses as climate stress plus
@@ -1662,17 +1883,17 @@ function useConfig() {
             <li>c. 100 BCE to 550 CE: Teotihuacán in central Mexico.</li>
             <li>c. 100 BCE to 500 CE: Hopewell exchange network in the Eastern Woodlands.</li>
             <li>197 CE: Hauberg Stela, earliest legible Maya royal inscription.</li>
-            <li>378 CE: Siyaj K\'ak\' arrives at Tikal on January 15.</li>
+            <li>378 CE: Siyaj K'ak' arrives at Tikal on January 15.</li>
             <li>c. 100 to 800 CE: Moche on the north coast of Peru.</li>
             <li>562 CE: Calakmul defeats Tikal, beginning the Maya "hiatus."</li>
             <li>c. 550 CE: Teotihuacán burned, internal political revolt.</li>
             <li>c. 600 to 1000 CE: Wari and Tiwanaku.</li>
-            <li>695 CE: Tikal\'s Jasaw Chan K\'awiil defeats Calakmul.</li>
+            <li>695 CE: Tikal's Jasaw Chan K'awiil defeats Calakmul.</li>
             <li>c. 760 to 910 CE: Classic Maya collapse.</li>
             <li>c. 850 to 1150 CE: Chaco Phenomenon in the Southwest.</li>
             <li>c. 900 to 1150 CE: Tula and the Toltec.</li>
             <li>c. 1050 to 1350 CE: Cahokia at its peak.</li>
-            <li>c. 1000 CE: Norse at L\'Anse aux Meadows. Thule expansion in the Arctic.</li>
+            <li>c. 1000 CE: Norse at L'Anse aux Meadows. Thule expansion in the Arctic.</li>
             <li>c. 1150 to 1300 CE: Mesa Verde cliff dwellings.</li>
             <li>1276 to 1299 CE: Great Drought in the Southwest.</li>
             <li>1325: Tenochtitlán founded.</li>

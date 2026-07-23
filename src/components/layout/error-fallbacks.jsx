@@ -7,7 +7,7 @@ const isChunkLoadError = err =>
     err?.message || ''
   )
 
-// ── Tier 1: Full-page fault screen (mockup 01) ──
+// Tier 1: Full-page fault screen (mockup 01)
 
 export function AppErrorFallback({ error, errorInfo }) {
   const primaryRef = useRef(null)
@@ -170,7 +170,7 @@ export function AppErrorFallback({ error, errorInfo }) {
   )
 }
 
-// ── Tier 2: Section fallback (mockup 02) ──
+// Tier 2: Section fallback (mockup 02)
 
 export function ContentErrorFallback({ error, onRetry }) {
   const [retrying, setRetrying] = useState(false)
@@ -200,9 +200,6 @@ export function ContentErrorFallback({ error, onRetry }) {
           <span>
             <b>Caught</b> · just now
           </span>
-          <span>
-            <b>Auto-retry</b> · disabled
-          </span>
         </div>
       </div>
       <div className="err-actions">
@@ -224,7 +221,7 @@ export function ContentErrorFallback({ error, onRetry }) {
   )
 }
 
-// ── Tier 2b: Chunk-load (version mismatch) fallback (mockup 03) ──
+// Tier 2b: Chunk-load (version mismatch) fallback (mockup 03)
 
 export function ChunkLoadFallback() {
   const [remaining, setRemaining] = useState(8)
@@ -305,7 +302,7 @@ export function ChunkLoadFallback() {
   )
 }
 
-// ── Tier 3: Widget placeholder (mockup 04) ──
+// Tier 3: Widget placeholder (mockup 04)
 
 export function WidgetErrorFallback({ aspectRatio, onRetry, label = 'Visualization' }) {
   const retryRef = useRef(null)

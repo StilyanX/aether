@@ -54,10 +54,10 @@ function CanonicalTransformations() {
               <>
                 <p>
                   The choice of coordinates matters. A planet orbiting a star looks complicated in
-                  Cartesian coordinates. In polar coordinates, the rotational symmetry is visible:
-                  the angle becomes cyclic, its conjugate momentum (angular momentum) is conserved,
-                  and one equation of motion disappears. The right coordinates reveal structure the
-                  wrong ones hide.
+                  Cartesian coordinates. In polar coordinates, you can see the rotational symmetry.
+                  The angle becomes cyclic, its conjugate momentum (angular momentum) stays
+                  constant, and one equation of motion disappears. The right coordinates reveal
+                  structure the wrong ones hide.
                 </p>
                 <p>
                   A <strong>canonical transformation</strong> is a smooth invertible map on phase
@@ -68,8 +68,8 @@ function CanonicalTransformations() {
                 </div>
                 <p>
                   that preserves the symplectic structure. Think of phase space as having its own
-                  notion of area: a small region spanned by position displacement {`$\\delta q$`}{' '}
-                  and momentum displacement {`$\\delta p$`} has "symplectic area"{' '}
+                  notion of area. A small region spanned by position step {`$\\delta q$`} and
+                  momentum step {`$\\delta p$`} has "symplectic area"{' '}
                   {`$\\delta p \\cdot \\delta q$`}. The symplectic condition says this area is the
                   same in both coordinate systems:
                 </p>
@@ -77,23 +77,23 @@ function CanonicalTransformations() {
                   {`$$\\sum_{i=1}^n dP_i \\wedge dQ_i = \\sum_{i=1}^n dp_i \\wedge dq_i$$`}
                 </div>
                 <p>
-                  The symbol {`$\\wedge$`} is the wedge product: {`$dp \\wedge dq$`} measures signed
-                  area in the {`$(q, p)$`} plane, positive for one orientation, negative for the
-                  other. The condition says the new coordinates measure signed area identically to
-                  the old ones.
+                  The wedge {`$\\wedge$`}, introduced in the spine, measures signed area in the{' '}
+                  {`$(q, p)$`} plane. The condition says the new coordinates measure that signed
+                  area identically to the old ones. Check it on the exchange {`$Q = p$`},{' '}
+                  {`$P = -q$`}: there {`$dP \\wedge dQ = d(-q) \\wedge dp = dp \\wedge dq$`}, so the
+                  area is unchanged and the swap is canonical.
                 </p>
                 <p>
-                  An equivalent condition uses Poisson brackets. A transformation is canonical if
-                  and only if:
+                  The Poisson-bracket criterion from the brackets card says the same thing: a
+                  transformation is canonical exactly when the new coordinates satisfy the
+                  fundamental brackets in the original {`$(q, p)$`}.
                 </p>
                 <div className="lrn-eq-display">
                   {`$$\\{Q_i, P_j\\} = \\delta_{ij}, \\qquad \\{Q_i, Q_j\\} = 0, \\qquad \\{P_i, P_j\\} = 0$$`}
                 </div>
                 <p>
-                  where the brackets use the original {`$(q, p)$`} coordinates and{' '}
-                  {`$\\delta_{ij} = 1$`} when {`$i = j$`} and {`$0$`} otherwise. When these hold,
-                  Hamilton's equations take the same form in {`$(Q, P)$`} as they did in{' '}
-                  {`$(q, p)$`}.
+                  When these hold, Hamilton's equations take the same form in {`$(Q, P)$`} as they
+                  did in {`$(q, p)$`}.
                 </p>
                 <div className="lrn-insight">
                   A canonical transformation is to Hamiltonian mechanics what a rotation is to
@@ -109,10 +109,6 @@ function CanonicalTransformations() {
             content: (
               <>
                 <p>
-                  This card covers genuinely advanced material. The idea is deep but can be stated
-                  concretely.
-                </p>
-                <p>
                   Imagine a cloud of particles, each moving under the same Hamiltonian from slightly
                   different starting conditions. The cloud sweeps out a tube in phase space as time
                   passes. Now draw a closed loop that winds once around this tube. Compute:
@@ -121,26 +117,34 @@ function CanonicalTransformations() {
                   {`$$\\oint_\\gamma \\left( \\sum_{i=1}^n p_i\\,dq_i - H\\,dt \\right)$$`}
                 </div>
                 <p>
-                  This integral measures something about the loop: at each point, you multiply each
-                  momentum component by the corresponding infinitesimal position step, sum up, and
+                  This integral measures something about the loop. At each point you multiply each
+                  momentum component by its matching infinitesimal position step. Sum these up, then
                   subtract {`$H$`} times the infinitesimal time step. The remarkable fact: draw the
-                  loop at any other time, so long as it still winds once around the same tube, and
-                  you get the same number.
+                  loop at any other time and you get the same number. This holds as long as it still
+                  winds once around the same tube.
                 </p>
                 <p>
                   This is the <strong>Poincaré-Cartan integral invariant theorem</strong>. The
                   integrand {`$\\omega^1 = \\sum_i p_i\\,dq_i - H\\,dt$`} is called the
-                  Poincaré-Cartan form. Hamiltonian dynamics preserves the integral of{' '}
-                  {`$\\omega^1$`} around any loop encircling a tube of trajectories, regardless of
-                  when you take the loop:
+                  Poincaré-Cartan form. It extends the spine's relative integral invariant{' '}
+                  {`$\\oint p\\,dq$`}: here you add the {`$-H\\,dt$`} term and run the loop around a
+                  tube in time. Hamiltonian dynamics preserves the integral of {`$\\omega^1$`}{' '}
+                  around any loop encircling a tube of trajectories. This holds no matter when you
+                  take the loop:
                 </p>
                 <div className="lrn-eq-display">
                   {`$$\\oint_{\\gamma_1} p\\,dq - H\\,dt = \\oint_{\\gamma_2} p\\,dq - H\\,dt$$`}
                 </div>
                 <p>
                   A transformation {`$(q, p) \\to (Q, P)$`} is canonical if and only if it preserves{' '}
-                  {`$\\omega^1$`} as an integral invariant: every loop that encircles the same tube
-                  gives the same integral before and after the transformation.
+                  {`$\\omega^1$`} as an integral invariant. Every loop that encircles the same tube
+                  then gives the same integral before and after the transformation.
+                </p>
+                <p>
+                  You now have three ways to say "canonical": preserve the symplectic area (card 2),
+                  satisfy the Poisson-bracket relations (card 2), or preserve this Poincaré-Cartan
+                  invariant. The three are equivalent characterizations of the same class of
+                  transformations.
                 </p>
               </>
             )
@@ -151,9 +155,9 @@ function CanonicalTransformations() {
               <>
                 <p>
                   The practical way to construct a canonical transformation is through a{' '}
-                  <strong>generating function</strong>: a single scalar that encodes the entire
-                  transformation through its partial derivatives. The most common type takes the old
-                  positions and the new positions as arguments:
+                  <strong>generating function</strong>. It is a single scalar that encodes the
+                  entire transformation through its partial derivatives. The most common type takes
+                  the old positions and the new positions as arguments:
                 </p>
                 <div className="lrn-eq-display">{`$$S_1 = S_1(q,\\, Q,\\, t)$$`}</div>
                 <p>Given {`$S_1$`}, the old and new momenta are:</p>
@@ -163,7 +167,15 @@ function CanonicalTransformations() {
                 <p>
                   The minus sign on {`$P$`} comes directly from the requirement that the
                   transformation preserves the Poincaré-Cartan form. The condition{' '}
-                  {`$p\\,dq - P\\,dQ = dS_1$`} expands to exactly these two equations, forcing the
+                  {`$p\\,dq - P\\,dQ = dS_1$`} forces it. Expand the right side by the chain rule,
+                  for one degree of freedom:
+                </p>
+                <div className="lrn-eq-display">
+                  {`$$dS_1 = \\frac{\\partial S_1}{\\partial q}\\,dq + \\frac{\\partial S_1}{\\partial Q}\\,dQ$$`}
+                </div>
+                <p>
+                  Match the {`$dq$`} terms to get {`$p = \\partial S_1/\\partial q$`}. Match the{' '}
+                  {`$dQ$`} terms to get {`$-P = \\partial S_1/\\partial Q$`}, which is the minus
                   sign.
                 </p>
                 <p>The transformation is canonical provided:</p>
@@ -171,18 +183,37 @@ function CanonicalTransformations() {
                   {`$$\\det\\!\\left(\\frac{\\partial^2 S_1}{\\partial q_i\\, \\partial Q_j}\\right) \\neq 0$$`}
                 </div>
                 <p>
-                  This determinant condition says {`$(q, Q)$`} serve as independent coordinates:
-                  knowing both the old and new positions pins down a unique point, so you can solve
+                  This determinant condition says {`$(q, Q)$`} serve as independent coordinates.
+                  Knowing both the old and new positions pins down a unique point. So you can solve
                   for {`$(Q, P)$`} as functions of {`$(q, p)$`}.
                 </p>
                 <div className="lrn-callout">
-                  <strong>Why generating functions exist.</strong> The symplectic condition{' '}
-                  {`$dP \\wedge dQ = dp \\wedge dq$`} is equivalent to {`$d(p\\,dq - P\\,dQ) = 0$`}:
-                  the expression {`$p\\,dq - P\\,dQ$`} has zero exterior derivative, meaning it is
-                  locally an exact differential. So there exists a function {`$S_1$`} with{' '}
-                  {`$dS_1 = p\\,dq - P\\,dQ$`}. That function is the generating function.
+                  <strong>Why generating functions exist.</strong> Card 2's symplectic condition
+                  makes the one-form {`$p\\,dq - P\\,dQ$`} closed. The spine's Poincaré Lemma says a
+                  closed form is locally the differential of some function. So there exists a
+                  function {`$S_1$`} with {`$dS_1 = p\\,dq - P\\,dQ$`}, and that function is the
+                  generating function.
                 </div>
                 <GeneratingFunctionGeom />
+                <div className="lrn-callout">
+                  <strong>Worked example: the harmonic oscillator.</strong> Take{' '}
+                  {`$S_1 = \\tfrac{1}{2} m\\omega q^2 \\cot Q$`}. Read off the momenta from the two
+                  derivative rules:
+                  <div className="lrn-eq-display">
+                    {`$$p = \\frac{\\partial S_1}{\\partial q} = m\\omega q \\cot Q, \\qquad P = -\\frac{\\partial S_1}{\\partial Q} = \\frac{m\\omega q^2}{2\\sin^2 Q}$$`}
+                  </div>
+                  Now feed these into the oscillator Hamiltonian{' '}
+                  {`$H = \\frac{p^2}{2m} + \\frac{1}{2} m\\omega^2 q^2$`}. Substituting{' '}
+                  {`$p = m\\omega q \\cot Q$`} and using {`$\\cot^2 Q + 1 = 1/\\sin^2 Q$`} collapses
+                  it to:
+                  <div className="lrn-eq-display">{`$$K = \\frac{1}{2} m\\omega^2 q^2 \\frac{1}{\\sin^2 Q} = \\omega P$$`}</div>
+                  The new Hamiltonian {`$K = \\omega P$`} does not contain {`$Q$`} at all.
+                  Hamilton's equations are now trivial:{' '}
+                  {`$\\dot{P} = -\\partial K/\\partial Q = 0$`}, so {`$P$`} is constant, and{' '}
+                  {`$\\dot{Q} = \\partial K/\\partial P = \\omega$`}, so {`$Q = \\omega t + $`}{' '}
+                  constant. One generating function turned the oscillator into a point moving at
+                  constant speed around a circle. These {`$(Q, P)$`} are the action-angle variables.
+                </div>
               </>
             )
           },
@@ -192,25 +223,24 @@ function CanonicalTransformations() {
               <>
                 <p>
                   The {`$S_1(q, Q)$`} type uses old positions and new positions. But for the
-                  identity transformation {`$Q = q$`}, the determinant condition fails: knowing both
-                  the old and new positions tells you nothing when they are equal. Near the
-                  identity, {`$S_1$`} is ill-conditioned. The fix is to swap {`$Q$`} for {`$P$`}
-                  via a Legendre transform. Define {`$S_2(q, P) = S_1 + PQ$`}. The relations become:
+                  identity transformation {`$Q = q$`}, the determinant condition fails. Knowing both
+                  the old and new positions tells you nothing when they are equal. So {`$S_1$`}
+                  breaks down near the identity. The fix is to swap {`$Q$`} for {`$P$`} via a
+                  Legendre transform, the standard trick for changing which variable a function
+                  depends on. Define {`$S_2(q, P) = S_1 + PQ$`}. The relations become:
                 </p>
                 <div className="lrn-eq-display">
                   {`$$p_i = \\frac{\\partial S_2}{\\partial q_i}, \\qquad Q_i = \\frac{\\partial S_2}{\\partial P_i}$$`}
                 </div>
                 <p>
-                  No minus signs. The identity transformation corresponds to{' '}
-                  {`$S_2 = \\sum_i P_i q_i$`}, giving {`$p_i = P_i$`} and {`$Q_i = q_i$`}. {`$S_2$`}{' '}
-                  is the natural type for transformations near the identity and for infinitesimal
-                  canonical transformations.
+                  No minus signs. This makes {`$S_2$`} the natural type for transformations near the
+                  identity and for infinitesimal canonical transformations.
                 </p>
                 <p>
-                  For {`$n$`} degrees of freedom, you can independently choose, for each index{' '}
-                  {`$i$`}, whether to keep {`$q_i$`} or replace it with {`$P_i$`} via a partial
-                  Legendre transform. This gives {`$2^n$`} possible types. The four standard types
-                  for one degree of freedom are:
+                  For {`$n$`} degrees of freedom, you can choose independently for each index{' '}
+                  {`$i$`}. Keep {`$q_i$`}, or replace it with {`$P_i$`} via a partial Legendre
+                  transform. This gives {`$2^n$`} possible types. The four standard types for one
+                  degree of freedom are:
                 </p>
                 <ul className="lrn-list">
                   <li>
@@ -235,8 +265,12 @@ function CanonicalTransformations() {
                   </li>
                 </ul>
                 <p>
-                  Each type covers a different open subset of all canonical transformations.
-                  Together they cover every canonical transformation locally.
+                  Each type covers a different open subset of all canonical transformations. The
+                  identity {`$Q = q$`} shows why you need more than one. There {`$Q$`} is fixed once
+                  you know {`$q$`}, so the {`$S_1(q, Q)$`} determinant fails and no {`$S_1$`} can
+                  build it. You must use {`$S_2(q, P)$`}. Other transformations fail the {`$S_2$`}
+                  test the same way and call for {`$S_3$`} or {`$S_4$`}. Together the four types
+                  cover every canonical transformation locally.
                 </p>
               </>
             )
@@ -264,16 +298,16 @@ function CanonicalTransformations() {
                   </li>
                   <li>
                     <strong>Exchange transformation.</strong> {`$S_1 = \\sum_i q_i Q_i$`} gives{' '}
-                    {`$p_i = Q_i$`} and {`$P_i = -q_i$`}, so {`$Q_i = p_i$`} and {`$P_i = -q_i$`}.
-                    Positions and momenta swap. A drastic rearrangement that is still perfectly
-                    canonical.
+                    {`$p_i = Q_i$`} and {`$P_i = -q_i$`}, so {`$Q_i = p_i$`}. Positions and momenta
+                    swap. A drastic rearrangement that is still perfectly canonical.
                   </li>
                   <li>
                     <strong>Momentum shift.</strong> {`$S_2 = \\sum_i P_i q_i + \\phi(q)$`} gives{' '}
                     {`$Q_i = q_i$`} (positions unchanged) and{' '}
                     {`$p_i = P_i + \\frac{\\partial \\phi}{\\partial q_i}$`}. Momenta shift by a
                     gradient. This is the classical counterpart of a gauge transformation in
-                    electromagnetism.
+                    electromagnetism, where adding a gradient to the potential leaves all the
+                    physics unchanged.
                   </li>
                 </ul>
                 <div className="lrn-insight">
@@ -300,37 +334,42 @@ function CanonicalTransformations() {
                   constant. The new coordinates are the constants of motion themselves.
                 </p>
                 <p>
-                  Use an {`$S_1$`}-type generating function {`$S_1(q, Q, t)$`}. When the
-                  transformation depends on time, the Hamiltonian transforms as:
+                  Use an {`$S_1$`}-type generating function {`$S_1(q, Q, t)$`}. Call the Hamiltonian
+                  in the new coordinates {`$K(Q, P, t)$`}: it governs the motion of {`$(Q, P)$`}{' '}
+                  just as {`$H$`} governs the motion of {`$(q, p)$`}. When the transformation
+                  depends on time, {`$K$`} relates to {`$H$`} by:
                 </p>
                 <div className="lrn-eq-display">
                   {`$$K(Q,\\, P,\\, t) = H\\!\\left(q,\\; \\frac{\\partial S_1}{\\partial q},\\; t\\right) + \\frac{\\partial S_1}{\\partial t}$$`}
                 </div>
+                <p>
+                  The extra {`$\\partial S_1/\\partial t$`} term comes from one requirement: the
+                  variational principle must hold in both coordinate systems. Both{' '}
+                  {`$p\\,dq - H\\,dt$`} and {`$P\\,dQ - K\\,dt$`} must give the same physics, so
+                  they differ only by the total derivative {`$dS_1$`}. When {`$S_1$`} carries its
+                  own time dependence, the {`$\\partial S_1/\\partial t$`} piece lands on the{' '}
+                  {`$-H\\,dt$`} term from card 3 and shifts {`$H$`} to {`$K$`}.
+                </p>
                 <p>Demand {`$K = 0$`}. This is exactly the Hamilton-Jacobi equation:</p>
                 <div className="lrn-eq-display">
                   {`$$\\frac{\\partial S_1}{\\partial t} + H\\!\\left(q,\\; \\frac{\\partial S_1}{\\partial q},\\; t\\right) = 0$$`}
                 </div>
                 <p>
                   Solving the Hamilton-Jacobi equation is the same as finding a canonical
-                  transformation that kills the Hamiltonian. A complete integral {`$S_1(q, Q, t)$`}{' '}
-                  with {`$n$`} free parameters {`$Q_i$`} generates this transformation. The
-                  constants {`$Q_i$`} and {`$P_i = -\\frac{\\partial S_1}{\\partial Q_i}$`} are the{' '}
-                  {`$2n$`} constants of motion.
+                  transformation that kills the Hamiltonian. Its solution carries {`$n$`} free
+                  parameters you can use as the new positions {`$Q_i$`}, and those parameters stay
+                  constant. So an H-J solution IS a canonical transformation that kills {`$H$`}.
+                  Hamilton's principal function (written {`$S$`} in H-J theory) and the generating
+                  function {`$S_1$`} here are one and the same object, approached from opposite
+                  directions.
                 </p>
-                <div className="lrn-callout">
-                  The two methods are equivalent. Every complete integral of the Hamilton-Jacobi
-                  equation gives a canonical transformation to coordinates where nothing moves.
-                  Every such transformation is a complete integral of the Hamilton-Jacobi equation.
-                  Hamilton's principal function {`$S$`} and the generating function {`$S_1$`} are
-                  the same object, approached from opposite directions.
-                </div>
               </>
             )
           }
         ]
       }
     ],
-    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }`
+    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }`
   }
   return <LearningTemplate config={config} />
 }

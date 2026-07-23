@@ -2,9 +2,9 @@ import { LearningTemplate } from '../../../../components/learning/learning-templ
 import { useVizColors } from '../../../../hooks/use-viz-colors'
 import * as viz from './the-phantom-menace-viz'
 
-function ChapterDivider({ children }) {
+function ModuleDivider({ children }) {
   return (
-    <div className="lrn-header lrn-chapter-divider">
+    <div className="lrn-header lrn-module-divider">
       <div className="lrn-header-text">{children}</div>
     </div>
   )
@@ -13,10 +13,10 @@ function ChapterDivider({ children }) {
 function tradeFederationAttackContent(C) {
   return {
     sections: [
-      <ChapterDivider key="div-tradeFederationAttackContent">
+      <ModuleDivider key="div-tradeFederationAttackContent">
         <h2>Act I: Trade Federation Attack</h2>
         <p>The Jedi board the cruiser. The Federation invades.</p>
-      </ChapterDivider>,
+      </ModuleDivider>,
       <>
         <div className="lrn-header">
           <div className="lrn-header-text">
@@ -41,6 +41,11 @@ function tradeFederationAttackContent(C) {
           In these first 18 minutes you will follow two Jedi Knights who board a hostile battleship
           expecting negotiation. They encounter gas, droids, blast doors, and a hidden invasion
           army. The scene moves fast and every beat raises the stakes.
+        </p>
+        <p>
+          One word runs through the whole film: the Force. The Force is an energy field created by
+          all living things that binds the galaxy together. Some people can sense it, and a trained
+          few, the Jedi, can learn to use it. Keep that in mind from the first scene on.
         </p>
         <p>
           Watch for three things: how the Federation talks versus how it acts, how the Jedi use the
@@ -82,7 +87,7 @@ function tradeFederationAttackContent(C) {
           the Ambassador, Happy to." He repeats "Happy to." That repetition is not warmth. It is a
           man reassuring himself in public.
         </p>
-        <viz.TfaTimelineSvg C={C} />
+        <viz.TfaSceneTimeline />
         <div className="lrn-definition">
           <span className="lrn-definition-term">TRADE FEDERATION</span>
           <div className="lrn-definition-desc">
@@ -238,7 +243,7 @@ function tradeFederationAttackContent(C) {
             </p>
           </div>
         </div>
-        <viz.TfaRelationshipSvg C={C} />
+        <viz.TfaCharacterWeb />
       </>,
 
       <>
@@ -286,7 +291,7 @@ function tradeFederationAttackContent(C) {
             could.
           </p>
         </div>
-        <viz.TfaShipLayoutSvg C={C} />
+        <viz.TfaShipLayout />
       </>,
 
       <>
@@ -407,7 +412,7 @@ function tradeFederationAttackContent(C) {
           you must be mistaken." She warns him. He dismisses her. After she signs off, Nute turns to
           Rune: "It's too late now."
         </p>
-        <viz.TfaThemeMapSvg C={C} />
+        <viz.TfaThemeMap />
         <div className="lrn-callout lrn-insight">
           <span className="lrn-callout-label">Key Insight</span>
           <p>
@@ -579,6 +584,8 @@ function tradeFederationAttackContent(C) {
           One reference covering every character across the film. Each entry walks the character
           from first appearance to last beat.
         </p>
+
+        <viz.CharacterRoster />
 
         <h3>Jedi</h3>
         <div className="lrn-definition">
@@ -952,6 +959,9 @@ function tradeFederationAttackContent(C) {
 
       <>
         <h2>Ships, Droids and Technology</h2>
+
+        <viz.ShipScaleLineup />
+
         <div className="lrn-definition">
           <span className="lrn-definition-term">REPUBLIC CRUISER</span>
           <div className="lrn-definition-desc">
@@ -978,8 +988,9 @@ function tradeFederationAttackContent(C) {
             <p>
               The silver tray TC-14 carries out of the gas ambush. It marks TC-14 as the sole
               survivor visible to the Federation crew. The tray signals to the bridge that the
-              protocol droid emerged from the room, not the Jedi, creating maximum dramatic irony
-              before the lightsabers flash.
+              protocol droid emerged from the room, not the Jedi. This creates dramatic irony, where
+              the audience knows something a character does not: we know the Jedi are alive, the
+              Federation does not, and that gap holds the tension before the lightsabers flash.
             </p>
           </div>
         </div>
@@ -1104,10 +1115,10 @@ function tradeFederationAttackContent(C) {
 function nabooInvasionAndEscapeContent() {
   return {
     sections: [
-      <ChapterDivider key="div-nabooInvasionAndEscapeContent">
+      <ModuleDivider key="div-nabooInvasionAndEscapeContent">
         <h2>Act I: Naboo Invasion and Escape</h2>
         <p>Two Jedi cross the planet core and rescue the Queen.</p>
-      </ChapterDivider>,
+      </ModuleDivider>,
       <>
         <h2>What This Module Covers</h2>
         <p>
@@ -1239,17 +1250,6 @@ function nabooInvasionAndEscapeContent() {
         <p>
           The invasion is no longer political. It is physical. Thousands of droids move through
           Naboo's forest toward inhabited settlements.
-        </p>
-        <p>
-          See the theatrical poster on{' '}
-          <a
-            href="https://en.wikipedia.org/wiki/Star_Wars:_Episode_I_%E2%80%93_The_Phantom_Menace"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Wikipedia: The Phantom Menace (1999)
-          </a>
-          .
         </p>
         <p>
           Qui-Gon Jinn and Obi-Wan Kenobi emerge from hiding in the swamp mud as the invasion force
@@ -1433,10 +1433,12 @@ function nabooInvasionAndEscapeContent() {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              Sea monsters, and not just one. The film uses an escalating series: each predator is
-              bigger than the last, and each crisis resolves itself because a larger predator eats
-              the smaller one. The rule of three applies: Opee Sea Killer, then Sando Aqua Monster,
-              then Colo Claw Fish. Skill alone does not save the sub, scale does.
+              Sea monsters, and not just one. The film uses a rising series: each predator is bigger
+              than the last, and each crisis fixes itself because a larger predator eats the smaller
+              one. This follows the rule of three. Storytellers repeat a thing three times because
+              three is the smallest number that makes a pattern feel deliberate: Opee Sea Killer,
+              then Sando Aqua Monster, then Colo Claw Fish. Skill alone does not save the sub, scale
+              does.
             </p>
           </details>
         </div>
@@ -1473,7 +1475,7 @@ function nabooInvasionAndEscapeContent() {
           </details>
         </div>
         <p>
-          The film cuts away from the sub entirely. This is parallel cutting, the screenplay's most
+          The film cuts away from the sub entirely. This is parallel cutting, the film's most
           significant structural technique in this sequence.
         </p>
         <div className="lrn-definition">
@@ -1703,8 +1705,10 @@ function nabooInvasionAndEscapeContent() {
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
             Qui-Gon uses the word "feelings" deliberately. He is not reporting a fact, he is sharing
-            a Force perception. This is his instinct over logic, which is a Jedi leitmotif: the
-            Force as a sense that runs deeper than evidence.
+            a Force perception. This is his instinct over logic, which is a Jedi leitmotif. A
+            leitmotif is a signature, often a short piece of music, that returns whenever a
+            character or idea matters. Qui-Gon's leitmotif is the Force as a sense that runs deeper
+            than evidence.
           </p>
           <p>
             He names the Sith's presence without naming the Sith. He knows something is wrong at a
@@ -1728,9 +1732,10 @@ function nabooInvasionAndEscapeContent() {
             <summary>Expert explanation</summary>
             <p>
               Bibble, a loyal advisor, is unknowingly steering Amidala into the hands of the man
-              orchestrating her suffering. The line is a foreshadowing trap, it sounds like good
-              advice. Bibble is not corrupt, just deceived. His most well-meaning counsel
-              accelerates the galaxy's fall.
+              causing her suffering. The line is a foreshadowing trap. Foreshadowing is an early
+              hint that quietly sets up something that pays off later. It sounds like good advice.
+              Bibble is not corrupt, just fooled. His most well-meaning counsel speeds up the
+              galaxy's fall.
             </p>
           </details>
         </div>
@@ -1872,7 +1877,7 @@ function nabooInvasionAndEscapeContent() {
           <div className="lrn-definition-desc">
             <p>
               The planet core crossing is intercut with the Darth Sidious scene on the Federation
-              battleship. Physical danger juxtaposes with political scheming. The film's scope
+              battleship. Physical danger is set against political scheming. The film's scope
               expands while the sub travels.
             </p>
           </div>
@@ -1995,7 +2000,7 @@ function nabooInvasionAndEscapeContent() {
       {
         id: 'nie-007',
         q: 'What is the life-debt, and why is it important to the story?',
-        a: "In Gungan law, saving someone's life creates a binding obligation. Qui-Gon saved Jar Jar, so Jar Jar must serve him. Without this legal mechanism, Jar Jar would never help them at all, and the Jedi would never reach Otoh Gunga. The life-debt is the screenplay's tool for binding a reluctant character to the main party."
+        a: "In Gungan law, saving someone's life creates a binding obligation. Qui-Gon saved Jar Jar, so Jar Jar must serve him. Without this legal mechanism, Jar Jar would never help them at all, and the Jedi would never reach Otoh Gunga. The life-debt is the film's tool for binding a reluctant character to the main party."
       },
       {
         id: 'nie-013',
@@ -2040,7 +2045,7 @@ function nabooInvasionAndEscapeContent() {
       {
         id: 'nie-012',
         q: 'What is parallel cutting, and how does Lucas use it in the planet core sequence?',
-        a: 'Parallel cutting shows two simultaneous events in different locations. Lucas cuts from the sub in the core to the Sidious hologram scene on the Federation battleship. Physical danger is juxtaposed with political scheming. The cutting expands narrative scope while the sub physically travels through one space.'
+        a: 'Parallel cutting shows two events in different places at the same time. Lucas cuts from the sub in the core to the Sidious hologram scene on the Federation battleship. Physical danger is set against political scheming. The cutting widens the story while the sub travels through one space.'
       },
       {
         id: 'nie-026',
@@ -2365,10 +2370,10 @@ function nabooInvasionAndEscapeContent() {
 function strandedOnTatooineContent() {
   return {
     sections: [
-      <ChapterDivider key="div-strandedOnTatooineContent">
+      <ModuleDivider key="div-strandedOnTatooineContent">
         <h2>Act II: Stranded on Tatooine</h2>
         <p>Hyperdrive failure forces a desert detour.</p>
-      </ChapterDivider>,
+      </ModuleDivider>,
       <>
         <h2>What This Module Covers</h2>
         <p>
@@ -2646,7 +2651,7 @@ function strandedOnTatooineContent() {
           Meanwhile, Watto takes Qui-Gon to the junkyard. He has the T-14 hyperdrive generator. He
           is the only one in the system. He offers his price, then adds that the group might as well
           buy a new ship, it would be cheaper. Qui-Gon offers Republic credits. Watto refuses.
-          Qui-Gon tries a mind trick. Watto is a Toydarian, a species the screenplay uses to remove
+          Qui-Gon tries a mind trick. Watto is a Toydarian, a species the film uses to remove
           Qui-Gon's most reliable tool. The trick fails completely.
         </p>
         <div className="lrn-callout lrn-insight">
@@ -2697,8 +2702,8 @@ function strandedOnTatooineContent() {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              Jar Jar causes trouble, and Anakin saves him. This is the screenplay's pattern: Jar
-              Jar's clumsiness creates a crisis, and someone else resolves it. Here, the someone is
+              Jar Jar causes trouble, and Anakin saves him. This is the film's pattern: Jar Jar's
+              clumsiness creates a crisis, and someone else resolves it. Here, the someone is
               Anakin. He intervenes with a bluff against a dangerous racer named Sebulba, and in
               doing so, introduces himself to the group outside the transactional space of the shop.
             </p>
@@ -2750,11 +2755,11 @@ function strandedOnTatooineContent() {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            This is the screenplay's repeating pattern: Jar Jar's clumsiness creates a crisis and
-            someone else resolves it. Here, the someone is Anakin. He introduces himself to the
-            group outside the transactional space of the shop. He uses intelligence rather than
-            force, a bluff, not a brawl. He is nine years old and handles a lethal confrontation
-            with more competence than anyone else in the scene.
+            This is the film's repeating pattern: Jar Jar's clumsiness creates a crisis and someone
+            else resolves it. Here, the someone is Anakin. He introduces himself to the group
+            outside the transactional space of the shop. He uses intelligence rather than force, a
+            bluff, not a brawl. He is nine years old and handles a lethal confrontation with more
+            competence than anyone else in the scene.
           </p>
           <p>
             The market scene also plants Sebulba as Anakin's specific rival. Lucas introduces him as
@@ -2822,9 +2827,9 @@ function strandedOnTatooineContent() {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            Shmi speaks as if she has been holding a secret, not displaying pride. The screenplay
-            stage direction reads: "as if he's discovered a secret." The film does not explain what
-            she knows. It does not need to. This is the module's quietest piece of foreshadowing.
+            Shmi answers as if she is holding a secret, not showing pride. Her face on screen reads
+            like someone who knows something she will not say. The film does not explain what she
+            knows. It does not need to. This is the module's quietest piece of foreshadowing.
           </p>
           <p>
             Shmi is not a prop for Anakin's backstory. She feeds strangers without complaint,
@@ -3014,25 +3019,14 @@ function strandedOnTatooineContent() {
             </p>
           </div>
         </div>
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">FEAR AS THE ROOT</span>
-          <div className="lrn-definition-desc">
-            <p>
-              Anakin tells Jar Jar to "be less afraid." Later, Qui-Gon senses Anakin's Force
-              potential is wrapped in fear. The film plants fear as a crack inside its most gifted
-              character and keeps returning to it.
-            </p>
-          </div>
-        </div>
-
         <h3>Dramatic Techniques</h3>
         <div className="lrn-definition">
           <span className="lrn-definition-term">TOYDARIAN</span>
           <div className="lrn-definition-desc">
             <p>
               A winged alien species immune to Force mind manipulation. Watto is a Toydarian. The
-              screenplay uses this species to remove Qui-Gon's most reliable tool and force a
-              different path to the solution.
+              film uses this species to remove Qui-Gon's most reliable tool and force a different
+              path to the solution.
             </p>
           </div>
         </div>
@@ -3491,10 +3485,10 @@ function strandedOnTatooineContent() {
 function thePodraceContent(C) {
   return {
     sections: [
-      <ChapterDivider key="div-thePodraceContent">
+      <ModuleDivider key="div-thePodraceContent">
         <h2>Act II: The Podrace</h2>
         <p>A boy wins his freedom on a track built to kill him.</p>
-      </ChapterDivider>,
+      </ModuleDivider>,
       <>
         <div className="lrn-header">
           <div className="lrn-header-text">
@@ -3559,9 +3553,10 @@ function thePodraceContent(C) {
         <div className="lrn-callout lrn-insight">
           <span className="lrn-callout-label">Analytical lens</span>
           <p>
-            Use this module to study how screenwriters build a set-piece race narrative, how
-            deception structures a con-story within a larger epic, and how the Hero's Journey
-            compresses into a single event without losing thematic weight.
+            This module shows how writers build a big race scene, how a con story fits inside a
+            larger epic, and how the Hero's Journey compresses into a single event. The Hero's
+            Journey is the common story shape where an ordinary person leaves home, faces hard
+            tests, and comes back changed. The race is a small version of that whole arc.
           </p>
         </div>
       </>,
@@ -3640,9 +3635,10 @@ function thePodraceContent(C) {
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
             <p>
-              He has decided Anakin is the Chosen One. The count is the highest ever recorded,
-              higher than Yoda. For Qui-Gon, this is empirical proof of what the Force already told
-              him through instinct. The bet is now not a risk but a certainty.
+              He has decided Anakin is the Chosen One. An old Jedi prophecy foretold someone who
+              would bring balance to the Force. The count is the highest ever recorded, higher than
+              Yoda. For Qui-Gon, this is hard proof of what the Force already told him through
+              instinct. The bet is now not a risk but a certainty.
             </p>
           </details>
         </div>
@@ -3657,9 +3653,9 @@ function thePodraceContent(C) {
           <span className="lrn-definition-term">THE ABSENT FATHER / MIRACULOUS BIRTH</span>
           <div className="lrn-definition-desc">
             <p>
-              Shmi cannot explain Anakin's conception. Qui-Gon links it immediately to the Force.
-              This is a messianic origin story: the child born outside normal causation, destined
-              for something extraordinary. The screenplay plants the seed here and never explains it
+              Shmi cannot explain how Anakin was conceived. Qui-Gon links it immediately to the
+              Force. This is a savior origin story: a child born outside the normal order, marked
+              for something extraordinary. The film plants the seed here and never explains it
               further.
             </p>
           </div>
@@ -3693,8 +3689,8 @@ function thePodraceContent(C) {
       <>
         <h2>The Starting Grid</h2>
         <p>
-          Use this section when analyzing pre-race dramatic compression: how a screenplay loads
-          maximum emotional weight into the minutes before the central action begins.
+          Use this section when analyzing pre-race dramatic compression: how a film loads maximum
+          emotional weight into the minutes before the central action begins.
         </p>
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -3732,7 +3728,34 @@ function thePodraceContent(C) {
           introduce the field. The starting grid assembles.
         </p>
 
-        <viz.PodracerLineup C={C} />
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th style={{ width: '3em' }}>#</th>
+              <th>Pilot</th>
+              <th>Race role</th>
+              <th>Outcome / note</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              ['ANAKIN SKYWALKER', 'Hero', 'Wins on Force-guided reflexes'],
+              ['SEBULBA', 'Villain', 'Cheats with side-exhaust, loses to Anakin'],
+              ['GASGANO', 'Blocker', 'Anakin leaps over him at the cliff drop'],
+              ['MAWHONIC', 'Backmarker', 'Destroyed by Sebulba, lap 1 turn 1'],
+              ['BEN QUADINAROS', 'Comic relief', 'All four engines explode at the start'],
+              ['ODY MANDRELL', 'Mid-pack', 'Droid DUM-4 sucked into his engine in the pits'],
+              ['XELBREE', 'Backmarker', "Destroyed by Sebulba's side vent, lap 2"]
+            ].map(([name, role, note], i) => (
+              <tr key={name}>
+                <td>{String(i + 1).padStart(2, '0')}</td>
+                <td>{name}</td>
+                <td>{role}</td>
+                <td>{note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
         <div className="lrn-callout lrn-insight">
           <span className="lrn-callout-label">Key Quote</span>
@@ -3779,10 +3802,10 @@ function thePodraceContent(C) {
           <span className="lrn-definition-term">THE WATCHING MOTHER</span>
           <div className="lrn-definition-desc">
             <p>
-              Shmi appears at lines 140–143, 393–397, 455–458, and 716–733. Each time she observes
-              from a distance. She never participates. She can only watch. The module uses her
-              placement, always outside the action, as a visual symbol of a parent's helplessness
-              against a child's fate.
+              Shmi appears again and again: at the dinner table, at the hovel, at the pod hangar,
+              and at the race itself. Each time she observes from a distance. She never
+              participates. She can only watch. The module uses her placement, always outside the
+              action, as a visual symbol of a parent's helplessness against a child's fate.
             </p>
           </div>
         </div>
@@ -3809,8 +3832,8 @@ function thePodraceContent(C) {
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
           <p>
-            Anakin starts last. Sebulba leads. The screenplay must get them to the same position by
-            lap 3. How does Lucas do it without making Anakin's rise feel unearned?
+            Anakin starts last. Sebulba leads. The film must get them to the same position by lap 3.
+            How does Lucas do it without making Anakin's rise feel unearned?
           </p>
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
@@ -3823,7 +3846,7 @@ function thePodraceContent(C) {
           </details>
         </div>
 
-        <viz.RaceTimeline C={C} />
+        <viz.BoontaRaceTimeline />
 
         <h3>Lap 1: Establishing the Field</h3>
         <p>
@@ -3887,7 +3910,7 @@ function thePodraceContent(C) {
           </details>
         </div>
 
-        <viz.RaceCourseMap C={C} />
+        <viz.BoontaRaceCourse />
 
         <div className="lrn-compare">
           <div className="lrn-compare-col">
@@ -4024,7 +4047,7 @@ function thePodraceContent(C) {
           or character in The Phantom Menace.
         </p>
 
-        <viz.PodraceCharacterWeb C={C} />
+        <viz.PodraceCharacterWeb />
 
         <h3>Core Themes</h3>
         <div className="lrn-definition">
@@ -4068,16 +4091,6 @@ function thePodraceContent(C) {
           </div>
         </div>
         <div className="lrn-definition">
-          <span className="lrn-definition-term">THE WATCHING MOTHER</span>
-          <div className="lrn-definition-desc">
-            <p>
-              Shmi watches at lines 140–143, 393–397, 455–458, and 716–733. She is always outside
-              the action, always observing, never intervening. Her final wave is the image the
-              module closes on.
-            </p>
-          </div>
-        </div>
-        <div className="lrn-definition">
           <span className="lrn-definition-term">UNDERDOG / CROWD SPECTACLE</span>
           <div className="lrn-definition-desc">
             <p>
@@ -4089,16 +4102,6 @@ function thePodraceContent(C) {
         </div>
 
         <h3>Dramatic Techniques</h3>
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">THE CON STRUCTURE</span>
-          <div className="lrn-definition-desc">
-            <p>
-              Qui-Gon frames the bet so Watto cannot lose (from Watto's perspective), then
-              introduces a side-wager using Anakin's freedom while Watto's guard is down. The Force
-              fixes the cube. Watto cannot prove manipulation.
-            </p>
-          </div>
-        </div>
         <div className="lrn-definition">
           <span className="lrn-definition-term">ESCALATING MECHANICAL CRISES</span>
           <div className="lrn-definition-desc">
@@ -4168,12 +4171,12 @@ function thePodraceContent(C) {
       {
         id: 'tpr-004',
         q: "What does Qui-Gon mean when he says 'That's it then' after hearing the midi-chlorian count?",
-        a: 'He has decided Anakin is the Chosen One. The count is empirical confirmation of what his Force instinct already told him. The bet is no longer a gamble, it is a certainty. The race outcome was settled before it started.'
+        a: 'He has decided Anakin is the Chosen One. The count is hard confirmation of what his Force instinct already told him. The bet is no longer a gamble, it is a certainty. The race outcome was settled before it started.'
       },
       {
         id: 'tpr-005',
         q: "What does Shmi say about Anakin's father, and why does it matter?",
-        a: '"There was no father, that I know of...I carried him, I gave him birth...I can\'t explain what happened." Qui-Gon links this immediately to the Force. It establishes Anakin as a messianic figure: born outside normal causation, destined for something extraordinary.'
+        a: '"There was no father, that I know of...I carried him, I gave him birth...I can\'t explain what happened." Qui-Gon links this immediately to the Force. It establishes Anakin as a savior figure: born outside the normal order, destined for something extraordinary.'
       },
       {
         id: 'tpr-006',
@@ -4292,7 +4295,7 @@ function thePodraceContent(C) {
       },
       {
         id: 'tpr-029',
-        q: 'Self-explain: Why does the screenplay withhold the midi-chlorian count revelation until after the deal is struck?',
+        q: 'Self-explain: Why does the film withhold the midi-chlorian count revelation until after the deal is struck?',
         a: "If the audience knew Anakin's count before the bet, the bet would feel like a certainty, removing all tension. By placing the count reveal after the deal and before the race, Lucas stages it as private knowledge Qui-Gon holds. The reveal confirms what Qui-Gon already believed; for the audience, it explains why he was so calm."
       },
       {
@@ -4522,7 +4525,7 @@ function thePodraceContent(C) {
           <div className="lrn-definition-desc">
             <p>Shmi, to Qui-Gon. The virgin-birth mystery.</p>
             <p>
-              <em>Function:</em> Establishes the messianic origin; Qui-Gon links it to the Force
+              <em>Function:</em> Establishes the savior origin; Qui-Gon links it to the Force
               immediately.
             </p>
           </div>
@@ -4536,8 +4539,7 @@ function thePodraceContent(C) {
               Obi-Wan, transmitting midi-chlorian count. Higher than Yoda. Higher than any Jedi.
             </p>
             <p>
-              <em>Function:</em> Empirical confirmation of the Chosen One. Closes Qui-Gon's
-              certainty.
+              <em>Function:</em> Hard confirmation of the Chosen One. Closes Qui-Gon's certainty.
             </p>
           </div>
         </div>
@@ -4633,7 +4635,7 @@ function thePodraceContent(C) {
             Anakin wins. The moral structure rewards honesty.
           </li>
           <li>
-            <strong>The Absent Father / Miraculous Birth</strong>: Messianic origin. The Force as
+            <strong>The Absent Father / Miraculous Birth</strong>: Savior origin. The Force as
             Anakin's father. Explained by never explaining.
           </li>
           <li>
@@ -4665,10 +4667,10 @@ function thePodraceContent(C) {
 function departureAndMaulStrikesContent(C) {
   return {
     sections: [
-      <ChapterDivider key="div-departureAndMaulStrikesContent">
+      <ModuleDivider key="div-departureAndMaulStrikesContent">
         <h2>Act II: Departure and Maul Strikes</h2>
         <p>Anakin leaves Tatooine. Darth Maul reveals himself.</p>
-      </ChapterDivider>,
+      </ModuleDivider>,
       <>
         <p>
           You have watched a boy win his freedom in a race. Now the story must pay for it. This is
@@ -4676,25 +4678,25 @@ function departureAndMaulStrikesContent(C) {
           arrives before the ship can escape.
         </p>
         <p>
-          Everyone has had to leave someone they love. This is about the moment that shapes how a
-          child learns to do that. Anakin never gets taught properly.
+          This is the moment that shapes how Anakin learns to leave someone he loves. He never gets
+          taught it properly.
         </p>
         <p>
           Three forces collide in this sequence. Anakin tries to leave. Shmi tries to let him go.
           Darth Maul tries to stop both. Each one succeeds at a cost.
         </p>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            The departure scene is the film's emotional core, not the podrace. Races test skill.
-            Departures test character. What you lose, and how you lose it, reveals who you are more
-            than any victory. Anakin loses everything except his forward motion. That motion is
-            enough to destroy three galaxies later.
-          </p>
+        <div className="lrn-insight">
+          <strong>The Real Emotional Core</strong>
+          <div>
+            The departure scene, not the podrace, is the film's emotional core. Races test skill.
+            Departures test character. What Anakin loses, and how he loses it, reveals who he is
+            more than any victory. He loses everything except his forward motion. That motion is
+            enough to scar the galaxy for decades.
+          </div>
         </div>
 
-        <viz.DmsCharacterWebSvg C={C} />
+        <viz.DmsCharacterWeb />
         <div
           style={{
             textAlign: 'center',
@@ -4739,11 +4741,13 @@ function departureAndMaulStrikesContent(C) {
         </p>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">Off-screen judgment</strong>
+          <span className="lrn-definition-term">Off-screen judgment</span>
           <div className="lrn-definition-desc">
-            A character states their opinion before meeting the person it concerns. The audience
-            learns the shape of a relationship before the characters do. We know Obi-Wan already has
-            a verdict. Anakin has no idea.
+            <p>
+              A character states their opinion before meeting the person it concerns. The audience
+              learns the shape of a relationship before the characters do. We know Obi-Wan already
+              has a verdict. Anakin has no idea.
+            </p>
           </div>
         </div>
 
@@ -4758,24 +4762,14 @@ function departureAndMaulStrikesContent(C) {
             <p>
               If he had said it after meeting the boy, it would read as a reaction to something
               specific. Said before, it reads as a pattern. The audience sees the relationship is
-              already tilted before Anakin has a chance to show himself. This is careful
-              screenwriting: the gap between what we know and what Anakin knows creates tension that
-              will last for films.
+              already tilted before Anakin has a chance to show himself. This is careful writing:
+              the gap between what we know and what Anakin knows creates tension that lasts for the
+              rest of the saga.
             </p>
           </details>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Think about hearing someone's reputation before meeting them. The moment you meet them,
-            you are already filtering everything they do through what you were told. Obi-Wan does
-            this to Anakin for years. The audience sees this happening in real time. That is what
-            makes the "pathetic life form" line so powerful as an opening move.
-          </p>
-        </div>
-
-        <h2>ANAKIN FREED, AND THE COST REVEALED</h2>
+        <h2>Anakin Freed, and the Cost Revealed</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -4786,8 +4780,8 @@ function departureAndMaulStrikesContent(C) {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              He asks about his mother. The screenplay knows this is the only question that matters.
-              Joy becomes grief in one breath. The freedom he just won is real. But it costs him the
+              He asks about his mother. The film knows this is the only question that matters. Joy
+              becomes grief in one breath. The freedom he just won is real. But it costs him the
               person he loves most.
             </p>
           </details>
@@ -4806,12 +4800,11 @@ function departureAndMaulStrikesContent(C) {
         </p>
         <p>
           This is the film's central structural trick. Anakin wins the race. He wins his freedom. He
-          cannot win what he actually wants. Think of getting a scholarship to a school far from
-          home, while your family stays behind with no way to follow. The win is real. The loss is
-          also real. Both happen at once.
+          cannot win what he actually wants. The win is real. The loss is also real. Both happen at
+          once.
         </p>
 
-        <viz.IncompleteLiberationSvg C={C} />
+        <viz.IncompleteLiberation />
         <div
           style={{
             textAlign: 'center',
@@ -4828,7 +4821,7 @@ function departureAndMaulStrikesContent(C) {
           <strong>The Incomplete Liberation</strong>
           <div>
             Freedom that costs someone else their captivity is not really complete freedom. Every
-            gain Anakin makes here is paid for by Shmi staying behind. The screenplay makes this
+            gain Anakin makes here is paid for by Shmi staying behind. The film makes this
             structural: you cannot separate his joy from her loss.
           </div>
         </div>
@@ -4836,31 +4829,20 @@ function departureAndMaulStrikesContent(C) {
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            Why does the screenplay make Anakin's freedom incomplete? Why not just free both of
-            them? Form your answer before reading on.
+            Why does the film make Anakin's freedom incomplete? Why not just free both of them? Form
+            your answer before reading on.
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
             <p>
-              If Shmi were freed too, Anakin would leave happy. By keeping Shmi enslaved, the
-              screenplay plants the grief that Anakin never fully mourns. He leaves with a broken
-              promise already forming inside him.
+              If Shmi were freed too, Anakin would leave happy. By keeping Shmi enslaved, the film
+              plants the grief that Anakin never fully mourns. He leaves with a broken promise
+              already forming inside him.
             </p>
           </details>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Stories use "joy undercut by cost" at turning points because it reflects how life
-            actually works. Getting into your dream school while your family stays behind. Escaping
-            a difficult situation while a friend stays stuck in it. Immigration. Promotion.
-            Recovery. The best moments often come attached to something painful. Anakin's departure
-            is the purest version of this: his freedom is literal, and its cost is also literal.
-          </p>
-        </div>
-
-        <h2>QUI-GON AND SHMI: DESTINY VS. FEELING</h2>
+        <h2>Qui-Gon and Shmi: Destiny vs. Feeling</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -4926,8 +4908,8 @@ function departureAndMaulStrikesContent(C) {
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            Shmi's wisdom sounds like Jedi wisdom without the Jedi label. Why does the screenplay
-            give her that role? Form your answer before reading on.
+            Shmi's wisdom sounds like Jedi wisdom without the Jedi label. Why does the film give her
+            that role? Form your answer before reading on.
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
@@ -4940,18 +4922,7 @@ function departureAndMaulStrikesContent(C) {
           </details>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Think about religious vs. secular parents giving the same life advice from different
-            frameworks. One says "God has a plan for you." The other says "trust your gut." Both
-            mean: go. Both work. The screenplay shows that wisdom about leaving and loss is not
-            owned by any one tradition. A slave mother on a desert planet can know exactly what a
-            Jedi master knows, just in different words.
-          </p>
-        </div>
-
-        <h2>THE FAREWELL CASCADE</h2>
+        <h2>The Farewell Cascade</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -4962,7 +4933,7 @@ function departureAndMaulStrikesContent(C) {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              He runs back to his mother. He cannot do it in one motion. The screenplay builds the
+              He runs back to his mother. He cannot do it in one motion. The film builds the
               departure as a series of failed attempts. Each return shows us exactly what he is made
               of: loyalty that runs past the point of comfort.
             </p>
@@ -4970,7 +4941,7 @@ function departureAndMaulStrikesContent(C) {
         </div>
 
         <p>
-          The screenplay builds departure as a series of failures to leave. Anakin packs. He wakes
+          The film builds departure as a series of failures to leave. Anakin packs. He wakes
           Threepio to say goodbye: his own creation, left without coverings, unfinished. He gives
           Kitster coins. He starts walking. He stops and runs back to his mother. He starts again.
         </p>
@@ -4979,7 +4950,7 @@ function departureAndMaulStrikesContent(C) {
           bond alive even when it costs him. He is loyal past the point of comfort.
         </p>
 
-        <viz.FarewellCascadeSvg C={C} />
+        <viz.FarewellCascade />
         <div
           style={{
             textAlign: 'center',
@@ -5004,7 +4975,7 @@ function departureAndMaulStrikesContent(C) {
         </p>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">The Unfinished as Theme</strong>
+          <span className="lrn-definition-term">The Unfinished as Theme</span>
           <div className="lrn-definition-desc">
             Threepio has no coverings. Shmi stays enslaved. Anakin's promise to return goes unkept.
             The theme of incompleteness runs through every goodbye in this sequence. It is not a
@@ -5021,8 +4992,8 @@ function departureAndMaulStrikesContent(C) {
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            Why does the screenplay structure the departure as a series of failed attempts instead
-            of one clean goodbye? Form your answer before reading on.
+            Why does the film structure the departure as a series of failed attempts instead of one
+            clean goodbye? Form your answer before reading on.
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
@@ -5030,25 +5001,14 @@ function departureAndMaulStrikesContent(C) {
               Each failed attempt raises the emotional cost of the eventual departure. The audience
               does not want him to leave either. Each return is a brief relief that makes the final
               exit hit harder. Anyone who has ever said goodbye multiple times at an airport or a
-              train station knows this pattern. The screenplay uses it to make Anakin's character
-              visible: he is not someone who leaves easily. That trait will define him for three
-              films.
+              train station knows this pattern. The film uses it to make Anakin's character visible:
+              he is not someone who leaves easily. That trait will define him for the rest of the
+              saga.
             </p>
           </details>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Think about leaving for college, or a military deployment, or moving abroad. The people
-            who love you the most find it hardest to say goodbye cleanly. They come back. They hug
-            again. They stand at the door longer than they should. Anakin's multiple goodbyes are
-            one of the most honest things in the film. They show grief as it actually behaves, not
-            as stories usually clean it up.
-          </p>
-        </div>
-
-        <h2>SHMI'S FINAL LESSON</h2>
+        <h2>Shmi's Final Lesson</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -5102,7 +5062,7 @@ function departureAndMaulStrikesContent(C) {
           </details>
         </div>
 
-        <viz.TwoInstructionsSvg C={C} />
+        <viz.TwoInstructions />
         <div
           style={{
             textAlign: 'center',
@@ -5131,24 +5091,13 @@ function departureAndMaulStrikesContent(C) {
           <strong>The Mother Who Lets Go</strong>
           <div>
             Shmi's release of Anakin is the film's deepest act of love. It costs her everything. She
-            stays enslaved so he can be free. She is never repaid.
+            stays enslaved so he can be free. She is never repaid. Her version of letting go is the
+            harshest kind: she cannot follow him even if she wanted to. She is enslaved. She lets
+            him go with no real alternative, and that is what makes it devastating.
           </div>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Immigrant parents who stay behind so a child can build a life elsewhere. Parents of
-            soldiers who send their children toward danger they cannot follow. Parents of children
-            with serious illness who must travel for treatment. The parent who lets go is one of the
-            most painful roles in any story, because they have no good option. Shmi's version is the
-            harshest: she literally cannot follow him even if she wants to. She is enslaved. Her
-            release of him is a choice made without any real alternatives. That is what makes it
-            devastating.
-          </p>
-        </div>
-
-        <h2>QUI-GON DESTROYS THE PROBE DROID</h2>
+        <h2>Qui-Gon Destroys the Probe Droid</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -5180,11 +5129,9 @@ function departureAndMaulStrikesContent(C) {
           decision. It is a trained automatic habit.
         </p>
         <p>
-          Think of a firefighter who pulls someone back from danger without consciously choosing to.
-          Or a parent who catches a falling child before thinking. Years of training make certain
-          responses faster than thought. Qui-Gon demonstrates exactly this. The contrast with
-          Anakin, who is bewildered by the Maul fight, sets up everything about Jedi training the
-          rest of the film will probe.
+          Years of training make certain responses faster than thought. Qui-Gon shows exactly this.
+          The contrast with Anakin, who is bewildered by the Maul fight, sets up everything about
+          Jedi training the rest of the film will probe.
         </p>
         <p>
           <em>"Probe droid. Very unusual... not like anything I've seen before. Come on."</em>
@@ -5192,7 +5139,7 @@ function departureAndMaulStrikesContent(C) {
           Sith. But he knows the urgency. They run.
         </p>
 
-        <viz.DarkSideTimelineSvg C={C} />
+        <viz.DarkSideTimeline />
         <div
           style={{
             textAlign: 'center',
@@ -5223,19 +5170,7 @@ function departureAndMaulStrikesContent(C) {
           </details>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Surgeons who keep working calmly while alarms sound. Pilots who follow emergency
-            procedures without visible panic. Elite soldiers who react before they consciously
-            decide. All of these people have trained until the right response became faster than
-            thought. Qui-Gon's lightsaber swing is the same thing. The screenplay shows mastery
-            through action, not description. This is one of the most efficient pieces of character
-            writing in the film.
-          </p>
-        </div>
-
-        <h2>DARTH MAUL ATTACKS</h2>
+        <h2>Darth Maul Attacks</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -5267,7 +5202,7 @@ function departureAndMaulStrikesContent(C) {
           trusts Qui-Gon completely.
         </p>
 
-        <viz.MaulAttackSvg C={C} />
+        <viz.MaulAttack />
         <div
           style={{
             textAlign: 'center',
@@ -5290,9 +5225,9 @@ function departureAndMaulStrikesContent(C) {
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            The probe droid was surveillance. Maul's attack is the next step. Why does the
-            screenplay separate these into two scenes rather than having Maul arrive immediately?
-            Form your answer before reading on.
+            The probe droid was surveillance. Maul's attack is the next step. Why does the film
+            separate these into two scenes rather than having Maul arrive immediately? Form your
+            answer before reading on.
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
@@ -5316,18 +5251,7 @@ function departureAndMaulStrikesContent(C) {
           </div>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Think about sudden disruptions that change everything: a phone call with bad news, a
-            sudden illness, an accident. They always feel impossible to absorb because the moment
-            before was ordinary. Maul's arrival hits hard because the scene before it was a
-            nine-year-old boy giving coins to an old woman at a fruit stand. That gap is the whole
-            point.
-          </p>
-        </div>
-
-        <h2>THE RAMP ESCAPE</h2>
+        <h2>The Ramp Escape</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -5367,9 +5291,8 @@ function departureAndMaulStrikesContent(C) {
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            Qui-Gon barely escapes. He is clearly matched or outmatched by Maul. Why does the
-            screenplay let the villain come this close to winning? Form your answer before reading
-            on.
+            Qui-Gon barely escapes. He is clearly matched or outmatched by Maul. Why does the film
+            let the villain come this close to winning? Form your answer before reading on.
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
@@ -5383,19 +5306,7 @@ function departureAndMaulStrikesContent(C) {
           </details>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            The classic lesson about improvisation under pressure: the people who survive
-            emergencies are rarely the ones who had a plan for this exact situation. They are the
-            ones who could adapt their training to what was actually happening. Obi-Wan does not
-            have a "retrieve Qui-Gon from a desert duel" plan. He has training, and he uses it to
-            solve a problem he has never seen before. That is the whole point of preparation: not to
-            predict the future, but to be ready to respond to it.
-          </p>
-        </div>
-
-        <h2>AFTERMATH AND THE FIRST MEETING OF OBI-WAN AND ANAKIN</h2>
+        <h2>Aftermath and the First Meeting of Obi-Wan and Anakin</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -5433,7 +5344,7 @@ function departureAndMaulStrikesContent(C) {
           relationship the film tracks.
         </p>
 
-        <viz.FirstMeetingSvg C={C} />
+        <viz.FirstMeeting />
         <div
           style={{
             textAlign: 'center',
@@ -5457,8 +5368,8 @@ function departureAndMaulStrikesContent(C) {
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
             Qui-Gon guesses Maul was "after the Queen" rather than Anakin or himself. Why is this
-            wrong, and why does the screenplay have him make this mistake here? Form your answer
-            before reading on.
+            wrong, and why does the film have him make this mistake here? Form your answer before
+            reading on.
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
@@ -5471,19 +5382,7 @@ function departureAndMaulStrikesContent(C) {
           </details>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            First impressions that set lasting patterns are everywhere: the first day of a new job,
-            the first conversation with someone who matters to the story. First meetings do not
-            create relationships. They create the template from which relationships grow. Obi-Wan's
-            first look at Anakin is skeptical. The film does not reset that template. The person who
-            vouched for him first was a queen, not a master. Everything about their relationship is
-            built on that original imbalance.
-          </p>
-        </div>
-
-        <h2>GOVERNOR BIBBLE DEFIES NUTE GUNRAY</h2>
+        <h2>Governor Bibble Defies Nute Gunray</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -5526,19 +5425,7 @@ function departureAndMaulStrikesContent(C) {
           not separate in this story.
         </p>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Civil defiance under impossible pressure has real-world versions: dissidents who refused
-            to recant under torture, whistleblowers who spoke up knowing the cost, local officials
-            who protected people during occupations at personal risk. Bibble is a one-scene version
-            of a very old story: the person with no weapons who refuses to say yes. The screenplay
-            puts him here, between Anakin's grief and Padme's comfort, to say: the galaxy does not
-            stop suffering while one child cries. Both things are real at the same time.
-          </p>
-        </div>
-
-        <h2>THE JAPOR SNIPPET: ANAKIN AND PADME ALONE</h2>
+        <h2>The Japor Snippet: Anakin and Padme Alone</h2>
 
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
@@ -5560,8 +5447,8 @@ function departureAndMaulStrikesContent(C) {
         <p>
           The ship is dark. Padme watches Bibble's recorded plea. She finds Anakin in a corner,
           shivering, arms around himself. She gives him her over-jacket. This is a small maternal
-          gesture, and the screenplay knows what it means: Padme is already stepping into the space
-          Shmi just left empty.
+          gesture, and the film knows what it means: Padme is already stepping into the space Shmi
+          just left empty.
         </p>
         <p>
           Then Anakin reaches into his pocket.{' '}
@@ -5577,8 +5464,8 @@ function departureAndMaulStrikesContent(C) {
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
             Anakin carved this pendant before leaving Tatooine. He was nine. He had just lost his
-            mother. Why does the screenplay give this particular gift to Padme? Form your answer
-            before reading on.
+            mother. Why does the film give this particular gift to Padme? Form your answer before
+            reading on.
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
@@ -5613,8 +5500,8 @@ function departureAndMaulStrikesContent(C) {
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            The scene ends with Padme saying "You miss your mother," not Anakin. Why does the
-            screenplay give those words to her instead of him? Form your answer before reading on.
+            The scene ends with Padme saying "You miss your mother," not Anakin. Why does the film
+            give those words to her instead of him? Form your answer before reading on.
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
@@ -5630,26 +5517,22 @@ function departureAndMaulStrikesContent(C) {
           </details>
         </div>
 
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Shmi's last words were "my love will be with you." Padme's last words in this scene are
-            "you miss your mother." Anakin receives the same kind of knowing from two women in the
-            same day. Both see what he cannot say. This pattern reveals what he needs most: not to
-            be corrected, not to be trained, but to be seen. That need will shape every relationship
-            he has for the rest of his life, and every choice he makes when those relationships are
-            threatened.
-          </p>
-        </div>
+        <p>
+          Shmi's last words were "my love will be with you." Padme's last words in this scene are
+          "you miss your mother." Anakin gets the same kind of knowing from two women in one day.
+          Both see what he cannot say. This is what he needs most: not to be corrected, not to be
+          trained, but to be seen. That need shapes every relationship he has for the rest of his
+          life, and every choice he makes when those relationships are threatened.
+        </p>
       </>
     ],
     practice: [
       {
         q: 'Padme says "He\'s a friend" when Panaka questions Anakin on the ship. Why do those three words matter beyond the immediate scene?',
-        a: "Her word gives Anakin access to the cockpit and to the escape itself. Without her vouching for him, Panaka has no reason to trust an unknown child during a crisis. The screenplay packs enormous weight into three words: Padme's authority as a queen transfers to Anakin instantly. This also sets up the pattern of their relationship inside the film: she advocates for him before he has earned it. Every later moment where her trust runs ahead of the evidence begins with these three words on a ship."
+        a: "Her word gives Anakin access to the cockpit and to the escape itself. Without her vouching for him, Panaka has no reason to trust an unknown child during a crisis. The film packs enormous weight into three words: Padme's authority as a queen transfers to Anakin instantly. This also sets up the pattern of their relationship inside the film: she advocates for him before he has earned it. Every later moment where her trust runs ahead of the evidence begins with these three words on a ship."
       },
       {
-        q: 'Obi-Wan says "Why do I sense we\'ve picked up another pathetic life form?" before meeting Anakin. Why does the screenplay place this line before the meeting?',
+        q: 'Obi-Wan says "Why do I sense we\'ve picked up another pathetic life form?" before meeting Anakin. Why does the film place this line before the meeting?',
         a: "Placing the line before the meeting means the audience knows Obi-Wan's verdict before Anakin does. We know the relationship is already tilted against Anakin before they share a single scene together. If Obi-Wan had said this after meeting the boy, it would read as a reaction to something specific. Said before, it reads as a standing attitude, a pattern rather than a response. This signals that Obi-Wan's skepticism is not about Anakin personally, but about Qui-Gon's habit of collecting strays. The friction between them is announced in one line."
       },
       {
@@ -5658,11 +5541,11 @@ function departureAndMaulStrikesContent(C) {
       },
       {
         q: 'Qui-Gon says "This path has been placed for you, Annie; the choice to take it is yours alone." What is the contradiction inside that statement?',
-        a: 'If the path is placed by the Force (determined, designed, inevitable) then in what sense is the choice free? Qui-Gon offers destiny and free will as compatible without explaining how. He does not resolve the tension. This is the Jedi position: the Force has a will AND individuals choose. Both are real. Anakin will live inside that contradiction for the rest of the film. He is told his destiny is fixed. He is also told the choice is his alone. The screenplay presents both as true and refuses to pick one.'
+        a: 'If the path is placed by the Force (determined, designed, inevitable) then in what sense is the choice free? Qui-Gon offers destiny and free will as compatible without explaining how. He does not resolve the tension. This is the Jedi position: the Force has a will AND individuals choose. Both are real. Anakin will live inside that contradiction for the rest of the film. He is told his destiny is fixed. He is also told the choice is his alone. The film presents both as true and refuses to pick one.'
       },
       {
         q: 'Shmi says "listen to your feelings; Annie, you know what\'s right." How does this connect to Jedi philosophy, and why does it matter that a non-Jedi says it first?',
-        a: "Jedi training centers on trusting the Force through inner feeling and calm. Shmi delivers the same idea first, before any Jedi has trained Anakin, grounding it in love rather than doctrine. The screenplay gives Anakin's first philosophical lesson to his mother, not his master. This roots Force-sensitivity in human experience rather than institutional training. When Obi-Wan later says similar things, the audience can feel the echo: Shmi taught him this first."
+        a: "Jedi training centers on trusting the Force through inner feeling and calm. Shmi delivers the same idea first, before any Jedi has trained Anakin, grounding it in love rather than doctrine. The film gives Anakin's first philosophical lesson to his mother, not his master. This roots Force-sensitivity in human experience rather than institutional training. When Obi-Wan later says similar things, the audience can feel the echo: Shmi taught him this first."
       },
       {
         q: 'Anakin wins the podrace but cannot free his mother. How does this incomplete liberation shape what the film plants in him?',
@@ -5670,10 +5553,10 @@ function departureAndMaulStrikesContent(C) {
       },
       {
         q: 'Anakin asks "What about Mom? Is she free too?" immediately after learning he is free. Why is this the only question that matters in the scene?',
-        a: "Because it reveals the gap between what freedom means to Anakin and what it means to Qui-Gon. For Qui-Gon, freedom means Anakin can pursue his destiny. For Anakin, freedom is meaningless if his mother stays enslaved. The question collapses the announcement. Joy becomes grief in one sentence. The screenplay uses this to show that Anakin's definition of winning is relational, not individual. He does not want freedom for himself. He wants it for the person he loves."
+        a: "Because it reveals the gap between what freedom means to Anakin and what it means to Qui-Gon. For Qui-Gon, freedom means Anakin can pursue his destiny. For Anakin, freedom is meaningless if his mother stays enslaved. The question collapses the announcement. Joy becomes grief in one sentence. The film uses this to show that Anakin's definition of winning is relational, not individual. He does not want freedom for himself. He wants it for the person he loves."
       },
       {
-        q: "Why does the screenplay cut from Anakin's grief on the ship to the Nute and Bibble scene on Naboo?",
+        q: "Why does the film cut from Anakin's grief on the ship to the Nute and Bibble scene on Naboo?",
         a: "The cut refuses to let the audience settle into Anakin's grief. Bibble defying Nute under threat of death reminds us the political stakes have not paused. The film holds two things at once: intimate child psychology and open political horror. The edit also creates a shift in tone that makes both scenes more intense. Bibble's defiance is public and heroic. Anakin's grief is private and wordless. Placing them side by side makes the film's argument visible: what happens to one child on a desert planet is connected to what happens to an entire occupied world."
       },
       {
@@ -5689,7 +5572,7 @@ function departureAndMaulStrikesContent(C) {
         a: "In Harry Potter and the Deathly Hallows, Molly Weasley lets Harry leave for his final mission knowing she may never see him again. She does not stop him. In The Wizard of Oz, Auntie Em cannot follow Dorothy anywhere: her world is the farm. The departure archetype works because it splits loyalty: the child must go, the parent must stay. Shmi's version is harder than most because she cannot follow Anakin even if she wanted to. She is enslaved. Her release of him is a choice made without any real options. The lack of alternatives is what makes it so devastating."
       },
       {
-        q: 'Why is this the most effective piece of irony in the scene?',
+        q: 'Shmi tells Anakin "don\'t look back" while sending him toward a life built on attachment. Why is this the most tragic irony in the farewell scene?',
         a: "The irony works because it makes Shmi's love tragic even in the moment of its expression. She names the danger she sees in him (attachment that will not release) and asks him to release it. The instruction and the flaw are identical, which means his mother knows him completely. She sees the danger and names it. Knowing is not the same as curing."
       },
       {
@@ -5705,7 +5588,7 @@ function departureAndMaulStrikesContent(C) {
         a: "At this point Qui-Gon does not know the Sith exist as a faction. He cannot conceive that a trained killer was sent specifically to track Anakin. The Queen is the only obvious high-value target on the ship: a head of state fleeing an illegal occupation. His guess is logical but wrong. Maul was sent by Palpatine to stop the Queen's mission to Coruscant, yes, but also to eliminate Anakin as a potential threat. The misidentification matters because it shows Qui-Gon's blind spot: he does not yet understand the magnitude of what he has found in this boy."
       },
       {
-        q: 'Anakin gives coins to Kitster, then to Jira at the fruit stand. He has just lost his mother. Why does the screenplay make his first acts of freedom acts of giving?',
+        q: 'Anakin gives coins to Kitster, then to Jira at the fruit stand. He has just lost his mother. Why does the film make his first acts of freedom acts of giving?',
         a: "Generosity is Anakin's farewell language in this module. He cannot give what he most wants to give (his continued presence, his mother's safety), so he gives what he has: money, objects, promises. The coins to Kitster and Jira are care made physical when presence is impossible. They also show that Anakin's first instinct with any resource is not to keep it. This is the version of Anakin who will later believe he can save Padme if he just becomes powerful enough. The generosity and the desperate need to protect are the same impulse working at different scales."
       },
       {
@@ -5713,7 +5596,7 @@ function departureAndMaulStrikesContent(C) {
         a: "In Breaking Bad, Walter White's unresolved shame over selling his share in Grey Matter drives him to prove his worth through increasingly destructive choices. The original wound is never faced directly. In Hamlet, the unresolved grief over a father's murder paralyzes Hamlet for the entire play: he cannot act, because acting would mean accepting that his father is gone and the world has changed. Anakin's farewell carries the same risk: a grief that cannot be cleanly named can later turn into something else. The film plants the wound and lets the audience feel its weight."
       },
       {
-        q: 'The ramp escape has no plan. Obi-Wan improvises, Qui-Gon boards mid-battle, Maul is knocked off. Why does the screenplay show the Jedi winning through improvisation rather than strategy?',
+        q: 'The ramp escape has no plan. Obi-Wan improvises, Qui-Gon boards mid-battle, Maul is knocked off. Why does the film show the Jedi winning through improvisation rather than strategy?',
         a: 'If the Jedi had a plan that worked, it would suggest they were stronger than Maul. They are not. The escape through improvised action is more honest: they were outmatched and they adapted faster than the enemy expected. The film stages a quiet warning here: the Jedi react to what is in front of them, while the Sith plan ahead. This escape wins on improvisation. The film leaves open what happens when the Sith have time to plan.'
       },
       {
@@ -5730,7 +5613,7 @@ function departureAndMaulStrikesContent(C) {
       },
       {
         q: 'Bibble defies Nute even with a death threat on the table. What makes civil defiance at this moment dramatically effective?',
-        a: "Bibble has no weapons, no army, no way out, and no hope of rescue in the immediate scene. His only available action is refusal. The screenplay places this scene between Anakin's private grief and Padme's comfort specifically to show that courage takes different forms. Anakin's courage is the courage to walk away from everything he loves. Bibble's courage is the courage to say no when saying no could get him killed. Both are acts of will against impossible circumstances. The contrast makes both more visible. One child crying on a ship and one official refusing to break: the film holds them as equally important."
+        a: "Bibble has no weapons, no army, no way out, and no hope of rescue in the immediate scene. His only available action is refusal. The film places this scene between Anakin's private grief and Padme's comfort specifically to show that courage takes different forms. Anakin's courage is the courage to walk away from everything he loves. Bibble's courage is the courage to say no when saying no could get him killed. Both are acts of will against impossible circumstances. The contrast makes both more visible. One child crying on a ship and one official refusing to break: the film holds them as equally important."
       },
       {
         q: 'Anakin swears to return and free Shmi. Shmi tells him never to look back. These are contradictory instructions. Which one does the film show him following?',
@@ -5741,8 +5624,8 @@ function departureAndMaulStrikesContent(C) {
         a: "The sequence places maximum tenderness directly next to maximum threat. A nine-year-old who has lost everything gives his last coins to an old woman so she will not suffer in the heat. Then, in the next beat, an assassin arrives to kill everyone. The contrast is the film's argument in miniature: goodness and violence exist in the same world, in the same moment, with no buffer between them. The film does not let you settle. Anakin's generosity makes the attack more violent because it shows what is at stake. Maul's arrival makes Anakin's gift more heartbreaking because it shows how fragile that kindness is."
       },
       {
-        q: 'Qui-Gon presents destiny and free will as both true at the same time.',
-        a: 'The Jedi position is that the Force has a will (certain things are meant to happen) AND that individuals make real choices that matter. Both are true simultaneously. Qui-Gon is not being vague. He is stating the Jedi understanding precisely: the path exists, AND Anakin must choose to walk it. The film never resolves this because it is not a contradiction to be resolved. It is the tension the film is built on. Anakin is "the Chosen One" (destiny) who must still pick a direction (free will). The screenplay holds both without collapsing either. The ambiguity is the point.'
+        q: 'Qui-Gon presents destiny and free will as both true at once. Why does the film refuse to resolve which one governs Anakin?',
+        a: 'The Jedi position is that the Force has a will (certain things are meant to happen) AND that individuals make real choices that matter. Both are true at the same time. Qui-Gon is not being vague. He is stating the Jedi understanding precisely: the path exists, AND Anakin must choose to walk it. The film never resolves this because it is not a contradiction to be resolved. It is the tension the film is built on. Anakin is "the Chosen One" (destiny) who must still pick a direction (free will). The film holds both without collapsing either. The ambiguity is the point.'
       },
       {
         q: 'Predict: Padme gives Anakin her over-jacket and says "You miss your mother." This is their first private conversation. What does this moment establish about how their relationship works inside the film?',
@@ -5771,20 +5654,20 @@ function departureAndMaulStrikesContent(C) {
     ],
     referenceSections: [
       <>
-        <h2>KEY QUOTES WITH DRAMATIC FUNCTION</h2>
+        <h2>Key Quotes with Dramatic Function</h2>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Obi-Wan: "Why do I sense we've picked up another pathetic life form?"
-          </strong>
+          </span>
           <div className="lrn-definition-desc">
             Sets up Obi-Wan's persistent underestimation of Anakin. Stated before meeting the boy
-            (an attitude, not a reaction). Three films of friction announced in one line.
+            (an attitude, not a reaction). Years of friction announced in one line.
           </div>
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">Qui-Gon: "You're no longer a slave."</strong>
+          <span className="lrn-definition-term">Qui-Gon: "You're no longer a slave."</span>
           <div className="lrn-definition-desc">
             Pivotal declaration. Triggers Anakin's joy and immediately collapses into the revelation
             that Shmi cannot come. Freedom announced, then undercut in one breath.
@@ -5792,9 +5675,9 @@ function departureAndMaulStrikesContent(C) {
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Qui-Gon: "Our meeting was not a coincidence. Nothing happens by accident."
-          </strong>
+          </span>
           <div className="lrn-definition-desc">
             States the Force-determinism position explicitly. The Jedi view: the Force has a will,
             AND individuals choose. Both are true simultaneously.
@@ -5802,10 +5685,10 @@ function departureAndMaulStrikesContent(C) {
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Qui-Gon: "This path has been placed for you, Annie; the choice to take it is yours
             alone."
-          </strong>
+          </span>
           <div className="lrn-definition-desc">
             Destiny and free will offered simultaneously without resolution. The contradiction is
             not a bug. It is the Jedi position.
@@ -5813,10 +5696,10 @@ function departureAndMaulStrikesContent(C) {
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Shmi: "You can't stop change any more than you can stop the suns from setting. Listen to
             your feelings; Annie, you know what's right."
-          </strong>
+          </span>
           <div className="lrn-definition-desc">
             Mirrors Jedi philosophy from a non-Jedi source. Shmi is Anakin's first philosophical
             teacher. Her method is inner truth, not Force doctrine.
@@ -5824,17 +5707,17 @@ function departureAndMaulStrikesContent(C) {
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Anakin: "I will become a Jedi and I will come back and free you, Mom... I promise."
-          </strong>
+          </span>
           <div className="lrn-definition-desc">The broken promise.</div>
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Shmi: "No matter where you are, my love will be with you. Now be brave, and don't look
             back... don't look back."
-          </strong>
+          </span>
           <div className="lrn-definition-desc">
             The final maternal instruction. Anakin's defining flaw is exactly that he cannot stop
             looking back. She named his wound in the act of releasing him.
@@ -5842,9 +5725,9 @@ function departureAndMaulStrikesContent(C) {
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Kitster: "There are so many of us who want you to stay, Annie... You're a hero."
-          </strong>
+          </span>
           <div className="lrn-definition-desc">
             Only line from a peer character in this module. Anakin is already a legend on Tatooine
             before he has set foot on a starship. His home knows him. The galaxy does not yet.
@@ -5852,10 +5735,10 @@ function departureAndMaulStrikesContent(C) {
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Qui-Gon: "I don't know... but he was well trained in the Jedi arts. My guess is he was
             after the Queen."
-          </strong>
+          </span>
           <div className="lrn-definition-desc">
             Qui-Gon misidentifies Maul's target. He cannot conceive that a Sith is tracking Anakin
             specifically. Foreshadows his incomplete understanding of what he has found.
@@ -5863,24 +5746,24 @@ function departureAndMaulStrikesContent(C) {
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">
+          <span className="lrn-definition-term">
             Anakin: "I made this for you. So you'd remember me. I carved it out of a japor
             snippet... It will bring you good fortune."
-          </strong>
+          </span>
           <div className="lrn-definition-desc">
             The object does not change. The meaning around it does.
           </div>
         </div>
 
         <div className="lrn-definition">
-          <strong className="lrn-definition-term">Padme: "...You miss your mother."</strong>
+          <span className="lrn-definition-term">Padme: "...You miss your mother."</span>
           <div className="lrn-definition-desc">
             She names Anakin's grief before he can. Shows established intimacy in their first
             private scene. She holds the pain for him so he does not have to offer it.
           </div>
         </div>
 
-        <h2>CHARACTER RELATIONSHIP NOTES</h2>
+        <h2>Character Relationship Notes</h2>
 
         <ul className="lrn-list">
           <li>
@@ -5921,7 +5804,7 @@ function departureAndMaulStrikesContent(C) {
           </li>
         </ul>
 
-        <h2>THEMES WITH SCENE EVIDENCE</h2>
+        <h2>Themes with Scene Evidence</h2>
 
         <ul className="lrn-list">
           <li>
@@ -5956,7 +5839,7 @@ function departureAndMaulStrikesContent(C) {
           </li>
         </ul>
 
-        <h2>FORESHADOWING INVENTORY</h2>
+        <h2>Foreshadowing Inventory</h2>
 
         <ul className="lrn-list">
           <li>
@@ -5979,13 +5862,13 @@ function departureAndMaulStrikesContent(C) {
           </li>
         </ul>
 
-        <h2>STRUCTURAL DIAGRAM</h2>
+        <h2>Structural Diagram</h2>
 
-        <viz.DmsCharacterWebSvg C={C} />
+        <viz.DmsCharacterWeb />
 
-        <h2>DARK SIDE ARC</h2>
+        <h2>Dark Side Arc</h2>
 
-        <viz.DarkSideTimelineSvg C={C} />
+        <viz.DarkSideTimeline />
       </>
     ]
   }
@@ -5994,10 +5877,10 @@ function departureAndMaulStrikesContent(C) {
 function coruscantPoliticsContent(C) {
   return {
     sections: [
-      <ChapterDivider key="div-coruscantPoliticsContent">
+      <ModuleDivider key="div-coruscantPoliticsContent">
         <h2>Act II.5: Coruscant Politics</h2>
         <p>A vote of no confidence. The Council refuses the boy.</p>
-      </ChapterDivider>,
+      </ModuleDivider>,
       <>
         <h2>What This Module Covers</h2>
         <p>
@@ -6032,8 +5915,8 @@ function coruscantPoliticsContent(C) {
           <p>
             The Coruscant scenes do three things at once. They expose how the Republic's
             institutions have rotted from within. They show Palpatine as a master of using other
-            people's genuine motivations as weapons. They plant every theme that will drive the next
-            five films.
+            people's genuine motivations as weapons. They plant every theme that will drive the rest
+            of the saga.
           </p>
           <p>
             Watch what each character wants. Amidala wants justice. Qui-Gon wants to train Anakin.
@@ -6065,7 +5948,7 @@ function coruscantPoliticsContent(C) {
             disguise. And a landing platform speech about microscopic lifeforms.
           </p>
         </div>
-        <viz.PoliticalPowerWeb C={C} />
+        <viz.CoruscantPowerWeb />
       </>,
 
       <>
@@ -6574,9 +6457,6 @@ function coruscantPoliticsContent(C) {
             </p>
           </div>
         </div>
-        <div className="lrn-callout lrn-insight">
-          <span className="lrn-callout-label">Why This Scene Matters Narratively</span>
-        </div>
       </>,
 
       <>
@@ -6655,14 +6535,14 @@ function coruscantPoliticsContent(C) {
           </p>
         </div>
         <p>
-          Amidala and her retinue exit. The screenplay gives Palpatine one final stage direction:
-          "Palpatine has a self-satisfied smile on his face."
+          Amidala and her retinue exit. The film holds one last shot on Palpatine: alone in the
+          frame, he lets a self-satisfied smile cross his face.
         </p>
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
-            Lucas describes Palpatine's smile as "self-satisfied" in the stage direction. Why choose
-            this moment to let Palpatine's mask slip? What has he just secured?
+            The film shows Palpatine's smile only after everyone else has left. Why let his mask
+            slip at this exact moment? What has he just secured?
           </p>
           <details className="lrn-self-explain-reveal">
             <summary>Expert explanation</summary>
@@ -6670,7 +6550,7 @@ function coruscantPoliticsContent(C) {
               Everything. Valorum is gone. He is nominated as Chancellor. Amidala is returning to
               Naboo, which will give him a continuing crisis to exploit. The Jedi are following her.
               The board is set. The smile is the moment the audience finally sees the architect, not
-              the ally. Lucas holds it back until this exact moment when the plan is complete.
+              the ally. The film holds it back until this exact moment when the plan is complete.
             </p>
           </details>
         </div>
@@ -6716,9 +6596,11 @@ function coruscantPoliticsContent(C) {
           </p>
         </div>
         <p>
-          Qui-Gon responds with a declaration. "He is the chosen one. You must see it." The Council
-          refuses again. Qui-Gon announces he will train Anakin himself. He takes Anakin as his
-          Padawan learner.
+          Qui-Gon responds with a declaration. "He is the chosen one. You must see it." This is the
+          full version of the claim he hinted at after the podrace. An old Jedi prophecy foretold a
+          chosen one who would bring balance to the Force by destroying the Sith. Qui-Gon believes
+          Anakin is that person. The Council refuses again. Qui-Gon announces he will train Anakin
+          himself. He takes Anakin as his Padawan learner.
         </p>
         <div className="lrn-callout lrn-insight">
           <span className="lrn-callout-label">Key Quote</span>
@@ -6840,19 +6722,17 @@ function coruscantPoliticsContent(C) {
             Force." (Qui-Gon)
           </p>
         </div>
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            The midi-chlorian explanation is one of the most debated additions to Star Wars lore. It
-            gives the Force a biological basis, which makes it measurable and, in principle,
-            democratic, everyone has them, just in different concentrations.
-          </p>
-          <p>
-            But this also makes Anakin's power a function of biology, not choice. The Force chose
-            him. He did not earn it. The tension between destiny and decision is introduced here and
-            the film never fully resolves it. Lucas plants the problem of determinism in an
-            explanation about cells.
-          </p>
+        <p>
+          Symbionts are two living things that live together and help each other survive. Qui-Gon
+          says people and midi-chlorians need each other this way.
+        </p>
+        <div className="lrn-insight">
+          <strong>Power You Did Not Choose</strong>
+          <div>
+            The midi-chlorian count makes Anakin's power a matter of biology, not effort. The Force
+            chose him. He did not earn it. That plants the film's question about destiny and choice
+            inside an explanation about cells.
+          </div>
         </div>
         <p>
           Amidala and her group arrive. She welcomes Jedi protection. Qui-Gon promises he will not
@@ -6862,7 +6742,7 @@ function coruscantPoliticsContent(C) {
           <span className="lrn-callout-label">Key Quote</span>
           <p>"Wesa goen home!" (Jar Jar Binks). The last line of the Coruscant arc.</p>
         </div>
-        <viz.CoruscantModuleTimeline C={C} />
+        <viz.CoruscantSceneTimeline />
         <div className="lrn-callout lrn-insight">
           <span className="lrn-callout-label">Why This Scene Matters Narratively</span>
           <p>
@@ -6908,7 +6788,7 @@ function coruscantPoliticsContent(C) {
           <div className="lrn-definition-desc">
             <p>
               Yoda's chain, fear → anger → hate → suffering, is stated once, to Anakin, in this
-              module. The remaining five films enact it without restating it.
+              module. Later films in the saga act it out without restating it.
             </p>
           </div>
         </div>
@@ -6979,9 +6859,9 @@ function coruscantPoliticsContent(C) {
           <span className="lrn-definition-term">THE MASK-SLIP</span>
           <div className="lrn-definition-desc">
             <p>
-              Lucas gives Palpatine one moment where the mask drops, the self-satisfied smile after
-              Amidala leaves. It is a stage direction in the screenplay and a single shot in the
-              film. Everything around it is perfect composure. The slip is deliberate and brief.
+              The film gives Palpatine one moment where the mask drops: the self-satisfied smile
+              after Amidala leaves, shown in a single quiet shot. Everywhere else he stays perfectly
+              calm. The slip is deliberate and brief.
             </p>
           </div>
         </div>
@@ -7126,11 +7006,11 @@ function coruscantPoliticsContent(C) {
       {
         id: 'cpl-020',
         q: "Transfer: How does Palpatine's manipulation of Amidala mirror a pattern in real political history?",
-        a: "Look for moments where a figure advises a leader to take an action that serves the advisor's hidden interest. The technique is the same: diagnose a genuine grievance accurately, remove all alternatives, make inaction feel unconscionable, and wait for the target's own outrage to do the work. The manipulation works because the advice is true and the grievance is real. Amidala is not wrong to distrust Valorum or to want stronger leadership. She is simply not in possession of all the information. This pattern appears in historical propaganda, palace politics, and corporate maneuvering wherever advisors have information asymmetry over decision-makers."
+        a: "Look for moments where a figure advises a leader to take an action that serves the advisor's hidden interest. The technique is the same: diagnose a genuine grievance accurately, remove all alternatives, make inaction feel unconscionable, and wait for the target's own outrage to do the work. The manipulation works because the advice is true and the grievance is real. Amidala is not wrong to distrust Valorum or to want stronger leadership. She simply does not know all the facts. This pattern shows up in propaganda, palace politics, and business deals wherever an advisor knows more than the leader they are advising."
       },
       {
         id: 'cpl-021',
-        q: '',
+        q: "What happens to Anakin's training if Qui-Gon dies before he can teach him?",
         a: "Qui-Gon is the only one who believes in training Anakin and is willing to defy the Council to do it. If he dies, the training falls to Obi-Wan, who opposed it, is fresh from his own trials, and will be in grief. The Council will have to reverse its refusal or watch Anakin remain untrained. Either outcome removes the wisdom and certainty that Qui-Gon would have brought to Anakin's formation. The conditions Yoda named, fear, anger, attachment, will be harder to address under those circumstances."
       },
       {
@@ -7359,17 +7239,16 @@ function coruscantPoliticsContent(C) {
 function returnAndBattleOfNabooContent(C) {
   return {
     sections: [
-      <ChapterDivider key="div-rban">
+      <ModuleDivider key="div-rban">
         <h2>Act III: Return and Battle of Naboo</h2>
         <p>Three fronts converge. Obi-Wan promises.</p>
-      </ChapterDivider>,
+      </ModuleDivider>,
       <>
         <div className="lrn-section">
           <h2>Overview: The Final Act</h2>
           <p>
-            Look for this when studying how a screenplay runs parallel storylines. Four separate
-            battles unfold at the same time. Each depends on the others. One child in a stolen
-            fighter decides the outcome for everyone.
+            The final act runs four battles at once. Each one depends on the others. One child in a
+            stolen fighter decides the outcome for everyone.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -7398,8 +7277,8 @@ function returnAndBattleOfNabooContent(C) {
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
-              Why does the screenplay show Sidious giving this order before Padme even arrives? What
-              does opening with the villain's plan do for the audience?
+              The film shows Sidious giving this order before Padme even arrives. What does opening
+              with the villain's plan do for the audience?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
@@ -7416,7 +7295,7 @@ function returnAndBattleOfNabooContent(C) {
             </details>
           </div>
 
-          <viz.BattleMap C={C} />
+          <viz.BattleMap />
         </div>
       </>,
 
@@ -7424,8 +7303,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>Padme Reveals Herself to Boss Nass</h2>
           <p>
-            Look for this when studying identity, power, and diplomacy. The decoy ruse has protected
-            Padme all film. She drops it here for strategic reasons.
+            The decoy ruse has protected Padme all film. She drops it here on purpose, as a tool of
+            diplomacy.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -7438,7 +7317,7 @@ function returnAndBattleOfNabooContent(C) {
               <p>
                 She stops being the Queen. She admits the decoy ruse, introduces Sabe as the decoy,
                 and then kneels on the ground. She removes rank entirely. You cannot hate someone
-                who is prostrating themselves before you.
+                who is kneeling before you.
               </p>
             </details>
           </div>
@@ -7449,8 +7328,7 @@ function returnAndBattleOfNabooContent(C) {
           <div className="lrn-callout lrn-insight">
             <span className="lrn-callout-label">Key Quote</span>
             <p>
-              "I beg you to help us. We are your humble servants. Our fate is in your hands." Padme,
-              lines 192-197.
+              "I beg you to help us. We are your humble servants. Our fate is in your hands." Padme.
             </p>
           </div>
           <div className="lrn-self-explain">
@@ -7525,9 +7403,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>The Three-Front Battle Plan</h2>
           <p>
-            Look for this when studying how a screenplay uses structure to mirror theme. The plan
-            has three moving parts. Each part is interdependent. If one fails, the others are
-            harder. This is the film's structural spine made explicit.
+            The plan has three moving parts. Each part depends on the others. If one fails, the rest
+            get harder. The structure of the plan is the structure of the film's climax.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -7572,15 +7449,14 @@ function returnAndBattleOfNabooContent(C) {
           <div className="lrn-callout lrn-insight">
             <span className="lrn-callout-label">Key Quote</span>
             <p>
-              "There is a possibility with this diversion many Gungans will be killed." Qui-Gon,
-              line 257.
+              "There is a possibility with this diversion many Gungans will be killed." Qui-Gon.
             </p>
           </div>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
               Qui-Gon names the cost of the plan out loud. Boss Nass accepts anyway. Why does the
-              screenplay include this moment? What would be lost if Qui-Gon said nothing?
+              film include this moment? What would be lost if Qui-Gon said nothing?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
@@ -7602,9 +7478,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>Qui-Gon and Obi-Wan Reconcile</h2>
           <p>
-            Look for this when studying how screenwriters handle emotional repair before a major
-            event. Two characters fix their relationship. Then one of them dies. The repair makes
-            the death land harder.
+            Two characters fix their relationship. Then one of them dies. The repair, placed just
+            before the death, makes the loss land harder.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -7631,20 +7506,13 @@ function returnAndBattleOfNabooContent(C) {
           </div>
           <div className="lrn-callout lrn-insight">
             <span className="lrn-callout-label">Key Quote</span>
-            <p>"You have been a good apprentice. You are much wiser than I am, Obi-Wan.</p>
+            <p>"You have been a good apprentice. You are much wiser than I am, Obi-Wan."</p>
           </div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Qui-Gon's blessing is the only direct praise he gives Obi-Wan in the entire film. The
-              timing is not accidental.
-            </p>
-            <p>
-              A screenwriter gives a dying character their most meaningful line just before the end.
-              This is the technique of the final gift. Qui-Gon validates Obi-Wan at the exact moment
-              when Obi-Wan will most need that validation to carry forward.
-            </p>
-          </div>
+          <p>
+            This blessing is the only direct praise Qui-Gon gives Obi-Wan in the entire film. The
+            film hands a dying character his most meaningful line just before the end. Qui-Gon
+            validates Obi-Wan at the exact moment Obi-Wan will most need it to carry forward.
+          </p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
@@ -7672,9 +7540,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>Anakin Accidentally Enters the Space Battle</h2>
           <p>
-            Look for this when studying accidental heroism. Anakin enters the fight by following
-            Qui-Gon's instructions too literally. He hides under a fighter. The fighter activates.
-            He is swept into orbit on autopilot.
+            Anakin enters the fight by following Qui-Gon's instructions too literally. He hides
+            inside a fighter. The fighter activates. He is swept into orbit on autopilot.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -7694,8 +7561,7 @@ function returnAndBattleOfNabooContent(C) {
           <div className="lrn-callout lrn-insight">
             <span className="lrn-callout-label">Key Quote</span>
             <p>
-              "Once we get inside, Annie, you find a safe place to hide and stay there." Qui-Gon,
-              line 324.
+              "Once we get inside, Annie, you find a safe place to hide and stay there." Qui-Gon.
             </p>
           </div>
           <div className="lrn-callout lrn-insight">
@@ -7746,9 +7612,9 @@ function returnAndBattleOfNabooContent(C) {
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                The screenplay suggests both. Anakin makes real decisions under pressure. But the
-                outcomes are shaped by forces he does not control. He chooses to go back in. He does
-                not choose to hit the reactor. The Force uses his willingness as a channel.
+                The film suggests both. Anakin makes real decisions under pressure. But the outcomes
+                are shaped by forces he does not control. He chooses to go back in. He does not
+                choose to hit the reactor. The Force uses his willingness as a channel.
               </p>
               <p>
                 This is the film's definition of the Chosen One: not someone who plans the victory
@@ -7763,9 +7629,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>The Lightsaber Duel: Power Generator</h2>
           <p>
-            Look for this when studying physical storytelling and visual contrast. The fight between
-            Qui-Gon, Obi-Wan, and Darth Maul is not just action. Every obstacle in the environment
-            carries symbolic weight.
+            The fight between Qui-Gon, Obi-Wan, and Darth Maul is not just action. Every obstacle in
+            the room carries meaning.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -7823,7 +7688,7 @@ function returnAndBattleOfNabooContent(C) {
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
               Qui-Gon's dying command is about Anakin, not about Obi-Wan. He says nothing about
-              Obi-Wan's grief. Why does the screenplay frame the death this way?
+              Obi-Wan's grief. Why does the film frame the death this way?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
@@ -7855,9 +7720,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>Obi-Wan Defeats Darth Maul</h2>
           <p>
-            Look for this when studying a reversal built on pure desperation. Obi-Wan falls into the
-            melting pit. He should die. He does not. His recovery is one physical action powered by
-            grief and anger.
+            Obi-Wan falls into the melting pit. He should die. He does not. His recovery is one
+            physical action powered by grief and anger.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -7896,40 +7760,15 @@ function returnAndBattleOfNabooContent(C) {
               figure split into two pieces.
             </p>
           </div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Obi-Wan's victory is powered by grief, not training. He watched his master die thirty
-              seconds ago. He acts from rage and loss. This is the first time in the film we see a
-              Jedi act from raw emotion rather than calm discipline.
-            </p>
-            <p>
-              The screenplay does not comment on this. But it plants a seed. Emotion as power is
-              what the Sith believe in. Obi-Wan wins his greatest fight by doing what Jedi are not
-              supposed to do.
-            </p>
-          </div>
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Obi-Wan wins the fight by acting from rage and grief, not calm discipline. The Jedi
-              code forbids this. Why does the screenplay let him win this way without commenting on
-              it?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Silence is the point. The film does not warn the audience. It just shows the
-                victory. That makes the seed planting deeper. We watch a Jedi win by Sith means and
-                the screenplay treats it as triumph. The warning is there to find on a careful
-                rewatch.
-              </p>
-              <p>
-                The technique is dramatic withholding. The screenplay refuses to flag what it is
-                doing. The audience must notice on a second viewing, after the film's other warnings
-                about emotion have had time to settle.
-              </p>
-            </details>
+          <div className="lrn-insight">
+            <strong>Victory Through Emotion</strong>
+            <div>
+              Obi-Wan's victory is powered by grief, not calm. He watched his master die seconds
+              ago. He acts from rage and loss. This is the first time in the film a Jedi wins by raw
+              emotion rather than discipline. The film does not flag it. But emotion as power is
+              what the Sith believe in. Obi-Wan wins his greatest fight by doing the one thing the
+              Jedi forbid.
+            </div>
           </div>
         </div>
       </>,
@@ -7938,9 +7777,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>Padme Springs the Hidden Weapons Cache</h2>
           <p>
-            Look for this when studying false surrender as a tactic. Padme gets trapped in a hallway
-            by destroyer droids. She surrenders. She is brought to the throne room. That is exactly
-            where she needed to go.
+            Padme gets trapped in a hallway by destroyer droids. She surrenders. They bring her to
+            the throne room. That is exactly where she needed to go. The surrender is the tactic.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -8082,8 +7920,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>Grief, Knighthood, and Anakin's Future</h2>
           <p>
-            Look for this when studying how films handle transition between generations. The war is
-            over. But the emotional center of the final scenes is a funeral, not a victory.
+            The war is over. But the emotional center of the final scenes is a funeral, not a
+            victory.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -8125,13 +7963,13 @@ function returnAndBattleOfNabooContent(C) {
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
               Obi-Wan was promoted to Jedi Knight the same day he lost his master. What does the
-              screenplay say about grief and growth by placing these two events together?
+              film say about grief and growth by placing these two events together?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
                 Growth does not wait for grief to pass. Obi-Wan becomes a master on the worst day of
-                his life. The screenplay does not let him mourn before taking on responsibility.
+                his life. The film does not let him mourn before taking on responsibility.
               </p>
               <p>
                 The Jedi path does not offer time to stop. You carry the loss forward into the next
@@ -8140,7 +7978,7 @@ function returnAndBattleOfNabooContent(C) {
             </details>
           </div>
 
-          <viz.CharacterArcTimeline C={C} />
+          <viz.CharacterArcTimeline />
         </div>
       </>,
 
@@ -8148,8 +7986,8 @@ function returnAndBattleOfNabooContent(C) {
         <div className="lrn-section">
           <h2>The Parade and the Sith Shadow</h2>
           <p>
-            Look for this when studying dramatic irony as the final note of a film. But Yoda and
-            Mace Windu stand apart. They know the Sith threat is not over.
+            The film ends on dramatic irony. The crowd celebrates. But Yoda and Mace Windu stand
+            apart. They know the Sith threat is not over.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -8223,32 +8061,16 @@ function returnAndBattleOfNabooContent(C) {
               </p>
             </div>
           </div>
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              The film ends on a celebration that the audience knows is hollow. Why does the
-              screenplay close on joy instead of warning the characters about Palpatine?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Because the dramatic irony is the point. If the heroes knew, the film would not
-                work. The audience must hold the secret while the characters cannot. The joy on
-                screen is real for them. The dread is real for us. Both feelings live in the same
-                frame.
-              </p>
-              <p>
-                The screenplay also rewards rewatching. First time through, the parade looks like
-                victory. Second time, it looks like a funeral. The same images carry different
-                meaning depending on what the viewer knows.
-              </p>
-            </details>
-          </div>
+          <p>
+            The film closes on joy it knows is hollow. The dramatic irony is the point. The audience
+            holds the secret the characters cannot. The joy on screen is real for them. The dread is
+            real for us. Both feelings live in the same frame, and that is how the film ends.
+          </p>
         </div>
       </>
     ],
     practice: [
-      // ── COMPREHENSION ─────────────────────────────────────────────────────
+      // COMPREHENSION
       {
         q: 'Why does Padme kneel before Boss Nass instead of negotiating with him?',
         a: 'Negotiation already failed. Padme knows Nass rejected "Queen Amidala" because she felt superior. She drops her rank entirely. A queen prostrating herself removes the status blocking the alliance. She earns his help by abandoning the very thing that stopped her from getting it.'
@@ -8275,13 +8097,13 @@ function returnAndBattleOfNabooContent(C) {
       },
       {
         q: 'What does Qui-Gon say to Obi-Wan right before they enter the battle?',
-        a: 'He gives Obi-Wan a full blessing: "You have been a good apprentice. You are much wiser than I am.'
+        a: 'He gives Obi-Wan a full blessing: "You have been a good apprentice. You are much wiser than I am, Obi-Wan."'
       },
       {
         q: "What are Qui-Gon's dying words, and why do they matter to the story?",
         a: '"Promise me you\'ll train the boy. He is the chosen one. He will bring balance. Train him!" These words are a command, not a goodbye. They transfer the Anakin obligation to Obi-Wan. Without this moment, Obi-Wan has no reason to train a boy the Council already rejected. Everything that follows between teacher and student begins here.'
       },
-      // ── CHARACTER MOTIVATION ───────────────────────────────────────────────
+      // CHARACTER MOTIVATION
       {
         q: 'What motivates Obi-Wan to train Anakin even though Yoda is reluctant?',
         a: '"Qui-Gon believed in him. I believe in Qui-Gon." Obi-Wan does not trust Anakin directly. He trusts his dead master\'s judgment. His motivation is inherited faith, not personal conviction. The deathbed promise creates an obligation he cannot refuse without dishonoring Qui-Gon\'s last words.'
@@ -8298,7 +8120,7 @@ function returnAndBattleOfNabooContent(C) {
         q: 'Why does Nute Gunray panic during the battle while Sidious stays calm?',
         a: 'Nute is a businessman who overextended himself. He is not a military commander. When the battle goes wrong, he has no fallback. Sidious is a centuries-long planner who sees the entire game. Their contrast shows two kinds of power: reactive incompetence versus patient architecture.'
       },
-      // ── THEMATIC INTERPRETATION ────────────────────────────────────────────
+      // THEMATIC INTERPRETATION
       {
         q: 'How does the theme of humility as power appear in this module?',
         a: 'Padme kneels before Boss Nass. She gives up royal status to earn the alliance. Without the Gungan army, the diversion fails. Without the diversion, the droids stay in the city. Without clear streets, Padme cannot reach the palace. One act of humility makes every other plan step possible. Status would have killed them all.'
@@ -8312,12 +8134,12 @@ function returnAndBattleOfNabooContent(C) {
         a: 'Palpatine smiles at Padme during the celebration. He is the man who ordered her destroyed, engineered the invasion, and is now Chancellor because of the crisis he created. The audience watching the film has already seen him do it. The parade is genuinely joyful and deeply hollow at the same time. Joy and dread occupy the same frame.'
       },
       {
-        q: '',
+        q: "How does Qui-Gon's death set the next generation of Jedi in motion?",
         a: "His death creates the obligation. Without the deathbed command, Obi-Wan has no reason to train a boy the Council rejected. The master dies to set the next generation in motion. Destruction and succession happen at the same moment. Qui-Gon's body burns; his mission takes hold in Obi-Wan at the same instant."
       },
-      // ── NARRATIVE CRAFT ────────────────────────────────────────────────────
+      // NARRATIVE CRAFT
       {
-        q: 'Why does the screenplay open the module with Sidious ordering the Queen destroyed before she even arrives on Naboo?',
+        q: 'Why does the film open the final act with Sidious ordering the Queen destroyed before she even arrives on Naboo?',
         a: "It creates dramatic irony. The audience knows the Queen is heading into a death trap. She does not. Every planning scene gains tension because we carry that knowledge. The villain is always one step ahead in the audience's mind, even when the heroes seem confident."
       },
       {
@@ -8325,14 +8147,14 @@ function returnAndBattleOfNabooContent(C) {
         a: 'The gates do two things at once. They separate the fighters, forcing Qui-Gon to face Maul alone. And they force the camera to show Qui-Gon meditating beside Obi-Wan pacing. Two kinds of Jedi side by side, separated by glass. The environment becomes a character study without a single word of dialogue.'
       },
       {
-        q: 'Why does the screenplay place the reconciliation between Qui-Gon and Obi-Wan before the duel rather than before they land?',
+        q: 'Why does the film place the reconciliation between Qui-Gon and Obi-Wan before the duel rather than before they land?',
         a: 'Proximity to death sharpens the moment. If the reconciliation happened earlier, it would be resolved and forgotten. Placing it minutes before the duel means the audience carries the warmth of that exchange into the fight. The loss is maximized.'
       },
       {
         q: "How does the four-front parallel structure mirror the film's theme of interdependence?",
         a: "Each front depends on the others to succeed. The Gungans buy time for Padme. Padme's capture of the Viceroy is only possible because Anakin shuts down the droids. Anakin reaches the control ship because the hangar battle cleared pilots to fly. No single hero wins alone. The structure IS the theme."
       },
-      // ── TRANSFER CARDS ─────────────────────────────────────────────────────
+      // TRANSFER CARDS
       {
         q: 'TRANSFER: Anakin wins the battle by accident while trained pilots fail. Name another film where the untrained outsider succeeds where experts cannot, and explain why that structure works.',
         a: 'Same structure: institutional training fails; Force instinct succeeds. The pattern works because it says the system cannot solve certain problems. Only the person outside the system can. Destiny bypasses expertise.'
@@ -8351,11 +8173,11 @@ function returnAndBattleOfNabooContent(C) {
       },
       {
         q: "TRANSFER: The parade scene pairs celebration with Yoda and Mace's dark warning. Name another film that ends on a joyful note while planting a threat the characters cannot see.",
-        a: 'The real threat grows in the background of every victory. The film teaches you to read celebrations as warnings.'
+        a: 'In The Godfather, the film ends with Michael accepting the family business while the door closes on Kay, who cannot see that he has already become the thing she feared. The audience knows; she does not. Both films end on a surface of order while the real threat sits inside the frame. The parade and the closing door teach you to read celebrations as warnings: the dread the audience holds is the point, not the joy the characters feel.'
       },
-      // ── ELABORATE ──────────────────────────────────────────────────────────
+      // ELABORATE
       {
-        q: '',
+        q: 'Qui-Gon and Obi-Wan make peace just before the duel that kills Qui-Gon. How does that timing change the grief Obi-Wan carries afterward?',
         a: 'The repair completed the relationship. No unfinished business remains. Compare: if they had died with the argument unresolved, the emotional register would be different: grief mixed with "they never made it right." The reconciliation purifies the grief into something clean. The timing is the craft.'
       },
       {
@@ -8366,7 +8188,7 @@ function returnAndBattleOfNabooContent(C) {
         q: 'ELABORATE: Jar Jar Binks accidentally destroys droids throughout the battle. Why does the film include his comic chaos alongside serious military action?',
         a: "Jar Jar's accidental heroics parallel Anakin's accidental heroics. Both win battles they did not plan to enter. The film repeats the theme at two scales: the child in space and the clumsy Gungan on the ground. The parallel says: destiny does not require competence. It requires presence. Jar Jar is there. That is enough."
       },
-      // ── PREDICT ────────────────────────────────────────────────────────────
+      // PREDICT
       {
         q: 'PREDICT: Before watching the film, if you knew Anakin would destroy the droid control ship, would you guess it was intentional or accidental? What does your answer reveal about how you think heroes work?',
         a: "Most audiences expect the hero to plan the decisive act. That is the conventional hero structure. The Phantom Menace breaks it deliberately. Anakin's victory is all accident. If you guessed intentional, you imported conventional hero logic. The film rejects that logic. The Chosen One is not a planner. He is a vessel."
@@ -8427,7 +8249,9 @@ function returnAndBattleOfNabooContent(C) {
             <div className="lrn-definition-desc">
               <p>
                 Function: The film's central tragedy. Transfers the Anakin obligation to Obi-Wan.
-                Sets in motion everything that follows between teacher and student.
+                Sets in motion everything that follows between teacher and student. Qui-Gon charges
+                Maul alone through the open gate, overextends, and Maul reverses and stabs him. His
+                own aggression creates the opening for his death.
               </p>
             </div>
           </div>
@@ -8464,124 +8288,6 @@ function returnAndBattleOfNabooContent(C) {
               <p>
                 Function: Closes the film on celebration while planting the unresolved Sith threat.
                 Dramatic irony: Palpatine stands in the victory frame.
-              </p>
-            </div>
-          </div>
-        </div>
-      </>,
-
-      <>
-        <div className="lrn-section">
-          <h2>Character Decisions and Consequences</h2>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">PADME KNEELS BEFORE BOSS NASS</span>
-            <div className="lrn-definition-desc">
-              <p>Decision: Abandon royal status to earn alliance.</p>
-              <p>
-                Consequence: Gungan army provides the diversion that makes the entire plan possible.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">PADME SURRENDERS IN THE CORRIDOR</span>
-            <div className="lrn-definition-desc">
-              <p>Decision: False surrender to avoid a fight she cannot win.</p>
-              <p>
-                Consequence: Brought directly to the throne room where the Viceroy is. Objective
-                achieved by losing.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">ANAKIN HIDES IN THE FIGHTER COCKPIT</span>
-            <div className="lrn-definition-desc">
-              <p>Decision: Follow Qui-Gon's instruction to hide. Cockpit seems safe.</p>
-              <p>
-                Consequence: Accidentally launches into orbit. Accidentally destroys the reactor.
-                Ends the war.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">OBI-WAN PROMISES TO TRAIN ANAKIN</span>
-            <div className="lrn-definition-desc">
-              <p>Decision: Honor the dying master's command even against Council wishes.</p>
-              <p>
-                Consequence: Anakin begins Jedi training under Obi-Wan. The Council relents because
-                Obi-Wan was bound by Qui-Gon's last words.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">
-              QUI-GON CHARGES MAUL ALONE THROUGH THE OPEN GATE
-            </span>
-            <div className="lrn-definition-desc">
-              <p>Decision: Use the brief window when the gate opens to attack with ferocity.</p>
-              <p>
-                Consequence: Overextends; Maul reverses and stabs him before Obi-Wan can get
-                through. The master's aggression creates the opening for his own death.
-              </p>
-            </div>
-          </div>
-        </div>
-      </>,
-
-      <>
-        <div className="lrn-section">
-          <h2>Themes with Supporting Evidence</h2>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">HUMILITY AS POWER</span>
-            <div className="lrn-definition-desc">
-              <p>
-                Evidence: Padme kneels before Boss Nass. Her prostration earns what negotiation
-                could not. The queen gains an army by abandoning her crown.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">ACCIDENT AND DESTINY</span>
-            <div className="lrn-definition-desc">
-              <p>
-                Evidence: Anakin hides in a fighter, accidentally launches, accidentally fires
-                torpedoes, accidentally hits the reactor. No deliberate act. The war ends through
-                chain of accidents.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">SACRIFICE ENABLING LEGACY</span>
-            <div className="lrn-definition-desc">
-              <p>
-                Evidence: Qui-Gon's dying command transfers the Anakin obligation to Obi-Wan. The
-                Gungan army accepts possible death as the price of the diversion.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">IDENTITY AND DECEPTION</span>
-            <div className="lrn-definition-desc">
-              <p>
-                Evidence: The decoy ruse pays off twice: once as a diplomatic tool before Boss Nass
-                , once as a tactical distraction in the throne room.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">CELEBRATION OVER UNRESOLVED DARKNESS</span>
-            <div className="lrn-definition-desc">
-              <p>
-                Evidence: Victory parade with Palpatine in frame; Yoda and Mace discussing the
-                surviving Sith.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">TRUST WITHOUT PROOF</span>
-            <div className="lrn-definition-desc">
-              <p>
-                Evidence: "Qui-Gon believed in him. I believe in Qui-Gon.". Obi-Wan's faith in
-                Anakin is inherited, not earned. Belief is passed like a torch through grief.
               </p>
             </div>
           </div>

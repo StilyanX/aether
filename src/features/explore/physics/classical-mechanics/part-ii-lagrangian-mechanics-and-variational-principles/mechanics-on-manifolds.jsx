@@ -12,19 +12,23 @@ import {
   Slider as Sl6,
   DragHandle as DH6,
   PlayPause as PP6,
-  OPACITY as O6,
-  VizCard
+  OPACITY as O6
 } from '../../../../../components/viz/primitives'
+import { VizFigure } from '../../../../../components/viz-figure'
 import { useSimulation as useSim6, rk4Step as rk46 } from '../../../../../components/viz/physics'
+import { DoublePendulumTorus } from '../../../../../components/viz'
 
-function PendulumS1() {
+export function PendulumS1() {
   const [th, setTh] = React.useState(1.0)
   const bx = 2 * Math.sin(th)
   const by = -2 * Math.cos(th)
+  // 520x360 with spans 7x4.7 keeps ux = uy (inner 488x328), so the bob computed in
+  // units sits exactly ON the CircleSh ring and arcs read as true circles.
   return (
     <div style={{ width: '100%' }}>
-      <P6 xRange={[-3.5, 3.5]} yRange={[-2.4, 2.6]} width={520} height={280}>
-        <Pa6 xy={t => [-3 + t * 6, 0]} t={[0, 1]} samples={2} opacity={O6.dim} />
+      <P6 xRange={[-3.5, 3.5]} yRange={[-2.35, 2.35]} width={520} height={360}>
+        {/* theta = 0 reference: the downward vertical */}
+        <Pa6 xy={t => [0, -t * 2]} t={[0, 1]} samples={2} opacity={O6.faint} dash="3 4" />
         <C6 cx={0} cy={0} r={2} opacity={O6.fg} />
         <D6 x={0} y={0} />
         <Pa6
@@ -49,8 +53,14 @@ function PendulumS1() {
           samples={48}
           opacity={O6.accent}
         />
-        <T6 at={[0.7, -0.6]} tex="\theta" opacity={O6.accent} />
-        <T6 at={[-2.5, 1.85]} tex="S^1" opacity={O6.fg} />
+        <T6
+          at={[0.42 * Math.sin(th / 2), -0.42 * Math.cos(th / 2)]}
+          dy={th >= 0 ? 14 : 0}
+          dx={th >= 0 ? 6 : -16}
+          tex="\theta"
+          opacity={O6.accent}
+        />
+        <T6 at={[-1.62, 1.5]} tex="S^1" anchor="end" opacity={O6.fg} />
       </P6>
       <Sl6
         label="θ"
@@ -65,7 +75,7 @@ function PendulumS1() {
   )
 }
 
-function ConstraintForce() {
+export function ConstraintForce() {
   const [xC, setXC] = React.useState(1.0)
   const M = x => 0.5 + 0.4 * x * x
   const yC = M(xC)
@@ -73,30 +83,42 @@ function ConstraintForce() {
   const nrm = 1 / Math.hypot(1, slope)
   const nx = -slope * nrm,
     ny = 1 * nrm
+  // Isotropic frame (inner 488x276 for spans 5.4x3.05) so R really is perpendicular
+  // to the tangent ON SCREEN. Tangent arrow flips toward the roomy side so the label
+  // never leaves the frame.
+  const dir = xC > 0.4 ? -1 : 1
+  const tx = dir * 1.0 * nrm,
+    ty = dir * slope * nrm
   return (
     <div style={{ width: '100%' }}>
-      <P6 xRange={[-2.5, 2.5]} yRange={[-0.4, 3.4]} width={520} height={260}>
+      <P6 xRange={[-2.7, 2.7]} yRange={[-0.3, 2.75]} width={520} height={308}>
         <A6 step={1} showGrid={false} />
         <Pa6 xy={x => [x, M(x)]} t={[-2.2, 2.2]} samples={120} opacity={O6.fg} strokeWidth={2} />
-        <DH6 x={xC} y={yC} onChange={x => setXC(Math.max(-2, Math.min(2, x)))} />
-        <Ar6 from={[xC, yC]} to={[xC + nx * 1.4, yC + ny * 1.4]} opacity={O6.accent} head={6} />
-        <Ar6 from={[xC, yC]} to={[xC + 1.0, yC + slope * 1.0]} opacity={O6.fg} head={6} />
-        <Ar6
-          from={[xC, yC]}
-          to={[xC - 1.0, yC - slope * 1.0]}
-          opacity={O6.fg}
-          head={6}
-          dash="3 3"
+        <DH6 x={xC} y={yC} onChange={x => setXC(Math.max(-1.4, Math.min(1.4, x)))} />
+        <Ar6 from={[xC, yC]} to={[xC + nx * 1.1, yC + ny * 1.1]} opacity={O6.accent} head={6} />
+        <Ar6 from={[xC, yC]} to={[xC + tx, yC + ty]} opacity={O6.fg} head={6} />
+        {/* R label rides beside the arrow shaft, on the side away from the y-axis */}
+        <T6
+          at={[xC + nx * 0.6 + (xC >= 0 ? 0.18 : -0.18), yC + ny * 0.6]}
+          anchor={xC >= 0 ? 'start' : 'end'}
+          tex="R \perp M"
+          opacity={O6.accent}
         />
-        <T6 at={[xC + nx * 1.4 + 0.1, yC + ny * 1.4]} tex="R \perp M" opacity={O6.accent} />
-        <T6 at={[xC + 1.05, yC + slope * 1.0 + 0.1]} tex="\xi \in T_xM" opacity={O6.fg} />
+        {/* xi label offset off the tangent midpoint, outside the curve */}
+        <T6
+          at={[xC + tx * 0.55 - nx * 0.32, yC + ty * 0.55 - ny * 0.32]}
+          anchor={dir > 0 ? 'start' : 'end'}
+          dy={6}
+          tex="\xi \in T_xM"
+          opacity={O6.fg}
+        />
       </P6>
-      <Sl6 label="x" value={xC} min={-2} max={2} step={0.02} onChange={setXC} />
+      <Sl6 label="x" value={xC} min={-1.4} max={1.4} step={0.02} onChange={setXC} />
     </div>
   )
 }
 
-function PendulumLive() {
+export function PendulumLive() {
   const [g, setG] = React.useState(9.81)
   const [gamma, setGamma] = React.useState(0.05)
   const [state, setState, ctl] = useSim6({ th: 1.4, om: 0 }, (s, dt) => {
@@ -108,20 +130,16 @@ function PendulumLive() {
   const L = 1.6
   const bx = L * Math.sin(state.th)
   const by = -L * Math.cos(state.th)
+  // Ceiling AT the pivot (y = 0) and a frame deep enough that the bob's full swing
+  // (radius 1.6) stays inside. Inner 388x198 for spans 4.4x2.25 keeps ux = uy.
   return (
     <div style={{ width: '100%' }}>
-      <P6 xRange={[-2.4, 2.4]} yRange={[-2.6, 1.0]} width={420} height={260}>
-        <Pa6
-          xy={t => [-2.2 + t * 4.4, 0.5]}
-          t={[0, 1]}
-          samples={2}
-          opacity={O6.fg}
-          strokeWidth={2}
-        />
+      <P6 xRange={[-2.2, 2.2]} yRange={[-1.9, 0.35]} width={420} height={230}>
+        <Pa6 xy={t => [-2.1 + t * 4.2, 0]} t={[0, 1]} samples={2} opacity={O6.fg} strokeWidth={2} />
         {Array.from({ length: 8 }, (_, i) => (
           <Pa6
             key={i}
-            xy={t => [-2.0 + i * 0.55 + t * 0.2, 0.5 + t * 0.15]}
+            xy={t => [-1.9 + i * 0.52 + t * 0.18, t * 0.14]}
             t={[0, 1]}
             samples={2}
             opacity={O6.dim}
@@ -166,7 +184,7 @@ function PendulumLive() {
   )
 }
 
-function DoublePendulum() {
+export function DoublePendulum() {
   const [state, setState, ctl] = useSim6({ th1: 1.6, th2: 1.4, p1: 0, p2: 0 }, (s, dt) => {
     const f = (t, y) => {
       const g = 9.81,
@@ -204,8 +222,17 @@ function DoublePendulum() {
   }
   return (
     <div style={{ width: '100%' }}>
-      <P6 xRange={[-2.4, 2.4]} yRange={[-2.6, 0.8]} width={420} height={260}>
+      {/* Frame covers the bobs' full reach (L1 + L2 = 2) on both sides; inner
+          388x229 for spans 4.4x2.6 keeps ux = uy. */}
+      <P6 xRange={[-2.2, 2.2]} yRange={[-2.25, 0.35]} width={420} height={261}>
         <D6 x={0} y={0} />
+        <T6
+          at={[2.12, 0.22]}
+          anchor="end"
+          tex={String.raw`\theta_1(0)=1.6,\ \theta_2(0)=1.4,\ \text{at rest}`}
+          opacity={O6.faint}
+          size={10}
+        />
         <Pa6 xy={t => [t * x1, t * y1]} t={[0, 1]} opacity={O6.fg} strokeWidth={1.5} />
         <Pa6
           xy={t => [x1 + t * (x2 - x1), y1 + t * (y2 - y1)]}
@@ -255,14 +282,14 @@ function DoublePendulum() {
   )
 }
 
-export default function MechanicsOnManifolds() {
+export default function LagrangianMechanicsOnManifolds() {
   const config = {
     cssPrefix: 'mom',
-    documentTitle: 'Mechanics on Manifolds - AETHER',
+    documentTitle: 'Lagrangian Mechanics on Manifolds - AETHER',
     learning: {
       groupTitle: 'Lagrangian Mechanics and Variational Principles',
       category: 'Physics',
-      title: 'Mechanics on Manifolds',
+      title: 'Lagrangian Mechanics on Manifolds',
       subtitle:
         "Differentiable manifolds, Lagrangian systems on curved configuration spaces, and D'Alembert's principle",
       sections: [
@@ -296,13 +323,12 @@ export default function MechanicsOnManifolds() {
             <div className="lrn-predict">
               <span className="lrn-predict-label">PREDICT</span>
               <p>
-                A flat double pendulum has two joints, both swinging in the same plane. Each joint's
-                angle goes from {`$0$`} to {`$2\\pi$`} and then wraps. What shape do you think the
-                full set of states forms?
+                Now lift the same double pendulum into 3D, so each arm can point any way in space,
+                not just in one plane. What shape do you think the full set of states forms?
               </p>
               <details className="lrn-predict-reveal">
                 <summary>Check your thinking</summary>
-                <p>{`Each joint is its own circle $S^1$. The two angles vary independently, so the full state is one point on each circle. Two independent circles combine into a doughnut surface, written $T^2 = S^1 \\times S^1$. That is the configuration space.`}</p>
+                <p>{`Each arm's tip can point anywhere on a sphere $S^2$. The two arms move independently, so the full state is one point on each sphere. Two independent spheres combine into the product $S^2 \\times S^2$. That is the configuration space, and it has dimension $2 + 2 = 4$.`}</p>
               </details>
             </div>
 
@@ -379,13 +405,19 @@ export default function MechanicsOnManifolds() {
               </div>
               <div className="lrn-step">
                 <span className="lrn-step-title">Rigid body in 3D</span>
-                <p className="lrn-step-content">{`Fix the body's center, then describe its orientation. The set of all 3D rotations is itself a curved space called $SO(3)$.`}</p>
+                <p className="lrn-step-content">{`Fix the body's center, then describe its orientation. The set of all 3D rotations is itself a curved space called $SO(3)$. One point of $SO(3)$ is one orientation of the body. It takes three independent numbers to pin down an orientation, so $SO(3)$ is 3-dimensional. No single coordinate chart covers all of $SO(3)$ without breaking down somewhere, so it is a genuinely curved manifold, not flat space. A body free to move and rotate adds three more numbers for the position of its center, giving the full configuration space $\\mathbb{R}^3 \\times SO(3)$ of dimension 6.`}</p>
               </div>
             </div>
+            <p>
+              Several of these spaces are <strong>products</strong>, written with a {`$\\times$`}{' '}
+              (like {`$S^1 \\times S^1$`} or {`$\\mathbb{R}^2 \\times S^1$`}). A product just stacks
+              independent pieces side by side. The dimension of a product manifold is the sum of the
+              dimensions of its parts.
+            </p>
 
-            <VizCard id="02.6.1" title="Pendulum on S¹">
+            <VizFigure aspect="auto" title="Pendulum on S¹">
               <PendulumS1 />
-            </VizCard>
+            </VizFigure>
 
             <div className="lrn-self-explain">
               <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -432,12 +464,6 @@ export default function MechanicsOnManifolds() {
                 strays, with potential energy {`$N q_2^2$`}. As the stiffness {`$N$`} grows without
                 bound, the bead's wandering shrinks to nothing. In the limit, the bead is pinned to
                 the wire. The constraint is just an infinitely stiff spring.
-              </p>
-              <p>
-                One physical fact follows from this picture: the constraint force always pushes
-                perpendicular to the constraint surface, never along it. So it never speeds the
-                system up or slows it down along the allowed directions. Physicists say it does no
-                work on the allowed motion.
               </p>
             </div>
 
@@ -523,8 +549,7 @@ export default function MechanicsOnManifolds() {
             <p>
               Kinetic energy uses the same weights:{' '}
               {`$T = \\frac{1}{2}\\sum a_{ij}\\dot{q}_i\\dot{q}_j$`}. So on a curved space,
-              measuring length and measuring kinetic energy are the same act. (This connects to the
-              Many Variables result in the Noether's Theorem module.)
+              measuring length and measuring kinetic energy are the same act.
             </p>
 
             <h3>The Derivative Map</h3>
@@ -683,9 +708,9 @@ export default function MechanicsOnManifolds() {
                   {`$q_1 = r$`} and {`$q_2 = \\varphi$`}.
                 </p>
                 <p>{`The surface's tiny-step length squared is $ds^2 = (1+f'^2)dr^2 + r^2 d\\varphi^2$, so the kinetic energy is $T = \\frac{m}{2}[(1+f'^2)\\dot{r}^2 + r^2\\dot{\\varphi}^2]$.`}</p>
-                <p>{`The Lagrangian does not contain $\\varphi$ directly (only $\\dot{\\varphi}$), so $p_\\varphi = mr^2\\dot{\\varphi}$ is conserved. This is angular momentum about the symmetry axis.`}</p>
+                <p>{`The angular momentum $p_\\varphi = mr^2\\dot{\\varphi}$ about the symmetry axis is conserved.`}</p>
               </div>
-              <div className="lrn-faded-phase">
+              <div className="lrn-faded-phase lrn-faded-partial">
                 <span className="lrn-faded-label">
                   YOUR TURN: PARTIAL (Bead on Rotating Circle)
                 </span>
@@ -729,15 +754,15 @@ export default function MechanicsOnManifolds() {
 
             <h3>Non-Autonomous Systems</h3>
             <p>
-              "Non-autonomous" means the rules of the system change with time: the Lagrangian
-              depends explicitly on {`$t$`}, not just through the motion of the system. Picture a
-              pendulum whose pivot is being shaken, or a circuit whose driving voltage varies.
+              "Non-autonomous" means the rules of the system change with time. The Lagrangian
+              depends on {`$t$`} directly, not just through the motion. Picture a pendulum whose
+              pivot is being shaken, or a circuit whose driving voltage varies.
             </p>
             <p>
               For these systems {`$L: TM \\times \\mathbb{R} \\to \\mathbb{R}$`} (the extra{' '}
               {`$\\mathbb{R}$`} is time). The Lagrange equations still hold in any local
-              coordinates. But the energy {`$H$`} is no longer conserved, because energy is flowing
-              in or out from whatever is driving the time-dependence.
+              coordinates. But the energy {`$H$`} is no longer conserved. Energy flows in or out
+              from whatever is driving the time-dependence.
             </p>
 
             <div
@@ -746,11 +771,11 @@ export default function MechanicsOnManifolds() {
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '1px',
-                border: '1px solid rgba(240,240,250,0.15)',
+                border: '1px solid var(--ink-hairline)',
                 margin: '32px 0'
               }}
             >
-              <div style={{ padding: '20px', borderRight: '1px solid rgba(240,240,250,0.15)' }}>
+              <div style={{ padding: '20px', borderRight: '1px solid var(--ink-hairline)' }}>
                 <span className="lrn-label">Autonomous</span>
                 <p>{`$L: TM \\to \\mathbb{R}$. The Lagrangian has no explicit dependence on time. Energy $H$ is conserved.`}</p>
               </div>
@@ -760,12 +785,13 @@ export default function MechanicsOnManifolds() {
               </div>
             </div>
 
-            <VizCard id="02.6.2" title="Pendulum Dynamics">
+            <VizFigure aspect="auto" title="Pendulum Dynamics">
               <PendulumLive />
-            </VizCard>
-            <VizCard id="02.6.3" title="Double Pendulum">
+            </VizFigure>
+            <VizFigure aspect="auto" title="Double Pendulum">
               <DoublePendulum />
-            </VizCard>
+            </VizFigure>
+            <DoublePendulumTorus />
           </div>
         </>,
 
@@ -773,16 +799,10 @@ export default function MechanicsOnManifolds() {
           <div className="lrn-section" id="lrn-section-2" data-section-index="2">
             <h2>D'Alembert's Principle</h2>
             <p>
-              Picture a bead sliding along a wire. The wire pushes the bead sideways to keep it on
-              the wire, but never along the wire. That sideways push does not speed the bead up or
-              slow it down: it just confines it. Physicists say the constraint force does no work
-              along the allowed motion.
-            </p>
-            <p>
-              D'Alembert's principle is the statement that this is true for all ideal holonomic
-              constraints. The forces from the wire, rod, or surface that hold the system to its
-              constraint are invisible in the equations of motion along the constraint. You never
-              have to compute them.
+              You met D'Alembert's principle earlier: the forces that hold a system to its
+              constraint do no work along the allowed motion, so they drop out of the equations of
+              motion. Here you see it in manifold form, written directly on the constraint
+              submanifold {`$M$`}.
             </p>
             <p>
               <strong>When to use this:</strong> handle constrained systems without computing
@@ -805,50 +825,40 @@ export default function MechanicsOnManifolds() {
 
             <h3>Formulation</h3>
             <p>
-              Take {`$n$`} mass points in flat 3D space (the full ambient space is{' '}
-              {`$\\mathbb{E}^{3n}$`}, where each triple of coordinates describes one particle).
+              Take {`$n$`} mass points in flat 3D space. The full ambient space is{' '}
+              {`$\\mathbb{E}^{3n}$`}, where each triple of coordinates describes one particle.
               Constrain them to a submanifold {`$M$`}. The constraint force {`$R$`} pushes
               perpendicular to {`$M$`}, never along it.
             </p>
             <p>
-              D'Alembert's principle says: at every instant, the difference between mass times
-              acceleration and the applied force has zero dot product with every direction of
-              allowed motion. A "virtual displacement" {`$\\xi$`} is just an imagined tiny step the
-              system <em>could</em> take while staying on the constraint:
+              D'Alembert's principle says this. Take the combined vector of mass times acceleration
+              plus the applied force. Its dot product with every direction of allowed motion is
+              zero. A "virtual displacement" {`$\\xi$`} is an imagined tiny step the system{' '}
+              <em>could</em> take while staying on the constraint:
             </p>
             <div className="lrn-eq lrn-eq-display">
               <span>{`$$(m\\ddot{x} + \\nabla U,\\, \\xi) = 0 \\quad \\text{for all } \\xi \\in TM_x$$`}</span>
             </div>
+            <p>Reading the symbols:</p>
+            <ul className="lrn-list">
+              <li>{`$m\\ddot{x}$`} is mass times acceleration.</li>
+              <li>
+                {`$\\nabla U$`} is the force from the potential, with sign chosen so that{' '}
+                {`$-\\nabla U$`} is the actual force.
+              </li>
+              <li>
+                {`$\\xi$`} is any allowed direction of motion at the point {`$x$`}.
+              </li>
+              <li>{`$(\\,,\\,)$`} is the dot product.</li>
+            </ul>
             <p>
-              Reading the symbols: {`$m\\ddot{x}$`} is mass times acceleration; {`$\\nabla U$`} is
-              the force from the potential, with sign chosen so that {`$-\\nabla U$`} is the actual
-              force; {`$\\xi$`} is any allowed direction of motion at the point {`$x$`}; and{' '}
-              {`$(\\,,\\,)$`} is the dot product. The equation says: the part of the combined vector{' '}
-              {`$m\\ddot{x} + \\nabla U$`} along any allowed direction is zero.
+              The equation says the part of {`$m\\ddot{x} + \\nabla U$`} along any allowed direction
+              is zero.
             </p>
 
-            <VizCard id="02.6.4" title="Constraint Forces">
+            <VizFigure aspect="auto" title="Constraint Forces">
               <ConstraintForce />
-            </VizCard>
-
-            <div className="lrn-elaborate">
-              <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-              <p>
-                The total force on the system has two parts: the applied force {`$-\\nabla U$`} from
-                the potential and the constraint force {`$R$`} from whatever is holding the system
-                to {`$M$`}. So the total force is {`$F = -\\nabla U + R$`}.
-              </p>
-              <p>Newton's second law: {`$m\\ddot{x} = F = -\\nabla U + R$`}.</p>
-              <p>{`Move things around: $m\\ddot{x} + \\nabla U = R$.`}</p>
-              <p>
-                Because {`$R$`} is perpendicular to {`$M$`}, its dot product with any tangent vector{' '}
-                {`$\\xi$`} is zero: {`$(R, \\xi) = 0$`}.
-              </p>
-              <p>
-                Substituting one into the other gives D'Alembert's equation:{' '}
-                {`$(m\\ddot{x} + \\nabla U, \\xi) = 0$`} for every {`$\\xi \\in TM_x$`}.
-              </p>
-            </div>
+            </VizFigure>
 
             <h3>Equivalence with the Variational Principle</h3>
             <p>
@@ -866,16 +876,11 @@ export default function MechanicsOnManifolds() {
                 <span className="lrn-step-title">
                   Ideal holonomic constraints: three equivalent definitions
                 </span>
-                <p className="lrn-step-content">
-                  1. The limit of an infinitely stiff potential {`$N q_2^2$`} as{' '}
-                  {`$N \\to \\infty$`}.
-                </p>
-                <p className="lrn-step-content">
-                  2. A natural Lagrangian system on the submanifold.
-                </p>
-                <p className="lrn-step-content">
-                  3. The D'Alembert-Lagrange principle: constraint forces do no virtual work.
-                </p>
+                <ol className="lrn-list">
+                  <li>The stiff-spring limit you saw earlier (an infinitely stiff potential).</li>
+                  <li>A natural Lagrangian system on the submanifold.</li>
+                  <li>The D'Alembert-Lagrange principle: constraint forces do no virtual work.</li>
+                </ol>
               </div>
             </div>
 
@@ -987,27 +992,17 @@ export default function MechanicsOnManifolds() {
               </li>
             </ul>
 
-            <div className="lrn-callout lrn-warning">
-              <span className="lrn-callout-label">Non-Holonomic Warning</span>
-              <p>
-                Not every mechanical constraint is holonomic. A sphere rolling without slipping
-                obeys a velocity rule (no sliding at the contact point) that cannot be turned into a
-                position rule by integration.
-              </p>
-              <p>Arnold does not treat non-holonomic systems in this book.</p>
-            </div>
-
             <div
               className="lrn-contrast"
               style={{
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 gap: '1px',
-                border: '1px solid rgba(240,240,250,0.15)',
+                border: '1px solid var(--ink-hairline)',
                 margin: '32px 0'
               }}
             >
-              <div style={{ padding: '20px', borderRight: '1px solid rgba(240,240,250,0.15)' }}>
+              <div style={{ padding: '20px', borderRight: '1px solid var(--ink-hairline)' }}>
                 <span className="lrn-label">Holonomic Constraints</span>
                 <p>
                   The constraint surface is a manifold. D'Alembert's principle applies. Lagrange
@@ -1019,7 +1014,7 @@ export default function MechanicsOnManifolds() {
                 <p>
                   The velocity constraint cannot be integrated into a position constraint. There is
                   no single configuration manifold. D'Alembert's principle does not apply directly.
-                  Not treated in this book.
+                  Non-holonomic systems are outside the scope of this module.
                 </p>
               </div>
             </div>
@@ -1034,7 +1029,7 @@ export default function MechanicsOnManifolds() {
       },
       {
         q: 'TRANSFER: A free rigid body in 3D space can translate and rotate. What is its configuration space and dimension?',
-        a: '(1) Translation: the center of mass can be anywhere in $\\mathbb{R}^3$. That gives 3 degrees of freedom. (2) Rotation: the orientation of the body is an element of $SO(3)$. That gives 3 more degrees of freedom. (3) Full configuration space: $\\mathbb{R}^3 \\times SO(3)$, dimension 6. (4) This matches: a rigid body has 6 degrees of freedom, just as expected from Euclidean mechanics.'
+        a: '(1) Translation: the center of mass can be anywhere in $\\mathbb{R}^3$. That gives 3 degrees of freedom. (2) Rotation: the orientation is a point of $SO(3)$, which is itself 3-dimensional. That gives 3 more degrees of freedom. (3) Full configuration space: the product $\\mathbb{R}^3 \\times SO(3)$, dimension $3 + 3 = 6$. (4) The full geometric treatment of rigid-body motion, including the structure of $SO(3)$, comes later in the rigid-body dynamics topic.'
       },
       {
         q: 'Define the tangent bundle $TM$ and explain what its local coordinates represent physically.',
@@ -1062,7 +1057,7 @@ export default function MechanicsOnManifolds() {
       },
       {
         q: 'TRANSFER: A system lives on the torus $T^2 = S^1 \\times S^1$ with angles $\\theta_1, \\theta_2$. The Lagrangian is $L = \\frac{1}{2}(\\dot{\\theta}_1^2 + \\dot{\\theta}_2^2)$. What are the equations of motion and what do they tell you about the trajectories?',
-        a: "(1) Euler-Lagrange for $\\theta_1$: $\\frac{d}{dt}(\\dot{\\theta}_1) = 0$, so $\\dot{\\theta}_1 = \\omega_1 = \\text{const}$. (2) Similarly $\\dot{\\theta}_2 = \\omega_2 = \\text{const}$. (3) The trajectories are $\\theta_1(t) = \\omega_1 t + \\theta_1^0$, $\\theta_2(t) = \\omega_2 t + \\theta_2^0$: uniform winding on the torus. (4) If $\\frac{\\omega_1}{\\omega_2}$ is irrational, by Poincaré's recurrence applied to the phase flow, every trajectory is dense on $T^2$. This is the winding line example from Arnold's Section 16E."
+        a: '(1) Euler-Lagrange for $\\theta_1$: $\\frac{d}{dt}(\\dot{\\theta}_1) = 0$, so $\\dot{\\theta}_1 = \\omega_1 = \\text{const}$. (2) Similarly $\\dot{\\theta}_2 = \\omega_2 = \\text{const}$. (3) The trajectories are $\\theta_1(t) = \\omega_1 t + \\theta_1^0$, $\\theta_2(t) = \\omega_2 t + \\theta_2^0$: uniform winding on the torus. (4) If $\\frac{\\omega_1}{\\omega_2}$ is rational, the trajectory closes into a loop. If $\\frac{\\omega_1}{\\omega_2}$ is irrational, the trajectory never closes and fills the torus densely. This dense-winding case is taken up in full later, in conditionally periodic motion.'
       },
       {
         q: "TRANSFER: What is the equivalence theorem for D'Alembert's principle and the variational principle?",
@@ -1071,7 +1066,7 @@ export default function MechanicsOnManifolds() {
     ],
     reference: {
       category: 'Quick Reference',
-      title: 'Mechanics on Manifolds',
+      title: 'Lagrangian Mechanics on Manifolds',
       sections: [
         <>
           <div className="lrn-section" id="lrn-section-0" data-section-index="0">
@@ -1100,9 +1095,9 @@ export default function MechanicsOnManifolds() {
                   </td>
                 </tr>
                 <tr>
-                  <td>Cyclic coord (Hamiltonian)</td>
-                  <td>{`$\\frac{\\partial H}{\\partial q_i} = 0 \\Rightarrow \\dot{p}_i = 0$`}</td>
-                  <td>Conservation in phase space</td>
+                  <td>Ignorable coordinate</td>
+                  <td>{`$\\frac{\\partial L}{\\partial q_i} = 0 \\Rightarrow \\dot{p}_i = 0,\\ p_i = \\frac{\\partial L}{\\partial \\dot{q}_i}$`}</td>
+                  <td>Conserved generalized momentum</td>
                 </tr>
               </tbody>
             </table>

@@ -18,22 +18,23 @@
   <img src="public/screenshots/home.png" alt="Explore: the map of knowable things" width="900">
 </p>
 <p align="center">
+  <img src="public/screenshots/subject.png" alt="Subject view: Classical Mechanics, its units and modules, with a progress bar and a Begin Here action" width="900">
 </p>
 <p align="center">
-  <img src="public/screenshots/learn.png" alt="Learning view: Vectors, Kinematics, and Galilean Structure" width="900">
+  <img src="public/screenshots/learn.png" alt="Learning view: the Vectors and Kinematics lesson, with an interactive force-decomposition figure and a self-explain prompt" width="900">
 </p>
 
 ---
 
 ## Why Aether
 
-Most learning platforms are built around keeping you on the platform. Aether is built around getting knowledge into your head.
+Most learning platforms are built to keep you on the platform. Aether is built to get knowledge into your head, then get out of the way.
 
-- **No gamification.** No streaks, badges, leaderboards, or daily limits.
-- **No accounts.** Nothing is sent to any server. Progress lives in your browser.
-- **No paywalls.** Every topic, every tool, every flashcard. Free.
+- **No gamification.** No streaks, badges, leaderboards, or daily limits. A platform that rewards showing up is optimizing for showing up, not for learning.
+- **No accounts.** No data about you is collected or transmitted. Progress lives in your browser, on your machine, under your control.
+- **No paywalls.** Every topic, every tool, every flashcard. Free, permanently, not a free tier.
 - **No bloat.** Installs in one command. Runs offline. No backend required.
-- **Serious tools.** FSRS spaced repetition. LaTeX equations. Interactive visualizations. Physics simulations.
+- **Built on what actually works, not what looks good in a demo.** Retrieval practice and spaced review are the two techniques cognitive-science research rates highest for durable learning across ages and subjects. Aether builds around them: FSRS-scheduled spaced repetition, predict-and-explain cards that force retrieval before revealing the answer, LaTeX equations and interactive simulations for the concepts words alone can't carry.
 
 ---
 
@@ -48,16 +49,22 @@ Most learning platforms are built around keeping you on the platform. Aether is 
   <tr>
     <td>Long-form articles. LaTeX equations. Interactive geometry. Code blocks. Progressive disclosure.</td>
     <td>FSRS-powered spaced repetition. Predict-and-explain cards. Locally computed intervals. Session stats.</td>
-    <td>Formula sheets. Key definitions. One page per topic.</td>
+    <td>Formula sheets. Key definitions. One page per topic: what you open mid-problem, not mid-lesson.</td>
   </tr>
 </table>
 
-**Subjects currently covered:**
+Each subject is sequenced so foundations come before what depends on them (algebra before functions, kinematics before dynamics), not as a fixed syllabus but as a real prerequisite chain. Skipping ahead is always possible; skipping the foundation isn't invisible when it costs you three chapters later.
 
-- **Mathematics:** Arithmetic (place value, fractions, decimals, number theory, rational numbers, interactive tools); Algebra (foundations, equations and inequalities, polynomials, functions, sequences, the binomial theorem)
-- **Physics:** Classical Mechanics (Newtonian, Lagrangian, Hamiltonian, perturbation theory)
-- **Languages:** German A1
-- **Explore:** curated books, films, papers, podcasts, videos
+**Subjects currently covered** (172 topics, plus 12 capstone exams):
+
+- **Mathematics** (69 topics): Arithmetic (place value, fractions, decimals, number theory, rational numbers, interactive tools); Algebra (foundations, equations and inequalities, polynomials, functions, sequences, the binomial theorem)
+- **Physics** (60 topics): Classical Mechanics (Newtonian, Lagrangian, Hamiltonian, rigid bodies, oscillations, perturbation theory)
+- **Chemistry** (18 topics): General Chemistry (atomic structure, bonding, thermodynamics, kinetics, equilibrium, electrochemistry, analysis)
+- **Languages** (10 topics): German A1
+- **History** (6 topics): Prehistory, from human evolution to the first civilizations
+- **Explore** (9 topics): curated books, films, papers, podcasts, videos
+
+Arithmetic also ships 12 capstone exams, which sit outside the topic count.
 
 More subjects ship continuously.
 
@@ -115,7 +122,7 @@ npm run dev
 | `curl: command not found` (Windows) | Use the PowerShell command instead                                                                       |
 | `winget: command not found`         | Update Windows to 1709+ or install Node manually from [nodejs.org](https://nodejs.org)                   |
 | Port 8000 already in use            | Stop the conflicting process (`lsof -ti:8000 \| xargs kill`) or change `server.port` in `vite.config.js` |
-| Blank page or 404                   | Navigate to [http://localhost:8000/Aether/](http://localhost:8000/Aether/) manually          |
+| Blank page or 404                   | Navigate to [http://localhost:8000/aether/](http://localhost:8000/aether/) manually          |
 
 </details>
 
@@ -156,17 +163,19 @@ Everything else is open. To argue with one of the above, open an issue with `tra
 ### Stack
 
 <p>
-  <img src="https://img.shields.io/badge/React_18-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 18">
+  <img src="https://img.shields.io/badge/React_19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19">
   <img src="https://img.shields.io/badge/Vite_6-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 6">
-  <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion">
   <img src="https://img.shields.io/badge/MathJax-orange?style=for-the-badge" alt="MathJax">
   <img src="https://img.shields.io/badge/Matter.js-4B5562?style=for-the-badge" alt="Matter.js">
   <img src="https://img.shields.io/badge/Mafs-1a73e8?style=for-the-badge" alt="Mafs">
+  <img src="https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=three.js&logoColor=white" alt="Three.js">
 </p>
 
 ### Privacy
 
-No accounts. No backend. No cookies. All progress stored locally in `localStorage` and `IndexedDB`. Nothing is sent to any external server.
+No accounts. No backend. No cookies. No telemetry, no analytics, no crash reporting. All progress is stored locally in `localStorage` and `IndexedDB`, and no data about you is ever collected or transmitted.
+
+Aether does load assets from third-party hosts: fonts from Google Fonts, MathJax and Prism from jsDelivr, and images from Wikimedia Commons, Open Library, Google Books, and YouTube. Your browser contacts those hosts directly, which means they can see your IP address and which page requested the asset. That is the standard consequence of loading anything from a CDN, and it is the only way information about you leaves your machine. [`NOTICE`](NOTICE) lists every external host and what it serves. Self-host the assets if you want a fully airtight setup.
 
 ### Standards
 

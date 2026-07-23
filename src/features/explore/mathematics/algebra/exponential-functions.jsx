@@ -6,13 +6,11 @@ import {
   EqualBasesViz,
   ExponentialGraphViz,
   GrowthComparisonViz,
-  InteractiveExponentialViz,
-  LogSolvingViz,
-  LogarithmGraphViz
+  InteractiveExponentialViz
 } from '../../../../components/viz'
-// ── Visualizations ─────────────────────────────────────────────────────────────
+// Visualizations
 
-// ── Config ─────────────────────────────────────────────────────────────────────
+// Config
 
 function useConfig() {
   const config = {
@@ -29,15 +27,25 @@ function useConfig() {
           <h2>Exponential Functions</h2>
 
           <p>
-            An <strong>exponential function</strong> puts the variable in the exponent. You write it
-            as {`$f(x) = a^x$`}, where {`$a > 1$`}. The base {`$a$`} is a fixed number. The exponent{' '}
-            {`$x$`} is the input you change.
+            An <strong>exponential function</strong> puts the variable in the exponent, the small
+            raised number that says how many times to multiply. For example, {`$2^x$`} doubles its
+            output every time {`$x$`} goes up by one. The same meaning extends to fractional and
+            decimal exponents through the standard exponent rules.
           </p>
           <p>
-            This is the opposite of a polynomial like {`$x^2$`}. In {`$x^2$`} the variable is the
-            base. In {`$2^x$`} the base is fixed and the variable is the power. Exponential
-            functions describe anything that grows by multiplying by the same factor each step:
-            populations, money in a bank, radioactive material as it decays.
+            You write it as {`$f(x) = a^x$`}, where {`$a$`} is the fixed base and {`$x$`} is the
+            input you change. We'll start with {`$a > 1$`} so the function grows. Bases between 0
+            and 1 work the same way but shrink, you'll see one in the carbon-14 example below.
+          </p>
+          <p>
+            This is the opposite of a polynomial like {`$x^2$`} (a sum of powers of {`$x$`}). In{' '}
+            {`$x^2$`} the variable is the base. In {`$2^x$`} the base is fixed and the variable is
+            the power.
+          </p>
+          <p>
+            Exponential functions describe anything that grows by multiplying by the same factor
+            each step. Populations grow this way. So does money in a bank. So does radioactive
+            material as it decays.
           </p>
 
           <h3>The Chessboard Story</h3>
@@ -47,42 +55,36 @@ function useConfig() {
           </p>
           <p>
             Arial asks for 1 grain on square 1, then 10 more grains on every square after that. So
-            she gets 1, 11, 21, 31, and so on. Her rule is {`$A(n) = 10n - 9$`}. This is{' '}
-            <strong>linear growth</strong>: a fixed amount added each step.
+            she gets 1, 11, 21, 31, and so on. On square 1 she has 1. Each later square adds 10. So{' '}
+            {`$A(n) = 1 + 10(n-1) = 10n - 9$`}. This is <strong>linear growth</strong>: a fixed
+            amount added each step.
           </p>
           <p>
             Meena asks for 1 grain on square 1, then double the previous square every time after
-            that. So she gets 1, 2, 4, 8, 16. Her rule is {`$M(n) = 2^{n-1}$`}. This is{' '}
-            <strong>exponential growth</strong>: a fixed factor multiplied each step.
+            that. So she gets 1, 2, 4, 8, 16. Doubling happens {`$n - 1$`} times by square {`$n$`},
+            so {`$M(n) = 1 \\cdot 2^{n-1} = 2^{n-1}$`}. This is <strong>exponential growth</strong>:
+            a fixed factor multiplied each step.
           </p>
           <p>
-            On square 64, Arial gets {`$A(64) = 631$`} grains. Meena gets {`$M(64) = 2^{63}$`} a
-            number larger than all the rice ever grown in human history. The king learned the hard
-            way that multiplication outruns addition.
+            On square 64, Arial gets {`$A(64) = 631$`} grains. Meena gets{' '}
+            {`$M(64) = 2^{63} \\approx 9.2 \\times 10^{18}$`} grains. That is more than every grain
+            of rice ever grown in human history. Multiplication outruns addition.
           </p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
               Linear growth adds the same amount every time. Exponential growth makes each new gain
-              proportional to the current total, so the increments themselves keep doubling. Once
-              you compare additions against ever-larger multiplications, multiplication always wins.
-              No matter how steep the line, an exponential curve eventually overtakes it.
+              a fixed fraction of the current total. The increments themselves keep doubling.
+              Compare additions to ever-larger multiplications, and multiplication always wins. No
+              matter how steep the line, an exponential curve overtakes it.
             </p>
           </div>
 
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">LINEAR (ARIAL)</span>
-              <p>{`$A(n) = 10n - 9$`}</p>
-              <p>Adds a fixed number each step.</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">EXPONENTIAL (MEENA)</span>
-              <p>{`$M(n) = 2^{n-1}$`}</p>
-              <p>Multiplies by a fixed factor each step.</p>
-            </div>
-          </div>
+          <p>
+            So linear adds 10 each step ({`$A(n) = 10n - 9$`}); exponential doubles each step (
+            {`$M(n) = 2^{n-1}$`}).
+          </p>
 
           <div className="lrn-graph">
             <GrowthComparisonViz />
@@ -127,11 +129,17 @@ function useConfig() {
             </tbody>
           </table>
           <p>
-            For large negative {`$x$`}, the value is close to zero but never reaches it. As {`$x$`}{' '}
-            crosses zero, {`$f(0) = 1$`}. Then the curve climbs faster and faster as {`$x$`} grows.
-            The <strong>domain</strong> is all real numbers you can raise 2 to any power. The{' '}
-            <strong>range</strong> is all positive numbers. {`$2^x$`} is never zero and never
-            negative, because multiplying any number of positive 2's gives a positive answer.
+            For large negative {`$x$`}, the value is close to zero but never reaches it. The line{' '}
+            {`$y = 0$`} is a <strong>horizontal asymptote</strong>. At {`$x = 0$`}, {`$f(0) = 1$`}.
+            Then the curve climbs faster and faster as {`$x$`} grows. Domain (the inputs that work):
+            all real numbers. Range (the outputs you get): all positive numbers. {`$2^x$`} is never
+            zero and never negative, because multiplying any number of positive 2's gives a positive
+            answer.
+          </p>
+          <p>
+            You can now sketch {`$a^x$`} for any base {`$a > 1$`} from a small table of integer
+            inputs. Pin the y-intercept at 1. Pin the horizontal asymptote at {`$y = 0$`}. Connect a
+            smooth curve through the points.
           </p>
 
           <div className="lrn-graph">
@@ -142,6 +150,66 @@ function useConfig() {
             <InteractiveExponentialViz />
           </div>
 
+          <h3>Finding the Base From a Point</h3>
+          <p>
+            Run the graph the other way. Someone hands you the curve {`$f(x) = a^x$`} and one point
+            it passes through. You can recover the base {`$a$`}. Plug the point into {`$a^x$`}, then
+            solve for {`$a$`}.
+          </p>
+          <p>
+            Suppose the graph of {`$f(x) = a^x$`} passes through {`$(2, 25)$`}. Then
+          </p>
+          <div className="lrn-eq">{`$$a^2 = 25$$`}</div>
+          <p>
+            Take the positive square root, a base is always positive, to get {`$a = 5$`}. So the
+            function is {`$f(x) = 5^x$`}.
+          </p>
+          <p>
+            The same move handles decay. If the graph passes through{' '}
+            {`$\\left(3, \\tfrac{1}{8}\\right)$`}, then {`$a^3 = \\tfrac{1}{8}$`}, so{' '}
+            {`$a = \\tfrac{1}{2}$`} and {`$f(x) = \\left(\\tfrac{1}{2}\\right)^x$`}. Every {`$a^x$`}{' '}
+            already passes through {`$(0, 1)$`}, so one more point pins the whole curve.
+          </p>
+
+          <h3>Decay: When the Base Is Between 0 and 1</h3>
+          <p>
+            Take the same recipe with base {`$\\tfrac{1}{2}$`}. At {`$x = 0$`},{' '}
+            {`$(\\tfrac{1}{2})^0 = 1$`}. At {`$x = 1$`}, the value is {`$\\tfrac{1}{2}$`}. At{' '}
+            {`$x = 2$`}, it's {`$\\tfrac{1}{4}$`}. The output halves with every unit step right, so
+            the curve falls instead of climbs. The y-intercept is still 1 and the asymptote is still{' '}
+            {`$y = 0$`}, but the asymptote is now on the right. Functions with {`$0 < a < 1$`} are
+            called <strong>exponential decay</strong> instead of growth. Algebraically nothing
+            changes, every property and every rule on this page still applies.
+          </p>
+          <p>
+            A handy shortcut: {`$\\left(\\tfrac{1}{2}\\right)^x = 2^{-x}$`}. So the decay graph is
+            just the growth graph reflected across the y-axis.
+          </p>
+
+          <h3>Shifting and Scaling the Graph</h3>
+          <p>
+            You can move and stretch any exponential the same way you moved lines and parabolas. The
+            general shape is
+          </p>
+          <div className="lrn-eq">{`$$y = a \\cdot b^{x - h} + k$$`}</div>
+          <ul className="lrn-list">
+            <li>
+              {`$h$`} shifts the graph right (positive {`$h$`}) or left.
+            </li>
+            <li>
+              {`$k$`} shifts the graph up (positive {`$k$`}) or down. The horizontal asymptote moves
+              with it to {`$y = k$`}.
+            </li>
+            <li>
+              {`$a$`} stretches the graph vertically. The y-intercept becomes {`$a + k$`}, not 1.
+            </li>
+            <li>A negative {`$a$`} flips the curve across the asymptote.</li>
+          </ul>
+          <p>
+            For example, {`$y = 2^{x-3} + 5$`} is the {`$2^x$`} curve shifted 3 units right and 5
+            units up. Its asymptote is {`$y = 5$`}; its y-intercept is {`$2^{-3} + 5 = 5.125$`}.
+          </p>
+
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">EXPLORE</span>
             <p>
@@ -151,10 +219,9 @@ function useConfig() {
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                For negative {`$x$`}, the output stays tiny but stays positive. Each unit step right
-                doubles the output. From {`$x = 2$`} to {`$x = 3$`} the value jumps from 4 to 8 the
-                same step earlier (0 to 1) only added 1. The graph never repeats a value, which is
-                exactly the property the next section relies on.
+                For negative {`$x$`}, the output stays tiny but stays positive. From {`$x = 2$`} to{' '}
+                {`$x = 3$`} the value jumps from 4 to 8, the same step earlier (0 to 1) only added
+                1.
               </p>
             </details>
           </div>
@@ -164,18 +231,20 @@ function useConfig() {
           <h2>The Equal-Bases Rule</h2>
 
           <p>
-            If two powers have the same base and the same value, their exponents must match. In
-            symbols: if {`$a^m = a^n$`} and {`$a > 1$`}, then {`$m = n$`}. This is the{' '}
-            <strong>equal-bases rule</strong>.
+            Start with a concrete case. If {`$2^x = 2^5$`}, what is {`$x$`}? The two sides use the
+            same base and equal each other, so the exponents must match: {`$x = 5$`}.
+          </p>
+          <p>
+            That's the <strong>equal-bases rule</strong>. In symbols: if {`$a^m = a^n$`} and{' '}
+            {`$a > 1$`}, then {`$m = n$`}.
           </p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              The function {`$f(x) = a^x$`} with {`$a > 1$`} always climbs. It never gives the same
-              output twice. Look at the graph below: any horizontal line crosses the curve at most
-              once. So if {`$a^m$`} and {`$a^n$`} produce the same height, they had to come from the
-              same input. Therefore {`$m = n$`}.
+              The function {`$f(x) = a^x$`} with {`$a > 1$`} is <strong>one-to-one</strong>. It
+              always climbs, so it never gives the same output twice. If {`$a^m$`} and {`$a^n$`}
+              land at the same height, the same input produced both. Therefore {`$m = n$`}.
             </p>
           </div>
 
@@ -189,47 +258,56 @@ function useConfig() {
           <div className="lrn-eq">{`$$2x = x - 5$$`}</div>
           <div className="lrn-eq lrn-eq-hero">{`$$x = -5$$`}</div>
           <p>
-            That is the whole method. The hard part was spotting that both sides shared a base. Once
-            spotted, the exponential equation became a linear one you already know how to solve.
+            That is the whole method. The hard part is spotting that both sides share a base. Once
+            you spot it, the exponential equation becomes a linear one you already know how to
+            solve. Equate the exponents, then solve.
+          </p>
+
+          <p>
+            The next moves lean on three exponent rules. The <strong>power-of-a-power</strong> rule:{' '}
+            {`$(a^b)^c = a^{bc}$`} (so {`$(5^2)^3 = 5^6$`}). The <strong>product</strong> rule:{' '}
+            {`$a^b \\cdot a^c = a^{b+c}$`} (so {`$3^2 \\cdot 3^4 = 3^6$`}). The{' '}
+            <strong>quotient</strong> rule: {`$a^m / a^n = a^{m-n}$`} (so {`$2^5 / 2^2 = 2^3$`}).
           </p>
 
           <h3>Forcing a Common Base</h3>
           <p>
             What if the bases look different? Often you can rewrite them as powers of the same
-            smaller number. Solve {`$2^{16^x} = 16^{2^x}$`} (a Mandelbrot competition problem).
+            smaller number. Solve {`$2^{16^x} = 16^{2^x}$`}.
           </p>
-          <p>Note that {`$16 = 2^4$`}. Rewrite each side as a tower of 2:</p>
+          <p>
+            One quick parsing note before we touch the algebra. The stack {`$2^{16^x}$`} means{' '}
+            {`$2^{(16^x)}$`}, towers of exponents read top-down (right-associative), not{' '}
+            {`$(2^{16})^x$`}. Compute the top first, then use the result as the next exponent.
+          </p>
+          <p>Since {`$16 = 2^4$`}, rewrite each side with base 2:</p>
           <ul className="lrn-list">
             <li>Left side: {`$2^{16^x}$`}.</li>
             <li>Right side: {`$16^{2^x} = (2^4)^{2^x} = 2^{4 \\cdot 2^x}$`}.</li>
           </ul>
-          <p>Both sides are now powers of 2, so equate the top-level exponents:</p>
+          <p>
+            Both sides are now powers of 2, so equate the top-level exponents. Equal-bases doesn't
+            care how complicated the exponent expression is. Same base on both sides means the
+            exponents themselves are equal:
+          </p>
           <div className="lrn-eq">{`$$16^x = 4 \\cdot 2^x$$`}</div>
           <p>
-            Rewrite {`$16^x = (2^4)^x = 2^{4x}$`} and {`$4 \\cdot 2^x = 2^2 \\cdot 2^x = 2^{x+2}$`}:
+            Use the power-of-a-power rule on the left: {`$16^x = (2^4)^x = 2^{4x}$`}. Use the
+            product-of-powers rule on the right: {`$4 \\cdot 2^x = 2^2 \\cdot 2^x = 2^{x+2}$`}.
           </p>
           <div className="lrn-eq">{`$$2^{4x} = 2^{x+2}$$`}</div>
           <p>Equate exponents one more time:</p>
           <div className="lrn-eq">{`$$4x = x + 2$$`}</div>
           <div className="lrn-eq lrn-eq-hero">{`$$x = \\frac{2}{3}$$`}</div>
 
-          <div className="lrn-callout lrn-warning">
-            <span className="lrn-callout-label">Watch your exponent rules</span>
-            <p>
-              Two rules get mixed up here. The correct ones are {`$(a^b)^c = a^{bc}$`} and{' '}
-              {`$a^b \\cdot a^c = a^{b+c}$`}. There is no rule that says {`$(a^b)^c = a^{b+c}$`},
-              and {`$a^m \\cdot b^n$`} with different bases cannot be combined at all.
-            </p>
-          </div>
-
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
               <span className="lrn-faded-label">METHOD</span>
               <p>To force a common base, in order:</p>
               <ol className="lrn-list">
-                <li>Find the smallest base that divides every number ({`$2$`} here).</li>
+                <li>Find the smallest base that every number is a power of ({`$2$`} here).</li>
                 <li>Rewrite every number as a power of that base.</li>
-                <li>Use {`$(a^b)^c = a^{bc}$`} to flatten each side.</li>
+                <li>Use {`$(a^b)^c = a^{bc}$`} to combine the two exponents into one.</li>
                 <li>Equate the exponents and solve.</li>
               </ol>
             </div>
@@ -243,45 +321,70 @@ function useConfig() {
                   {`$(2^2)^{x+1} = (2^3)^x$`}, so {`$2^{2x+2} = 2^{3x}$`}.
                 </li>
                 <li>{`$2x + 2 = 3x$`}.</li>
-                <li>Solve: {`$x = ?$`}</li>
+                <li>Solve for {`$x$`}.</li>
               </ol>
+              <details>
+                <summary>Answer</summary>
+                <p>
+                  {`$x = 2$`}. Subtract {`$2x$`} from both sides: {`$2 = x$`}.
+                </p>
+              </details>
             </div>
             <div className="lrn-faded-phase">
               <span className="lrn-faded-label">INDEPENDENT</span>
               <p>Solve {`$9^x = 27$`} by writing both sides as powers of 3.</p>
+              <details>
+                <summary>Answer</summary>
+                <p>
+                  {`$x = \\tfrac{3}{2}$`}. Write {`$9 = 3^2$`} and {`$27 = 3^3$`}, so{' '}
+                  {`$3^{2x} = 3^3$`}, giving {`$2x = 3$`}.
+                </p>
+              </details>
             </div>
           </div>
+          <p>
+            Any exponential equation whose bases share a single prime falls to this method: rewrite,
+            equate, solve.
+          </p>
 
           <h3>Substitution: When You Cannot Find x</h3>
           <p>
-            Sometimes a problem asks for an expression in {`$x$`}, not for {`$x$`} itself. Suppose{' '}
+            A problem may ask for an expression in {`$x$`} instead of {`$x$`} itself. Suppose{' '}
             {`$2^x = 6$`}. Evaluate {`$2^{3x-1}$`}.
           </p>
           <p>
-            You cannot find {`$x$`} by hand no neat power of 2 equals 6. But you do not have to.
-            Rewrite the target using the rule {`$2^{3x} = (2^x)^3$`}:
+            You cannot find {`$x$`} by hand, no neat power of 2 equals 6. But you do not have to.
+            Use the quotient rule {`$a^{b-c} = a^b / a^c$`} to peel off the {`$-1$`} from the
+            exponent. Then use the power-of-a-power rule {`$2^{3x} = (2^x)^3$`} to expose the block:
           </p>
           <div className="lrn-eq">{`$$2^{3x-1} = \\frac{2^{3x}}{2^1} = \\frac{(2^x)^3}{2} = \\frac{6^3}{2} = \\frac{216}{2} = 108$$`}</div>
           <p>
-            The trick is to treat {`$2^x$`} as a known quantity and shape the unknown expression
-            until {`$2^x$`} appears as a block you can replace.
+            Call this <strong>block-substitution</strong>: treat {`$2^x$`} as one quantity. Reshape
+            the target until that block appears, then swap in its value.
           </p>
 
           <h3>Turning an Exponential into a Quadratic</h3>
           <p>
-            Sometimes one substitution converts an exponential equation into a polynomial you can
-            factor. Solve {`$4^x - 33 \\cdot 2^{x-1} + 8 = 0$`}.
+            The same trick lets you turn a multi-term exponential equation into a polynomial. Solve{' '}
+            {`$4^x - 33 \\cdot 2^{x-1} + 8 = 0$`}.
+          </p>
+          <p>
+            Apply the same substitution trick you used on hidden quadratics: let {`$y = 2^x$`}. The
+            equation becomes a polynomial in {`$y$`}. Call this the{' '}
+            <strong>let-substitution</strong> technique when you meet it for exponentials.
           </p>
           <p>
             Write every exponential as a power of 2: {`$4^x = (2^2)^x = (2^x)^2$`}, and{' '}
             {`$2^{x-1} = \\frac{2^x}{2}$`}. Let {`$y = 2^x$`}. The equation becomes
           </p>
           <div className="lrn-eq">{`$$y^2 - \\frac{33y}{2} + 8 = 0$$`}</div>
-          <p>Multiply through by 2 and factor:</p>
+          <p>Multiply through by 2:</p>
           <div className="lrn-eq">{`$$2y^2 - 33y + 16 = 0$$`}</div>
-          <div className="lrn-eq">{`$$(2y - 1)(y - 16) = 0$$`}</div>
           <p>
-            So {`$y = \\tfrac{1}{2}$`} or {`$y = 16$`}. Translate back through {`$y = 2^x$`}:
+            Apply the quadratic formula. The discriminant is{' '}
+            {`$33^2 - 4 \\cdot 2 \\cdot 16 = 1089 - 128 = 961 = 31^2$`}. So{' '}
+            {`$y = \\frac{33 \\pm 31}{4} \\in \\{\\tfrac{1}{2}, 16\\}$`}. You can confirm the
+            factorisation: {`$(2y - 1)(y - 16) = 0$`}. Translate back through {`$y = 2^x$`}:
           </p>
           <ul className="lrn-list">
             <li>
@@ -291,13 +394,25 @@ function useConfig() {
               {`$2^x = 16 = 2^4$`} gives {`$x = 4$`}.
             </li>
           </ul>
+          <p>
+            Any exponential equation that collapses to a polynomial through one let-substitution
+            falls to the same routine: substitute, solve, translate back.
+          </p>
 
           <h3>Carbon-14 Dating</h3>
           <p>
-            Living things absorb a steady mix of carbon-12 and the radioactive carbon-14. When an
-            animal or plant dies, no new carbon-14 comes in, and the carbon-14 inside decays.
-            Roughly half of any sample of carbon-14 disappears every 5,700 years. That fixed time is
-            its <strong>half-life</strong>.
+            All the equal-bases tricks above still work when the base is a fraction. Living things
+            absorb a steady mix of carbon-12 and carbon-14. Carbon-14 is a heavier version. It
+            slowly breaks down into other elements, that's what <em>radioactive</em> means. When an
+            animal or plant dies, no new carbon-14 comes in, and the carbon-14 inside decays. The{' '}
+            <strong>half-life</strong> of carbon-14 is 5,730 years. That's the fixed time it takes
+            for half of any sample to disappear. Every exponential decay has its own constant
+            half-life. Every exponential growth has its own constant <strong>doubling time</strong>{' '}
+            , the fixed time it takes for the quantity to double. For {`$2^x$`} the doubling time is
+            1 unit of {`$x$`}; for a balance growing at 7% per year it is about 10.24 years. Both
+            half-life and doubling time depend only on the growth (or decay) factor: if a balance{' '}
+            {`$B$`} becomes {`$2B$`} after time {`$T$`}, that ratio is the same whether {`$B$`} is
+            10 dollars or 10 million.
           </p>
           <p>
             Suppose a fossil contains exactly {`$\\tfrac{1}{4}$`} of the carbon-14 a living creature
@@ -309,87 +424,42 @@ function useConfig() {
           </p>
           <div className="lrn-eq">{`$$\\left(\\tfrac{1}{2}\\right)^t = \\tfrac{1}{4}$$`}</div>
           <p>
-            Write the right side with base {`$\\tfrac{1}{2}$`}:{' '}
-            {`$\\tfrac{1}{4} = \\left(\\tfrac{1}{2}\\right)^2$`}. Equal bases give equal exponents,
-            so {`$t = 2$`}. Two half-lives is {`$2 \\times 5700 = 11{,}400$`} years.
+            The base is {`$\\tfrac{1}{2}$`}, between 0 and 1, but equal-bases still applies. Write
+            the right side with base {`$\\tfrac{1}{2}$`}:{' '}
+            {`$\\tfrac{1}{4} = \\left(\\tfrac{1}{2}\\right)^2$`}. Equate exponents to get{' '}
+            {`$t = 2$`}. Two half-lives is {`$2 \\times 5730 = 11{,}460$`} years.
           </p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">THE GENERAL EQUATION</span>
-            <p>
-              If a fossil keeps a fraction {`$\\frac{a}{b}$`} of its original carbon-14, then{' '}
-              {`$\\left(\\tfrac{1}{2}\\right)^t = \\frac{a}{b}$`} and the fossil's age is{' '}
-              {`$5700t$`} years. When {`$\\frac{a}{b}$`} is not a clean power of {`$\\tfrac{1}{2}$`}
-              , you cannot use the equal-bases rule. You need logarithms which arrive a few sections
-              from now.
-            </p>
-          </div>
+          <p>
+            When {`$\\frac{a}{b}$`} is not a clean power of {`$\\tfrac{1}{2}$`}, equal-bases cannot
+            finish the job. Logarithms can.
+          </p>
         </>,
 
         <>
           <h2>Show Me the Money</h2>
 
           <p>
-            A bank loan is a real-world exponential function. The <strong>principal</strong> is the
-            money you start with what you borrow or invest. The <strong>interest rate</strong>{' '}
-            {`$r$`} is a percentage that decides how much extra money is added on top each year. The
-            total is the original amount plus all the interest.
-          </p>
-          <p>
-            There are two ways banks add interest: simple and compound. The difference is the
-            difference between addition and multiplication. Both matter, but compound is far more
-            common.
-          </p>
-
-          <h3>Simple Interest</h3>
-          <p>
-            With <strong>simple interest</strong>, the bank charges {`$r\\%$`} of the original
-            amount every year. The fee stays the same forever. Invest {`$\\$k$`} at rate {`$r\\%$`}{' '}
-            for {`$n$`} years and the total is
-          </p>
-          <div className="lrn-eq lrn-eq-hero">{`$$\\$k \\left(1 + \\frac{nr}{100}\\right)$$`}</div>
-          <p>
-            That is a linear formula. If Jayne invests 5,000 dollars at 9% simple interest, she
-            earns {`$0.09 \\times 5000 = 450$`} dollars every single year. After 3 years she has{' '}
-            {`$5000 + 3 \\times 450 = \\$6{,}350$`}. The 9% never applies to anything except the
-            original 5,000.
-          </p>
-
-          <h3>Compound Interest</h3>
-          <p>
-            With <strong>compound interest</strong>, the bank adds the interest to your balance at
-            the end of each year. The next year, the new interest is calculated on the bigger
-            balance. You earn interest on interest.
-          </p>
-          <p>
-            Start with {`$\\$k$`} at rate {`$r\\%$`}. After one year, the balance multiplies by{' '}
-            {`$\\left(1 + \\frac{r}{100}\\right)$`}. After two years it multiplies by that factor
-            twice. After {`$n$`} years:
+            Borrow {`$\\$100$`} at 10%: simple interest pays {`$\\$10$`} every year flat.{' '}
+            <strong>Compound interest</strong> is different. In year two, that first {`$\\$10$`}{' '}
+            earns interest of its own, so the bank charges {`$\\$11$`} instead of {`$\\$10$`}.
+            Compound interest is what makes this an exponential story: each year, the balance
+            multiplies by the same factor. After {`$n$`} years the total is
           </p>
           <div className="lrn-eq lrn-eq-hero">{`$$\\$k \\left(1 + \\frac{r}{100}\\right)^n$$`}</div>
           <p>
-            The variable {`$n$`} sits in the exponent. That is exactly Meena's chessboard pattern,
-            in dollars instead of rice.
+            where {`$\\$k$`} is the starting <strong>principal</strong> and {`$r\\%$`} is the annual
+            rate. Viewed from algebra, that's an exponential function {`$f(n) = k a^n$`} with growth
+            factor {`$a = 1 + r/100$`}. It's Meena's chessboard pattern, in dollars instead of rice.
           </p>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">SIMPLE VS COMPOUND IN ONE LINE</span>
-            <p>
-              Simple interest adds the same dollar amount each year. Compound interest multiplies
-              the balance by the same factor each year. Addition is linear. Multiplication is
-              exponential. Over decades the difference is enormous.
-            </p>
-          </div>
-
-          <p>Now redo Jayne's investment at 9% compounded annually. Multiply by 1.09 each year:</p>
-          <ul className="lrn-list">
-            <li>Year 1: {`$5000 \\times 1.09 = \\$5{,}450.00$`} (same as simple).</li>
-            <li>Year 2: {`$5000 \\times 1.09^2 = \\$5{,}940.50$`} (simple gives 5,900).</li>
-            <li>Year 3: {`$5000 \\times 1.09^3 \\approx \\$6{,}475.15$`} (simple gives 6,350).</li>
-          </ul>
           <p>
-            Year 1 ties because compounding hasn't kicked in yet. Year 2 compounds the interest on
-            the new 5,450, not on the original 5,000. By year 30 the compound balance is roughly
-            66,000 while simple is only 18,500.
+            <strong>Worked example.</strong> Invest {`$\\$1000$`} at 5% compounded annually for 3
+            years. The growth factor is {`$1 + 0.05 = 1.05$`}, applied 3 times:
+          </p>
+          <div className="lrn-eq">{`$$1000 \\cdot 1.05^3 = 1000 \\cdot 1.157625 \\approx \\$1{,}157.63$$`}</div>
+          <p>
+            Year 1: {`$\\$1050.00$`}. Year 2: {`$\\$1102.50$`}. Year 3: {`$\\$1157.63$`}. Each year
+            the balance multiplies by 1.05, that's all "compound" means.
           </p>
 
           <div className="lrn-graph">
@@ -398,17 +468,18 @@ function useConfig() {
 
           <h3>Compounding More Than Once a Year</h3>
           <p>
-            Banks often compound more frequently every six months, every quarter, every month, even
-            every day. The annual rate {`$r\\%$`} stays the same, but they split it into {`$m$`}{' '}
-            equal pieces and apply each piece in turn. So the per-period rate is{' '}
-            {`$\\frac{r}{100m}$`}, and over {`$n$`} years there are {`$nm$`} periods. Multiplying
+            Banks often compound more often than yearly, every six months, every quarter, every
+            month, even every day. A 12% annual rate compounded quarterly means each quarter charges{' '}
+            {`$12/4 = 3\\%$`}, applied 4 times per year. In general, the bank splits the annual rate{' '}
+            {`$r\\%$`} into {`$m$`} equal pieces and applies each piece in turn. The per-period rate
+            is {`$\\frac{r}{100m}$`}, and over {`$n$`} years there are {`$nm$`} periods. Multiplying
             once per period gives the general formula:
           </p>
           <div className="lrn-eq lrn-eq-hero">{`$$\\$k \\left(1 + \\frac{r}{100m}\\right)^{nm}$$`}</div>
           <p>
             When {`$m = 1$`} this is the annual compound formula. When {`$m = 12$`} it's monthly
             compounding. The exponent grows with {`$m$`}, but the per-period factor shrinks. The two
-            effects nearly cancel but not quite.
+            effects nearly cancel, but not quite.
           </p>
 
           <p>
@@ -452,15 +523,20 @@ function useConfig() {
             </tbody>
           </table>
           <p>
-            More compounding does grow the total, but the gains shrink fast. After about 100,000
-            compounds per year, every extra compounding adds less than a penny. There is a hard
-            ceiling.
+            (The last row's {`$m \\approx 3.15 \\times 10^7$`} is roughly the number of seconds in a
+            year.)
+          </p>
+          <p>
+            More compounding does grow the total, but the gains shrink fast. Look at the last two
+            rows: jumping from daily (365 compounds) to every-second (≈31 million compounds) adds
+            only 28 cents. There is a hard ceiling.
           </p>
 
           <h3>Euler's Number {`$e$`}</h3>
           <p>
-            The ceiling has a name. Look at the simplest case of the compounding formula: one
-            dollar, 100% annual rate, compounded {`$m$`} times. The total after one year is{' '}
+            The ceiling has a name. To isolate the behaviour of {`$m$`} itself, simplify to one
+            dollar at 100%. That strips everything except the part that depends on {`$m$`}.
+            Compounded {`$m$`} times, the total after one year is{' '}
             {`$\\left(1 + \\frac{1}{m}\\right)^m$`}. Compute it for growing {`$m$`}:
           </p>
           <table className="lrn-table">
@@ -494,16 +570,54 @@ function useConfig() {
             </tbody>
           </table>
           <p>
-            The values get closer and closer to a fixed number. As {`$m \\to \\infty$`}, this
-            expression approaches a constant called <strong>Euler's number</strong>:
+            The values get closer and closer to a fixed number. Push {`$m$`} as large as you like
+            and the expression settles toward a constant called <strong>Euler's number</strong>{' '}
+            {`$e$`}:
           </p>
-          <div className="lrn-eq lrn-eq-hero">{`$$e = \\lim_{m \\to \\infty} \\left(1 + \\frac{1}{m}\\right)^m \\approx 2.71828\\ldots$$`}</div>
+          <div className="lrn-eq lrn-eq-hero">{`$$\\left(1 + \\frac{1}{m}\\right)^m \\longrightarrow e \\approx 2.71828\\ldots$$`}</div>
           <p>
-            The number {`$e$`} is the ceiling for one-dollar, 100%, infinite-compounding. For a
-            general principal {`$\\$k$`}, rate {`$r\\%$`}, and {`$n$`} years, the continuously
-            compounded total is {`$\\$k \\, e^{\\tfrac{rn}{100}}$`}. The digits of {`$e$`} never end
-            and never repeat, like {`$\\pi$`}. It will appear again every time growth or decay
-            happens smoothly rather than in discrete steps.
+            (The arrow means "gets closer and closer to.") The number {`$e$`} is the ceiling for the
+            one-dollar, 100%, infinitely-compounded case. The digits of {`$e$`} never end and never
+            repeat, like {`$\\pi$`}.
+          </p>
+          <p>
+            Because {`$2 < e < 3$`}, the curve {`$f(x) = e^x$`} sits between {`$y = 2^x$`} and{' '}
+            {`$y = 3^x$`}. This function {`$f(x) = e^x$`} is called the{' '}
+            <strong>natural exponential function</strong>. It is <em>the</em> exponential of smooth,
+            continuous growth, the base that appears whenever change happens every instant instead
+            of in separate steps.
+          </p>
+          <p>
+            For irrational exponents (decimals that never end or repeat) like {`$e^{0.14}$`}, use a
+            calculator's {`$e^x$`} or <strong>exp</strong> key: type 0.14, then {`$e^x$`}. You
+            should read {`$e^{0.14} \\approx 1.150274$`}. Compare with Brad's ceiling row: the
+            growth factor is {`$11502.74 / 10000 = 1.150274$`}. The formula and the table agree to
+            six decimals on this one case.
+          </p>
+
+          <h3>From One Case to the General Formula</h3>
+          <p>
+            Now generalise. Start from the {`$m$`}-times formula and let {`$m$`} grow without bound:
+          </p>
+          <div className="lrn-eq">{`$$\\$k \\left(1 + \\frac{r}{100m}\\right)^{nm}$$`}</div>
+          <p>
+            The trick is to rewrite the exponent so the {`$(1 + 1/u)^u$`} pattern appears. Let{' '}
+            {`$u = 100m/r$`}, so that {`$1/u = r/(100m)$`}. Then {`$nm = u \\cdot \\frac{rn}{100}$`}
+            :
+          </p>
+          <div className="lrn-eq">{`$$\\$k \\left(1 + \\frac{1}{u}\\right)^{u \\cdot \\frac{rn}{100}} = \\$k \\left[\\left(1 + \\frac{1}{u}\\right)^u\\right]^{\\frac{rn}{100}}$$`}</div>
+          <p>
+            As the compounding frequency grows without bound, written {`$m \\to \\infty$`}, where
+            the arrow is shorthand for "grows without bound", {`$u$`} grows without bound too. The
+            inner expression {`$\\left(1 + \\frac{1}{u}\\right)^u$`} settles toward {`$e$`}. The
+            outer exponent {`$\\frac{rn}{100}$`} stays fixed. So the whole expression settles toward
+          </p>
+          <div className="lrn-eq lrn-eq-hero">{`$$\\$k \\, e^{\\tfrac{rn}{100}}$$`}</div>
+          <p>
+            This is the <strong>continuously compounded</strong> amount for principal {`$\\$k$`},
+            rate {`$r\\%$`}, and {`$n$`} years. The same one-step rewrite turns any{' '}
+            {`$(1 + r/(100m))^{mn}$`} into a power of {`$e$`}. {`$e$`} will appear again every time
+            growth or decay happens smoothly rather than in separate steps.
           </p>
         </>,
 
@@ -511,7 +625,8 @@ function useConfig() {
           <h2>Interest-ing Problems</h2>
 
           <p>
-            Real problems run the formula backwards. You know the final amount and need the rate, or
+            Back to annual compounding, the {`$(1 + r/100)^n$`} form, for the rest of this section.
+            Real problems run the formula backwards. You know the final amount and need the rate. Or
             you know what you want and need to find what to invest today. The compound interest
             formula
           </p>
@@ -538,15 +653,37 @@ function useConfig() {
           </p>
           <div className="lrn-eq">{`$$1 + \\frac{r}{100} = 1.4356^{\\tfrac{1}{5}} = 1.075$$`}</div>
           <div className="lrn-eq lrn-eq-hero">{`$$r = 7.5\\%$$`}</div>
+          <p>
+            The same move finds any unknown in the compound interest formula: isolate the growth
+            factor, then undo the exponent.
+          </p>
+
+          <h3>Annual Percentage Yield</h3>
+          <p>
+            Two accounts quote different compounding, one monthly, one daily. Which pays more?
+            Compare their <strong>annual percentage yield</strong> (APY): the flat once-a-year rate
+            that grows your money by the same factor in one year.
+          </p>
+          <p>Take an account paying 6% compounded daily. Over one year the balance multiplies by</p>
+          <div className="lrn-eq">{`$$\\left(1 + \\frac{6}{100 \\cdot 365}\\right)^{365} \\approx 1.06183$$`}</div>
+          <p>
+            A flat annual rate that multiplies by {`$1.06183$`} is {`$6.183\\%$`}. So the APY is{' '}
+            {`$6.183\\%$`}, a little above the stated 6%. The extra comes from interest earning
+            interest during the year.
+          </p>
+          <p>
+            To find any APY: raise the one-period factor to the number of periods in a year,
+            subtract 1, then read it as a percent. APY puts every account on the same footing.
+          </p>
 
           <h3>Present Value</h3>
           <p>
             Now run the same formula in the other direction. You know the future amount and want
-            today's amount. The <strong>present value</strong> of a future sum is what you would
-            have to invest right now to reach that sum.
+            today's amount. The <strong>present value</strong> of a future sum is the amount you
+            must invest right now to reach that sum.
           </p>
           <p>Solve the compound formula for {`$\\$k$`}: divide by the growth factor.</p>
-          <div className="lrn-eq lrn-eq-hero">{`$$\\text{Present value} = \\frac{\\$m}{\\left(1 + \\frac{r}{100}\\right)^n}$$`}</div>
+          <div className="lrn-eq lrn-eq-hero">{`$$\\$k \\;=\\; \\frac{\\$m}{\\left(1 + \\frac{r}{100}\\right)^n}$$`}</div>
           <p>
             Money grows over time, so a dollar today is worth more than a dollar in the future. A
             higher rate or a longer wait widens the gap.
@@ -561,43 +698,78 @@ function useConfig() {
             10 years there are {`$10 \\times 2 = 20$`} periods.
           </p>
           <div className="lrn-eq">{`$$\\text{Present value} = \\frac{1{,}000{,}000}{(1.05)^{20}} = \\frac{1{,}000{,}000}{2.6533} \\approx \\$376{,}889$$`}</div>
+          <p>That one division converts any future sum into its equivalent in today's dollars.</p>
 
           <h3>The Loan Payment Problem</h3>
           <p>
             You borrow 10,000 dollars for three years at 6% compounded annually. You make three
-            equal payments {`$P$`}, one at the end of each year, right after the year's interest is
-            added. The loan must be fully paid off after the third payment. Find {`$P$`}.
+            equal payments {`$P$`}, one at the end of each year. Each payment lands right after the
+            bank adds that year's interest. The third payment must clear the loan. Find {`$P$`}.
           </p>
-          <p>The same constraint can be written in three ways. Each gives the same equation.</p>
+          <p>You can write the same constraint three ways. Each gives the same equation.</p>
 
           <div className="lrn-steps">
             <div className="lrn-step">
               <span className="lrn-step-title">Method 1: Year-by-year balance</span>
               <p className="lrn-step-content">
-                Track what is owed year by year. Start at 10,000. Each year, multiply the balance by
-                1.06, then subtract {`$P$`}. After three rounds the balance is zero:
+                Track the balance year by year. Start at 10,000. Each year, multiply the balance by
+                1.06, then subtract {`$P$`}. So
               </p>
+              <ol className="lrn-list">
+                <li>After year 1: {`$10000 \\cdot 1.06 - P$`}.</li>
+                <li>
+                  After year 2: take the year-1 balance, multiply by 1.06, subtract {`$P$`}.
+                  Distribute the 1.06 across both terms:{' '}
+                  {`$(10000 \\cdot 1.06 - P) \\cdot 1.06 - P = 10000 \\cdot 1.06^2 - 1.06 P - P$`}.
+                </li>
+                <li>
+                  After year 3: repeat. Distribute the new 1.06 across every term in the year-2
+                  balance:{' '}
+                  {`$(10000 \\cdot 1.06^2 - 1.06P - P) \\cdot 1.06 - P = 10000 \\cdot 1.06^3 - 1.06^2 P - 1.06 P - P$`}
+                  .
+                </li>
+              </ol>
+              <p className="lrn-step-content">After three rounds the balance is zero:</p>
               <div className="lrn-eq">{`$$10000 \\cdot 1.06^3 - P(1.06^2 + 1.06 + 1) = 0$$`}</div>
+              <p className="lrn-step-content">
+                Compute each side: {`$10000 \\cdot 1.06^3 = 10000 \\cdot 1.191016 = 11{,}910.16$`},
+                and {`$1.06^2 + 1.06 + 1 = 1.1236 + 1.06 + 1 = 3.1836$`}. So
+              </p>
               <div className="lrn-eq">{`$$P = \\frac{11{,}910.16}{3.1836} \\approx \\$3{,}741.10$$`}</div>
+              <p className="lrn-step-content">
+                That's the borrower's view: chase the balance down to zero year by year.
+              </p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Method 2: Three separate loans</span>
               <p className="lrn-step-content">
                 Pretend each payment pays off a separate mini-loan. The first payment pays off a
-                one-year loan of {`$\\$a$`}, the second a two-year loan of {`$\\$b$`}, the third a
-                three-year loan of {`$\\$c$`}. So {`$P = 1.06 \\, a$`}, {`$P = 1.06^2 \\, b$`},{' '}
-                {`$P = 1.06^3 \\, c$`}. Together the three principals add to the loan:
+                one-year loan of {`$\\$a$`}. The second pays off a two-year loan of {`$\\$b$`}. The
+                third pays off a three-year loan of {`$\\$c$`}. So {`$P = 1.06 \\, a$`},{' '}
+                {`$P = 1.06^2 \\, b$`}, and {`$P = 1.06^3 \\, c$`}. Solve each for the
+                mini-principal: {`$a = P/1.06$`}, {`$b = P/1.06^2$`}, {`$c = P/1.06^3$`}. The three
+                principals add to the full loan:
               </p>
               <div className="lrn-eq">{`$$\\frac{P}{1.06} + \\frac{P}{1.06^2} + \\frac{P}{1.06^3} = 10000$$`}</div>
+              <p className="lrn-step-content">
+                Factor out {`$P$`} and add the three fractions:{' '}
+                {`$0.9434 + 0.8900 + 0.8396 = 2.6730$`}. So{' '}
+                {`$P = 10000 / 2.6730 \\approx \\$3{,}741.10$`}, the same answer as Method 1.
+              </p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Method 3: Present value of all payments</span>
               <p className="lrn-step-content">
-                Discount each future payment back to today's value, then sum them. The total of
-                today's-dollar amounts must equal the 10,000 borrowed today:
+                Same equation, lender's view. Each {`$P/1.06^j$`} is the present value of payment{' '}
+                {`$j$`}, the amount that, invested today, grows to {`$P$`} by the time payment{' '}
+                {`$j$`} is due. Discount each payment (find its present value), then sum. The total
+                in today's dollars must equal the 10,000 borrowed today.
               </p>
               <div className="lrn-eq">{`$$P \\left(\\frac{1}{1.06} + \\frac{1}{1.06^2} + \\frac{1}{1.06^3}\\right) = 10000$$`}</div>
-              <div className="lrn-eq">{`$$P \\times 2.6730 = 10000 \\implies P \\approx \\$3{,}741.10$$`}</div>
+              <p className="lrn-step-content">
+                Solve for {`$P$`} and you get {`$\\$3{,}741.10$`} again, the lender's books and the
+                borrower's books close on the same number.
+              </p>
             </div>
           </div>
 
@@ -617,7 +789,7 @@ function useConfig() {
               <p>To set up any equal-payment loan problem:</p>
               <ol className="lrn-list">
                 <li>Identify the principal, the annual rate, and the number of payments.</li>
-                <li>Pick a time point usually "today" and discount or grow everything to it.</li>
+                <li>Pick a time point, usually "today", and discount or grow everything to it.</li>
                 <li>Write: (loan today) = (sum of payments, discounted to today).</li>
                 <li>Solve the resulting linear equation in {`$P$`}.</li>
               </ol>
@@ -634,303 +806,25 @@ function useConfig() {
                   {`$P\\left(\\frac{1}{1.08} + \\frac{1}{1.08^2}\\right) = 5000$`}.
                 </li>
                 <li>{`$0.9259 + 0.8573 = 1.7832$`}.</li>
-                <li>Solve: {`$P = ?$`}</li>
+                <li>Solve for {`$P$`}.</li>
               </ol>
+              <details>
+                <summary>Answer</summary>
+                <p>{`$P = \\dfrac{5000}{1.7832} \\approx \\$2{,}803.95$`} per year.</p>
+              </details>
             </div>
             <div className="lrn-faded-phase">
               <span className="lrn-faded-label">INDEPENDENT</span>
               <p>
-                Verify your answer with Method 1: start at 5,000, run the year-by-year balance, and
-                check that it reaches zero after two payments.
+                Verify your answer with Method 1. Start at 5,000. Run the year-by-year balance.
+                Check that it reaches zero after two payments.
               </p>
             </div>
           </div>
-        </>,
-
-        <>
-          <h2>What is a Logarithm?</h2>
 
           <p>
-            An exponent tells you how many times to multiply a base by itself. A{' '}
-            <strong>logarithm</strong> asks the opposite question: given a base and a result, what
-            exponent did we use? Write it as
-          </p>
-          <div className="lrn-eq lrn-eq-hero">{`$$\\log_a(b) = c \\quad\\Longleftrightarrow\\quad a^c = b$$`}</div>
-          <p>
-            The two forms carry identical information. {`$a$`} is the <strong>base</strong>, {`$b$`}{' '}
-            is the <strong>argument</strong>, and {`$c$`} is the answer. Read {`$\\log_2(32) = 5$`}{' '}
-            aloud as "the log base 2 of 32 is 5," which is just another way to say {`$2^5 = 32$`}.
-          </p>
-          <p>
-            The base must be positive and not equal to 1. The argument must be positive there is no
-            exponent on a positive base that produces zero or a negative number.
-          </p>
-
-          <h3>Evaluating Logarithms</h3>
-          <p>
-            The strategy is always the same: write the argument as a power of the base, then read
-            off the exponent.
-          </p>
-          <ol className="lrn-list">
-            <li>
-              {`$\\log_3(81) = 4$`}, because {`$3^4 = 81$`}.
-            </li>
-            <li>
-              {`$\\log_{10}(100{,}000) = 5$`}, because {`$10^5 = 100{,}000$`}.
-            </li>
-            <li>
-              {`$\\log_8(2) = \\tfrac{1}{3}$`}, because {`$8^{\\tfrac{1}{3}} = 2$`}.
-            </li>
-            <li>
-              {`$\\log_5(\\sqrt[3]{25}) = \\tfrac{2}{3}$`}, because{' '}
-              {`$\\sqrt[3]{25} = 25^{\\tfrac{1}{3}} = 5^{\\tfrac{2}{3}}$`}.
-            </li>
-            <li>
-              {`$\\log_2(\\tfrac{1}{8}) = -3$`}, because {`$\\tfrac{1}{8} = 2^{-3}$`}.
-            </li>
-            <li>
-              {`$\\log_{\\tfrac{1}{2}}(\\sqrt{2}) = -\\tfrac{1}{2}$`}, because{' '}
-              {`$\\sqrt{2} = \\left(\\tfrac{1}{2}\\right)^{-\\tfrac{1}{2}}$`}.
-            </li>
-          </ol>
-          <p>
-            When the base and argument do not share an obvious power, rewrite both as powers of the
-            same smaller number. For example, {`$\\log_4(\\tfrac{1}{8})$`}: write {`$4 = 2^2$`} and{' '}
-            {`$\\tfrac{1}{8} = 2^{-3}$`}. Then {`$(2^2)^x = 2^{-3}$`} gives {`$2x = -3$`}, so{' '}
-            {`$x = -\\tfrac{3}{2}$`}.
-          </p>
-
-          <div className="lrn-callout lrn-warning">
-            <span className="lrn-callout-label">Watch out</span>
-            <p>
-              {`$\\log_a(b + c)$`} is not {`$\\log_a(b) + \\log_a(c)$`}. Check:{' '}
-              {`$\\log_2(4 + 4) = \\log_2(8) = 3$`}, but {`$\\log_2(4) + \\log_2(4) = 4$`}.
-              Logarithms split across multiplication, not addition (more on that below).
-            </p>
-          </div>
-
-          <h3>The Identity log_a(a^p) = p</h3>
-          <p>The definition itself produces one identity you will use constantly:</p>
-          <div className="lrn-eq lrn-eq-hero">{`$$\\log_a(a^p) = p$$`}</div>
-          <p>
-            The question "what exponent on {`$a$`} gives {`$a^p$`}?" answers itself: it's {`$p$`}.
-            This is not a separate rule to memorize it's the definition stated forwards.
-          </p>
-
-          <h3>Graphing log_3(x)</h3>
-          <p>
-            Build a table by reading the exponent off each power of 3. The graph of {`$\\log_3(x)$`}{' '}
-            climbs slowly. Its <strong>domain</strong> is {`$x > 0$`} (the argument of a log must be
-            positive). Its <strong>range</strong> is all real numbers. The graph crosses the x-axis
-            at {`$x = 1$`}, because {`$\\log_3(1) = 0$`}.
-          </p>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>{`$x$`}</th>
-                <th>{`$\\log_3(x)$`}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{`$\\tfrac{1}{9}$`}</td>
-                <td>-2</td>
-              </tr>
-              <tr>
-                <td>{`$\\tfrac{1}{3}$`}</td>
-                <td>-1</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>0</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>2</td>
-              </tr>
-              <tr>
-                <td>27</td>
-                <td>3</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-graph">
-            <LogarithmGraphViz />
-          </div>
-
-          <h3>Logarithms and Exponentials are Inverses</h3>
-          <p>
-            The graph above plots {`$3^x$`} and {`$\\log_3(x)$`} together. They are reflections of
-            each other across the line {`$y = x$`}. That mirror image is the visible signature of{' '}
-            <strong>inverse functions</strong>: each undoes what the other did.
-          </p>
-          <div className="lrn-proof">
-            <p>
-              <strong>Proof.</strong> Let {`$f(x) = \\log_3(x)$`} and {`$g(x) = 3^x$`}.
-            </p>
-            <p>
-              Compose one way: {`$f(g(x)) = \\log_3(3^x) = x$`} (by the identity{' '}
-              {`$\\log_a(a^p) = p$`}).
-            </p>
-            <p>
-              Compose the other way: {`$g(f(x)) = 3^{\\log_3(x)} = x$`} (because {`$\\log_3(x)$`} is
-              exactly the exponent that turns 3 into {`$x$`}).
-            </p>
-            <p>Both compositions return {`$x$`}, so the two functions are inverses.</p>
-          </div>
-          <p>
-            Notice how the domain and range swap. The exponential takes any real input and produces
-            a positive output; the logarithm takes any positive input and produces a real output.
-          </p>
-
-          <h3>Common Log and Natural Log</h3>
-          <p>
-            Two bases get special shorthand. <strong>Common log</strong>, written just "log" without
-            a base, means base 10. It matches our decimal system, so scientists use it for things
-            like decibels and pH. <strong>Natural log</strong>, written "ln", means base {`$e$`}. It
-            makes calculus formulas cleaner, so mathematicians and physicists prefer it. When you
-            see a log with no base, check the context scientists default to 10, mathematicians
-            default to {`$e$`}.
-          </p>
-
-          <h3>The Richter Scale</h3>
-          <p>
-            An earthquake's Richter magnitude is the base-10 logarithm of how much ground moved
-            compared to a tiny reference movement:
-          </p>
-          <div className="lrn-eq lrn-eq-hero">{`$$\\text{magnitude} = \\log_{10}\\left(\\frac{M}{M_c}\\right)$$`}</div>
-          <p>
-            Here {`$M$`} is the measured shaking and {`$M_c$`} is a fixed reference. Because the
-            scale is logarithmic, each step up means ten times the displacement. A magnitude 8
-            earthquake shakes the ground 100 times harder than a magnitude 6, even though the
-            numbers only differ by 2. The scale exists because raw displacements vary by factors of
-            millions much easier to talk about a 7 than about a 10-million-fold movement.
-          </p>
-
-          <h3>Logarithms Split Across Multiplication</h3>
-          <p>
-            Logarithms turn products into sums. For any positive {`$b$`} and {`$c$`} (same base
-            throughout):
-          </p>
-          <div className="lrn-eq lrn-eq-hero">{`$$\\log_a(bc) = \\log_a(b) + \\log_a(c)$$`}</div>
-          <p>
-            Check with numbers: {`$\\log_{10}(4) + \\log_{10}(5) = \\log_{10}(20)$`}. This is the
-            rule that made the slide rule possible multiplication done by sliding two log-marked
-            rulers and reading off the sum. You will use this rule and its cousins (
-            {`$\\log_a\\!\\left(\\frac{b}{c}\\right) = \\log_a(b) - \\log_a(c)$`} and{' '}
-            {`$\\log_a(b^n) = n \\log_a(b)$`}) constantly in the next chapter.
-          </p>
-
-          <h3>The Rule of 72</h3>
-          <p>
-            At {`$r\\%$`} annual compound interest, your money roughly doubles every{' '}
-            {`$\\tfrac{72}{r}$`} years. At 6%, doubling takes about {`$\\frac{72}{6} = 12$`} years.
-            At 8%, about {`$\\frac{72}{8} = 9$`} years.
-          </p>
-          <p>
-            The exact doubling time solves {`$\\left(1 + \\frac{r}{100}\\right)^t = 2$`}. Take logs
-            and you get {`$t = \\log_{1 + \\tfrac{r}{100}}(2)$`}, which for small {`$r$`} is close
-            to {`$\\frac{69.3}{r}$`}. The number 72 is used instead of 69.3 because 72 has many
-            small divisors (2, 3, 4, 6, 8, 9, 12), so the division is easy to do in your head.
-          </p>
-        </>,
-
-        <>
-          <h2>Solving Logarithmic Equations</h2>
-
-          <p>
-            One move solves almost every logarithm equation: convert from log form to exponential
-            form. The statement {`$\\log_a(b) = c$`} carries the exact same content as {`$a^c = b$`}
-            , and you already have lots of algebra tools for working with exponents. Rewriting puts
-            the problem in familiar territory.
-          </p>
-
-          <h3>Finding an Unknown Base</h3>
-          <p>
-            Find base {`$n$`} such that {`$\\log_n(3) = -\\tfrac{3}{2}$`}. Convert to exponential
-            form first:
-          </p>
-          <div className="lrn-eq">{`$$n^{-\\tfrac{3}{2}} = 3$$`}</div>
-          <p>
-            Now {`$n$`} is the base of a power, not buried inside a log. To isolate it, raise both
-            sides to the {`$-\\tfrac{2}{3}$`} power. That power undoes the {`$-\\tfrac{3}{2}$`} on
-            the left because {`$(-\\tfrac{3}{2}) \\cdot (-\\tfrac{2}{3}) = 1$`}:
-          </p>
-          <div className="lrn-eq lrn-eq-hero">{`$$n = 3^{-\\tfrac{2}{3}} = \\frac{1}{3^{\\tfrac{2}{3}}} = \\frac{1}{\\sqrt[3]{9}}$$`}</div>
-
-          <div className="lrn-graph">
-            <LogSolvingViz />
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">EXPLORE</span>
-            <p>
-              Drag the point along {`$\\log_3(x)$`}. What happens to the output when you double the
-              input? What happens for inputs less than 1?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Doubling the input adds {`$\\log_3(2) \\approx 0.63$`} to the output, not double.
-                For inputs below 1, the output is negative. The curve is a mirror image of {`$3^x$`}
-                : where the exponential's input goes negative, the log's output goes negative.
-              </p>
-            </details>
-          </div>
-
-          <h3>Combining Conversion with the Equal-Bases Rule</h3>
-          <p>Evaluate {`$\\log_{3\\sqrt{3}}\\left(\\tfrac{1}{81}\\right)$`}.</p>
-          <p>Call the answer {`$x$`} and convert to exponential form:</p>
-          <div className="lrn-eq">{`$$(3\\sqrt{3})^x = \\frac{1}{81}$$`}</div>
-          <p>
-            Both the base and the argument are powers of 3. Write{' '}
-            {`$3\\sqrt{3} = 3 \\cdot 3^{\\tfrac{1}{2}} = 3^{\\tfrac{3}{2}}$`} and{' '}
-            {`$\\tfrac{1}{81} = 3^{-4}$`}:
-          </p>
-          <div className="lrn-eq">{`$$3^{\\tfrac{3x}{2}} = 3^{-4}$$`}</div>
-          <p>Equal bases give equal exponents:</p>
-          <div className="lrn-eq">{`$$\\frac{3x}{2} = -4 \\quad\\Longrightarrow\\quad x = -\\frac{8}{3}$$`}</div>
-          <p>
-            Two techniques chained together: convert log to exponential, then rewrite both sides as
-            powers of the same prime.
-          </p>
-
-          <h3>Isolate the Log First</h3>
-          <p>
-            Solve {`$y = 2 + 3\\log_5(2x + 1)$`} for {`$x$`} in terms of {`$y$`}.
-          </p>
-          <p>
-            The conversion rule {`$\\log_a(b) = c \\Leftrightarrow a^c = b$`} only works when the
-            log stands alone. So first move the constant and the coefficient:
-          </p>
-          <div className="lrn-eq">{`$$\\log_5(2x + 1) = \\frac{y - 2}{3}$$`}</div>
-          <p>Now convert to exponential form and solve for {`$x$`}:</p>
-          <div className="lrn-eq">{`$$5^{\\tfrac{y-2}{3}} = 2x + 1$$`}</div>
-          <div className="lrn-eq lrn-eq-hero">{`$$x = \\frac{5^{\\tfrac{y-2}{3}} - 1}{2}$$`}</div>
-
-          <h3>Two Equations, Shared Unknown</h3>
-          <p>
-            If {`$3 = k \\cdot 2^r$`} and {`$15 = k \\cdot 4^r$`}, find {`$r$`}.
-          </p>
-          <p>
-            You don't need both {`$k$`} and {`$r$`} just {`$r$`}. Divide the second equation by the
-            first. The {`$k$`} cancels:
-          </p>
-          <div className="lrn-eq">{`$$\\frac{15}{3} = \\frac{k \\cdot 4^r}{k \\cdot 2^r} = \\left(\\frac{4}{2}\\right)^r = 2^r$$`}</div>
-          <p>
-            So {`$2^r = 5$`}. There is no whole number {`$r$`} that turns 2 into 5, so the answer is
-            a logarithm:
-          </p>
-          <div className="lrn-eq lrn-eq-hero">{`$$r = \\log_2(5)$$`}</div>
-          <p>
-            The trick was dividing two equations to cancel a shared unknown. Addition and
-            subtraction aren't the only ways to eliminate variables multiplication and division work
-            too, and often work faster on exponential systems.
+            You can now set up and solve any equal-payment loan problem given principal, rate, and
+            term. When equal-bases doesn't apply, logarithms handle the rest.
           </p>
         </>,
 
@@ -938,34 +832,25 @@ function useConfig() {
           <h2>Summary</h2>
 
           <p>
-            Every idea in this module is built from one move: multiplying a number by itself, or
-            undoing that multiplication. Exponential functions do the multiplying. Logarithms do the
-            undoing. Compound interest is the bank applying multiplication to your balance every
+            Every idea on this page comes from one move: multiplying a number by itself a chosen
+            number of times. Exponential functions do that multiplying when the count sits in the
+            exponent. Compound interest is the bank applying that same move to your balance every
             year. The equal-bases rule lets you compare two exponential expressions when they share
-            a base. When they don't share a base, logarithms step in.
+            a base. Let-substitution turns a mixed-exponential equation into a polynomial you
+            already know how to solve.
           </p>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">CHECK YOURSELF</span>
-            <p>You face an equation with an unknown in an exponent. What is your first move?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Try to rewrite both sides as powers of the same base. If you can, equate the
-                exponents the equation becomes linear. If you can't, either substitute (when one
-                exponential appears as a piece of another, like {`$4^x = (2^x)^2$`}) or take a
-                logarithm to bring the unknown down from the exponent.
-              </p>
-            </details>
-          </div>
+          <p>
+            Given any equation with an unknown in an exponent, read the structure. If both sides
+            share a base, equate exponents. If they don't but share a prime, force a common base. If
+            a power-of-a-power and a single power appear together, let-substitute. Everything else
+            waits for logarithms.
+          </p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHAT COMES NEXT</span>
             <p>
-              The next chapter pushes these tools into growth and decay, medicine dosing,
-              radioactive half-life on irregular fractions, and population models. You will also
-              meet the full set of logarithm laws the product rule, quotient rule, and power rule
-              which let you take any tangled log expression apart or put one together.
+              Logarithms are the inverse of the exponential function, the move that brings an
+              unknown down out of an exponent.
             </p>
           </div>
         </>
@@ -973,136 +858,96 @@ function useConfig() {
     },
     practice: [
       {
-        q: `Evaluate $\\log_3(81)$.`,
-        a: `$\\log_3(81) = 4$. Ask: what power of 3 gives 81? $3^1=3$, $3^2=9$, $3^3=27$, $3^4=81$. The answer is 4. The logarithm is always the exponent that makes $3^c = 81$ true.`
+        q: `Solve $5^{3x+1} = 5^{2x-4}$.`,
+        a: `$x = -5$. Both sides share base 5, so equate the exponents: $3x + 1 = 2x - 4$. Subtract $2x$ and 1 from both sides: $x = -5$. Once the bases match, the equation is just linear.`
       },
       {
-        q: `Solve $3^{2x} = 3^{x-5}$.`,
-        a: `$x = -5$. Both sides have base 3, so equate the exponents: $2x = x - 5$. Subtract $x$: $x = -5$. Equal bases imply equal exponents because $f(x) = 3^x$ is a one-to-one function.`
+        q: `Find a formula for an investment of 2,000 dollars at 7% compounded annually after $n$ years.`,
+        a: `Total $= 2000 \\times (1.07)^n$. Each year the balance multiplies by $1 + \\frac{7}{100} = 1.07$. After $n$ years, you've applied that factor $n$ times. Repeated multiplication by a fixed factor is the shape of every compound interest formula.`
       },
       {
-        q: `Jayne invests 5000 dollars at 9% compounded annually. Write a formula for her total after $n$ years.`,
-        a: `Total $= 5000 \\times (1.09)^n$. Each year the balance multiplies by $\\left(1 + \\frac{9}{100}\\right) = 1.09$. After $n$ years, apply this factor $n$ times. Repeated multiplication by a fixed factor is exponential growth.`
+        q: `Is $-2$ in the range of $f(x) = 3^x$? Explain in one sentence.`,
+        a: `No. The range of $3^x$ is all positive numbers, so it never reaches a negative value. For any real $x$, $3^x$ is a product of positive factors. Positive times positive (or one over a positive) is always positive. So $3^x = -2$ has no real solution.`
       },
       {
-        q: `What is the domain and range of $f(x) = 2^x$?`,
-        a: `Domain: all real numbers. Range: all positive real numbers. You can raise 2 to any power, so $x$ is unrestricted. But $2^x$ always produces a positive result. It never equals zero or goes negative.`
+        q: `Solve $9^x - 28 \\cdot 3^x + 27 = 0$.`,
+        a: `$x = 0$ or $x = 3$. Note $9^x = (3^x)^2$. Let $y = 3^x$, so $y^2 - 28y + 27 = 0$. Factor: $(y - 1)(y - 27) = 0$, giving $y = 1$ or $y = 27$. Translate back: $3^x = 1$ gives $x = 0$, and $3^x = 27 = 3^3$ gives $x = 3$.`
       },
       {
-        q: `Solve $4^x - 33 \\cdot 2^{x-1} + 8 = 0$.`,
-        a: `$x = -1$ or $x = 4$. Let $y = 2^x$. Then $4^x = y^2$ and $2^{x-1} = \\frac{y}{2}$. The equation becomes $y^2 - \\frac{33y}{2} + 8 = 0$. Multiply by 2: $2y^2 - 33y + 16 = 0$. Factor: $(2y-1)(y-16) = 0$. So $y = \\frac{1}{2}$ or $y = 16$. Then $2^x = 2^{-1}$ gives $x=-1$ and $2^x = 2^4$ gives $x = 4$.`
+        q: `If $3^x = 5$, find $3^{2x+1}$.`,
+        a: `$3^{2x+1} = 75$. Rewrite: $3^{2x+1} = 3 \\cdot 3^{2x} = 3 \\cdot (3^x)^2 = 3 \\cdot 5^2 = 3 \\cdot 25 = 75$. You never need the actual value of $x$. Treat $3^x$ as a known block and rebuild the target around it.`
       },
       {
-        q: `If $2^x = 6$, find $2^{3x-1}$.`,
-        a: `$2^{3x-1} = 108$. Rewrite: $2^{3x-1} = \\frac{(2^x)^3}{2} = \\frac{6^3}{2} = \\frac{216}{2} = 108$. You never need to find $x$ explicitly. Using the substitution $2^x = 6$ avoids needing logarithms or a calculator.`
+        q: `Solve $25^x = 125$.`,
+        a: `$x = \\frac{3}{2}$. Write both sides as powers of 5: $25 = 5^2$ and $125 = 5^3$. So $5^{2x} = 5^3$, giving $2x = 3$ and $x = \\frac{3}{2}$. Force a common base by rewriting each side as a power of the smallest shared prime.`
       },
       {
-        q: `You see the equation $9^x = 27$. Before solving, predict: will $x$ be a whole number, a fraction, or impossible to find?`,
-        a: `$x$ will be a fraction. Both 9 and 27 are powers of 3: $9 = 3^2$ and $27 = 3^3$. So $3^{2x} = 3^3$, giving $2x = 3$ and $x = \\frac{3}{2}$. When the exponents do not divide evenly, the solution is a fraction.`
+        q: `Reza borrowed 4,000 dollars. After 6 years he owes 6,000 dollars at compound annual interest. Find the interest rate.`,
+        a: `$r \\approx 6.99\\%$ (about 7%). Set up: $4000\\left(1 + \\frac{r}{100}\\right)^6 = 6000$. Divide by 4000: $\\left(1 + \\frac{r}{100}\\right)^6 = 1.5$. Take the sixth root: $1 + \\frac{r}{100} = 1.5^{1/6} \\approx 1.0699$. So $r \\approx 6.99\\%$.`
       },
       {
-        q: `Sayeed borrowed 2,300 dollars. After 5 years he owes 3,301.95 dollars at compound annual interest. Find the interest rate.`,
-        a: `The rate is $7.5\\%$. Set up: $2300\\left(1 + \\frac{r}{100}\\right)^5 = 3301.95$. Divide by 2300: $\\left(1 + \\frac{r}{100}\\right)^5 = 1.4356$. Take the fifth root: $1 + \\frac{r}{100} = 1.075$. So $r = 7.5$.`
+        q: `Compute the gap after 20 years between simple and compound interest on 4,000 dollars at 8%.`,
+        a: `Simple gives $4000(1 + 20 \\times 0.08) = 4000 \\times 2.6 = \\$10{,}400$. Compound gives $4000 \\times 1.08^{20} \\approx 4000 \\times 4.6610 \\approx \\$18{,}644$. The gap is about $\\$8{,}244$. Compounding adds interest on top of accumulated interest, so the gap widens fast.`
       },
       {
-        q: `Explain the difference between simple interest and compound interest.`,
-        a: `Simple interest adds the same fixed amount each year (linear growth). Compound interest multiplies the balance by a fixed factor each year (exponential growth). Simple: $k\\left(1 + \\frac{nr}{100}\\right)$. Compound: $k\\left(1 + \\frac{r}{100}\\right)^n$. Compound interest earns interest on accumulated interest, so each year's gain is larger than the last.`
+        q: `Solve $3^{9^x} = 9^{3^x}$ as far as the equal-bases rule will take you.`,
+        a: `$3^x = 2$. Equal-bases alone can't finish this one. Write $9 = 3^2$: left side $3^{9^x}$ stays put; right side $9^{3^x} = (3^2)^{3^x} = 3^{2 \\cdot 3^x}$. Equate exponents of 3: $9^x = 2 \\cdot 3^x$, then $(3^x)^2 = 2 \\cdot 3^x$. Let $y = 3^x$. Since $y = 3^x > 0$, the $y = 0$ branch is impossible. Divide by $y$: $y = 2$. Then $3^x = 2$, which logarithms will solve.`
       },
       {
-        q: `What does the present value formula compute, and what is it?`,
-        a: `Present value is the amount you must invest today to reach a target future sum. The formula is $\\$k = \\frac{\\$m}{\\left(1 + \\tfrac{r}{100}\\right)^n}$. Start from $k\\left(1 + \\frac{r}{100}\\right)^n = m$ and solve for $k$. Dividing by $\\left(1 + \\frac{r}{100}\\right)^n$ "undoes" $n$ years of compounding.`
+        q: `How much must you invest today at 6% compounded semi-annually to have 250,000 dollars in 12 years?`,
+        a: `About $\\$122{,}983$. Semi-annual rate: $\\frac{6}{2} = 3\\%$. Periods: $12 \\times 2 = 24$. Present value $= \\frac{250{,}000}{(1.03)^{24}} = \\frac{250{,}000}{2.03279} \\approx \\$122{,}983$. (Use a calculator for $1.03^{24}$.)`
       },
       {
-        q: `Evaluate $\\log_8(2)$.`,
-        a: `$\\log_8(2) = \\frac{1}{3}$. Ask: what power of 8 gives 2? Since $8 = 2^3$, we need $8^x = 2$, i.e., $(2^3)^x = 2^1$, so $3x = 1$ and $x = \\frac{1}{3}$. Convert both base and argument to the same prime power to compare exponents directly.`
+        q: `A substance has a 20-year half-life. After some time $t$, only $\\frac{1}{5}$ of it remains. Set up the equation for $t$ and explain why equal-bases can't finish it.`,
+        a: `Setup: $\\left(\\frac{1}{2}\\right)^{t/20} = \\frac{1}{5}$. The base on the left is $\\frac{1}{2}$, but $\\frac{1}{5}$ is not a clean power of $\\frac{1}{2}$. No integer or rational exponent $k$ satisfies $(1/2)^k = 1/5$. Logarithms are the tool that finishes this kind of equation.`
       },
       {
-        q: `What is Euler's number $e$, and how does it appear in compound interest?`,
-        a: `$e \\approx 2.71828$. As you compound interest more often (semi-annual, quarterly, daily, then infinitely often), the total approaches a limit. For a 100% annual rate, compounding infinitely often gives $e$ times your principal after one year.`
+        q: `Cesium-137 has a half-life of about 30 years. A waste sample contains $\\frac{1}{16}$ of its original cesium-137. How long ago was the sample fresh?`,
+        a: `120 years. Write $\\left(\\frac{1}{2}\\right)^t = \\frac{1}{16} = \\left(\\frac{1}{2}\\right)^4$. Equal bases give $t = 4$ (in half-lives). Age $= 4 \\times 30 = 120$ years.`
       },
       {
-        q: `Prove that $f(x) = \\log_3(x)$ and $g(x) = 3^x$ are inverse functions.`,
-        a: `They are inverses because $f(g(x)) = x$ and $g(f(x)) = x$. $f(g(x)) = \\log_3(3^x) = x$ by the identity $\\log_a(a^p) = p$. $g(f(x)) = 3^{\\log_3(x)} = x$ by the definition of logarithm. Two functions are inverses when each undoes the other.`
+        q: `From the chessboard story, Arial gets 631 grains on square 64 and Meena gets $2^{63}$. How many times more grains does Meena get?`,
+        a: `About $1.5 \\times 10^{16}$ times more. $2^{63} \\approx 9.2 \\times 10^{18}$, so the ratio is $\\frac{9.2 \\times 10^{18}}{631} \\approx 1.5 \\times 10^{16}$.`
       },
       {
-        q: `What happens to your investment's doubling time if the interest rate doubles (using the Rule of 72)?`,
-        a: `The doubling time halves. By the Rule of 72, doubling time $\\approx \\frac{72}{r}$. If $r$ doubles from 6% to 12%, time changes from $\\frac{72}{6} = 12$ years to $\\frac{72}{12} = 6$ years. Doubling the rate halves the time.`
+        q: `A bank doubles your deposit every 12 years. Write the multiplier as a power of 2 and find the equivalent annual percentage rate.`,
+        a: `Multiplier after $t$ years is $2^{t/12}$. The annual factor is $2^{1/12}$. Compute it with a calculator's $x^y$ or $y^x$ key: $2^{1/12} \\approx 1.05946$, so $r \\approx 5.95\\%$. Each year the balance multiplies by about 1.0595, and 12 such multiplications give 2.`
       },
       {
-        q: `Solve $2^{16^x} = 16^{2^x}$.`,
-        a: `$x = \\frac{2}{3}$. Write $16 = 2^4$. Right side: $(2^4)^{2^x} = 2^{4 \\cdot 2^x}$. Left side: $2^{16^x} = 2^{2^{4x}}$. Equate exponents: $2^{4x} = 4 \\cdot 2^x = 2^{x+2}$. So $4x = x+2$, giving $x = \\frac{2}{3}$.`
-      },
-      {
-        q: `How much must you invest today at 10% semi-annually to have 1,000,000 dollars in 10 years?`,
-        a: `Approximately $\\$376{,}889$. Semi-annual rate: $5\\%$. Periods: $20$. Present value $= \\frac{1{,}000{,}000}{(1.05)^{20}} = \\frac{1{,}000{,}000}{2.6533} \\approx \\$376{,}889$.`
-      },
-      {
-        q: `Evaluate $\\log_5(\\sqrt[3]{25})$.`,
-        a: `$\\log_5(\\sqrt[3]{25}) = \\frac{2}{3}$. Write $\\sqrt[3]{25} = 25^{\\tfrac{1}{3}} = (5^2)^{\\tfrac{1}{3}} = 5^{\\tfrac{2}{3}}$. So $\\log_5\\!\\left(5^{\\tfrac{2}{3}}\\right) = \\frac{2}{3}$ by the identity $\\log_a(a^p) = p$.`
-      },
-      {
-        q: `A friend says $\\log_2\\!\\left(\\frac{1}{8}\\right) = 3$ because $2^3 = 8$. What is wrong?`,
-        a: `The correct answer is $\\log_2\\!\\left(\\frac{1}{8}\\right) = -3$, not $3$. $\\frac{1}{8} = 2^{-3}$, so $\\log_2(2^{-3}) = -3$. The friend forgot the negative sign from the reciprocal. $2^3 = 8$ gives $\\log_2(8) = 3$, but the argument here is $\\frac{1}{8}$.`
-      },
-      {
-        q: `At 8% annual compound interest, about how many years until an investment doubles?`,
-        a: `About 9 years. Rule of 72: doubling time $\\approx \\frac{72}{r} = \\frac{72}{8} = 9$ years. The Rule of 72 trades exact calculation for mental arithmetic.`
-      },
-      {
-        q: `Solve $y = 2 + 3\\log_5(2x+1)$ for $x$ in terms of $y$.`,
-        a: `$x = \\frac{5^{\\tfrac{y-2}{3}} - 1}{2}$. Isolate the log: $\\frac{y-2}{3} = \\log_5(2x+1)$. Convert to exponential: $5^{\\tfrac{y-2}{3}} = 2x+1$. Solve: $x = \\frac{5^{\\tfrac{y-2}{3}} - 1}{2}$.`
-      },
-      {
-        q: `Find base $n$ such that $\\log_n(3) = -\\frac{3}{2}$.`,
-        a: `$n = \\frac{1}{\\sqrt[3]{9}}$. Convert to exponential: $n^{-\\tfrac{3}{2}} = 3$. Raise both sides to $-\\frac{2}{3}$: $n = 3^{-\\tfrac{2}{3}} = \\frac{1}{3^{\\tfrac{2}{3}}} = \\frac{1}{\\sqrt[3]{9}}$.`
-      },
-      {
-        q: `Evaluate $\\log_{2\\sqrt{2}}\\!\\left(\\frac{1}{32}\\right)$ using the same method as $\\log_{3\\sqrt{3}}\\!\\left(\\frac{1}{81}\\right)$.`,
-        a: `$-\\frac{10}{3}$. Call the answer $x$. Then $(2\\sqrt{2})^x = \\frac{1}{32}$. Write $2\\sqrt{2} = 2^{\\tfrac{3}{2}}$ and $\\frac{1}{32} = 2^{-5}$. So $\\left(2^{\\tfrac{3}{2}}\\right)^x = 2^{-5}$, giving $\\frac{3x}{2} = -5$, so $x = -\\frac{10}{3}$. The trick is always: rewrite base and argument as powers of the same prime, then equate exponents.`
-      },
-      {
-        q: `Why does linear growth always eventually lose to exponential growth, no matter how large the linear slope?`,
-        a: `Exponential growth compounds. Each period the increment is proportional to the current total. Linear growth adds a fixed amount regardless of size. For any fixed $a > 1$ and slope $m$, there is a point where $a^n > mn$ for all larger $n$. In the chessboard story, Meena's additions eventually exceed billions per step.`
-      },
-      {
-        q: `Carbon-14 has a half-life of 5700 years. An artifact has 25% of its original C-14. How old is it?`,
-        a: `About 11,400 years old. Use $\\left(\\frac{1}{2}\\right)^t = \\frac{1}{4} = \\left(\\frac{1}{2}\\right)^2$. So $t = 2$ (in units of 5700 years). Age $= 2 \\times 5700 = 11{,}400$ years. Writing the fraction as a power of $\\frac{1}{2}$ directly gives the number of half-lives.`
-      },
-      {
-        q: `In the Richter scale formula $\\log_{10}\\!\\left(\\frac{M}{M_c}\\right)$, an earthquake measures 8 on the scale and another measures 6. How many times more displacement does the magnitude 8 earthquake have?`,
-        a: `100 times more displacement. $\\frac{M_8}{M_c} = 10^8$ and $\\frac{M_6}{M_c} = 10^6$. The ratio is $\\frac{M_8}{M_6} = 10^2 = 100$. Each unit increase in Richter magnitude is a factor of 10 in displacement.`
-      },
-      {
-        q: `Linear vs exponential: $A(64) = 631$ grains for Arial vs $M(64) = 2^{63}$ for Meena. Who has more, and roughly by how much?`,
-        a: `Meena has enormously more. $A(64) = 631$. $M(64) = 2^{63} \\approx 9.2 \\times 10^{18}$ grains. The ratio $\\frac{M}{A} \\approx 1.5 \\times 10^{16}$. Exponential growth compounds multiplicatively. Each step doubles.`
-      },
-      {
-        q: `Explain in your own words why $\\log_a(a^p) = p$.`,
-        a: `The logarithm asks "what exponent on base $a$ gives the argument?" The argument here is $a^p$, which is already $a$ raised to the $p$th power. So the answer is obviously $p$. This identity is just a restatement of the definition.`
-      },
-      {
-        q: `You invest 1,000 dollars at 6% compounded annually. How long until it reaches 2,000 dollars? Use the Rule of 72.`,
-        a: `About 12 years. Rule of 72: $\\frac{72}{6} = 12$ years to double. The Rule of 72 replaces an exact logarithm calculation with a simple division, accurate to within a year for typical interest rates.`
-      },
-      {
-        q: `A quantity decays to half its size every 10 years. Write a formula for the fraction remaining after $t$ years.`,
-        a: `Fraction remaining $= \\left(\\frac{1}{2}\\right)^{\\tfrac{t}{10}}$. At $t = 0$: $\\left(\\frac{1}{2}\\right)^0 = 1$. At $t = 10$: $\\left(\\frac{1}{2}\\right)^1 = \\frac{1}{2}$. At $t = 20$: $\\left(\\frac{1}{2}\\right)^2 = \\frac{1}{4}$. Each 10-year period multiplies by $\\frac{1}{2}$, applied $\\frac{t}{10}$ times.`
-      },
-      {
-        q: `If $3 = k \\cdot 2^r$ and $15 = k \\cdot 4^r$, find $r$.`,
-        a: `$r = \\log_2(5)$. Divide the second equation by the first: $\\frac{15}{3} = \\frac{k \\cdot 4^r}{k \\cdot 2^r} = \\left(\\frac{4}{2}\\right)^r = 2^r$. So $2^r = 5$, giving $r = \\log_2(5)$. Dividing eliminates $k$ immediately.`
-      },
-      {
-        q: `You invest 3,000 dollars at 5% simple interest for 4 years. What is the total?`,
-        a: `The total is $\\$3{,}600$. Use the simple interest formula: $3000 \\times \\left(1 + 4 \\times \\frac{5}{100}\\right) = 3000 \\times 1.20 = 3600$. Simple interest adds the same fixed amount each year: $3000 \\times 0.05 = \\$150$ per year, so $4 \\times 150 = \\$600$ total interest.`
-      },
-      {
-        q: `You borrow 10,000 dollars for 3 years at 6% compounded annually. Your annual payment is 3,741.10 dollars. Verify this using the present value method.`,
-        a: `Sum the discounted payments: $\\frac{3741.10}{1.06} + \\frac{3741.10}{1.06^2} + \\frac{3741.10}{1.06^3} = 3529.34 + 3330.51 + 3142.94 \\approx 10002.79 \\approx 10000$. Small rounding error is expected. The present value of all payments equals the loan. This confirms the payment is correct.`
+        q: `You borrow 6,000 dollars for 3 years at 7% compounded annually. Find the equal annual payment $P$.`,
+        a: `$P \\approx \\$2{,}286.31$. Use present value: $P\\left(\\frac{1}{1.07} + \\frac{1}{1.07^2} + \\frac{1}{1.07^3}\\right) = 6000$. Compute $\\frac{1}{1.07} \\approx 0.9346$, $\\frac{1}{1.07^2} \\approx 0.8734$, and $\\frac{1}{1.07^3} \\approx 0.8163$. Their sum is $\\approx 2.6243$. So $P = \\frac{6000}{2.6243} \\approx \\$2{,}286.31$.`
       },
       {
         q: `You invest 1,000 dollars at 100% annual interest compounded continuously (using $e$). How much do you have after 1 year?`,
-        a: `You have $\\$e \\cdot 1000 \\approx \\$2{,}718.28$. Continuous compounding at 100% means multiplying by $e^{1} = e$. This is the limit of $\\left(1 + \\frac{1}{m}\\right)^m$ as $m \\to \\infty$. Compounding once gives $\\$2{,}000$. Compounding infinitely often gives about $\\$2{,}718$.`
+        a: `About $\\$2{,}718.28$. Continuous compounding at 100% multiplies by $e^1 = e \\approx 2.71828$. Compounding once a year would give $\\$2{,}000$. Compounding more and more often pushes the total toward $\\$e \\cdot 1000$, the ceiling.`
+      },
+      {
+        q: `Verify the 6,000-dollar loan answer ($P \\approx 2{,}286.31$) using Method 1: run the year-by-year balance and check that it reaches zero.`,
+        a: `Start at 6000. Year 1: $6000 \\times 1.07 - 2286.31 = 6420 - 2286.31 = 4133.69$. Year 2: $4133.69 \\times 1.07 - 2286.31 = 4423.05 - 2286.31 = 2136.74$. Year 3: $2136.74 \\times 1.07 - 2286.31 = 2286.31 - 2286.31 = 0$. The balance hits zero exactly, confirming $P$.`
+      },
+      {
+        q: `Which of these are exponential functions: $f(x) = x^2$, $g(x) = 2^x$, $h(x) = 2x$, $p(x) = x^x$?`,
+        a: `Only $g(x) = 2^x$. An exponential function has the variable in the exponent and a fixed base. $f(x) = x^2$ is a polynomial (variable in the base). $h(x) = 2x$ is linear. $p(x) = x^x$ has the variable in both places, so it's neither exponential nor polynomial.`
+      },
+      {
+        q: `State the domain, range, and horizontal asymptote of $f(x) = 4^x$.`,
+        a: `Domain: all real numbers. Range: all positive numbers. Horizontal asymptote: $y = 0$. The base 4 is positive, so $4^x > 0$ for every real $x$. As $x$ grows large and negative, $4^x$ shrinks toward 0 but never touches it.`
+      },
+      {
+        q: `The graph of $f(x) = a^x$ passes through the point $(2, 49)$. Find the base and write the function.`,
+        a: `$a = 7$, so $f(x) = 7^x$. Plug in the point: $a^2 = 49$. A base is always positive, so take the positive square root: $a = 7$. Every $a^x$ also passes through $(0, 1)$, so this one extra point fixes the base.`
+      },
+      {
+        q: `The graph of $f(x) = a^x$ passes through $\\left(2, \\frac{1}{9}\\right)$. Find the base.`,
+        a: `$a = \\frac{1}{3}$. Solve $a^2 = \\frac{1}{9}$ and take the positive root: $a = \\frac{1}{3}$. The base sits between 0 and 1, so this is a decay curve.`
+      },
+      {
+        q: `An account pays 4% compounded quarterly. Find the annual percentage yield (APY).`,
+        a: `APY $\\approx 4.06\\%$. Each quarter charges $\\frac{4}{4} = 1\\%$, applied 4 times, so the yearly factor is $\\left(1 + \\frac{4}{100 \\times 4}\\right)^4 = 1.01^4 \\approx 1.04060$. Subtract 1 and read as a percent: about $4.06\\%$.`
+      },
+      {
+        q: `Why does the graph of $f(x) = e^x$ lie between $y = 2^x$ and $y = 3^x$?`,
+        a: `Because $2 < e < 3$. For any $x > 0$, a bigger base gives a bigger power, so $2^x < e^x < 3^x$. Since $e \\approx 2.718$, its curve is squeezed between the base-2 and base-3 curves. $f(x) = e^x$ is the natural exponential function.`
       }
     ],
     reference: {
@@ -1114,26 +959,42 @@ function useConfig() {
           <div className="lrn-definition">
             <span className="lrn-definition-term">General exponential function</span>
             <div className="lrn-definition-desc">
-              <p>{`$f(x) = a^x,\\; a > 1$`}</p>
-              <p>Use: model any quantity that grows by multiplying by a fixed factor each step.</p>
+              <p>
+                {`$f(x) = a^x$`} with {`$a > 0$`} and {`$a \\ne 1$`}.
+              </p>
+              <p>(Learning treated {`$a > 1$`}; reference admits any positive base except 1.)</p>
+              <p>
+                Use: model any quantity that changes by multiplying by a fixed factor each step. If{' '}
+                {`$a > 1$`}, the function grows. If {`$0 < a < 1$`}, the function decays. Every
+                other property still applies.
+              </p>
             </div>
           </div>
           <div className="lrn-definition">
             <span className="lrn-definition-term">Equal-bases rule</span>
             <div className="lrn-definition-desc">
               <p>
-                {`$a^m = a^n \\Rightarrow m = n$`} (for {`$a > 1$`})
+                {`$a^m = a^n \\Rightarrow m = n$`} (for {`$a > 0$`}, {`$a \\ne 1$`})
+              </p>
+              <p>
+                We leave out {`$a = 1$`} because {`$1^m = 1^n$`} for every {`$m, n$`}, the rule
+                would give nothing.
               </p>
               <p>Use: solve exponential equations where both sides share the same base.</p>
             </div>
           </div>
           <div className="lrn-definition">
-            <span className="lrn-definition-term">Carbon dating half-life</span>
+            <span className="lrn-definition-term">Half-life equation</span>
             <div className="lrn-definition-desc">
-              <p>{`$\\left(\\frac{1}{2}\\right)^t = \\frac{a}{b}$`}</p>
+              <p>{`$\\left(\\frac{1}{2}\\right)^{t/T} = \\frac{a}{b}$`}</p>
               <p>
-                Use: find the age of an object when you know the fraction of C-14 remaining. One
-                half-life = 5700 years; {`$t$`} is in units of half-lives.
+                {`$a/b$`} is the fraction of the substance still present. {`$T$`} is the half-life
+                of that substance, the fixed time it takes for half of any sample to disappear.{' '}
+                {`$t$`} is elapsed time in the same units as {`$T$`}.
+              </p>
+              <p>
+                Use: find the age of a sample when you know the fraction remaining. Carbon-14 has{' '}
+                {`$T = 5{,}730$`} years; cesium-137 has {`$T \\approx 30$`} years.
               </p>
             </div>
           </div>
@@ -1162,11 +1023,13 @@ function useConfig() {
                 <td>{`$(0, 1)$`}</td>
               </tr>
               <tr>
-                <td>{`$x \\to -\\infty$`}</td>
-                <td>Approaches 0</td>
+                <td>For very large negative {`$x$`}</td>
+                <td>Approaches 0 (horizontal asymptote {`$y = 0$`})</td>
               </tr>
               <tr>
-                <td>{`$x \\to +\\infty$`}</td>
+                <td>
+                  For very large positive {`$x$`} (when {`$a > 1$`})
+                </td>
                 <td>Grows without bound</td>
               </tr>
             </tbody>
@@ -1176,36 +1039,55 @@ function useConfig() {
         <>
           <h2>Interest Formulas</h2>
           <div className="lrn-definition">
-            <span className="lrn-definition-term">Simple interest</span>
-            <div className="lrn-definition-desc">
-              <p>{`$\\left(1 + \\frac{nr}{100}\\right)\\$k$`}</p>
-              <p>Use: compute total when interest is on the original principal only (linear).</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Annually compounded interest</span>
-            <div className="lrn-definition-desc">
-              <p>{`$\\$k \\times \\left(1 + \\frac{r}{100}\\right)^n$`}</p>
-              <p>Use: compute total when interest compounds once per year for {`$n$`} years.</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
             <span className="lrn-definition-term">{`$m$`}-times-per-year compounding</span>
             <div className="lrn-definition-desc">
-              <p>{`$\\$k \\times \\left(1 + \\frac{r}{100m}\\right)^{nm}$`}</p>
+              <p>{`$\\$k \\left(1 + \\frac{r}{100m}\\right)^{nm}$`}</p>
               <p>
-                Use: compute total when interest compounds {`$m$`} times per year for {`$n$`} years.
+                Use: compute total when interest compounds {`$m$`} times per year for {`$n$`} years.{' '}
+                {`$m = 1$`} recovers annual compounding; {`$m \\to \\infty$`} gives continuous
+                compounding (see Euler's number).
               </p>
             </div>
           </div>
           <div className="lrn-definition">
-            <span className="lrn-definition-term">Euler's number</span>
+            <span className="lrn-definition-term">Annual percentage yield (APY)</span>
             <div className="lrn-definition-desc">
-              <p>{`$e = \\lim_{n \\to \\infty}\\left(1 + \\frac{1}{n}\\right)^n \\approx 2.71828$`}</p>
               <p>
-                Use: express the limit of compound interest as compounding frequency approaches
-                infinity. For principal {`$\\$k$`} at rate {`$r\\%$`} over {`$n$`} years:{' '}
-                {`$\\$k \\cdot e^{\\tfrac{rn}{100}}$`}.
+                {`$\\text{APY} = \\left(1 + \\frac{r}{100m}\\right)^{m} - 1$`} (read as a percent)
+              </p>
+              <p>
+                The flat once-a-year rate that grows a balance by the same factor in one year as{' '}
+                {`$m$`}-times compounding at rate {`$r\\%$`}. Use: compare accounts with different
+                compounding frequencies on equal footing.
+              </p>
+            </div>
+          </div>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Euler's number (continuous compounding)</span>
+            <div className="lrn-definition-desc">
+              <p>
+                {`$\\left(1 + \\frac{1}{m}\\right)^m$`} settles toward {`$e \\approx 2.71828$`} as{' '}
+                {`$m$`} grows without bound.
+              </p>
+              <p>
+                The function {`$f(x) = e^x$`} is the <strong>natural exponential function</strong>.
+                Since {`$2 < e < 3$`}, its graph lies between {`$y = 2^x$`} and {`$y = 3^x$`}.
+              </p>
+              <p>
+                For principal {`$\\$k$`} at rate {`$r\\%$`} over {`$n$`} years, the continuously
+                compounded amount is {`$\\$k \\cdot e^{\\tfrac{rn}{100}}$`}. That's the ceiling the{' '}
+                {`$m$`}-times formula approaches as {`$m$`} grows.
+              </p>
+            </div>
+          </div>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Depreciation / decay multiplier</span>
+            <div className="lrn-definition-desc">
+              <p>{`$\\$k \\left(1 - \\frac{r}{100}\\right)^n$`}</p>
+              <p>
+                Use: compute the value left after {`$n$`} years when a quantity loses {`$r\\%$`} of
+                its current value each year. Same shape as the growth formula with a minus sign; the
+                factor {`$(1 - r/100)$`} is between 0 and 1, so the curve decays.
               </p>
             </div>
           </div>
@@ -1219,178 +1101,9 @@ function useConfig() {
               </p>
             </div>
           </div>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Compounding</th>
-                <th>{`$m$`}</th>
-                <th>Formula per year</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Annually</td>
-                <td>1</td>
-                <td>{`$\\left(1 + \\frac{r}{100}\\right)^1$`}</td>
-              </tr>
-              <tr>
-                <td>Semi-annually</td>
-                <td>2</td>
-                <td>{`$\\left(1 + \\frac{r}{200}\\right)^2$`}</td>
-              </tr>
-              <tr>
-                <td>Quarterly</td>
-                <td>4</td>
-                <td>{`$\\left(1 + \\frac{r}{400}\\right)^4$`}</td>
-              </tr>
-              <tr>
-                <td>Monthly</td>
-                <td>12</td>
-                <td>{`$\\left(1 + \\frac{r}{1200}\\right)^{12}$`}</td>
-              </tr>
-              <tr>
-                <td>Continuously</td>
-                <td>{`$\\infty$`}</td>
-                <td>{`$e^{\\tfrac{r}{100}}$`}</td>
-              </tr>
-            </tbody>
-          </table>
         </>,
 
         <>
-          <h2>Logarithms</h2>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Logarithm definition</span>
-            <div className="lrn-definition-desc">
-              <p>{`$\\log_a(b) = c \\iff a^c = b$`}</p>
-              <p>
-                Use: convert between log and exponential form; use when the unknown is in an
-                exponent.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Log identity</span>
-            <div className="lrn-definition-desc">
-              <p>{`$\\log_a(a^p) = p$`}</p>
-              <p>Use: simplify any expression where the argument is the base raised to a power.</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Richter magnitude</span>
-            <div className="lrn-definition-desc">
-              <p>{`$\\text{magnitude} = \\log_{10}\\!\\left(\\frac{M}{M_c}\\right)$`}</p>
-              <p>Use: compute earthquake magnitude from displacement ratio.</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Rule of 72</span>
-            <div className="lrn-definition-desc">
-              <p>{`$t \\approx \\frac{72}{r}$`} years</p>
-              <p>
-                Use: quickly estimate how many years to double an investment at {`$r\\%$`} annual
-                compound interest.
-              </p>
-            </div>
-          </div>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Constraint</th>
-                <th>Rule</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Base {`$a$`}</td>
-                <td>
-                  {`$a > 0$`} and {`$a \\ne 1$`}
-                </td>
-              </tr>
-              <tr>
-                <td>Argument {`$b$`}</td>
-                <td>{`$b > 0$`}</td>
-              </tr>
-              <tr>
-                <td>Domain of {`$\\log_a(x)$`}</td>
-                <td>All positive reals</td>
-              </tr>
-              <tr>
-                <td>Range of {`$\\log_a(x)$`}</td>
-                <td>All real numbers</td>
-              </tr>
-              <tr>
-                <td>x-intercept of {`$\\log_a(x)$`}</td>
-                <td>{`$(1, 0)$`}</td>
-              </tr>
-            </tbody>
-          </table>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Log notation</th>
-                <th>Base</th>
-                <th>Used by</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>log (no subscript)</td>
-                <td>10</td>
-                <td>Scientists</td>
-              </tr>
-              <tr>
-                <td>ln</td>
-                <td>{`$e \\approx 2.71828$`}</td>
-                <td>Mathematicians</td>
-              </tr>
-              <tr>
-                <td>{`$\\log_a$`}</td>
-                <td>{`$a$`}</td>
-                <td>General</td>
-              </tr>
-            </tbody>
-          </table>
-        </>,
-
-        <>
-          <h2>Inverse Relationship</h2>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Exponential-log inverse (1)</span>
-            <div className="lrn-definition-desc">
-              <p>{`$\\log_a(a^x) = x$`}</p>
-              <p>Use: simplify a log of an exponential with the same base.</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Exponential-log inverse (2)</span>
-            <div className="lrn-definition-desc">
-              <p>{`$a^{\\log_a(x)} = x$`}</p>
-              <p>Use: simplify an exponential where the exponent is a log with the same base.</p>
-            </div>
-          </div>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Function</th>
-                <th>Domain</th>
-                <th>Range</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{`$g(x) = a^x$`}</td>
-                <td>All reals</td>
-                <td>Positive reals</td>
-              </tr>
-              <tr>
-                <td>{`$f(x) = \\log_a(x)$`}</td>
-                <td>Positive reals</td>
-                <td>All reals</td>
-              </tr>
-            </tbody>
-          </table>
-
           <h2>Key Techniques</h2>
           <table className="lrn-table">
             <thead>
@@ -1405,24 +1118,34 @@ function useConfig() {
                 <td>Equal-bases rule: equate exponents</td>
               </tr>
               <tr>
-                <td>Different bases</td>
-                <td>Convert all to a common base</td>
+                <td>Graph through a known point</td>
+                <td>
+                  Plug the point into {`$a^x$`}; solve for the base {`$a$`}
+                </td>
+              </tr>
+              <tr>
+                <td>Compare different compounding</td>
+                <td>Annual percentage yield: one-year factor minus 1</td>
+              </tr>
+              <tr>
+                <td>Different bases that share a prime</td>
+                <td>Rewrite each side as a power of that prime</td>
               </tr>
               <tr>
                 <td>{`Mixed exponential ($4^x$ and $2^x$)`}</td>
-                <td>{`Substitute $y = 2^x$ to get a polynomial`}</td>
-              </tr>
-              <tr>
-                <td>Unknown in exponent, no common base</td>
-                <td>Use logarithms to isolate the exponent</td>
+                <td>{`Let-substitution $y = 2^x$ turns it into a polynomial`}</td>
               </tr>
               <tr>
                 <td>Unknown rate</td>
                 <td>Isolate growth factor, then take {`$n$`}th root</td>
               </tr>
               <tr>
-                <td>Log with unknown base or argument</td>
-                <td>Convert to exponential form</td>
+                <td>Unknown principal (present value)</td>
+                <td>Divide by the growth factor</td>
+              </tr>
+              <tr>
+                <td>Equal payments on a loan</td>
+                <td>Discount each payment, sum equals principal</td>
               </tr>
             </tbody>
           </table>
@@ -1430,7 +1153,7 @@ function useConfig() {
       ]
     },
     customCss:
-      '.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }'
+      '.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }'
   }
 
   return config

@@ -83,12 +83,17 @@ export function usePrism(languages = []) {
     link.href = PRISM_CSS
     document.head.appendChild(link)
 
-    // syntax highlight theme - 3 accent colors + white opacity scale
+    // Structural + theme-adaptive palette. prism-tomorrow (PRISM_CSS above) is a
+    // light-on-dark palette and drives the DARK theme as-is. Untokenised text is
+    // pinned to --base-color so it flips per theme. On the LIGHT / SEPIA themes
+    // the surface is pale, so we recolour tokens to a dark-on-light palette that
+    // mirrors prism-tomorrow's category grouping. Never a fixed #fff/#ccc ink: it
+    // vanishes on the pale themes.
     const customStyles = document.createElement('style')
     customStyles.textContent = `
       code[class*="language-"],
       pre[class*="language-"] {
-        color: rgba(240, 240, 250, 0.9) !important;
+        color: color-mix(in srgb, var(--base-color) 88%, transparent);
         background: transparent !important;
         font-family: var(--reader-code-font, monospace) !important;
         font-size: 1.5rem !important;
@@ -99,56 +104,51 @@ export function usePrism(languages = []) {
         margin: 0;
         overflow: auto;
       }
-      .token.comment,
-      .token.prolog,
-      .token.doctype,
-      .token.cdata {
-        color: rgba(240, 240, 250, 0.3);
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.comment,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.prolog,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.doctype,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.cdata {
+        color: #8a9199;
         font-style: italic;
       }
-      .token.punctuation {
-        color: rgba(240, 240, 250, 0.45);
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.punctuation {
+        color: #4b5058;
       }
-      .token.property,
-      .token.tag {
-        color: rgba(240, 240, 250, 0.85);
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.property,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.tag,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.boolean,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.number,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.constant,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.symbol,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.deleted {
+        color: #c62f2f;
       }
-      .token.boolean,
-      .token.number,
-      .token.constant,
-      .token.symbol {
-        color: #c4b5fd;
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.selector,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.attr-name,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.string,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.char,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.builtin,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.inserted {
+        color: #217a33;
       }
-      .token.selector,
-      .token.attr-name,
-      .token.string,
-      .token.char,
-      .token.builtin {
-        color: #a3d9a5;
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.operator,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.entity,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.url,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.variable {
+        color: #b3541e;
       }
-      .token.operator,
-      .token.entity,
-      .token.url,
-      .token.variable {
-        color: rgba(240, 240, 250, 0.6);
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.atrule,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.attr-value,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.keyword {
+        color: #1a56c4;
       }
-      .token.atrule,
-      .token.attr-value,
-      .token.function,
-      .token.class-name {
-        color: #ffffff;
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.function,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.class-name {
+        color: #8a3ab0;
       }
-      .token.keyword {
-        color: #93c5fd;
-      }
-      .token.regex,
-      .token.important {
-        color: #c4b5fd;
-      }
-      code[class*="language-"] ::selection,
-      code[class*="language-"]::selection {
-        background: rgba(147, 197, 253, 0.2);
-        color: inherit;
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.regex,
+      :is(html[data-theme="light"], html[data-theme="sepia"]) .token.important {
+        color: #b3541e;
       }
     `
     document.head.appendChild(customStyles)

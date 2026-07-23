@@ -9,15 +9,18 @@ const EVENT = 'aether-theme-change'
 
 function getInitialTheme() {
   const saved = localStorage.getItem(THEME_KEY)
+  // The separate 'high-contrast' theme was merged into 'dark' (now itself a
+  // high-contrast theme). Migrate any stored value forward.
+  if (saved === 'high-contrast') return 'dark'
   if (saved) return saved
-  if (window.matchMedia('(prefers-contrast: more)').matches) return 'high-contrast'
-  if (window.matchMedia('(prefers-color-scheme: light)').matches) return 'light'
-  return 'high-contrast'
+  // No explicit choice yet: follow the OS live. 'system' resolves per-render and
+  // the matchMedia listener re-applies on OS change until the user picks a theme.
+  return 'system'
 }
 
 function resolveTheme(t) {
+  if (t === 'high-contrast') return 'dark'
   if (t !== 'system') return t
-  if (window.matchMedia('(prefers-contrast: more)').matches) return 'high-contrast'
   if (window.matchMedia('(prefers-color-scheme: light)').matches) return 'light'
   return 'dark'
 }
@@ -35,7 +38,7 @@ function applyReaderVars(fontScale, lineHeight, measure) {
 
 // Module-level state - shared across all hook instances
 let state = {
-  theme: 'high-contrast',
+  theme: 'dark',
   fontScale: '1',
   lineHeight: '1.65',
   measure: '65ch'
@@ -58,6 +61,15 @@ function initState() {
   }
   applyTheme(state.theme)
   applyReaderVars(state.fontScale, state.lineHeight, state.measure)
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    const mq = window.matchMedia('(prefers-color-scheme: light)')
+    mq.addEventListener('change', () => {
+      if (state.theme === 'system') {
+        applyTheme(state.theme)
+        broadcast()
+      }
+    })
+  }
 }
 
 function setTheme(theme) {
@@ -87,6 +99,27 @@ function setMeasure(measure) {
   localStorage.setItem(MEASURE_KEY, measure)
   applyReaderVars(state.fontScale, state.lineHeight, state.measure)
   broadcast()
+}
+
+// Theme, font scale, line height and measure live in their own localStorage
+// keys, outside the settings object. The sheet's RESTORE DEFAULTS only rewrites
+// that object, so without this it left every one of them untouched: the theme
+// you had picked survived a "restore ALL settings". Defaults here mean "no
+// stored key" (theme then follows the OS), so this removes rather than writes.
+export function resetTheme() {
+  ;[THEME_KEY, FONT_SCALE_KEY, LINE_HEIGHT_KEY, MEASURE_KEY].forEach(k =>
+    localStorage.removeItem(k)
+  )
+  state = {
+    theme: getInitialTheme(),
+    fontScale: '1',
+    lineHeight: '1.65',
+    measure: '65ch'
+  }
+  applyTheme(state.theme)
+  applyReaderVars(state.fontScale, state.lineHeight, state.measure)
+  broadcast()
+  window.dispatchEvent(new CustomEvent(EVENT, { detail: { ...state } }))
 }
 
 export function useTheme() {

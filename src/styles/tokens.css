@@ -16,15 +16,38 @@
 
   /* Text */
   --text-primary: rgba(224, 224, 228, 1);
-  --text-secondary: rgba(232, 232, 242, 0.55);
+  --text-secondary: rgba(232, 232, 242, 0.7);
   --text-tertiary: rgba(232, 232, 242, 0.28);
   --text-disabled: rgba(232, 232, 242, 0.18);
+
+  /* Canonical ink scale — one off-white (240,240,250) at the design system's
+     opacity tiers. Single source of truth for the ~200 rgba()
+     literals that were scattered inline at ~10 different opacities. */
+  --ink-default: rgba(240, 240, 250, 1);
+  --ink-quiet: rgba(240, 240, 250, 0.55);
+  --ink-faint: rgba(240, 240, 250, 0.3);
+  --ink-hairline: rgba(240, 240, 250, 0.15);
 
   /* Borders */
   --border-subtle: rgba(232, 232, 242, 0.06);
   --border-default: rgba(232, 232, 242, 0.1);
   --border-interactive: rgba(232, 232, 242, 0.25);
   --border-active: rgba(232, 232, 242, 0.55);
+
+  /* Line-weight hierarchy */
+  --stroke-hairline: 0.5px;
+  --stroke-fine: 1px;
+  --stroke-medium: 1.5px;
+  --stroke-bold: 2px;
+  --stroke-heavy: 3px;
+
+  /* Typographic tracking hierarchy */
+  --track-display: 0.02em;
+  --track-heading: 0.04em;
+  --track-body: 0.12em;
+  --track-label: 0.16em;
+  --track-button: 0.16em;
+  --track-eyebrow: 0.18em;
 
   /* Domain colors */
   --domain-mathematics: #ffd700;
@@ -117,8 +140,6 @@
   /* Motion */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-signature: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-entrance: cubic-bezier(0, 0, 0.2, 1);
-  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --dur-micro: calc(120ms * var(--dur-multiplier, 1));
   --dur-fast: calc(200ms * var(--dur-multiplier, 1));
@@ -144,11 +165,25 @@
     'D-DIN', 'Noto Sans JP', 'Noto Sans SC', 'Hiragino Sans', 'Yu Gothic', 'Microsoft YaHei',
     'PingFang SC', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono:
-    var(--reader-code-font, ui-monospace, 'JetBrains Mono', 'Fira Code', Menlo), 'Noto Sans JP',
+    var(--reader-code-font, 'JetBrains Mono', ui-monospace, 'Fira Code', Menlo), 'Noto Sans JP',
     'Noto Sans SC', 'Hiragino Sans', 'Yu Gothic', 'Microsoft YaHei', 'PingFang SC', monospace;
+  /* x-height ratio for JetBrains Mono fallback to reduce layout shift on swap.
+     Per Iter 7 C1 Q1 lock: 0.52. Per-fallback testing flagged in Iter 6 E4. */
+  --font-mono-size-adjust: 0.52;
   --font-dyslexic: 'OpenDyslexic', sans-serif;
 
   /* Platform UI kit - typography */
   --tracking-button: 0.2em;
   --fs-eyebrow: 0.6875rem;
+}
+
+@media (prefers-contrast: more) {
+  :root[data-theme='light'] {
+    --ink-default: rgb(0, 0, 0);
+    --ink-quiet: rgb(60, 60, 60);
+    --text-primary: rgb(0, 0, 0);
+    --text-secondary: rgb(60, 60, 60);
+    --border-default: rgba(0, 0, 0, 0.2);
+    --border-interactive: rgba(0, 0, 0, 0.3);
+  }
 }

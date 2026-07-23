@@ -1,6 +1,13 @@
 THIRD-PARTY NOTICES AND ATTRIBUTIONS
 
-This project incorporates materials from the sources listed below.
+This project incorporates materials from the sources listed below. The list
+covers four kinds of third-party material: fonts bundled with the app, code
+and media loaded over the network at runtime, copyrighted works that topic
+pages analyse or comment on, and the textbooks the curriculum is derived from.
+
+Aether itself has no backend and no account system. It does, however, load
+fonts, libraries, and images from the third-party hosts named under EXTERNAL
+RESOURCES below. Those requests reach servers this project does not operate.
 
 ================================================================================
 FONTS
@@ -21,23 +28,37 @@ Licensed under the SIL Open Font License, Version 1.1
 https://opendyslexic.org/
 Bundled at public/assets/fonts/OpenDyslexic-*.woff.
 
+JetBrains Mono
+--------------
+Copyright (c) 2020 The JetBrains Mono Project Authors
+Licensed under the SIL Open Font License, Version 1.1
+https://www.jetbrains.com/lp/mono/
+Bundled at public/assets/fonts/JetBrainsMono-latin.woff2 as a variable-weight
+latin subset. Also listed below under Google Fonts, which serves the full
+family as a webfont fallback.
+
 Google Fonts (loaded via fonts.googleapis.com)
 ----------------------------------------------
 All licensed under the SIL Open Font License, Version 1.1.
 
-- Inter           https://fonts.google.com/specimen/Inter
-- Atkinson Hyperlegible  https://fonts.google.com/specimen/Atkinson+Hyperlegible
-- JetBrains Mono  https://fonts.google.com/specimen/JetBrains+Mono
-- Fira Code       https://fonts.google.com/specimen/Fira+Code
-- Noto Sans JP    https://fonts.google.com/noto/specimen/Noto+Sans+JP
-- Noto Sans SC    https://fonts.google.com/noto/specimen/Noto+Sans+SC
+- Inter                   https://fonts.google.com/specimen/Inter
+- Atkinson Hyperlegible   https://fonts.google.com/specimen/Atkinson+Hyperlegible
+- JetBrains Mono          https://fonts.google.com/specimen/JetBrains+Mono
+- Fira Code               https://fonts.google.com/specimen/Fira+Code
+- Noto Sans JP            https://fonts.google.com/noto/specimen/Noto+Sans+JP
+- Noto Sans SC            https://fonts.google.com/noto/specimen/Noto+Sans+SC
+
+Requested in index.html. The stylesheet is loaded with media="print" and
+promoted on load, so it does not block first paint.
 
 ================================================================================
 EXTERNAL RESOURCES (CDN)
 ================================================================================
 
+Libraries
+---------
+
 MathJax v3
-----------
 Copyright (c) 2009-2024 The MathJax Consortium
 Licensed under Apache License 2.0
 https://www.mathjax.org/
@@ -46,7 +67,6 @@ Fonts loaded from: cdn.jsdelivr.net/npm/mathjax@3/es5/output/chtml/fonts/woff-v2
 See src/hooks/use-mathjax.js.
 
 Prism.js
---------
 Copyright (c) 2012 Lea Verou
 Licensed under the MIT License
 https://prismjs.com/
@@ -55,11 +75,56 @@ language components for python, javascript, typescript, jsx, css, bash, json,
 latex, cpp, c, rust, go).
 See src/hooks/use-prism.js.
 
+Images and embedded media
+-------------------------
+
+Topic pages and curriculum covers reference images hosted elsewhere. No image
+from these hosts is redistributed in this repository; each is fetched by the
+reader's browser at view time. Licensing follows the host, per file.
+
+Wikimedia Commons
+  upload.wikimedia.org, commons.wikimedia.org
+  The largest source of illustrative imagery in this project, used heavily
+  throughout the History curriculum and in several Mathematics topics. Each
+  file on Commons carries its own license (public domain, CC BY, CC BY-SA, and
+  others) and its own attribution requirements.
+
+  Attribution is carried in the page itself, not in this file. Every figure
+  that displays a Commons image states the licence in its caption and links
+  to the file's description page on Commons, which names the author and the
+  exact licence version. This holds for all 74 such figures.
+
+  If you reuse one of these images outside this project, take the terms from
+  the Commons file page. Do not rely on this notice.
+  https://commons.wikimedia.org/
+
 Open Library Covers API
------------------------
-Book cover images are fetched from Open Library's Cover API.
-https://openlibrary.org/dev/docs/api/covers
-Open Library is a project of the Internet Archive.
+  covers.openlibrary.org
+  Book cover images. Open Library is a project of the Internet Archive.
+  https://openlibrary.org/dev/docs/api/covers
+
+Google Books
+  books.google.com
+  Book cover thumbnails, used as a fallback when Open Library has no cover.
+
+YouTube
+  i.ytimg.com (video thumbnails), www.youtube-nocookie.com (embedded player)
+  Thumbnails and embeds for the video topics. The privacy-enhanced
+  youtube-nocookie.com domain is used for embeds. Thumbnails and embeds remain
+  the property of YouTube and the respective video creators.
+  See src/components/home/curriculum-view.jsx and
+  src/components/learning/learning-mode.jsx.
+
+No film imagery is used anywhere in this project. The Star Wars film analysis
+is written commentary only. Its visualizations are drawn from measurements and
+plot structure, not from stills: the ship comparison renders each vehicle as a
+bar whose width is its true length against a meter ruler, and the character
+roster is set in type.
+
+Earlier versions displayed studio and fan-wiki photographs under a claim of
+fair use. Those were removed so that nothing in this project depends on a
+fair-use defence. Every asset now loads under an explicit licence, is in the
+public domain, or is original work.
 
 ================================================================================
 EDUCATIONAL CONTENT ATTRIBUTIONS
@@ -72,17 +137,20 @@ respective authors, publishers, and rights holders.
 
 Books
 -----
-- Augustus: First Emperor of Rome (2014). Adrian Goldsworthy.
-  Published by Yale University Press. ISBN: 978-0300178722 (hardcover).
-  File: src/features/explore/books/biography/Founders & Builders/augustus-first-emperor.jsx
+- Augustus: The Biography. Jochen Bleicken.
+  Translated from the German by Anthea Bell.
+  Published by Allen Lane / Penguin.
+  Originally published as Augustus: Eine Biographie (1998),
+  Alexander Fest Verlag, Berlin.
+  File: src/features/explore/books/biography/Founders & Builders/augustus-the-biography.jsx
 
 - The Book of the New Sun tetralogy (1980-1983). Gene Wolfe.
   Published by Simon & Schuster (Vol. 1) and Timescape Books, a Simon &
   Schuster imprint (Vols. 2-4). Later reissued by Tor Books.
-    * The Shadow of the Torturer (1980).      ISBN: 978-0671253257.
-    * The Claw of the Conciliator (1981).     ISBN: 978-0671413705.
-    * The Sword of the Lictor (1982).         ISBN: 978-0671435950.
-    * The Citadel of the Autarch (1983).      ISBN: 978-0671452513.
+    * The Shadow of the Torturer (1980).
+    * The Claw of the Conciliator (1981).
+    * The Sword of the Lictor (1982).
+    * The Citadel of the Autarch (1983).
   Files: src/features/explore/books/fantasy/Science Fantasy/the-*.jsx
 
 Films
@@ -90,6 +158,7 @@ Films
 - Star Wars: Episode I - The Phantom Menace (1999). Written and directed by
   George Lucas. Lucasfilm Ltd. / The Walt Disney Company.
   File: src/features/explore/films/star-wars/the-phantom-menace.jsx
+  Visualization: src/components/viz/films/star-wars/the-phantom-menace.jsx
 
 Podcasts
 --------
@@ -112,33 +181,77 @@ inspired by the following works. This content represents transformative
 educational material that teaches established academic concepts. All original
 works remain copyrighted by their respective authors and publishers.
 
+Each subject also declares its sources in src/config/registry.js, which is the
+authoritative machine-readable list and is surfaced on the subject page.
+
 MATHEMATICS
 -----------
+Arithmetic:
 - Understanding Numbers in Elementary School Mathematics (2011). Hung-Hsi Wu.
-  Published by the American Mathematical Society. ISBN: 978-0821852606.
-  (Arithmetic curriculum.)
+  Published by the American Mathematical Society..
+- Prealgebra. Richard Rusczyk, David Patrick, Ravi Boppana.
+  Published by Art of Problem Solving (AoPS).
+- Complete Mathematics for Cambridge IGCSE Extended.
+  David Rayner, Ian Bettison, Mathew Taylor. Published by Oxford University Press.
+
+Algebra:
 - Algebra (1993). I.M. Gelfand and Alexander Shen. Published by Birkhäuser.
-  ISBN: 978-0817636777.
-  (Algebra curriculum: arithmetic foundations, algebraic identities, the
-  binomial theorem, roots/powers/inequalities.)
+- Functions and Graphs. I.M. Gelfand, E.G. Glagoleva, E.E. Shnol.
 - Introduction to Algebra. Richard Rusczyk. Published by Art of Problem
-  Solving (AoPS). ISBN: 978-1934124147.
-  (Algebra curriculum: algebraic foundations, linear equations, ratios and
-  proportions, graphing lines and inequalities, quadratic equations,
-  functions, polynomials and exponential functions, sequences and series.)
+  Solving (AoPS)..
+- Precalculus: Mathematics for Calculus. James Stewart, Lothar Redlin,
+  Saleem Watson. Published by Cengage.
+- How to Prove It: A Structured Approach. Daniel J. Velleman.
+  Published by Cambridge University Press.
+- Complex Numbers from A to ...Z. Titu Andreescu, Dorin Andrica.
+  Published by Birkhäuser.
+- Elementary Linear Algebra. Howard Anton, Chris Rorres, Anton Kaul.
+  Published by Wiley.
+- The Cauchy-Schwarz Master Class. J. Michael Steele.
+  Published by Cambridge University Press.
 
 PHYSICS
 -------
+Classical Mechanics:
 - Mechanics (Course of Theoretical Physics, Vol. 1), 3rd edition (1976).
   L.D. Landau, E.M. Lifshitz. Published by Butterworth-Heinemann.
-  ISBN: 978-0750628969.
 - Mathematical Methods of Classical Mechanics, 2nd edition (1989).
   V.I. Arnold. Translated by K. Vogtmann and A. Weinstein.
   Published by Springer (Graduate Texts in Mathematics, Vol. 60).
-  ISBN: 978-0387968902.
 - An Introduction to Mechanics, 2nd edition (2013). Daniel Kleppner,
   Robert J. Kolenkow. Published by Cambridge University Press.
-  ISBN: 978-0521198110.
+- Classical Dynamics: A Contemporary Approach. Jorge V. José,
+  Eugene J. Saletan. Published by Cambridge University Press.
+- Regular and Chaotic Dynamics. A.J. Lichtenberg, M.A. Lieberman.
+  Published by Springer.
+- Quantization of Gauge Systems. Marc Henneaux, Claudio Teitelboim.
+  Published by Princeton University Press.
+- Introduction to Mechanics and Symmetry. Jerrold E. Marsden,
+  Tudor S. Ratiu. Published by Springer.
+- Classical Mechanics, 3rd edition. Herbert Goldstein, Charles P. Poole,
+  John L. Safko. Published by Addison-Wesley.
+- Modern Classical Physics. Kip S. Thorne, Roger D. Blandford.
+  Published by Princeton University Press.
+- Solitons: An Introduction. P.G. Drazin, R.S. Johnson.
+  Published by Cambridge University Press.
+
+CHEMISTRY
+---------
+General Chemistry:
+- Chemical Principles: The Quest for Insight. Peter Atkins, Loretta Jones.
+  Published by W.H. Freeman.
+- Principles of Modern Chemistry. David W. Oxtoby, H. Pat Gillis,
+  Alan Campion. Published by Cengage.
+- Inorganic Chemistry. Catherine E. Housecroft, Alan G. Sharpe.
+  Published by Pearson.
+- Physical Chemistry. Peter Atkins, Julio de Paula.
+  Published by Oxford University Press.
+
+HISTORY
+-------
+Prehistory:
+- The Human Past: World Prehistory and the Development of Human Societies.
+  Chris Scarre (editor). Published by Thames & Hudson.
 
 INFORMATION THEORY
 ------------------
@@ -147,11 +260,12 @@ INFORMATION THEORY
 
 LANGUAGES
 ---------
+German:
 - Begegnungen Deutsch als Fremdsprache A1+ NEU
   (Integriertes Kurs- und Arbeitsbuch). Anne Buscha, Szilvia Szita.
-  Published by Schubert-Verlag. ISBN: 978-3969150054.
+  Published by Schubert-Verlag..
 - Begegnungen A1+ Glossar Deutsch-Englisch. Anne Buscha, Szilvia Szita.
-  Published by Schubert-Verlag. ISBN: 978-3969150306.
+  Published by Schubert-Verlag..
 
 ================================================================================
 DEPENDENCIES
@@ -162,24 +276,63 @@ versions. Individual licenses are available in each package's node_modules
 directory.
 
 Runtime dependencies:
+- @observablehq/plot (ISC)       https://observablehq.com/plot/
+- @react-three/drei (MIT)        https://github.com/pmndrs/drei
+- @react-three/fiber (MIT)       https://github.com/pmndrs/react-three-fiber
 - @tanstack/react-virtual (MIT)  https://tanstack.com/virtual
-- framer-motion (MIT)            https://www.framer.com/motion/
+- d3-scale (ISC)                 https://d3js.org/d3-scale
+- elkjs (EPL-2.0)                https://github.com/kieler/elkjs
+- graphology (MIT)               https://graphology.github.io/
 - idb (ISC)                      https://github.com/jakearchibald/idb
+- katex (MIT)                    https://katex.org/
+- labella (Apache-2.0)           https://github.com/twitter/labella.js
+- lightweight-charts (Apache-2.0) https://tradingview.github.io/lightweight-charts/
 - mafs (MIT)                     https://mafs.dev/
 - matter-js (MIT)                https://brm.io/matter-js/
 - react, react-dom (MIT)         https://react.dev/
 - react-compiler-runtime (MIT)   https://react.dev/learn/react-compiler
 - react-router-dom (MIT)         https://reactrouter.com/
+- sigma (MIT)                    https://www.sigmajs.org/
+- three (MIT)                    https://threejs.org/
 - ts-fsrs (MIT)                  https://github.com/open-spaced-repetition/ts-fsrs
 
-Notable transitive dependency:
-- KaTeX (MIT) is shipped via mafs and used inside Mafs <LaTeX> components.
-  https://katex.org/
+Three runtime dependencies carry copyleft or notice-bearing licenses:
+
+- elkjs is distributed under the Eclipse Public License 2.0. Its source is
+  available at https://github.com/kieler/elkjs. It is used unmodified and
+  lazy-loaded at runtime (see src/lib/elk/index.js).
+- labella and lightweight-charts are distributed under the Apache License 2.0.
+  Both are used unmodified. The Apache 2.0 license text is available at
+  https://www.apache.org/licenses/LICENSE-2.0 and is reproduced in each
+  package's own directory.
+
+Every other runtime dependency listed above is MIT or ISC licensed, as marked.
 
 Build / tooling (devDependencies):
-- vite, @vitejs/plugin-react, babel-plugin-react-compiler, autoprefixer,
-  postcss, prettier, eslint (and plugins), @playwright/test, playwright.
-  All MIT-licensed unless otherwise noted.
+- MIT licensed: vite, vite-plugin-svgr, @vitejs/plugin-react,
+  babel-plugin-react-compiler, autoprefixer, postcss, svgo, prettier,
+  eslint, @eslint/js, eslint-plugin-react, eslint-plugin-react-hooks, globals.
+- ISC licensed: knip.
+
+================================================================================
+VENDORED SOURCE
+================================================================================
+
+Q.js (Quantum JavaScript)
+-------------------------
+Copyright (c) 2019-2020 Stewart Smith
+Licensed under the MIT License
+https://github.com/stewdio/q.js
+Vendored at src/lib/q.js/. Full license text at src/lib/q.js/LICENSE.md.
+Used as the quantum-computing engine; not published to npm by its author.
+
+================================================================================
+PROJECT LICENSE
+================================================================================
+
+Platform code (src/, public/, configuration files) is MIT licensed.
+Learning content (src/features/) is licensed CC BY-NC-SA 4.0.
+See LICENSE for both texts.
 
 ================================================================================
 

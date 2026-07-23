@@ -42,6 +42,56 @@ function installEscapeHook(MJ) {
   }
 }
 
+// Closing punctuation that must never be orphaned onto its own line after an
+// inline math box. A wide inline `mjx-container` (e.g. `$2{,}147{,}483{,}647$`)
+// is a replaced-element-like inline-block, so the browser is free to break the
+// line between it and the following text — stranding a lone `.` or `,` at the
+// start of the next line. We glue the run of closing punctuation that directly
+// follows an inline math box to it inside a `white-space: nowrap` span.
+const CLOSE_PUNCT = new Set([
+  '.',
+  ',',
+  ';',
+  ':',
+  '!',
+  '?',
+  ')',
+  ']',
+  '}',
+  '%',
+  '’',
+  '”',
+  '"',
+  "'",
+  '…',
+  '‰',
+  '”'
+])
+
+function glueInlineMathPunctuation(root) {
+  const scope = root && root.querySelectorAll ? root : document.body
+  const containers = scope.querySelectorAll('mjx-container:not([display="true"])')
+  containers.forEach(c => {
+    // Already glued on a previous typeset pass.
+    if (c.parentElement && c.parentElement.classList.contains('math-nowrap')) return
+    const next = c.nextSibling
+    if (!next || next.nodeType !== 3 /* TEXT_NODE */) return
+    const text = next.nodeValue
+    let i = 0
+    while (i < text.length && CLOSE_PUNCT.has(text[i])) i++
+    if (i === 0) return
+    const punct = text.slice(0, i)
+    const wrap = document.createElement('span')
+    wrap.className = 'math-nowrap'
+    c.parentNode.insertBefore(wrap, c)
+    wrap.appendChild(c)
+    wrap.appendChild(document.createTextNode(punct))
+    const rest = text.slice(i)
+    if (rest) next.nodeValue = rest
+    else next.remove()
+  })
+}
+
 export function useMathJax(deps = [], enabled = true) {
   const settings = useSettings()
   const engine = settings.formulaRender || 'katex'
@@ -56,9 +106,11 @@ export function useMathJax(deps = [], enabled = true) {
       if (window.MathJax?.typesetClear) {
         window.MathJax.typesetClear(elements)
       }
-      return window.MathJax.typesetPromise(elements).catch(err => {
-        console.warn('MathJax typeset error:', err)
-      })
+      return window.MathJax.typesetPromise(elements)
+        .then(() => glueInlineMathPunctuation(container))
+        .catch(err => {
+          console.warn('MathJax typeset error:', err)
+        })
     }
     return Promise.resolve()
   }, [])

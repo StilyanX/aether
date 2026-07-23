@@ -1,0 +1,617 @@
+/* VizFigure - wrapper-only styles. Knows nothing about engine internals. */
+/* All widths, spacing, and colors inherit from LearningTemplate tokens
+   (--container, --space-*, --base-color, --reader-font-family, --text-base,
+   --leading-body). */
+
+/* HARD RULE: figures NEVER exceed the text content area. No bleed past the
+   parent, no negative margins. The viz lives strictly inside the same
+   horizontal extent the text occupies. */
+
+.vizfig {
+  margin: var(--space-6) 0;
+  display: block;
+  /* Single source of truth for the viz font. Every descendant - frame content,
+     SVG text, and the portaled controls bar - inherits this, so individual viz
+     no longer set `fontFamily: FONT_FAMILY` inline. Matches the FONT_FAMILY token. */
+  font-family: var(--reader-font-family, 'D-DIN'), ui-monospace, monospace;
+}
+
+/* Sizes (tuned to viz intrinsic density) */
+/*   compact: sparse viz with fixed geometric scale (pendulums, free-body
+              diagrams, simple machines, single molecules). Caps at 1350px so
+              the visualization isn't stranded in empty space.
+   body:     standard plots and figures. Caps at the readable container
+              (1200px). The default.
+   wide:     spatially dense data displays (time series, histograms). Fills
+              the entire content area with no cap.
+
+   All sizes left-aligned with the prose. No size escapes the parent. */
+
+.vizfig--compact {
+  width: 100%;
+  max-width: 1350px;
+  /* Capped width for sparse, fixed-scale viz (unit circles, single figures) so a
+     square plot never blows up to the full container height. Centred like the
+     body size, not floated, so it aligns with the prose above and below it. */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Reset float at structural boundaries so each new section starts clean. */
+.lrn-section,
+.lrn h2,
+.lrn h3,
+.lrn h4,
+.lrn-faded {
+  clear: both;
+}
+
+.vizfig--body {
+  width: 100%;
+  max-width: var(--container);
+  margin-left: auto;
+  margin-right: auto;
+  clear: both;
+}
+
+.vizfig--wide {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Frame: aspect-ratio container */
+
+/* All colors flow through the platform's per-theme tokens
+   (--border-interactive, --bg-elevated, --bg-surface, --text-primary).
+   Works automatically in dark, light, and sepia themes.
+
+   Also overrides Mafs's hardcoded --mafs-bg/--mafs-fg/--mafs-line-color
+   so embedded Mafs viz inherit the theme instead of forcing a black canvas. */
+
+.vizfig-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--vizfig-aspect, 16 / 9);
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-interactive);
+  overflow: hidden;
+}
+
+/* Override Mafs's hardcoded tokens AT the .MafsView level - Mafs defines
+   --mafs-bg: black on .MafsView itself, so a parent override is shadowed. */
+.vizfig-frame .MafsView {
+  background: transparent;
+  --mafs-bg: transparent;
+  --mafs-fg: var(--base-color);
+  --mafs-origin-color: var(--base-color);
+  --mafs-line-color: color-mix(in srgb, var(--base-color) 20%, transparent);
+  --grid-line-subdivision-color: color-mix(in srgb, var(--base-color) 8%, transparent);
+}
+
+/* Header - viz name strip above the frame. Sticky against the frame's top
+   edge via shared border treatment. Same width as the frame. */
+
+/* Header bar - sits above the frame, attached to its top edge.
+   Two-part: dim id code + bold title, both uppercase. */
+.vizfig-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: 10px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-interactive);
+  border-bottom: none;
+  font-family: var(--reader-font-family);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.vizfig-id {
+  font-size: calc(var(--text-base) * 0.85);
+  font-weight: 400;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.vizfig-title {
+  font-size: calc(var(--text-base) * 1.05);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.viz-webgl-fallback {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px;
+  text-align: center;
+}
+.viz-webgl-fallback-title {
+  font-family: var(--reader-font-family);
+  font-size: var(--type-small);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-secondary);
+}
+.viz-webgl-fallback-detail {
+  font-family: var(--reader-font-family);
+  font-size: var(--type-small);
+  line-height: 1.625;
+  max-width: 40ch;
+  color: color-mix(in srgb, var(--text-secondary) 70%, transparent);
+}
+
+.vizfig-frame--bare {
+  background: transparent;
+  border: none;
+}
+
+.vizfig-frame > * {
+  width: 100%;
+  height: 100%;
+}
+
+/* Auto-aspect: content sizes itself (tables, lists, prose-shaped markup).
+   Drops the aspect-ratio constraint and the height: 100% on children. */
+.vizfig-frame--auto {
+  aspect-ratio: auto;
+}
+
+.vizfig-frame--auto > * {
+  height: auto;
+}
+
+/* Compact plots: landscape frame, diagram letterboxed inside
+   Hand-rolled Plot SVGs in a compact figure are geometrically square-ish
+   (unit circles, Argand planes: 1.1-1.4 aspect). With the header strip
+   stacked on top, the whole figure reads as a square. Force the plot to a
+   landscape rectangle; the SVG's own preserveAspectRatio="xMidYMid meet"
+   letterboxes the diagram inside it, so circles stay round and centred and
+   only the frame becomes a rectangle. Scoped to .vizfig--compact so wide
+   number-line strips (size="wide"/"body") are untouched. */
+.vizfig--compact:not(.vizfig--fullscreen) .viz-plot {
+  aspect-ratio: 16 / 9;
+}
+
+/* Header icon buttons (fullscreen, zoom)
+   Hairline monochrome chrome; inverts on hover. Theme-reactive via the
+   same tokens the header already uses. */
+
+.vizfig-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 6px;
+  background: transparent;
+  border: 1px solid var(--border-interactive);
+  color: var(--text-primary);
+  font-family: var(--reader-font-family);
+  font-size: calc(var(--text-base) * 0.78);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.vizfig-icon-btn:first-of-type {
+  margin-left: auto;
+}
+
+.vizfig-icon-btn:hover {
+  background: var(--text-primary);
+  color: var(--bg-surface);
+}
+
+.vizfig-icon-btn:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.vizfig-zoom-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  margin-left: auto;
+}
+
+.vizfig-zoom-group + .vizfig-icon-btn {
+  margin-left: var(--space-2);
+}
+
+.vizfig-zoom-group .vizfig-icon-btn {
+  margin-left: 0;
+  border-right-width: 0;
+}
+
+.vizfig-zoom-group .vizfig-icon-btn:last-child {
+  border-right-width: 1px;
+}
+
+.vizfig-zoom-reset {
+  min-width: 50px;
+}
+
+/* Touch devices: enlarge the zoom controller (and fullscreen toggle) to the
+   44px minimum hit area while keeping the compact glyph. */
+@media (pointer: coarse) {
+  .vizfig-icon-btn {
+    min-width: 44px;
+    height: 44px;
+  }
+  .vizfig-zoom-reset {
+    min-width: 56px;
+  }
+}
+
+/* Fullscreen expansion
+   Inline expansion; this project uses no modals. The figure itself becomes
+   the viewport; nothing layers over it, no portal, no overlay card. */
+
+.vizfig--fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  /* dvh (dynamic viewport height) accounts for the browser's URL/chrome bar.
+     100vh is the MAXIMUM viewport ignoring chrome and would hide the header
+     behind the URL bar. The 100vh declaration is a fallback for browsers
+     that don't support dvh - newer browsers ignore it and apply 100dvh. */
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  margin: 0;
+  z-index: 100;
+  background: var(--bg-elevated);
+  display: flex;
+  flex-direction: column;
+}
+
+.vizfig--fullscreen .vizfig-header {
+  flex: 0 0 auto;
+}
+
+.vizfig--fullscreen .vizfig-frame {
+  flex: 1 1 auto;
+  aspect-ratio: auto;
+  width: 100%;
+  /* Column flex that fills ALL space below the header - resolution- and
+     header-height-independent (no magic 64px). The frame-content fills it,
+     the canvas takes the slack above the pinned controls. min-height: 0 lets
+     the chain shrink so controls are never pushed off-screen. */
+  height: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  /* Clip zoom-scaled canvas so it can't bleed over the controls bar below. */
+  overflow: hidden;
+}
+
+/* Zoomable frame: cursor and overflow hint that the surface is interactive. */
+.vizfig-frame--zoomable {
+  touch-action: none;
+  cursor: grab;
+  /* Stop text/image selection from fighting the drag-to-pan gesture. */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.vizfig-frame--zoomable:active {
+  cursor: grabbing;
+}
+
+/* Kill native image dragging inside the zoomable surface so a press-drag pans
+   the view instead of starting an image drag (belt-and-suspenders with the
+   onDragStart handler, for Safari where the ghost image can still appear). */
+.vizfig-frame--zoomable img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* Inner transform wrapper. Outside fullscreen it's an invisible passthrough.
+   Inside fullscreen it applies the zoom/pan transform from React state. */
+.vizfig-frame-content {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.vizfig-frame--auto .vizfig-frame-content {
+  height: auto;
+}
+
+/* Fit-to-frame sizing (normal mode)
+   A non-auto frame is a fixed aspect-ratio box with `overflow: hidden`. A
+   drawing root (svg | canvas | .MafsView) sizes itself `height: auto` from its
+   own viewBox aspect, which has nothing to do with the frame's aspect - and any
+   sibling stacked above it (a button row, a caption) pushes it down further. The
+   excess spills past the box and is silently cropped: the diagram looks complete
+   but its bottom edge (a number line, an x-axis) is gone, and it only reappears
+   in fullscreen. So lay the frame out as a flex column and let the drawing root
+   absorb the shrink, exactly as the fullscreen rules below do: siblings keep
+   their natural height, the drawing root shrinks to the space left over, and its
+   own preserveAspectRatio="xMidYMid meet" letterboxes the full viewBox inside.
+   Auto frames size to their content and cannot crop, so they opt out.
+
+   Viz that set an inline `display: flex` (side-by-side panels) keep it - inline
+   style beats these rules, so only plain block wrappers are restacked. */
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > *:has(> svg),
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > *:has(> canvas),
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > *:has(> .MafsView) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+/* The drawing root eats all of the shrink; `max-height` overrides the inline
+   `height: auto` the Plot/Canvas primitives set, so it can never outgrow the box. */
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > svg,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > canvas,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > .MafsView,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > * > svg,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > * > canvas,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > * > .MafsView {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
+}
+
+/* Siblings stacked with the drawing root (button rows, captions, readouts) keep
+   their natural height so the drawing root, not they, absorbs the shrink. */
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > svg ~ *,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > * > svg ~ *,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > * > canvas ~ *,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > * > .MafsView ~ *,
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > * > *:has(~ svg),
+.vizfig-frame:not(.vizfig-frame--auto) .vizfig-frame-content > * > *:has(~ .MafsView) {
+  flex: 0 0 auto;
+}
+
+/* Fullscreen layout for viz with sliders/controls. The viz's outer wrapper
+   is laid out as a flex column so the SVG fills the available vertical space
+   while controls (sliders, buttons) below it stay visible at their natural
+   height. Without this, the SVG's intrinsic aspect ratio pushes sliders past
+   the viewport bottom and `overflow: hidden` on .vizfig-frame clips them. */
+.vizfig--fullscreen .vizfig-frame-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  box-sizing: border-box;
+}
+
+.vizfig--fullscreen .vizfig-frame-content > * {
+  width: 100%;
+  max-width: 1600px;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+}
+
+/* Raw media (img/video) as a direct fullscreen child. The rule above sizes viz
+   WRAPPER divs to fill the frame; a replaced element would stretch to the box,
+   so keep it aspect-correct — object-fit letterboxes it inside the 100% box. */
+.vizfig--fullscreen .vizfig-frame-content > img,
+.vizfig--fullscreen .vizfig-frame-content > video {
+  object-fit: contain;
+}
+
+/* The canvas (svg | canvas | .MafsView) absorbs ALL of the flex shrinking.
+   `flex-basis: auto` is load-bearing - the item starts at its intrinsic
+   main-axis size, the wrapper overflows past `max-height: 100%`, and flex
+   shrinking distributes the overflow. Because sibling controls below are
+   pinned at `flex: 0 0 auto`, the canvas eats 100% of the shrink and the
+   controls keep their natural height. Mafs's outer DOM node is
+   `<div.MafsView>` - targeted explicitly here so Mafs-based viz inherit the
+   same flex sizing as raw SVG / canvas. */
+.vizfig--fullscreen .vizfig-frame-content > * > svg,
+.vizfig--fullscreen .vizfig-frame-content > * > canvas,
+.vizfig--fullscreen .vizfig-frame-content > * > .MafsView {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+/* Sibling controls (Slider wrapper, KatexInline caption, button row) keep
+   their natural height in fullscreen. Without this, square-aspect or tall
+   plots squash sliders below visibility. */
+.vizfig--fullscreen .vizfig-frame-content > * > svg ~ *,
+.vizfig--fullscreen .vizfig-frame-content > * > canvas ~ *,
+.vizfig--fullscreen .vizfig-frame-content > * > .MafsView ~ * {
+  flex: 0 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vizfig-frame-content {
+    will-change: auto;
+  }
+}
+
+body.vizfig-fullscreen-lock {
+  overflow: hidden;
+}
+
+/* Fullscreen viz fill rules (any engine)
+   Every viz fills the viewport in fullscreen with content centered.
+   100vw + calc(100vh - 64px) are definite values (no percent-height chain
+   to collapse, no black screen). `!important` overrides Mafs's inline
+   sizing and any viz function's inline alignItems: center on the outer div.
+
+   • Mafs: .MafsView fills viewport, inner SVG fills .MafsView, PAR swapped
+     to xMidYMid meet in viz-figure.jsx so math content centers both axes.
+   • R3F (Canvas): the wrapper div around <canvas> fills viewport, R3F's
+     ResizeObserver picks up the new size and re-renders. Camera aspect
+     auto-adjusts.
+   • HTML (tables, etc.): outer-div fills viewport via the > * rule; inner
+     HTML content sizes naturally. */
+
+/* Outer viz div: flex COLUMN filling the viewport below the header, so the
+   canvas takes the space ABOVE the controls and the controls (sliders,
+   buttons, captions) stay pinned and visible at the bottom. Full width;
+   overrides any inline alignItems: center from the viz function. */
+.vizfig--fullscreen .vizfig-frame-content > *:has(.MafsView),
+.vizfig--fullscreen .vizfig-frame-content > *:has(canvas) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  max-width: none !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  gap: var(--space-3) !important;
+}
+
+/* Canvas (Mafs .MafsView or R3F canvas-wrapper): FLEX to fill the space above
+   the controls - never a fixed full-viewport height, which would push the
+   controls off screen. min-height: 0 lets it shrink so the pinned controls
+   always show. Mafs grid is extended via DOM clones in viz-figure.jsx. */
+.vizfig--fullscreen .vizfig-frame-content .MafsView,
+.vizfig--fullscreen .vizfig-frame-content div:has(> canvas) {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  margin: 0 !important;
+  /* clip the zoom-magnified diagram to its own cell so it can never cover the
+     controls below */
+  overflow: hidden !important;
+}
+
+/* Controls below the canvas keep their natural height and stay visible. */
+.vizfig--fullscreen .vizfig-frame-content > * > .MafsView ~ *,
+.vizfig--fullscreen .vizfig-frame-content > * > div:has(> canvas) ~ * {
+  flex: 0 0 auto !important;
+}
+
+/* Direct-child drawing root: viz that return a Fragment hoist the .MafsView (or
+   canvas wrapper) straight into .vizfig-frame-content, so the readout/caption
+   sibling is `> .MafsView ~ *`, NOT the wrapped `> * > .MafsView ~ *` above.
+   Without this the sibling inherits the generic `> *` height:100% and balloons,
+   squeezing the diagram into a thin band at the top. Pin it to natural height so
+   the drawing root (flex:1 1 auto from the rule above) absorbs the vertical
+   space and the content centers. */
+.vizfig--fullscreen .vizfig-frame-content > .MafsView ~ *,
+.vizfig--fullscreen .vizfig-frame-content > div:has(> canvas) ~ * {
+  flex: 0 0 auto !important;
+  height: auto !important;
+}
+
+.vizfig--fullscreen .vizfig-frame-content .MafsView > svg {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+/* Canvas-based engines (R3F/WebGL) manage their own camera and viewport via
+   ResizeObserver - CSS-scaling rendered pixels produces blurry fake zoom that
+   conflicts with engine-native interaction. Size rules only; no transform. */
+.vizfig--fullscreen .vizfig-frame-content canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.vizfig--fullscreen .vizfig-frame-content > .viz-plot,
+.vizfig--fullscreen .vizfig-frame-content > * > .viz-plot,
+.vizfig--fullscreen .vizfig-frame-content .viz-zoom-unit {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+/* Controls after the drawing root (sliders, play/pause) keep their natural
+   size and stay visible - they must not scale away with the diagram. */
+.vizfig--fullscreen .vizfig-frame-content > .viz-plot ~ *,
+.vizfig--fullscreen .vizfig-frame-content > * > .viz-plot ~ *,
+.vizfig--fullscreen .vizfig-frame-content > * > .viz-zoom-unit ~ * {
+  flex: 0 0 auto;
+}
+
+/* In fullscreen the viz is max-width-capped, centred, and letterboxed, so the
+   svg is smaller than the frame. Let the single-panel `Plot` svg overflow so its
+   over-tiled `Grid` bleeds out to the frame edges - the grid then fills the whole
+   frame (clipped by `.vizfig-frame`), matching the Mafs grid. The diagram content
+   stays inside the viewBox, so only the grid bleeds. (Multi-panel `.viz-zoom-unit`
+   plots stay clipped so each panel keeps its own grid.) */
+.vizfig--fullscreen .vizfig-frame-content > .viz-plot,
+.vizfig--fullscreen .vizfig-frame-content > * > .viz-plot {
+  overflow: visible !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vizfig-icon-btn {
+    transition: none;
+  }
+}
+
+/* Controls bar
+   A flex sibling to .vizfig-frame, outside the zoom/pan transform layer AND
+   outside the frame's overflow:hidden aspect box. Slider, PlayPause, and
+   Toggle portal into this node via VizControlsCtx so they stay pinned at the
+   bottom at every size, and are never clipped by the frame. */
+
+.vizfig-controls-bar:empty {
+  display: none;
+}
+
+.vizfig-controls-bar:not(:empty) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--ink-hairline);
+  width: 100%;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+}
+
+/* Toggle buttons are direct <button> children - prevent them stretching
+   full-width inside the column flex container. */
+.vizfig-controls-bar > button {
+  align-self: flex-start;
+}
+
+/* Mobile breakpoint */
+/* Drop the float on small viewports - figure stacks above text normally. */
+
+@media (max-width: 640px) {
+  .vizfig--compact {
+    float: none;
+    clear: none;
+    margin-right: 0;
+  }
+}

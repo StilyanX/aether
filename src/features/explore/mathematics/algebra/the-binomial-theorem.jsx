@@ -1,6 +1,6 @@
 import 'katex/dist/katex.min.css'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
-import { DiffOfSquaresViz, PascalTriangleViz, SquareOfSumViz } from '../../../../components/viz'
+import { DiffOfSquaresViz, PascalTriangleViz, SquareOfSumGeomViz } from '../../../../components/viz'
 
 function useConfig() {
   const config = {
@@ -13,9 +13,9 @@ function useConfig() {
       subtitle:
         'Square a sum. Cube it. Build any power then read the coefficients from a triangle.',
       sections: [
-        // ── Section 0: Intro ──────────────────────────────────────────────
+        // Section 0: Intro
         <>
-          <h1>The Binomial Theorem</h1>
+          <h2>What a Binomial Is</h2>
           <p>
             A <strong>binomial</strong> is a two-term expression like {`$a + b$`}.
           </p>
@@ -40,7 +40,7 @@ function useConfig() {
           </p>
         </>,
 
-        // ── Section 1: Square of a Sum ────────────────────────────────────
+        // Section 1: Square of a Sum
         <>
           <h2>The Square of a Sum</h2>
 
@@ -65,7 +65,7 @@ function useConfig() {
           <div className="lrn-eq">{`$$(a + b)(m + n) = am + an + bm + bn$$`}</div>
 
           <p>
-            That is the only rule we need. Everything that follows on this module comes from applying
+            That is the only rule we need. Everything that follows on this page comes from applying
             it carefully.
           </p>
 
@@ -132,7 +132,7 @@ function useConfig() {
               An {`$(a+b)$`}-sided square cut into four regions: one {`$a^2$`}, one {`$b^2$`}, and
               two {`$ab$`} rectangles.
             </p>
-            <SquareOfSumViz />
+            <SquareOfSumGeomViz />
           </div>
 
           <h3>The candy story</h3>
@@ -211,7 +211,7 @@ function useConfig() {
           </p>
         </>,
 
-        // ── Section 1b: Square of a Difference ────────────────────────────
+        // Section 1b: Square of a Difference
         <>
           <h2>The Square of a Difference</h2>
 
@@ -306,7 +306,7 @@ function useConfig() {
           </p>
         </>,
 
-        // ── Section 2: Difference of Squares ─────────────────────────────
+        // Section 2: Difference of Squares
         <>
           <h2>The Difference of Squares</h2>
 
@@ -458,7 +458,7 @@ function useConfig() {
           </p>
         </>,
 
-        // ── Section 2b: Three Terms ───────────────────────────────────────
+        // Section 2b: Three Terms
         <>
           <h2>Squaring Three Terms</h2>
 
@@ -576,7 +576,7 @@ function useConfig() {
           </p>
         </>,
 
-        // ── Section 3: The Cube of a Sum ──────────────────────────────────
+        // Section 3: The Cube of a Sum
         <>
           <h2>The Cube of a Sum</h2>
 
@@ -707,7 +707,7 @@ function useConfig() {
           </div>
         </>,
 
-        // ── Section 4: The Fourth Power and Coefficient Patterns ──────────
+        // Section 4: The Fourth Power and Coefficient Patterns
         <>
           <h2>The Fourth Power and the Pattern of Powers</h2>
 
@@ -819,7 +819,7 @@ function useConfig() {
           </p>
         </>,
 
-        // ── Section 5: Pascal's Triangle ──────────────────────────────────
+        // Section 5: Pascal's Triangle
         <>
           <h2>Pascal's Triangle</h2>
 
@@ -1039,7 +1039,7 @@ function useConfig() {
       ]
     },
 
-    // ─── Practice cards ───────────────────────────────────────────────────────
+    // Practice cards
     practice: [
       {
         q: 'Expand {`$(a + b)^2$`}.',
@@ -1195,7 +1195,7 @@ function useConfig() {
       }
     ],
 
-    // ─── Reference ────────────────────────────────────────────────────────────
+    // Reference
     reference: {
       category: 'Quick Reference',
       title: 'The Binomial Theorem',
@@ -1359,7 +1359,7 @@ function useConfig() {
     },
 
     customCss:
-      '.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }'
+      '.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }'
   }
 
   return config

@@ -6,19 +6,10 @@ const MODE_META = {
   learn: { label: 'LEARN' },
   solve: { label: 'PRACTICE' },
   cheat: { label: 'REFERENCE' },
-  project: { label: 'PROJECT' },
   exam: { label: 'EXAM' }
 }
 
 const MODE_ICONS = {
-  project: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <line x1="16" y1="13" x2="8" y2="13" />
-      <line x1="16" y1="17" x2="8" y2="17" />
-    </svg>
-  ),
   exam: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
       <circle cx="12" cy="12" r="9" />
@@ -108,10 +99,12 @@ export default function LearningSidebar({
   onTabChange,
   onTabKeyDown,
   sections = [],
+  sectionTitles = [],
   activeSectionIndex = 0,
   onSectionClick,
   practiceProgress = { index: 0, total: 0 },
   fsrs,
+  extra,
   drawer = false,
   open = true,
   onClose
@@ -127,9 +120,14 @@ export default function LearningSidebar({
   }, [drawer, open, onClose])
 
   const totalMinutes = sections.reduce((sum, s) => sum + sectionMinutes(s), 0)
-  const completedMinutes = sections
-    .slice(0, activeSectionIndex)
-    .reduce((sum, s) => sum + sectionMinutes(s), 0)
+  // On the last section the reader has reached the end: count it fully read (100%),
+  // rather than only sections strictly before the active one.
+  const atLastSection = activeSectionIndex >= sections.length - 1
+  const completedMinutes = atLastSection
+    ? totalMinutes
+    : sections
+        .slice(0, activeSectionIndex)
+        .reduce((sum, s) => sum + sectionMinutes(s), 0)
   const remainingMinutes = Math.max(0, totalMinutes - completedMinutes)
   const percentRead = totalMinutes > 0 ? Math.round((completedMinutes / totalMinutes) * 100) : 0
 
@@ -146,19 +144,7 @@ export default function LearningSidebar({
     >
       <div className="lt-sidebar-brand">
         <Link to="/explore" className="lt-sidebar-mark-link" aria-label="Go to Explore">
-          <svg className="lt-sidebar-mark" viewBox="0 0 480 140" role="img" aria-label="Aether">
-            <text
-              x="0"
-              y="115"
-              fill="#ededed"
-              fontFamily="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif"
-              fontSize="120"
-              fontWeight="700"
-              letterSpacing="2.4"
-            >
-              ÆTHER
-            </text>
-          </svg>
+          <span className="lt-sidebar-mark">ÆTHER</span>
         </Link>
         {drawer && (
           <button
@@ -174,36 +160,41 @@ export default function LearningSidebar({
           </button>
         )}
       </div>
+      <div className="lt-sidebar-sep" />
 
-      <section className="lt-sidebar-block">
-        <header className="lt-sidebar-block-head">
-          <span>MODE</span>
-        </header>
-        <div className="lt-sidebar-modes" role="tablist" aria-label="Learning modes">
-          {availableTabs.map(([id], i) => {
-            const meta = MODE_META[id] || { label: id.toUpperCase() }
-            const active = tab === id
-            return (
-              <button
-                key={id}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                aria-controls={`${id}-panel`}
-                className={`lt-sidebar-mode${active ? ' active' : ''}`}
-                onClick={() => onTabChange(id)}
-                onKeyDown={e => onTabKeyDown?.(e, id)}
-              >
-                <span className="lt-sidebar-mode-ic" aria-hidden="true">
-                  {MODE_ICONS[id]}
-                </span>
-                <span className="lt-sidebar-mode-l">{meta.label}</span>
-                <span className="lt-sidebar-mode-n">{i + 1}</span>
-              </button>
-            )
-          })}
-        </div>
-      </section>
+      {availableTabs.length > 1 && (
+        <section className="lt-sidebar-block">
+          <header className="lt-sidebar-block-head">
+            <span>MODE</span>
+          </header>
+          <div className="lt-sidebar-modes" role="tablist" aria-label="Learning modes">
+            {availableTabs.map(([id], i) => {
+              const meta = MODE_META[id] || { label: id.toUpperCase() }
+              const active = tab === id
+              return (
+                <button
+                  key={id}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  aria-controls={`${id}-panel`}
+                  className={`lt-sidebar-mode${active ? ' active' : ''}`}
+                  onClick={() => onTabChange(id)}
+                  onKeyDown={e => onTabKeyDown?.(e, id)}
+                >
+                  <span className="lt-sidebar-mode-ic" aria-hidden="true">
+                    {MODE_ICONS[id]}
+                  </span>
+                  <span className="lt-sidebar-mode-l">{meta.label}</span>
+                  <span className="lt-sidebar-mode-n">{i + 1}</span>
+                </button>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
+      {extra}
 
       {tab === 'solve' && practiceProgress.total > 0 && (
         <section className="lt-sidebar-block">
@@ -243,7 +234,10 @@ export default function LearningSidebar({
             <ul className="lt-sidebar-sections">
               {sections.map((s, i) => {
                 const active = i === activeSectionIndex
-                const title = sectionTitle(s, i)
+                // The rendered heading wins: it is the one the reader can see,
+                // and it catches headings emitted by child components, which the
+                // JSX walk in sectionTitle() cannot reach.
+                const title = sectionTitles[i] || sectionTitle(s, i)
                 return (
                   <li key={i}>
                     <button

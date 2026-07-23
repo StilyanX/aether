@@ -10,9 +10,9 @@ import {
   StandardFormViz,
   VietasRootsViz
 } from '../../../../components/viz'
-// ─── Visualization Components ────────────────────────────────────────────────
+// Visualization Components
 
-// ─── Config ──────────────────────────────────────────────────────────────────
+// Config
 
 function useConfig() {
   const config = {
@@ -35,8 +35,8 @@ function useConfig() {
           <div className="lrn-definition">
             <span className="lrn-definition-term">Quadratic equation</span>
             <div className="lrn-definition-desc">
-              <p>{`Any equation that rearranges into $ax^2 + bx + c = 0$, with $a \\neq 0$. The highest power of $x$ is 2. The numbers $a$, $b$, $c$ are the coefficients; the letter $x$ is the unknown. This form is called the standard form.`}</p>
-              <p>{`If $a = 1$, the equation $x^2 + px + q = 0$ is called the monic form. Dividing the standard form by $a$ always reaches it, and many techniques are cleaner there.`}</p>
+              <p>{`Any equation that rearranges into $ax^2 + bx + c = 0$, with $a \\neq 0$. The highest power of $x$ is $2$. The numbers $a$, $b$, $c$ are the coefficients (the numbers in front of each power of $x$); the letter $x$ is the unknown. This is the standard form.`}</p>
+              <p>{`If $a = 1$, the equation $x^2 + px + q = 0$ is the monic form. Dividing the standard form by $a$ always reaches it, and many techniques are cleaner there.`}</p>
             </div>
           </div>
 
@@ -59,7 +59,7 @@ function useConfig() {
             <p>How many solutions can a quadratic have? Write your guess before reading on.</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`Two, counted with multiplicity. Either two distinct real roots, one repeated real root, or two complex roots. Never three or more.`}</p>
+              <p>{`Two, counted with multiplicity. Either two distinct real roots, one repeated real root, or two non-real roots (we will meet these in $\\S$5). Counted with multiplicity means a repeated root is counted twice. Never three or more.`}</p>
             </details>
           </div>
 
@@ -84,14 +84,7 @@ function useConfig() {
             </div>
           </div>
 
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why does a quadratic have at most two solutions?`}</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`Every quadratic can be written $a(x - r_1)(x - r_2)$. A product is zero only when one of its factors is zero, so the only roots are $r_1$ and $r_2$. A third root would force a third factor and push the degree above 2. The condition $a \\neq 0$ matters here: if $a = 0$, the equation collapses to $bx + c = 0$, which is linear and has only one root.`}</p>
-            </details>
-          </div>
+          <p>{`Why exactly two? Every quadratic can be written $a(x - r_1)(x - r_2)$. A product is zero only when one of its factors is zero, so the only roots are $r_1$ and $r_2$. A third root would force a third factor and push the degree above $2$. (The degree of a polynomial is its highest power of $x$.) The condition $a \\neq 0$ matters here: if $a = 0$, the equation collapses to $bx + c = 0$, which is linear and has only one root.`}</p>
         </>,
 
         <>
@@ -110,16 +103,7 @@ function useConfig() {
             </div>
           </div>
 
-          <p>{`To multiply two binomials, multiply each term in the first by each term in the second, then collect like terms: $(x + r)(x + s) = x^2 + (r + s)x + rs$. Factoring reverses this. To factor $x^2 + bx + c$, search for two numbers $r$ and $s$ with $r + s = b$ and $rs = c$.`}</p>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`For $x^2 - 5x + 6 = 0$, which two numbers multiply to $6$ and add to $-5$?`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`$-2$ and $-3$: $(-2)(-3) = 6$ and $-2 + (-3) = -5$.`}</p>
-            </details>
-          </div>
+          <p>{`A binomial is a sum of two terms. To multiply two binomials, multiply each term in the first by each term in the second, then collect like terms (terms that share the same power of $x$): $(x + r)(x + s) = x^2 + (r + s)x + rs$. Factoring reverses this. To factor $x^2 + bx + c$, search for two numbers $r$ and $s$ with $r + s = b$ and $rs = c$.`}</p>
 
           <div className="lrn-steps">
             <div className="lrn-step">
@@ -175,7 +159,7 @@ function useConfig() {
                 <li>{`Set each factor to zero: $x = 2$ or $x = 5$.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Factor and solve $x^2 + 2x - 15 = 0$.`}</p>
               <ol className="lrn-list">
@@ -198,28 +182,13 @@ function useConfig() {
             </div>
           </div>
 
-          <p>{`A few algebraic shapes appear so often that they have names. Memorize the pattern and you factor in one step instead of guessing.`}</p>
-
-          <h3>Difference of Squares</h3>
-
-          <div className="lrn-eq lrn-eq-hero">
-            <span>{`$$a^2 - b^2 = (a-b)(a+b)$$`}</span>
-          </div>
-
-          <p>{`Two perfect squares separated by a minus sign. The factorization comes straight from multiplying out the right side: the $+ab$ and $-ab$ cancel, leaving $a^2 - b^2$.`}</p>
+          <p>{`The factoring patterns we use most often, difference of squares $a^2 - b^2 = (a-b)(a+b)$ and perfect-square trinomials $a^2 \\pm 2ab + b^2 = (a \\pm b)^2$, are developed on the *Algebraic Identities* page. Here we apply them to quadratics and record one fact that bridges to complex numbers.`}</p>
 
           <div className="lrn-steps">
             <div className="lrn-step">
-              <span className="lrn-step-title">{`Factor $25a^2 - 9b^2$`}</span>
-              <div className="lrn-step-content">
-                <p>{`The squares are $(5a)^2$ and $(3b)^2$, so $25a^2 - 9b^2 = (5a-3b)(5a+3b)$.`}</p>
-              </div>
-            </div>
-            <div className="lrn-step">
               <span className="lrn-step-title">{`Factor $x^4 - 16$ completely`}</span>
               <div className="lrn-step-content">
-                <p>{`Apply the rule once: $x^4 - 16 = (x^2)^2 - 4^2 = (x^2 - 4)(x^2 + 4)$.`}</p>
-                <p>{`The first factor is itself a difference of squares: $x^2 - 4 = (x-2)(x+2)$. The second factor, $x^2 + 4$, is a sum of squares, which does not factor over the real numbers.`}</p>
+                <p>{`Apply difference of squares once: $x^4 - 16 = (x^2 - 4)(x^2 + 4)$. The first factor is itself a difference of squares: $x^2 - 4 = (x-2)(x+2)$. The second factor, $x^2 + 4$, is a sum of squares, it does not factor over the real numbers.`}</p>
                 <div className="lrn-eq">{`$$x^4 - 16 = (x-2)(x+2)(x^2+4)$$`}</div>
               </div>
             </div>
@@ -229,28 +198,6 @@ function useConfig() {
             {`A sum of squares $a^2 + b^2$ has no real factorization. If $(a + pb)(a + qb) = a^2 + b^2$ for real $p, q$, then $p + q = 0$ and $pq = 1$, forcing $p^2 = -1$. No real number squares to $-1$. Over the complex numbers, however, $a^2 + b^2 = (a + bi)(a - bi)$.`}
           </div>
 
-          <h3>Perfect Square Trinomials</h3>
-
-          <div className="lrn-eq">{`$$a^2 + 2ab + b^2 = (a+b)^2$$`}</div>
-          <div className="lrn-eq">{`$$a^2 - 2ab + b^2 = (a-b)^2$$`}</div>
-
-          <p>{`The first and last terms are squares, and the middle term is exactly twice the product of their square roots. Recognizing this pattern is the basis for completing the square later.`}</p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Factor $x^2 + 6x + 9$`}</span>
-              <div className="lrn-step-content">
-                <p>{`With $a = x$, $b = 3$: $2ab = 6x$ matches the middle term, so $x^2 + 6x + 9 = (x+3)^2$.`}</p>
-              </div>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Factor $4x^2 - 12x + 9$`}</span>
-              <div className="lrn-step-content">
-                <p>{`With $a = 2x$, $b = 3$: $2ab = 12x$ matches, with a minus sign. So $4x^2 - 12x + 9 = (2x-3)^2$.`}</p>
-              </div>
-            </div>
-          </div>
-
           <h3>Sum and Difference of Cubes</h3>
 
           <div className="lrn-eq">{`$$a^3 - b^3 = (a-b)(a^2+ab+b^2)$$`}</div>
@@ -258,7 +205,7 @@ function useConfig() {
 
           <p>
             <strong>SOAP</strong>
-            {` Same, Opposite, Always Positive names the signs in the second factor. The binomial sign matches the original; the middle sign of the trinomial is the opposite; the last term is always positive. The rule is not magic: multiply out $(a-b)(a^2+ab+b^2) = a^3 + a^2 b + ab^2 - a^2 b - ab^2 - b^3$, and the middle terms cancel in pairs, leaving $a^3 - b^3$.`}
+            {`, Same, Opposite, Always Positive, names the signs in the second factor. The binomial sign matches the original. The middle sign of the trinomial is the opposite. The last term is always positive. The rule is not magic: multiply out $(a-b)(a^2+ab+b^2) = a^3 + a^2 b + ab^2 - a^2 b - ab^2 - b^3$, and the middle terms cancel in pairs, leaving $a^3 - b^3$.`}
           </p>
 
           <div className="lrn-steps">
@@ -287,7 +234,7 @@ function useConfig() {
                 <li>{`Result: $(3x - 2)(9x^2 + 6x + 4)$.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Factor $64a^3 + 125b^3$.`}</p>
               <ol className="lrn-list">
@@ -316,16 +263,7 @@ function useConfig() {
             <span>{`$$xy + ax + by + ab = (x+b)(y+a)$$`}</span>
           </div>
 
-          <p>{`If the constant $ab$ is missing, add it to both sides. The left side then factors, and you turn a stubborn equation into a list of factor pairs useful especially when you want integer solutions (a "Diophantine" equation, meaning one solved over the integers).`}</p>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`To make $xy + 3x + 2y$ factor, what constant do you add?`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`Add $3 \\times 2 = 6$, since the coefficients of $x$ and $y$ are $3$ and $2$. Then $xy + 3x + 2y + 6 = (x+2)(y+3)$.`}</p>
-            </details>
-          </div>
+          <p>{`If the constant $ab$ is missing, add it to both sides. The left side then factors, and you turn a stubborn equation into a list of factor pairs, useful especially when you want integer solutions.`}</p>
 
           <div className="lrn-steps">
             <div className="lrn-step">
@@ -355,10 +293,10 @@ function useConfig() {
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why does the missing constant equal the product of the coefficients of the linear terms?`}</p>
+            <p>{`Why does the trick fail if $xy + ax + by + c$ has $c \\neq ab$?`}</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
-              <p>{`Expand $(x+b)(y+a) = xy + ax + by + ab$. The constant $ab$ is the product of the numbers added inside each factor exactly the coefficients of the linear terms in the expansion. Add that constant and the expression becomes a complete product.`}</p>
+              <p>{`Expanding $(x+b)(y+a) = xy + ax + by + ab$ shows the constant must be exactly $ab$, that is the only constant the factored form produces. Any other constant blocks the factorization. You can still solve by completing the rectangle: add the missing amount to make the constant equal $ab$, then subtract the same amount on the other side of the equation.`}</p>
             </details>
           </div>
         </>,
@@ -370,24 +308,15 @@ function useConfig() {
             </div>
           </div>
 
-          <p>{`Some quadratics produce the square root of a negative number, which no real number can supply. Mathematicians enlarged the number system to handle this case. The enlarged system is consistent: no old rule of arithmetic breaks. It is also indispensable quantum mechanics, signal processing, and electrical engineering all depend on it.`}</p>
+          <p>{`Some quadratics produce the square root of a negative number, which no real number can supply. Mathematicians enlarged the number system to handle this case. The enlarged system is consistent: no old rule of arithmetic breaks. It is also needed everywhere, quantum mechanics, signal processing, and electrical engineering all depend on it.`}</p>
 
           <h3>The Imaginary Unit</h3>
 
           <div className="lrn-definition">
             <span className="lrn-definition-term">Imaginary unit</span>
             <div className="lrn-definition-desc">
-              <p>{`The symbol $i$ is defined by the single rule $i^2 = -1$. From this, $\\sqrt{-n} = i\\sqrt{n}$ for any $n > 0$, since $(i\\sqrt{n})^2 = i^2 \\cdot n = -n$.`}</p>
+              <p>{`The symbol $i$ obeys one rule: $i^2 = -1$. From this, $\\sqrt{-n} = i\\sqrt{n}$ for any $n > 0$, since $(i\\sqrt{n})^2 = i^2 \\cdot n = -n$.`}</p>
             </div>
-          </div>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`What is $i^3$? Use $i^2 = -1$ to compute it before reading on.`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`$i^3 = i^2 \\cdot i = (-1) \\cdot i = -i$.`}</p>
-            </details>
           </div>
 
           <h3>Form and Arithmetic</h3>
@@ -416,7 +345,7 @@ function useConfig() {
           <div className="lrn-definition">
             <span className="lrn-definition-term">Complex conjugate</span>
             <div className="lrn-definition-desc">
-              <p>{`The conjugate of $a + bi$ is $a - bi$ flip the sign of the imaginary part. The product $(a+bi)(a-bi) = a^2 - (bi)^2 = a^2 + b^2$ is always real and never negative. That single fact is the engine of complex division.`}</p>
+              <p>{`The conjugate of $a + bi$ is $a - bi$, flip the sign of the imaginary part. The product $(a+bi)(a-bi) = a^2 - (bi)^2 = a^2 + b^2$ is always real and never negative. That single fact is the engine of complex division.`}</p>
             </div>
           </div>
 
@@ -437,37 +366,10 @@ function useConfig() {
             Powers of <em>i</em>
           </h3>
 
-          <p>{`The powers of $i$ cycle with period $4$, because $i^4 = (i^2)^2 = (-1)^2 = 1$. Multiplying by $1$ restarts the cycle.`}</p>
-          <div className="lrn-eq">{`$$i^1 = i,\\quad i^2 = -1,\\quad i^3 = -i,\\quad i^4 = 1,\\quad i^5 = i,\\ldots$$`}</div>
-
-          <p>{`To compute $i^n$, divide $n$ by $4$ and look at the remainder: $0 \\to 1$, $1 \\to i$, $2 \\to -1$, $3 \\to -i$.`}</p>
+          <p>{`Powers of $i$ cycle with period $4$: $i^2 = -1$, $i^3 = -i$, $i^4 = 1$, then repeat. The same difference-of-squares trick that clears radicals from a denominator (developed on the *Surds, Inequalities and Means* page) clears complex numbers from a denominator: multiply by the conjugate, and the product $(a+bi)(a-bi) = a^2 + b^2$ comes out real.`}</p>
 
           <div className="lrn-graph">
             <PowersOfIViz />
-          </div>
-
-          <h3>Square Root of a Complex Number</h3>
-
-          <p>{`To find $\\sqrt{c+di}$, look for $a + bi$ with $(a+bi)^2 = c + di$. Expanding, $a^2 - b^2 + 2ab\\, i = c + di$, so match real and imaginary parts:`}</p>
-          <div className="lrn-eq">{`$$a^2 - b^2 = c, \\qquad 2ab = d$$`}</div>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Find $\\sqrt{7 - 24i}$`}</span>
-              <div className="lrn-step-content">
-                <p>{`Need $a^2 - b^2 = 7$ and $2ab = -24$, so $ab = -12$. Try $a = 4$, $b = -3$: $16 - 9 = 7$ ✓ and $4(-3) = -12$ ✓.`}</p>
-                <p>{`So $\\sqrt{7 - 24i} = \\pm(4 - 3i)$. Unlike real square roots, there is no convention picking the "positive" one both squares are valid.`}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why does the product $(a+bi)(a-bi)$ never become negative?`}</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`Expand to $a^2 - (bi)^2 = a^2 + b^2$. Since $a$ and $b$ are real, both squares are non-negative, and their sum is zero only when $a = b = 0$. Multiplying by the conjugate is the trick that turns a complex denominator into a real one.`}</p>
-            </details>
           </div>
         </>,
 
@@ -478,7 +380,7 @@ function useConfig() {
             </div>
           </div>
 
-          <p>{`Completing the square is one move: turn $x^2 + bx$ into a perfect square by adding the one missing piece. Doing this rewrites any quadratic as $a(x+h)^2 + k$. From there you can finish solving with a square root, or read off the vertex of the parabola, or derive the quadratic formula itself.`}</p>
+          <p>{`Completing the square is one move: turn $x^2 + bx$ into a perfect square by adding the one missing piece. Doing this rewrites any quadratic as $a(x+h)^2 + k$. From there you can finish solving with a square root, or read off the vertex of the parabola (the parabola's lowest or highest point), or derive the quadratic formula itself.`}</p>
 
           <p>{`The missing piece is always the square of half the linear coefficient:`}</p>
 
@@ -486,20 +388,7 @@ function useConfig() {
             <span>{`$$x^2 + bx = \\left(x + \\frac{b}{2}\\right)^2 - \\left(\\frac{b}{2}\\right)^2$$`}</span>
           </div>
 
-          <p>{`Why this number? Expand $(x + \\frac{b}{2})^2 = x^2 + bx + (\\frac{b}{2})^2$. Subtracting $(\\frac{b}{2})^2$ cancels the extra constant and leaves $x^2 + bx$. Geometrically (see the diagram below): start with a square of side $x$, attach a rectangle of width $b$, split that rectangle in half, and tuck one half against each side. A square corner of area $(\\frac{b}{2})^2$ is missing adding it completes the picture.`}</p>
-
-          <div className="lrn-graph">
-            <AlKhwarizmiViz />
-          </div>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`For $x^2 + 6x$, what constant turns it into a perfect square?`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`$(\\frac{6}{2})^2 = 9$. Then $x^2 + 6x + 9 = (x+3)^2$.`}</p>
-            </details>
-          </div>
+          <p>{`Why this number? Expand $(x + \\frac{b}{2})^2 = x^2 + bx + (\\frac{b}{2})^2$. Subtracting $(\\frac{b}{2})^2$ cancels the extra constant and leaves $x^2 + bx$. In pictures: start with a square of side $x$, attach a rectangle of width $b$, split that rectangle in half, and tuck one half against each side. A square corner of area $(\\frac{b}{2})^2$ is missing, adding it completes the picture. (The full geometric diagram appears in *Historical Note: Al-Khwarizmi*, §16.)`}</p>
 
           <div className="lrn-warning">
             <p>
@@ -539,7 +428,7 @@ function useConfig() {
                 <p>{`Factor $5$ from the variable terms: $5(x^2 + \\tfrac{3}{5}x) + 9 = 0$.`}</p>
                 <p>{`Complete the square inside the parentheses. Because of the $5$ outside, the constant you add inside must be balanced by $5 \\cdot \\tfrac{9}{100}$ on the right.`}</p>
                 <p>{`$5\\left(x + \\tfrac{3}{10}\\right)^2 - 5 \\cdot \\tfrac{9}{100} + 9 = 0$, giving $5\\left(x + \\tfrac{3}{10}\\right)^2 = -\\tfrac{171}{20}$.`}</p>
-                <p>{`Solving gives the same roots as Method 1. Method 2 is useful when you want to keep $a$ visible for example, while putting the quadratic into vertex form.`}</p>
+                <p>{`Solving gives the same roots as Method 1. Method 2 is useful when you want to keep $a$ visible, for example, while putting the quadratic into vertex form.`}</p>
               </div>
             </div>
           </div>
@@ -556,7 +445,7 @@ function useConfig() {
                 <li>{`Solve: $x = -\\frac{p}{2} \\pm \\sqrt{\\frac{p^2}{4} - q}$.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Complete the square on $x^2 + 8x + 3 = 0$.`}</p>
               <ol className="lrn-list">
@@ -580,13 +469,13 @@ function useConfig() {
             </div>
           </div>
 
-          <p>{`The quadratic formula is completing the square performed once for the general case. After you derive it, every quadratic with known coefficients reduces to plugging numbers into a single expression.`}</p>
+          <p>{`The quadratic formula is completing the square performed once for the general case. After you derive it, every quadratic with known coefficients becomes plugging numbers into a single expression.`}</p>
 
           <div className="lrn-eq lrn-eq-hero">
             <span>{`$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$`}</span>
           </div>
 
-          <p>{`Read the formula geometrically. The piece $-\\frac{b}{(2a)}$ is the $x$-coordinate of the vertex the axis of symmetry of the parabola. The piece $\\pm\\\frac{\\sqrt{b^2 - 4ac}}{(2a)}$ is the distance from that axis to each root. The two roots sit symmetrically around the vertex.`}</p>
+          <p>{`Read the formula geometrically. The piece $-\\frac{b}{(2a)}$ is the $x$-coordinate of the vertex, the axis of symmetry of the parabola. (The axis of symmetry is the vertical line that splits the parabola into two mirror halves.) The piece $\\pm\\frac{\\sqrt{b^2 - 4ac}}{(2a)}$ is the distance from that axis to each root. The two roots sit symmetrically around the vertex.`}</p>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -642,25 +531,33 @@ function useConfig() {
           <p>{`If the leading coefficient is already $1$, the formula simplifies. For $x^2 + px + q = 0$:`}</p>
           <div className="lrn-eq">{`$$x = -\\frac{p}{2} \\pm \\sqrt{\\frac{p^2}{4} - q}$$`}</div>
 
-          <h3>Alternative Form</h3>
+          <h3>Reciprocal-roots identity</h3>
 
-          <p>{`Dividing the standard formula's top and bottom by $-b \\mp \\sqrt{b^2-4ac}$ rearranges it into a second, equivalent form:`}</p>
-          <div className="lrn-eq">{`$$x = \\frac{2c}{-b \\mp \\sqrt{b^2 - 4ac}}$$`}</div>
-          <p>{`Both forms give the same roots. The alternative is better-behaved when $a$ is small: the standard formula's $\\frac{1}{(2a)}$ blows up, while the alternative keeps a sensible numerator. It also makes clear what happens when $a \\to 0$ one root approaches $-\\frac{c}{b}$ (the linear-equation solution), and the other escapes to infinity.`}</p>
+          <p>{`If the roots of $a x^2 + b x + c = 0$ are $x_1$ and $x_2$, then the roots of $c x^2 + b x + a = 0$ are $\\tfrac{1}{x_1}$ and $\\tfrac{1}{x_2}$.`}</p>
+
+          <p>{`Proof. Let $y = \\tfrac{1}{x}$ and substitute into $a x^2 + b x + c = 0$:`}</p>
+
+          <div className="lrn-eq">{`$$\\frac{a}{y^2} + \\frac{b}{y} + c = 0$$`}</div>
+
+          <p>{`Multiply through by $y^2$:`}</p>
+
+          <div className="lrn-eq">{`$$a + b y + c y^2 = 0 \\iff c y^2 + b y + a = 0$$`}</div>
+
+          <p>{`So each root $x_i$ of the first equation gives a root $y_i = \\tfrac{1}{x_i}$ of the second. Reversing the coefficient order reciprocates the roots.`}</p>
 
           <h3>Worked Examples</h3>
 
           <div className="lrn-steps">
             <div className="lrn-step">
-              <span className="lrn-step-title">{`$x^2 - 5x + 6 = 0$`}</span>
+              <span className="lrn-step-title">{`$x^2 - 4x + 3 = 0$`}</span>
               <div className="lrn-step-content">
-                <p>{`$a = 1$, $b = -5$, $c = 6$. Discriminant $= 25 - 24 = 1$. So $x = \\frac{(5 \\pm 1)}{2}$, giving $x = 3$ or $x = 2$. Factoring would have worked too the formula always agrees.`}</p>
+                <p>{`$a = 1$, $b = -4$, $c = 3$. Discriminant $= 16 - 12 = 4$. So $x = \\frac{(4 \\pm 2)}{2}$, giving $x = 3$ or $x = 1$. Factoring would have worked too, the formula always agrees.`}</p>
               </div>
             </div>
             <div className="lrn-step">
-              <span className="lrn-step-title">{`$5x^2 + 3x + 9 = 0$ (complex roots)`}</span>
+              <span className="lrn-step-title">{`$2x^2 + x + 3 = 0$ (complex roots)`}</span>
               <div className="lrn-step-content">
-                <p>{`Discriminant $= 9 - 180 = -171$. So $x = \\dfrac{-3 \\pm \\sqrt{-171}}{10} = \\dfrac{-3 \\pm 3i\\sqrt{19}}{10}$.`}</p>
+                <p>{`Discriminant $= 1 - 24 = -23$. So $x = \\dfrac{-1 \\pm \\sqrt{-23}}{4} = \\dfrac{-1 \\pm i\\sqrt{23}}{4}$.`}</p>
               </div>
             </div>
             <div className="lrn-step">
@@ -675,11 +572,29 @@ function useConfig() {
                 <p>{`Discriminant $= 1764 - 1764 = 0$. The formula gives one value: $x = \\frac{42}{18} = \\frac{7}{3}$. Check by factoring: $(3x - 7)^2 = 0$.`}</p>
               </div>
             </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`$z^2 + 6iz + 7 = 0$ (complex coefficients)`}</span>
-              <div className="lrn-step-content">
-                <p>{`The derivation never assumed the coefficients were real. With $a = 1$, $b = 6i$, $c = 7$: discriminant $= (6i)^2 - 28 = -36 - 28 = -64$, and $\\sqrt{-64} = 8i$. So $z = \\frac{(-6i \\pm 8i)}{2}$, giving $z = i$ or $z = -7i$.`}</p>
-              </div>
+          </div>
+
+          <div className="lrn-faded">
+            <div className="lrn-faded-phase">
+              <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
+              <p>{`Solve $3x^2 + 5x - 2 = 0$ with the quadratic formula.`}</p>
+              <ol className="lrn-list">
+                <li>{`$a = 3$, $b = 5$, $c = -2$. $D = 25 + 24 = 49$.`}</li>
+                <li>{`$x = \\dfrac{-5 \\pm 7}{6}$, giving $x = \\dfrac{1}{3}$ or $x = -2$.`}</li>
+              </ol>
+            </div>
+            <div className="lrn-faded-phase lrn-faded-partial">
+              <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
+              <p>{`Solve $2x^2 - 7x + 3 = 0$.`}</p>
+              <ol className="lrn-list">
+                <li>{`Identify $a$, $b$, $c$: $\\rule{1cm}{0.5pt}$`}</li>
+                <li>{`Compute $D$: $\\rule{1cm}{0.5pt}$`}</li>
+                <li>{`Apply the formula: $x = \\rule{1cm}{0.5pt}$`}</li>
+              </ol>
+            </div>
+            <div className="lrn-faded-phase">
+              <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
+              <p>{`Solve $4x^2 - 12x + 9 = 0$. Identify the type of roots from $D$ before solving.`}</p>
             </div>
           </div>
         </>,
@@ -727,34 +642,14 @@ function useConfig() {
             </tbody>
           </table>
 
-          <p>{`The middle case is sharper than it looks. When $D = 0$, the $+$ and $-$ in the formula both yield $x = -\\frac{b}{(2a)}$. The two solutions coincide; the parabola is tangent to the $x$-axis.`}</p>
+          <p>{`The middle case is sharper than it looks. When $D = 0$, the $+$ and $-$ in the formula both yield $x = -\\frac{b}{(2a)}$. The two solutions coincide; the parabola is tangent to the $x$-axis. (Tangent means the curve touches the line at exactly one point and does not cross it.)`}</p>
 
-          <p
-            style={{
-              fontSize: '0.875rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              opacity: 0.5,
-              margin: '16px 0 8px'
-            }}
-          >
-            {`Drag the slider to move $c$ in $x^2 + x + c = 0$`}
-          </p>
+          <p className="lrn-viz-caption">{`Drag the slider to move $c$ in $x^2 + x + c = 0$`}</p>
           <div className="lrn-graph">
             <InteractiveDiscriminantViz />
           </div>
 
-          <p
-            style={{
-              fontSize: '0.875rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              opacity: 0.5,
-              margin: '16px 0 8px'
-            }}
-          >
-            Three discriminant cases
-          </p>
+          <p className="lrn-viz-caption">Three discriminant cases</p>
           <div className="lrn-graph">
             <ParabolaDiscriminantViz />
           </div>
@@ -783,7 +678,7 @@ function useConfig() {
 
           <h3>Complex Conjugate Root Theorem</h3>
 
-          <p>{`If $a$, $b$, $c$ are real and $D < 0$, the quadratic formula gives $x = -\\frac{b}{(2a)} \\pm i\\\frac{\\sqrt{-D}}{(2a)}$. The two roots share the real part $-\\frac{b}{(2a)}$ and have opposite imaginary parts. They are conjugates of each other:`}</p>
+          <p>{`If $a$, $b$, $c$ are real and $D < 0$, the quadratic formula gives $x = -\\frac{b}{(2a)} \\pm i\\frac{\\sqrt{-D}}{(2a)}$. The two roots share the real part $-\\frac{b}{(2a)}$ and have opposite imaginary parts. They are conjugates of each other:`}</p>
 
           <div className="lrn-eq">{`$$x_1 = r + si, \\qquad x_2 = r - si$$`}</div>
 
@@ -818,15 +713,6 @@ function useConfig() {
             <VietasRootsViz />
           </div>
 
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`Use Vieta's to predict the sum and product of the roots of $x^2 - 5x + 6 = 0$ without solving.`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`Sum $= -\\frac{(-5)}{1} = 5$. Product $= \\frac{6}{1} = 6$. Roots are $2$ and $3$, which match.`}</p>
-            </details>
-          </div>
-
           <h3>Two Proofs</h3>
 
           <div className="lrn-proof">
@@ -859,15 +745,11 @@ function useConfig() {
             <div className="lrn-qed">Q.E.D.</div>
           </div>
 
-          <h3>Building a Quadratic from Its Roots</h3>
-
-          <p>{`Vieta's runs in reverse too. If you know that the roots are $r$ and $s$, the monic quadratic with those roots is $x^2 - (r+s)x + rs = 0$. For example, roots $4$ and $-7$ give sum $-3$ and product $-28$, so $x^2 + 3x - 28 = 0$.`}</p>
-
           <h3>Symmetric Identities</h3>
 
-          <p>{`Many quantities involving both roots can be expressed in terms of the sum and product alone, without ever knowing the roots individually.`}</p>
+          <p>{`A symmetric identity stays the same when you swap $x_1$ and $x_2$. Many quantities in both roots reduce to the sum and product alone, with no need to know the roots individually.`}</p>
 
-          <div className="lrn-eq">{`$$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2 x_1 x_2 = \\frac{b^2 - 2ac}{a^2} \\cdot \\frac{a}{a} = \\frac{b^2}{a^2} - \\frac{2c}{a}$$`}</div>
+          <div className="lrn-eq">{`$$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2 x_1 x_2 = \\left(-\\frac{b}{a}\\right)^2 - 2 \\cdot \\frac{c}{a} = \\frac{b^2}{a^2} - \\frac{2c}{a} = \\frac{b^2 - 2ac}{a^2}$$`}</div>
           <div className="lrn-eq">{`$$|x_1 - x_2| = \\frac{\\sqrt{b^2 - 4ac}}{|a|}$$`}</div>
           <div className="lrn-eq">{`$$\\frac{1}{x_1} + \\frac{1}{x_2} = \\frac{x_1 + x_2}{x_1 x_2} = -\\frac{b}{c}$$`}</div>
 
@@ -876,13 +758,13 @@ function useConfig() {
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
               <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-              <p>{`Find $x_1^2 + x_2^2$ for the roots of $x^2 - 4x + 1 = 0$.`}</p>
+              <p>{`Find $x_1^2 + x_2^2$ for the roots of $2x^2 - 6x + 1 = 0$.`}</p>
               <ol className="lrn-list">
-                <li>{`Sum $= 4$, product $= 1$.`}</li>
-                <li>{`$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2 x_1 x_2 = 16 - 2 = 14$.`}</li>
+                <li>{`Sum $= -\\frac{-6}{2} = 3$, product $= \\frac{1}{2}$.`}</li>
+                <li>{`$x_1^2 + x_2^2 = (x_1 + x_2)^2 - 2 x_1 x_2 = 9 - 1 = 8$.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Find $|x_1 - x_2|$ for the roots of $2x^2 - 5x + 1 = 0$.`}</p>
               <ol className="lrn-list">
@@ -900,47 +782,16 @@ function useConfig() {
         <>
           <div className="lrn-header">
             <div>
-              <h2>Parabola Graphs and Transformations</h2>
+              <h2>Parabola Graphs and Roots</h2>
             </div>
           </div>
 
-          <p>{`The graph of $y = ax^2 + bx + c$ is a parabola. Every algebraic feature of the quadratic shows up as a geometric feature of the curve.`}</p>
+          <p>{`Parabola anatomy, vertex, axis of symmetry, opening direction, $y$-intercept, vertex form, is developed in full on the *Quadratic Functions and Polynomial Inequalities* page. Here we record the one algebraic-geometric link that solving by formula relies on: the real roots of $ax^2 + bx + c = 0$ are exactly the $x$-coordinates where the parabola $y = ax^2 + bx + c$ crosses the $x$-axis. The vertex sits halfway between the two real roots, on the axis of symmetry $x = -b/(2a)$.`}</p>
 
-          <ul className="lrn-list">
-            <li>{`Sign of $a$: $a > 0$ opens upward (U shape), $a < 0$ opens downward (arch shape).`}</li>
-            <li>{`Axis of symmetry: the vertical line $x = -\\dfrac{b}{2a}$.`}</li>
-            <li>{`Vertex: $\\left(-\\dfrac{b}{2a},\\, c - \\dfrac{b^2}{4a}\\right)$ the point on the axis of symmetry, lowest if $a > 0$ and highest if $a < 0$.`}</li>
-            <li>{`Vertex form: $y = a(x - h)^2 + k$ places the vertex directly at $(h, k)$.`}</li>
-            <li>{`$y$-intercept: $y(0) = c$.`}</li>
-            <li>{`$x$-intercepts (real roots): zero, one, or two matching the sign of the discriminant $D = b^2 - 4ac$.`}</li>
-          </ul>
-
-          <p
-            style={{
-              fontSize: '0.875rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              opacity: 0.5,
-              margin: '16px 0 8px'
-            }}
-          >
-            Interactive: drag the colored points to change a, b, c
-          </p>
+          <p className="lrn-viz-caption">Interactive: drag the colored points to change a, b, c</p>
           <div className="lrn-graph">
             <InteractiveParabolaViz />
           </div>
-
-          <h3>Reading the Coefficients from the Graph</h3>
-
-          <p>{`Given a sketch of the parabola alone, you can read off the sign of each coefficient.`}</p>
-
-          <ul className="lrn-list">
-            <li>{`$a$: positive if the parabola opens up, negative if it opens down.`}</li>
-            <li>{`$c$: equal to the $y$-coordinate of the point where the curve meets the $y$-axis. Positive if that intersection sits above the $x$-axis, negative if below, zero if the curve passes through the origin.`}</li>
-            <li>{`$b$: the vertex is at $x = -\\frac{b}{(2a)}$, so the sign of $b$ is the opposite of the sign of $a$ times the sign of the vertex's $x$-coordinate. Quicker shortcut: the slope of the parabola at $x = 0$ equals $b$ going up across the $y$-axis means $b > 0$, going down means $b < 0$.`}</li>
-          </ul>
-
-          <h3>Worked Examples</h3>
 
           <div className="lrn-steps">
             <div className="lrn-step">
@@ -951,13 +802,6 @@ function useConfig() {
                 <p>{`Vertex form: $y = (x - 1)^2 - 4$ confirms the vertex at $(1, -4)$.`}</p>
               </div>
             </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`$y = 2x^2 - 8x + 6$`}</span>
-              <div className="lrn-step-content">
-                <p>{`Axis of symmetry: $x = \\frac{8}{(2 \\cdot 2)} = 2$. Vertex value: $y(2) = 8 - 16 + 6 = -2$.`}</p>
-                <p>{`Roots: $2x^2 - 8x + 6 = 2(x - 1)(x - 3)$, so $x = 1$ or $x = 3$.`}</p>
-              </div>
-            </div>
           </div>
 
           <div className="lrn-self-explain">
@@ -965,7 +809,7 @@ function useConfig() {
             <p>{`Why does the vertex sit halfway between the two real roots?`}</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
-              <p>{`A parabola is symmetric across the vertical line through its vertex. The two real roots are reflections of each other across that line, so their average is the vertex's $x$-coordinate. From Vieta's, the average of the roots is $\\frac{(x_1 + x_2)}{2} = -\\frac{b}{(2a)}$ exactly the axis of symmetry.`}</p>
+              <p>{`A parabola is symmetric across the vertical line through its vertex. The two real roots are reflections of each other across that line, so their average is the vertex's $x$-coordinate. From Vieta's, the average of the roots is $\\frac{(x_1 + x_2)}{2} = -\\frac{b}{(2a)}$, exactly the axis of symmetry.`}</p>
             </details>
           </div>
         </>,
@@ -977,55 +821,10 @@ function useConfig() {
             </div>
           </div>
 
-          <p>{`A quadratic inequality asks for which $x$ the quadratic is positive (or negative, or non-negative, etc.). Because the factored form $a(x - r)(x - s)$ flips sign each time $x$ crosses a root, the answer is always an interval or a union of intervals bounded by the roots.`}</p>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Sign chart method</span>
-            <div className="lrn-definition-desc">
-              <ol className="lrn-list">
-                <li>{`Solve $ax^2 + bx + c = 0$ to find the roots $r \\leq s$.`}</li>
-                <li>{`The roots split the real number line into three intervals: $x < r$, $r < x < s$, and $x > s$.`}</li>
-                <li>{`Test one value from each interval. The sign of the quadratic stays the same inside each interval, because the function only changes sign by passing through zero.`}</li>
-                <li>{`If $a > 0$ (parabola opens up): positive outside the roots, negative between them.`}</li>
-                <li>{`If $a < 0$ (parabola opens down): negative outside, positive between.`}</li>
-              </ol>
-            </div>
-          </div>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`For $x^2 - 3x + 2 > 0$, will the solution lie inside or outside the roots?`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`Outside. With $a = 1 > 0$ the parabola opens upward, so it is positive outside the roots and negative between them.`}</p>
-            </details>
-          </div>
+          <p>{`The full sign-chart method and the case-by-case workflow are developed on the *Quadratic Functions and Polynomial Inequalities* page. Here we record the connection to the quadratic equation: the inequality $ax^2 + bx + c > 0$ has solution determined by where the parabola sits relative to the $x$-axis. If $a > 0$ and the discriminant is positive, the parabola is positive outside the two roots and negative between them; non-strict inequalities ($\\geq$, $\\leq$) include the roots in the solution set.`}</p>
 
           <div className="lrn-graph">
             <NumberLineInequalityViz />
-          </div>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Solve $x^2 - 3x + 2 > 0$`}</span>
-              <div className="lrn-step-content">
-                <p>{`Factor: $(x - 1)(x - 2) > 0$. Roots at $x = 1$ and $x = 2$.`}</p>
-                <p>{`Test one value per interval. At $x = 0$: $(-1)(-2) = 2 > 0$ ✓. At $x = 1.5$: $(0.5)(-0.5) = -0.25 < 0$ ✗. At $x = 3$: $(2)(1) = 2 > 0$ ✓.`}</p>
-                <p>{`Solution: $x < 1$ or $x > 2$.`}</p>
-              </div>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Solve $x^2 - 3x + 2 < 0$`}</span>
-              <div className="lrn-step-content">
-                <p>{`Same roots; flip the answer. The quadratic is negative between the roots: $1 < x < 2$.`}</p>
-              </div>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Solve $x^2 - x - 6 > 0$`}</span>
-              <div className="lrn-step-content">
-                <p>{`Factor: $(x - 3)(x + 2) > 0$. Roots at $x = 3$ and $x = -2$. Since $a > 0$, positive outside the roots: $x < -2$ or $x > 3$.`}</p>
-              </div>
-            </div>
           </div>
 
           <div className="lrn-callout">
@@ -1045,7 +844,7 @@ function useConfig() {
                 <li>{`Solution: $2 \\leq x \\leq 3$.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Solve $x^2 + x - 6 < 0$.`}</p>
               <ol className="lrn-list">
@@ -1068,7 +867,7 @@ function useConfig() {
             </div>
           </div>
 
-          <p>{`A quadratic reaches its extreme value at the vertex. Completing the square writes any $ax^2 + bx + c$ as $a(x - h)^2 + k$, with the vertex at $(h, k) = \\left(-\\dfrac{b}{2a},\\, c - \\dfrac{b^2}{4a}\\right)$. Since $(x - h)^2 \\geq 0$ for every real $x$, the term $a(x-h)^2$ is non-negative when $a > 0$ and non-positive when $a < 0$. The extreme value $k$ is reached only at $x = h$.`}</p>
+          <p>{`The vertex-as-extremum technique and standard optimization word problems are developed on the *Quadratic Functions and Polynomial Inequalities* page. Here we record the rule: a quadratic reaches its extreme value at the vertex. (An extreme value is the smallest or the largest value the function reaches.) Completing the square writes any $ax^2 + bx + c$ as $a(x - h)^2 + k$, with the vertex at $(h, k) = \\left(-\\dfrac{b}{2a},\\, c - \\dfrac{b^2}{4a}\\right)$.`}</p>
 
           <ul className="lrn-list">
             <li>{`$a > 0$: the parabola opens up, the vertex is the minimum. $f_{\\min} = c - \\dfrac{b^2}{4a}$ at $x = -\\dfrac{b}{2a}$.`}</li>
@@ -1079,15 +878,6 @@ function useConfig() {
             <MaxMinViz />
           </div>
 
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`For $f(x) = x^2 - 4x + 7$, at what $x$ does the minimum occur?`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`$x = -\\frac{(-4)}{(2 \\cdot 1)} = 2$.`}</p>
-            </details>
-          </div>
-
           <div className="lrn-steps">
             <div className="lrn-step">
               <span className="lrn-step-title">{`Minimum of $f(x) = x^2 - 4x + 7$`}</span>
@@ -1095,19 +885,129 @@ function useConfig() {
                 <p>{`$a = 1 > 0$, so the vertex is a minimum. Vertex $x = 2$, $f(2) = 4 - 8 + 7 = 3$. Confirm by completing the square: $f(x) = (x - 2)^2 + 3$, so $f(x) \\geq 3$ with equality at $x = 2$.`}</p>
               </div>
             </div>
+          </div>
+
+          <h3>Range and Domain</h3>
+
+          <p>{`The vertex value $k = c - \\dfrac{b^2}{4a}$ is the lowest or highest output of the quadratic. The range follows directly: $[k, \\infty)$ when $a > 0$ (vertex is the minimum), and $(-\\infty, k]$ when $a < 0$ (vertex is the maximum). The domain is always all real numbers, every $x$ produces an output.`}</p>
+        </>,
+
+        <>
+          <div className="lrn-header">
+            <div>
+              <h2>Reciprocal-Roots Identity</h2>
+            </div>
+          </div>
+
+          <p>{`Reversing the coefficients of a quadratic reverses and inverts its roots. This symmetry, proved by Gelfand, connects two seemingly different equations.`}</p>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Reciprocal-roots identity</span>
+            <div className="lrn-definition-desc">
+              <p>{`If the roots of $ax^2 + bx + c = 0$ are $x_1$ and $x_2$, then the roots of $cx^2 + bx + a = 0$ are $\\frac{1}{x_1}$ and $\\frac{1}{x_2}$.`}</p>
+            </div>
+          </div>
+
+          <p>{`The proof uses substitution. Let $y = \\frac{1}{x}$, so $x = \\frac{1}{y}$. Substitute into $ax^2 + bx + c = 0$:`}</p>
+
+          <div className="lrn-eq">{`$$\\frac{a}{y^2} + \\frac{b}{y} + c = 0$$`}</div>
+
+          <p>{`Multiply both sides by $y^2$ (valid since $y \\neq 0$ when $x_i \\neq 0$):`}</p>
+
+          <div className="lrn-eq">{`$$a + by + cy^2 = 0 \\quad\\Rightarrow\\quad cy^2 + by + a = 0$$`}</div>
+
+          <p>{`The new equation in $y$ has coefficients in reverse order. Every root $x_i$ becomes $y_i = \\frac{1}{x_i}$.`}</p>
+
+          <div className="lrn-steps">
             <div className="lrn-step">
-              <span className="lrn-step-title">{`Maximum of $f(x) = -x^2 + 4x - 1$`}</span>
+              <span className="lrn-step-title">{`Roots of $2x^2 - 5x + 2 = 0$ and its reciprocal`}</span>
               <div className="lrn-step-content">
-                <p>{`$a = -1 < 0$, so the vertex is a maximum. Vertex $x = 2$, $f(2) = -4 + 8 - 1 = 3$. The maximum value is $3$.`}</p>
+                <p>{`Factor the first: $2x^2 - 5x + 2 = (2x - 1)(x - 2) = 0$. Roots: $x = 2$ and $x = \\frac{1}{2}$.`}</p>
+                <p>{`Reciprocal equation: $2y^2 - 5y + 2 = 0$ (coefficients already reversed). Roots: $y = 2$ and $y = \\frac{1}{2}$.`}</p>
+                <p>{`Notice: $\\frac{1}{2} = \\frac{1}{2}$ and $\\frac{1}{1/2} = 2$. The roots have swapped!`}</p>
               </div>
             </div>
             <div className="lrn-step">
-              <span className="lrn-step-title">{`Largest possible product of two numbers summing to $1$`}</span>
+              <span className="lrn-step-title">{`Roots of $3x^2 + 2x - 10 = 0$ and its reciprocal`}</span>
               <div className="lrn-step-content">
-                <p>{`Let one number be $x$; the other is $1 - x$. Their product is $f(x) = x(1 - x) = -x^2 + x$.`}</p>
-                <p>{`This is a downward-opening parabola with vertex at $x = -\\frac{1}{(2 \\cdot -1)} = \\frac{1}{2}$. Then $f(\\frac{1}{2}) = \\frac{1}{2} \\cdot \\frac{1}{2} = \\frac{1}{4}$.`}</p>
-                <p>{`So the maximum product is $\\frac{1}{4}$, reached when both numbers equal $\\frac{1}{2}$. Geometrically: among all rectangles of a fixed perimeter, the square has the largest area.`}</p>
+                <p>{`Quadratic formula: $x = \\dfrac{-2 \\pm \\sqrt{4 + 120}}{6} = \\dfrac{-1 \\pm \\sqrt{31}}{3}$. Call these $x_1$ and $x_2$.`}</p>
+                <p>{`Reciprocal equation: $-10y^2 + 2y + 3 = 0$, or $10y^2 - 2y - 3 = 0$. By the identity, its roots are $\\frac{1}{x_1}$ and $\\frac{1}{x_2}$.`}</p>
               </div>
+            </div>
+          </div>
+
+          <div className="lrn-warning">
+            <p>
+              <strong>Caution.</strong>
+              {` If one of the original roots is zero, then $x_1 x_2 = 0$ and the reciprocal is undefined. The identity requires $x_i \\neq 0$ for all roots.`}
+            </p>
+          </div>
+        </>,
+
+        <>
+          <div className="lrn-header">
+            <div>
+              <h2>Symmetric Equations</h2>
+            </div>
+          </div>
+
+          <p>{`A polynomial is symmetric if its coefficients read the same forwards and backwards. Reversing the order of coefficients matches the original. This symmetry lets you solve a degree-4 equation by reducing it to degree-2 using the reciprocal substitution.`}</p>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Symmetric polynomial</span>
+            <div className="lrn-definition-desc">
+              <p>{`Coefficients are palindromic. Example: $2x^4 + 7x^3 + 4x^2 + 7x + 2$. Reading left to right: $2, 7, 4, 7, 2$. Reading right to left: $2, 7, 4, 7, 2$.`}</p>
+            </div>
+          </div>
+
+          <h3>Solving Symmetric Equations</h3>
+
+          <p>{`The trick: $x = 0$ is never a root (the constant term would be zero). Divide by $x^2$ to split the polynomial into two parts, then pair terms symmetrically.`}</p>
+
+          <div className="lrn-steps">
+            <div className="lrn-step">
+              <span className="lrn-step-title">{`Solve $2x^4 + 7x^3 + 4x^2 + 7x + 2 = 0$`}</span>
+              <div className="lrn-step-content">
+                <p>{`Divide by $x^2$: $2x^2 + 7x + 4 + \\frac{7}{x} + \\frac{2}{x^2} = 0$.`}</p>
+                <p>{`Rearrange by grouping symmetric terms: $2\\left(x^2 + \\frac{1}{x^2}\\right) + 7\\left(x + \\frac{1}{x}\\right) + 4 = 0$.`}</p>
+                <p>{`Let $y = x + \\frac{1}{x}$. Then $y^2 = x^2 + 2 + \\frac{1}{x^2}$, so $x^2 + \\frac{1}{x^2} = y^2 - 2$.`}</p>
+                <p>{`Substitute: $2(y^2 - 2) + 7y + 4 = 0 \\Rightarrow 2y^2 + 7y = 0 \\Rightarrow y(2y + 7) = 0$.`}</p>
+                <p>{`So $y = 0$ or $y = -\\frac{7}{2}$.`}</p>
+                <p>{`Recover $x$ from $y = 0$: $x + \\frac{1}{x} = 0 \\Rightarrow x^2 + 1 = 0 \\Rightarrow x^2 = -1$. Complex roots $x = \\pm i$.`}</p>
+                <p>{`Recover $x$ from $y = -\\frac{7}{2}$: $x + \\frac{1}{x} = -\\frac{7}{2} \\Rightarrow 2x^2 + 7x + 2 = 0$.`}</p>
+                <p>{`Quadratic formula: $x = \\dfrac{-7 \\pm \\sqrt{49-16}}{4} = \\dfrac{-7 \\pm \\sqrt{33}}{4}$.`}</p>
+                <p>{`Four roots: $x \\in \\left\\{i, -i, \\dfrac{-7+\\sqrt{33}}{4}, \\dfrac{-7-\\sqrt{33}}{4}\\right\\}$.`}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="lrn-insight">
+            {`Symmetric structure is the key: you reduce a degree-4 problem to degree-2 with a single clever substitution. The reciprocal-roots identity explains why: if the polynomial is symmetric in the coefficients, the roots come in reciprocal pairs. When you substitute $y = x + \\frac{1}{x}$, you collapse each pair into one variable.`}
+          </div>
+
+          <div className="lrn-faded">
+            <div className="lrn-faded-phase">
+              <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
+              <p>{`Solve $x^4 + 4x^3 + 6x^2 + 4x + 1 = 0$. (Hint: recognize the binomial coefficients.)`}</p>
+              <ol className="lrn-list">
+                <li>{`Coefficients are $1, 4, 6, 4, 1$, the binomial expansion of $(x+1)^4$. So the equation is $(x+1)^4 = 0$.`}</li>
+                <li>{`Single root: $x = -1$ with multiplicity $4$.`}</li>
+              </ol>
+            </div>
+            <div className="lrn-faded-phase lrn-faded-partial">
+              <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
+              <p>{`Solve $3x^4 + 5x^3 + 4x^2 + 5x + 3 = 0$. This is symmetric.`}</p>
+              <ol className="lrn-list">
+                <li>{`Divide by $x^2$: $3x^2 + 5x + 4 + \\frac{5}{x} + \\frac{3}{x^2} = 0$.`}</li>
+                <li>{`Rearrange: $3\\left(x^2 + \\frac{1}{x^2}\\right) + 5\\left(x + \\frac{1}{x}\\right) + 4 = 0$.`}</li>
+                <li>{`Let $y = x + \\frac{1}{x}$. Then $x^2 + \\frac{1}{x^2} = \\rule{1cm}{0.5pt}$, giving $3(\\rule{1cm}{0.5pt}) + 5y + 4 = 0$.`}</li>
+                <li>{`Solve for $y$: $\\rule{1cm}{0.5pt}$`}</li>
+                <li>{`Recover $x$ from each value of $y$ using $x + \\frac{1}{x} = y$: $\\rule{1cm}{0.5pt}$`}</li>
+              </ol>
+            </div>
+            <div className="lrn-faded-phase">
+              <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
+              <p>{`Solve $2x^4 - 3x^3 + 4x^2 - 3x + 2 = 0$.`}</p>
             </div>
           </div>
         </>,
@@ -1115,7 +1015,7 @@ function useConfig() {
         <>
           <div className="lrn-header">
             <div>
-              <h2>Biquadratic and Symmetric Equations</h2>
+              <h2>Biquadratic Equations</h2>
             </div>
           </div>
 
@@ -1153,35 +1053,32 @@ function useConfig() {
             </div>
           </div>
 
-          <h3>Symmetric Equations</h3>
+          <h3>Equations Built from a Substitution</h3>
 
-          <p>{`A degree-4 equation whose coefficients read the same forwards and backwards is called symmetric (or palindromic). The standard example is $ax^4 + bx^3 + cx^2 + bx + a = 0$. The trick is to divide both sides by $x^2$ assuming $x \\neq 0$, which is fine since $a \\neq 0$ rules out $x = 0$ as a root. Then group the terms with matching pairs:`}</p>
+          <p>{`A degree-4 equation can hide a quadratic inside a substitution. Spot the repeated chunk and the problem collapses to two easier ones.`}</p>
 
-          <div className="lrn-eq">{`$$a\\left(x^2 + \\tfrac{1}{x^2}\\right) + b\\left(x + \\tfrac{1}{x}\\right) + c = 0$$`}</div>
+          <p>{`How they are built. Take any quadratic, say $3x^2 + 2x - 10 = 0$, and replace $x$ with some expression in $y$, say $x = y^2 + y - 1$. Expand and you get an ugly degree-4 mess in $y$.`}</p>
 
-          <p>{`Let $y = x + \\frac{1}{x}$. Then $y^2 = x^2 + 2 + \\frac{1}{x^2}$, so $x^2 + \\frac{1}{x^2} = y^2 - 2$. Substituting gives a plain quadratic in $y$:`}</p>
+          <p>{`How to undo it. If you face an equation like`}</p>
 
-          <div className="lrn-eq">{`$$a(y^2 - 2) + b y + c = 0$$`}</div>
+          <div className="lrn-eq">{`$$3(y^2 + y - 1)^2 + 2(y^2 + y - 1) - 10 = 0$$`}</div>
 
-          <p>{`Solve for $y$, then for each value of $y$ solve $x + \\frac{1}{x} = y$, i.e. $x^2 - yx + 1 = 0$, with the quadratic formula.`}</p>
+          <p>{`the same chunk $y^2 + y - 1$ appears twice. Name it $x = y^2 + y - 1$. The equation collapses to $3 x^2 + 2x - 10 = 0$. The quadratic formula gives`}</p>
 
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Solve $x^2 + x + 1 + \\tfrac{1}{x} + \\tfrac{1}{x^2} = 0$`}</span>
-              <div className="lrn-step-content">
-                <p>{`Set $y = x + \\frac{1}{x}$, so $x^2 + \\frac{1}{x^2} = y^2 - 2$. The equation becomes $(y^2 - 2) + y + 1 = y^2 + y - 1 = 0$.`}</p>
-                <p>{`Solve for $y$: $y = \\dfrac{-1 \\pm \\sqrt{5}}{2}$.`}</p>
-                <p>{`For each $y$, solve $x^2 - yx + 1 = 0$ with the quadratic formula to recover $x$.`}</p>
-              </div>
-            </div>
+          <div className="lrn-eq">{`$$x = \\frac{-2 \\pm \\sqrt{4 + 120}}{6} = \\frac{-1 \\pm \\sqrt{31}}{3}$$`}</div>
+
+          <p>{`For each value of $x$, solve $y^2 + y - (1 + x) = 0$ with the quadratic formula again. Each $x$ produces up to two real $y$s, so up to four real solutions overall.`}</p>
+
+          <div className="lrn-insight">
+            <p>{`Same strategy as the biquadratic case above: when a non-trivial expression appears more than once, name it. Pattern recognition beats brute expansion.`}</p>
           </div>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why does each substitution drop the degree?`}</p>
+            <p>{`Why does the substitution drop the degree?`}</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
-              <p>{`Both equations have hidden structure that the substitution exposes. A biquadratic uses only even powers of $x$, so renaming $x^2$ as $y$ collapses $x^4$ to $y^2$. A symmetric equation is invariant when you swap $x$ and $\\frac{1}{x}$, which is exactly the symmetry of $x + \\frac{1}{x}$. In both cases the new variable absorbs the pattern, and what remains is an ordinary quadratic.`}</p>
+              <p>{`A biquadratic uses only even powers of $x$, so renaming $x^2$ as $y$ collapses $x^4$ to $y^2$. A nested-substitution equation hides a repeated chunk; naming that chunk as a single variable replaces every occurrence at once. In both cases the new variable absorbs the pattern, and what remains is an ordinary quadratic.`}</p>
             </details>
           </div>
         </>,
@@ -1191,6 +1088,58 @@ function useConfig() {
             <div>
               <h2>Applications and Word Problems</h2>
             </div>
+          </div>
+
+          <p>{`Quadratics model anything where a quantity changes with the square of another. Below are three standard setups. Each one becomes a quadratic, solves with the formula or factoring, and asks you to reject any answer that does not fit the physical context.`}</p>
+
+          <h3>Projectile Motion</h3>
+
+          <p>{`A ball thrown straight up from a $6$-foot platform with initial velocity $32$ ft/s has height $h(t) = -16t^2 + 32t + 6$ feet at time $t$ seconds. When does it hit the ground?`}</p>
+
+          <div className="lrn-proof">
+            <span className="lrn-proof-header">{`Solve $-16t^2 + 32t + 6 = 0$`}</span>
+            <div className="lrn-proof-step">
+              <div className="lrn-proof-step-content">
+                <p>{`Multiply both sides by $-1$ and divide by $2$: $8t^2 - 16t - 3 = 0$.`}</p>
+                <p>{`Apply the quadratic formula with $a = 8$, $b = -16$, $c = -3$:`}</p>
+                <div className="lrn-eq">{`$$t = \\frac{16 \\pm \\sqrt{256 + 96}}{16} = \\frac{16 \\pm \\sqrt{352}}{16} = \\frac{16 \\pm 4\\sqrt{22}}{16} = \\frac{4 \\pm \\sqrt{22}}{4}$$`}</div>
+                <p>{`Numerically: $\\sqrt{22} \\approx 4.69$, so $t \\approx 2.17$ s or $t \\approx -0.17$ s. Time cannot be negative, so reject the second root. The ball hits the ground at $t \\approx 2.17$ s.`}</p>
+              </div>
+            </div>
+            <div className="lrn-qed">Q.E.D.</div>
+          </div>
+
+          <h3>Rectangle with Fixed Perimeter and Area</h3>
+
+          <p>{`A rectangular garden has perimeter $40$ m and area $96$ m$^2$. Find its dimensions.`}</p>
+
+          <div className="lrn-proof">
+            <span className="lrn-proof-header">{`Reduce to a quadratic in one variable`}</span>
+            <div className="lrn-proof-step">
+              <div className="lrn-proof-step-content">
+                <p>{`Let length $L$ and width $W$. Then $2(L + W) = 40$, so $L + W = 20$, which gives $W = 20 - L$. Area: $L(20 - L) = 96$.`}</p>
+                <p>{`Expand and rearrange: $-L^2 + 20L - 96 = 0$, or $L^2 - 20L + 96 = 0$.`}</p>
+                <p>{`Factor: look for two numbers with sum $20$ and product $96$. They are $8$ and $12$. So $(L - 8)(L - 12) = 0$, giving $L = 8$ or $L = 12$.`}</p>
+                <p>{`Both roots are positive, so both are valid dimensions. By symmetry $L = 12, W = 8$ and $L = 8, W = 12$ describe the same garden: $8$ m by $12$ m.`}</p>
+              </div>
+            </div>
+            <div className="lrn-qed">Q.E.D.</div>
+          </div>
+
+          <h3>Consecutive Positive Integers</h3>
+
+          <p>{`The product of two consecutive positive integers is $132$. Find them.`}</p>
+
+          <div className="lrn-proof">
+            <span className="lrn-proof-header">{`Set up and solve`}</span>
+            <div className="lrn-proof-step">
+              <div className="lrn-proof-step-content">
+                <p>{`Let the smaller integer be $n$; the next is $n + 1$. Their product: $n(n + 1) = 132$.`}</p>
+                <p>{`Expand: $n^2 + n - 132 = 0$. Factor: two numbers with sum $1$ and product $-132$ are $12$ and $-11$. So $(n + 12)(n - 11) = 0$, giving $n = 11$ or $n = -12$.`}</p>
+                <p>{`The problem asks for positive integers, so reject $n = -12$. The two integers are $11$ and $12$, and $11 \\cdot 12 = 132$.`}</p>
+              </div>
+            </div>
+            <div className="lrn-qed">Q.E.D.</div>
           </div>
 
           <h3>Building a Quadratic from Its Roots</h3>
@@ -1208,20 +1157,15 @@ function useConfig() {
                 <p>{`Sum $= 1$, product $= -6$, giving $x^2 - x - 6 = 0$.`}</p>
               </div>
             </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Complex-conjugate roots $1 - 3i$ and $1 + 3i$`}</span>
-              <div className="lrn-step-content">
-                <p>{`Sum $= 2$, product $= (1)^2 + (3)^2 = 10$. The resulting quadratic $x^2 - 2x + 10 = 0$ has real coefficients, as expected for a conjugate pair.`}</p>
-              </div>
-            </div>
           </div>
+          <p>{`For complex-conjugate roots, see the worked example in *The Discriminant* (§8), where $1 \\pm 3i$ rebuilds $x^2 - 2x + 10 = 0$.`}</p>
 
           <h3>Rational Equations That Become Quadratics</h3>
 
           <p>
-            {`If an equation contains fractions whose denominators include $x$, multiply both sides by the least common denominator. The result is usually a polynomial equation often a quadratic. After solving, check every candidate against the original equation: any value that makes a denominator zero is an `}
+            {`A rational equation has fractions with $x$ in a denominator. Multiply both sides by the least common denominator (the smallest expression every denominator divides into). The result is usually a polynomial equation, often a quadratic. After solving, check every candidate against the original equation: any value that makes a denominator zero is an `}
             <strong>extraneous root</strong>
-            {`, introduced by the multiplication step and not actually a solution.`}
+            {`, the multiplication step introduces it, and it is not actually a solution.`}
           </p>
 
           <div className="lrn-steps">
@@ -1233,13 +1177,6 @@ function useConfig() {
                 <p>{`Quadratic formula: $x = \\dfrac{8 \\pm \\sqrt{64 - 56}}{4} = 2 \\pm \\dfrac{\\sqrt{2}}{2}$. Neither value equals $1$ or $2$, so both are valid.`}</p>
               </div>
             </div>
-          </div>
-
-          <div className="lrn-warning">
-            <p>
-              <strong>Check for extraneous roots.</strong>
-              {` Whenever you multiply both sides by an expression containing $x$, list the excluded values before you start solving. After solving, discard any candidate that matches one of those values.`}
-            </p>
           </div>
 
           <h3>The Golden Ratio</h3>
@@ -1257,86 +1194,6 @@ function useConfig() {
           <div className="lrn-eq lrn-eq-hero">
             <span>{`$$x = \\frac{1 + \\sqrt{5}}{2} \\approx 1.618$$`}</span>
           </div>
-
-          <h3>Roots Scaling</h3>
-
-          <p>{`Sometimes you would rather work with a monic quadratic but the natural form of the problem is non-monic. There is a clean way to switch: if $r$ is a root of $ax^2 + bx + c = 0$, then $ar$ is a root of the monic equation`}</p>
-
-          <div className="lrn-eq">{`$$x^2 + bx + ac = 0$$`}</div>
-
-          <p>{`Multiplying each root by $a$ clears denominators when those roots are fractions.`}</p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Example`}</span>
-              <div className="lrn-step-content">
-                <p>{`$2x^2 - 5x + 2 = 0$ has roots $2$ and $\\frac{1}{2}$. The scaled equation $x^2 - 5x + 4 = 0$ has roots $4$ and $1$ each old root multiplied by $a = 2$.`}</p>
-                <p>{`Why does this work? Substitute $x = ar$ into $x^2 + bx + ac$: $(ar)^2 + b(ar) + ac = a(ar^2 + br + c) = a \\cdot 0 = 0$.`}</p>
-              </div>
-            </div>
-          </div>
-
-          <h3>{`The Degenerate Case $a \\to 0$`}</h3>
-
-          <p>{`As the leading coefficient shrinks toward zero, the parabola flattens. One root stays near $-\\frac{c}{b}$ the solution of the linear equation $bx + c = 0$ while the other escapes to infinity. At $a = 0$ exactly, the equation is no longer a quadratic; it is the linear equation with one solution $x = -\\frac{c}{b}$. The "missing" root is the same one the alternative quadratic formula $x = \\frac{2c}{-b \\pm \\sqrt{b^2 - 4ac}}$ exposes: the form that stays well-behaved as $a \\to 0$.`}</p>
-        </>,
-
-        <>
-          <div className="lrn-header">
-            <div>
-              <h2>Rationalizing Denominators</h2>
-            </div>
-          </div>
-
-          <p>
-            {`To `}
-            <strong>rationalize a denominator</strong>
-            {` is to rewrite a fraction so that no square roots appear below the fraction bar. The standard tool is the difference of squares: $(a + b)(a - b) = a^2 - b^2$. When $a$ and $b$ contain square roots, the squares remove the radicals and the denominator becomes an ordinary integer or rational number.`}
-          </p>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Real conjugate</span>
-            <div className="lrn-definition-desc">
-              <p>{`The conjugate of $a + b\\sqrt{c}$ is $a - b\\sqrt{c}$. Their product $(a + b\\sqrt{c})(a - b\\sqrt{c}) = a^2 - b^2 c$ contains no square root. Multiplying numerator and denominator by the conjugate equals multiplying the fraction by $1$, so its value never changes.`}</p>
-            </div>
-          </div>
-
-          <div className="lrn-insight">
-            {`This is the same move as complex division. To clear $a + bi$ from a denominator, multiply by its conjugate $a - bi$; the product $a^2 + b^2$ is real. The radical case and the complex case are two faces of the same difference-of-squares identity.`}
-          </div>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`What do you multiply $\\dfrac{1}{\\sqrt{3} + \\sqrt{2}}$ by to clear the denominator?`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`Multiply the top and bottom by the conjugate $\\sqrt{3} - \\sqrt{2}$.`}</p>
-            </details>
-          </div>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Rationalize $\\dfrac{1}{\\sqrt{3} + \\sqrt{2}}$`}</span>
-              <div className="lrn-step-content">
-                <div className="lrn-eq">{`$$\\frac{1}{\\sqrt{3} + \\sqrt{2}} \\cdot \\frac{\\sqrt{3} - \\sqrt{2}}{\\sqrt{3} - \\sqrt{2}} = \\frac{\\sqrt{3} - \\sqrt{2}}{3 - 2} = \\sqrt{3} - \\sqrt{2}$$`}</div>
-              </div>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">{`Rationalize $\\dfrac{3}{2 - \\sqrt{5}}$`}</span>
-              <div className="lrn-step-content">
-                <div className="lrn-eq">{`$$\\frac{3}{2 - \\sqrt{5}} \\cdot \\frac{2 + \\sqrt{5}}{2 + \\sqrt{5}} = \\frac{3(2 + \\sqrt{5})}{4 - 5} = -3(2 + \\sqrt{5})$$`}</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why is the rationalized form often easier to work with?`}</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`Two reasons. First, the rationalized form makes the size of the number visible $\\sqrt{3} - \\sqrt{2}$ is easier to estimate than $\\frac{1}{\\sqrt{3} + \\sqrt{2}}$. Second, adding fractions with radical denominators requires a common denominator, and finding one is far easier after rationalization turns the denominators into ordinary integers.`}</p>
-            </details>
-          </div>
         </>,
 
         <>
@@ -1352,18 +1209,9 @@ function useConfig() {
             {`, written by the Persian mathematician Muhammad ibn Musa al-Khwarizmi. "Al-jabr" means moving a negative term across an equation (restoring); "al-muqabala" means cancelling equal terms on the two sides (balancing). Together they are the two basic moves of solving an equation.`}
           </p>
 
-          <p>{`Working without zero, without negative numbers, and without modern symbolic notation, al-Khwarizmi classified quadratics into six canonical forms and solved each one geometrically. His proof of completing the square is exactly the diagram below.`}</p>
+          <p>{`Working without zero, without negative numbers, and without modern symbolic notation, al-Khwarizmi classified quadratics into standard shapes and solved each one as a picture. His proof of completing the square is exactly the diagram below.`}</p>
 
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`Al-Khwarizmi's example is $x^2 + 10x = 39$. What shape did he use to represent the left side?`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`A central square of side $x$ with four rectangles of width $2.5$ attached, one to each side, so that the linear term $10x$ becomes the area of those four rectangles ($4 \\cdot 2.5x = 10x$).`}</p>
-            </details>
-          </div>
-
-          <p>{`Adding four small corner squares of side $2.5$ completes the figure into a larger square of side $x + 5$. The total corner area is $4 \\times 2.5^2 = 25$, so adding $25$ to both sides of the equation gives:`}</p>
+          <p>{`His worked example is $x^2 + 10x = 39$. He represents the left side as a central square of side $x$ with four rectangles of width $2.5$ attached, one to each side. The four rectangles have total area $4 \\cdot 2.5x = 10x$, matching the linear term. Adding four small corner squares of side $2.5$ completes the figure into a larger square of side $x + 5$. The total corner area is $4 \\times 2.5^2 = 25$, so adding $25$ to both sides of the equation gives:`}</p>
 
           <div className="lrn-eq">{`$$x^2 + 10x + 25 = 39 + 25 = 64 \\quad\\Rightarrow\\quad (x+5)^2 = 64 \\quad\\Rightarrow\\quad x = 3$$`}</div>
 
@@ -1398,30 +1246,6 @@ function useConfig() {
         a: '$ac = 6$. Numbers multiplying to $6$ and adding to $5$: $2$ and $3$. Rewrite: $2x^2 + 2x + 3x + 3 = (2x+3)(x+1) = 0$. So $x = -\\frac{3}{2}$ or $x = -1$.'
       },
       // Special factorizations
-      {
-        q: 'Factor $x^4 - 16$ completely.',
-        a: '$x^4 - 16 = (x^2-4)(x^2+4) = (x-2)(x+2)(x^2+4)$. The factor $x^2+4$ has no real factors.'
-      },
-      {
-        q: "Why can't you factor $a^2 + b^2$ over the real numbers?",
-        a: 'You need $p + q = 0$ and $pq = 1$, giving $p^2 = -1$. No real number squares to $-1$. Over the complex numbers it factors as $(a+bi)(a-bi)$.'
-      },
-      {
-        q: 'Factor $25a^2 - 9b^2$.',
-        a: '$(5a-3b)(5a+3b)$.'
-      },
-      {
-        q: 'How do you recognize a perfect square trinomial? Why does $4x^2 - 12x + 9$ qualify?',
-        a: 'First term $(2x)^2$, last term $3^2$, middle term $12x = 2 \\times 2x \\times 3$. All match: $4x^2 - 12x + 9 = (2x-3)^2$.'
-      },
-      {
-        q: 'Factor $8a^3 + 27b^3$.',
-        a: '$(2a+3b)(4a^2-6ab+9b^2)$.'
-      },
-      {
-        q: 'Factor $x^3 - 8$.',
-        a: '$(x-2)(x^2+2x+4)$.'
-      },
       // SFFT
       {
         q: 'Apply the SFFT to find all integer pairs $(x, y)$ with $xy + x + y = 11$.',
@@ -1435,15 +1259,7 @@ function useConfig() {
         q: 'How does the SFFT work algebraically?',
         a: '$xy + ax + by + ab = (x+b)(y+a)$. Adding $ab$ fills the missing piece, analogous to adding $(\\frac{b}{2})^2$ to complete the square.'
       },
-      {
-        q: 'Solve the Diophantine equation $xy + x + y = 17$ for positive integers.',
-        a: 'Add $1$: $(x+1)(y+1) = 18$. Factor pairs with both factors $> 1$: $(2,9),(3,6),(6,3),(9,2)$. Solutions: $(x,y) \\in \\{(1,8),(2,5),(5,2),(8,1)\\}$.'
-      },
       // Complex numbers
-      {
-        q: 'What is $i^{23}$?',
-        a: '$23 = 4 \\times 5 + 3$, remainder $3$. So $i^{23} = i^3 = -i$.'
-      },
       {
         q: 'Compute $(2+3i)(1-i)$.',
         a: 'Expand: $2 - 2i + 3i - 3i^2 = 2 + i + 3 = 5 + i$.'
@@ -1501,10 +1317,6 @@ function useConfig() {
       {
         q: 'Solve $9x^2 - 42x + 49 = 0$.',
         a: '$D = 0$. Double root: $x = \\frac{42}{18} = \\frac{7}{3}$. Confirm: $(3x-7)^2 = 0$.'
-      },
-      {
-        q: 'Solve $z^2 + 6iz + 7 = 0$.',
-        a: '$D = (6i)^2 - 28 = -64$. $\\sqrt{-64} = 8i$. $z = \\frac{(-6i \\pm 8i)}{2}$. So $z = i$ or $z = -7i$.'
       },
       {
         q: 'Solve $3y^2 - 14y = -8 + 5y$.',
@@ -1579,28 +1391,8 @@ function useConfig() {
       },
       // Quadratic inequalities
       {
-        q: 'Solve the inequality $x^2 - 3x + 2 > 0$.',
-        a: '$(x-1)(x-2) > 0$. Roots: $x = 1$, $x = 2$. Test $x = 0$: positive. Test $x = 1.5$: negative. Test $x = 3$: positive. Solution: $x < 1$ or $x > 2$.'
-      },
-      {
-        q: 'For $ax^2 + bx + c > 0$ with $a > 0$ and $D > 0$, where is the solution?',
-        a: 'Outside the roots. The parabola opens upward, so it is positive outside the two roots: $x < r$ or $x > s$.'
-      },
-      {
-        q: 'Solve $x^2 - x - 6 > 0$.',
-        a: '$(x-3)(x+2) > 0$. Since $a > 0$, positive outside the roots. Solution: $x < -2$ or $x > 3$.'
-      },
-      {
-        q: 'Solve $x^2 - x - 6 < 0$.',
-        a: 'Roots: $x = 3$, $x = -2$. Since $a > 0$, negative between roots. Solution: $-2 < x < 3$.'
-      },
-      {
         q: 'What happens when you solve $ax^2 + bx + c < 0$ with $a > 0$ and $D < 0$?',
         a: 'No solution. When $D < 0$ and $a > 0$, the parabola stays entirely above the $x$-axis. The inequality has no solution.'
-      },
-      {
-        q: 'Why does the sign stay the same between consecutive roots in a quadratic inequality?',
-        a: 'The quadratic is continuous. It can only change sign by passing through zero. The only zeros are the roots. Between roots, no sign change is possible.'
       },
       {
         q: 'For $x^2 - x - 6 \\geq 0$, state the solution set.',
@@ -1619,6 +1411,40 @@ function useConfig() {
         q: 'What is the minimum of $f(x) = 3x^2 - 12x + 7$?',
         a: '$x = 2$. $f(2) = 12 - 24 + 7 = -5$. Minimum is $-5$.'
       },
+      // Reciprocal-roots identity
+      {
+        q: 'If $2x^2 - 5x + 2 = 0$ has roots $2$ and $\\frac{1}{2}$, what are the roots of $2y^2 - 5y + 2 = 0$?',
+        a: 'By the reciprocal-roots identity: $2$ and $\\frac{1}{2}$. The coefficients are palindromic, so the equation is self-reciprocal: reversing gives the same equation.'
+      },
+      {
+        q: 'The roots of $3x^2 + 4x + 1 = 0$ are $-\\frac{1}{3}$ and $-1$. What are the roots of $x^2 + 4x + 3 = 0$?',
+        a: 'By the reciprocal-roots identity, the roots are $\\frac{1}{-1/3} = -3$ and $\\frac{1}{-1} = -1$. Check: $(-3) + (-1) = -4 = -b/a$ and $(-3)(-1) = 3 = c/a$. ✓'
+      },
+      {
+        q: 'Construct a quadratic whose roots are the reciprocals of the roots of $5x^2 - 7x + 2 = 0$.',
+        a: 'Reverse the coefficients: $2x^2 - 7x + 5 = 0$. By the identity, this has roots that are reciprocals of the first.'
+      },
+      {
+        q: 'Why does the reciprocal-roots identity require $x_i \\neq 0$ for all roots?',
+        a: 'If a root is zero, the reciprocal $1/0$ is undefined. The identity requires that we can form $y = 1/x$ for each root, which forbids zero.'
+      },
+      // Symmetric equations
+      {
+        q: 'Show that $2x^4 + 7x^3 + 4x^2 + 7x + 2 = 0$ is symmetric.',
+        a: 'The coefficients are $2, 7, 4, 7, 2$. Reading forwards and backwards gives the same sequence, so the equation is symmetric.'
+      },
+      {
+        q: 'Divide $x^4 + 5x^3 + 6x^2 + 5x + 1 = 0$ by $x^2$ and group symmetric terms.',
+        a: '$x^2 + 5x + 6 + \\frac{5}{x} + \\frac{1}{x^2} = 0$. Group: $\\left(x^2 + \\frac{1}{x^2}\\right) + 5\\left(x + \\frac{1}{x}\\right) + 6 = 0$.'
+      },
+      {
+        q: 'If $y = x + \\frac{1}{x}$, express $x^2 + \\frac{1}{x^2}$ in terms of $y$.',
+        a: 'Square both sides: $y^2 = x^2 + 2 + \\frac{1}{x^2}$, so $x^2 + \\frac{1}{x^2} = y^2 - 2$.'
+      },
+      {
+        q: 'Solve $x^4 - 5x^3 + 6x^2 - 5x + 1 = 0$ using the symmetric equation method.',
+        a: 'Divide by $x^2$: $(x^2 + \\frac{1}{x^2}) - 5(x + \\frac{1}{x}) + 6 = 0$. Let $y = x + \\frac{1}{x}$: $(y^2 - 2) - 5y + 6 = 0 \\Rightarrow y^2 - 5y + 4 = 0$. Factor: $(y-1)(y-4) = 0$. From $y=1$: $x + 1/x = 1 \\Rightarrow x^2 - x + 1 = 0$ (complex roots). From $y=4$: $x + 1/x = 4 \\Rightarrow x^2 - 4x + 1 = 0 \\Rightarrow x = 2 \\pm \\sqrt{3}$.'
+      },
       // Biquadratic
       {
         q: 'Find all solutions to $x^4 - 5x^2 + 4 = 0$.',
@@ -1635,10 +1461,6 @@ function useConfig() {
       {
         q: 'Why does $y = x + \\frac{1}{x}$ reduce a symmetric degree-4 equation to degree 2?',
         a: 'After dividing by $x^2$, the equation has $x^2 + \\frac{1}{x^2} = y^2 - 2$ and $x + \\frac{1}{x} = y$. Every term becomes a polynomial in $y$. Degree drops from 4 to 2.'
-      },
-      {
-        q: 'Solve the symmetric equation $x^2 + x + 1 + \\frac{1}{x} + \\frac{1}{x^2} = 0$.',
-        a: 'Let $y = x + \\frac{1}{x}$: $y^2 + y - 1 = 0$. $y = \\frac{(-1 \\pm \\sqrt{5})}{2}$. Recover $x$ from $x^2 - yx + 1 = 0$ for each $y$.'
       },
       // Applications
       {
@@ -1666,14 +1488,6 @@ function useConfig() {
         a: 'Squaring gives $x^2 - 5x + 4 = 0$: $x = 1$ or $x = 4$. Check $x = 1$: $\\sqrt{1} = 1 \\neq -1$. Extraneous. Only $x = 4$ is valid.'
       },
       {
-        q: 'Prove: if $r$ is a root of $ax^2 + bx + c = 0$, then $ar$ is a root of $x^2 + bx + ac = 0$.',
-        a: 'Substitute $x = ar$: $(ar)^2 + b(ar) + ac = a(ar^2 + br + c) = a \\times 0 = 0$.'
-      },
-      {
-        q: 'If you replace the leading coefficient with $0$, what happens to the number of solutions?',
-        a: 'The equation becomes linear: $bx + c = 0$. One solution $x = -\\frac{c}{b}$. One root escaped to infinity as $a \\to 0$.'
-      },
-      {
         q: 'For $x^2 + 4x - 12 = 0$, which method would you choose and why?',
         a: 'Try factoring: need numbers multiplying to $-12$ and adding to $4$: $6$ and $-2$. $(x+6)(x-2) = 0$, $x = -6$ or $x = 2$. Factoring works in seconds.'
       },
@@ -1685,14 +1499,6 @@ function useConfig() {
       {
         q: 'Rationalize $\\dfrac{3}{2-\\sqrt{5}}$.',
         a: 'Multiply by $(2+\\sqrt{5})$: denominator $= 4-5 = -1$. Result: $-3(2+\\sqrt{5})$.'
-      },
-      {
-        q: 'When would rationalizing a denominator make an expression easier to work with?',
-        a: 'Rationalized form is easier to estimate and compare. Adding fractions with radical denominators requires a common denominator, which rationalization helps find.'
-      },
-      {
-        q: 'Given roots $r, s$ of $x^2 + bx + ac = 0$, what are the roots of $ax^2 + bx + c = 0$?',
-        a: '$\\frac{r}{a}$ and $\\frac{s}{a}$. The roots of $ax^2 + bx + c = 0$ are the roots of $x^2 + bx + ac = 0$ divided by $a$.'
       }
     ],
 
@@ -1712,12 +1518,6 @@ function useConfig() {
             <span className="lrn-definition-term">Monic form</span>
             <div className="lrn-definition-desc">
               <p>{`$x = -\\dfrac{p}{2} \\pm \\sqrt{\\dfrac{p^2}{4} - q}$: for $x^2 + px + q = 0$ directly.`}</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Alternative form</span>
-            <div className="lrn-definition-desc">
-              <p>{`$x = \\dfrac{2c}{-b \\mp \\sqrt{b^2 - 4ac}}$: equivalent to the standard formula, well-behaved as $a \\to 0$.`}</p>
             </div>
           </div>
 
@@ -1763,6 +1563,14 @@ function useConfig() {
             <span className="lrn-definition-term">Sum of reciprocals</span>
             <div className="lrn-definition-desc">
               <p>{`$\\dfrac{1}{x_1} + \\dfrac{1}{x_2} = \\dfrac{x_1 + x_2}{x_1 x_2} = -\\dfrac{b}{c}$`}</p>
+            </div>
+          </div>
+
+          <h3>Reciprocal-Roots Identity</h3>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Transformation</span>
+            <div className="lrn-definition-desc">
+              <p>{`If $ax^2 + bx + c = 0$ has roots $x_1, x_2$, then $cx^2 + bx + a = 0$ has roots $\\dfrac{1}{x_1}, \\dfrac{1}{x_2}$`}</p>
             </div>
           </div>
         </>,
@@ -1820,24 +1628,6 @@ function useConfig() {
         <>
           <h3>Special Factorizations</h3>
           <div className="lrn-definition">
-            <span className="lrn-definition-term">Difference of squares</span>
-            <div className="lrn-definition-desc">
-              <p>{`$a^2 - b^2 = (a-b)(a+b)$`}</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Perfect square (plus)</span>
-            <div className="lrn-definition-desc">
-              <p>{`$a^2 + 2ab + b^2 = (a+b)^2$`}</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Perfect square (minus)</span>
-            <div className="lrn-definition-desc">
-              <p>{`$a^2 - 2ab + b^2 = (a-b)^2$`}</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
             <span className="lrn-definition-term">Difference of cubes</span>
             <div className="lrn-definition-desc">
               <p>{`$a^3 - b^3 = (a-b)(a^2+ab+b^2)$`}</p>
@@ -1884,25 +1674,11 @@ function useConfig() {
         </>,
 
         <>
-          <h3>Quadratic Inequality Method</h3>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Sign chart</span>
-            <div className="lrn-definition-desc">
-              <p>
-                Find roots. Test one value per interval. Sign stays the same within each interval.
-              </p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">{`Solution ($a > 0$)`}</span>
-            <div className="lrn-definition-desc">
-              <p>{`$< 0 \\Rightarrow r < x < s$. $> 0 \\Rightarrow x < r$ or $x > s$.`}</p>
-            </div>
-          </div>
+          <h3>Quadratic Inequalities</h3>
           <div className="lrn-definition">
             <span className="lrn-definition-term">No-solution case</span>
             <div className="lrn-definition-desc">
-              <p>{`$D < 0$ and $a > 0$: $ax^2+bx+c > 0$ for all $x$; the $< 0$ inequality has no solution.`}</p>
+              <p>{`$D < 0$ and $a > 0$: $ax^2+bx+c > 0$ for all $x$; the $< 0$ inequality has no solution. (Sign-chart method and worked examples live on the *Quadratic Functions and Polynomial Inequalities* page.)`}</p>
             </div>
           </div>
 
@@ -1916,29 +1692,7 @@ function useConfig() {
           <div className="lrn-definition">
             <span className="lrn-definition-term">Symmetric equation</span>
             <div className="lrn-definition-desc">
-              <p>{`Palindrome coefficients: divide by $x^2$, let $y = x + \\frac{1}{x}$, use $x^2 + \\frac{1}{x^2} = y^2 - 2$.`}</p>
-            </div>
-          </div>
-
-          <h3>Conjugate / Rationalization</h3>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Real conjugate</span>
-            <div className="lrn-definition-desc">
-              <p>{`$(a+b\\sqrt{c})(a-b\\sqrt{c}) = a^2 - b^2 c$: multiply numerator and denominator by the conjugate.`}</p>
-            </div>
-          </div>
-
-          <h3>Advanced Results</h3>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Degenerate case</span>
-            <div className="lrn-definition-desc">
-              <p>{`As $a \\to 0$, one root approaches $-\\frac{c}{b}$, the other grows without bound. At $a = 0$: linear equation with one solution $x = -\\frac{c}{b}$.`}</p>
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Roots scaling</span>
-            <div className="lrn-definition-desc">
-              <p>{`If $r$ is a root of $ax^2+bx+c=0$, then $ar$ is a root of $x^2+bx+ac=0$.`}</p>
+              <p>{`Palindromic coefficients: divide by $x^2$, substitute $y = x + \\frac{1}{x}$, note $x^2 + \\frac{1}{x^2} = y^2 - 2$. Solve the quadratic in $y$, then recover $x$ from each $y$ value.`}</p>
             </div>
           </div>
         </>
@@ -1946,7 +1700,7 @@ function useConfig() {
     },
 
     customCss:
-      '.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }'
+      '.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }'
   }
 
   return config

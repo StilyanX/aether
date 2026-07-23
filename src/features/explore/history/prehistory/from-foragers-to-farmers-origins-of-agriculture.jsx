@@ -1,4 +1,5 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import { VizFigure } from '../../../../components/viz-figure'
 
 function useConfig() {
   const config = {
@@ -14,33 +15,29 @@ function useConfig() {
         <>
           <h2>The World After the Ice Age</h2>
           <p>
-            The last ice age peaked around 18,000 years ago, then the glaciers began to retreat. For
-            the next several thousand years, temperatures rose and fell in a series of unsteady
-            swings called the Late Glacial period (15,000 to 11,600 years ago).
+            The last ice age peaked around 18,000 years ago, then the glaciers began to retreat.
+            Temperatures then rose and fell in unsteady swings for thousands of years. The final
+            swing was the sharpest. The Younger Dryas (12,900 to 11,600 years ago) slammed the
+            Northern Hemisphere back into near-glacial cold. When it ended, the climate warmed
+            quickly and steadied.
           </p>
           <p>
-            The final swing was the sharpest. The Younger Dryas (12,900 to 11,600 years ago) slammed
-            the Northern Hemisphere back into near-glacial cold for over a thousand years. When it
-            ended, the climate warmed quickly and steadied. That moment marks the start of the
-            Holocene, the warm and stable geological epoch we still live in today.
+            That moment marks the start of the Holocene, the warm and stable epoch we met before. An
+            epoch is a long named stretch of geological time. The Holocene is the one we still live
+            in today, and every farming society on this page grew up inside it.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/63/Evolution_of_temperature_in_the_Post-Glacial_period_according_to_Greenland_ice_cores_%28Younger_Dryas%29.jpg"
-              alt="Post-glacial temperature changes including the Younger Dryas cold event, reconstructed from Greenland ice cores"
-              loading="lazy"
-            />
-            <figcaption>
-              Post-glacial temperature changes reconstructed from Greenland ice cores. The Younger
-              Dryas cold reversal is visible before the Holocene warming (Wikimedia Commons, CC
-              BY-SA).
-            </figcaption>
-          </figure>
+          <p>
+            Every date on this page comes from radiocarbon dating, the method you met earlier.
+            Archaeologists measure the carbon-14 left in bone, charcoal, seeds, and other
+            once-living remains. The less carbon-14 is left, the older the remains. That is how we
+            know a layer is "c. 13,000 years ago" rather than guessing.
+          </p>
           <div className="lrn-callout">
-            <strong>KEY TERM: HOLOCENE</strong>
+            <strong>WHY THE TIMING MATTERS</strong>
             <p>
-              The geological epoch that began around 11,600 years ago when the last ice age ended.
-              All agriculture, civilization, and recorded history took place in the Holocene.
+              Humans were biologically modern for over 100,000 years before farming. Yet every
+              farming society arose only after the Holocene began. The stable warm climate, not a
+              change in human brains, opened the door.
             </p>
           </div>
           <div className="lrn-predict">
@@ -64,8 +61,8 @@ function useConfig() {
             across Southwest Asia and China. These same grasses would later become the first
             domesticated crops. The Younger Dryas then briefly cut those wild food supplies back,
             putting pressure on the groups that had grown most dependent on them. Whether that
-            pressure pushed people into farming is a question we will return to in the theories
-            section.
+            pressure pushed people into farming is one of the main questions about agricultural
+            origins.
           </p>
           <div className="lrn-predict">
             <strong>Predict:</strong> If sea levels rose by over 100 meters and drowned vast coastal
@@ -77,9 +74,11 @@ function useConfig() {
         <>
           <h2>Defining Cultivation, Domestication, and Agriculture</h2>
           <p>
-            Archaeologists use cultivation, domestication, and agriculture to mean three different
-            things. Mixing them up makes any debate about the origins of farming meaningless, so
-            they are worth pinning down before going further.
+            You already met domestication as selective breeding: humans choose which plants and
+            animals reproduce, and the species changes over generations. This page splits that idea
+            into three sharper terms. Archaeologists use cultivation, domestication, and agriculture
+            to mean three different things. Mixing them up makes any debate about farming origins
+            meaningless.
           </p>
           <div className="lrn-definition">
             <div className="lrn-definition-term">Cultivation</div>
@@ -100,7 +99,7 @@ function useConfig() {
             <div className="lrn-definition-term">Agriculture</div>
             <div className="lrn-definition-desc">
               A food-production system that relies mainly on domesticated plants and animals.
-              Agriculture implies full commitment, not just occasional cultivation alongside hunting
+              Agriculture means full commitment, not just occasional cultivation alongside hunting
               and gathering.
             </div>
           </div>
@@ -127,9 +126,17 @@ function useConfig() {
         <>
           <h2>How Plants Become Domesticates: The Biological Markers</h2>
           <p>
-            Domesticated plants leave visible fingerprints in the seeds and stems found at a dig.
-            Archaeologists use those fingerprints to pin down when wild plants first crossed the
-            line into domesticated crops.
+            Start with one real case. At Abu Hureyra in Syria, foragers began growing rye by at
+            least 13,000 years ago, when cold weather killed off their wild foods. At first the rye
+            still scattered its seeds like a wild plant. Over the next few thousand years, the rye
+            grains found at the site change: more of them stay attached to the stem. That single
+            change, seeds that stay on instead of dropping, is the clearest fingerprint of a plant
+            turning into a crop.
+          </p>
+          <p>
+            Domesticated plants leave visible fingerprints like this in the seeds and stems found at
+            a dig. Archaeologists use those fingerprints to pin down when wild plants first crossed
+            the line into domesticated crops.
           </p>
           <ul className="lrn-list">
             <li>
@@ -144,7 +151,8 @@ function useConfig() {
             </li>
             <li>
               <strong>Loss of seed dormancy:</strong> Wild seeds lie dormant until conditions are
-              right. Domesticated seeds germinate quickly and reliably when planted.
+              right, so they sprout at scattered times. Domesticated seeds germinate quickly and
+              together, so the whole crop comes up at once and ripens for a single harvest.
             </li>
             <li>
               <strong>Thinner seed coat:</strong> Wild seeds have thick coats that resist digestion
@@ -157,6 +165,16 @@ function useConfig() {
               planting.
             </li>
           </ul>
+          <p>
+            These traits did not all change at once. Seed size grew first, within the first few
+            centuries of replanting. The non-shattering rachis was the slowest to take hold, often
+            fixed a thousand years or more later. So the trait a farmer would notice last is usually
+            the one we now treat as the clearest sign.
+          </p>
+          <p>
+            With these markers in hand, you can now read a pile of ancient seeds and pin down when a
+            wild plant first crossed into a crop, without any written record at all.
+          </p>
           <div className="lrn-callout">
             <strong>THE UNCONSCIOUS SELECTION TRAP</strong>
             <p>
@@ -174,6 +192,13 @@ function useConfig() {
 
         <>
           <h2>How Animals Become Domesticates</h2>
+          <p>
+            Start with one real bone pile. At Ganj Dareh in the Zagros mountains of Iran, about
+            10,000 years ago, herders killed most young male goats before they reached two and a
+            half years old. They kept the females alive much longer. A wild hunt would leave bones
+            of all ages and both sexes. This pile does not, so we know these goats were a managed
+            herd, not wild prey.
+          </p>
           <p>
             Animals leave their own fingerprints in the bone piles at a site. When archaeologists
             see young males killed off and females kept alive, they know they are looking at a herd,
@@ -202,6 +227,31 @@ function useConfig() {
               from small founder populations captured and bred in specific regions.
             </li>
           </ul>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Bezoar wild goat">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Bezoar_ibex_are_a_subspecies_of_the_wild_goat%2C_and_native_to_Armenia.jpg"
+                alt="A wild bezoar goat with long, curved horns standing on rocky ground"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The bezoar goat, wild ancestor of domestic goats. Herders later bred smaller animals with shorter horns. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Bezoar_ibex_are_a_subspecies_of_the_wild_goat,_and_native_to_Armenia.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <p>
             The main domesticated animals in Southwest Asia were sheep, goat, cattle, and pig. In
             East Asia, pig and dog came first. Horse domestication happened later on the Eurasian
@@ -224,12 +274,43 @@ function useConfig() {
             menu the <strong>Broad Spectrum Revolution</strong>. It made diets more stable but also
             more labor-intensive per calorie.
           </p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Aurochs">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/49/Aurochs%2C_Danish_National_Museum.jpg"
+                alt="Mounted skeleton of an aurochs, the large wild ox, in a museum"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The aurochs, the huge wild ox that foragers hunted. It was the wild ancestor of all cattle. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Aurochs,_Danish_National_Museum.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+          <p>
+            One camp shows this early. At Ohalo II, beside the Sea of Galilee about 23,000 years
+            ago, foragers ground wild wheat, barley, and oats and ate a wide range of small grasses,
+            birds, and fish. That is broad-spectrum eating thousands of years before any farming.
+          </p>
           <p>
             Some groups became semi-sedentary long before farming began. They stored food, built
             sturdy shelters, and returned to the same sites year after year. Once you stop moving,
             it becomes worthwhile to invest in the local plants and animals: weeding a patch you
-            will return to, penning an animal you will need next month. Sedentism made plant and
-            herd management practical in a way mobile life never did.
+            will return to, penning an animal you will need next month. Sedentism means settling in
+            one place all year instead of moving with the seasons. It made plant and herd management
+            practical in a way mobile life never did.
           </p>
           <div className="lrn-insight">
             Farming did not save people from starvation. Foragers in rich environments often ate
@@ -237,10 +318,9 @@ function useConfig() {
             but often with worse individual health.
           </div>
           <div className="lrn-elaborate">
-            <strong>Elaborate:</strong> Anthropologist Richard Lee studied the !Kung foragers and
-            found they had plenty of leisure time. Explain in your own words why this matters for
-            the question of why agriculture began. If foragers worked less, what does that suggest
-            about the cause of agriculture?
+            <strong>Elaborate:</strong> If well-fed foragers worked less than farmers, then "farming
+            rescued people from hunger" cannot be the whole story. In your own words, name two other
+            forces that could push a comfortable forager group into farming anyway.
           </div>
         </>,
 
@@ -299,6 +379,10 @@ function useConfig() {
                 <em>Evidence:</em> Göbekli Tepe shows large-scale feasting before farming, and Abu
                 Hureyra fits the same pattern.
               </p>
+              <p>
+                <em>Problem:</em> Food piled up for a feast looks much like food stored to survive a
+                lean season. That makes feasting hard to prove from the remains alone.
+              </p>
             </div>
           </div>
           <p>
@@ -316,28 +400,49 @@ function useConfig() {
         <>
           <h2>Southwest Asia: The Fertile Crescent</h2>
           <p>
-            Agriculture arose independently in at least seven regions worldwide. Southwest Asia was
-            the earliest and most influential center.
+            Agriculture did not start in one place and spread everywhere. It was invented from
+            scratch in at least seven separate regions of the world, each with its own wild plants.
+            This page follows the three best-recorded ones in depth: Southwest Asia, northern China,
+            and the Yangzi valley. The other four, in Africa, Mesoamerica, the Andes, and eastern
+            North America, are laid out in the reference table. Southwest Asia was the earliest and
+            most influential center.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Map_of_fertile_crescent.svg"
-              alt="Map showing the Fertile Crescent region of Southwest Asia, the arc of productive land stretching from the Levant through Mesopotamia"
-              loading="lazy"
-            />
-            <figcaption>
-              The Fertile Crescent. This arc of productive land stretches from the Levant coast
-              through the Zagros foothills. Wild ancestors of wheat, barley, sheep, goat, cattle,
-              and pig all lived here (Wikimedia Commons, CC BY-SA).
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="The Fertile Crescent">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Fertile_Crescent_and_Hilly_Flanks.png"
+                alt="Map of the Fertile Crescent and its hilly flanks across Southwest Asia"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Fertile Crescent and its hilly flanks. This arc held the wild ancestors of the first crops and herds. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Fertile_Crescent_and_Hilly_Flanks.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>
             No other region on Earth packed as many domesticable species into one landscape. The
             wild ancestors of sheep, goat, pig, and cattle all lived alongside dense stands of wild
-            wheat, barley, and pulses. The eight crops that farmers eventually pulled from this
-            region are known as the <strong>Neolithic founder crops</strong>: emmer wheat, einkorn
-            wheat, barley, lentil, pea, bitter vetch, chickpea, and flax. They spread together as a
-            package across Eurasia and North Africa.
+            wheat, barley, and pulses (the bean family: peas, lentils, and their relatives). The
+            eight crops that farmers eventually pulled from this region are known as the{' '}
+            <strong>Neolithic founder crops</strong>. Neolithic means the late Stone Age, the
+            stretch when people first farmed and made stone tools by grinding them smooth. The eight
+            are three grains (emmer wheat, einkorn wheat, and barley), four beans (lentil, pea,
+            chickpea, and bitter vetch), and flax, grown for its oily seeds and its fibers. Emmer
+            and einkorn are two early kinds of wheat. They spread together as a package across
+            Eurasia and North Africa.
           </p>
           <div className="lrn-callout">
             <strong>WHY SOUTHWEST ASIA FIRST?</strong>
@@ -358,53 +463,68 @@ function useConfig() {
         <>
           <h2>The Natufians: The First Sedentary Foragers</h2>
           <p>
-            The Natufian culture lived in the Levant from 15,000 to 11,600 years ago. They were
-            still foragers, but they were the first people anywhere to settle in one place
-            year-round.
+            The Natufian culture lived in the Levant from 15,000 to 11,600 years ago. The Levant is
+            the eastern Mediterranean coast, the land that is today Israel, Palestine, Lebanon,
+            Jordan, and western Syria. The Natufians were still foragers, but they were the first
+            people anywhere to settle in one place year-round.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/9/99/Dagon_Museum%2C_Mortars_from_Natufian_Culture%2C_Grinding_stones_from_Neolithic_pre-pottery_phase.JPG"
-              alt="Natufian stone mortars and grinding stones used to process wild plant foods, displayed at the Dagon Museum"
-              loading="lazy"
-            />
-            <figcaption>
-              Natufian stone mortars and grinding tools from the Levant. They processed large
-              amounts of wild grain without domesticating it. Dagon Museum (CC BY-SA 3.0).
-            </figcaption>
-          </figure>
           <ul className="lrn-list">
             <li>
-              <strong>Key sites:</strong> Eynan (Ain Mallaha), el Wad, Hilazon Tachtit, Kharaneh IV
+              They lived at long-used sites like Eynan, el Wad, and Hilazon Tachtit in the Levant.
             </li>
             <li>
-              <strong>Evidence of sedentism:</strong> Substantial stone-founded houses, large
-              communal storage pits, burials with grave goods, faunal remains showing year-round
-              occupation
+              You can see they stayed put. They built stone-founded houses, dug large storage pits,
+              buried their dead with goods, and left animal bones from every season of the year.
             </li>
             <li>
-              <strong>Intensive harvesting:</strong> Sickles with cereal-plant silica gloss show
-              large-scale harvesting of wild cereals
+              They harvested wild grain hard. Cereal stems carry tiny bits of silica, and cutting
+              them polishes a flint blade to a shine called gloss. That gloss on Natufian sickles
+              proves they cut huge amounts of wild cereal.
             </li>
             <li>
-              <strong>Social complexity:</strong> Hilazon Tachtit yielded a shaman burial with
-              tortoise shells, eagle parts, and a severed human foot, suggesting ritual specialists
+              Their society had ranks. One grave at Hilazon Tachtit held a woman buried with 50
+              tortoise shells, eagle parts, a boar foreleg, and a human foot, the mark of a ritual
+              specialist.
             </li>
             <li>
-              <strong>Response to the Younger Dryas:</strong> When cold returned, many Natufian
-              groups became mobile again; others intensified cultivation to maintain their sedentary
-              lifestyle
+              When the Younger Dryas brought cold back, some groups went mobile again. Others stayed
+              and cultivated harder to keep their settled life.
             </li>
           </ul>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Ain Sakhri lovers">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/2/21/Ain_Sakhri_lovers_figurine.jpg"
+                alt="Small carved calcite figurine of two embracing figures, the Ain Sakhri lovers"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Ain Sakhri lovers, carved by Natufians around 11,000 years ago. It is the oldest known image of a couple. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Ain_Sakhri_lovers_figurine.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <p>
             The Natufians show that sedentism came before farming. You do not need agriculture to
             settle down. You need rich enough local resources.
           </p>
           <div className="lrn-self-explain">
             <strong>Self-explain:</strong> The Natufian site of Hilazon Tachtit contained a burial
-            with 50 tortoise shells, eagle parts, a boar foreleg, and a human foot. Walk through
-            what each item suggests about this person's social role. Why does this matter for our
-            understanding of pre-agricultural societies?
+            with 50 tortoise shells, eagle parts, a wild boar foreleg, and a human foot. Walk
+            through what each item suggests about this person's social role. Why does this matter
+            for our understanding of pre-agricultural societies?
           </div>
         </>,
 
@@ -443,13 +563,13 @@ function useConfig() {
           </div>
           <p>
             The bones of Abu Hureyra II women show extreme arthritis in their toes, knees, and lower
-            backs. The cause was kneeling for hours daily to grind grain. Early farming was
-            physically brutal.
+            backs. The cause was kneeling for hours daily to grind grain on quern stones, the paired
+            stones used to crush grain into flour. Early farming was physically brutal.
           </p>
           <div className="lrn-self-explain">
             <strong>Self-explain:</strong> Abu Hureyra I gathered 192 wild plant species. After the
             Younger Dryas, Abu Hureyra II concentrated on a handful of domesticated species. Walk
-            through how losing biodiversity can paradoxically be a step toward agricultural
+            through how losing biodiversity can surprisingly be a step toward agricultural
             efficiency. What did the community gain and lose?
           </div>
         </>,
@@ -458,9 +578,9 @@ function useConfig() {
           <h2>The Early Aceramic Neolithic: New Permanent Villages</h2>
           <p>
             The Pre-Pottery Neolithic A (PPNA, 11,600 to 10,500 years ago) is the first phase of
-            settled farming life in the Levant. People built permanent villages and grew crops, but
-            had not yet invented pottery, so they stored food in baskets, pits, and stone vessels
-            instead.
+            settled farming life in the Levant. This stretch is also called aceramic, which simply
+            means before pottery. People built permanent villages and grew crops, but had not yet
+            invented pottery, so they stored food in baskets, pits, and stone vessels instead.
           </p>
           <ul className="lrn-list">
             <li>
@@ -478,6 +598,31 @@ function useConfig() {
               gatherings before full agriculture.
             </li>
           </ul>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Tower of Jericho">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/03/Tower_of_Jericho.jpg"
+                alt="Stone-built Neolithic tower at Tell es-Sultan, Jericho, seen in its excavation trench"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The stone tower of Jericho, about 8 meters tall and 10,000 years old. It stood inside the village wall. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Tower_of_Jericho.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <p>
             PPNA communities cultivated cereals but relied heavily on hunted gazelle. Full
             dependence on domesticated animals came in the following period.
@@ -497,38 +642,41 @@ function useConfig() {
             assumption about prehistory. Archaeologists had assumed that agriculture came first,
             then monumental architecture. Göbekli Tepe shows the opposite.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/d5/G%C3%B6bekli_Tepe%2C_Urfa.jpg"
-              alt="Aerial view of the Göbekli Tepe mound in southeast Turkey, showing the archaeological excavation site"
-              loading="lazy"
-            />
-            <figcaption>
-              Göbekli Tepe mound, southeast Turkey. The site was built by foragers before
-              agriculture began in the region (CC BY-SA 3.0).
-            </figcaption>
-          </figure>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Vulture_Stone%2C_Gobekli_Tepe%2C_Sanliurfa%2C_South-east_Anatolia%2C_Turkey.jpg"
-              alt="The Vulture Stone at Göbekli Tepe showing carved reliefs of vultures and headless human figures"
-              loading="lazy"
-            />
-            <figcaption>
-              The Vulture Stone at Göbekli Tepe. T-shaped limestone pillars up to 5.5 meters tall
-              are carved with animals including foxes, snakes, boars, and birds. No crops or
-              domesticated animals are depicted (CC BY-SA 2.0).
-            </figcaption>
-          </figure>
           <ul className="lrn-list">
             <li>Huge T-shaped limestone pillars up to 5.5 meters tall and 10 tons each</li>
             <li>At least 20 circular enclosures, only 4 fully excavated</li>
             <li>Carvings of foxes, snakes, boars, cranes, vultures, and human-like figures</li>
             <li>
-              Massive quantities of gazelle, aurochs, and wild ass bones from feasting gatherings
+              Massive quantities of gazelle, aurochs (the huge wild ancestor of cattle), and wild
+              ass bones from feasting gatherings
             </li>
             <li>No evidence of houses or permanent habitation at the site itself</li>
           </ul>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Göbekli Tepe">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/9/93/Gobeklitepe_Panorama.jpg"
+                alt="Excavated circular enclosures with rings of tall T-shaped stone pillars at Göbekli Tepe"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Rings of T-shaped pillars at Göbekli Tepe. Foragers raised these enclosures before farming reached the region. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Gobeklitepe_Panorama.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <p>
             Building Göbekli Tepe required organizing hundreds of people. Feeding those workers may
             have driven more intensive plant cultivation nearby. The site supports the feasting
@@ -547,11 +695,6 @@ function useConfig() {
             Quarrying, moving, carving, and erecting them took hundreds of workers. Step through
             what those workers would have needed to eat and how feeding them might have changed
             local plant management.
-          </div>
-          <div className="lrn-elaborate">
-            <strong>Elaborate:</strong> In your own words, explain why Göbekli Tepe is considered
-            evidence for the Feasting Theory of agricultural origins. Connect the animal bone
-            evidence (gazelle, aurochs, wild ass) to Brian Hayden's argument.
           </div>
         </>,
 
@@ -583,21 +726,61 @@ function useConfig() {
               together.
             </li>
           </ul>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/5e/%C3%87atalh%C3%B6y%C3%BCk_overview.jpg"
-              alt="Overview of the Çatalhöyük excavation site in central Turkey showing the densely packed Neolithic mud-brick houses"
-              loading="lazy"
-            />
-            <figcaption>
-              Çatalhöyük, central Turkey. Houses had no doors at ground level; people walked across
-              rooftops to enter through holes overhead (CC BY 2.0).
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Ain Ghazal statue">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Ain_Ghazal_lime_plaster_statue_BM_1995.0125.1.jpg"
+                alt="Tall Neolithic lime-plaster human statue from Ain Ghazal with painted eyes"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A lime-plaster statue from Ain Ghazal, Jordan. It belongs to the largest cache of Neolithic statues ever found. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Ain_Ghazal_lime_plaster_statue_BM_1995.0125.1.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Plastered skull">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/35/Plastered_skull_from_Jericho_12741-42.jpg"
+                alt="Human skull from Jericho covered in plaster with shells set in the eye sockets"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A plastered skull from Jericho. Families modeled faces on ancestors’ skulls and kept them in their homes. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Plastered_skull_from_Jericho_12741-42.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <div className="lrn-insight">
             PPNB communities spread rapidly. By 9,500 years ago, the PPNB interaction sphere covered
-            an area larger than Western Europe, sharing tool types, burial practices, and building
-            techniques across hundreds of kilometers.
+            an area larger than Western Europe. An interaction sphere is a wide zone where distant
+            communities share the same tools and customs. These villages shared tool types, burial
+            practices, and building techniques across hundreds of kilometers.
           </div>
           <div className="lrn-self-explain">
             <strong>Self-explain:</strong> Çatalhöyük houses had no streets and no ground-level
@@ -632,6 +815,31 @@ function useConfig() {
               humans, one of the earliest known cases of a dog included in a human funeral.
             </li>
           </ul>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Bonn-Oberkassel dog">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/43/Dog_skeleton_oberkassel.jpg"
+                alt="Skeleton of the Bonn-Oberkassel dog, the oldest dog buried with humans"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Bonn-Oberkassel dog, buried with two people about 14,000 years ago. It is the oldest known pet dog. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Dog_skeleton_oberkassel.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <div className="lrn-predict">
             <strong>Predict:</strong> If dogs were first domesticated by hunter-gatherers and not by
             farmers, what does that tell you about the order of changes in early human societies?
@@ -647,17 +855,6 @@ function useConfig() {
             River, and rice farming in the south along the Yangzi. They invented agriculture twice
             over, from different wild plants, in different climates.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e9/A_closeup_of_Thinai_millet_with_husk..JPG"
-              alt="Foxtail millet plant showing the characteristic seed head with husk, one of the first domesticated crops in northern China"
-              loading="lazy"
-            />
-            <figcaption>
-              Foxtail millet. This was one of the first domesticated crops in northern China. Wild
-              millet grew abundantly in the Yellow River Valley loess soils (Wikimedia Commons).
-            </figcaption>
-          </figure>
           <p>
             Northern China millet farming developed in the Yellow River (Huang He) and Wei River
             valleys beginning around 10,000 to 9,000 years ago.
@@ -689,8 +886,9 @@ function useConfig() {
             </div>
           </div>
           <p>
-            Later cultures include Dawenkou (with elaborate burials showing social inequality) and
-            Dadiwan (with very early clay vessels predating full agriculture).
+            By the later Dawenkou culture, some graves held rich offerings while others held almost
+            nothing. That gap in the ground is a sign of growing inequality in life, a pattern we
+            return to below.
           </p>
           <div className="lrn-elaborate">
             <strong>Elaborate:</strong> Explain in your own words why Cishan's 50,000 kilogram grain
@@ -705,9 +903,9 @@ function useConfig() {
             Jiahu sits on a 5.5-hectare patch of central China, near a lake and two rivers in the
             upper Huai valley. It was occupied from roughly 9,000 to 7,500 years ago, between the
             mobile hunter-gatherer past and the later Yangshao villages. What makes Jiahu
-            extraordinary is that this early farming community already had specialist musicians,
-            ritual objects, and long-distance contacts, all attached to a still-mixed economy of
-            rice, hunting, and fishing.
+            extraordinary is simple. This early farming village already had specialist musicians,
+            ritual objects, and long-distance trade. Yet it still lived on a mix of rice, hunting,
+            and fishing.
           </p>
           <ul className="lrn-list">
             <li>
@@ -716,13 +914,13 @@ function useConfig() {
               cultivation was practiced.
             </li>
             <li>
-              <strong>Bird-bone flutes:</strong> Music was significant. Bird-bone flutes were
+              <strong>Bird-bone flutes:</strong> Music mattered here. Bird-bone flutes were
               occasionally buried in human graves, the earliest known playable musical instruments.
             </li>
             <li>
               <strong>Turtle-shell rattles:</strong> Some graves contained turtle skeletons holding
               pebbles, probably used as rattles. Turtle bones bore incised symbols that resemble
-              later Shang dynasty divination marks.
+              much later Chinese divination marks.
             </li>
             <li>
               <strong>Egalitarian early phase:</strong> 396 human burials revealed an absence of
@@ -734,6 +932,31 @@ function useConfig() {
               and stone was brought from 100 km away.
             </li>
           </ul>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Jiahu bone flute">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Jiahu_Bone_Flute.jpg"
+                alt="Ancient flute made from a crane's wing bone, pierced with finger holes, from Jiahu"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A flute made from a crane’s wing bone at Jiahu. It is among the oldest playable instruments known. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Jiahu_Bone_Flute.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <div className="lrn-self-explain">
             <strong>Self-explain:</strong> Explain why finding flutes and ritual objects at an early
             farming village changes how we think about Neolithic life. Walk through what music,
@@ -780,9 +1003,8 @@ function useConfig() {
             </div>
           </div>
           <p>
-            Later cultures (Daxi, Chengtoushan, Qujialing, Majiabang, and Songze) built on this
-            base, growing more populous and more socially layered as rice and fish carried them
-            forward.
+            Later cultures built on this base. As rice and fish fed more people, their villages grew
+            larger and their societies grew more layered, with clearer gaps between rich and poor.
           </p>
           <div className="lrn-insight">
             Northern China millet farmers became sedentary quickly because millet could be stored
@@ -803,17 +1025,6 @@ function useConfig() {
             complexity are possible without farming. Jomon people lived in semi-permanent villages,
             made elaborate pottery, and built large ritual structures.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/9/9f/JomonPottery.JPG"
-              alt="Jomon cord-marked pottery vessel with flame-shaped decorations, an example of early Japanese ceramics"
-              loading="lazy"
-            />
-            <figcaption>
-              Jomon cord-marked pottery. Jomon people produced some of the world's oldest pottery
-              (dated to c. 16,000 years ago) while remaining foragers (public domain).
-            </figcaption>
-          </figure>
           <ul className="lrn-list">
             <li>
               Jomon pottery (c. 16,000 years ago) is among the world's oldest. It was used to boil
@@ -830,7 +1041,7 @@ function useConfig() {
             <li>
               Agriculture arrived in Japan via the Yayoi culture (c. 2,400 years ago), bringing wet
               rice farming from the Korean peninsula. Yoshinogari is a large Yayoi moated settlement
-              showing a rapid and contentious transition.
+              showing a rapid and disputed transition.
             </li>
           </ul>
           <div className="lrn-self-explain">
@@ -847,26 +1058,15 @@ function useConfig() {
             areas (demic diffusion) and by local foragers adopting farming practices from their
             neighbors (cultural diffusion). Both happened, often in combination.
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Centres_of_origin_and_spread_of_agriculture.svg"
-              alt="World map showing independent centers of agricultural origin and the directions of spread, including Southwest Asia, East Asia, Sub-Saharan Africa, and the Americas"
-              loading="lazy"
-            />
-            <figcaption>
-              Centers of agricultural origin and spread. Agriculture arose independently in at least
-              seven locations. Arrows show main directions of spread (CC BY-SA 3.0, Joe Roe,
-              Wikimedia Commons).
-            </figcaption>
-          </figure>
           <div className="lrn-compare">
             <div className="lrn-compare-item">
               <strong>Demic Diffusion</strong>
               <p>
                 Farming populations grew faster than forager populations. Farmers gradually expanded
-                into neighboring territories, replacing or absorbing forager groups. DNA evidence
-                confirms this happened in Europe: Anatolian farmers largely replaced European
-                hunter-gatherers.
+                into neighboring territories, replacing or absorbing forager groups. Ancient DNA can
+                catch this in the act: when farming arrives in a region, the ancestry of the buried
+                people changes, which shows incoming farmers rather than locals simply copying a new
+                way of life.
               </p>
             </div>
             <div className="lrn-compare-item">
@@ -882,14 +1082,14 @@ function useConfig() {
           <p>
             From Southwest Asia, farming spread west into Europe and east toward Central Asia. From
             China, rice and millet pushed south into Southeast Asia. Crops traveled with the people
-            who grew them, so the language families that expanded with farming, such as Austronesian
-            and Indo-European, often trace the same paths as the crops themselves.
+            who grew them. So the languages farmers spoke often spread along the same routes as
+            their crops.
           </p>
           <ul className="lrn-list">
             <li>
-              <strong>Southeast Asia</strong> (c. 4,000 to 3,000 years ago): Phung Nguyen (Vietnam),
-              Ban Chiang (Thailand), Man Bac (Vietnam), Ban Non Wat (Thailand), An Son (Cambodia),
-              and Khok Phanom Di all show the arrival of rice farming from China.
+              <strong>Southeast Asia</strong> (c. 4,000 to 3,000 years ago): Rice farming arrived
+              here from China. Sites like Ban Chiang in Thailand show the new crop, new pottery, and
+              incoming people appearing together.
             </li>
             <li>
               <strong>Korea</strong>: The Chulmun forager culture persisted for thousands of years
@@ -903,17 +1103,17 @@ function useConfig() {
           </ul>
           <div className="lrn-predict">
             <strong>Predict:</strong> If farming populations always grow faster than foragers, then
-            over enough time, what will demic diffusion do to forager genetic ancestry in any region
-            farmers invade? Predict what ancient DNA studies should find, then check the European
-            evidence.
+            over enough time, what will demic diffusion do to forager ancestry in any region farmers
+            move into? Predict what ancient DNA from before and after the arrival of farming should
+            show.
           </div>
         </>,
 
         <>
           <h2>Consequences of Agriculture: Settlement and Population</h2>
           <p>
-            Agriculture changed human life more than any other development since the control of
-            fire. The consequences were enormous, many of them negative in the short term.
+            Agriculture reshaped human life more than any change before it. The consequences were
+            enormous, and many of them were negative in the short term.
           </p>
           <ul className="lrn-list">
             <li>
@@ -932,15 +1132,11 @@ function useConfig() {
               production entirely.
             </li>
           </ul>
-          <div className="lrn-callout">
-            <strong>THE TRADE-OFF</strong>
-            <p>
-              Farmers ate fewer species than foragers. This made diets less nutritious and more
-              vulnerable to crop failure. Average height decreased when groups shifted to
-              agriculture. Skeletal evidence shows more anemia, dental cavities, and nutritional
-              stress in early farming communities than in forager communities.
-            </p>
-          </div>
+          <p>
+            More people did not mean healthier people. Farming diets were narrower and less
+            reliable, and the health cost of that trade-off shows up in the skeletons. We return to
+            it below.
+          </p>
           <div className="lrn-elaborate">
             <strong>Elaborate:</strong> Global population grew from about 6 million to 250 million
             in roughly 10,000 years after agriculture began. Explain in your own words why this
@@ -952,10 +1148,11 @@ function useConfig() {
         <>
           <h2>Consequences of Agriculture: Social Complexity</h2>
           <p>
-            Persistent inequality is not a permanent feature of human life. It shows up in the
-            archaeological record alongside stored surplus, owned land, and extractable wealth, and
-            once it appears it tends to harden across generations. That is why ancient burials after
-            agriculture begin to look so different from forager burials.
+            At Dawenkou in China, some people were buried with dozens of fine objects while others
+            went into the ground with nothing. Forager burials rarely look this uneven. That gap is
+            the mark of lasting inequality, and it is not a permanent feature of human life. It
+            shows up only alongside stored surplus, owned land, and wealth that can be taken. Once
+            it appears, it tends to harden across generations.
           </p>
           <ul className="lrn-list">
             <li>
@@ -963,28 +1160,23 @@ function useConfig() {
               Potters, weavers, smiths, priests, and warriors emerged as specialists.
             </li>
             <li>
-              <strong>Hereditary inequality:</strong> Dawenkou burials in China show some
-              individuals buried with dozens of grave goods and others with none. Burial inequality
-              reflects social inequality in life.
+              <strong>Hereditary inequality:</strong> Once some families held more land, animals,
+              and stored grain, they passed that head start to their children. Rank began to follow
+              birth, not just skill.
             </li>
             <li>
-              <strong>Trade networks:</strong> Obsidian from Anatolia moved hundreds of kilometers
-              across the PPNB interaction sphere. Specialized production and long-distance exchange
-              emerged together.
+              <strong>Trade networks:</strong> Obsidian, a black volcanic glass prized for sharp
+              tools, moved hundreds of kilometers across the PPNB interaction sphere. Each volcano's
+              obsidian has its own chemical signature, so a flake found far away proves it was
+              traded from a known source. Specialized production and long-distance exchange emerged
+              together.
             </li>
             <li>
               <strong>Religious specialists:</strong> The Natufian shaman burial, the Göbekli Tepe
-              enclosures, and the Ain Ghazal plaster statues (already met in earlier sections) show
-              that ritual leaders with elevated status existed before, during, and after the shift
-              to farming.
+              enclosures, and the Ain Ghazal plaster statues show that ritual leaders with elevated
+              status existed before, during, and after the shift to farming.
             </li>
           </ul>
-          <div className="lrn-predict">
-            <strong>Predict:</strong> Imagine an archaeologist excavates a 6,000-year-old cemetery
-            and finds that 5 percent of burials have rich grave goods while 95 percent have none.
-            Predict what this tells you about the society. Compare with a forager cemetery where
-            burials are mostly similar.
-          </div>
         </>,
 
         <>
@@ -1013,17 +1205,6 @@ function useConfig() {
               II are the textbook case.
             </li>
           </ul>
-          <div className="lrn-insight">
-            Why did farming spread if it made people less healthy? More people survived per hectare.
-            Even if each person was less healthy, the group outcompeted forager neighbors through
-            sheer numbers. Population growth, not individual health, drove the spread.
-          </div>
-          <div className="lrn-elaborate">
-            <strong>Elaborate:</strong> Smallpox, measles, flu, and tuberculosis all jumped to
-            humans from domesticated animals. Explain in your own words why dense farming villages
-            with livestock are evolutionary hotspots for new diseases that never affected forager
-            bands.
-          </div>
         </>,
 
         <>
@@ -1034,8 +1215,8 @@ function useConfig() {
           </p>
           <ul className="lrn-list">
             <li>
-              Jericho's wall and tower (described earlier in the PPNA section) may be the earliest
-              defensive architecture in the world, though its purpose is still disputed.
+              Jericho's wall and tower may be the earliest defensive architecture in the world,
+              though its purpose is still disputed.
             </li>
             <li>PPNB sites show violent deaths: skulls with weapon trauma, decapitated burials.</li>
             <li>
@@ -1054,11 +1235,11 @@ function useConfig() {
             parties.
           </p>
           <p>
-            The Talheim death pit in Germany, dating to about 7,000 years ago, contains the
-            skeletons of 34 farmers. Attackers killed them with blows to the skull and arrows in the
-            back. Men, women, and children died together and ended up in the same pit. It is one of
-            the earliest direct records of an organized massacre between European farming
-            communities.
+            The bones tell the same story directly. PPNB burials in the Levant hold skulls cracked
+            by weapons and bodies with the head removed. When the fields and grain stores at Tell
+            Sabi Abyad were burned and then resettled, it points to a raid, not an accident. Across
+            Southwest Asia, organized violence shows up only once farming gives people something
+            worth taking by force.
           </p>
           <div className="lrn-self-explain">
             <strong>Self-explain:</strong> Explain step by step why violence escalated after
@@ -1088,8 +1269,8 @@ function useConfig() {
               <p>
                 Animal-drawn plows replaced digging sticks around 5,000 to 6,000 years ago in
                 Southwest Asia. Plows broke up hard soils more quickly and allowed farming on
-                heavier soils that were impossible with earlier tools. Plow agriculture is strongly
-                associated with male agricultural labor in ethnographic records.
+                heavier soils that were impossible with earlier tools. In records of living farming
+                peoples, plow work is strongly tied to men.
               </p>
             </div>
             <div className="lrn-step">
@@ -1101,20 +1282,6 @@ function useConfig() {
               </p>
             </div>
           </div>
-          <div className="lrn-callout">
-            <strong>THE THREE SISTERS (NEW WORLD)</strong>
-            <p>
-              Mesoamerican farmers developed one of the world's most productive intercropping
-              systems: maize, beans, and squash planted together. Maize provides structure, beans
-              fix nitrogen from the air to feed all three plants, and squash shades the ground to
-              retain moisture. The three crops together produce a nearly complete diet.
-            </p>
-          </div>
-          <div className="lrn-predict">
-            <strong>Predict:</strong> Irrigation canals need many people working together to dig and
-            clean them every year. Predict how this yearly cooperation pushes a village toward a
-            single boss or council, rather than each family acting alone.
-          </div>
         </>,
 
         <>
@@ -1122,77 +1289,24 @@ function useConfig() {
           <p>
             Cities and states did not come bundled with farming. Thousands of years separate the
             first PPNB villages from the first cities in Mesopotamia. What agriculture supplied was
-            the precondition: stored grain, specialists who did not have to till the soil, and
-            people packed densely enough that someone had to keep order between them.
+            the foundation: stored grain, specialists who did not have to till the soil, and people
+            packed densely enough that someone had to keep order between them.
           </p>
-          <div className="lrn-compare">
-            <div className="lrn-compare-item">
-              <strong>City</strong>
-              <p>
-                A large, dense, permanent settlement with a non-farming majority. Cities require
-                agricultural surpluses large enough to feed many people who grow no food themselves.
-                The first cities appeared in Mesopotamia around 5,500 years ago.
-              </p>
-            </div>
-            <div className="lrn-compare-item">
-              <strong>State</strong>
-              <p>
-                A political unit with a centralized government, a monopoly on legitimate force, and
-                the ability to tax and conscript. States require record-keeping, which contributed
-                to the invention of writing. The first states also appeared in Mesopotamia.
-              </p>
-            </div>
-          </div>
-          <ul className="lrn-list">
-            <li>
-              Irrigation-based agriculture in Mesopotamian lowlands required large-scale
-              coordination, which favored centralized authority.
-            </li>
-            <li>
-              Storage and redistribution of grain required record-keeping. The earliest writing
-              (Sumerian cuneiform) was accounting, not literature.
-            </li>
-            <li>
-              Specialists (smiths, priests, soldiers, administrators) required payment. Taxes and
-              tribute systems emerged to support them.
-            </li>
-            <li>
-              Cities concentrated wealth and power. They attracted more people, more trade, and more
-              innovation.
-            </li>
-          </ul>
-          <div className="lrn-insight">
+          <p>
             Many farming societies never produced cities at all. China's earliest cities trail
-            Mesopotamia's by more than a thousand years, the Andes followed a different track, and
-            North America's farming peoples mostly never urbanized. The lesson: farming sets the
-            stage, but geography, river systems, and politics decide who actually puts cities on the
-            map.
-          </div>
-          <div className="lrn-predict">
-            <strong>Predict:</strong> Sumerian cuneiform began as accounting marks on clay tablets,
-            not as poetry or religion. Predict why a state's first writing would be commercial
-            records. What kind of information does a tax collector or grain-storage manager need to
-            track that memory alone cannot handle?
-          </div>
-          <div className="lrn-elaborate">
-            <strong>Elaborate:</strong> The hydraulic hypothesis claimed irrigation control built
-            the first states. Field surveys in Mesopotamia later showed early irrigation systems
-            were locally organized, not centrally controlled. Explain in your own words why this
-            broke the hydraulic hypothesis as a single-cause explanation.
-          </div>
+            Mesopotamia's by more than a thousand years, and North America's farming peoples mostly
+            never urbanized. Farming sets the stage. How cities and states actually grew from that
+            stage is the next story.
+          </p>
         </>
       ]
     },
 
     practice: [
-      // --- BASIC ---
+      // BASIC
       {
         q: 'What geological epoch began around 11,600 years ago when the Ice Age ended?',
         a: 'The Holocene. Temperatures stabilized after the Younger Dryas cold reversal ended. This warm, steady climate made agriculture possible. All farming, civilization, and recorded history happened in the Holocene.'
-      },
-      {
-        q: 'What was the Younger Dryas?',
-        a: 'A cold reversal between 12,900 and 11,600 years ago that briefly returned near-glacial conditions before the Holocene began.'
       },
       {
         q: 'What is the difference between cultivation and domestication?',
@@ -1204,7 +1318,7 @@ function useConfig() {
       },
       {
         q: 'Name the eight Neolithic founder crops of Southwest Asia.',
-        a: 'Emmer wheat, einkorn wheat, barley, lentil, pea, bitter vetch, chickpea, and flax. The three cereals provided carbohydrates. The four pulses (lentil, pea, bitter vetch, chickpea) supplied protein. Flax gave fiber for textiles and oil for cooking. These eight crops spread together as a package across Eurasia and Africa.'
+        a: 'Emmer wheat, einkorn wheat, barley, lentil, pea, bitter vetch, chickpea, and flax. These eight crops spread together as a package across Eurasia and Africa.'
       },
       {
         q: 'What is the Broad Spectrum Revolution?',
@@ -1216,7 +1330,7 @@ function useConfig() {
       },
       {
         q: 'What is the Hilly Flanks Theory?',
-        a: 'Robert Braidwood proposed that agriculture began in the natural habitat zone of wild cereals and animals in the Fertile Crescent when people became culturally ready to exploit this potential.'
+        a: 'Robert Braidwood proposed that agriculture began in the natural habitat zone of wild cereals and animals in the Fertile Crescent when people became culturally ready to use this potential.'
       },
       {
         q: 'What is the Demographic Theory of agricultural origins?',
@@ -1232,7 +1346,7 @@ function useConfig() {
       },
       {
         q: 'What does the Natufian burial at Hilazon Tachtit suggest?',
-        a: 'A person was buried with tortoise shells, eagle parts, and a severed human foot, suggesting this was a ritual specialist (shaman) with elevated social status.'
+        a: 'A woman was buried with 50 tortoise shells, eagle parts, a wild boar foreleg, and a human foot, suggesting this was a ritual specialist (shaman) with elevated social status.'
       },
       {
         q: 'What happened at Abu Hureyra I?',
@@ -1244,7 +1358,7 @@ function useConfig() {
       },
       {
         q: 'What do the skeletal remains of Abu Hureyra II women show?',
-        a: 'Extreme arthritis in the toes, knees, and lower backs from kneeling for hours daily to grind grain on quern stones. This is direct evidence that early farming was physically harder on individuals than foraging. The bones document how the daily labor of food processing wore down the people who fed the community.'
+        a: 'Extreme arthritis in the toes, knees, and lower backs from kneeling for hours daily to grind grain on quern stones. This is direct evidence that early farming was physically harder on individuals than foraging.'
       },
       {
         q: 'What is the PPNA and when did it occur?',
@@ -1264,7 +1378,7 @@ function useConfig() {
       },
       {
         q: 'When were dogs domesticated, and what were the earliest dogs used for?',
-        a: 'At least 15,000 years ago, making dogs the first domesticated animal. They assisted hunters by tracking and retrieving prey, guarded camps from predators and rivals, and acted as companions. The Bonn-Oberkassel grave in Germany dates a dog burial alongside two humans to 14,000 years ago, before any agriculture existed.'
+        a: 'At least 15,000 years ago, making dogs the first domesticated animal. They helped hunters track and retrieve prey, guarded camps, and lived as companions. A 14,000-year-old grave at Bonn-Oberkassel held a dog buried with two people, long before any farming.'
       },
       {
         q: 'What were the two main crops of East Asian agriculture, and where did each originate?',
@@ -1272,7 +1386,7 @@ function useConfig() {
       },
       {
         q: 'What did the Cishan site contain that shows the scale of early millet farming?',
-        a: 'Storage pits at Cishan held up to 50,000 kilograms of millet, showing large-scale production and storage. Such surpluses imply hundreds of people working coordinated fields. The settlement also yielded domestic pigs, dogs, and the stone spades and notched sickles that made millet farming possible.'
+        a: 'Storage pits at Cishan held up to 50,000 kilograms of millet, showing large-scale production and storage. Such surpluses mean hundreds of people working coordinated fields, alongside domestic pigs and dogs.'
       },
       {
         q: 'What is the Yangshao culture and when did it occur?',
@@ -1280,15 +1394,11 @@ function useConfig() {
       },
       {
         q: 'What did Hemudu culture people build their houses on, and why?',
-        a: 'Stilts above waterlogged ground. The Yangzi delta was very wet, and stilt houses kept living spaces dry. Hemudu people farmed wet rice in the surrounding marshes, hunted water buffalo, and fashioned wooden tools, lacquerware, and dug-out canoes. Thick deposits of rice husks at the site show how central rice had become.'
+        a: 'Stilts above waterlogged ground. The Yangzi delta was very wet, and stilt houses kept living spaces dry above the marshes where they farmed wet rice. Thick deposits of rice husks at the site show how central rice had become.'
       },
       {
         q: 'What are the two ways agriculture spread from its centers of origin?',
         a: 'Demic diffusion (farmers migrated into new areas) and cultural diffusion (local foragers adopted farming from neighbors). Both happened, often together.'
-      },
-      {
-        q: 'What does DNA evidence show about farming spread into Europe?',
-        a: 'Anatolian farmers largely replaced European hunter-gatherers. This supports demic diffusion as the main mechanism of farming spread into Europe. Pre-farming European populations contributed only a small share to later genomes, especially in southern and central Europe. This is one of the clearest replacement signals in ancient DNA.'
       },
       {
         q: 'How did global population change after agriculture began?',
@@ -1298,41 +1408,25 @@ function useConfig() {
         q: 'How did early farming affect average human health?',
         a: 'Farming made most people less healthy. Average height decreased, dental cavities increased, infectious diseases rose, and repetitive strain injuries from grinding grain were common.'
       },
-      {
-        q: 'What is the difference between a city and a state?',
-        a: 'A city is a large, dense, permanent settlement with a non-farming majority. A state is a political unit with centralized government, a monopoly on force, and the ability to tax and conscript.'
-      },
-      {
-        q: 'What were the first examples of writing, and what was writing used for?',
-        a: 'Sumerian cuneiform in Mesopotamia, around 5,500 years ago. The earliest writing was accounting records, used to track stored goods and taxes, not for literature.'
-      },
 
-      // --- TRANSFER ---
+      // TRANSFER
       {
         q: 'A community of foragers notices that a wild cereal they depend on is producing fewer seeds each year due to climate change. Using what you know about agricultural origins, describe two different responses they might have, and predict which would lead toward domestication.',
         a: 'They could move to follow food sources (nomadic response) or intensify management of the declining crop by replanting, weeding, and watering it. The second response would lead toward domestication, because repeatedly selecting and replanting would unconsciously favor non-shattering, larger-seeded types over generations.'
       },
       {
-        q: "An archaeologist finds an animal bone assemblage at a 9,000-year-old site. The bones are all from young male sheep and old female sheep. No bones of young females or old males are present. What does this profile suggest about the community's relationship with these sheep?",
+        q: "An archaeologist finds an animal bone pile at a 9,000-year-old site. The bones are all from young male sheep and old female sheep. No bones of young females or old males are present. What does this profile suggest about the community's relationship with these sheep?",
         a: 'This is a managed herd profile. Young males were killed for meat; females were kept alive longer for milk and breeding. Old males (no longer useful) are absent. This pattern indicates herding, not hunting of wild sheep.'
-      },
-      {
-        q: 'Farming spread across Europe faster than local foragers could have adopted it through cultural diffusion alone. Ancient DNA from European skeletons shows a sharp break between pre-farming and farming populations. What does this evidence support?',
-        a: 'It supports demic diffusion: Anatolian farming populations migrated into Europe and largely replaced existing hunter-gatherer populations. The genetic break shows replacement, not adoption.'
       },
       {
         q: 'A society grows rice in the Yangzi delta. They live in stilt houses, fish intensively, and only farm part-time. They are not fully agricultural. Explain why this mixed economy might persist for thousands of years before full agriculture takes over.',
         a: 'The delta provides abundant fish and wild plants that reduce the pressure to intensify farming. Full agriculture only becomes necessary when population grows large enough to exhaust these alternatives, or when social competition rewards food surpluses. Until then, a mixed economy is more stable and less labor-intensive.'
       },
 
-      // --- ELABORATE ---
+      // ELABORATE
       {
         q: 'Early farming made individual people less healthy but made farming groups more successful than forager groups. Explain how both things can be true at the same time.',
         a: 'Farming produces more calories per hectare than foraging. Even though each farmer is shorter, more disease-prone, and works harder than a forager, the farming group can support far more people on the same land. More people means more warriors, more workers, and more ability to displace neighbors. Population size, not individual health, determined which groups expanded.'
-      },
-      {
-        q: 'Explain why Göbekli Tepe challenges the standard model of how civilization develops.',
-        a: 'The standard model says agriculture enables surpluses, surpluses enable specialization, and specialization enables monumental architecture. But Göbekli Tepe was built by foragers before agriculture in the region. This means large-scale social cooperation and monument building do not require farming. Social motivation (ritual, feasting, religion) may itself drive intensification and eventually agriculture, reversing the assumed sequence.'
       },
       {
         q: 'Why did seven independent centers of agricultural origin develop around the same time (roughly 10,000 to 5,000 years ago) rather than at random points in human history?',
@@ -1344,14 +1438,14 @@ function useConfig() {
       },
       {
         q: 'Smallpox, measles, flu, and tuberculosis all crossed into humans from domesticated animals. Explain why dense farming villages with livestock became hotspots for new diseases that never affected forager bands.',
-        a: 'Dense villages put many humans close together for years on end. Livestock penned in or near the village shared parasites, manure, and breath with people daily. Pathogens that needed both a large host population and constant exposure could finally complete the jump from animal to human. Foragers moved often, lived in small groups, and rarely held animals long enough for this exchange. Three conditions had to combine: dense humans, kept animals, and permanent settlement. Farming villages provided all three at once.'
+        a: 'Dense villages put many humans close together for years on end. Livestock penned in or near the village shared parasites, manure, and breath with people daily. Germs that needed both a large host population and constant exposure could finally complete the jump from animal to human. Foragers moved often, lived in small groups, and rarely held animals long enough for this exchange. Three conditions had to combine: dense humans, kept animals, and permanent settlement. Farming villages provided all three at once.'
       },
       {
         q: 'Çayönü and Nevalı Çori show communal buildings being replaced by individual household storage rooms over a thousand years. Explain why this architectural shift signals the rise of private property and inequality.',
         a: 'Communal storage means shared risk and shared surplus. Everyone draws from the same pool, so no household can pull far ahead. Household storage means each family keeps its own grain, tools, and animals. Some households save more, inherit more, and grow richer than their neighbors. The walls between storage rooms are also walls between economic destinies. Over generations, small differences compound into entrenched class divides. The change in architecture quietly encodes a change in what a person is allowed to own and pass on.'
       },
 
-      // --- PREDICT ---
+      // PREDICT
       {
         q: 'A rice farming community in the Yangzi Valley settles permanently around 7,000 years ago. Predict what their community will look like after 2,000 years of continuous farming in the same location.',
         a: 'Over 2,000 years: population will grow significantly, requiring larger fields and more intensive cultivation. Social inequality will increase as some families control more land. Specialist roles (potters, tool makers, ritual leaders) will emerge. Trade with neighboring communities will expand. Some form of community-level governance will develop to manage shared irrigation and resolve conflicts. Burial goods will reflect widening status differences.'
@@ -1364,15 +1458,11 @@ function useConfig() {
         q: 'A community starts irrigating its fields from a single river. Predict how the need to share that water will change village politics over the next ten generations.',
         a: 'Sharing one river forces coordinated work on canals and a fair split of water during dry years. At first, elders or family heads negotiate this directly. As fields multiply and disputes get harder to settle, the village will likely appoint a water steward or council. That role gains power because it controls who gets water and when. Over ten generations, this role can harden into a permanent office, with the right to demand labor for canal cleaning and to fine cheaters. Politics shift from informal kinship talk to a small ruling group backed by control of the water itself.'
       },
-      {
-        q: 'A Natufian camp in the Levant has been settled for 300 years before the Younger Dryas. Predict two different responses the residents might choose when the cold snap shrinks wild cereal stands, and which path leads toward agriculture.',
-        a: 'Path one: pack up and follow scattered wild food, returning to mobile foraging. Path two: stay put and intensively manage the few remaining cereal stands by weeding, watering, and replanting saved seed. Path one preserves the old lifestyle but ends the sedentary investment. Path two protects houses, storage pits, and burial sites but pushes the community deeper into cultivation. Path two is the road to agriculture. Repeated replanting of saved seed unconsciously selects for non-shattering, larger-seeded plants, and within centuries those plants will be domesticated.'
-      },
 
-      // --- SELF-EXPLAIN ---
+      // SELF-EXPLAIN
       {
         q: 'The Younger Dryas cold event caused the botanical record at Abu Hureyra to collapse. What does this collapse tell us about why farming may have started there?',
-        a: 'Before the Younger Dryas, Abu Hureyra I residents could harvest 192 wild species. The cold event destroyed most of that diversity. With their primary food sources gone, the community either abandoned the site or began managing the few remaining species more intensively. This demonstrates that environmental stress reduced options and pushed people toward cultivation of specific plants they could control, rather than relying on wild abundance.'
+        a: 'Before the Younger Dryas, Abu Hureyra I residents could harvest 192 wild species. The cold event destroyed most of that diversity. With their primary food sources gone, the community either abandoned the site or began managing the few remaining species more intensively. This shows that environmental stress reduced options and pushed people toward cultivation of specific plants they could control, rather than relying on wild abundance.'
       },
       {
         q: 'Sickle harvesting of wild cereals selects for non-shattering grain types. Explain the mechanism step by step.',
@@ -1387,7 +1477,7 @@ function useConfig() {
         a: 'Hunting wild bulls continued not because it was necessary for food (the community had domesticated cattle) but because it held cultural or ritual significance. Dangerous hunting demonstrated courage and status. The mounted skulls in houses functioned as trophies or ritual objects. This shows that when food production is secured, hunting can shift from a survival necessity to a prestige or ritual activity, maintaining social functions even as its economic role declines.'
       },
 
-      // --- MORE TRANSFER CARDS ---
+      // MORE TRANSFER CARDS
       {
         q: 'You find a 10,000-year-old monumental site with carved pillars, no houses, and huge piles of gazelle and wild aurochs bones. There is no evidence of domesticated plants or animals. Which theory of agricultural origins does this site best support, and why?',
         a: 'The Feasting Theory. Hayden argued that competitive feasting created the demand for surpluses, which led ambitious individuals to intensify food production. A monumental site with no houses and massive animal bone deposits looks exactly like a feasting ground, not a settlement. The fact that this construction predates agriculture in the region matches the Feasting Theory prediction that social motives precede food production change.'
@@ -1397,12 +1487,8 @@ function useConfig() {
         a: 'The older skeleton belongs to a forager with a varied diet. The younger one belongs to an early farmer relying on a narrow set of starchy cereals. Shorter stature points to reduced protein. More cavities point to high-carbohydrate, processed grain diets. The contrast confirms the well-documented health trade-off: agricultural populations expanded numerically while becoming individually less robust.'
       },
       {
-        q: 'A 7,000-year-old Chinese village contains a clay pit with hundreds of clay sealings stamped with personal symbols, but no writing yet. What kind of social activity does this evidence imply, and what comes next in the development sequence?',
-        a: 'Stamped sealings imply ownership tracking: identifying who owns or controls a stored container or shipment. This is administrative behavior using non-textual signs, exactly as seen at Tell Sabi Abyad in Syria. The next step in such societies is full writing for accounts, which Mesopotamia took with cuneiform around 5,500 years ago. Stamped sealings are the bureaucratic precursor to true script.'
-      },
-      {
-        q: 'A village transitions from communal storage buildings to individual household storage rooms over 1,000 years. What does this architectural shift predict about changes in social organization?',
-        a: 'It predicts that the household, not the wider community, is becoming the main economic unit. Communal storage implies shared risk and shared surplus. Household storage implies private property and individual accumulation. Inequality usually rises with this shift, since some households store more than others. The shift was observed at Çayönü and Nevalı Çori in late aceramic Neolithic Turkey.'
+        q: 'A flake of black volcanic glass is found at a farming village hundreds of kilometers from any volcano. Its chemistry matches one specific volcano far to the north. What does this single flake prove, and how do archaeologists know its source?',
+        a: 'It proves long-distance trade. The glass is obsidian, prized for sharp tools. Each volcano makes obsidian with its own chemical signature. By matching the flake to that signature, archaeologists trace it to one source. A flake found far from its volcano can only have arrived by exchange, so it marks a trade route across the PPNB interaction sphere.'
       }
     ],
 
@@ -1434,9 +1520,9 @@ function useConfig() {
           <div className="lrn-definition">
             <div className="lrn-definition-term">Non-shattering rachis</div>
             <div className="lrn-definition-desc">
-              The key morphological marker of domesticated cereals. Wild grains shatter and drop
-              seeds when ripe. Domesticated grains hold seeds in place, allowing sickle harvesting
-              but requiring human planting.
+              The key physical marker of domesticated cereals. Wild grains shatter and drop seeds
+              when ripe. Domesticated grains hold seeds in place, allowing sickle harvesting but
+              requiring human planting.
               <br />
               <em>When to use:</em> Use this trait to identify the moment of domestication in any
               cereal-bearing archaeological site.
@@ -1445,12 +1531,12 @@ function useConfig() {
           <div className="lrn-definition">
             <div className="lrn-definition-term">Broad Spectrum Revolution</div>
             <div className="lrn-definition-desc">
-              The shift beginning around 20,000 years ago toward exploiting a wider range of food
+              The shift beginning around 20,000 years ago toward using a wider range of food
               sources: smaller game, fish, shellfish, and more plant species. Precursor to and
               enabling condition for agriculture.
               <br />
-              <em>When to use:</em> Use Flannery's term to describe foraging diversification
-              anywhere in the late Pleistocene.
+              <em>When to use:</em> Use this term for any spread to a wider diet late in the Ice
+              Age.
             </div>
           </div>
           <div className="lrn-definition">
@@ -1480,8 +1566,8 @@ function useConfig() {
               foothills in Southwest Asia. The wild ancestors of all eight Neolithic founder crops
               and the main livestock animals lived here.
               <br />
-              <em>Where you see this:</em> The label is used in any discussion of the earliest
-              Southwest Asian agriculture or the hilly flanks zone.
+              <em>When to use:</em> Use this label in any discussion of the earliest Southwest Asian
+              agriculture or the hilly flanks zone.
             </div>
           </div>
           <div className="lrn-definition">
@@ -1492,29 +1578,18 @@ function useConfig() {
               Eurasia and Africa.
               <br />
               <em>When to use:</em> Use this list to identify any Old World farming village whose
-              crop assemblage traces back to Southwest Asia.
-            </div>
-          </div>
-          <div className="lrn-definition">
-            <div className="lrn-definition-term">Three Sisters</div>
-            <div className="lrn-definition-desc">
-              The Mesoamerican intercropping system of maize, beans, and squash. Maize provides
-              structure, beans fix atmospheric nitrogen, squash shades the ground. Together they
-              produce a nearly complete diet.
-              <br />
-              <em>Where you see this:</em> The Three Sisters appear in any reference to indigenous
-              farming in Central or North America.
+              crops trace back to Southwest Asia.
             </div>
           </div>
           <div className="lrn-definition">
             <div className="lrn-definition-term">State</div>
             <div className="lrn-definition-desc">
-              A political unit with centralized government, monopoly on legitimate force, and
-              ability to tax and conscript. States require agricultural surpluses, record-keeping,
-              and specialization. The first states emerged in Mesopotamia around 5,500 years ago.
+              A large society run by a central government that can collect taxes, give orders, and
+              back them with force. States need farming surpluses to feed people who do not grow
+              food. The first ones appeared in Mesopotamia around 5,500 years ago.
               <br />
-              <em>When to use:</em> Use this when describing an early polity with bureaucracy, tax,
-              and standing officials.
+              <em>When to use:</em> Use this for an early society ruled from one center, not a
+              village run by its own families.
             </div>
           </div>
         </>,
@@ -1713,7 +1788,7 @@ function useConfig() {
             <div className="lrn-step">
               <strong>Hilazon Tachtit (Israel)</strong>
               <p>
-                Natufian site with a shaman burial: a woman interred with 50 tortoise shells, eagle
+                Natufian site with a shaman burial: a woman buried with 50 tortoise shells, eagle
                 parts, a wild boar foreleg, and a human foot. Evidence of ritual specialists before
                 farming.
               </p>

@@ -1,4 +1,5 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import { Plate } from '../../../../components/viz'
 
 const config = {
   cssPrefix: 'bus',
@@ -41,28 +42,59 @@ const config = {
           <p>
             The CIA focuses on foreign intelligence. It has no authority to operate inside the
             United States. The FBI handles domestic law enforcement and criminal prosecution. The
-            DIA focuses on military intelligence. The NSA collects signals intelligence, listening
-            to communications. The NGA produces geospatial intelligence from satellite imagery.
-            Together, these agencies form the Intelligence Community, or IC.
+            DHS, the Department of Homeland Security, protects the country from internal threats.
+            The DIA focuses on military intelligence. The NSA collects signals intelligence,
+            listening to communications. The NGA produces geospatial intelligence from satellite
+            imagery. Together, these agencies form the Intelligence Community, or IC.
           </p>
 
-          <figure className="lrn-figure" style={{ maxWidth: '240px', margin: '25px auto' }}>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/2/25/Seal_of_the_Central_Intelligence_Agency.svg"
-              alt="Official seal of the Central Intelligence Agency"
-            />
-            <figcaption>
-              CIA seal, adopted February 17, 1950. The CIA itself was established September 18,
-              1947.{' '}
+          <Plate
+            title="U.S. Intelligence Community"
+            src="https://upload.wikimedia.org/wikipedia/commons/4/42/US_Intelligence_Community_members.gif"
+            alt="Grid of the seals of the member agencies of the US Intelligence Community"
+            caption="The member agencies of the U.S. Intelligence Community. The CIA is one lane among many."
+            credit={
+              <a
+                href="https://commons.wikimedia.org/wiki/File:US_Intelligence_Community_members.gif"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+            }
+          />
+
+          <h3>Compartmentalization: The Need-to-Know Rule</h3>
+
+          <p>
+            With dozens of agencies sharing secrets, one rule holds the whole system together:
+            compartmentalization. It means access to information is restricted on a need-to-know
+            basis. You learn what your mission requires, and nothing more. Even people with the
+            highest clearances see only their slice.
+          </p>
+
+          <p>
+            The logic is simple. If everyone could see everything, a single leak would expose the
+            whole picture. By splitting secrets into separate compartments, the system limits the
+            damage of any one breach. An attacker who turns one analyst gets a fragment, not the
+            map. The architecture assumes breaches will happen and designs for it.
+          </p>
+
+          <Plate
+            title="Central Intelligence Agency"
+            src="https://upload.wikimedia.org/wikipedia/commons/2/25/Seal_of_the_Central_Intelligence_Agency.svg"
+            alt="Official seal of the Central Intelligence Agency"
+            caption="CIA seal, adopted February 17, 1950. The CIA itself was established September 18, 1947."
+            credit={
               <a
                 href="https://commons.wikimedia.org/wiki/File:Seal_of_the_Central_Intelligence_Agency.svg"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Source
+                Wikimedia Commons
               </a>
-            </figcaption>
-          </figure>
+            }
+          />
 
           <h3>The President's Daily Brief</h3>
 
@@ -114,9 +146,9 @@ const config = {
               <span className="lrn-compare-title">Disinterested Customer</span>
               <p>
                 A disinterested president stops reading, stops asking, and the CIA loses its primary
-                feedback loop. Bustamante's clearest example is Trump. He stopped listening to the
-                CIA's output, pulled funding, and paused careers inside it. Then he funded private
-                intelligence companies instead. The CIA was not fired. It was bypassed.
+                feedback loop. The agency does not get fired. It simply gets bypassed. Analysts keep
+                working, but no one at the top is listening. A later section walks through the
+                clearest real example of this.
               </p>
             </div>
           </div>
@@ -124,8 +156,8 @@ const config = {
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
-              Why did bypassing the CIA rather than reforming it matter? Form your answer before
-              reading on.
+              When a president stops reading the CIA's product, the agency keeps working but loses
+              its customer. Why does that matter? Form your answer before reading on.
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
@@ -215,8 +247,27 @@ const config = {
           <p>
             The Donbass region in the east holds the natural resources Russia needs. Crimea gives
             Russia a military and logistics base on the Black Sea. Russia cannot allow Ukraine to
-            fully exit its sphere of influence without losing access to both.
+            fully leave the group of countries it controls without losing access to both.
           </p>
+
+          <Plate
+            title="Ukraine"
+            src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Ukraine_regions_map.png"
+            alt="Map of Ukraine showing its regions, the Donbas in the east, Crimea in the south, and the Black Sea coast"
+            caption="Ukraine's regions. The Donbas in the east holds heavy industry and resources. Crimea and the southern coast control Black Sea ports and grain exports."
+            credit={
+              <>
+                Map by Peter Fitzgerald, CC BY-SA 4.0.{' '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Ukraine_regions_map.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+              </>
+            }
+          />
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -238,8 +289,8 @@ const config = {
 
           <p>
             Western support for Ukraine is not free. Bustamante points to the lend-lease model as a
-            debt instrument, not charity. Every rocket launched and every drone destroyed is a bill
-            Ukraine will owe.
+            debt instrument, a loan, not charity. Every rocket launched and every drone destroyed is
+            a bill Ukraine will owe.
           </p>
 
           <div className="lrn-elaborate">
@@ -289,11 +340,12 @@ const config = {
           </p>
 
           <p>
-            Bustamante draws a sharp distinction: Putin does not need to win hearts and minds. His
-            power does not depend on popular approval the way a democratic leader's does. Hearts and
-            minds is a democratic luxury. Only governments accountable to voters need to win it.
-            This makes information warfare an unequal contest: one side faces electoral consequences
-            for losing public support, and the other does not.
+            Bustamante draws a sharp distinction: Putin does not need to win hearts and minds.
+            Winning hearts and minds means earning a population's real, willing support, not just
+            its obedience. His power does not depend on popular approval the way a democratic
+            leader's does. Hearts and minds is a democratic luxury. Only governments accountable to
+            voters need to win it. This makes information warfare an unequal contest: one side faces
+            electoral consequences for losing public support, and the other does not.
           </p>
 
           <div className="lrn-compare">
@@ -308,7 +360,8 @@ const config = {
               <span className="lrn-compare-title">Russian Propaganda Framing</span>
               <p>
                 Frames the invasion as a defensive operation against NATO expansion and neo-Nazi
-                elements in Ukraine. Targets Russian-language speakers domestically and
+                elements in Ukraine. NATO is a military alliance of the United States and allied
+                Western countries. Targets Russian-language speakers domestically and
                 internationally.
               </p>
             </div>
@@ -346,7 +399,9 @@ const config = {
 
           <p>
             Every major country runs intelligence operations. But not every agency is good at the
-            same things. Bustamante ranks four agencies by their dominant strength.
+            same things. Bustamante ranks four agencies by their dominant strength. The MSS is
+            China's main spy agency. The DGSE is France's foreign intelligence service. Mossad is
+            Israel's foreign intelligence service.
           </p>
 
           <div className="lrn-compare">
@@ -376,7 +431,8 @@ const config = {
                 The one Bustamante names as the biggest threat to the United States. Almost nobody
                 talks about France as an adversary. That is part of why the DGSE is effective. It
                 focuses almost exclusively on corporate and economic espionage using diplomatic
-                cover.
+                cover: operating under an embassy posting that grants legal immunity from the host
+                country's laws.
               </p>
             </div>
             <div className="lrn-compare-col">
@@ -400,40 +456,29 @@ const config = {
             </p>
           </div>
 
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does Mossad's public signal-sending matter strategically? Form your answer before
-              reading on.
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                A deterrence message requires visibility. If Mossad operates invisibly, potential
-                adversaries do not adjust their behavior. The public operation is itself part of the
-                operation.
-              </p>
-            </details>
-          </div>
+          <p>
+            Agencies are built by people, and the people carry a hidden cost. Before looking at how
+            the CIA finds those people, it helps to see what the life does to them. One story
+            Bustamante tells about General David Petraeus shows that cost plainly.
+          </p>
 
           <h3>The Petraeus Story</h3>
 
-          <figure className="lrn-figure" style={{ maxWidth: '320px', margin: '25px auto' }}>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/2/27/David_H._Petraeus_2008_portrait.jpg"
-              alt="General David H. Petraeus official US Army portrait, 2008"
-            />
-            <figcaption>
-              General David H. Petraeus, Commander of U.S. Central Command, 2008.{' '}
+          <Plate
+            title="General Petraeus"
+            src="https://upload.wikimedia.org/wikipedia/commons/2/27/David_H._Petraeus_2008_portrait.jpg"
+            alt="General David H. Petraeus official US Army portrait, 2008"
+            caption="General David H. Petraeus, Commander of U.S. Central Command, 2008."
+            credit={
               <a
                 href="https://commons.wikimedia.org/wiki/File:David_H._Petraeus_2008_portrait.jpg"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Source
+                Wikimedia Commons
               </a>
-            </figcaption>
-          </figure>
+            }
+          />
 
           <p>
             General David Petraeus told Bustamante something on a run in Bangkok. Petraeus said: "I
@@ -464,6 +509,11 @@ const config = {
           </div>
 
           <h3>How the CIA Recruits</h3>
+
+          <p>
+            So who signs up for that life, and how does the CIA find them? The answer starts with
+            how Bustamante himself was pulled in.
+          </p>
 
           <p>
             Bustamante's own recruitment started when he applied to the Peace Corps online. A page
@@ -521,9 +571,10 @@ const config = {
           </div>
 
           <p>
-            Disguise in intelligence work is not costume design. It is systematic reduction of
-            recognition signals. Bustamante describes three distinct levels, each with a different
-            risk profile.
+            Everything in this section is tradecraft: the practical skills and methods spies use to
+            operate without getting caught. Disguise is one piece of it. Disguise in intelligence
+            work is not costume design. It is systematic reduction of recognition signals.
+            Bustamante describes three distinct levels, each with a different risk profile.
           </p>
 
           <h3>The Three Disguise Levels</h3>
@@ -583,6 +634,14 @@ const config = {
             </div>
           </div>
 
+          <p>
+            Picture it in practice. An officer poses as a Canadian energy consultant named Mark. He
+            learns Mark's job, Mark's hometown, Mark's cover story cold, and he answers to the name
+            without a beat. But he never forgets he is Andrew. When a contact asks a sharp question,
+            Andrew decides how Mark should answer. The cover is a costume he wears with full
+            control. A method actor would have become Mark and lost the person making the calls.
+          </p>
+
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
@@ -615,6 +674,14 @@ const config = {
             precisely.
           </p>
 
+          <p>
+            A concrete case shows the move. Jack Barsky was a young East German recruited by the
+            KGB, the Soviet Union's main intelligence agency. He believed he was unusually smart and
+            destined for something important. His recruiters fed that belief straight back to him.
+            They praised exactly the self-image he already held. That was his pink matter, and they
+            played it until he trusted them completely. The full case returns later in the page.
+          </p>
+
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
@@ -635,11 +702,26 @@ const config = {
           </p>
 
           <p>
-            Micro-expressions and body language are useless without a baseline to compare them
-            against. A flinch only tells you something if you know whether this person flinches at
-            minor things or almost never. An intelligence officer establishes the baseline first
+            Tiny fast face movements and body language are useless without a baseline to compare
+            them against. A flinch only tells you something if you know whether this person flinches
+            at minor things or almost never. An intelligence officer establishes the baseline first
             through normal social contact. Then they test the edges by introducing questions
             designed to trigger sensitivity in specific areas.
+          </p>
+
+          <p>
+            This whole process is elicitation: drawing out information through normal conversation
+            so the target never realizes facts are being collected. It does not look like
+            questioning. It looks like chatting.
+          </p>
+
+          <p>
+            Walk through one run. An officer meets a target at a conference and talks about nothing
+            sensitive for an hour: weather, travel, sports. That builds the baseline, the target's
+            normal speech and reactions. Then the officer drops one light question about the
+            target's work project and watches. The target pauses, shortens their answers, and shifts
+            in their seat. That shift away from baseline is the signal. The officer just found the
+            sensitive area without ever asking a direct question.
           </p>
 
           <div className="lrn-compare">
@@ -709,6 +791,22 @@ const config = {
             connect to measure physiological signals. Screens block you from seeing the readings.
           </p>
 
+          <Plate
+            title="Polygraph"
+            src="https://upload.wikimedia.org/wikipedia/commons/b/b9/November_2016-_Polygraph_Machine_-_Jack_Ruby.jpg"
+            alt="A polygraph instrument with its pens, drums, and sensor attachments"
+            caption="A polygraph machine. It records pulse, blood pressure, breathing, and movement. It measures physiological sensitivity, not truth."
+            credit={
+              <a
+                href="https://commons.wikimedia.org/wiki/File:November_2016-_Polygraph_Machine_-_Jack_Ruby.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+            }
+          />
+
           <p>
             The polygrapher asks baseline questions first. Easy questions. Ones you cannot lie
             about. These establish your normal physiological signature. Then the real questions
@@ -741,22 +839,6 @@ const config = {
             session is not conclusive. The process catches people by accumulation, not by one
             definitive reading.
           </p>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does "beating a polygraph" require eliminating sensitivity, not eliminating
-              dishonesty? Form your answer before reading on.
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                The machine measures sensitivity, not truth. If you can keep your physiological
-                response flat on every question, you produce no data. The machine cannot report what
-                it does not detect. Training yourself to feel nothing is the only reliable counter.
-              </p>
-            </details>
-          </div>
 
           <h3>MBTI Under Stress</h3>
 
@@ -791,15 +873,20 @@ const config = {
             <p>
               The core personality matters more than the surface personality for intelligence work
               because you are not going to interact with assets and targets in comfortable,
-              resource-rich environments. You will meet them under time pressure, in hostile
-              territory, with high stakes. The person opposite you will also be under pressure. The
-              core personality is what you are actually dealing with. Surface behavior tells you
-              nothing about how someone acts when the situation becomes extreme.
+              resource-rich environments. An asset is a person an agency recruits to provide secret
+              information or access. A target is a person an agency wants to recruit or reach. You
+              will meet them under time pressure, in hostile territory, with high stakes. The person
+              opposite you will also be under pressure. The core personality is what you are
+              actually dealing with. Surface behavior tells you nothing about how someone acts when
+              the situation becomes extreme.
             </p>
           </div>
 
           <p>
-            Bustamante is ENTP. His wife is ISFJ. They are polar opposites on all four MBTI axes.
+            MBTI sorts people on four either-or axes: outgoing or inward (E or I), facts or patterns
+            (S or N), logic or feeling (T or F), and planned or flexible (J or P). Your four letters
+            name your type. Bustamante is ENTP. His wife is ISFJ. They land on opposite sides of all
+            four axes.
           </p>
         </section>
       </>,
@@ -871,29 +958,29 @@ const config = {
             </div>
           </div>
 
-          <h3>Lex as an Intelligence Target</h3>
+          <h3>The Networked Person as a Target</h3>
 
           <p>
-            Bustamante tells Lex Fridman directly: Lex has a file. A dossier exists on him. Not
-            necessarily because Lex is important by himself, but because of his network. His podcast
-            connects him to scientists, politicians, billionaires, and military figures across
-            multiple countries.
+            A well-connected public figure almost certainly has a file. A dossier exists on them.
+            Not necessarily because the person is important by themselves, but because of their
+            network. A popular podcaster, for example, connects to scientists, politicians,
+            billionaires, and military figures across many countries.
           </p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
               Intelligence agencies care about access. A single source connected to ten high-value
-              targets is more useful than ten isolated individuals. Lex's conversations are public.
-              His private contacts are not. Any intelligence agency that can monitor Lex's
-              off-record communications gets access to everyone in his orbit.
+              targets is more useful than ten isolated people. The public figure's recorded
+              conversations are public. Their private contacts are not. Any agency that can monitor
+              those off-record communications reaches everyone in the person's orbit.
             </p>
           </div>
 
           <p>
-            If Lex has ever been pulled into secondary inspection at a border crossing and separated
-            from his bag for any period, Bustamante says that is exactly when phones and computers
-            are cloned. The hardware returns looking untouched. The data does not.
+            Border crossings are a prime collection moment. If a traveler is pulled into secondary
+            inspection and separated from their bag, that is exactly when phones and computers get
+            cloned. The hardware returns looking untouched. The data does not.
           </p>
 
           <h3>Tripwires and Device Security</h3>
@@ -978,11 +1065,12 @@ const config = {
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                Deliberate sexpionage is planned. The officer and their handlers know the
-                relationship dynamic from the start and can manage it. When attraction arises as an
-                unintended byproduct of intellectual engagement, nobody planned for it. The target's
-                feelings become real. The officer did nothing to cause them deliberately. The
-                relationship dynamic shifts in ways the operation was never designed to handle.
+                Deliberate sexpionage is planned. The officer and their handlers, the case officers
+                who run and manage them, know the relationship dynamic from the start and can manage
+                it. When attraction arises as an unintended byproduct of intellectual engagement,
+                nobody planned for it. The target's feelings become real. The officer did nothing to
+                cause them deliberately. The relationship dynamic shifts in ways the operation was
+                never designed to handle.
               </p>
             </details>
           </div>
@@ -1012,10 +1100,10 @@ const config = {
           <h3>Post-9/11 Expansion</h3>
 
           <p>
-            After September 11, 2001, the 9/11 Commission recommended a massive plus-up of IC
-            presence: more officers overseas, more analysts at home. The existing government hiring
-            process was incompatible with that speed. Six to nine months per hire, times thousands
-            of positions, does not work in a crisis.
+            After September 11, 2001, the 9/11 Commission, the official panel that investigated the
+            attacks, recommended a massive increase in IC presence: more officers overseas, more
+            analysts at home. The existing government hiring process was too slow for that speed.
+            Six to nine months per hire, times thousands of positions, does not work in a crisis.
           </p>
 
           <p>
@@ -1075,12 +1163,13 @@ const config = {
           <h3>Trump Pulling Security Clearances</h3>
 
           <p>
-            When Trump took office, he pulled security clearances from senior CIA officers.
-            Bustamante explains the calculation: senior officers with clearances retire and
-            immediately take high-paying private intelligence jobs. Removing the clearance prevents
-            them from doing that. Trump was not simply punishing perceived enemies. He was
-            disrupting the pipeline from government intelligence to private intelligence that had
-            enriched northern Virginia for two decades.
+            When Trump took office, he pulled security clearances from senior CIA officers. A
+            security clearance is a vetted authorization to access classified information. Without
+            it, you cannot do the work. Bustamante explains the calculation: senior officers with
+            clearances retire and immediately take high-paying private intelligence jobs. Removing
+            the clearance prevents them from doing that. Trump was not simply punishing perceived
+            enemies. He was disrupting the pipeline from government intelligence to private
+            intelligence that had enriched northern Virginia for two decades.
           </p>
 
           <p>
@@ -1132,6 +1221,22 @@ const config = {
             before they acted. You cannot find a needle in a haystack if you do not collect the hay.
           </p>
 
+          <Plate
+            title="NSA Headquarters"
+            src="https://upload.wikimedia.org/wikipedia/commons/8/84/National_Security_Agency_headquarters%2C_Fort_Meade%2C_Maryland.jpg"
+            alt="Aerial view of the dark glass National Security Agency headquarters complex at Fort Meade, Maryland"
+            caption="The National Security Agency headquarters at Fort Meade, Maryland. Bulk signals collection runs from here."
+            credit={
+              <a
+                href="https://commons.wikimedia.org/wiki/File:National_Security_Agency_headquarters,_Fort_Meade,_Maryland.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+            }
+          />
+
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
@@ -1158,22 +1263,31 @@ const config = {
               <span className="lrn-compare-title">Snowden as Criminal</span>
               <p>
                 Bustamante's position is explicit: Snowden broke the law. He violated his security
-                obligation. Then he fled to China, Russia, Cuba, and Ecuador. Choosing those
-                specific destinations is self-indicting behavior. A person genuinely motivated by
-                American principles of liberty does not run to authoritarian states. America is less
-                secure after Snowden.
+                obligation. Then he fled to Hong Kong, controlled by China, and on to Russia, with
+                Cuba and Ecuador as attempted onward stops. Choosing those destinations is
+                self-indicting behavior. A person genuinely motivated by American principles of
+                liberty does not run to authoritarian states. America is less secure after Snowden.
               </p>
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Snowden as Whistleblower</span>
               <p>
-                The counterpoint exists and Bustamante acknowledges it. Snowden is one man standing
-                against powerful institutions. He forced a public conversation about surveillance
-                that would not have happened otherwise. He represents the American tradition of
-                individual conscience against state power.
+                The counterpoint exists and Bustamante acknowledges it. A whistleblower is a person
+                who exposes wrongdoing inside an organization, often at great personal cost. Snowden
+                is one man standing against powerful institutions. He forced a public conversation
+                about surveillance that would not have happened otherwise. He represents the
+                American tradition of individual conscience against state power.
               </p>
             </div>
           </div>
+
+          <p>
+            There is a second cost that has nothing to do with where Snowden went. Intelligence
+            collection only works while targets do not know how they are being watched. Once the
+            methods are public, adversaries change their phones, their routing, and their habits.
+            The capability goes dark. So the harm is not just what Snowden revealed. It is that
+            revealing the methods at all let every informed adversary slip away from them.
+          </p>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -1261,13 +1375,31 @@ const config = {
             techniques on human subjects. Some subjects did not consent.
           </p>
 
+          <Plate
+            title="MKUltra (Declassified)"
+            src="https://upload.wikimedia.org/wikipedia/commons/4/4f/DeclassifiedMKULTRA.jpg"
+            alt="A declassified typed MKUltra memorandum page released by the CIA"
+            caption="A declassified MKUltra document. The program is not a theory. It is in the public record."
+            credit={
+              <a
+                href="https://commons.wikimedia.org/wiki/File:DeclassifiedMKULTRA.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+            }
+          />
+
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              The CIA built MKUltra because of Cold War arms-race logic. If the Soviet Union
-              developed a method to break anyone under interrogation, or to control behavior through
-              drugs, and the United States did not develop a countermeasure, the consequences would
-              be catastrophic. MKUltra was the answer to: what if they crack something first? The
+              The CIA built MKUltra because of Cold War arms-race logic. The Cold War was the
+              decades-long rivalry between the United States and the Soviet Union, from the late
+              1940s until the Soviet Union broke apart in 1991. If the Soviet Union developed a
+              method to break anyone under interrogation, or to control behavior through drugs, and
+              the United States did not develop a countermeasure, the consequences would be
+              catastrophic. MKUltra was the answer to: what if they crack something first? The
               program was not born of sadism. It was born of fear of falling behind in a technology
               race where the technology happened to be psychological.
             </p>
@@ -1293,15 +1425,15 @@ const config = {
 
           <p>
             Operation Stargate grew out of the same MKUltra environment. It was a program exploring
-            remote viewing and other metaphysical capabilities. The outcomes were mixed. The program
-            ran across multiple administrations before being shut down and declassified.
+            remote viewing, trying to perceive a distant place with the mind alone, and other
+            capabilities beyond normal physics. The outcomes were mixed. The program ran across
+            multiple administrations before being shut down and declassified in 1995.
           </p>
 
           <p>
             Bustamante is skeptical about remote viewing but not dismissive. He notes that the US
-            government still has demand for people who are sensitive to what he calls "ethereal
-            energies." He grounds his openness in physics: energy and matter are exchangeable, which
-            means non-standard sensitivities are not automatically impossible.
+            government still reports demand for people sensitive to what he calls "ethereal
+            energies." He stays open to the possibility rather than ruling it out flatly.
           </p>
 
           <p>
@@ -1316,36 +1448,21 @@ const config = {
           <p>
             In 1962, the Department of Defense and elements of the CIA produced a proposal called
             Operation Northwoods. The plan was to commit acts of terrorism against Americans and
-            blame Cuba, creating a pretext for military action against the Castro government. JFK
-            rejected it.
+            blame Cuba, creating a fake excuse for military action against the Castro government.
+            JFK rejected it.
           </p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
               Bustamante frames Northwoods as the CIA doing exactly what it was supposed to do. The
-              CIA's special activities division was tasked with generating all possible options when
-              given a presidential question. Northwoods was a response to a presidential question
-              about how to deal with Cuba. Generating the option is the job. Choosing the option is
-              the president's decision. JFK's rejection is what Bustamante calls "a beautiful thing
-              about the American experiment."
+              CIA's Special Activities Division is its covert and paramilitary arm, the unit that
+              runs secret operations. Bustamante describes its planning role as generating every
+              possible option when the president asks a question. Northwoods was a response to a
+              presidential question about how to deal with Cuba. Generating the option is the job.
+              Choosing the option is the president's decision. JFK's rejection is what Bustamante
+              calls "a beautiful thing about the American experiment."
             </p>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why is the existence of the Northwoods proposal not evidence that the CIA was rogue?
-              Form your answer before reading on.
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Generating extreme options is different from executing them. The chain of command
-                worked: the proposal reached the president and the president refused it. The system
-                functioned as designed, even though the proposal itself was monstrous.
-              </p>
-            </details>
           </div>
 
           <h3>JFK Assassination</h3>
@@ -1359,10 +1476,11 @@ const config = {
 
           <p>
             Aldrich Ames spied for the Soviet Union from inside the CIA. Jerry Lee spied for China.
-            Cubans and Russians had strong motivation to infiltrate the CIA in the 1960s. Multiple
-            moles were caught in the years following the assassination. The existence of
-            infiltration does not prove anything about JFK. But it makes the environment of 1963
-            more complex than a simple organizational conspiracy model suggests.
+            Each was a mole: an insider secretly working for a foreign service. Cubans and Russians
+            had strong motivation to infiltrate the CIA in the 1960s. Multiple moles were caught in
+            the years following the assassination. The existence of infiltration does not prove
+            anything about JFK. But it makes the environment of 1963 more complex than a simple
+            organizational conspiracy model suggests.
           </p>
 
           <div className="lrn-self-explain">
@@ -1386,12 +1504,14 @@ const config = {
           <h3>9/11 as Incompetence, Not Conspiracy</h3>
 
           <p>
-            Bustamante applies Occam's Razor and Hanlon's Razor to 9/11. Never explain with
-            conspiracy what can be explained through incompetence. The 9/11 Commission findings
-            describe incompetence openly and in detail. Intelligence agencies failed to connect dots
-            they had. The failures were real. Embarrassment about those failures created behavior
-            that looks like a cover-up, because it involved managing information carefully. But
-            managing embarrassing information is not the same as running a conspiracy.
+            Bustamante applies Occam's Razor and Hanlon's Razor to 9/11. Occam's Razor says the
+            simplest explanation is usually the right one. Hanlon's Razor says never blame on malice
+            what plain incompetence explains. Never explain with conspiracy what can be explained
+            through incompetence. The 9/11 Commission findings describe incompetence openly and in
+            detail. Intelligence agencies failed to connect dots they had. The failures were real.
+            Embarrassment about those failures created behavior that looks like a cover-up, because
+            it involved managing information carefully. But managing embarrassing information is not
+            the same as running a conspiracy.
           </p>
 
           <div className="lrn-elaborate">
@@ -1528,37 +1648,20 @@ const config = {
               Noticing your own desire for a belief to be true is a reliable signal to slow down
               because strong desire interferes with evidence evaluation. If you want something to be
               true badly enough, you will weight evidence confirming it more heavily than evidence
-              against it. The desire itself is a flag that your evaluation may be compromised.
+              against it. This is called confirmation bias. The desire itself is a flag that your
+              evaluation may be compromised. Rogan's skill was catching the process before it
+              finished, not afterward.
             </p>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Joe Rogan noticed he wanted the UFO theory to be true. Why does noticing strong desire
-              for a belief to be true function as a warning signal about that belief's reliability?
-              Form your answer before reading on.
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Desire is not evidence. When you want something to be true, you unconsciously favor
-                evidence that confirms it and dismiss evidence against it. This is called
-                confirmation bias. The desire does not change the underlying facts. It only changes
-                which facts you notice. Rogan's self-awareness was valuable precisely because he
-                caught the process happening before it completed. Most people only notice it
-                afterward, if ever.
-              </p>
-            </details>
           </div>
 
           <h3>Jack Barsky and Pink Matter</h3>
 
           <p>
-            Jack Barsky was a KGB sleeper agent. His recruiters used classic pink-matter technique
-            to bring him in. They fed back to him his own beliefs about himself: how smart he was,
-            how uniquely qualified for something important. They validated his self-image so
-            consistently that he trusted them without questioning why they were so interested.
+            Jack Barsky was a KGB sleeper agent. The KGB was the Soviet Union's main intelligence
+            and secret-police agency. His recruiters used classic pink-matter technique to bring him
+            in. They fed back to him his own beliefs about himself: how smart he was, how uniquely
+            qualified for something important. They validated his self-image so consistently that he
+            trusted them without questioning why they were so interested.
           </p>
 
           <div className="lrn-self-explain">
@@ -1664,12 +1767,27 @@ const config = {
             <p>
               Perspective is operationally superior to empathy, even though empathy sounds more
               complete, because empathy accesses feelings. You feel what the other person feels.
-              That is useful, but it is only half the information. Perspective adds the left-brain
-              model: objectives, constraints, likely actions. Empathy tells you the other person is
+              That is useful, but it is only half the information. Perspective adds the logical
+              side: objectives, constraints, likely actions. Empathy tells you the other person is
               afraid. Perspective tells you what they are afraid of, why, what they will do because
               of that fear, and how to direct that action toward your objective.
             </p>
           </div>
+
+          <p>
+            Here is the switch in one concrete scene. You are asking your boss for a raise. On
+            perception, you rehearse your own case: your hours, your results, why you deserve more.
+            You walk in focused on what you want. On perspective, you sit in the boss's seat first.
+            Their budget is frozen this quarter. Their own boss is watching headcount costs. They
+            fear setting a precedent every other employee will cite next month.
+          </p>
+
+          <p>
+            Now the ask changes. Instead of "I deserve more," you offer "a raise tied to a result I
+            will deliver, kept quiet until then." You answered the boss's real fear before they
+            raised it. Perception argued your side. Perspective solved their problem. Same facts,
+            opposite outcome.
+          </p>
 
           <h3>Operational Thinking in Civilian Life</h3>
 
@@ -1750,10 +1868,11 @@ const config = {
           <h3>The Meaning of Life</h3>
 
           <p>
-            At a covert training base in Alabama, elite tier-1 operators get drunk and write answers
-            to one question on a wall: "What is the meaning of life?" Then they connect each answer
-            to every other answer it relates to. The word that ends up with the most connections is
-            "self-respect." The lines pile up until you can barely see the word underneath.
+            At a covert training base in Alabama, elite tier-1 operators, members of the most elite
+            special-operations units, get drunk and write answers to one question on a wall: "What
+            is the meaning of life?" Then they connect each answer to every other answer it relates
+            to. The word that ends up with the most connections is "self-respect." The lines pile up
+            until you can barely see the word underneath.
           </p>
 
           <p>
@@ -1766,10 +1885,11 @@ const config = {
           <h3>Leaving the CIA</h3>
 
           <p>
-            Bustamante and his wife operated as a tandem couple overseas. On a mission, she tested
-            positive for pregnancy. The CIA brought them back to have the baby. When they tried to
-            discuss how to integrate parenthood into future operations, the CIA had no patience for
-            the conversation. The agency had no framework for it. They decided to leave.
+            Bustamante and his wife operated as a tandem couple, two married officers running
+            operations together, overseas. On a mission, she tested positive for pregnancy. The CIA
+            brought them back to have the baby. When they tried to discuss how to integrate
+            parenthood into future operations, the CIA had no patience for the conversation. The
+            agency had no framework for it. They decided to leave.
           </p>
 
           <p>
@@ -1795,6 +1915,24 @@ const config = {
               </p>
             </details>
           </div>
+
+          <h3>The One Model That Transfers</h3>
+
+          <p>
+            Strip away the agencies, the disguises, and the declassified programs, and one mental
+            model holds the whole page together. It is the switch from perception to perspective.
+            The page opened with a customer who stops reading and loses the feedback loop. That is a
+            failure of perspective: the leader sees only their own view and misses what the other
+            side is doing. Every technique in between, the baseline, the elicitation, the targeting,
+            the cover legend, is the same move applied in a new place.
+          </p>
+
+          <p>
+            You do not need a clearance to use it. In any conversation, ask what the other person
+            actually wants, what limits they face, and what they will do next. Most people run on
+            perception alone. The person who runs on perspective sees the move before it happens.
+            That is the single skill Bustamante says carries from the field into ordinary life.
+          </p>
         </section>
       </>
     ]
@@ -1811,10 +1949,6 @@ const config = {
     {
       q: 'Someone sits in front of a polygraph and feels completely calm because they have done nothing wrong. A second person sits down and feels guilty because they are hiding something. Predict which one the machine flags, and why.',
       a: 'The machine flags whoever shows the largest shift from their baseline. If the innocent person is anxious about being tested, their readings will spike on sensitive questions even though their answers are true. If the guilty person is a skilled liar with low physiological reactivity, their readings may not shift at all. The machine measures sensitivity to questions, not truth. Anxiety and dishonesty look identical on the readout. The calm guilty person may pass. The nervous innocent person may raise flags. The skilled polygrapher, not the machine, makes the final call.'
-    },
-    {
-      q: 'Explain why the polygraph does not detect lies.',
-      a: 'The polygraph detects physiological sensitivity. It measures how much your body shifts away from the baseline set at the start of the session. A nervous but honest person can produce the same reading as a dishonest person. The machine cannot distinguish between "I am anxious" and "I am lying." The skilled polygrapher, not the machine, makes the final judgment.'
     },
     {
       q: 'What are the three types of intelligence assets Bustamante describes?',
@@ -1845,14 +1979,6 @@ const config = {
       a: 'Change the top of your head. English speakers read faces the way they read text: upper left first, then left to right, top to bottom. Hair color, hair pattern, and the top of the head are the first things their brain records. Eyes are often not recalled accurately. A ball cap or head covering changes the single highest-priority visual element. It does not need to be elaborate. It only needs to break the pattern that gets registered in the first second of recognition.'
     },
     {
-      q: 'A foreign intelligence agency wants to recruit a well-connected American journalist. Should they approach them with money, ideology, or self-image validation? Justify your answer.',
-      a: "Self-image validation is the most effective starting point. Money creates a transactional relationship the target can evaluate rationally and reverse. Ideology only works if the target already holds the matching belief. Validating the target's self-image builds an emotional bond that is harder to reverse than a financial or ideological commitment. Jack Barsky's KGB recruiters reflected his own beliefs about himself back to him. They kept doing it until trust formed naturally."
-    },
-    {
-      q: 'What is the difference between perception and perspective as Bustamante defines them?',
-      a: 'Perception is your personal interpretation of what you are experiencing. It is automatic, personal, and gives you no informational advantage over anyone else. Perspective means stepping outside your own viewpoint to observe from outside yourself. Or fully occupying the seat of the person opposite you: their goals, their limits, their emotional state, their next likely move. Everyone has perception. Very few people achieve perspective, which is why it is a consistent operational advantage.'
-    },
-    {
       q: 'Bustamante says 95 percent of CIA operational thinking transfers to civilian life. Name two civilian situations where baseline psychology applies directly.',
       a: "In a job negotiation, establishing a baseline for the interviewer's neutral behavior lets you detect when they react with genuine interest versus polite deflection. In a sales conversation, knowing a client's normal engagement pattern lets you identify when a question has hit something they actually care about. Both situations benefit from the same tool: observe normal behavior first, then test specific areas and read the deviation."
     },
@@ -1865,20 +1991,12 @@ const config = {
       a: "The track record tells the story. Each previous operation worked with no lasting consequence. Georgia in 2008 succeeded. Crimea in 2014 succeeded in 14 days. Russia learns that the West's response is measured in words, not military force. The cost of a third operation appears low. The expected gain, control of resources and access routes, looks exactly as valuable as before. The third campaign follows the same logic."
     },
     {
-      q: "Explain Bustamante's distinction between secrets and lies using the shelf-life framing.",
-      a: 'Both secrets and lies are perishable. They have value while fresh and lose it over time. But trust, built by keeping a secret, has no shelf life. If you keep a secret and the truth eventually surfaces from another source, your credibility is intact because you never cashed it in. A lie that is exposed destroys trust immediately. The operational lesson is to minimize lies and keep secrets, letting truth emerge naturally from elsewhere.'
-    },
-    {
-      q: 'You are building a cover legend for a six-month overseas assignment. What is the most important principle distinguishing it from method acting?',
-      a: 'A cover legend is what you claim to be, held as a layer separate from your true identity. Method acting means becoming the character fully and losing the distinction between character and self. CIA officers never do this. The true self is always maintained and compartmentalized underneath the cover. The cover has a limited life span by design. Losing the distinction causes psychological breakdown and removes the stable foundation needed for clear decisions under pressure.'
-    },
-    {
       q: 'You learn that a government agency ran a program testing drugs on people without consent. Your first reaction is disbelief. What should your second reaction be, according to how Bustamante evaluates conspiracy claims?',
       a: "Your second reaction should be to check whether it has been declassified. Declassification is the line between speculation and documented fact. MKUltra was exactly this program. It used LSD and other methods on subjects, some without consent. It is not a theory. It is in the public record. Bustamante's lesson is that you should resist the instinct to dismiss uncomfortable government programs as impossible. The arms-race logic of the Cold War created real programs that look monstrous in hindsight."
     },
     {
       q: 'What does Bustamante say about Operation Northwoods, and why does he not frame it as evidence of CIA recklessness?',
-      a: "Operation Northwoods was a 1962 proposal to commit acts of terrorism against Americans and blame Cuba, creating a pretext for military action. JFK rejected it. Bustamante frames it as the CIA's special activities division doing exactly what it was tasked to do: generate all possible options when given a presidential question. The proposal was monstrous, but generating it was the job. JFK's rejection demonstrates the chain of command working correctly."
+      a: "Operation Northwoods was a 1962 proposal to commit acts of terrorism against Americans and blame Cuba, creating a fake excuse for military action. JFK rejected it. Bustamante frames the planning role this way: generate every possible option when the president asks a question. The proposal was monstrous, but generating it was the job. JFK's rejection demonstrates the chain of command working correctly."
     },
     {
       q: 'A large software company has a data breach. The CEO says: "We had layers of security and the attacker still got in. It must have been an inside job." Apply Bustamante\'s incompetence vs. conspiracy reasoning.',
@@ -1897,10 +2015,6 @@ const config = {
       a: 'The customer-driven model means CIA resources and analytical focus follow presidential interest. If the president fixes attention on one region, slow-burn threats in other regions go undermonitored at the top level. Four-year political cycles are incompatible with decadal intelligence challenges. The immediate threat gets saturated coverage. Everything else loses bandwidth. By the time a new administration refocuses, the neglected threat has matured.'
     },
     {
-      q: 'Explain the difference between a foreign intelligence reporter and an agent of influence.',
-      a: "A foreign intelligence reporter provides secrets directly in exchange for inducements like money, alcohol, or sexual favors. They transact. An agent of influence does not provide secrets at all. They shape outcomes, control access, and direct social environments in ways that serve the recruiting agency's intelligence requirements. The reporter is visible and transactional. The agent of influence is nearly invisible, because they never appear to be doing anything unusual."
-    },
-    {
       q: 'A major terrorist attack kills thousands. Congress is considering giving the NSA the power to collect all phone metadata in the country. What are the two strongest arguments for and against, and which does Bustamante find more persuasive?',
       a: "For: you cannot find a terrorist network without the full dataset. Metadata reveals who contacts whom, how often, and when. That network mapping is the only reliable way to catch a threat before it acts. Against: mass collection of private communication records is a civil rights violation. The government should not have access to every American's contact history. Bustamante finds the security argument more persuasive. He also notes the asymmetry: AT&T and Verizon collect the same data and sell it with no legal constraint. The NSA collects it and is prohibited from acting on anything except terrorist threats. The ethical complaint is aimed at the wrong target."
     },
@@ -1909,24 +2023,12 @@ const config = {
       a: "AT&T and Verizon collect the same metadata the NSA collects and sell it to any paying customer. The NSA is prohibited by law from acting on anything except terrorist threats. The commercial entities have no equivalent constraint. The NSA faces enormous public scrutiny for collecting data that private corporations collect without scrutiny and monetize without restriction. Bustamante's argument is that the ethical complaint should be directed at both, but is currently directed only at one."
     },
     {
-      q: "Why does Bustamante describe Snowden's choice of destination as self-indicting behavior?",
-      a: 'A person motivated purely by American principles of liberty and transparency could face prosecution in the United States as other whistleblowers have done. Snowden fled to China, then Russia, with stops through Cuba and Ecuador. These are authoritarian states and direct US adversaries. The information Snowden carried had strategic value to each of those states. Choosing those destinations signals that the goal was more complex than simple accountability.'
-    },
-    {
       q: "What MBTI types does Bustamante say he is, and what does his wife's type reveal about MBTI's core-personality theory?",
       a: 'Bustamante is ENTP. His wife is ISFJ. They are polar opposites on all four MBTI axes. They function as a successful tandem couple with operations that complement each other. This suggests core personality is stable and distinct per individual. The core does not change over time. The surface adapts to circumstances. Their opposition illustrates that the CIA does not look for one type. It looks for operational range.'
     },
     {
       q: "A political candidate hires a polling firm to model voter sentiment. Apply Bustamante's concept of pink matter to how the firm might design its outreach strategy.",
       a: "Pink matter is the emotional and cognitive surface a person exposes. Every preference, fear, or aspiration a voter expresses is a manipulation tool. A firm using pink-matter logic would first collect baseline emotional data across demographics. Then it would design messages that reflect voters' existing self-image and desires back to them, rather than trying to change minds. This is Barsky's recruitment technique applied at scale: validate what people already believe about themselves to build trust and alignment."
-    },
-    {
-      q: "What does it mean that Mossad's public operations are themselves part of the operation?",
-      a: "Mossad does not just execute objectives. It sends a signal with every visible operation. The audience is not only the immediate target but every potential future adversary watching. Mossad's message is: work against Israeli citizens and this is the outcome. The deterrence effect requires visibility. A covert operation that no one ever hears about does not produce deterrence. Public attribution, even partial, is part of the strategic design."
-    },
-    {
-      q: 'Explain the face-reading vulnerability that shapes Level 1 disguise design for English-speaking targets.',
-      a: 'English speakers process faces the same way they process text: upper left first, then left to right, top to bottom. The first visual elements noticed are hair color, pattern, and skin color. Eyes are often not recalled accurately. A Level 1 disguise targeting English speakers therefore focuses on the top of the head: a ball cap and glasses change the first things the brain records. Deeper facial features are processed later and remembered less reliably.'
     },
     {
       q: "Why does Bustamante say America is less secure after Snowden, even if Snowden's disclosures were factually accurate?",
@@ -1945,12 +2047,8 @@ const config = {
       a: 'Anonymous-source reporting is an influence tool. Intelligence agencies brief journalists off the record when they want a story told without fingerprints. The journalist publishes "according to sources." The agency shaped public opinion with no accountability. This does not make the story false. It means the story\'s direction, emphasis, and timing were chosen by someone with an operational interest that the reader cannot identify. The reliability question is not just accuracy. It is: who decided this story should exist now, and why?'
     },
     {
-      q: 'Bustamante says Operation Stargate had mixed results but notes the government still wants people sensitive to ethereal energies. Why does he ground this in physics rather than mysticism?',
-      a: "Bustamante grounds it in the physics of energy-matter exchange. Matter and energy are interchangeable. Non-standard sensitivities to energy patterns are not automatically impossible by the laws of physics, only unproven at this time. This framing keeps the government's continued interest from being purely irrational. It positions the demand for Stargate's successors as a hedge against possibilities that mainstream science has not ruled out, rather than as belief in the supernatural."
-    },
-    {
-      q: 'Why is the agent of influence the most powerful asset type, even though they never directly provide secrets?',
-      a: 'Because the agent of influence shapes the environment in which decisions are made. They control which people meet, which ideas are introduced, and which opportunities appear. Every powerful person in their network becomes accessible without ever being approached or recruited. The access agent opens a door. The agent of influence is invited to every room. The foreign intelligence reporter is paid to hand over a document. The agent of influence arranges the meeting where the document is discussed.'
+      q: 'Operation Stargate explored remote viewing and had mixed results. Why did the government run it at all, and how is that the same logic behind MKUltra?',
+      a: 'Both programs came from Cold War arms-race logic. If the Soviet Union might be developing a capability, the IC had to explore it too, regardless of how strange it looked. Stargate tested whether people could perceive distant places with the mind. The results were mixed, and the program was shut down and declassified in 1995. The point was never proof of the capability. It was refusing to fall behind an adversary who might be chasing the same thing.'
     },
     {
       q: "A hostile state actor targets your company's supply chain rather than your network directly. What makes this attack vector particularly effective?",
@@ -1969,18 +2067,6 @@ const config = {
       a: "In a democracy, public support constrains military and foreign policy. A government that loses popular support loses elections. For Putin, public opinion in Ukraine or internationally does not constrain his decisions. He does not need to win hearts and minds because his power is not dependent on winning them. Bustamante's point is that treating information warfare as a symmetrical competition assumes both sides face the same political constraints. They do not."
     },
     {
-      q: "How does the CIA's customer-driven model create structural tension between short-term and long-term national security?",
-      a: 'The president sets first-page priorities for the PDB. Whatever the president wants to see determines what analysts focus on most intensely. Presidential terms are four years. National security threats develop over decades. A president focused on the next election cycle pushes resources toward immediate concerns. Slow-burn threats, like resource competition or demographic shifts, get less attention at the top level. When the administration changes, institutional knowledge about those neglected threats may have eroded.'
-    },
-    {
-      q: 'A celebrity with millions of followers crosses multiple international borders annually for media appearances. Are they an intelligence target? Why or why not?',
-      a: "Yes. Bustamante explains that operational targeting is based on network value, not individual importance. The celebrity's network, their private contacts with politicians, scientists, executives, and financiers across multiple countries, is the actual target. Any intelligence agency that can access the celebrity's private communications gains indirect access to everyone in their orbit. The celebrity themselves may be low-hanging fruit for border surveillance. The intentional targeting is of the network they enable."
-    },
-    {
-      q: 'What is the self-respect insight from the Alabama covert training base wall, and why does Bustamante consider it central?',
-      a: 'At a covert training base in Alabama, tier-1 operators wrote their answers to "What is the meaning of life?" on a wall and connected each answer to related ones. The word "self-respect" accumulated so many connections that you could barely see the word underneath. Bustamante argues self-respect is the foundation without which you cannot love, build, raise children, pioneer, or have a good day. It is not confidence or pride. It is the prerequisite for every meaningful action.'
-    },
-    {
       q: 'Why does Bustamante say lend-lease is a control mechanism rather than charity?',
       a: 'Because lend-lease is a debt instrument. Every weapon Ukraine fires is a bill it will owe. The UK did not finish paying its World War II lend-lease debt until 2020. If Ukraine wins its freedom, that freedom comes attached to trillions owed to Western governments. The debtor relationship gives creditors leverage over future Ukrainian economic and political decisions. Calling it charity ignores the legal and financial structure of the arrangement.'
     },
@@ -1991,10 +2077,6 @@ const config = {
     {
       q: 'The government releases footage of an unidentified aerial phenomenon that no known aircraft can match. Two explanations compete: alien technology and foreign adversary technology using AI. Which should concern you more as a citizen, and why?',
       a: 'Foreign adversary technology should concern you more right now. An alien civilization advanced enough to reach Earth has no clear immediate threat model. A peer adversary with AI-controlled aerial systems that outperform anything you know about has direct military implications today. Bustamante makes this point explicitly. The alien hypothesis requires a large imaginative leap. The adversarial-AI hypothesis requires only that a competitor is more advanced than you knew. The second explanation is closer to possible and more dangerous if true.'
-    },
-    {
-      q: 'What are the two possible explanations Bustamante offers for UFO compartmentalization, and which does he find more operationally concerning?',
-      a: 'Either the phenomena are genuinely significant and compartmentalization reflects their importance, or they are a deliberate distraction and compartmentalization keeps serious analysts away. Bustamante finds the foreign-AI hypothesis more concerning than alien spacecraft. An alien civilization advanced enough to reach Earth has no practical military implication right now. A peer adversary deploying AI-controlled aerial systems with capabilities beyond what the US publicly knows has immediate military implications. The alien explanation requires imagination. The adversarial-AI explanation requires only that a competitor is more advanced than you thought.'
     },
     {
       q: 'Explain how a conspiracy theory forms from a kernel of truth, using the conspiracy formation mechanics Bustamante describes.',
@@ -2051,10 +2133,6 @@ const config = {
     {
       q: 'Why does Bustamante say longing for human connection is the most surprising thing he discovered about human nature through intelligence work?',
       a: 'He expected human nature to be predictable after studying behavior operationally. That confirmed itself. What surprised him was the depth of the longing itself: the painful need to be with others exists across every culture, ideology, and economic level. Enemy combatants on opposing sides shared cigarettes at holiday ceasefires during World War I and II. The desire for human connection overrode active hostility in those moments. He had not predicted that the longing would be that consistent and that powerful across every context he encountered.'
-    },
-    {
-      q: 'A retired CIA officer joins a private intelligence firm and uses their clearance to provide analysis. What accountability gap does Bustamante identify in this arrangement?',
-      a: "Government intelligence operates under congressional oversight, inspector generals, and legal constraints that prevent ethical shortcuts. Private intelligence firms operate under economic law only. They must produce a superior product or lose the buyer. But they face no equivalent inspector general. The retired officer's analysis is subject to market pressure, not oversight. The firm can take ethical shortcuts that would be prohibited in a government context, because the only check is whether the client continues to pay."
     },
     {
       q: 'Palantir replaced CIA-built tools as the central analysis platform. What does this shift reveal about who now holds power in the intelligence architecture?',
@@ -2370,7 +2448,7 @@ const config = {
                 <td>Reach</td>
                 <td>
                   Every Chinese national abroad is a potential informant. Volume of operations
-                  follows from scale of the diaspora.
+                  follows from the scale of the community living abroad.
                 </td>
               </tr>
               <tr>
@@ -2510,16 +2588,14 @@ const config = {
             <span className="lrn-definition-term">Operation Stargate</span>
             <div className="lrn-definition-desc">
               <p>
-                Remote viewing and metaphysics program grown from the MKUltra environment. Outcomes
-                were mixed. Program ran across multiple administrations before being shut down and
-                declassified. Government demand for people sensitive to non-standard energies
-                reportedly continues.
+                Remote viewing program grown from the MKUltra environment, exploring abilities
+                beyond normal physics. Outcomes were mixed. Program ran across multiple
+                administrations before being shut down and declassified. Government demand for
+                people sensitive to non-standard energies reportedly continues.
               </p>
               <p>
                 <strong>When to use:</strong> Place government interest in non-standard human
                 capabilities in historical context. Stargate ran for years before declassification.
-                It fits the same arms-race logic as MKUltra: explore any capability the adversary
-                might be developing.
               </p>
             </div>
           </div>
@@ -2529,7 +2605,8 @@ const config = {
             <div className="lrn-definition-desc">
               <p>
                 A 1962 Department of Defense and CIA proposal to commit acts of terrorism against
-                Americans and blame Cuba, creating a pretext for military action. JFK rejected it.
+                Americans and blame Cuba, creating a fake excuse for military action. JFK rejected
+                it.
               </p>
               <p>
                 <strong>When to use:</strong> Understand the CIA's special activities division
@@ -2613,8 +2690,7 @@ const config = {
               </p>
               <p>
                 <strong>When to use:</strong> Ground abstract pink-matter theory in a documented
-                real case. Barsky's story is public and confirms that self-image validation is more
-                effective than financial recruitment for intelligent, idealistic targets.
+                real case. Barsky's story is public record.
               </p>
             </div>
           </div>

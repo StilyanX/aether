@@ -1,6 +1,6 @@
 # Source Code Conventions
 
-File naming and folder layout for `src/features/explore/`. For how content gets wired into the app (registry + `filePath`), see `CONTRIBUTING.md`. This doc only covers what files are called and where they live.
+File naming and folder layout for `src/features/explore/`. For how content gets wired into the app (registry + `filePath`), see **[CONTRIBUTING.md](../CONTRIBUTING.md) → "Making a content change"**. This doc only covers what files are called and where they live.
 
 ## Structure
 
@@ -29,12 +29,12 @@ Eight categories, all flat under `explore/`. Depth varies by domain. Math is `ca
 
 ## Naming
 
-| Rule                              | Example                                                     |
-| --------------------------------- | ----------------------------------------------------------- |
-| **Lowercase-hyphenated `.jsx`**   | `newtons-laws-and-integration.jsx`                          |
-| **Supporting files use prefixes** | `arithmetic-tools.css`, `the-citadel-of-the-autarch-viz.js` |
-| **Sequential numbers**            | Bare integers, no padding: `unit-2`, `unit-10`              |
-| **Date format**                   | `YYYYMMDD` when needed                                      |
+| Rule                              | Example                                        |
+| --------------------------------- | ---------------------------------------------- |
+| **Lowercase-hyphenated `.jsx`**   | `newtons-laws-and-integration.jsx`             |
+| **Supporting files use prefixes** | `the-citadel-of-the-autarch-viz.js`            |
+| **Sequential numbers**            | Bare integers, no padding: `unit-2`, `unit-10` |
+| **Date format**                   | `YYYYMMDD` when needed                         |
 
 Filename length is a soft target. Keep it readable, but long descriptive slugs (e.g. `advanced-topics-asymptotics-singularities-and-integrable-systems.jsx`) are accepted when they match the source curriculum.
 
