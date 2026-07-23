@@ -4,21 +4,18 @@ const config = {
   cssPrefix: 'mdw',
   documentTitle: 'My Day and My Week: AETHER',
   learning: {
-    category: 'Unit 6',
+    category: 'Unit 7',
     title: 'Mein Tag und meine Woche',
-    subtitle: 'Days of the week, daily routines, time expressions, and workplace vocabulary',
+    subtitle:
+      'Days of the week, separable and reflexive verbs, parts of the day, word order, and workplace vocabulary',
     sections: [
       <>
-        <div className="lrn-header">
-          <div>
-            <h1>My Day and My Week</h1>
-            <p>
-              This unit gives you the German for a working week: days, time words, office equipment,
-              and university vocabulary, plus the grammar behind "on Monday" and how compound nouns
-              determine their own gender.
-            </p>
-          </div>
-        </div>
+        <h2>Why This Unit Matters</h2>
+        <p>
+          This unit gives you the German to describe a real day and week. You learn the days, the
+          verbs for a daily routine, the parts of the day, and the word order to string them
+          together. You also pick up office and university vocabulary along the way.
+        </p>
       </>,
 
       <>
@@ -26,27 +23,14 @@ const config = {
           <h2>Days of the Week</h2>
 
           <p>
-            Use this section for any sentence that fixes an event to a day. "I work on Monday." "We
+            Every German sentence that pins an event to a day starts here. "I work on Monday." "We
             meet at the weekend."
           </p>
           <p>
-            German has seven day names. Every single one is masculine. They all take the article{' '}
-            <strong>der</strong>.
+            Look at the first day: <strong>der Montag</strong> (Monday). It takes{' '}
+            <strong>der</strong>. So do all the others. Every single day name in German is
+            masculine.
           </p>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              If every day of the week is masculine, what article do you expect before "Montag"?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <strong>der Montag</strong>. The same pattern holds for all seven days: der
-                Dienstag, der Mittwoch, der Donnerstag, der Freitag, der Samstag, der Sonntag.
-              </p>
-            </details>
-          </div>
 
           <h3>All Seven Days</h3>
           <ul className="lrn-list">
@@ -83,35 +67,33 @@ const config = {
             </li>
             <li>
               "On" before a day uses <strong>an</strong> plus the dative article{' '}
-              <strong>dem</strong> (because Montag is masculine).
+              <strong>dem</strong>. (Dative is the case for certain time and place words. You met it
+              in Unit 6.)
             </li>
             <li>
-              "an dem" always contracts to <strong>am</strong>.
+              "an dem" always contracts to <strong>am</strong> (this is the same am = an dem from
+              Unit 6).
             </li>
             <li>
               Result: <strong>am Montag</strong> (on Monday).
             </li>
           </ol>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does German use "am" before days and before "Wochenende," instead of another
-              preposition?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                <strong>am</strong> is short for "an dem" (at the). "An" is the time preposition.
-                "Dem" is the dative article for masculine and neuter nouns. Days are masculine and
-                "Wochenende" is neuter, so both contract to "am". You always say{' '}
-                <strong>am Montag</strong> and <strong>am Wochenende</strong>. You will never see
-                "im Montag" or "an Montag" in real German.
-              </p>
-            </details>
-          </div>
+          <p>
+            The same "am" works for the weekend, because "das Wochenende" is neuter and the neuter
+            dative article is also "dem": <strong>am Wochenende</strong>. You never say "im Montag"
+            or "an Montag".
+          </p>
 
           <h3>Weekend Vocabulary</h3>
+          <div className="lrn-tip">
+            <p>
+              <strong>Reading the plural marks:</strong> the short ending after each noun shows how
+              to build its plural. "die Woche, -n" means the plural adds -n (die Wochen). "-e" adds
+              -e (der Tag → die Tage). "-er" adds -er with an umlaut (das Fahrrad → die Fahrräder).
+              "-nen" adds -nen (die Kollegin → die Kolleginnen). A bare "-" means no change (das
+              Zimmer → die Zimmer).
+            </p>
+          </div>
           <ul className="lrn-list">
             <li>
               <strong>die Woche, -n</strong>: week
@@ -143,28 +125,229 @@ const config = {
       </>,
 
       <>
+        <div id="lrn-section-daily-routine">
+          <h2>Describing Your Day</h2>
+
+          <p>
+            Now you can name the days. Next you learn the verbs that fill them. To describe a real
+            day in German you need three new tools: separable verbs, reflexive verbs, and the words
+            for parts of the day.
+          </p>
+
+          <h3>Separable Verbs</h3>
+          <p>
+            A separable verb is a verb with a small prefix that breaks off in a sentence. The prefix
+            jumps to the very end. The main part of the verb stays in second place and takes its
+            normal ending.
+          </p>
+          <p>
+            Take <strong>aufstehen</strong> (to get up). It splits into <strong>auf</strong> +{' '}
+            <strong>stehen</strong>.
+          </p>
+
+          <h4>Worked Example: aufstehen</h4>
+          <ol className="lrn-list">
+            <li>
+              Start with the dictionary form: <strong>aufstehen</strong>.
+            </li>
+            <li>
+              Split off the prefix <strong>auf</strong>. The main verb is <strong>stehen</strong>.
+            </li>
+            <li>
+              Conjugate <strong>stehen</strong> for "ich": <strong>stehe</strong>. Put it in second
+              place.
+            </li>
+            <li>
+              Send the prefix <strong>auf</strong> to the end.
+            </li>
+            <li>
+              Result: <strong>Ich stehe auf.</strong> (I get up.)
+            </li>
+          </ol>
+
+          <p>The same split works across the day:</p>
+          <ul className="lrn-list">
+            <li>
+              <strong>aufwachen</strong> (to wake up) → Ich wache auf.
+            </li>
+            <li>
+              <strong>anfangen</strong> (to begin) → Die Arbeit fängt an. (Work begins.)
+            </li>
+            <li>
+              <strong>einkaufen</strong> (to shop) → Ich kaufe ein.
+            </li>
+          </ul>
+
+          <div className="lrn-tip">
+            <p>
+              <strong>anfangen</strong> is a strong verb. Its stem vowel changes in the du and
+              er/sie forms: <strong>du fängst an</strong>, <strong>er fängt an</strong>. The prefix
+              "an" still goes to the end.
+            </p>
+          </div>
+
+          <div className="lrn-self-explain">
+            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
+            <p>In "Ich stehe auf," why is "auf" sitting at the end and not next to "Ich"?</p>
+            <details className="lrn-self-explain-reveal">
+              <summary>Expert explanation</summary>
+              <p>
+                The conjugated verb must stand in second position in a German main sentence. Only
+                the stem part ("stehe") can carry the ending, so it takes that slot. The prefix
+                ("auf") has no ending to carry, so German parks it at the end of the sentence. You
+                will see the same pattern with every separable verb.
+              </p>
+            </details>
+          </div>
+
+          <h3>Reflexive Verbs</h3>
+          <p>
+            A reflexive verb is one where the action loops back on the doer. You do it to yourself.
+            German marks this with a reflexive pronoun: <strong>mich</strong> (myself),{' '}
+            <strong>dich</strong> (yourself), <strong>sich</strong> (himself/herself),{' '}
+            <strong>uns</strong> (ourselves), <strong>euch</strong> (yourselves),{' '}
+            <strong>sich</strong> (themselves).
+          </p>
+
+          <h4>Worked Example: sich waschen</h4>
+          <ol className="lrn-list">
+            <li>
+              Dictionary form: <strong>sich waschen</strong> (to wash up).
+            </li>
+            <li>
+              Conjugate <strong>waschen</strong> for "ich": <strong>wasche</strong>.
+            </li>
+            <li>
+              Add the reflexive pronoun for "ich": <strong>mich</strong>. It comes right after the
+              verb.
+            </li>
+            <li>
+              Result: <strong>Ich wasche mich.</strong> (I wash up.)
+            </li>
+          </ol>
+
+          <p>
+            One verb is both reflexive and separable: <strong>sich anziehen</strong> (to get
+            dressed). The pronoun comes first, the prefix goes last:
+          </p>
+          <ul className="lrn-list">
+            <li>
+              <strong>Ich ziehe mich an.</strong> (I get dressed.)
+            </li>
+          </ul>
+
+          <h3>Parts of the Day</h3>
+          <p>
+            To say when in the day something happens, German has a noun and an adverb for each part.
+          </p>
+          <div className="lrn-compare">
+            <div className="lrn-compare-col">
+              <p className="lrn-compare-title">Nouns (use "am")</p>
+              <p>der Morgen (morning)</p>
+              <p>der Vormittag (late morning)</p>
+              <p>der Mittag (midday)</p>
+              <p>der Nachmittag (afternoon)</p>
+              <p>der Abend (evening)</p>
+              <p>die Nacht (night)</p>
+            </div>
+            <div className="lrn-compare-col">
+              <p className="lrn-compare-title">Adverbs</p>
+              <p>morgens (in the morning)</p>
+              <p>vormittags (in the late morning)</p>
+              <p>mittags (at midday)</p>
+              <p>nachmittags (in the afternoon)</p>
+              <p>abends (in the evening)</p>
+              <p>nachts (at night)</p>
+            </div>
+          </div>
+          <div className="lrn-tip">
+            <p>
+              Use <strong>am</strong> for most parts: am Morgen, am Abend. The one exception is
+              night: you say <strong>in der Nacht</strong>, because "die Nacht" is feminine and uses
+              the preposition "in".
+            </p>
+          </div>
+
+          <h3>Word Order: Time-Manner-Place</h3>
+          <p>
+            When a sentence has several details, German lines them up in a fixed order: Time (when),
+            then Manner (how), then Place (where).
+          </p>
+
+          <h4>Worked Example: Building One Sentence</h4>
+          <ol className="lrn-list">
+            <li>
+              Verb in second place: <strong>Ich gehe …</strong> (I go).
+            </li>
+            <li>
+              Time first: <strong>am Montag</strong> (on Monday).
+            </li>
+            <li>
+              Place last: <strong>zur Arbeit</strong> (to work). Here "zur" = "zu der" (Arbeit is
+              feminine).
+            </li>
+            <li>
+              Result: <strong>Ich gehe am Montag zur Arbeit.</strong> (I go to work on Monday.)
+            </li>
+          </ol>
+          <p>
+            Add a manner detail and it slots between time and place:{' '}
+            <strong>Ich fahre morgens mit dem Bus zur Arbeit.</strong> (I go to work by bus in the
+            morning.)
+          </p>
+
+          <div className="lrn-insight">
+            <p>
+              <strong>Clock time from Unit 6.</strong> You already know "um … Uhr" for telling the
+              time. Drop it into the time slot to fix an event to an hour:{' '}
+              <strong>Ich stehe um sieben Uhr auf.</strong> (I get up at seven o'clock.) Notice the
+              separable prefix "auf" still goes to the very end.
+            </p>
+          </div>
+
+          <h3>The Payoff: A Whole Day in German</h3>
+          <p>
+            Now stitch the tools together. Here is a short narrated day. Every sentence uses a tool
+            from this section.
+          </p>
+          <div className="lrn-insight">
+            <p>
+              <strong>Ich wache um sieben Uhr auf.</strong> (I wake up at seven o'clock.)
+            </p>
+            <p>
+              <strong>Dann wasche ich mich und ziehe mich an.</strong> (Then I wash up and get
+              dressed.)
+            </p>
+            <p>
+              <strong>Am Morgen fahre ich mit dem Bus zur Arbeit.</strong> (In the morning I go to
+              work by bus.)
+            </p>
+            <p>
+              <strong>Die Arbeit fängt um acht Uhr an.</strong> (Work begins at eight o'clock.)
+            </p>
+            <p>
+              <strong>Am Nachmittag kaufe ich ein.</strong> (In the afternoon I do the shopping.)
+            </p>
+            <p>
+              <strong>Am Abend bin ich zu Hause.</strong> (In the evening I am at home.)
+            </p>
+          </div>
+          <p>
+            Read it once more and spot each tool: separable verbs (wache … auf, fängt … an, kaufe …
+            ein), a reflexive verb (wasche mich), parts of the day (am Morgen, am Nachmittag, am
+            Abend), and clock time (um sieben Uhr). That is a full day described in German.
+          </p>
+        </div>
+      </>,
+
+      <>
         <div id="lrn-section-1">
           <h2>Weekly Life and Time Vocabulary</h2>
 
           <p>
-            Use this section for any sentence about when, how often, or how soon something happens.
+            These words tell your listener when, how often, or how soon something happens. They sit
+            in the time slot of your daily-routine sentences.
           </p>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              If "noch" means "still" and "einmal" means "once," what do you think "noch einmal"
-              means?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <strong>One more time.</strong> The combination "noch einmal" adds the idea of
-                repetition: "Erklären Sie das <strong>noch einmal</strong>." (Explain it one more
-                time.)
-              </p>
-            </details>
-          </div>
 
           <h3>Time Words</h3>
           <ul className="lrn-list">
@@ -193,7 +376,7 @@ const config = {
               <strong>noch einmal</strong>: one more time
             </li>
             <li>
-              <strong>jeden Tag</strong>: every day
+              <strong>jeden Tag</strong>: every day (learn it as a fixed phrase)
             </li>
             <li>
               <strong>zuerst</strong>: first
@@ -234,11 +417,8 @@ const config = {
             </details>
           </div>
 
-          <h3>General and Miscellaneous Vocabulary</h3>
+          <h3>General Day-to-Day Vocabulary</h3>
           <ul className="lrn-list">
-            <li>
-              <strong>der Mensch, -en</strong>: person, human being
-            </li>
             <li>
               <strong>der Ort, -e</strong>: place
             </li>
@@ -252,12 +432,6 @@ const config = {
               <strong>die Zeitung, -en</strong>: newspaper
             </li>
             <li>
-              <strong>die Zigarette, -n</strong>: cigarette
-            </li>
-            <li>
-              <strong>das Bier, -e</strong>: beer
-            </li>
-            <li>
               <strong>der Kaffee</strong>: coffee
             </li>
             <li>
@@ -267,31 +441,12 @@ const config = {
               <strong>das Motorrad, -er</strong>: motorcycle
             </li>
             <li>
-              <strong>die Ansichtskarte, -n</strong>: postcard
-            </li>
-            <li>
-              <strong>der Gartenzwerg, -e</strong>: garden gnome
-            </li>
-            <li>
-              <strong>der Geldschein, -e</strong>: banknote
-            </li>
-            <li>
-              <strong>der Käfer, -</strong>: bug
-            </li>
-            <li>
               <strong>jemand</strong>: someone
             </li>
             <li>
-              <strong>man</strong>: one (general subject, impersonal)
+              <strong>man</strong>: one (the impersonal subject from Unit 6)
             </li>
           </ul>
-
-          <div className="lrn-tip">
-            <p>
-              <strong>man</strong> is not a personal pronoun. It is an impersonal subject meaning
-              "one" or "you" in general statements. "Man lernt Deutsch." (One learns German.)
-            </p>
-          </div>
 
           <h3>Useful Filler Words and Particles</h3>
           <ul className="lrn-list">
@@ -323,7 +478,7 @@ const config = {
             <p>
               German time words do not overlap. "jetzt" is this exact second. "gleich" is a moment
               from now. "heute" covers the whole day. "immer" applies to every occasion. Swapping
-              one for another changes the meaning, not just the register.
+              one for another changes the meaning, not just how formal it sounds.
             </p>
           </div>
         </div>
@@ -334,18 +489,21 @@ const config = {
           <h2>Office and Workplace Vocabulary</h2>
 
           <p>
-            Use this section for any conversation about work: colleagues, equipment, and office
-            tasks.
+            Many people spend the weekday at work. These words name the colleagues, equipment, and
+            tasks that fill an office day.
           </p>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
-            <p>How do you say "The printer is broken" in German?</p>
+            <p>
+              German names many office machines with compound nouns. What two words do you think
+              make up "Kaffeemaschine"?
+            </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>
-                <strong>"Der Drucker ist kaputt."</strong> "kaputt" is the everyday word for broken.
-                It works for machines, devices, and even a broken plate.
+                <strong>Kaffee</strong> (coffee) + <strong>Maschine</strong> (machine). The last
+                word "Maschine" is feminine, so the whole word is "die Kaffeemaschine".
               </p>
             </details>
           </div>
@@ -485,25 +643,18 @@ const config = {
               Second word: <strong>Lampe</strong> (lamp), feminine (die).
             </li>
             <li>
-              Glue them together. The last word in a compound decides the gender of the whole word.
+              Glue them together. The compound takes the gender of its last word (this is the
+              compound-gender rule from Unit 5).
             </li>
             <li>
-              Result: <strong>die Schreibtischlampe</strong> (the desk lamp).
+              Result: <strong>die Schreibtischlampe</strong> (the desk lamp), because "Lampe" is
+              feminine.
             </li>
           </ol>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does "Schreibtischlampe" have the gender "die" and not "der" or "das"?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                The compound takes its gender from the last word. "Lampe" is feminine (die Lampe),
-                so "Schreibtischlampe" is also feminine. The first part (Schreibtisch) only
-                specifies which kind of lamp.
-              </p>
-            </details>
-          </div>
+          <p>
+            The same rule decodes more office words: Bürostuhl = Büro + Stuhl (der Stuhl → der
+            Bürostuhl); Terminkalender = Termin + Kalender (der Kalender → der Terminkalender).
+          </p>
 
           <div className="lrn-compare">
             <div className="lrn-compare-col">
@@ -517,6 +668,11 @@ const config = {
               <p>"Meine Kollegin heißt Anna."</p>
             </div>
           </div>
+          <p>
+            The <strong>-in</strong> ending makes a feminine job or role word from the male form
+            (Kollege → Kollegin, from Units 1 and 3). The plural of an -in word adds -nen
+            (Kolleginnen).
+          </p>
 
           <h3>Worked Office Dialogue</h3>
           <div className="lrn-insight">
@@ -536,6 +692,11 @@ const config = {
               <strong>B:</strong> "Ja, das geht." (Yes, that works.)
             </p>
           </div>
+          <p>
+            "kein Drucker" means "no printer". You met kein/keine in Unit 4: use{' '}
+            <strong>kein</strong> for masculine and neuter nouns, <strong>keine</strong> for
+            feminine and plural.
+          </p>
 
           <h3>Key Verbs for the Workplace</h3>
           <ul className="lrn-list">
@@ -566,15 +727,6 @@ const config = {
               (The printer is broken.)
             </p>
           </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Every German compound noun splits into recognisable pieces. Bürostuhl = Büro + Stuhl.
-              Terminkalender = Termin + Kalender. Learn to read the parts and you can decode
-              hundreds of new words without a dictionary.
-            </p>
-          </div>
         </div>
       </>,
 
@@ -582,22 +734,10 @@ const config = {
         <div id="lrn-section-3">
           <h2>University and Education Vocabulary</h2>
 
-          <p>Use this section for conversations about studying or university life.</p>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              What German words describe the times and places related to studying at a university?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                Common ones: <strong>die Universität</strong>, <strong>die Bibliothek</strong>,{' '}
-                <strong>die Mensa</strong>, <strong>die Lehrveranstaltung</strong> (lecture),{' '}
-                <strong>der Sprachkurs</strong> (language course).
-              </p>
-            </details>
-          </div>
+          <p>
+            If your week is built around studying, these words describe it: the places you go and
+            the courses you attend.
+          </p>
 
           <h3>Places</h3>
           <ul className="lrn-list">
@@ -611,7 +751,8 @@ const config = {
               <strong>die Mensa, -s</strong>: student canteen
             </li>
             <li>
-              <strong>das Sprachenzentrum, die Sprachenzentren</strong>: language centre
+              <strong>das Sprachenzentrum, die Sprachenzentren</strong>: language centre (words
+              ending in -um swap it for -en in the plural)
             </li>
           </ul>
 
@@ -626,22 +767,11 @@ const config = {
             <li>
               <strong>die Fremdsprache, -n</strong>: foreign language
             </li>
-            <li>
-              <strong>die Astronomie</strong>: astronomy
-            </li>
-            <li>
-              <strong>die Literatur</strong>: literature
-            </li>
-            <li>
-              <strong>die Mathematik</strong>: mathematics
-            </li>
-            <li>
-              <strong>die Psychologie</strong>: psychology
-            </li>
-            <li>
-              <strong>Latein</strong>: Latin
-            </li>
           </ul>
+          <p>
+            School subject names (Mathematik, Literatur, and so on) come from Unit 3. Here you only
+            need the schedule words above.
+          </p>
 
           <h3>Academic Verbs</h3>
           <ul className="lrn-list">
@@ -653,7 +783,9 @@ const config = {
           <h3>Worked Example: Two Uses of "besuchen"</h3>
           <ol className="lrn-list">
             <li>
-              <strong>besuchen</strong> takes an accusative object. The object decides the meaning.
+              <strong>besuchen</strong> takes an accusative object. (Accusative is the case for the
+              direct object, the thing the action lands on, which you met in Unit 5.) The object
+              decides the meaning.
             </li>
             <li>Object is a person: "Ich besuche einen Freund." (I am visiting a friend.)</li>
             <li>
@@ -663,28 +795,12 @@ const config = {
             <li>The verb form does not change. Only the object changes.</li>
           </ol>
 
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              How can you tell from context whether "besuchen" means "visit a person" or "take a
-              course"?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Look at the object. A person ("einen Freund," "die Großmutter") triggers the "visit"
-                reading. A course or lecture ("einen Sprachkurs," "eine Lehrveranstaltung") triggers
-                the "attend" reading. The verb itself does not change; the object decides.
-              </p>
-            </details>
-          </div>
-
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
               German often re-uses one verb across related actions instead of inventing new words.
               "besuchen" started as "to go and see" (a person), then extended to "going to" a class
-              regularly. The two readings live side by side and the object disambiguates them.
+              regularly. The two readings live side by side and the object makes the meaning clear.
             </p>
           </div>
         </div>
@@ -695,83 +811,63 @@ const config = {
   practice: [
     {
       q: 'List all seven days of the week in German. What gender are they all? Build a sample "on Monday" phrase.',
-      a: 'Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag. They are all masculine (der). Step 1: pick the day, e.g., Montag. Step 2: prepend "am" (the contraction of "an dem") because all days are masculine. Step 3: result is "am Montag" (on Monday). The same pattern works for every day.'
+      a: 'Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag, Sonntag. They are all masculine (der). Step 1: pick the day, e.g., Montag. Step 2: prepend "am" (the contraction of "an dem", which you know from Unit 6) because all days are masculine. Step 3: result is "am Montag" (on Monday). The same pattern works for every day.'
     },
     {
-      q: 'Why does German use "am" before days of the week and before "Wochenende"?',
-      a: '"am" is a contraction of "an dem" (at the, dative). Step 1: all days of the week are masculine, so the dative article is "dem". Step 2: "an dem Montag" contracts to "am Montag". Step 3: "Wochenende" is neuter, but the neuter dative article is also "dem", so "an dem Wochenende" also contracts to "am Wochenende". Step 4: this is why "am" appears for both days and the weekend with no exceptions.'
+      q: 'Conjugate the separable verb "aufstehen" for ich, and say "I get up." Where does the prefix go?',
+      a: '"Ich stehe auf." Step 1: the verb is auf + stehen. Step 2: in a sentence the prefix "auf" splits off and jumps to the end. Step 3: the main part "stehe" takes the normal ich ending and sits in second position. Result: "Ich stehe auf" (I get up).'
+    },
+    {
+      q: 'Build the German for "I get up at seven o\'clock." Use the separable verb plus clock time.',
+      a: '"Ich stehe um sieben Uhr auf." Step 1: separable verb aufstehen → stehe ... auf. Step 2: clock time "um sieben Uhr" (at seven o\'clock, the "um ... Uhr" pattern from Unit 6). Step 3: the prefix "auf" still goes last, after the time phrase. So the time slots in before the prefix.'
+    },
+    {
+      q: 'Reflexive verbs: build "I wash up" and "I get dressed." Where does the reflexive pronoun go?',
+      a: '"Ich wasche mich." and "Ich ziehe mich an." Step 1: the reflexive pronoun for ich is "mich". Step 2: it follows right after the conjugated verb. Step 3: sich anziehen is also separable, so the prefix "an" goes to the very end: "Ich ziehe mich an." Pronoun first, prefix last.'
+    },
+    {
+      q: 'You are describing your day. Build: "In the morning I get dressed." Use a time-of-day adverb.',
+      a: '"Morgens ziehe ich mich an." Step 1: time-of-day adverb "morgens" (in the morning). Step 2: starting with the time pushes the verb into second position, so "ziehe" comes next. Step 3: subject "ich". Step 4: reflexive pronoun "mich". Step 5: separable prefix "an" at the end. You could also say "Ich ziehe mich morgens an."'
+    },
+    {
+      q: '[TRANSFER] Order the pieces correctly: ich gehe / zur Arbeit / am Montag. State the rule you used.',
+      a: '"Ich gehe am Montag zur Arbeit." Step 1: German orders extra details Time → Manner → Place. Step 2: "am Montag" is time, so it comes first. Step 3: "zur Arbeit" is place, so it comes last. Note: zur Arbeit = zu der Arbeit (Arbeit is feminine, so zu + der → zur).'
+    },
+    {
+      q: 'Why does German use "am" before days of the week and parts of the day, but "in der Nacht" for night?',
+      a: '"am" = an dem (the dative contraction from Unit 6). Step 1: days are masculine and most day-parts are masculine (der Morgen, der Abend), so an + dem → am: am Montag, am Morgen, am Abend. Step 2: "die Nacht" is feminine and uses the preposition "in", so you say "in der Nacht" instead of "am". Step 3: match the article and preposition to the noun.'
     },
     {
       q: 'What is the German word for "printer" and what is its gender?',
-      a: 'Der Drucker (masculine). The plural is "die Drucker." Step 1: spot the article "der" in dictionaries to confirm masculine. Step 2: notice the plural drops the change because "Drucker" already ends in "-er". So both singular and plural look identical: der Drucker (one), die Drucker (several).'
+      a: 'Der Drucker (masculine). The plural is "die Drucker." Step 1: the article "der" confirms it is masculine. Step 2: the plural keeps the same form because "Drucker" already ends in "-er". So both singular and plural look identical: der Drucker (one), die Drucker (several).'
     },
     {
       q: 'Fill in the blank: "Hier ist $\\rule{1cm}{0.5pt}$ Drucker." (There is no printer here.)',
-      a: '"Hier ist kein Drucker." Step 1: identify the noun, "Drucker". Step 2: check its gender: masculine (der Drucker). Step 3: pick the negator that matches masculine, which is "kein". Step 4: insert it. Feminine nouns ("Lampe") would take "keine" instead.'
+      a: '"Hier ist kein Drucker." Step 1: identify the noun, "Drucker". Step 2: check its gender: masculine (der Drucker). Step 3: pick the negative word that matches masculine, which is "kein" (this is the kein/keine pattern from Unit 4). Step 4: insert it. Feminine nouns ("Lampe") would take "keine" instead.'
     },
     {
       q: 'What does "Der Drucker geht." mean? Why does this verb work for machines?',
       a: '"The printer works." Step 1: "gehen" usually means "to go" for people or movement. Step 2: for machines and devices, German extends the meaning to "to function / to work". Step 3: so "Der Drucker geht" (the printer works) sits next to "Der Drucker ist kaputt" (the printer is broken). Both are normal A1 sentences in any office.'
     },
     {
-      q: 'Translate: "Na, wie geht es?"',
-      a: '"So, how is it going?" Step 1: "wie geht es?" alone is "how is it going?" (literally: how goes it?). Step 2: "Na" is a casual filler that sets a friendly tone. Step 3: putting them together gives a softer, conversational greeting compared to the bare "Wie geht es?"'
-    },
-    {
-      q: 'What does "besuchen" mean? Why is it potentially confusing? Give two example sentences.',
-      a: '"besuchen" has two meanings: (1) to visit a person ("einen Freund besuchen") and (2) to take or attend a course ("einen Sprachkurs besuchen"). Step 1: look at the object. A person triggers the visit reading. Step 2: a course or lecture triggers the attend reading. Step 3: the verb itself never changes form; the object disambiguates. So "Ich besuche einen Freund" = I am visiting a friend, but "Ich besuche einen Sprachkurs" = I am taking a language course.'
+      q: 'What does "besuchen" mean? Why can it confuse you? Give two example sentences.',
+      a: '"besuchen" has two meanings: (1) to visit a person ("einen Freund besuchen") and (2) to take or attend a course ("einen Sprachkurs besuchen"). It takes an accusative object (the direct object, the case from Unit 5). Step 1: look at the object. A person gives the visit reading. Step 2: a course or lecture gives the attend reading. Step 3: the verb never changes form; the object makes the meaning clear. So "Ich besuche einen Freund" = I am visiting a friend, but "Ich besuche einen Sprachkurs" = I am taking a language course.'
     },
     {
       q: 'What is the difference between "Kantine" and "Mensa"?',
-      a: 'Both mean canteen, but they apply in different settings. "die Kantine" is a general workplace canteen (in offices, factories, hospitals). "die Mensa" is specifically a student canteen at a university or college. Step 1: ask where the food is being served. Step 2: pick Kantine for workplaces. Step 3: pick Mensa for universities. Both take the article "die" and both appear often in everyday speech.'
+      a: 'Both mean canteen, but they apply in different settings. "die Kantine" is a general workplace canteen (in offices, factories, hospitals). "die Mensa" is specifically a student canteen at a university or college. Step 1: ask where the food is served. Step 2: pick Kantine for workplaces. Step 3: pick Mensa for universities. Both take the article "die".'
     },
     {
       q: 'What is "der Terminkalender" and what related words connect to it?',
-      a: '"der Terminkalender" = agenda, appointment book. Step 1: it is a compound noun: Termin (appointment) + Kalender (calendar). Step 2: the compound takes the gender of the last word, "Kalender" (masculine), so the whole compound is "der Terminkalender". Related vocabulary: "der Termin, -e" (appointment), "die Zeit, -en" (time), "der Arbeitstag, -e" (working day). All show up when scheduling meetings.'
-    },
-    {
-      q: '[SELF-EXPLAIN] In "Erklären Sie das noch einmal," what does "noch einmal" mean and why is it different from "einmal"?',
-      a: '"noch einmal" = one more time / once again. "einmal" alone = once. Step 1: "noch" adds the meaning of repetition. Step 2: "einmal" by itself answers "how often?" with "once". Step 3: putting them together gives "another time". Step 4: in classroom requests, "Erklären Sie das noch einmal" politely asks the teacher to repeat the explanation.'
+      a: '"der Terminkalender" = agenda, appointment book. Step 1: it is a compound noun: Termin (appointment) + Kalender (calendar). Step 2: the compound takes the gender of the last word, "Kalender" (masculine), so it is "der Terminkalender" (compound gender is set by the last word, from Unit 5). Related words: "der Termin, -e" (appointment), "die Zeit, -en" (time), "der Arbeitstag, -e" (working day).'
     },
     {
       q: '[TRANSFER] You want to say "There is no coffee machine in the office." Build the German sentence.',
-      a: '"Im Büro ist keine Kaffeemaschine." Step 1: "Im Büro" = in the office (im = in dem). Step 2: verb "ist". Step 3: identify the noun gender: "Kaffeemaschine" is feminine (die Kaffeemaschine). Step 4: pick the matching negator: feminine takes "keine". Step 5: place it before the noun. Same kein/keine rule, just transferred to a new room and new vocabulary.'
+      a: '"Im Büro ist keine Kaffeemaschine." Step 1: "Im Büro" = in the office (im = in dem). Step 2: verb "ist". Step 3: identify the noun gender: "Kaffeemaschine" is feminine (die Kaffeemaschine). Step 4: pick the matching negative word: feminine takes "keine". Step 5: place it before the noun. Same kein/keine rule, just moved to a new room and new vocabulary.'
     },
     {
-      q: '[PREDICT] How do you say "My telephone number is quite easy" in German? Build it from scratch.',
-      a: '"Meine Telefonnummer ist ganz einfach." Step 1: subject "Meine Telefonnummer" (my phone number, feminine, so "meine" with -e). Step 2: linking verb "ist". Step 3: adverb of degree "ganz" (quite) modifies the adjective. Step 4: predicate adjective "einfach" (easy) takes no ending because it sits after "ist".'
-    },
-    {
-      q: 'Translate and explain: "drei Zigaretten pro Tag"',
-      a: '"three cigarettes per day." Step 1: "drei" = three. Step 2: "Zigaretten" = cigarettes (plural of die Zigarette). Step 3: "pro" = per (a fixed Latin-origin word). Step 4: "Tag" = day. Pattern: quantity + noun + pro + time unit. Use it for any rate: "zehn Euro pro Stunde" (ten euros per hour).'
-    },
-    {
-      q: '[TRANSFER] You want to say "I would like to play chess on Saturday." Build the German sentence step by step.',
-      a: '"Ich möchte am Samstag Schach spielen." Step 1: subject "Ich". Step 2: modal verb "möchte" (1st person singular). Step 3: time phrase "am Samstag" (on Saturday, masculine day, so "an dem" contracts to "am"). Step 4: object "Schach" (chess). Step 5: main verb "spielen" at the end because the modal pushes it there. The order subject + modal + time + object + infinitive is standard.'
-    },
-    {
-      q: 'Translate: "Herzlich willkommen!"',
-      a: '"Welcome!" or more literally "A warm welcome!" Step 1: "herzlich" = cordial, warm-hearted. Step 2: "willkommen" = welcome (the noun / interjection). Step 3: together they make a formal greeting used at events, in classes, and at the start of meetings.'
-    },
-    {
-      q: '[PREDICT] You see the headline: "Universitätsorchester sucht Sängerin." Translate it and explain each piece.',
-      a: '"The university orchestra is looking for a (female) singer." Step 1: "Universitätsorchester" = university orchestra (compound noun). Step 2: "sucht" = is looking for (3rd person singular of "suchen"). Step 3: "Sängerin" = female singer; the -in suffix marks the feminine form, plural "Sängerinnen" with -nen.'
-    },
-    {
-      q: 'Translate: "Was bedeutet das?"',
-      a: '"What does this mean?" Step 1: "Was" = what. Step 2: "bedeutet" = means (3rd person singular of "bedeuten"). Step 3: "das" = this / that. The whole phrase is your go-to question whenever a teacher or text uses an unfamiliar word.'
-    },
-    {
-      q: '[ELABORATE] Why does German use "am" before days of the week and before "Wochenende" but "im" before months and seasons?',
-      a: '"am" = an dem (Dativ). Days are masculine and Wochenende is neuter: both share dative article "dem", contracting to "am". "im" = in dem (Dativ). Months and seasons use "in" as the preposition: in dem Januar → im Januar. The preposition itself differs (an vs in), which is why the contraction differs. You never say "am Januar" or "im Montag".'
-    },
-    {
-      q: 'Build a German sentence: Someone would like to travel to Berlin.',
-      a: '"Er/Sie möchte nach Berlin reisen." Step 1: subject "Er" or "Sie". Step 2: modal verb "möchte" in position 2. Step 3: directional preposition "nach" before the city name. Step 4: city name "Berlin". Step 5: main verb "reisen" at the end as an infinitive (because "möchte" pushes it there). Result: subject + möchte + nach + city + infinitive.'
-    },
-    {
-      q: 'What does "Sport treiben" mean and why is it not "Sport machen" or "Sport spielen"?',
-      a: '"Sport treiben" = to do or play sport. Step 1: "treiben" is the locked verb that German fixes to "Sport". Step 2: you cannot swap it for "machen" (to make) or "spielen" (to play), even though English is flexible. Step 3: each activity has its own fixed verb in German: "Sport treiben," "Klavier spielen," "Ski fahren". You memorise each pairing as a unit.'
+      q: '[ELABORATE] Why does German use "am" before days of the week and "Wochenende" but "im" before months and seasons?',
+      a: '"am" = an dem. Days are masculine and Wochenende is neuter: both share the dative article "dem", so they contract to "am". "im" = in dem. Months and seasons use "in" as the preposition: in dem Januar → im Januar. The preposition itself differs (an vs in), which is why the contraction differs. You never say "am Januar" or "im Montag".'
     }
   ],
 
@@ -998,77 +1094,158 @@ const config = {
       </>,
 
       <>
-        <h2>Core Dialogue Phrases</h2>
+        <h2>Separable Verbs (Daily Routine)</h2>
         <p>
-          When to use: ready-made everyday phrases for greetings, classroom interaction, and small
-          talk.
+          When to use: any action whose prefix jumps to the end of the sentence. The prefix splits
+          off; the rest of the verb takes the normal endings.
         </p>
         <table className="lrn-table">
           <thead>
             <tr>
-              <th>German phrase</th>
-              <th>English meaning</th>
+              <th>Verb</th>
+              <th>ich form</th>
+              <th>English</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Wie geht es?</td>
-              <td>How is it going?</td>
+              <td>aufstehen</td>
+              <td>ich stehe auf</td>
+              <td>to get up</td>
             </tr>
             <tr>
-              <td>Na, wie geht es?</td>
-              <td>So, how is it going? (casual)</td>
+              <td>aufwachen</td>
+              <td>ich wache auf</td>
+              <td>to wake up</td>
             </tr>
             <tr>
-              <td>Herzlich willkommen!</td>
-              <td>Welcome!</td>
+              <td>anfangen</td>
+              <td>ich fange an</td>
+              <td>to begin</td>
             </tr>
             <tr>
-              <td>Bis später.</td>
-              <td>See you later.</td>
-            </tr>
-            <tr>
-              <td>Vielen Dank.</td>
-              <td>Many thanks.</td>
-            </tr>
-            <tr>
-              <td>Bitte sehr.</td>
-              <td>You are welcome.</td>
-            </tr>
-            <tr>
-              <td>Was bedeutet das?</td>
-              <td>What does this mean?</td>
-            </tr>
-            <tr>
-              <td>Wiederholen Sie bitte.</td>
-              <td>Repeat it, please.</td>
-            </tr>
-            <tr>
-              <td>Erklären Sie das noch einmal.</td>
-              <td>Explain it one more time.</td>
-            </tr>
-            <tr>
-              <td>Was meinen Sie?</td>
-              <td>What do you think?</td>
-            </tr>
-            <tr>
-              <td>Fehlt etwas?</td>
-              <td>Is anything missing?</td>
-            </tr>
-            <tr>
-              <td>Alles ist da.</td>
-              <td>Everything is here.</td>
-            </tr>
-            <tr>
-              <td>ach so</td>
-              <td>Oh, I see.</td>
-            </tr>
-            <tr>
-              <td>Ich frage mal Paul.</td>
-              <td>I'll ask Paul. (softened)</td>
+              <td>einkaufen</td>
+              <td>ich kaufe ein</td>
+              <td>to shop</td>
             </tr>
           </tbody>
         </table>
+        <p>
+          Strong verb note: anfangen changes the stem in du/er forms (du fängst an, er fängt an).
+        </p>
+      </>,
+
+      <>
+        <h2>Reflexive Verbs (Daily Routine)</h2>
+        <p>
+          When to use: the action loops back on the doer. The pronoun follows the conjugated verb:
+          mich, dich, sich, uns, euch, sich.
+        </p>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Verb</th>
+              <th>ich form</th>
+              <th>English</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>sich waschen</td>
+              <td>ich wasche mich</td>
+              <td>to wash up</td>
+            </tr>
+            <tr>
+              <td>sich anziehen</td>
+              <td>ich ziehe mich an</td>
+              <td>to get dressed</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          sich anziehen is both reflexive and separable: the pronoun (mich) comes first, the prefix
+          (an) goes last.
+        </p>
+      </>,
+
+      <>
+        <h2>Times of Day</h2>
+        <p>When to use: to mark which part of the day an action happens in.</p>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Noun</th>
+              <th>Adverb</th>
+              <th>English</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>der Morgen</td>
+              <td>morgens</td>
+              <td>morning / in the morning</td>
+            </tr>
+            <tr>
+              <td>der Vormittag</td>
+              <td>vormittags</td>
+              <td>late morning</td>
+            </tr>
+            <tr>
+              <td>der Mittag</td>
+              <td>mittags</td>
+              <td>midday / at noon</td>
+            </tr>
+            <tr>
+              <td>der Nachmittag</td>
+              <td>nachmittags</td>
+              <td>afternoon</td>
+            </tr>
+            <tr>
+              <td>der Abend</td>
+              <td>abends</td>
+              <td>evening</td>
+            </tr>
+            <tr>
+              <td>die Nacht</td>
+              <td>nachts</td>
+              <td>night</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Use "am" for most parts of the day (am Morgen, am Abend), but "in der Nacht" for night.
+        </p>
+      </>,
+
+      <>
+        <h2>Word Order: Time-Manner-Place</h2>
+        <p>
+          When to use: when one sentence has time, manner, and place details. German orders them
+          Time → Manner → Place.
+        </p>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Pattern</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Time + Place</td>
+              <td>Ich gehe am Montag zur Arbeit.</td>
+            </tr>
+            <tr>
+              <td>Time + Manner + Place</td>
+              <td>Ich fahre morgens mit dem Bus zur Arbeit.</td>
+            </tr>
+            <tr>
+              <td>Separable verb + time</td>
+              <td>Ich stehe um sieben Uhr auf.</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>zur Arbeit = zu der Arbeit (Arbeit is feminine, so zu + der contracts to zur).</p>
       </>
     ]
   },

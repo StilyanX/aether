@@ -1,8 +1,10 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
+import { CausticFoldingManifold } from '../../../../../components/viz'
 
 const config = {
   cssPrefix: 'ats',
-  documentTitle: 'Advanced Topics: Asymptotics, Singularities, and Integrable Systems - AETHER',
+  documentTitle:
+    'Advanced Topics: Asymptotics, Singularities, and Integrable Systems - AETHER',
   learning: {
     groupTitle: 'Perturbation Theory and Advanced Topics',
     category: 'Classical Mechanics',
@@ -39,16 +41,18 @@ const config = {
           perpendicular to wave fronts.
         </p>
         <p>
-          Short wave asymptotics is also called the WKB method or geometric optics approximation. As
-          the wavelength shrinks to zero, the phase of the wave function satisfies the
-          Hamilton-Jacobi equation. Wave fronts become surfaces of constant action, and rays become
-          classical trajectories.
+          Short wave asymptotics is also called the WKB method or geometric optics approximation.
+          You built this limit on the Hamilton-Jacobi page: as the wavelength shrinks to zero, the
+          phase of the wave satisfies the Hamilton-Jacobi equation, wave fronts become surfaces of
+          constant action, and rays become classical trajectories. That page forward-references this
+          one for the singularities the limit produces. Here we classify those singularities.
         </p>
         <div className="lrn-callout">
           <span className="lrn-callout-label">When to use</span>
           <p>
             Use short wave asymptotics when the wavelength is much smaller than the scale of
-            variation of the potential {`$U(q)$`}. It breaks down at caustics and turning points.
+            variation of the potential {`$U(q)$`}. It breaks down at caustics and turning points. A
+            turning point is where the particle momentarily stops and its momentum is zero.
           </p>
         </div>
         <div className="lrn-elaborate">
@@ -106,9 +110,10 @@ const config = {
           <span>{`$$ih \\frac{\\partial \\psi}{\\partial t} = -\\frac{h^2}{2}\\Delta\\psi + U(q)\\psi, \\quad q \\in \\mathbb{R}^n, \\; t \\in \\mathbb{R}$$`}</span>
         </div>
         <p>
-          Here {`$\\psi$`} is the wave function. The parameter {`$h$`} is Planck's constant. The
-          term {`$\\Delta\\psi$`} is the Laplacian, which measures how {`$\\psi$`} curves in space.
-          The term {`$U(q)$`} is the potential energy at position {`$q$`}.
+          Here {`$\\psi$`} is the wave function. The parameter {`$h$`} is Planck's constant, and it
+          plays the role of the small parameter in this section. The term {`$\\Delta\\psi$`} is the
+          Laplacian, which measures how {`$\\psi$`} curves in space. The term {`$U(q)$`} is the
+          potential energy at position {`$q$`}.
         </p>
         <p>
           Short wave asymptotics applies when {`$h$`} is small. We look for solutions where the
@@ -119,17 +124,9 @@ const config = {
         </div>
         <p>
           Here {`$\\varphi(q)$`} is a slowly varying amplitude. The function {`$s(q)$`} is the
-          initial phase. The exponential oscillates very rapidly when {`$h$`} is small.
+          initial phase. The exponential oscillates very rapidly when {`$h$`} is small. At time zero
+          the wave function concentrates near a classical trajectory.
         </p>
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">CONCRETE EXAMPLE</span>
-          <p>
-            Imagine a particle moving through a smooth potential landscape. At time zero, the wave
-            function concentrates near a classical trajectory. The phase {`$s(q)$`} encodes the
-            initial momentum at each point. The amplitude {`$\\varphi(q)$`} tells you how likely the
-            particle is to be near each point.
-          </p>
-        </div>
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
@@ -191,21 +188,12 @@ const config = {
 
         <h3>Lagrangian Manifolds</h3>
         <p>
-          A phase space has {`$2n$`} dimensions: {`$n$`} position coordinates {`$q$`} and {`$n$`}{' '}
-          momentum coordinates {`$p$`}. A lagrangian manifold is an {`$n$`}-dimensional surface
-          inside this {`$2n$`}-dimensional space. The symplectic 2-form {`$dp \\wedge dq$`} is a
-          measure of oriented area in phase space, computed by pairing the momentum and position
-          components of any two tangent vectors. A lagrangian manifold has one special property:
-          this form vanishes on it.
+          Recall the lagrangian manifold from Part III: it is an {`$n$`}-dimensional surface in the{' '}
+          {`$2n$`}-dimensional phase space on which the symplectic 2-form {`$dp \\wedge dq$`}{' '}
+          vanishes. That vanishing is exactly what lets the surface encode consistent momenta. No
+          point on it carries two conflicting momenta at the same position. The new fact here is how
+          a WKB phase produces one.
         </p>
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY DOES THIS MATTER?</span>
-          <p>
-            The symplectic form measures "area" in phase space. When it vanishes on a surface, that
-            surface encodes consistent classical trajectories. You cannot have inconsistent momenta
-            at the same position on a lagrangian manifold.
-          </p>
-        </div>
         <div className="lrn-callout">
           <span className="lrn-callout-label">Lemma</span>
           <p>
@@ -282,16 +270,18 @@ const config = {
 
         <h3>Caustics</h3>
         <p>
-          A caustic is where many rays converge. Formally, it is the set of positions where the
+          A caustic is where many rays come together. Formally, it is the set of positions where the
           folded manifold covers position space more than once: multiple points in phase space
           project to the same position. At a caustic, the wave amplitude would naively go to
           infinity. The WKB approximation breaks down there.
         </p>
+        <CausticFoldingManifold />
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">CONCRETE EXAMPLE</span>
           <p>
             Sunlight passing through a curved glass bottom of a swimming pool forms bright lines on
-            the pool floor. Those bright lines are caustics. Many rays converge at each bright line.
+            the pool floor. Those bright lines are caustics. Many rays come together at each bright
+            line.
           </p>
         </div>
         <p>
@@ -330,8 +320,8 @@ const config = {
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
           <p>
-            Multiple rays converge at the same point {`$Q$`} after time {`$t$`}. How do you think
-            their wave contributions combine into a single value?
+            Multiple rays come together at the same point {`$Q$`} after time {`$t$`}. How do you
+            think their wave contributions combine into a single value?
           </p>
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
@@ -366,19 +356,12 @@ const config = {
         </div>
         <p>
           Each term in the sum corresponds to one ray arriving at {`$Q$`}. The factor{' '}
-          {`$|\\frac{DQ}{Dq_j}|^{-\\tfrac{1}{2}}$`} is the amplitude. The integer {`$\\mu_j$`} is
-          the Morse index (defined in the next section): it counts how many focal points the ray has
-          crossed. The term {`$O(h)$`} means the error is proportional to {`$h$`}, which is small.
+          {`$|\\frac{DQ}{Dq_j}|^{-\\tfrac{1}{2}}$`} is the amplitude. Here {`$\\frac{DQ}{Dq_j}$`} is
+          the Jacobian determinant of the map {`$q_j \\mapsto Q$`}, which tells how the ray bundle
+          expands or contracts. The integer {`$\\mu_j$`} is the Morse index (defined in the next
+          section): it counts how many focal points the ray has crossed. The term {`$O(h)$`} means
+          the error is proportional to {`$h$`}, which is small.
         </p>
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY DOES THE AMPLITUDE FACTOR APPEAR?</span>
-          <p>
-            It comes from conservation of probability. The probability of finding the particle in a
-            region must equal the probability of starting in the corresponding initial region. The
-            Jacobian {`$\\frac{DQ}{Dq_j}$`} tells how regions expand or contract. Taking its square
-            root and inverting gives the amplitude correction.
-          </p>
-        </div>
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>Why does the amplitude factor need the {`$-\\frac{1}{2}$`} power of the Jacobian?</p>
@@ -414,7 +397,9 @@ const config = {
         <h3>Morse Index</h3>
         <p>
           The Morse index {`$\\mu_j$`} counts focal points along the phase curve from initial point{' '}
-          {`$(p_j, q_j)$`} to time {`$t$`}. Each focal point is counted with its multiplicity.
+          {`$(p_j, q_j)$`} to time {`$t$`}. Each focal point is counted with its multiplicity. The
+          multiplicity is how many independent directions get squashed there, that is the dimension
+          of the kernel of the projection's derivative.
         </p>
         <p>
           A focal point is where nearby trajectories focus together. In precise terms: it is where
@@ -446,9 +431,10 @@ const config = {
         <div className="lrn-callout">
           <span className="lrn-callout-label">Remark: Focal points and Morse theory</span>
           <p>
-            The Morse index of a geodesic equals the number of conjugate points along the geodesic
-            interval. It also equals the index of inertia of the second differential of the action
-            as a quadratic form on variations with fixed endpoints.
+            The Morse index of a geodesic equals the number of conjugate points along it. Conjugate
+            points are where neighboring geodesics from the same start meet again. The index also
+            equals the index of inertia of the second variation of the action, which simply counts
+            its negative eigenvalues.
           </p>
         </div>
 
@@ -462,15 +448,15 @@ const config = {
           <div className="lrn-definition-desc">
             <p>
               The Maslov index of an oriented curve on a lagrangian manifold counts how many times
-              the curve crosses the folding set (the subset where the projection to position space
+              the curve crosses the singular set (the subset where the projection to position space
               fails to be one-to-one). Each crossing from below adds {`$+1$`}; each crossing in
               reverse adds {`$-1$`}. The total is the Maslov index.
             </p>
           </div>
         </div>
         <p>
-          The positive side is where {`$\\frac{\\partial q_1}{\\partial p_1} > 0$`}. This sign is
-          consistently defined across different singular points.
+          The positive side is where {`$\\frac{\\partial q_1}{\\partial p_1} > 0$`}. We define this
+          sign consistently across different singular points.
         </p>
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">CONCRETE EXAMPLE</span>
@@ -491,19 +477,6 @@ const config = {
             the curve itself.
           </p>
         </div>
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-          <p>
-            In the circle example, why is the index {`$+2$`} and not {`$+1$`}?
-          </p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              The circle passes through the singular set at {`$p=1, q=0$`} and at {`$p=-1, q=0$`}.
-              Each crossing is in the positive direction. So the count is 2.
-            </p>
-          </details>
-        </div>
         <div className="lrn-compare">
           <div className="lrn-compare-col">
             <span className="lrn-compare-title">Morse Index</span>
@@ -515,8 +488,8 @@ const config = {
           <div className="lrn-compare-col">
             <span className="lrn-compare-title">Maslov Index</span>
             <p>
-              Counts signed crossings of any oriented curve through the singular stratum.
-              Topological invariant of the curve. No phase flow needed.
+              Counts signed crossings of any oriented curve through the singular set. Topological
+              invariant of the curve. No phase flow needed.
             </p>
           </div>
         </div>
@@ -541,21 +514,29 @@ const config = {
         </div>
         <p>
           The general quantization condition uses the Maslov index. For a closed curve {`$\\gamma$`}{' '}
-          on a lagrangian manifold:
+          on a lagrangian manifold, label the allowed levels by the integer{' '}
+          {`$N = 0, 1, 2, \\ldots$`}:
         </p>
-        <div className="lrn-eq">
-          <span>{`$$\\frac{2\\mu_N}{\\pi} \\oint_\\gamma p \\, dq \\equiv \\text{ind} \\, \\gamma \\pmod{4}$$`}</span>
-        </div>
-        <p>In the 1-dimensional case, this reduces to the classical Bohr-Sommerfeld condition:</p>
         <div className="lrn-eq lrn-eq-display">
-          <span>{`$$\\mu_N \\oint_\\gamma p \\, dq = 2\\pi\\left(N + \\frac{1}{2}\\right)$$`}</span>
+          <span>{`$$\\oint_\\gamma p \\, dq = 2\\pi\\left(N + \\frac{\\mu(\\gamma)}{4}\\right)$$`}</span>
+        </div>
+        <p>
+          Here {`$\\mu(\\gamma)$`} is the Maslov index of the orbit from the last section. The
+          integer {`$N$`} simply numbers the energy levels. It is not an index of any curve.
+        </p>
+        <p>
+          In the 1-dimensional case, a closed orbit has two turning points, so{' '}
+          {`$\\mu(\\gamma) = 2$`}. This reduces to the classical Bohr-Sommerfeld condition:
+        </p>
+        <div className="lrn-eq lrn-eq-display">
+          <span>{`$$\\oint_\\gamma p \\, dq = 2\\pi\\left(N + \\frac{1}{2}\\right)$$`}</span>
         </div>
         <div className="lrn-callout">
           <span className="lrn-callout-label">When to use</span>
           <p>
             Use when you want the large-{`$N$`} eigenvalues of a quantum system without solving the
-            full Schrödinger equation. The formula gives eigenvalue asymptotics:{' '}
-            {`$\\lambda_N = \\mu_N + O(\\mu_N^{-1})$`} as {`$\\lambda_N \\to \\infty$`}.
+            full Schrödinger equation. Reading off the {`$N$`}-th action gives the {`$N$`}-th energy
+            level.
           </p>
         </div>
         <div className="lrn-elaborate">
@@ -567,20 +548,9 @@ const config = {
             points, so the Maslov index is {`$2$`}. The Bohr-Sommerfeld condition gives{' '}
             {`$2\\pi E_N = 2\\pi(N + \\tfrac{1}{2})$`}, so {`$E_N = N + \\tfrac{1}{2}$`}. This
             matches the exact quantum result. The {`$\\tfrac{1}{2}$`} ground state energy comes
-            entirely from the Maslov phase.
+            entirely from the Maslov phase. Each of the two turning points shifts the phase by{' '}
+            {`$\\frac{\\pi}{2}$`}, and the two together give the {`$+\\frac{1}{2}$`} in the formula.
           </p>
-        </div>
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-          <p>Why does a factor of {`$\\frac{1}{2}$`} appear in the 1D Bohr-Sommerfeld formula?</p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              The Maslov index of the orbit contributes. Each turning point (focal point) shifts the
-              phase by {`$\\frac{\\pi}{2}$`}. For a 1D orbit with two turning points, the total
-              Maslov phase is {`$\\pi$`}, which translates to the {`$+\\frac{1}{2}$`} shift.
-            </p>
-          </details>
         </div>
       </>,
 
@@ -595,21 +565,25 @@ const config = {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              Only certain shapes appear generically. The ADE classification lists all stable
-              singularity types. For small dimensions, only folds and cusps survive perturbations.
+              Only certain shapes appear in the typical case. The ADE classification lists all
+              stable singularity types. For small dimensions, only folds and cusps survive
+              perturbations.
             </p>
           </details>
         </div>
         <p>
           Lagrangian singularities are the singular points of the projection from a lagrangian
           manifold to configuration space. They appear in caustics, shock waves, short wave
-          asymptotics, and the Hamilton-Jacobi equation.
+          asymptotics, and the Hamilton-Jacobi equation. Recall from Part III that generic
+          projections produce only folds and cusps, and that the stable types carry ADE labels. This
+          section extends that list up to dimension {`$n \\le 5$`} and exposes the Lie-algebra
+          coincidence behind it.
         </p>
 
         <h3>Singularities of Smooth Mappings (Whitney's Theorem)</h3>
         <p>
           Consider a smooth surface and a smooth map from it to the plane. H. Whitney proved that
-          only three types appear for generic mappings:
+          only three types appear in the typical case:
         </p>
         <ol className="lrn-list">
           <li>
@@ -622,22 +596,15 @@ const config = {
           </li>
           <li>
             <strong>Tuck (cusp) points:</strong> A more complicated singularity. The image has a
-            semi-cubical cusp.
+            semi-cubical cusp. The model is {`$x = yz - z^3$`}, derived just below.
           </li>
         </ol>
         <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">CONCRETE EXAMPLE</span>
-          <p>
-            Take the surface {`$x = yz - z^3$`}. Project it parallel to the {`$z$`}-axis. The
-            singular set forms a semi-cubical parabola: {`$27x^2 = 4y^3$`}. This is Whitney's tuck.
-          </p>
-        </div>
-        <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY CAN ALL OTHER SINGULARITIES BE REMOVED?</span>
           <p>
-            Generic mappings avoid higher-order tangencies. A perturbation of the surface or the
-            projection generically breaks any coincidence. Only the fold and tuck are robust - they
-            survive perturbations.
+            In the typical case, mappings avoid higher-order tangencies. A perturbation of the
+            surface or the projection breaks any coincidence. Only the fold and tuck are robust.
+            They survive perturbations.
           </p>
         </div>
         <div className="lrn-self-explain">
@@ -665,6 +632,11 @@ const config = {
         <div className="lrn-eq">
           <span>{`$$q_i = \\frac{\\partial F}{\\partial p_i}, \\quad p_j = -\\frac{\\partial F}{\\partial q_j}$$`}</span>
         </div>
+        <p>
+          Note the change of convention. Earlier the generating function {`$s(q)$`} depended on
+          position alone. Here {`$F$`} depends on a mix of momenta and positions. The two
+          conventions describe the same lagrangian manifolds in different coordinate patches.
+        </p>
         <div className="lrn-compare">
           <div className="lrn-compare-col">
             <span className="lrn-compare-title">Fold: {`$A_2$`}</span>
@@ -683,7 +655,11 @@ const config = {
           </div>
         </div>
 
-        <p>The full classification for {`$n \\leq 5$`}:</p>
+        <p>
+          The full classification for {`$n \\le 5$`} appears below. The {`$A$`} rows are the folds
+          and cusps explained above. The {`$D$`} and {`$E$`} rows are deeper singularities that need
+          more position directions to appear. Read them as lookup entries, not as new derivations.
+        </p>
         <table className="lrn-table">
           <thead>
             <tr>
@@ -738,9 +714,11 @@ const config = {
         <div className="lrn-callout lrn-warning">
           <span className="lrn-callout-label">Mysterious connection</span>
           <p>
-            The labels {`$A_k$`}, {`$D_k$`}, {`$E_k$`} are the same as those of simple Lie algebras.
-            There is no fully explained reason why the same classification appears in both contexts.
-            The connection was discovered in the 1970s.
+            The labels {`$A_k$`}, {`$D_k$`}, {`$E_k$`} are the ADE classification: a fixed list of
+            shapes labeled A, D, and E. They are the same labels that name the simple Lie algebras,
+            the basic building blocks of continuous symmetry groups. There is no fully explained
+            reason why the same list appears in both contexts. The connection was found in the
+            1970s.
           </p>
         </div>
 
@@ -765,6 +743,12 @@ const config = {
             </p>
           </div>
         </div>
+        <p>
+          So the two notions split. Two lagrangian manifolds can have caustics of the same shape,
+          yet no symplectic diffeomorphism carries one onto the other. The caustic shape is a
+          picture in position space. Lagrangian equivalence demands a match of the full phase-space
+          structure, which is strictly more information.
+        </p>
       </>,
 
       <>
@@ -789,117 +773,25 @@ const config = {
           <span>{`$$u_t = 6uu_x - u_{xxx}$$`}</span>
         </div>
         <p>
-          Here {`$u(x,t)$`} is a function of position {`$x$`} and time {`$t$`}. The term {`$6uu_x$`}{' '}
-          is nonlinear: it tends to steepen the wave. The term {`$-u_{xxx}$`} is dispersive: it
-          tends to spread the wave. Together, these effects can balance to produce stable wave
-          pulses.
+          The dedicated KdV page builds this equation in full: its soliton solutions, its infinite
+          tower of first integrals in involution, its Lax pair, and the way the spectrum of an
+          associated operator stays fixed as the wave evolves. KdV is the canonical example of a
+          completely integrable infinite-dimensional hamiltonian system. We bring it in here for one
+          reason: its hamiltonian structure is a Poisson structure on a space of functions, which is
+          the bridge to the next section.
         </p>
-
-        <h3>Hidden Symmetry and First Integrals</h3>
-        <p>
-          The KdV equation has hidden symmetry. There are infinitely many first integrals. The first
-          few are:
-        </p>
-        <div className="lrn-eq">
-          <span>{`$$I_{-1} = \\int u \\, dx, \\quad I_0 = \\int u^2 \\, dx, \\quad I_1 = \\int\\left(\\frac{u^2}{2} + u^3\\right) dx$$`}</span>
-        </div>
-        <div className="lrn-eq">
-          <span>{`$$I_2 = \\int\\left(\\frac{u'^2}{2} - \\frac{5}{2}u^2 u'' + \\frac{5}{2}u^4\\right) dx$$`}</span>
-        </div>
-        <p>
-          These integrals are in involution: their Poisson brackets with each other are all zero.
-          This infinite sequence of commuting integrals makes KdV a completely integrable
-          infinite-dimensional hamiltonian system.
-        </p>
-        <p>
-          Higher KdV flows form a hierarchy. The {`$s$`}-th flow is generated by the variational
-          derivative of {`$I_s$`} with respect to {`$u$`} (the functional analogue of a gradient):
-        </p>
-        <div className="lrn-eq">
-          <span>{`$$\\dot{u} = Q_s[u], \\quad Q_s = \\frac{d}{dx}\\frac{\\partial I_s}{\\partial u}$$`}</span>
-        </div>
-
-        <h3>Solitons</h3>
-        <p>
-          A soliton is a special solution of KdV that travels at constant velocity without changing
-          shape. Substitute {`$u = \\varphi(x - ct)$`} into the KdV equation:
-        </p>
-        <div className="lrn-eq">
-          <span>{`$$\\varphi'' - 3\\varphi^2 + c\\varphi + d = 0$$`}</span>
-        </div>
-        <p>
-          This is a second-order ODE. Its phase portrait gives the soliton. The soliton solution is
-          a localized hump that moves at speed {`$c$`}.
-        </p>
-        <div className="lrn-callout lrn-success">
-          <span className="lrn-callout-label">Remarkable property</span>
-          <p>
-            Solitons pass through each other without changing size or velocity. As{' '}
-            {`$t \\to \\pm\\infty$`}, any solution of KdV decomposes into solitons with different
-            velocities. Collisions leave sizes and velocities unchanged.
-          </p>
-        </div>
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-          <p>Why does substituting {`$u = \\varphi(x-ct)$`} simplify the KdV equation?</p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              The soliton moves rigidly. In the moving frame, the profile {`$\\varphi$`} does not
-              change with time. So time derivatives become multiples of space derivatives. This
-              turns a PDE into an ODE.
-            </p>
-          </details>
-        </div>
-
-        <h3>Lax Representation</h3>
-        <p>The KdV equation is equivalent to the Lax equation:</p>
-        <div className="lrn-eq">
-          <span>{`$$\\dot{u} = [L, A]$$`}</span>
-        </div>
-        <p>where:</p>
-        <div className="lrn-eq">
-          <span>{`$$L = -\\partial^2 + u, \\quad A = 4\\partial^3 - 3(u\\partial + \\partial u)$$`}</span>
-        </div>
-        <p>Here {`$[L, A] = LA - AL$`} is the commutator of two differential operators.</p>
-        <div className="lrn-callout">
-          <span className="lrn-callout-label">Lax theorem</span>
-          <p>
-            The operators {`$L$`} constructed from the solution at different times are all unitarily
-            equivalent. The eigenvalues of {`$Lf = \\lambda f$`} are first integrals of KdV.
-          </p>
-        </div>
-        <p>The eigenvalue equation is the Sturm-Liouville problem:</p>
-        <div className="lrn-eq">
-          <span>{`$$-X'' + u(x)X = \\lambda X$$`}</span>
-        </div>
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">
-            WHY DOES THE LAX EQUATION PRESERVE EIGENVALUES?
-          </span>
-          <p>
-            If {`$L\\psi = \\lambda\\psi$`} and {`$\\dot{L} = LA - AL$`}, then differentiating gives{' '}
-            {`$\\dot{L}\\psi + L\\dot{\\psi} = \\dot{\\lambda}\\psi + \\lambda\\dot{\\psi}$`}.
-            Substituting {`$\\dot{L} = [L,A]$`} and simplifying shows {`$\\dot{\\lambda} = 0$`}. The
-            eigenvalue is constant.
-          </p>
-        </div>
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-          <p>Why is the Lax representation useful beyond just being equivalent to KdV?</p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              It reveals that the operators {`$L$`} at different times are unitarily related. This
-              is the key to finding all first integrals: eigenvalues of {`$L$`} are conserved and
-              give infinitely many conservation laws.
-            </p>
-          </details>
-        </div>
         <div className="lrn-callout">
           <span className="lrn-callout-label">Symplectic structure on KdV</span>
-          <p>The Gardner-Zakharov-Faddeev symplectic structure on the space of functions is:</p>
+          <p>
+            The KdV flow becomes a hamiltonian flow once you put the Gardner-Zakharov-Faddeev
+            symplectic structure on the space of functions:
+          </p>
           <p>{`$$\\omega^2(\\partial w, \\partial v) = \\frac{1}{2}\\int (w \\partial v - v \\partial w) \\, dx$$`}</p>
+          <p>
+            This pairing is the infinite-dimensional analogue of the {`$dp \\wedge dq$`} you have
+            used all along. The next section generalizes it to Poisson structures, where the bracket
+            is allowed to be degenerate.
+          </p>
         </div>
       </>,
 
@@ -909,8 +801,8 @@ const config = {
           <span className="lrn-predict-label">PREDICT</span>
           <p>
             You know that symplectic manifolds carry a natural bracket on functions. What happens if
-            you allow that bracket to be degenerate - that is, if some functions have zero bracket
-            with everything?
+            you allow that bracket to be degenerate, so that some functions have zero bracket with
+            everything?
           </p>
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
@@ -955,64 +847,28 @@ const config = {
 
         <h3>Poisson Bracket on the Dual of a Lie Algebra</h3>
         <p>
-          The dual space of a Lie algebra carries a natural Poisson structure. If {`$\\omega_i$`}{' '}
-          are coordinates on the Lie algebra, the Poisson bracket is:
+          You built the canonical Poisson bracket on the dual of a Lie algebra on the momentum-maps
+          page, where you also saw that the {`$SO(3)$`} co-adjoint orbits are spheres in angular
+          momentum space. Recall its form, using coordinates {`$\\omega_i$`} on the Lie algebra:
         </p>
         <div className="lrn-eq">
           <span>{`$$\\{a, b\\}_{\\text{Poisson}} = \\sum \\frac{\\partial a}{\\partial \\omega_i} \\frac{\\partial b}{\\partial \\omega_j} [\\omega_i, \\omega_j]_{\\text{Lie}}$$`}</span>
         </div>
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">CONCRETE EXAMPLE</span>
-          <p>
-            For the angular momentum components {`$M_i$`}, this gives the standard Poisson structure
-            on the dual of {`$\\mathfrak{so}(3)$`}. The co-adjoint orbits are spheres centered at
-            the origin in angular momentum space.
-          </p>
-        </div>
+        <p>
+          The point here is that this bracket is degenerate. That is what makes the dual of a Lie
+          algebra the standard example of a Poisson manifold that is not symplectic.
+        </p>
 
         <h3>Symplectic Leaves and Casimir Functions</h3>
         <p>
-          Inside a Poisson manifold, the symplectic leaves are the equivalence classes of points
-          that can be joined by integral curves of hamiltonian vector fields. Each leaf is
-          even-dimensional and carries a natural symplectic structure.
+          The definition of a Casimir function and the rigid-body example are in the Poisson
+          Brackets page (earlier in Part III). Here we apply that result to the dual of a Lie
+          algebra. The symplectic leaves are the equivalence classes of points joinable by integral
+          curves of hamiltonian vector fields. For the dual of a Lie algebra, the leaves are exactly
+          the co-adjoint orbits: the sets of points the group sweeps out as it acts on the dual
+          space. Casimir functions are constant on each leaf and label the leaves, while Hamiltonian
+          functions generate motion that stays within a single leaf.
         </p>
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-          <p>Why are the co-adjoint orbits of {`$SO(3)$`} spheres?</p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              The co-adjoint action of {`$SO(3)$`} on its dual is the standard rotation action.
-              Rotations preserve the length of vectors. So every orbit is the set of all vectors
-              with a fixed length - a sphere centered at the origin.
-            </p>
-          </details>
-        </div>
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">Casimir Function</span>
-          <div className="lrn-definition-desc">
-            <p>
-              An element of the center of the Poisson algebra: {`$\\{C, f\\} = 0$`} for all {`$f$`}.
-              Casimir functions are constant on each symplectic leaf. They label the leaves.
-            </p>
-          </div>
-        </div>
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Casimir Functions</span>
-            <p>
-              Zero Poisson bracket with everything. Constant on symplectic leaves. Label the leaves.
-              Do not generate motion.
-            </p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Hamiltonian Functions</span>
-            <p>
-              Generate hamiltonian vector fields. Flow stays within each symplectic leaf. Move the
-              system along the leaf.
-            </p>
-          </div>
-        </div>
 
         <h3>Poisson Structures in the Plane</h3>
         <p>In the plane, any smooth function {`$f(x,y)$`} defines a Poisson structure:</p>
@@ -1029,6 +885,10 @@ const config = {
             {`$\\{x, y\\} = y$`} (type {`$A_0$`}, singular)
           </li>
         </ul>
+        <p>
+          That {`$A_0$`} label is the start of the same ADE family that organizes the next section.
+          The singular line {`$y = 0$`} is its simplest member.
+        </p>
       </>,
 
       <>
@@ -1064,7 +924,7 @@ const config = {
           <span>{`$$f(dx)^\\alpha = f(x_1, \\ldots, x_n)(dx_1 \\wedge \\cdots \\wedge dx_n)^\\alpha$$`}</span>
         </div>
         <p>
-          The associated differential form is {`$f^\\beta \\, dx$`} with{' '}
+          The matching differential form is {`$f^\\beta \\, dx$`} with{' '}
           {`$\\beta = \\frac{1}{\\alpha}$`}. The exponent {`$\\alpha$`} controls how this object
           transforms under coordinate changes: if the Jacobian of the change is {`$J$`}, the object
           picks up a factor of {`$J^\\alpha$`}. An ordinary volume form has {`$\\alpha = 1$`};
@@ -1092,13 +952,16 @@ const config = {
         </ul>
 
         <h3>ADE Hypersurface Normal Forms</h3>
-        <p>Near an isolated singularity, the ADE types are:</p>
+        <p>
+          Near an isolated singularity, the ADE types are listed below. The integer {`$k$`} labels
+          how deep the singularity is. It is not the Maslov index from the earlier sections.
+        </p>
         <ul className="lrn-list">
           <li>
-            {`$A_\\mu$`}: {`$\\pm x_1^{\\mu+1} \\pm x_2^2 \\pm \\cdots \\pm x_n^2 = 0$`}
+            {`$A_k$`}: {`$\\pm x_1^{k+1} \\pm x_2^2 \\pm \\cdots \\pm x_n^2 = 0$`}
           </li>
           <li>
-            {`$D_\\mu$`}: {`$x_1^2 x_2 \\pm x_2^{\\mu-1} \\pm x_3^2 \\pm \\cdots = 0$`}
+            {`$D_k$`}: {`$x_1^2 x_2 \\pm x_2^{k-1} \\pm x_3^2 \\pm \\cdots = 0$`}
           </li>
           <li>
             {`$E_6$`}: {`$x_1^3 + x_2^4 \\pm \\cdots = 0$`}
@@ -1111,36 +974,11 @@ const config = {
           </li>
         </ul>
 
-        <h3>Varchenko's Theorem</h3>
-        <div className="lrn-callout">
-          <span className="lrn-callout-label">Theorem (Varchenko)</span>
-          <p>Every germ {`$f^\\beta h \\, dx$`} is equivalent to:</p>
-          <p>{`$$f^\\beta\\left(1 + \\sum \\lambda_{m,l} x^m f^l\\right) dx$$`}</p>
-          <p>
-            where the sum runs over finitely many {`$(m, l)$`} pairs. The number of such pairs gives
-            the number of moduli.
-          </p>
-        </div>
         <p>
-          For {`$n=2$`}, {`$\\beta = -1$`} (Poisson structure in plane): the number of moduli equals
-          the degree of non-quasi-homogeneity of {`$f$`}, plus one less than the number of
-          irreducible components of the curve {`$f = 0$`}.
+          A finer classification adds a list of correction terms to each normal form. The number of
+          free coefficients in that list is the number of moduli of the singularity. For the ADE
+          types this number is zero. The normal forms above are already complete.
         </p>
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-          <p>
-            Why does {`$\\varphi \\equiv 0$`} for ADE singularities when {`$\\beta = -1$`} and{' '}
-            {`$n = 3$`}?
-          </p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              For ADE singularities, the Newton diagram has no interior integer points. So there are
-              no monomials to put into {`$\\varphi$`}. The form is completely determined by the
-              quasi-homogeneous part.
-            </p>
-          </details>
-        </div>
       </>,
 
       <>
@@ -1189,10 +1027,24 @@ const config = {
         <div className="lrn-eq">
           <span>{`$$\\frac{1}{2}(A_\\lambda x, x) = 1, \\quad A_\\lambda = A - \\lambda E$$`}</span>
         </div>
-        <p>The confocal family is the dual:</p>
+        <p>
+          Here {`$A$`} is the symmetric matrix of the starting quadric. {`$E$`} is the identity
+          matrix. The position vector is {`$x$`}, and {`$(A_\\lambda x, x)$`} is the dot product of{' '}
+          {`$x$`} with {`$A_\\lambda x$`}. Subtracting {`$\\lambda E$`} slides through the whole
+          family as {`$\\lambda$`} changes.
+        </p>
+        <p>
+          The confocal family uses the inverse matrix, written in terms of a tangent-plane vector{' '}
+          {`$\\xi$`}:
+        </p>
         <div className="lrn-eq">
           <span>{`$$\\frac{1}{2}(A_\\lambda^{-1} \\xi, \\xi) = 1$$`}</span>
         </div>
+        <p>
+          Inverting the matrix turns the family of solid quadrics into the family of their tangent
+          planes. That is what makes this family share the same foci: the foci are fixed by the
+          tangent-plane description, not the solid one.
+        </p>
         <p>
           The parameter {`$\\lambda$`} labels each quadric. Jacobi elliptic coordinates assign to
           each point in euclidean space the {`$n$`} values of {`$\\lambda$`} for the {`$n$`}{' '}
@@ -1211,7 +1063,7 @@ const config = {
           </details>
         </div>
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Theorem 1 (Jacobi)</span>
+          <span className="lrn-callout-label">Jacobi's theorem</span>
           <p>
             Through each point of {`$n$`}-dimensional euclidean space pass exactly {`$n$`} quadrics
             confocal to a given ellipsoid. Smooth confocal quadrics always intersect at right
@@ -1219,7 +1071,7 @@ const config = {
           </p>
         </div>
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Theorem 2 (Chasles)</span>
+          <span className="lrn-callout-label">Chasles' theorem</span>
           <p>
             A line in general position is tangent to exactly {`$n-1$`} quadrics from a confocal
             family. The tangent planes to these {`$n-1$`} quadrics at the point of tangency are
@@ -1229,22 +1081,35 @@ const config = {
 
         <h3>Jacobi-Chasles Theorem and Geodesic Integrability</h3>
         <div className="lrn-callout">
-          <span className="lrn-callout-label">Theorem 3 (Jacobi-Chasles)</span>
+          <span className="lrn-callout-label">Jacobi-Chasles theorem</span>
           <p>
             A geodesic on a quadric {`$Q$`} is tangent to {`$n-2$`} confocal quadrics. Conversely,
             any curve tangent to {`$n-2$`} fixed confocal quadrics is a geodesic on any quadric of
             the confocal family.
           </p>
         </div>
-        <div className="lrn-callout">
-          <span className="lrn-callout-label">Theorem 4</span>
+        <p>
+          This makes the geodesic flow on a quadric completely integrable. Completely integrable in
+          the Liouville sense means there are enough conserved quantities to integrate the motion by
+          quadrature.
+        </p>
+        <div className="lrn-elaborate">
+          <span className="lrn-elaborate-label">CONCRETE EXAMPLE</span>
           <p>
-            The geodesic flow on a central surface of degree 2 (a quadric) in euclidean space is
-            completely integrable in the Liouville sense.
+            Take a triaxial ellipsoid in 3-dimensional space, so {`$n = 3$`}. A geodesic on it stays
+            tangent to one fixed confocal quadric as it winds along the surface. That tangency gives
+            one conserved quantity. Together with the energy, this is two conserved quantities for a
+            flow on a 2-dimensional surface. Two is exactly enough, so the geodesic flow on the
+            ellipsoid is completely integrable. Jacobi proved this in 1839.
           </p>
         </div>
 
         <h3>Newton and Ivory Theorems</h3>
+        <p>
+          Both theorems are about gravity in {`$n$`} dimensions, where the attractive force between
+          two points falls off as {`$r^{1-n}$`}. In our familiar 3D world this is the inverse-square
+          law.
+        </p>
         <ul className="lrn-list">
           <li>
             <strong>Newton's theorem:</strong> A uniform sphere does not attract internal points
@@ -1252,7 +1117,8 @@ const config = {
           </li>
           <li>
             <strong>Ivory's theorem:</strong> An ellipsoid with homeoidal density does not attract
-            any interior point. It attracts external points exactly as if all mass were on a smaller
+            any interior point. Homeoidal density means the mass sits in thin shells between similar
+            ellipsoids. It attracts external points exactly as if all mass were on a smaller
             confocal ellipsoid.
           </li>
         </ul>
@@ -1290,46 +1156,28 @@ const config = {
           </details>
         </div>
 
-        <h3>Contact Geometry and Wave Fronts</h3>
+        <h3>Wave Fronts and Their Singularities</h3>
         <p>
-          A contact structure on a {`$(2n+1)$`}-dimensional space is a smooth choice of a hyperplane
-          at each point, arranged so that the hyperplanes twist as much as possible. They cannot be
-          flattened into level sets of any single function. Think of it as the odd-dimensional
-          analogue of a symplectic form. By Darboux's theorem, all contact structures are locally
-          equivalent. Contact geometry governs wave fronts, Legendre fibrations, and ray systems.
+          You built contact structures, Legendre submanifolds, and the Legendre and lagrangian
+          fibrations on the symplectic-and-contact page in Part III. Recall the key fact: a contact
+          structure is the odd-dimensional partner of a symplectic form, and the Legendre mapping
+          sends a Legendre submanifold to its wave front in the base. Here we use that machinery to
+          classify the singularities of those wave fronts.
         </p>
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">Legendre Submanifold</span>
-          <div className="lrn-definition-desc">
-            <p>
-              An integral submanifold of a contact structure of maximal dimension {`$n$`}. The
-              Legendre mapping projects it to the base; its image is a wave front.
-            </p>
-          </div>
-        </div>
         <div className="lrn-callout">
           <span className="lrn-callout-label">Wave front singularities in 3D</span>
-          <p>Only two types appear generically:</p>
+          <p>Just like caustics, generic wave fronts in 3D carry only two singularity types:</p>
           <ul className="lrn-list">
             <li>{`$A_2$`}: semi-cubical cuspidal curves</li>
             <li>{`$A_3$`}: swallowtail surfaces</li>
           </ul>
-        </div>
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Lagrangian Fibration</span>
-            <p>
-              All fibers are lagrangian. Locally symplectically diffeomorphic. The cotangent bundle
-              is the canonical example.
-            </p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Legendre Fibration</span>
-            <p>
-              All fibers are Legendre. Locally contact diffeomorphic. The projective cotangent
-              bundle is the canonical example.
-            </p>
-          </div>
+          <p>
+            A swallowtail is a surface with two cuspidal edges that meet at a sharp point, with a
+            small self-crossing tail tucked underneath. It is named for the bird's-tail shape it
+            makes. This is the same {`$A_2$`}/{`$A_3$`} list that governs lagrangian caustics. Wave
+            fronts and caustics share their stable shapes because both are classified by the same
+            ADE scheme.
+          </p>
         </div>
 
         <h3>Lagrangian Submanifolds in Ray Theory</h3>
@@ -1340,53 +1188,36 @@ const config = {
           <li>The gradient mapping {`$q \\mapsto \\frac{\\partial S}{\\partial q}$`}</li>
           <li>Normal mappings and Gauss mappings</li>
         </ul>
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-          <p>Why does the particle density become infinite at the caustic?</p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              At a caustic, the lagrangian section folds. Multiple particles arrive at the same
-              position from different initial positions. The Jacobian of the flow goes to zero
-              there. Since density is inversely proportional to the Jacobian (conservation of
-              particles), density blows up.
-            </p>
-          </details>
-        </div>
-        <div className="lrn-self-explain">
-          <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-          <p>Why is the image of the gradient mapping lagrangian?</p>
-          <details className="lrn-self-explain-reveal">
-            <summary>Expert explanation</summary>
-            <p>
-              The image consists of all points {`$(q, \\frac{\\partial S}{\\partial q})$`} in phase
-              space. The symplectic form {`$dp \\wedge dq$`} restricted to this image equals{' '}
-              {`$d\\frac{\\partial S}{\\partial q} \\wedge dq = d^2 S = 0$`} (since mixed partials
-              commute). So the symplectic form vanishes on the image.
-            </p>
-          </details>
-        </div>
+        <p>
+          The gradient mapping is lagrangian for the same reason shown in the section on momentum as
+          gradient of phase: its image is the graph of {`$\\partial S / \\partial q$`}, and the
+          symplectic form vanishes there because mixed partials commute. Caustics form where this
+          image folds, and the density blows up there exactly as the earlier caustic section
+          described.
+        </p>
 
         <h3>The Obstacle Problem</h3>
         <p>
           The obstacle problem studies the singularities of the shortest-path function outside a
-          smooth obstacle. Extremizing paths are straight segments plus geodesic arcs on the
-          obstacle boundary.
+          smooth obstacle. Shortest paths are straight segments plus geodesic arcs on the obstacle
+          boundary.
         </p>
         <div className="lrn-definition">
           <span className="lrn-definition-term">Symplectic Triad</span>
           <div className="lrn-definition-desc">
             <p>
-              A triple {`$(H, L, l)$`} where {`$H$`} is a smooth hypersurface, {`$L$`} is a
-              lagrangian submanifold tangent to {`$H$`} to first order along {`$l$`}, and {`$l$`} is
-              a lagrangian submanifold of {`$H$`}.
+              The triad is the local model for how a ray family meets an obstacle. It is a triple{' '}
+              {`$(H, L, l)$`} where {`$H$`} is a smooth hypersurface, {`$L$`} is a lagrangian
+              submanifold tangent to {`$H$`} to first order along {`$l$`}, and {`$l$`} is a
+              lagrangian submanifold of {`$H$`}.
             </p>
           </div>
         </div>
         <p>
-          The lagrangian variety of tangent rays to the obstacle has {`$A$`}-type singularities at
-          generic asymptotic rays. It has {`$D$`}-type singularities (open swallowtail) at
-          biasymptotic rays.
+          An asymptotic ray runs along the obstacle and touches its surface tangentially at one
+          point. A biasymptotic ray touches tangentially at two points. The lagrangian variety of
+          tangent rays has {`$A$`}-type singularities at generic asymptotic rays. It has {`$D$`}
+          -type singularities (open swallowtail) at biasymptotic rays.
         </p>
 
         <h3>Open Swallowtail</h3>
@@ -1413,7 +1244,11 @@ const config = {
         </div>
 
         <h3>Reflection Groups and Singularities</h3>
-        <p>The classification of singularities connects deeply to reflection groups:</p>
+        <p>
+          A reflection group is a symmetry group built from mirror reflections, like the symmetries
+          of a regular polygon or polytope. The classification of singularities connects deeply to
+          these groups:
+        </p>
         <table className="lrn-table">
           <thead>
             <tr>
@@ -1444,38 +1279,11 @@ const config = {
             </tr>
           </tbody>
         </table>
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">
-            WHY DO ADE LABELS APPEAR IN BOTH LIE GROUPS AND SINGULARITY THEORY?
-          </span>
-          <p>
-            Both contexts involve the same Dynkin diagrams. In singularity theory, these labels
-            classify stable singularities of projections. In Lie theory, they classify simple Lie
-            algebras. The precise mathematical link involves Weyl groups acting on a vector space.
-            The connection was discovered in the 1970s and remains partly mysterious.
-          </p>
-        </div>
-
-        <h3>Submanifolds of Symplectic Manifolds</h3>
         <p>
-          A generic 2-dimensional surface in a 4-dimensional symplectic space is locally
-          symplectically diffeomorphic near each point to the surface {`$p_2 = p_1^2$`} in Darboux
-          coordinates.
+          The same mysterious ADE coincidence from the lagrangian-singularities section reappears
+          here. The reflection groups above are the Weyl groups that act in both pictures, which is
+          the bridge between singularity theory and Lie theory.
         </p>
-        <p>
-          For 4-dimensional submanifolds of an 8-dimensional symplectic space, stable singular
-          points come in two types:
-        </p>
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Elliptic Martinet Point</span>
-            <p>{`$p_2 = p_1 p_3 + q_1 q_2 + \\frac{q_3^2}{6}$`}</p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Hyperbolic Martinet Point</span>
-            <p>{`$p_2 = p_1 p_3 - q_1 q_2 + \\frac{q_3^2}{6}$`}</p>
-          </div>
-        </div>
       </>
     ]
   },
@@ -1489,36 +1297,24 @@ const config = {
       a: `The Maslov index is $+2$. The curve passes through the singular set at $(p,q) = (1,0)$ and at $(-1, 0)$. Both crossings are in the positive direction (where $\\frac{\\partial q_1}{\\partial p_1} > 0$). Counting positive crossings minus negative crossings gives $2 - 0 = 2$.`
     },
     {
-      q: `In the KdV first integrals, write $I_{-1}$, $I_0$, and $I_1$ explicitly.`,
-      a: `$I_{-1} = \\int u \\, dx$, $I_0 = \\int u^2 \\, dx$, $I_1 = \\int\\!\\left(\\frac{u^2}{2} + u^3\\right) dx$. Each is a conserved quantity because KdV is completely integrable. They are in involution: their Poisson brackets with each other are all zero.`
-    },
-    {
       q: `A lagrangian manifold evolves under a hamiltonian phase flow. For small $t$, how does it behave? For large $t$?`,
-      a: `For small $t$, the evolved manifold $g^t M$ still projects diffeomorphically onto position space - no singular points. For large $t$, it folds over itself. Where it folds, the projection becomes singular. These folding loci are caustics. The wave amplitude at a caustic would naively blow up; the Maslov index tracks the phase correction needed.`
+      a: `For small $t$, the evolved manifold $g^t M$ still projects diffeomorphically onto position space, with no singular points. For large $t$, it folds over itself. Where it folds, the projection becomes singular. These folding loci are caustics. The wave amplitude at a caustic would naively blow up; the Maslov index tracks the phase correction needed.`
     },
     {
-      q: `Two students argue. Student A says: "Diffeomorphic caustics imply the lagrangian manifolds are lagrangian equivalent." Student B says: "That's false - lagrangian equivalence is stricter." Who is right, and why?`,
+      q: `Two students argue. Student A says: "Diffeomorphic caustics imply the lagrangian manifolds are lagrangian equivalent." Student B says: "That's false. Lagrangian equivalence is stricter." Who is right, and why?`,
       a: `Student B is right. Lagrangian equivalence requires a symplectic diffeomorphism (preserving the full symplectic structure) taking one lagrangian manifold to the other. Diffeomorphic caustics only mean the projections have the same shape. The Poisson structure and fiber structure are extra data. Two manifolds can project to the same-shaped caustic but differ in their symplectic geometry.`
     },
     {
-      q: `What is the Lax representation of the KdV equation? What does it immediately imply?`,
-      a: `The Lax representation is $\\dot{u} = [L, A]$, where $L = -\\partial^2 + u$ and $A = 4\\partial^3 - 3(u\\partial + \\partial u)$. It implies that the eigenvalues of the Sturm-Liouville operator $Lf = \\lambda f$ are conserved for all time. The operators $L(t)$ are unitarily equivalent for all $t$. These conserved eigenvalues give the infinite sequence of first integrals.`
-    },
-    {
       q: `What is a Casimir function on a Poisson manifold? How does it differ from a Hamiltonian function?`,
-      a: `A Casimir function $C$ satisfies $\\{C, f\\} = 0$ for every function $f$. It is central in the Poisson algebra. Casimir functions are constant on every symplectic leaf - they label the leaves. A Hamiltonian function $H$ generates a hamiltonian vector field $X_H$ via $X_H(f) = \\{H, f\\}$. The flow of $X_H$ stays within each symplectic leaf. Casimir functions are perpendicular to leaves; Hamiltonian functions generate motion along leaves.`
+      a: `A Casimir function $C$ satisfies $\\{C, f\\} = 0$ for every function $f$. It is central in the Poisson algebra. Casimir functions are constant on every symplectic leaf, so they label the leaves. A Hamiltonian function $H$ generates a hamiltonian vector field $X_H$ via $X_H(f) = \\{H, f\\}$. The flow of $X_H$ stays within each symplectic leaf. Casimir functions are perpendicular to leaves; Hamiltonian functions generate motion along leaves.`
     },
     {
-      q: `What singularity types can appear generically on a wave front in 3-dimensional space?`,
-      a: `Only two types appear generically. The first is $A_2$: semi-cubical cuspidal curves (a curve on the front where the front has a $\\tfrac{3}{2}$-power cusp). The second is $A_3$: swallowtail surfaces. All other singularities are unstable: a small perturbation removes them. This follows from the classification of Legendre singularities by ADE groups.`
+      q: `What singularity types can appear on a generic wave front in 3-dimensional space?`,
+      a: `Only two types appear in the typical case. The first is $A_2$: semi-cubical cuspidal curves (a curve on the front where the front has a $\\tfrac{3}{2}$-power cusp). The second is $A_3$: swallowtail surfaces. All other singularities are unstable: a small perturbation removes them. This follows from the classification of Legendre singularities by ADE groups.`
     },
     {
       q: `What does Ivory's theorem state? How does it generalize Newton's theorem?`,
       a: `Newton's theorem: a uniform spherical shell does not attract any interior point. Ivory's theorem: an ellipsoid with homeoidal density does not attract any interior point. It attracts any exterior point exactly as if all mass were on a smaller confocal ellipsoid. Newton's theorem is the special case where the ellipsoid degenerates to a sphere.`
-    },
-    {
-      q: `How do you find a soliton solution of the KdV equation $u_t = 6uu_x - u_{xxx}$?`,
-      a: `Substitute $u = \\varphi(x - ct)$ into KdV. This assumes the solution travels rigidly at speed $c$. In the moving frame, time derivatives become $-c$ times space derivatives. After substituting and integrating once, you get $\\varphi'' - 3\\varphi^2 + c\\varphi + d = 0$. This is an autonomous second-order ODE. Its phase portrait gives the soliton: a localized hump that decays at $\\pm\\infty$.`
     },
     {
       q: `What is a Poisson manifold? Give one natural example.`,
@@ -1530,11 +1326,11 @@ const config = {
     },
     {
       q: `What is the Bohr-Sommerfeld quantization condition? When does it simplify to $\\oint p \\, dq = 2\\pi(N + \\tfrac{1}{2})$?`,
-      a: `The general condition is $\\frac{2\\mu_N}{\\pi} \\oint_\\gamma p \\, dq \\equiv \\text{ind}\\,\\gamma \\pmod{4}$. In one dimension, a classical orbit has two turning points (Maslov index 2). With that index, the condition simplifies to $\\mu_N \\oint_\\gamma p \\, dq = 2\\pi(N + \\tfrac{1}{2})$. The $\\tfrac{1}{2}$ correction comes entirely from the Maslov phase.`
+      a: `The general condition is $\\oint_\\gamma p \\, dq = 2\\pi(N + \\frac{\\mu(\\gamma)}{4})$, where $\\mu(\\gamma)$ is the Maslov index of the orbit and $N$ numbers the levels. In one dimension, a closed orbit has two turning points, so $\\mu(\\gamma) = 2$. With that index, the condition simplifies to $\\oint_\\gamma p \\, dq = 2\\pi(N + \\tfrac{1}{2})$. The $\\tfrac{1}{2}$ correction comes entirely from the Maslov phase.`
     },
     {
       q: `In the plane, any smooth function $f(x,y)$ defines $\\{x,y\\} = f(x,y)$. Is this always a valid Poisson structure? Why?`,
-      a: `Yes, always. In two dimensions, the Jacobi identity for $\\{x,y\\} = f(x,y)$ reduces to a trivially satisfied condition. Every smooth bivector field on a 2-dimensional manifold satisfies the Jacobi identity automatically. This is a special feature of dimension 2. In higher dimensions, not every bivector field gives a valid Poisson structure - the Jacobi identity is a genuine constraint.`
+      a: `Yes, always. In two dimensions, the Jacobi identity for $\\{x,y\\} = f(x,y)$ reduces to a trivially satisfied condition. Every smooth bivector field on a 2-dimensional manifold satisfies the Jacobi identity automatically. This is a special feature of dimension 2. In higher dimensions, not every bivector field gives a valid Poisson structure. The Jacobi identity is a genuine constraint.`
     },
     {
       q: `What are symplectic leaves of a Poisson manifold? How are they related to the whole manifold?`,
@@ -1549,12 +1345,8 @@ const config = {
       a: `For $n=2$, the types $A_1$ (nonsingular), $A_2$ (fold), and $A_3$ (tuck) all appear stably. More complex singularities like $A_4$, $D_4$, and higher require $n \\geq 3$. So after a small perturbation, only $A_1$, $A_2$, $A_3$ remain on a 2-dimensional lagrangian manifold.`
     },
     {
-      q: `Why does the KdV equation have infinitely many conserved integrals, given that most PDEs have only a few?`,
-      a: `The KdV equation has a Lax representation $\\dot{u} = [L,A]$. This means the operator $L = -\\partial^2 + u$ evolves by unitary equivalence. Its eigenvalues $\\lambda$ are constant in time - they are all first integrals. Since $L$ is a Sturm-Liouville operator on a periodic domain, it has countably many eigenvalues, giving countably many conserved quantities. Most PDEs lack a Lax representation.`
-    },
-    {
-      q: `What is the $D_4$ singularity? How does it look in 3-dimensional configuration space?`,
-      a: `The $D_4$ singularity has generating function $F = \\pm p_1^2 p_2 \\pm p_2^3 + q_3 p_2^2$ (for $n=3$). In 3-dimensional configuration space, its caustic is a surface with three cuspidal edges of type $A_3$ that are all tangent to each other at one point. There are two real forms: $D_4^+$ and $D_4^-$, differing in the sign pattern of the cubic terms.`
+      q: `What is the $D_4$ singularity? At what dimension does it first appear?`,
+      a: `The $D_4$ singularity has generating function $F = \\pm p_1^2 p_2 \\pm p_2^3 + q_3 p_2^2$. From the classification table, it first appears at $n = 3$. It is the simplest singularity outside the $A$ family. The two sign choices in the cubic terms give two distinct real forms.`
     },
     {
       q: `What is the Morse index, and how does it affect the wave function?`,
@@ -1566,11 +1358,7 @@ const config = {
     },
     {
       q: `Why does the ADE classification appear in both Lie group theory and the classification of lagrangian singularities?`,
-      a: `The same Dynkin diagrams $A_k$, $D_k$, $E_6$, $E_7$, $E_8$ appear in both. In Lie theory, they classify simple Lie algebras via their root systems. In singularity theory, they classify stable singularities of lagrangian projections via their generating functions. The mathematical connection runs through Weyl groups. The source states explicitly that the connection is "mysterious" - there is no fully explained reason why the same discrete structure governs such different mathematical phenomena.`
-    },
-    {
-      q: `What is a contact structure? Give the theorem that governs local equivalence of all contact structures.`,
-      a: `A contact structure on a $(2n+1)$-dimensional manifold is a nondegenerate field of tangent hyperplanes. "Nondegenerate" means the hyperplane field is as far from being integrable as possible. By Darboux's theorem for contact manifolds, all contact structures are locally equivalent. There is a local coordinate system where the contact form is $dz - \\sum p_i \\, dq_i$.`
+      a: `The same Dynkin diagrams $A_k$, $D_k$, $E_6$, $E_7$, $E_8$ appear in both. In Lie theory, they classify simple Lie algebras via their root systems. In singularity theory, they classify stable singularities of lagrangian projections via their generating functions. The mathematical connection runs through Weyl groups. The connection is genuinely mysterious. There is no fully explained reason why the same discrete structure governs such different mathematical phenomena.`
     },
     {
       q: `A physicist models short wave propagation through a medium. At time $t_0$, three rays arrive at point $Q$, having crossed 1, 2, and 3 focal points respectively. Write the phase factors for each contribution.`,
@@ -1578,7 +1366,7 @@ const config = {
     },
     {
       q: `What is the open swallowtail? How does it relate to the ordinary swallowtail?`,
-      a: `The open swallowtail is the variety of monic degree-5 polynomials $x^5 + Ax^3 + Bx^2 + Cx + D$ that have a triple root. The ordinary swallowtail is the variety of degree-4 monic polynomials with a triple root. The open swallowtail is the "first stable variety over" the ordinary swallowtail: when the ordinary swallowtail's self-intersection disappears, the open swallowtail's cuspidal edge is retained. It appears in the obstacle problem at biasymptotic rays.`
+      a: `The open swallowtail is the set of monic degree-5 polynomials $x^5 + Ax^3 + Bx^2 + Cx + D$ that have a triple root. The ordinary swallowtail is the set of degree-4 monic polynomials with a triple root. The open swallowtail sits one dimension higher than the ordinary one. Where the ordinary swallowtail self-intersects, the open swallowtail keeps a clean cuspidal edge instead. It appears in the obstacle problem at biasymptotic rays.`
     },
     {
       q: `Why does the asymptotic formula $\\psi(Q,t)$ sum over all rays arriving at $Q$? What goes wrong if you take only one ray?`,
@@ -1586,11 +1374,7 @@ const config = {
     },
     {
       q: `You want to show a geodesic flow is completely integrable. What strategy does the Jacobi-Chasles theorem suggest?`,
-      a: `The Jacobi-Chasles approach: embed the geodesic flow in the space of oriented lines (a symplectic manifold, the cotangent bundle of the sphere). Lines tangent to a quadric form a lagrangian submanifold. Use Lemma A (characteristics of the tangent line manifold are geodesics) and Lemma B (induced line functions for confocal quadrics have zero Poisson bracket). The $n-2$ confocal quadrics tangent to each geodesic give $n-2$ commuting first integrals, proving Liouville integrability.`
-    },
-    {
-      q: `What is the Novikov finite-dimensional reduction for KdV?`,
-      a: `Consider the combination $I = \\sum c_i I_{n-i}$ with $c_0 = 1$, a finite linear combination of KdV integrals. The stationary points of this functional form a $2n$-dimensional invariant submanifold of the infinite-dimensional KdV phase space. On this submanifold, the flow is a completely integrable $2n$-dimensional hamiltonian system. This reduces the infinite-dimensional integrable system to a sequence of finite-dimensional ones.`
+      a: `The Jacobi-Chasles approach: embed the geodesic flow in the space of oriented lines (a symplectic manifold, the cotangent bundle of the sphere). Lines tangent to a quadric form a lagrangian submanifold. Two facts drive the proof. First, the characteristics of the tangent-line manifold are geodesics. Second, the functions that record which confocal quadrics a line touches have zero Poisson bracket with each other. The $n-2$ confocal quadrics tangent to each geodesic give $n-2$ commuting first integrals, proving Liouville integrability.`
     },
     {
       q: `A physical system has phase space equal to the dual of a Lie algebra. Describe its natural Poisson structure and what the symplectic leaves look like.`,
@@ -1606,11 +1390,7 @@ const config = {
     },
     {
       q: `Why is the Maslov index defined independently of any phase flow, while the Morse index is not?`,
-      a: `The Maslov index counts signed crossings of a curve on the lagrangian manifold through the singular stratum. This count depends only on the curve itself and its homotopy class - not on how the curve was generated. The Morse index, by contrast, counts focal points along a specific phase curve from an initial condition at $t=0$ to time $t$. It depends on the choice of hamiltonian and on the starting point. The Morse index is a special case: choose the curve to be a phase curve, and the Maslov index recovers the Morse index.`
-    },
-    {
-      q: `A KdV solution starts as a large localized hump at $t=0$. What do you expect to see at large positive times?`,
-      a: `At large positive times, the solution decomposes into individual solitons, each moving at a different constant velocity. Each soliton maintains its shape exactly. As $t \\to +\\infty$, the solitons separate completely because they have different velocities. Collisions leave sizes and velocities unchanged. The same decomposition occurs as $t \\to -\\infty$.`
+      a: `The Maslov index counts signed crossings of a curve on the lagrangian manifold through the singular set. This count depends only on the curve itself and its homotopy class. It does not depend on how the curve was generated. The Morse index, by contrast, counts focal points along a specific phase curve from an initial condition at $t=0$ to time $t$. It depends on the choice of hamiltonian and on the starting point. The Morse index is a special case: choose the curve to be a phase curve, and the Maslov index recovers the Morse index.`
     }
   ],
   reference: {
@@ -1697,26 +1477,27 @@ const config = {
         <div className="lrn-definition">
           <span className="lrn-definition-term">Bohr-Sommerfeld Condition (General)</span>
           <div className="lrn-definition-desc">
-            <p>{`$$\\frac{2\\mu_N}{\\pi}\\oint_\\gamma p \\, dq \\equiv \\text{ind}\\,\\gamma \\pmod{4}$$`}</p>
+            <p>{`$$\\oint_\\gamma p \\, dq = 2\\pi\\left(N + \\frac{\\mu(\\gamma)}{4}\\right)$$`}</p>
             <p>
-              Finds large eigenvalues of quantum systems from classical orbit data and Maslov index.
+              Finds large eigenvalues of quantum systems from classical orbit data and the Maslov
+              index {`$\\mu(\\gamma)$`}. The integer {`$N$`} numbers the levels.
             </p>
           </div>
         </div>
         <div className="lrn-definition">
           <span className="lrn-definition-term">Bohr-Sommerfeld (1D Case)</span>
           <div className="lrn-definition-desc">
-            <p>{`$$\\mu_N \\oint_\\gamma p \\, dq = 2\\pi\\left(N + \\frac{1}{2}\\right)$$`}</p>
+            <p>{`$$\\oint_\\gamma p \\, dq = 2\\pi\\left(N + \\frac{1}{2}\\right)$$`}</p>
             <p>
-              For 1D quantum systems with two turning points; gives the {`$N$`}-th energy level
-              asymptotically.
+              For 1D quantum systems with two turning points ({`$\\mu = 2$`}); gives the {`$N$`}-th
+              energy level asymptotically.
             </p>
           </div>
         </div>
       </>,
 
       <>
-        <h2>Lagrangian Singularities - Normal Forms</h2>
+        <h2>Lagrangian Singularities: Normal Forms</h2>
         <div className="lrn-definition">
           <span className="lrn-definition-term">Generating Function Relations</span>
           <div className="lrn-definition-desc">
@@ -1834,45 +1615,18 @@ const config = {
           <div className="lrn-definition-desc">
             <p>{`$$u_t = 6uu_x - u_{xxx}$$`}</p>
             <p>
-              Governing equation for shallow-water waves and other systems with balanced weak
-              nonlinearity and weak dispersion.
+              Canonical completely integrable PDE. The dedicated KdV page covers its solitons, first
+              integrals, and Lax pair; here it supplies a Poisson structure on a space of functions.
             </p>
           </div>
         </div>
         <div className="lrn-definition">
-          <span className="lrn-definition-term">KdV First Integrals</span>
+          <span className="lrn-definition-term">Gardner-Zakharov-Faddeev Structure</span>
           <div className="lrn-definition-desc">
-            <p>{`$$I_{-1} = \\int u \\, dx;\\quad I_0 = \\int u^2 \\, dx;\\quad I_1 = \\int(\\frac{u^2}{2} + u^3) \\, dx$$`}</p>
+            <p>{`$$\\omega^2(\\partial w, \\partial v) = \\frac{1}{2}\\int (w \\partial v - v \\partial w) \\, dx$$`}</p>
             <p>
-              All in involution (zero mutual Poisson brackets). Infinitely many such integrals
-              exist.
+              The symplectic structure that makes the KdV flow hamiltonian on a space of functions.
             </p>
-          </div>
-        </div>
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">Lax Representation</span>
-          <div className="lrn-definition-desc">
-            <p>{`$$\\dot{u} = [L, A],\\quad L = -\\partial^2 + u,\\quad A = 4\\partial^3 - 3(u\\partial + \\partial u)$$`}</p>
-            <p>
-              Proves eigenvalues of {`$L$`} are conserved; generates all first integrals of KdV.
-            </p>
-          </div>
-        </div>
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">Soliton ODE</span>
-          <div className="lrn-definition-desc">
-            <p>{`$$\\varphi'' - 3\\varphi^2 + c\\varphi + d = 0$$`}</p>
-            <p>
-              Substitute {`$u = \\varphi(x - ct)$`} into KdV; solve the phase portrait of this ODE
-              to find soliton profiles.
-            </p>
-          </div>
-        </div>
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">Novikov Reduction</span>
-          <div className="lrn-definition-desc">
-            <p>{`$$I = \\sum c_i I_{n-i},\\; c_0 = 1;\\quad\\text{stationary points form } 2n\\text{-dim integrable system}$$`}</p>
-            <p>Reduces KdV to a finite-dimensional completely integrable system.</p>
           </div>
         </div>
       </>,
@@ -1953,12 +1707,12 @@ const config = {
           </thead>
           <tbody>
             <tr>
-              <td>{`$A_\\mu$`}</td>
-              <td>{`$\\pm x_1^{\\mu+1} \\pm x_2^2 \\pm \\cdots \\pm x_n^2 = 0$`}</td>
+              <td>{`$A_k$`}</td>
+              <td>{`$\\pm x_1^{k+1} \\pm x_2^2 \\pm \\cdots \\pm x_n^2 = 0$`}</td>
             </tr>
             <tr>
-              <td>{`$D_\\mu$`}</td>
-              <td>{`$x_1^2 x_2 \\pm x_2^{\\mu-1} \\pm x_3^2 \\pm \\cdots = 0$`}</td>
+              <td>{`$D_k$`}</td>
+              <td>{`$x_1^2 x_2 \\pm x_2^{k-1} \\pm x_3^2 \\pm \\cdots = 0$`}</td>
             </tr>
             <tr>
               <td>{`$E_6$`}</td>

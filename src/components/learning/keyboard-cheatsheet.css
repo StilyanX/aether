@@ -24,8 +24,8 @@
 
 .kbcs-panel {
   background: #0a0a0a;
-  color: rgba(240, 240, 250, 1);
-  border: 1px solid rgba(240, 240, 250, 0.4);
+  color: var(--ink-default);
+  border: 1px solid var(--ink-faint);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
   width: 100%;
   max-width: 480px;
@@ -39,20 +39,20 @@
   align-items: center;
   justify-content: space-between;
   padding: 18px 24px;
-  border-bottom: 1px solid rgba(240, 240, 250, 0.15);
+  border-bottom: 1px solid var(--ink-hairline);
 }
 
 .kbcs-title {
   font-family: 'D-DIN', system-ui, sans-serif;
   font-weight: 700;
-  font-size: 12px;
+  font-size: var(--type-small);
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .kbcs-close {
   background: none;
-  border: 1px solid rgba(240, 240, 250, 0.15);
+  border: 1px solid var(--ink-hairline);
   color: inherit;
   width: 28px;
   height: 28px;
@@ -64,7 +64,7 @@
 }
 
 .kbcs-close:hover {
-  border-color: rgba(240, 240, 250, 0.35);
+  border-color: var(--ink-faint);
 }
 
 .kbcs-close svg {
@@ -87,13 +87,13 @@
 }
 
 .kbcs-row + .kbcs-row {
-  border-top: 1px solid rgba(240, 240, 250, 0.06);
+  border-top: 1px solid var(--ink-hairline);
 }
 
 .kbcs-label {
-  font-size: 13px;
+  font-size: var(--type-glyph);
   letter-spacing: 0.02em;
-  color: rgba(240, 240, 250, 0.85);
+  color: var(--ink-default);
 }
 
 .kbcs-keys {
@@ -105,20 +105,20 @@
 .kbcs-key {
   font-family: 'D-DIN', monospace;
   font-weight: 700;
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  border: 1px solid rgba(240, 240, 250, 0.25);
+  border: 1px solid var(--ink-faint);
   padding: 2px 6px;
   min-width: 22px;
   text-align: center;
-  color: rgba(240, 240, 250, 1);
+  color: var(--ink-default);
 }
 
 .kbcs-then {
-  font-size: 10px;
+  font-size: var(--type-micro);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(240, 240, 250, 0.5);
+  color: var(--ink-quiet);
   padding: 0 2px;
 }

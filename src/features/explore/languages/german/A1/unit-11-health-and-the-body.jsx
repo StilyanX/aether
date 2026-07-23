@@ -9,14 +9,12 @@ const config = {
     subtitle: 'Body parts, illness, symptoms, doctor visits, and health vocabulary',
     sections: [
       <>
-        <div className="lrn-header">
-          <h1>Health and the Body</h1>
-          <p>
-            After this unit, you can describe symptoms to a doctor and follow medical advice in
-            German. You learn body parts, two pain patterns, four modal verbs, reflexive health
-            verbs, and seit with the dative.
-          </p>
-        </div>
+        <h2>Why This Unit Matters</h2>
+        <p>
+          After this unit, you can describe symptoms to a doctor and follow medical advice in
+          German. You learn body parts, two pain patterns, four modal verbs, reflexive health verbs,
+          and seit with the dative.
+        </p>
       </>,
 
       <>
@@ -31,7 +29,8 @@ const config = {
               <summary>Check your thinking</summary>
               <p>
                 das Bein (leg), das Knie (knee), and der Fuß (foot) cover the most common leg
-                injuries. You will also need das Habe-ich-mir-verletzt pattern from Section 3.
+                injuries. You will also need the reflexive verb sich verletzen (to injure oneself),
+                taught in Section 3.
               </p>
             </details>
           </div>
@@ -41,7 +40,8 @@ const config = {
           <h3>Body Parts (Körperteile)</h3>
           <p>
             German body parts have fixed genders. You must learn the article with each word. The
-            gender is not predictable from the word itself.
+            gender is not predictable from the word itself. Memorize the article with the noun from
+            day one, because gender controls case endings later.
           </p>
           <table className="lrn-table">
             <thead>
@@ -145,16 +145,6 @@ const config = {
             </tbody>
           </table>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              German genders are not predictable from the word itself. You cannot guess that Knie is
-              neuter or that Hand is feminine. That is why every vocabulary list shows the article.
-              Memorizing the article with the noun from day one prevents errors later when gender
-              controls case endings.
-            </p>
-          </div>
-
           <h3>Expressing Pain (Schmerzen ausdrücken)</h3>
           <p>German has two main patterns for saying something hurts.</p>
 
@@ -165,8 +155,9 @@ const config = {
             </p>
             <p>
               Use <strong>tut</strong> for one body part. Use <strong>tun</strong> for more than
-              one. The dative pronoun names the person affected: mir (me), dir (you), ihm (him), ihr
-              (her).
+              one. The dative is the grammar case German uses for the person something happens to.
+              Here the dative pronoun just names the person affected: mir (me), dir (you), ihm
+              (him), ihr (her). You already met these forms in earlier units.
             </p>
             <p>Der Kopf tut mir weh. (My head hurts.)</p>
             <p>Die Beine tun mir weh. (My legs hurt.)</p>
@@ -205,7 +196,7 @@ const config = {
               German keeps both pain patterns because they serve different grammar roles. Pattern 1
               (wehtun) is a verb construction: the body part acts as the subject and does something
               to you. Pattern 2 (-schmerzen) is a noun construction: you have an object (the pain).
-              Both patterns are common and neutral in register. You need both because doctors,
+              Both patterns are common and fine to use anywhere. You need both because doctors,
               friends, and official forms use both.
             </p>
           </div>
@@ -304,7 +295,7 @@ const config = {
               <tr>
                 <td>die Allergie</td>
                 <td>allergy</td>
-                <td>Ich habe eine Allergie gegen...</td>
+                <td>Ich habe eine Allergie gegen Pollen. (gegen = to, + accusative)</td>
               </tr>
               <tr>
                 <td>krank</td>
@@ -314,7 +305,7 @@ const config = {
               <tr>
                 <td>gesund</td>
                 <td>healthy / well</td>
-                <td>Ich bin wieder gesund.</td>
+                <td>Ich bin wieder gesund. (wieder = again)</td>
               </tr>
               <tr>
                 <td>müde</td>
@@ -347,33 +338,15 @@ const config = {
           <div className="lrn-insight">
             <span className="lrn-insight-label">KEY INSIGHT</span>
             <p>
-              "Mir ist schlecht" means "I feel nauseous." Literally it means "Bad is to me." German
-              uses this dative construction when a physical state acts on you. You are not the
-              subject doing something. The state happens to you. You cannot translate this word for
-              word into English.
+              "Mir ist schlecht" means "I feel nauseous." Literally it means "Bad is to me." This is
+              the same dative-experiencer pattern you saw with gefallen: the state happens to the
+              person (mir), so that person is dative, not the subject. So you cannot say "Ich bin
+              schlecht" for nauseous.
             </p>
             <p>
-              This is actually a third health pattern: subject + ist + adjective + dative pronoun.
-              It works alongside the two pain patterns from Section 0.
+              This is a third health pattern: ist + adjective + dative pronoun. It works alongside
+              the two pain patterns from Section 0.
             </p>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does "Mir ist schlecht" not work as "I am nauseous" in German grammar? Form your
-              answer before reading on.
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                In "Mir ist schlecht", mir is a dative pronoun, not the subject. The grammatical
-                subject is the state itself, which acts on you. German treats physical sensations as
-                things that happen to a person, not things a person does or has. That is why you
-                cannot say "Ich bin schlecht" for nauseous. You must say the state is happening to
-                mir (me).
-              </p>
-            </details>
           </div>
 
           <h3>At the Doctor (Beim Arzt)</h3>
@@ -443,10 +416,20 @@ const config = {
               Krankenkasse haben Sie?" (Which fund are you with?), not Krankenversicherung.
             </p>
             <p>
-              <strong>krank schreiben</strong> is a separable verb. The doctor "schreibt Sie krank"
-              when they give you an official note (Krankschreibung) saying you cannot work. This is
-              a legal document in Germany, not just advice.
+              <strong>krank schreiben</strong> is a separable verb: it splits in two, with one part
+              staying near the subject and the other moving to the end. The doctor "schreibt Sie
+              krank" when they give you an official note (Krankschreibung) saying you cannot work.
+              This is a legal document in Germany, not just advice.
             </p>
+          </div>
+
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Booking the visit</span>
+            <p>
+              To book a doctor visit, say: <strong>Ich möchte einen Termin machen.</strong> (I would
+              like to make an appointment.) You can also use vereinbaren in place of machen.
+            </p>
+            <p>einen Termin is the accusative of der Termin, the appointment you want.</p>
           </div>
 
           <div className="lrn-predict">
@@ -470,23 +453,23 @@ const config = {
         <div id="lrn-section-2">
           <h2>Grammar: Modal Verbs for Health Advice</h2>
           <p>
-            After your checkup, the doctor gives you several instructions. You need müssen, sollen,
-            and dürfen to understand them. You need können to ask what is possible. These four verbs
+            Modal verbs are helper verbs like must, can, and may. They pair with a main verb. After
+            your checkup, the doctor gives you several instructions. You need müssen, sollen, and
+            dürfen to understand them. You need können to ask what is possible. These four verbs
             appear in almost every health conversation.
           </p>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
-              Does "ich muss" end in -t like "ich macht"? Predict the pattern before you see the
-              conjugation table.
+              You already know modal verbs drop the -t in the ich and er forms. So does the doctor
+              say "Sie muss" or "Sie müsst" for "you must"? Recall before reading on.
             </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>
-                No. Modal verbs have no -t ending in first or third person singular. Both "ich muss"
-                and "er muss" use the same form. This is unusual compared to regular verbs like "ich
-                mache" vs "er macht".
+                Neither. Formal Sie uses "Sie müssen". The no-t rule covers ich and er/sie/es: "ich
+                muss", "er muss", both without -t.
               </p>
             </details>
           </div>
@@ -508,81 +491,12 @@ const config = {
             </p>
           </div>
 
-          <h3>Modal Verbs: Present Tense (Präsens)</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Person</th>
-                <th>müssen (must)</th>
-                <th>sollen (should)</th>
-                <th>dürfen (may)</th>
-                <th>können (can)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ich</td>
-                <td>muss</td>
-                <td>soll</td>
-                <td>darf</td>
-                <td>kann</td>
-              </tr>
-              <tr>
-                <td>du</td>
-                <td>musst</td>
-                <td>sollst</td>
-                <td>darfst</td>
-                <td>kannst</td>
-              </tr>
-              <tr>
-                <td>er / sie / es</td>
-                <td>muss</td>
-                <td>soll</td>
-                <td>darf</td>
-                <td>kann</td>
-              </tr>
-              <tr>
-                <td>wir</td>
-                <td>müssen</td>
-                <td>sollen</td>
-                <td>dürfen</td>
-                <td>können</td>
-              </tr>
-              <tr>
-                <td>ihr</td>
-                <td>müsst</td>
-                <td>sollt</td>
-                <td>dürft</td>
-                <td>könnt</td>
-              </tr>
-              <tr>
-                <td>Sie / sie</td>
-                <td>müssen</td>
-                <td>sollen</td>
-                <td>dürfen</td>
-                <td>können</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-insight">
-            <span className="lrn-insight-label">KEY INSIGHT</span>
-            <p>
-              Ich and er / sie / es share the same form in all modal verbs. There is no -t ending in
-              third person singular. This is different from regular verbs where "er macht" adds -t
-              but "er muss" does not.
-            </p>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Modal verbs in German descend from old preterite-present verbs. These verbs originally
-              had no personal ending in first and third person singular. That pattern survived into
-              modern German. So modal verbs are irregular in a systematic way: they all follow the
-              same pattern of no -t in ich and er/sie/es forms.
-            </p>
-          </div>
+          <p>
+            The four health modals (müssen, sollen, dürfen, können) all follow the same pattern: ich
+            and er/sie/es share one form with no -t, and the du and ihr forms add their usual
+            endings. The full conjugation table (how the verb changes for each person) is in the
+            Reference tab.
+          </p>
 
           <h3>Meaning in Context</h3>
           <table className="lrn-table">
@@ -644,20 +558,26 @@ const config = {
             </p>
           </div>
 
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Direct doctor orders</span>
+            <p>
+              A doctor can also use the formal imperative you already know: verb first, then Sie.
+              "Bleiben Sie im Bett!" (Stay in bed!) and "Trinken Sie viel!" (Drink a lot!) say the
+              same thing as Sie müssen, just more directly.
+            </p>
+          </div>
+
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
-              Look at the "Meaning in Context" table again. In your own words, explain the
-              difference between müssen and sollen. Form your answer before reading on.
+              A doctor says "Sie sollen Tabletten nehmen." You say "Ich muss Tabletten nehmen." Who
+              decided the obligation in each sentence?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                Müssen expresses obligation that comes from the situation itself: you have to do
-                something because conditions require it. Sollen expresses an instruction given by
-                another person: a doctor, parent, or authority figure said you should do it. If a
-                doctor says "Sie sollen Tabletten nehmen", it means the doctor prescribed it. If you
-                say "Ich muss Tabletten nehmen", it means the situation (your illness) requires it.
+                With sollen, the doctor decided: another person gave the instruction. With müssen,
+                the situation decided: your illness itself requires it.
               </p>
             </details>
           </div>
@@ -732,23 +652,21 @@ const config = {
           <div className="lrn-callout">
             <span className="lrn-callout-label">Grammar rule</span>
             <p>
-              <strong>Reflexive pronouns:</strong> mich (ich), dich (du), sich (er/sie/es), uns
-              (wir), euch (ihr), sich (Sie/sie).
-            </p>
-            <p>
-              The pronoun always matches the subject. "Er fühlt sich" = He feels (himself). The
-              reflexive pronoun goes directly after the verb in a main clause.
+              These verbs use the reflexive pronouns you already know (mich, dich, sich, uns, euch,
+              sich). The pronoun matches the subject and pairs with each health verb here.
             </p>
           </div>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+          <div className="lrn-callout">
+            <span className="lrn-callout-label">Naming the hurt body part</span>
             <p>
-              German reflexive verbs mark that the action refers back to the subject. The reflexive
-              pronoun is required by grammar, not optional. English says "I feel" without a
-              reflexive marker, but German says "Ich fühle mich" because fühlen is a reflexive verb.
-              Dropping sich would be ungrammatical. Think of it as the verb requiring its
-              grammatical partner, the same way some verbs require a direct object.
+              To say which body part you hurt, use <strong>an</strong> + the dative: "Sie hat sich{' '}
+              <strong>am Knie</strong> verletzt." (She hurt her knee.)
+            </p>
+            <p>
+              <strong>am</strong> is short for <strong>an dem</strong>, used with der and das body
+              parts: am Kopf, am Arm, am Bein. For die body parts, use <strong>an der</strong>: an
+              der Hand, an der Nase.
             </p>
           </div>
 
@@ -757,7 +675,9 @@ const config = {
             <div className="lrn-step">
               <span className="lrn-step-label">ARZT</span>
               <p>Guten Morgen. Was fehlt Ihnen?</p>
-              <p className="lrn-step-note">Good morning. What is wrong with you?</p>
+              <p className="lrn-step-note">
+                Good morning. What is wrong with you? (Ihnen = the dative of formal Sie, "to you")
+              </p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-label">PATIENT</span>
@@ -839,8 +759,8 @@ const config = {
               <strong>seit + Dativ</strong> with present tense verb = ongoing state from the past.
             </p>
             <p>
-              Dative changes the article. Ein becomes einem (masc./neut.). Eine becomes einer
-              (fem.). Plural nouns gain -n at the end: Tage becomes Tagen.
+              You already know seit takes the dative: ein becomes einem, eine becomes einer, and
+              plural nouns add -n (Tage becomes Tagen).
             </p>
             <p>Ich habe seit drei Tagen Fieber. (I have had a fever for three days.)</p>
             <p>Er hustet seit einer Woche. (He has been coughing for a week.)</p>
@@ -886,22 +806,6 @@ const config = {
               </tr>
             </tbody>
           </table>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              English says "I have had a cold for a week" using past tense. What tense does German
-              use with seit?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                Present tense: "Ich habe seit einer Woche eine Erkältung." German uses present
-                because the cold is still happening now. Seit marks when it started. The verb form
-                reflects the current ongoing reality.
-              </p>
-            </details>
-          </div>
         </div>
       </>
     ]
@@ -918,7 +822,7 @@ const config = {
     },
     {
       q: 'A friend says her back hurts. Write the sentence using both Pattern 1 and Pattern 2.',
-      a: 'Pattern 1: "Der Rücken tut ihr weh." Pattern 2: "Sie hat Rückenschmerzen." Both are correct and neutral in register. Pattern 1 uses the wehtun verb; Pattern 2 adds -schmerzen to the body part noun.'
+      a: 'Pattern 1: "Der Rücken tut ihr weh." Pattern 2: "Sie hat Rückenschmerzen." Both are correct and fine to use anywhere. Pattern 1 uses the wehtun verb; Pattern 2 adds -schmerzen to the body part noun.'
     },
     {
       q: 'What is the difference between Erkältung and Grippe?',
@@ -949,8 +853,8 @@ const config = {
       a: 'Sich. This single pronoun covers all third-person forms including formal Sie. For example: "Er fühlt sich krank," "Sie fühlt sich krank," and "Sie fühlen sich krank" all use sich.'
     },
     {
-      q: 'Say "She caught a cold" in German using the correct reflexive structure.',
-      a: '"Sie hat sich erkältet." Sich erkälten is a reflexive verb: the action refers back to the subject. In perfect tense, sich stays in the sentence between the subject and the past participle.'
+      q: 'Say "She catches a cold easily" in German using the correct reflexive structure.',
+      a: '"Sie erkältet sich leicht." Sich erkälten is a reflexive verb: the action refers back to the subject. The reflexive pronoun sich comes directly after the conjugated verb erkältet.'
     },
     {
       q: 'Translate: "Ich habe seit drei Tagen Fieber." What tense does German use and why?',
@@ -997,7 +901,7 @@ const config = {
       a: 'Sich ausruhen means "to rest." With a modal verb: "Sie müssen sich ausruhen" (You must rest). The modal verb müssen goes in position 2, sich stays close to the subject, and the infinitive ausruhen goes to the end.'
     },
     {
-      q: 'English says "I have had a cold for a week" (past perfect). What is the German equivalent using seit?',
+      q: 'English says "I have had a cold for a week" using the past. What is the German equivalent using seit?',
       a: '"Ich habe seit einer Woche eine Erkältung." German uses present tense because the cold is still happening. Seit signals when it started. The present tense signals it has not ended. This is a required pattern in German, not optional.'
     },
     {

@@ -14,14 +14,15 @@ import {
   CycloidalNutation
 } from '../../../../../components/viz'
 
-export default function RigidBodyDynamicsAndGyroscopes() {
+export default function RigidBodyDynamicsGyroscopicMotionAndTheHeavySymmetricTop() {
   const config = {
     cssPrefix: 'rbd',
-    documentTitle: 'Rigid Body Dynamics and Gyroscopes - AETHER',
+    documentTitle:
+      'Rigid-Body Dynamics, Gyroscopic Motion, and the Heavy Symmetric Top - AETHER',
     learning: {
       groupTitle: 'Newtonian Mechanics',
       category: 'Module 9',
-      title: 'Rigid Body Dynamics and Gyroscopes',
+      title: 'Rigid-Body Dynamics, Gyroscopic Motion, and the Heavy Symmetric Top',
       subtitle:
         'A spinning rigid body refuses to behave like a point mass. Angular momentum and angular velocity can point in different directions. A torque tips the spin axis sideways instead of toppling the body. This module builds the tensor of inertia, derives gyroscope precession, and ends with the cycloidal nutation real gyroscopes show.',
       sections: [
@@ -52,18 +53,11 @@ export default function RigidBodyDynamicsAndGyroscopes() {
             </details>
           </div>
           <p>
-            Kleppner shows the same thing with a maple syrup can. Tip it 90 degrees about one axis,
-            then 90 about another. Reverse the order: the can lands somewhere else. Finite rotations
-            do not commute.
+            A maple syrup can shows the same thing. Tip it 90 degrees about one axis, then 90 about
+            another. Reverse the order: the can lands somewhere else. Finite rotations do not
+            commute.
           </p>
           <OrientationNonComm />
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Vectors must add the same way no matter the order. Finite rotations fail that test, so
-              no single vector can store orientation.
-            </p>
-          </div>
           <p>
             Shrink the angles. The smaller they get, the less the order matters. For infinitesimal
             rotations the order stops mattering altogether at first order. That tiny opening is
@@ -84,7 +78,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               second order, which vanishes in the time-derivative limit.
             </p>
           </div>
-          <h3>Worked example: rotation in the xy-plane (K&K Example 7.2)</h3>
+          <h3>Worked example: rotation in the xy-plane</h3>
           <p>
             A point on a rigid body sits at r = x i + y j + z k. The body spins about the z-axis at
             rate omega.
@@ -117,7 +111,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               </p>
             </details>
           </div>
-          <h3>Worked example: omega adds like a vector (K&K Example 7.3)</h3>
+          <h3>Worked example: omega adds like a vector</h3>
           <p>
             A wheel spins at rate omega about an axle. The axle sits on a turntable that itself
             spins at rate Omega. The total angular velocity of the wheel is the vector sum:
@@ -154,7 +148,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
         </>,
 
         <>
-          <h2>Angular Momentum When Spin Axis Differs from L (K&K Examples 7.4 to 7.6)</h2>
+          <h2>Angular Momentum When Spin Axis Differs from L</h2>
           <p>
             A washing machine wobbling on spin cycle is showing you angular momentum that points
             sideways from the angular velocity. The whole drum is spinning in a clean vertical line,
@@ -166,7 +160,8 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </p>
           <p>
             <strong>When to use this:</strong> any rigid body whose rotation axis is not also a
-            symmetry axis. The skew rod is the cleanest example.
+            symmetry axis (an axis the body looks the same around). The skew rod is the cleanest
+            example.
           </p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -221,7 +216,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               <p>{`For each mass, $\\mathbf{r}\\times\\mathbf{p}$ is perpendicular to both $\\mathbf{r}$ (which lies along the rod) and to $\\mathbf{p}$ (which is tangent to the circle). The only direction satisfying both is the in-plane direction perpendicular to the rod.`}</p>
             </details>
           </div>
-          <h3>Method 2: split omega into pieces along and across the rod (K&K Example 7.4)</h3>
+          <h3>Method 2: split omega into pieces along and across the rod</h3>
           <p>
             Break omega into the component along the rod and the component across it. The
             along-the-rod piece spins each mass on its own line, contributing nothing to L. The
@@ -250,7 +245,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               exactly on the line of omega-parallel.
             </p>
           </div>
-          <h3>Time-varying L for the rotating skew rod (K&K Example 7.5)</h3>
+          <h3>Time-varying L for the rotating skew rod</h3>
           <p>
             Set up a lab frame with z along the shaft. The rod has turned through angle omega t
             about z. Reading L's tilt out of the picture gives:
@@ -258,7 +253,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <div className="lrn-eq">{`$$L_x = L\\sin\\alpha\\cos\\omega t,\\quad L_y = L\\sin\\alpha\\sin\\omega t,\\quad L_z = L\\cos\\alpha$$`}</div>
           <p>Differentiate in time to get the torque the bearings must supply:</p>
           <div className="lrn-eq">{`$$\\tau = \\sqrt{\\tau_x^2 + \\tau_y^2} = 2m\\ell^2\\omega^2\\sin\\alpha\\cos\\alpha = \\omega L\\sin\\alpha$$`}</div>
-          <h3>Geometric method (K&K Example 7.6)</h3>
+          <h3>Geometric method</h3>
           <p>
             Skip the algebra and read the torque off the geometry. The vertical part of L stays
             fixed. Only the horizontal part, L-perp = L sin alpha, rotates. Any vector of length
@@ -283,13 +278,6 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               </p>
             </details>
           </div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The horizontal part of L sweeps a circle at the rotation rate. Any vector of fixed
-              length spinning at omega changes at rate omega times that length.
-            </p>
-          </div>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Fixed-axis rotation</span>
@@ -306,14 +294,15 @@ export default function RigidBodyDynamicsAndGyroscopes() {
         </>,
 
         <>
-          <h2>How a Gyroscope Precesses (K&K Examples 7.7, 7.8)</h2>
+          <h2>How a Gyroscope Precesses</h2>
           <p>
             The tiny gyroscope inside your phone uses precession to know which way you are holding
             the screen. The same math explains spinning tops and bicycle wheels.
           </p>
           <p>
             Take a wheel on an axle and rest one end of the axle on a pylon. Gravity pulls the free
-            end down. The wheel does not fall. Instead the axle sweeps around horizontally.
+            end down. The wheel does not fall. Instead the axle sweeps around horizontally. This
+            slow sweep of the spin axis is called precession.
           </p>
           <p>
             <strong>When to use this:</strong> any fast-spinning body whose external torque acts
@@ -345,7 +334,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
             That torque points sideways, perpendicular to L-s. It cannot stretch or shrink L-s. All
             it can do is swing L-s in the direction it points.
           </p>
-          <h3>Setting the precession rate (K&K Example 7.7)</h3>
+          <h3>Setting the precession rate</h3>
           <div className="lrn-steps">
             <p>
               <strong>Step 1.</strong> Assume the axle precesses around vertical at rate Omega.
@@ -375,7 +364,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               </p>
             </details>
           </div>
-          <h3>Tilted gyroscope: precession does not depend on tilt (K&K Example 7.7 continued)</h3>
+          <h3>Tilted gyroscope: precession does not depend on tilt</h3>
           <p>
             Tilt the axle at angle phi from vertical. The lever arm shrinks to ell sin phi, and the
             horizontal piece of L-s shrinks to L-s sin phi. Both shrink by the same factor:
@@ -399,7 +388,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
                 <li>{`Precession rate: $\\Omega = \\dfrac{\\tau}{L_s} = 1.25\\,\\text{rad/s}$, so the axle sweeps a full circle every 5 seconds.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Same wheel, but now you double the spin to $\\omega_s = 400\\,\\text{rad/s}$. Find the new precession rate.`}</p>
               <ol className="lrn-list">
@@ -413,7 +402,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               <p>{`A child's top has $I_s = 5\\times 10^{-5}\\,\\text{kg m}^2$ and spins at $\\omega_s = 80\\,\\text{rad/s}$. Its weight $W = 0.2\\,\\text{N}$ acts at $\\ell = 0.02\\,\\text{m}$. Find the precession rate using the same method.`}</p>
             </div>
           </div>
-          <h3>Why the wheel does not fall (K&K Example 7.8)</h3>
+          <h3>Why the wheel does not fall</h3>
           <p>
             Zoom in on two opposite particles on the rim. Each carries linear momentum tangent to
             the wheel. When gravity tries to tip the axle, the bearing nudges each particle with a
@@ -437,7 +426,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
                 <li>{`Match torque $\\tau = 2F\\ell$ and spin $L_s = 2mv_0\\ell$. Then $\\Omega = \\dfrac{\\tau}{L_s}$, the same rate as the macroscopic formula.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>
                 Repeat the argument for four particles spaced 90 degrees apart on the rim. Each
@@ -457,13 +446,6 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               <p>{`Replace the rim with a uniform thin disk of mass M and radius R spinning at $\\omega_s$. Apply the same impulse argument to a continuous mass distribution. Show that the precession rate $\\Omega = \\dfrac{\\ell W}{L_s}$ still holds.`}</p>
             </div>
           </div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The torque can rotate L-s but cannot stretch or shrink it. So the spin axis swings
-              sideways at constant cone angle, never up or down.
-            </p>
-          </div>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">No spin</span>
@@ -477,10 +459,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
         </>,
 
         <>
-          <h2>
-            Where Gyroscopes Show Up: Equinoxes, Compasses, Spin Stability (K&K Examples 7.9 to
-            7.12)
-          </h2>
+          <h2>Where Gyroscopes Show Up: Equinoxes, Compasses, Spin Stability</h2>
           <p>
             Once you have precession, three real systems open up at once. Earth is a giant
             gyroscope. So is a gyrocompass on a ship. So is a spinning bullet leaving a rifle.
@@ -503,11 +482,12 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               </p>
             </details>
           </div>
-          <h3>Precession of the equinoxes (K&K Example 7.9)</h3>
+          <h3>Precession of the equinoxes</h3>
           <p>
             Earth is not a perfect sphere. It bulges at the equator: the equatorial radius is about
             21 km bigger than the polar radius. The sun and moon pull harder on the near side of
-            that bulge than the far side, leaving Earth with a small but constant torque.
+            that bulge than the far side. That uneven pull leaves Earth with a small but constant
+            torque.
           </p>
           <p>
             The torque tries to tip Earth's spin axis toward the perpendicular of its orbital plane
@@ -535,16 +515,28 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               </p>
             </details>
           </div>
-          <h3>The gyrocompass effect (K&K Example 7.10, 7.11)</h3>
+          <h3>The gyrocompass effect</h3>
           <p>
             Mount a fast-spinning wheel on gimbals so it can tilt freely about two horizontal axes,
             and put it on the rotating Earth. The wheel swings until its spin axis lines up with
             true north (the geographic pole, not the magnetic one).
           </p>
-          <p>With small-angle approximations, the equation of motion for two-axis freedom reads</p>
-          <div className="lrn-eq">{`$$I_\\perp\\ddot\\theta + \\frac{I_s\\Omega}{I_\\perp}\\sin\\theta\\cdot\\omega_s = 0$$`}</div>
-          <p>Linearize around small theta:</p>
-          <div className="lrn-eq lrn-eq-display">{`$$\\beta = \\sqrt{\\frac{L_s\\Omega}{I_\\perp}} = \\sqrt{\\frac{I_s\\omega_s\\Omega}{I_\\perp}}$$`}</div>
+          <p>
+            Here is why it lines up. Let theta be the angle of the spin axis away from north. Earth
+            turns under the gyro at rate Omega, the part of Earth's spin perpendicular to the gyro's
+            free plane. That slow turn tips the spin angular momentum L-s away from the plane. The
+            gyro responds with a torque that tries to swing the spin axis back, and the size of that
+            restoring torque is L-s Omega sin theta. Treat the gyro as a body of transverse moment
+            I-perp swinging under this torque. Newton's rotational law gives a pendulum equation:
+          </p>
+          <div className="lrn-eq lrn-eq-display">{`$$I_\\perp\\ddot\\theta + I_s\\omega_s\\Omega\\sin\\theta = 0$$`}</div>
+          <p>
+            Every term carries units of torque: I-perp times angular acceleration on the left,
+            angular momentum L-s = I-s omega-s times the drive rate Omega on the right. Linearize
+            for small theta, with sin theta close to theta, and the equation becomes simple
+            harmonic. The gyro swings toward north at frequency
+          </p>
+          <div className="lrn-eq lrn-eq-display">{`$$\\beta = \\sqrt{\\frac{I_s\\omega_s\\Omega}{I_\\perp}} = \\sqrt{\\frac{L_s\\Omega}{I_\\perp}}$$`}</div>
           <p>
             Here Omega is the slice of Earth's angular velocity perpendicular to the plane in which
             the wheel is free to tilt. At latitude lambda that slice has magnitude
@@ -571,7 +563,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               </p>
             </details>
           </div>
-          <h3>Spin stability of projectiles (K&K Example 7.12)</h3>
+          <h3>Spin stability of projectiles</h3>
           <p>
             A spinning cylinder shrugs off small kicks. Apply a sideways force F for time delta-t at
             distance ell from the center, and compare the response with and without spin.
@@ -579,7 +571,8 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <div className="lrn-steps">
             <p>
               <strong>Without spin.</strong> The angular impulse F ell delta-t produces an angular
-              velocity
+              velocity, where I-A is the moment of inertia about the transverse (sideways) axis the
+              kick tips the cylinder around:
             </p>
             <div className="lrn-eq">{`$$\\Delta\\omega = \\dfrac{F\\ell\\,\\Delta t}{I_A}$$`}</div>
             <p>
@@ -625,124 +618,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
         </>,
 
         <>
-          <h2>Why Angular Momentum Conservation Goes Beyond Newton's Laws</h2>
-          <p>
-            Take two point particles pulling on each other along the line between them: gravity,
-            electrostatics, a stretched spring. Newton's third law makes the internal torques cancel
-            in pairs, and angular momentum is conserved on the spot. The trouble starts when the
-            forces do not lie along that line.
-          </p>
-          <p>
-            <strong>When to use this:</strong> any body whose internal forces include a sideways
-            component (magnetism between moving charges, for example). Angular momentum is still
-            conserved, but the proof now needs more than Newton.
-          </p>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              An electron has an intrinsic spin angular momentum. Can the electron's spin be derived
-              from Newton's laws applied to internal moving parts?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                No. The electron is a point particle with no internal moving parts. Its spin angular
-                momentum is an experimental fact, conserved by an extra physical law beyond Newton.
-              </p>
-            </details>
-          </div>
-          <p>
-            Take two particles j and l with internal force f-jl acting on j from l. Newton's third
-            law gives f-lj = minus f-jl. About any origin, the two torques add to
-          </p>
-          <div className="lrn-eq">{`$$\\tau_{jl} + \\tau_{lj} = \\mathbf{r}_j\\times\\mathbf{f}_{jl} + \\mathbf{r}_l\\times\\mathbf{f}_{lj} = (\\mathbf{r}_j - \\mathbf{r}_l)\\times\\mathbf{f}_{jl}$$`}</div>
-          <p>
-            The cross product is zero only when f-jl lies along the line joining the two particles.
-            That stronger statement, that internal forces are along the joining line, is what we
-            call the strong form of Newton's third law.
-          </p>
-          <NonCentralPair />
-          <div className="lrn-faded">
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-              <p>
-                Show that for two particles bound by a central force (gravity), the pairwise torques
-                cancel exactly. Track each step.
-              </p>
-              <ol className="lrn-list">
-                <li>{`Place particle j at $\\mathbf{r}_j$ and particle l at $\\mathbf{r}_l$. The gravity force on j from l points along $\\mathbf{r}_l - \\mathbf{r}_j$, so $\\mathbf{f}_{jl} = -k(\\mathbf{r}_j - \\mathbf{r}_l)$ for some scalar k.`}</li>
-                <li>{`Compute the pairwise torque sum: $(\\mathbf{r}_j - \\mathbf{r}_l)\\times\\mathbf{f}_{jl} = -k(\\mathbf{r}_j - \\mathbf{r}_l)\\times(\\mathbf{r}_j - \\mathbf{r}_l)$.`}</li>
-                <li>{`Any vector crossed with itself is zero. So the pair torque vanishes. Internal forces conserve angular momentum.`}</li>
-              </ol>
-            </div>
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-              <p>
-                Now consider a non-central force where f-jl has a component perpendicular to (r-j
-                minus r-l). Show that the pairwise torque does not cancel.
-              </p>
-              <ol className="lrn-list">
-                <li>{`Write $\\mathbf{f}_{jl} = f_\\parallel\\hat{r} + f_\\perp\\hat{n}$, where $\\hat{r}$ is along the joining line and $\\hat{n}$ is perpendicular.`}</li>
-                <li>{`Plug into the pair torque: $(\\mathbf{r}_j - \\mathbf{r}_l)\\times(f_\\parallel\\hat{r} + f_\\perp\\hat{n})$. The parallel piece cancels.`}</li>
-                <li>{`Solve: the leftover is $|\\mathbf{r}_j - \\mathbf{r}_l|f_\\perp(\\hat{r}\\times\\hat{n})$, generally nonzero.`}</li>
-              </ol>
-            </div>
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
-              <p>
-                Two electrons move along separate parallel paths. The magnetic force between them
-                has a component perpendicular to the line joining them. Compute the residual pair
-                torque, and explain where the missing angular momentum goes (hint: into the
-                electromagnetic field).
-              </p>
-            </div>
-          </div>
-          <h3>Where the strong form fails</h3>
-          <p>
-            The magnetic force between two moving charges does not point along the line joining
-            them. It picks up a sideways component. So the pairwise torques do not cancel, and
-            Newton's machinery alone cannot save L.
-          </p>
-          <p>
-            We observe in experiments that L is still conserved for atoms, electrons, and even
-            electromagnetic fields. We adopt this as an independent physical law, the rotational
-            counterpart to conservation of linear momentum.
-          </p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Conservation of angular momentum follows from rotational symmetry of the laws of
-              physics (Noether's theorem). Newton's laws were a special case. The deeper symmetry
-              survives.
-            </p>
-          </div>
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF EXPLAIN</span>
-            <p>
-              For two charges moving along separate parallel lines, the magnetic forces between them
-              are not along the line joining them. Where does the missing angular momentum go?
-            </p>
-          </div>
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Central forces</span>
-              <p>
-                Gravity, electrostatics. Forces lie along the line between particles. Pairwise
-                torques cancel. L conservation follows from Newton.
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Non-central forces</span>
-              <p>
-                Magnetism between moving charges. Forces have sideways components. L conservation
-                still holds, but as an independent law tied to rotational symmetry.
-              </p>
-            </div>
-          </div>
-        </>,
-
-        <>
-          <h2>The Tensor of Inertia (K&K Examples 7.13, 7.14)</h2>
+          <h2>The Tensor of Inertia</h2>
           <p>
             An aircraft's autopilot needs to know how the plane resists rolling, pitching, and
             yawing, all at the same time. The tensor of inertia stores all that in one compact
@@ -774,8 +650,15 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <p>Start from L = sum of r-j cross m-j v-j with v = omega cross r:</p>
           <div className="lrn-eq">{`$$\\mathbf{L} = \\sum_j m_j\\,\\mathbf{r}_j\\times(\\boldsymbol{\\omega}\\times\\mathbf{r}_j)$$`}</div>
           <p>
-            Use the identity a cross (b cross c) = b (a dot c) minus c (a dot b) (the BAC-CAB rule)
-            to expand the triple cross product. Collect terms by component. The x-component reads
+            Use the BAC-CAB rule to expand the triple cross product. The rule says a cross (b cross
+            c) equals b times (a dot c) minus c times (a dot b). You can check it by writing out one
+            component with the cross-product definition: the two middle terms cancel and leave
+            exactly this difference of dot-product-weighted vectors.
+          </p>
+          <div className="lrn-eq">{`$$\\mathbf{a}\\times(\\mathbf{b}\\times\\mathbf{c}) = \\mathbf{b}(\\mathbf{a}\\cdot\\mathbf{c}) - \\mathbf{c}(\\mathbf{a}\\cdot\\mathbf{b})$$`}</div>
+          <p>
+            Apply it with a = r, b = omega, c = r. The triple product becomes omega times r-squared
+            minus r times (r dot omega). Collect terms by component. The x-component reads
           </p>
           <div className="lrn-eq">{`$$L_x = \\sum_j m_j(y_j^2+z_j^2)\\omega_x - \\sum_j m_j x_j y_j\\,\\omega_y - \\sum_j m_j x_j z_j\\,\\omega_z$$`}</div>
           <p>
@@ -790,7 +673,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <p>and cyclically for L-y and L-z. Pack the nine coefficients into a single matrix:</p>
           <div className="lrn-eq lrn-eq-display">{`$$\\mathbf{L} = \\overleftrightarrow{I}\\,\\boldsymbol{\\omega}$$`}</div>
           <InertiaTensor />
-          <h3>Worked example: rotating dumbbell (K&K Example 7.13)</h3>
+          <h3>Worked example: rotating dumbbell</h3>
           <DumbbellTensor />
           <p>Place two masses m at z = +a and z = -a on the z-axis, no offset in x or y.</p>
           <div className="lrn-steps">
@@ -819,7 +702,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               <p>{`$I_{zz} = \\sum m(x^2 + y^2)$ measures perpendicular distance from the z-axis. Both masses sit on the z-axis itself, so $x = y = 0$ for each, and the sum is zero.`}</p>
             </details>
           </div>
-          <h3>Worked example: tensor of inertia for the skew rod (K&K Example 7.14)</h3>
+          <h3>Worked example: tensor of inertia for the skew rod</h3>
           <p>
             Place mass m at r-1 = (ell sin alpha, 0, ell cos alpha) and another mass m at r-2 = the
             negative of r-1. The y-coordinate of both masses is zero. Compute each tensor entry from
@@ -847,8 +730,8 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <p>So when omega is along z (the shaft axis):</p>
           <div className="lrn-eq">{`$$L_x = I_{xz}\\omega_z = -2m\\ell^2\\sin\\alpha\\cos\\alpha\\,\\omega,\\quad L_z = I_{zz}\\omega_z = 2m\\ell^2\\sin^2\\alpha\\,\\omega$$`}</div>
           <p>
-            The total magnitude works out to 2 m ell squared omega cos alpha, matching Method 1 from
-            Section 2.
+            The total magnitude works out to 2 m ell squared omega cos alpha, matching the direct
+            cross-product result we found earlier.
           </p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF EXPLAIN</span>
@@ -858,20 +741,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
             </p>
           </div>
           <div className="lrn-faded">
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-              <p>
-                Build the tensor of inertia for two equal masses on a skew rod. Show that the
-                off-diagonal entry I-xz captures the tilt.
-              </p>
-              <ol className="lrn-list">
-                <li>{`Place mass 1 at $(\\ell\\sin\\alpha, 0, \\ell\\cos\\alpha)$ and mass 2 at the negative.`}</li>
-                <li>{`Compute $I_{xz} = -\\sum m\\,xz$. Each mass gives $-m\\ell^2\\sin\\alpha\\cos\\alpha$, and the two add to $-2m\\ell^2\\sin\\alpha\\cos\\alpha$.`}</li>
-                <li>{`Compute $I_{zz} = \\sum m(x^2+y^2) = 2m\\ell^2\\sin^2\\alpha$ and $I_{xx} = \\sum m(y^2+z^2) = 2m\\ell^2\\cos^2\\alpha$.`}</li>
-                <li>{`Apply $\\mathbf{L} = \\overleftrightarrow{I}\\,\\boldsymbol{\\omega}$ with $\\boldsymbol{\\omega} = \\omega\\hat{z}$. Get $L_x$ and $L_z$ as shown above.`}</li>
-              </ol>
-            </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>
                 Now place two unequal masses on the skew rod. Mass m-1 sits at one end, mass m-2 at
@@ -917,7 +787,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
         </>,
 
         <>
-          <h2>Principal Axes and Rotational Kinetic Energy (K&K Example 7.15)</h2>
+          <h2>Principal Axes and Rotational Kinetic Energy</h2>
           <p>
             The Explorer 1 satellite was launched in 1958 spinning about its long axis like a
             pencil. Hours later it was tumbling end over end. Principal axes and energy minimization
@@ -925,7 +795,9 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </p>
           <p>
             Every rigid body has three perpendicular axes that diagonalize the tensor of inertia.
-            These are the principal axes.
+            These are the principal axes. They always exist because the tensor of inertia is a real
+            symmetric matrix, and every real symmetric matrix has a full set of perpendicular
+            eigenvectors. Those eigenvectors are the principal axes.
           </p>
           <p>
             <strong>When to use this:</strong> any time you want clean equations. Principal axes
@@ -947,21 +819,13 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <p>And L decouples component by component:</p>
           <div className="lrn-eq">{`$$L_1 = I_1\\omega_1,\\quad L_2 = I_2\\omega_2,\\quad L_3 = I_3\\omega_3$$`}</div>
           <h3>Rotational kinetic energy</h3>
-          <p>
-            The kinetic energy of a rigid body splits cleanly into two pieces: translation of the
-            center of mass, plus rotation about that center.
-          </p>
-          <div className="lrn-eq">{`$$K = \\tfrac{1}{2}MV^2 + \\tfrac{1}{2}\\sum m_j v_j'^2$$`}</div>
-          <p>
-            We can write the rotational piece in three equivalent forms. First, in vector form using
-            L:
-          </p>
+          <p>{`We already split the kinetic energy into a translation piece plus a rotation piece about the center of mass, $K = \\tfrac{1}{2}MV^2 + K_{\\text{rot}}$. Here we work out the rotational piece for free rotation in three equivalent forms. First, in vector form, put $\\mathbf{v} = \\boldsymbol{\\omega}\\times\\mathbf{r}$ into the sum of one-half $mv^2$ and use the BAC-CAB identity. The sum collapses to omega dotted with L:`}</p>
           <div className="lrn-eq lrn-eq-display">{`$$K_{\\text{rot}} = \\tfrac{1}{2}\\,\\boldsymbol{\\omega}\\cdot\\mathbf{L}$$`}</div>
           <p>Second, in the principal-axis frame:</p>
           <div className="lrn-eq">{`$$K_{\\text{rot}} = \\tfrac{1}{2}(I_1\\omega_1^2 + I_2\\omega_2^2 + I_3\\omega_3^2)$$`}</div>
           <p>Third, when rotation is about a single principal axis:</p>
           <div className="lrn-eq">{`$$K_{\\text{rot}} = \\dfrac{L^2}{2I}$$`}</div>
-          <h3>Worked example: flying saucers vs flying cigars (K&K Example 7.15)</h3>
+          <h3>Worked example: flying saucers vs flying cigars</h3>
           <p>
             A real spacecraft is never perfectly rigid. Fuel sloshes, panels flex, joints scrape.
             Those tiny internal motions burn energy as heat. With no external torque, L stays fixed
@@ -984,10 +848,9 @@ export default function RigidBodyDynamicsAndGyroscopes() {
             </p>
           </div>
           <p>
-            That is exactly what doomed Explorer 1 in 1958. The satellite was launched spinning
-            about its long axis. Tiny internal flexing bled energy. Within hours the spin had
-            shifted onto a transverse axis and the antennas were tumbling end over end. Mission
-            lost.
+            That is exactly what doomed Explorer 1. Tiny internal flexing bled energy. Within hours
+            the spin had shifted onto a transverse axis and the antennas were tumbling end over end.
+            Mission lost.
           </p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF EXPLAIN</span>
@@ -1077,8 +940,8 @@ export default function RigidBodyDynamicsAndGyroscopes() {
             </p>
           </div>
           <p>
-            This matches the result for a single principal axis combined with the textbook
-            parallel-axis theorem from the previous module.
+            This matches the result you get by combining the moment about a single principal axis
+            with the scalar parallel-axis theorem.
           </p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF EXPLAIN</span>
@@ -1097,7 +960,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
                 <li>{`Apply the shift: $I_{xx} = \\frac{1}{6}Ma^2 + M\\cdot \\frac{a^2}{2} = \\frac{2}{3}Ma^2$.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`A thin uniform rod of length $L$ and mass $M$ pivots at one end. Find $I$ about the pivot, perpendicular to the rod.`}</p>
               <ol className="lrn-list">
@@ -1171,13 +1034,25 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <p>
             Take a symmetric top: one moment I-3 = I-s along the symmetry axis, the other two equal,
             I-1 = I-2 = I-perp. Spin it nearly aligned with the symmetry axis so the tilt angles
-            theta-x and theta-y are small. The equations of motion linearize to
+            theta-x and theta-y are small.
+          </p>
+          <p>
+            Build L from L = I-tensor times omega, in the lab frame. Two pieces add up. The slow
+            tilting of the axis gives a transverse angular velocity, and the transverse moment
+            I-perp times that rate is the I-perp d-theta/dt piece. The fast spin L-s points along
+            the symmetry axis, which is itself tilted by theta-x and theta-y. Project that tilted
+            spin onto the lab x and y axes: a vector of length L-s tilted by a small angle picks up
+            that angle as its sideways part, so it contributes plus or minus L-s sin theta. Adding
+            both pieces gives the equations of motion:
           </p>
           <div className="lrn-eq">{`$$L_x = I_\\perp\\dfrac{d\\theta_x}{dt} + L_s\\sin\\theta_y$$`}</div>
           <div className="lrn-eq">{`$$L_y = I_\\perp\\dfrac{d\\theta_y}{dt} - L_s\\sin\\theta_x$$`}</div>
           <p>and L-z = I-s omega-z = L-s. Differentiate and combine:</p>
           <div className="lrn-eq">{`$$\\dfrac{d^2\\omega_x}{dt^2} + \\gamma^2\\omega_x = 0,\\quad \\gamma = \\dfrac{L_s}{I_\\perp} = \\dfrac{\\omega_s I_s}{I_\\perp}$$`}</div>
-          <p>The solutions are simple harmonic in the body frame:</p>
+          <p>
+            The solutions are simple harmonic in the body frame, the set of axes that spin along
+            with the body so the tensor of inertia stays fixed:
+          </p>
           <div className="lrn-eq">{`$$\\omega_x = A\\sin(\\gamma t + \\phi),\\quad \\omega_y = A\\cos(\\gamma t + \\phi)$$`}</div>
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
@@ -1193,7 +1068,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
                 <li>{`The result $\\ddot\\theta_x + \\left(\\dfrac{L_s}{I_\\perp}\\right)^2 \\theta_x = 0$ is simple harmonic with frequency $\\gamma = \\dfrac{L_s}{I_\\perp}$.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Consider an oblate body with $I_s = 2I_\\perp$. The body spins at $\\omega_s = 10\\,\\text{rad/s}$. Find the body-frame wobble period.`}</p>
               <ol className="lrn-list">
@@ -1212,18 +1087,12 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <PrecessionCone />
           <h3>The Earth's wobble (Chandler wobble)</h3>
           <p>
-            Earth itself wobbles. In the body frame the rate is gamma. For an observer fixed on
-            Earth, who is rotating along with omega-s, the rate appears slowed to
+            Earth itself wobbles. In the body frame the rate is gamma. An observer fixed on Earth is
+            rotating along with the spin omega-s, so they see the wobble slowed by exactly that spin
+            rate. Subtract it from the body-frame rate:
           </p>
-          <div className="lrn-eq">{`$$\\gamma' = \\omega_s\\dfrac{I_s - I_\\perp}{I_\\perp}$$`}</div>
+          <div className="lrn-eq">{`$$\\gamma' = \\gamma - \\omega_s = \\dfrac{\\omega_s I_s}{I_\\perp} - \\omega_s = \\omega_s\\dfrac{I_s - I_\\perp}{I_\\perp}$$`}</div>
           <p>{`For Earth, $\\dfrac{I_s - I_\\perp}{I_\\perp}$ is about $\\tfrac{1}{300}$, so the rigid-body theory predicts a wobble period of roughly 300 days. The actual Chandler wobble runs closer to 430 days. The extra time comes from Earth's slight elasticity: the planet is not a perfectly rigid solid.`}</p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The 300-day result assumes a rigid Earth. Real Earth deforms slightly under rotational
-              stress. The deformation softens the response and lengthens the wobble period.
-            </p>
-          </div>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF EXPLAIN</span>
             <p>
@@ -1250,7 +1119,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
         </>,
 
         <>
-          <h2>Euler's Equations and Stability of Rotation (K&K Examples 7.16, 7.17, 7.18)</h2>
+          <h2>Euler's Equations and Stability of Rotation</h2>
           <p>
             Cosmonaut Vladimir Dzhanibekov filmed a T-handle wrench flipping end over end every few
             seconds in zero gravity. Euler's equations predict the flip on the nose.
@@ -1278,14 +1147,37 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               </p>
             </details>
           </div>
-          <p>{`In body-fixed principal axes, the three components of $\\dfrac{d\\mathbf{L}}{dt} = \\boldsymbol{\\tau}$ become (Eq. 7.27)`}</p>
+          <p>
+            Newton's rotational law holds in the lab frame: the rate of change of L there equals the
+            torque. But the tensor of inertia is only simple in the body frame, where it is diagonal
+            and fixed. So we switch frames. A vector watched from the spinning body and a vector
+            watched from the lab differ by the rotation of the frame itself:
+          </p>
+          <div className="lrn-eq lrn-eq-display">{`$$\\left(\\dfrac{d\\mathbf{L}}{dt}\\right)_{\\text{space}} = \\left(\\dfrac{d\\mathbf{L}}{dt}\\right)_{\\text{body}} + \\boldsymbol{\\omega}\\times\\mathbf{L}$$`}</div>
+          <p>
+            Set this equal to the torque. In the body frame the tensor is diagonal, so L-i = I-i
+            omega-i, and the body-frame derivative is just I-i times the rate of change of omega-i.
+            The extra term omega cross L carries the coupling. Expand it in principal axes:
+          </p>
+          <div className="lrn-eq">{`$$(\\boldsymbol{\\omega}\\times\\mathbf{L})_1 = \\omega_2 L_3 - \\omega_3 L_2 = (I_3 - I_2)\\omega_2\\omega_3$$`}</div>
+          <p>
+            That single cross-product line is the gyroscopic term. Doing the same for the other two
+            components, the three body-fixed equations of motion become
+          </p>
           <div className="lrn-eq lrn-eq-display">{`$$\\tau_1 = I_1\\dfrac{d\\omega_1}{dt} + (I_3 - I_2)\\omega_3\\omega_2$$`}</div>
           <div className="lrn-eq">{`$$\\tau_2 = I_2\\dfrac{d\\omega_2}{dt} + (I_1 - I_3)\\omega_1\\omega_3$$`}</div>
           <div className="lrn-eq">{`$$\\tau_3 = I_3\\dfrac{d\\omega_3}{dt} + (I_2 - I_1)\\omega_2\\omega_1$$`}</div>
-          <h3>Stability test (K&K Example 7.16)</h3>
+          <h3>Stability test</h3>
           <p>
             Take torque-free motion with omega mostly along axis 1. Treat omega-2 and omega-3 as
-            small perturbations and drop their squares. The Euler equations linearize to
+            small perturbations and drop their squares. The first Euler equation then has a product
+            of two small terms on the right, so omega-1 stays nearly constant. The other two reduce
+            to a linear pair:
+          </p>
+          <div className="lrn-eq">{`$$I_2\\dot\\omega_2 = (I_3 - I_1)\\omega_1\\omega_3,\\qquad I_3\\dot\\omega_3 = (I_1 - I_2)\\omega_1\\omega_2$$`}</div>
+          <p>
+            Differentiate the first and substitute the second to eliminate omega-3. The Euler
+            equations linearize to
           </p>
           <div className="lrn-eq">{`$$\\ddot\\omega_2 + A\\omega_2 = 0,\\quad A = \\dfrac{(I_1 - I_3)(I_2 - I_1)\\,\\omega_1^2}{I_2 I_3}$$`}</div>
           <TennisRacket />
@@ -1313,12 +1205,12 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
               <p>{`Test the stability of a thin book with $I_1 = 0.10$, $I_2 = 0.05$, $I_3 = 0.06$ (in $\\text{kg m}^2$). Spin it about each principal axis at $\\omega_1 = 5\\,\\text{rad/s}$ and find $A$.`}</p>
               <ol className="lrn-list">
-                <li>{`Spin about axis 1 (largest $I$): $A = \\frac{(I_1 - I_3)(I_2 - I_1)\\omega_1^2}{I_2 I_3} = \\frac{(0.04)(-0.05)(25)}{0.003} = -16.7$. Negative, so unstable here? Wait: when we spin about axis 1 we rename roles. Actually this picks $I_1$ as the spin axis with $A>0$ when $I_1$ is max OR min. Since $I_1$ is the largest, $(I_1 - I_3)>0$ and $(I_1 - I_2)>0$, so the product is positive. Stable.`}</li>
-                <li>{`Spin about axis 3 (middle $I$): now relabel so that $I_3$ takes the role of $I_1$. The two factors $(I_3 - I_2)$ and $(I_1 - I_3)$ have opposite signs. So $A < 0$. Unstable.`}</li>
-                <li>{`Spin about axis 2 (smallest $I$): relabel again. Both factors have the same sign. So $A > 0$. Stable.`}</li>
+                <li>{`Spin about axis 1 (largest $I$): the two factors that set the sign of $A$ are $(I_1 - I_2) = 0.05 > 0$ and $(I_1 - I_3) = 0.04 > 0$. Both positive, so $A > 0$. Stable.`}</li>
+                <li>{`Spin about axis 3 (middle $I$): the two factors are $(I_3 - I_1) = -0.04 < 0$ and $(I_3 - I_2) = 0.01 > 0$. Opposite signs, so $A < 0$. Unstable.`}</li>
+                <li>{`Spin about axis 2 (smallest $I$): the two factors $(I_2 - I_1) = -0.05 < 0$ and $(I_2 - I_3) = -0.01 < 0$ are both negative. Their product is positive, so $A > 0$. Stable.`}</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`A flat tile has $I_1 = 0.20$, $I_2 = 0.20$, $I_3 = 0.40$. Test stability about each axis. (Hint: two of the moments are equal, so the test is degenerate along those axes.)`}</p>
               <ol className="lrn-list">
@@ -1332,10 +1224,18 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               <p>{`A T-handle wrench has $I_1 = 0.5$, $I_2 = 0.6$, $I_3 = 0.1$ (in kg m squared). Identify which axis is unstable, and compute the growth rate $\\sqrt{|A|}$ in s$^{-1}$ when $\\omega_1 = 20$ rad/s.`}</p>
             </div>
           </div>
-          <h3>Worked example: rotating rod (K&K Example 7.17)</h3>
+          <h3>Worked example: rotating rod</h3>
           <p>
             Force a rod to rotate about a fixed perpendicular axis at constant rate Omega. Let theta
-            measure the rod's orientation about that axis. Euler's equations reduce to
+            measure the rod's orientation about that axis. The forced rotation splits Omega into two
+            body-frame components, omega-2 = Omega cos theta and omega-3 = Omega sin theta. Their
+            product feeds the gyroscopic term in Euler's third equation:
+          </p>
+          <div className="lrn-eq">{`$$(I_3 - I_2)\\,\\omega_2\\omega_3 = (I_3 - I_2)\\,\\Omega^2\\sin\\theta\\cos\\theta = \\tfrac{1}{2}(I_3 - I_2)\\,\\Omega^2\\sin 2\\theta$$`}</div>
+          <p>
+            Set this gyroscopic torque equal to I-1 theta-double-dot from the rod's free swing about
+            the driven axis, using the double-angle identity 2 sin theta cos theta = sin 2 theta.
+            Euler's equations reduce to
           </p>
           <div className="lrn-eq">{`$$2\\ddot\\theta + \\dfrac{I_3 - I_2}{I_1}\\Omega^2\\sin 2\\theta = 0$$`}</div>
           <p>
@@ -1357,14 +1257,23 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               </p>
             </details>
           </div>
-          <h3>Worked example: torque-free precession of a symmetric body (K&K Example 7.18)</h3>
+          <h3>Worked example: torque-free precession of a symmetric body</h3>
           <p>
-            Set I-2 = I-3 = I-perp and I-1 = I-s for a symmetric top. Euler's equations close into a
-            clean form. In the body frame, omega rotates at the constant rate
+            Set I-2 = I-3 = I-perp and I-1 = I-s for a symmetric top, with no torque. Put these into
+            Euler's three equations. The first reads I-1 d-omega-1/dt = 0, so the spin omega-1 =
+            omega-s stays constant. The other two equations become
+          </p>
+          <div className="lrn-eq">{`$$I_\\perp\\dot\\omega_2 = (I_\\perp - I_1)\\omega_s\\,\\omega_3,\\qquad I_\\perp\\dot\\omega_3 = (I_1 - I_\\perp)\\omega_s\\,\\omega_2$$`}</div>
+          <p>
+            These are the equations of a vector turning in a circle. The transverse part of omega
+            sweeps around the symmetry axis at the constant body-frame rate
           </p>
           <div className="lrn-eq">{`$$\\Gamma = \\dfrac{I_1 - I_\\perp}{I_\\perp}\\,\\omega_s$$`}</div>
           <p>
-            Adding the lab-frame requirement that L stay fixed gives the lab-frame precession rate:
+            Now switch to the lab. With no torque, L is fixed in space, and the symmetry axis sits
+            at angle alpha to it. The lab precession rate of the axis around L is the magnitude of L
+            divided by the transverse moment that carries the sweep. Reading L = I-1 omega-s along
+            the axis and projecting onto the perpendicular plane gives a factor 1 over cos alpha:
           </p>
           <div className="lrn-eq">{`$$\\Omega_p = \\dfrac{I_1\\omega_s}{I_\\perp\\cos\\alpha}$$`}</div>
           <p>where alpha is the angle between L and the symmetry axis.</p>
@@ -1381,14 +1290,6 @@ export default function RigidBodyDynamicsAndGyroscopes() {
             <p>
               Why is rotation about the intermediate axis unstable? Connect to the sign of (I-1
               minus I-3)(I-2 minus I-1) when I-1 lies between I-2 and I-3.
-            </p>
-          </div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              For the maximum or minimum axis, both factors in A share the same sign. A stays
-              positive, giving stable oscillation. For the middle axis, the factors have opposite
-              signs. A is negative, and the perturbation grows.
             </p>
           </div>
           <div className="lrn-compare">
@@ -1421,6 +1322,14 @@ export default function RigidBodyDynamicsAndGyroscopes() {
             see in front of you depends on how the gyroscope was set going.
           </p>
           <p>
+            A full description of a heavy top tracks three angles: the spin phi about the symmetry
+            axis, the tilt theta of that axis from vertical, and the precession psi of the axis
+            around vertical. These three are the Euler angles. The small-angle work here uses only
+            the linear pieces of theta and psi. The complete nonlinear heavy-top solution, with the
+            tilt swinging between two turning points, comes later in the Lagrangian unit, where the
+            three Euler angles become the natural coordinates.
+          </p>
+          <p>
             <strong>When to use this:</strong> any real gyroscope on a low-friction support. Each
             mode has its own visual signature.
           </p>
@@ -1441,9 +1350,32 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <p>
             Use the same setup as before. A gyroscope sits on a pivot at lever arm ell with weight
             W. Its spin angular momentum L-s lies along the symmetry axis, and its transverse moment
-            of inertia is I-perp. The small-angle equations of motion read
+            of inertia is I-perp.
+          </p>
+          <p>
+            To get the equations of motion, write L the way the tensor demands. The total angular
+            momentum is the spin along the symmetry axis plus the slow transverse rotation of the
+            axis itself. Let the axis tilt by small angles theta-x and theta-z away from vertical.
+            The big spin vector L-s, fixed along the axis, then leans into the lab axes:
+          </p>
+          <div className="lrn-eq">{`$$\\mathbf{L} = I_\\perp\\boldsymbol{\\omega}_\\perp + \\mathbf{L}_s,\\qquad \\hat{\\mathbf{n}} \\approx (-\\theta_z,\\,0,\\,1)$$`}</div>
+          <p>
+            Here n-hat is the unit vector along the symmetry axis, tilted slightly off vertical. Its
+            x-component is minus theta-z (lean toward x lowers the z-tilt) and its z-component stays
+            near one. Multiply by L-s to get the spin contribution to each lab component of L.
+          </p>
+          <p>
+            Read each lab component. Along x, the transverse rate gives I-perp omega-x, and the
+            tilted spin contributes minus L-s theta-z. Along z, the transverse rate gives I-perp
+            omega-z, and the tilt of the axis toward x feeds plus L-s theta-x back into z. The
+            small-angle equations of motion read
           </p>
           <div className="lrn-eq">{`$$L_x = I_\\perp\\omega_x - L_s\\theta_z,\\quad L_y = I_\\perp\\omega_y,\\quad L_z = I_\\perp\\omega_z + L_s\\theta_x$$`}</div>
+          <p>
+            The plus and minus on the L-s coupling are pure geometry: a unit vector tilted by a
+            small angle picks up that angle as its sideways component, with the sign set by which
+            way it leans.
+          </p>
           <p>{`Combine these with the gravity torque $\\tau_y = \\ell W$. After differentiation, $\\omega_z$ obeys a simple harmonic equation with frequency $\\gamma = \\dfrac{L_s}{I_\\perp}$.`}</p>
           <h3>Case 1: uniform precession</h3>
           <p>{`Special initial conditions: launch the axle moving at exactly $\\Omega = \\dfrac{\\ell W}{L_s}$. The nodding term vanishes and the axle sweeps steadily around horizontal. This is the textbook gyroscope picture.`}</p>
@@ -1494,6 +1426,115 @@ export default function RigidBodyDynamicsAndGyroscopes() {
               <p>
                 Floats on an air bearing. Almost no friction. All three modes are visible: uniform
                 precession, torque-free wobble, and full cycloidal nutation.
+              </p>
+            </div>
+          </div>
+        </>,
+
+        <>
+          <h2>Why Angular Momentum Conservation Goes Beyond Newton's Laws</h2>
+          <p>
+            Take two point particles pulling on each other along the line between them: gravity,
+            electrostatics, a stretched spring. Newton's third law makes the internal torques cancel
+            in pairs, and angular momentum is conserved on the spot. The trouble starts when the
+            forces do not lie along that line.
+          </p>
+          <p>
+            <strong>When to use this:</strong> any body whose internal forces include a sideways
+            component (magnetism between moving charges, for example). Angular momentum is still
+            conserved, but the proof now needs more than Newton.
+          </p>
+          <div className="lrn-predict">
+            <span className="lrn-predict-label">PREDICT</span>
+            <p>
+              An electron has an intrinsic spin angular momentum. Can the electron's spin be derived
+              from Newton's laws applied to internal moving parts?
+            </p>
+            <details className="lrn-predict-reveal">
+              <summary>Check your thinking</summary>
+              <p>
+                No. The electron is a point particle with no internal moving parts. Its spin angular
+                momentum is an experimental fact, conserved by an extra physical law beyond Newton.
+              </p>
+            </details>
+          </div>
+          <p>
+            Take two particles j and l with internal force f-jl acting on j from l. Newton's third
+            law gives f-lj = minus f-jl. About any origin, the two torques add to
+          </p>
+          <div className="lrn-eq">{`$$\\tau_{jl} + \\tau_{lj} = \\mathbf{r}_j\\times\\mathbf{f}_{jl} + \\mathbf{r}_l\\times\\mathbf{f}_{lj} = (\\mathbf{r}_j - \\mathbf{r}_l)\\times\\mathbf{f}_{jl}$$`}</div>
+          <p>
+            The cross product is zero only when f-jl lies along the line joining the two particles.
+            That stronger statement, that internal forces are along the joining line, is what we
+            call the strong form of Newton's third law.
+          </p>
+          <NonCentralPair />
+          <div className="lrn-faded">
+            <div className="lrn-faded-phase">
+              <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
+              <p>
+                Show that for two particles bound by a central force (gravity), the pairwise torques
+                cancel exactly. Track each step.
+              </p>
+              <ol className="lrn-list">
+                <li>{`Place particle j at $\\mathbf{r}_j$ and particle l at $\\mathbf{r}_l$. The gravity force on j from l points along $\\mathbf{r}_l - \\mathbf{r}_j$, so $\\mathbf{f}_{jl} = -k(\\mathbf{r}_j - \\mathbf{r}_l)$ for some scalar k.`}</li>
+                <li>{`Compute the pairwise torque sum: $(\\mathbf{r}_j - \\mathbf{r}_l)\\times\\mathbf{f}_{jl} = -k(\\mathbf{r}_j - \\mathbf{r}_l)\\times(\\mathbf{r}_j - \\mathbf{r}_l)$.`}</li>
+                <li>{`Any vector crossed with itself is zero. So the pair torque vanishes. Internal forces conserve angular momentum.`}</li>
+              </ol>
+            </div>
+            <div className="lrn-faded-phase lrn-faded-partial">
+              <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
+              <p>
+                Now consider a non-central force where f-jl has a component perpendicular to (r-j
+                minus r-l). Show that the pairwise torque does not cancel.
+              </p>
+              <ol className="lrn-list">
+                <li>{`Write $\\mathbf{f}_{jl} = f_\\parallel\\hat{r} + f_\\perp\\hat{n}$, where $\\hat{r}$ is along the joining line and $\\hat{n}$ is perpendicular.`}</li>
+                <li>{`Plug into the pair torque: $(\\mathbf{r}_j - \\mathbf{r}_l)\\times(f_\\parallel\\hat{r} + f_\\perp\\hat{n})$. The parallel piece cancels.`}</li>
+                <li>{`Solve: the leftover is $|\\mathbf{r}_j - \\mathbf{r}_l|f_\\perp(\\hat{r}\\times\\hat{n})$, generally nonzero.`}</li>
+              </ol>
+            </div>
+            <div className="lrn-faded-phase">
+              <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
+              <p>
+                Two electrons move along separate parallel paths. The magnetic force between them
+                has a component perpendicular to the line joining them. Compute the residual pair
+                torque, and explain where the missing angular momentum goes (hint: into the
+                electromagnetic field).
+              </p>
+            </div>
+          </div>
+          <h3>Where the strong form fails</h3>
+          <p>
+            The magnetic force between two moving charges does not point along the line joining
+            them. It picks up a sideways component. So the pairwise torques do not cancel, and
+            Newton's machinery alone cannot save L.
+          </p>
+          <p>
+            We observe in experiments that L is still conserved for atoms, electrons, and even
+            electromagnetic fields. We adopt this as an independent physical law, the rotational
+            counterpart to conservation of linear momentum.
+          </p>
+          <div className="lrn-self-explain">
+            <span className="lrn-self-explain-label">SELF EXPLAIN</span>
+            <p>
+              For two charges moving along separate parallel lines, the magnetic forces between them
+              are not along the line joining them. Where does the missing angular momentum go?
+            </p>
+          </div>
+          <div className="lrn-compare">
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Central forces</span>
+              <p>
+                Gravity, electrostatics. Forces lie along the line between particles. Pairwise
+                torques cancel. L conservation follows from Newton.
+              </p>
+            </div>
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Non-central forces</span>
+              <p>
+                Magnetism between moving charges. Forces have sideways components. L conservation
+                still holds, but as an independent law tied to rotational symmetry.
               </p>
             </div>
           </div>
@@ -1619,7 +1660,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
       },
       {
         q: `State Euler's equations and explain why they are written in body-fixed principal axes rather than in the lab frame.`,
-        a: `In principal axes the tensor of inertia is diagonal and constant in time. So the equations $\\tau_i = I_i\\dot\\omega_i + \\sum_{jk}\\epsilon_{ijk}I_k\\omega_j\\omega_k$ stay tractable. In the lab frame, the tensor varies in time as the body rotates. The equations become a mess. The body-frame choice trades a rotating frame for a constant tensor.`
+        a: `In principal axes the tensor of inertia is diagonal and constant in time. So the three equations $\\tau_1 = I_1\\dot\\omega_1 + (I_3 - I_2)\\omega_3\\omega_2$, and its two cyclic partners, stay easy to solve. In the lab frame, the tensor varies in time as the body rotates. The equations become a mess. The body-frame choice trades a rotating frame for a constant tensor.`
       },
       {
         q: `Why is rotation of a book about its intermediate axis unstable?`,
@@ -1634,7 +1675,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
         a: `$\\Omega_p = \\dfrac{I_1\\omega_s}{I_\\perp\\cos\\alpha}$, where $\\alpha$ is the angle between the symmetry axis and the angular momentum. The formula combines the body-frame rate $\\Gamma = \\dfrac{(I_1 - I_\\perp)\\omega_s}{I_\\perp}$ with the lab-frame condition that L stay fixed.`
       },
       {
-        q: `Note 7.2 distinguishes three modes of gyroscope motion. Name them and describe each in one sentence.`,
+        q: `A gyroscope has three modes of motion. Name them and describe each in one sentence.`,
         a: `Uniform precession: steady horizontal sweep of the axle at $\\Omega = \\dfrac{\\ell W}{L_s}$. Torque-free precession: wobble of a freely-spinning body at body-frame rate $\\gamma$. Nutation: cycloidal dipping plus drift of the axle when released from rest under gravity.`
       },
       {
@@ -1682,7 +1723,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
         a: `$I_s\\omega_s = L_s$ is the gyro's spin angular momentum. $\\Omega$ is the component of Earth's rotation drive perpendicular to the gyro's free axis. $I_\\perp$ is the transverse moment of inertia. So $\\beta$ is the small-angle frequency at which the gyro swings toward true north.`
       },
       {
-        q: `Why does breaking down $\\boldsymbol{\\omega}$ along arbitrary axes work when breaking down finite rotations does not?`,
+        q: `Why does breaking down $\\boldsymbol{\\omega}$ along any axes work when breaking down finite rotations does not?`,
         a: `$\\boldsymbol{\\omega}$ is a true vector built from infinitesimal rotations, which commute to first order. Vector decomposition is just adding component vectors, which respects commutativity. Finite rotations would require a non-vector representation like rotation matrices or quaternions.`
       },
       {
@@ -1695,7 +1736,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
       },
       {
         q: `Why is the Tennis Racket / Dzhanibekov effect surprising even though Euler's equations predict it directly?`,
-        a: `Daily intuition says spinning about an axis of inertial symmetry should be stable. Spinning a book about its middle axis looks like spinning about a normal axis. So the abrupt flips look chaotic. But the linearized Euler equation gives $A < 0$ for the middle axis. That predicts exactly this exponential instability.`
+        a: `Daily intuition says spinning about a symmetry axis should be stable. Spinning a book about its middle axis looks like spinning about a normal axis. So the abrupt flips look chaotic. But the linearized Euler equation gives $A < 0$ for the middle axis. That predicts exactly this exponential instability.`
       },
       {
         q: `Why does the gyroscope's precession formula $\\Omega = \\dfrac{\\ell W}{L_s}$ resemble a rate-of-change formula $\\tau = \\dfrac{dL}{dt}$?`,
@@ -1704,7 +1745,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
     ],
     reference: {
       category: 'Quick Reference',
-      title: 'Rigid Body Dynamics and Gyroscopes',
+      title: 'Rigid-Body Dynamics, Gyroscopic Motion, and the Heavy Symmetric Top',
       sections: [
         <>
           <h2>Angular Velocity & Rigid-Body Kinematics</h2>
@@ -1785,7 +1826,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Uniform precession rate (Eq. 7.2)</span>
+            <span className="ref-formula-name">Uniform precession rate</span>
             <div className="ref-formula-eq">{`$$\\Omega = \\dfrac{\\ell W}{L_s} = \\dfrac{\\ell W}{I_s\\omega_s}$$`}</div>
             <p className="ref-formula-desc">
               When to use: gyroscope undergoing uniform precession with no nutation. Independent of
@@ -1840,7 +1881,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <h2>Tensor of Inertia</h2>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">L from triple cross (Eq. 7.7)</span>
+            <span className="ref-formula-name">L from triple cross</span>
             <div className="ref-formula-eq">{`$$\\mathbf{L} = \\sum_j m_j\\,\\mathbf{r}_j\\times(\\boldsymbol{\\omega}\\times\\mathbf{r}_j)$$`}</div>
             <p className="ref-formula-desc">
               When to use: starting point for deriving the tensor of inertia from rigid-body
@@ -1849,7 +1890,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Moments of inertia (Eq. 7.12)</span>
+            <span className="ref-formula-name">Moments of inertia</span>
             <div className="ref-formula-eq">{`$$I_{xx} = \\sum m(y^2+z^2),\\;I_{yy} = \\sum m(x^2+z^2),\\;I_{zz} = \\sum m(x^2+y^2)$$`}</div>
             <p className="ref-formula-desc">
               When to use: diagonal entries of the tensor of inertia about an origin. Always
@@ -1858,7 +1899,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Products of inertia (Eq. 7.12)</span>
+            <span className="ref-formula-name">Products of inertia</span>
             <div className="ref-formula-eq">{`$$I_{xy} = -\\sum m\\,xy,\\;I_{xz} = -\\sum m\\,xz,\\;I_{yz} = -\\sum m\\,yz$$`}</div>
             <p className="ref-formula-desc">
               When to use: off-diagonal entries of the tensor. The minus sign is built into the
@@ -1867,7 +1908,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Tensor relation (Eq. 7.13a)</span>
+            <span className="ref-formula-name">Tensor relation</span>
             <div className="ref-formula-eq">{`$$L_x = I_{xx}\\omega_x + I_{xy}\\omega_y + I_{xz}\\omega_z$$`}</div>
             <p className="ref-formula-desc">
               When to use: x-component of L for a rigid body in any frame. Cyclic for y and z.
@@ -1875,16 +1916,16 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Compact tensor form (Eq. 7.14)</span>
+            <span className="ref-formula-name">Compact tensor form</span>
             <div className="ref-formula-eq">{`$$\\mathbf{L} = \\overleftrightarrow{I}\\,\\boldsymbol{\\omega}$$`}</div>
             <p className="ref-formula-desc">
               When to use: any rigid-body rotation. The tensor is symmetric and positive
-              semi-definite.
+              semi-definite (rotational kinetic energy is never negative).
             </p>
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Full 3x3 matrix display (Eq. 7.15)</span>
+            <span className="ref-formula-name">Full 3x3 matrix display</span>
             <div className="ref-formula-eq">{`$$\\overleftrightarrow{I} = \\begin{pmatrix}I_{xx} & I_{xy} & I_{xz}\\\\I_{yx} & I_{yy} & I_{yz}\\\\I_{zx} & I_{zy} & I_{zz}\\end{pmatrix}$$`}</div>
             <p className="ref-formula-desc">
               When to use: explicit matrix form for computations. Symmetric, so six independent
@@ -1895,7 +1936,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <h2>Principal Axes & Rotational Kinetic Energy</h2>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Diagonal tensor (Eq. 7.16)</span>
+            <span className="ref-formula-name">Diagonal tensor</span>
             <div className="ref-formula-eq">{`$$\\overleftrightarrow{I} = \\begin{pmatrix}I_1 & 0 & 0\\\\0 & I_2 & 0\\\\0 & 0 & I_3\\end{pmatrix}$$`}</div>
             <p className="ref-formula-desc">
               When to use: principal-axis frame; the tensor is diagonal with three principal
@@ -1904,7 +1945,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Principal-axis components (Eq. 7.17)</span>
+            <span className="ref-formula-name">Principal-axis components</span>
             <div className="ref-formula-eq">{`$$L_1 = I_1\\omega_1,\\;L_2 = I_2\\omega_2,\\;L_3 = I_3\\omega_3$$`}</div>
             <p className="ref-formula-desc">
               When to use: components of L in the principal-axis frame. No cross-coupling.
@@ -1912,7 +1953,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Rotational KE: dot-product form (Eq. 7.18)</span>
+            <span className="ref-formula-name">Rotational KE: dot-product form</span>
             <div className="ref-formula-eq">{`$$K_\\text{rot} = \\tfrac{1}{2}\\,\\boldsymbol{\\omega}\\cdot\\mathbf{L}$$`}</div>
             <p className="ref-formula-desc">
               When to use: any rigid body, any frame. Most general expression for rotational kinetic
@@ -1921,7 +1962,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Rotational KE: principal-axis form (Eq. 7.19)</span>
+            <span className="ref-formula-name">Rotational KE: principal-axis form</span>
             <div className="ref-formula-eq">{`$$K_\\text{rot} = \\tfrac{1}{2}(I_1\\omega_1^2 + I_2\\omega_2^2 + I_3\\omega_3^2)$$`}</div>
             <p className="ref-formula-desc">
               When to use: principal-axis frame. Three independent quadratic contributions.
@@ -1929,7 +1970,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Rotational KE: single-axis form (Eq. 7.20)</span>
+            <span className="ref-formula-name">Rotational KE: single-axis form</span>
             <div className="ref-formula-eq">{`$$K_\\text{rot} = \\dfrac{L^2}{2I}$$`}</div>
             <p className="ref-formula-desc">
               When to use: rotation about a single principal axis. Useful for energy minimization at
@@ -1940,7 +1981,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           <h2>Generalized Parallel Axis Theorem</h2>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Diagonal shift (Eq. 7.21)</span>
+            <span className="ref-formula-name">Diagonal shift</span>
             <div className="ref-formula-eq">{`$$I_{xx} = (I_0)_{xx} + M(Y^2+Z^2)$$`}</div>
             <p className="ref-formula-desc">{`When to use: shift the moment of inertia from the center of mass to a new origin offset by $(X, Y, Z)$. Cyclic for y and z.`}</p>
           </div>
@@ -1965,7 +2006,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Apparent earth-frame rate (Eq. 7.31)</span>
+            <span className="ref-formula-name">Apparent earth-frame rate</span>
             <div className="ref-formula-eq">{`$$\\gamma' = \\omega_s\\dfrac{I_s - I_\\perp}{I_\\perp}$$`}</div>
             <p className="ref-formula-desc">
               When to use: lab-frame wobble rate when observer rotates with the body. Apply to
@@ -1994,7 +2035,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Stability coefficient (Example 7.16)</span>
+            <span className="ref-formula-name">Stability coefficient</span>
             <div className="ref-formula-eq">{`$$A = \\dfrac{(I_1 - I_3)(I_2 - I_1)\\omega_1^2}{I_2 I_3}$$`}</div>
             <p className="ref-formula-desc">
               When to use: linearized Euler equations; A positive means stable rotation about axis
@@ -2018,7 +2059,7 @@ export default function RigidBodyDynamicsAndGyroscopes() {
           </div>
 
           <div className="ref-formula">
-            <span className="ref-formula-name">Rotating rod pendulum equation (Example 7.17)</span>
+            <span className="ref-formula-name">Rotating rod pendulum equation</span>
             <div className="ref-formula-eq">{`$$2\\ddot\\theta + \\dfrac{I_3 - I_2}{I_1}\\Omega^2\\sin 2\\theta = 0$$`}</div>
             <p className="ref-formula-desc">{`When to use: a rod tied at one end of a horizontal arm rotating at $\\Omega$, free to swing about the vertical. Pendulum equation in $2\\theta$.`}</p>
           </div>

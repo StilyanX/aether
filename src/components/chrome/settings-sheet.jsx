@@ -8,8 +8,8 @@ import {
   resetProfiles,
   switchProfile
 } from '../../hooks/use-settings'
-import { useTheme } from '../../hooks/use-theme'
-import { getAllCards, getAllMeta, deleteDatabase } from '../../lib/idb-store'
+import { useTheme, resetTheme } from '../../hooks/use-theme'
+import { getAllCards, getAllMeta, deleteDatabase, saveCards, saveMeta } from '../../lib/idb-store'
 import { useSessionsList } from '../../hooks/use-sessions'
 import {
   getCurrentId,
@@ -23,11 +23,15 @@ import {
   effectiveCombo,
   comboTokens,
   eventToCombo,
-  findConflicts
+  findConflicts,
+  MODIFIER_EVENT_KEYS,
+  COMBO_SEPARATORS
 } from '../../lib/keybinds'
 import './settings-sheet.css'
+import { FONT_CONTROL, FONT_SMALL } from '../viz/scale-tokens'
 
 const FONT_DATA_KEY = 'aether-custom-font'
+const LAST_BACKUP_KEY = 'aether-last-backup'
 
 function formatBytes(n) {
   if (n < 1024) return `${n} B`
@@ -41,9 +45,9 @@ const THEMES = [
   {
     id: 'dark',
     name: 'Dark',
-    sub: 'Canonical',
+    sub: 'High contrast',
     short: 'DK',
-    swatch: { bg: '#18181b', fg: '#e0e0e4', accent: '#e6e6e8' }
+    swatch: { bg: '#000000', fg: '#fafafc', accent: '#fafafc' }
   },
   {
     id: 'light',
@@ -58,13 +62,6 @@ const THEMES = [
     sub: 'Long-form',
     short: 'SP',
     swatch: { bg: '#f4ecd8', fg: '#3b2f1e', accent: '#3b2f1e' }
-  },
-  {
-    id: 'high-contrast',
-    name: 'High contrast',
-    sub: 'WCAG AAA',
-    short: 'HC',
-    swatch: { bg: '#000000', fg: '#ffffff', accent: '#ffffff' }
   }
 ]
 
@@ -147,10 +144,12 @@ const MANAGED_KEYS = [
   'accentInsights',
   'gridOverlay',
   'showEmptyDomains',
+  'defaultTopicOrder',
   'topbarShowSearch',
   'topbarShowFocusMode',
   'topbarShowShortcuts',
   'topbarShowDownload',
+  'topbarShowCopy',
   'topbarShowSettings',
   'topbarShowHints',
   'contentWidth',
@@ -159,17 +158,27 @@ const MANAGED_KEYS = [
   'letterSpacing',
   'wordSpacing',
   'paragraphSpacing',
+  'readingProgress',
   'fontFamilyCustom',
   'rulerOnHover',
   'dyslexiaTint',
   'justify',
   'difficulty',
+  'desiredRetention',
+  'maxInterval',
   'spacedRepetition',
   'interleave',
   'showHints',
   'checkUnderstanding',
+  'searchWeb',
+  'autoAdvance',
+  'autoAdvanceDelay',
+  'showReviewTimer',
   'formulaRender',
   'codeTheme',
+  'mathSpeechStyle',
+  'newCardsPerDay',
+  'maxReviewsPerDay',
   'pomodoro',
   'pomodoroWork',
   'pomodoroBreak',
@@ -185,6 +194,12 @@ const MANAGED_KEYS = [
   'quietTo',
   'keymap',
   'vimMode',
+  'keybinds',
+  'learnAheadMinutes',
+  'dayStartsAt',
+  'sessionTimeLimit',
+  'backupReminder',
+  'backupReminderDays',
   'timeFormat',
   'displayName',
   'handle',
@@ -193,6 +208,100 @@ const MANAGED_KEYS = [
   'profiles',
   'activeProfileId'
 ]
+
+// Per-tab partition of MANAGED_KEYS, used for the section-scoped RESET SECTION
+// control (whole-panel RESTORE DEFAULTS is too blunt an undo for a single mistake).
+const TAB_KEYS = {
+  appearance: [
+    'fontFamily',
+    'fontFamilyCustom',
+    'reducedMotion',
+    'density',
+    'textScale',
+    'accent',
+    'accentColor',
+    'accentSidebar',
+    'accentProgress',
+    'accentTopbar',
+    'accentPageNav',
+    'accentEquations',
+    'accentAlgorithms',
+    'accentHeadings',
+    'accentDividers',
+    'accentInsights',
+    'gridOverlay',
+    'showEmptyDomains',
+    'defaultTopicOrder',
+    'topbarShowSearch',
+    'topbarShowFocusMode',
+    'topbarShowShortcuts',
+    'topbarShowDownload',
+    'topbarShowCopy',
+    'topbarShowSettings',
+    'topbarShowHints'
+  ],
+  reading: [
+    'contentWidth',
+    'contentWidthCustom',
+    'lineHeight',
+    'letterSpacing',
+    'wordSpacing',
+    'paragraphSpacing',
+    'rulerOnHover',
+    'dyslexiaTint',
+    'justify',
+    'readingProgress'
+  ],
+  learning: [
+    'difficulty',
+    'desiredRetention',
+    'maxInterval',
+    'learnAheadMinutes',
+    'dayStartsAt',
+    'sessionTimeLimit',
+    'spacedRepetition',
+    'interleave',
+    'showHints',
+    'checkUnderstanding',
+    'searchWeb',
+    'autoAdvance',
+    'autoAdvanceDelay',
+    'showReviewTimer',
+    'formulaRender',
+    'codeTheme',
+    'mathSpeechStyle',
+    'newCardsPerDay',
+    'maxReviewsPerDay',
+    'pomodoro',
+    'pomodoroWork',
+    'pomodoroBreak',
+    'pomodoroLongBreak',
+    'pomodoroLongBreakInterval',
+    'pomodoroAutoBreak',
+    'pomodoroAutoWork'
+  ],
+  notif: ['notifDesktop', 'studyReminder', 'reminderTime', 'quietHours', 'quietFrom', 'quietTo'],
+  keyboard: ['keymap', 'vimMode', 'keybinds'],
+  data: ['backupReminder', 'backupReminderDays']
+}
+
+// Search corpus per tab, kept in sync with each pane's own `matches('...')` keyword
+// strings below. Lets the search box find settings that live on a tab the user
+// isn't currently looking at, instead of silently returning nothing.
+const TAB_SEARCH_INDEX = {
+  appearance:
+    'theme palette system dark light sepia high contrast accent color swatch stone orbital mint amber coral violet custom sidebar progress bars navigation equations proofs algorithms definitions headings dividers labels insights typeface font ddin opendyslexic dyslexic drop motion transitions density spacing text scale size chrome grid overlay empty domains default topic order curriculum alphabetical topbar action icons shortcuts hints pomodoro download copy markdown focus mode',
+  reading:
+    'measure width reading line height leading letter tracking spacing word spacing paragraph spacing reading aids progress scroll ruler hover dyslexia tint justify',
+  learning:
+    'difficulty pace retention interval learn ahead limit day starts rollover session time limit pedagogy practice timer auto advance review search web hints understanding formula render math code speech katex mathml ascii mono syntax contrast clearspeak mathspeak card limits new reviews daily pomodoro timer focus break interval auto',
+  notif: 'channels desktop notifications study reminder time quiet hours',
+  keyboard: 'keymap vim shortcuts keys rebind',
+  privacy: 'cookies sessions sign out devices data collection telemetry analytics',
+  account: 'profile name handle avatar hue color image add remove delete',
+  data: 'export settings progress import json clear cache storage quota backup reminder',
+  about: 'version build engine typefaces host license feedback bug report'
+}
 
 // PRIMITIVES
 
@@ -252,7 +361,39 @@ function Segmented({ items, value, getId, getLabel, getSub, onChange, compact })
   )
 }
 
-function SegmentedCustom({
+// Full-block single-select list (dot marker + name + optional sub), reusing the
+// same .stg-radio pattern MotionControl/Difficulty already use. Reserved for
+// short enumerated choices that don't need a visual preview - see the
+// card-grid (.stg-theme/.stg-density-card) vs radio-row split in the design notes.
+function RadioGroup({ items, value, getId, getLabel, getSub, onChange }) {
+  return (
+    <div className="stg-radio">
+      {items.map(it => {
+        const id = getId(it)
+        return (
+          <button
+            key={id}
+            type="button"
+            className={`stg-radio-row ${value === id ? 'active' : ''}`}
+            onClick={() => onChange(id)}
+          >
+            <span className="stg-radio-mark" aria-hidden="true">
+              <span className="stg-radio-dot" />
+            </span>
+            <div className="stg-radio-text">
+              <span className="stg-radio-name">{getLabel(it)}</span>
+              {getSub && <span className="stg-radio-sub">{getSub(it)}</span>}
+            </div>
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
+// Full-block radio rows with a "Custom" escape hatch (free-text/number input)
+// for single-select choices that also need a free-value override, e.g. Measure, Line height.
+function RadioGroupCustom({
   items,
   value,
   getId,
@@ -295,30 +436,41 @@ function SegmentedCustom({
 
   return (
     <>
-      <div className="stg-seg">
+      <div className="stg-radio">
         {items.map(it => {
           const id = getId(it)
+          const on = String(value) === String(id) && !customOpen
           return (
             <button
               key={id}
               type="button"
-              className={`stg-seg-btn ${String(value) === String(id) && !customOpen ? 'on' : ''}`}
+              className={`stg-radio-row ${on ? 'active' : ''}`}
               onClick={() => {
                 setCustomOpen(false)
                 onChange(id)
               }}
             >
-              <span className="stg-seg-l">{getLabel(it)}</span>
-              {getSub && <span className="stg-seg-s">{getSub(it)}</span>}
+              <span className="stg-radio-mark" aria-hidden="true">
+                <span className="stg-radio-dot" />
+              </span>
+              <div className="stg-radio-text">
+                <span className="stg-radio-name">{getLabel(it)}</span>
+                {getSub && <span className="stg-radio-sub">{getSub(it)}</span>}
+              </div>
             </button>
           )
         })}
         <button
           type="button"
-          className={`stg-seg-btn ${!isPreset || customOpen ? 'on' : ''}`}
+          className={`stg-radio-row ${!isPreset || customOpen ? 'active' : ''}`}
           onClick={openCustom}
         >
-          <span className="stg-seg-l">Custom</span>
+          <span className="stg-radio-mark" aria-hidden="true">
+            <span className="stg-radio-dot" />
+          </span>
+          <div className="stg-radio-text">
+            <span className="stg-radio-name">Custom</span>
+          </div>
         </button>
       </div>
       {(!isPreset || customOpen) && (
@@ -415,8 +567,16 @@ export function ProfileBadge() {
   const settings = useSettings()
   const [open, setOpen] = useState(false)
   const wrapRef = useRef(null)
+  const triggerRef = useRef(null)
+  const itemRefs = useRef([])
+  const focusedItemRef = useRef(0)
   const initial = (settings.displayName || ' ').slice(0, 1).toUpperCase()
   const profiles = settings.profiles || []
+
+  const closeAndReturnFocus = () => {
+    setOpen(false)
+    triggerRef.current?.focus()
+  }
 
   useEffect(() => {
     if (!open) return
@@ -424,36 +584,76 @@ export function ProfileBadge() {
       if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false)
     }
     const onKey = e => {
-      if (e.key === 'Escape') setOpen(false)
+      if (e.key === 'Escape') closeAndReturnFocus()
+    }
+    const onFocusIn = e => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false)
     }
     document.addEventListener('mousedown', onDocClick)
     document.addEventListener('keydown', onKey)
+    document.addEventListener('focusin', onFocusIn)
     return () => {
       document.removeEventListener('mousedown', onDocClick)
       document.removeEventListener('keydown', onKey)
+      document.removeEventListener('focusin', onFocusIn)
     }
   }, [open])
 
+  // Focus the first menuitem when the menu opens (APG Menu Button pattern).
+  useEffect(() => {
+    if (!open) return
+    focusedItemRef.current = 0
+    itemRefs.current[0]?.focus()
+  }, [open])
+
+  // ArrowDown/ArrowUp roving focus among menuitems, wrapping - same modulo
+  // pattern as use-sidebar-keyboard.js's focusIndex.
+  const focusItem = i => {
+    const items = itemRefs.current
+    if (items.length === 0) return
+    const clamped = ((i % items.length) + items.length) % items.length
+    focusedItemRef.current = clamped
+    items[clamped]?.focus()
+  }
+  const onMenuKeyDown = e => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      focusItem(focusedItemRef.current + 1)
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      focusItem(focusedItemRef.current - 1)
+    } else if (e.key === 'Home') {
+      e.preventDefault()
+      focusItem(0)
+    } else if (e.key === 'End') {
+      e.preventDefault()
+      focusItem(itemRefs.current.length - 1)
+    }
+  }
+
   const handleSwitch = id => {
     switchProfile(id)
-    setOpen(false)
+    closeAndReturnFocus()
   }
   const handleAdd = () => {
     window.dispatchEvent(
       new CustomEvent('aether:toggle-settings', { detail: { tab: 'account' } })
     )
-    setOpen(false)
+    closeAndReturnFocus()
   }
+
+  itemRefs.current = []
 
   return (
     <div className="stg-profile-wrap" ref={wrapRef}>
       <button
         type="button"
+        ref={triggerRef}
         className="stg-profile-badge"
         onClick={() => setOpen(o => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label={`Profile: ${settings.displayName} (${settings.handle}) - switch profile`}
+        aria-label={`Profile: ${settings.displayName} (${settings.handle}), switch profile`}
         style={{
           backgroundColor: settings.avatarColor,
           backgroundImage: settings.avatarImage ? `url(${settings.avatarImage})` : undefined,
@@ -464,8 +664,13 @@ export function ProfileBadge() {
         {!settings.avatarImage && <span>{initial}</span>}
       </button>
       {open && (
-        <div className="stg-profile-menu" role="menu">
-          {profiles.map(p => {
+        <div
+          className="stg-profile-menu"
+          role="menu"
+          aria-label="Switch profile"
+          onKeyDown={onMenuKeyDown}
+        >
+          {profiles.map((p, idx) => {
             const isActive = p.id === settings.activeProfileId
             const init = (p.displayName || ' ').slice(0, 1).toUpperCase()
             return (
@@ -473,6 +678,8 @@ export function ProfileBadge() {
                 key={p.id}
                 type="button"
                 role="menuitem"
+                ref={el => (itemRefs.current[idx] = el)}
+                tabIndex={-1}
                 className={`stg-profile-menu-item${isActive ? ' active' : ''}`}
                 onClick={() => handleSwitch(p.id)}
                 aria-current={isActive ? 'true' : undefined}
@@ -503,7 +710,9 @@ export function ProfileBadge() {
           <button
             type="button"
             role="menuitem"
+            ref={el => (itemRefs.current[profiles.length] = el)}
             className="stg-profile-menu-add"
+            tabIndex={-1}
             onClick={handleAdd}
           >
             <span className="stg-profile-menu-plus" aria-hidden="true">
@@ -519,7 +728,12 @@ export function ProfileBadge() {
 
 export function SettingsDial({ onOpen }) {
   return (
-    <button type="button" className="stg-dial" onClick={onOpen} aria-label="Open settings (Cmd+,)">
+    <button
+      type="button"
+      className="stg-dial"
+      onClick={onOpen}
+      aria-label="Open settings (tap Control)"
+    >
       <svg
         viewBox="0 0 24 24"
         width="20"
@@ -720,7 +934,7 @@ function TextScale({ value, onChange }) {
           onClick={() => onChange(value - 5)}
           aria-label="Decrease text size"
         >
-          <span className="stg-scale-a" style={{ fontSize: 10 }}>
+          <span className="stg-scale-a" style={{ fontSize: FONT_SMALL }}>
             A
           </span>
           <span className="stg-scale-sign">−</span>
@@ -758,7 +972,7 @@ function TextScale({ value, onChange }) {
           onClick={() => onChange(value + 5)}
           aria-label="Increase text size"
         >
-          <span className="stg-scale-a" style={{ fontSize: 14 }}>
+          <span className="stg-scale-a" style={{ fontSize: FONT_CONTROL }}>
             A
           </span>
           <span className="stg-scale-sign">+</span>
@@ -891,22 +1105,60 @@ function ColorPicker({ value, onChange, onClose }) {
         ref={sqRef}
         className="stg-cpick-sq"
         style={{ '--ch': h }}
+        tabIndex={0}
+        role="slider"
+        aria-label="Saturation and brightness"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={sv.v}
         onPointerDown={e => {
           e.currentTarget.setPointerCapture(e.pointerId)
           pickSq(e)
         }}
         onPointerMove={e => e.buttons && pickSq(e)}
+        onKeyDown={e => {
+          const step = e.shiftKey ? 10 : 2
+          if (e.key === 'ArrowRight') {
+            e.preventDefault()
+            commit(h, Math.min(100, sv.s + step), sv.v)
+          } else if (e.key === 'ArrowLeft') {
+            e.preventDefault()
+            commit(h, Math.max(0, sv.s - step), sv.v)
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault()
+            commit(h, sv.s, Math.min(100, sv.v + step))
+          } else if (e.key === 'ArrowDown') {
+            e.preventDefault()
+            commit(h, sv.s, Math.max(0, sv.v - step))
+          }
+        }}
       >
         <div className="stg-cpick-dot" style={{ left: `${sv.s}%`, top: `${100 - sv.v}%` }} />
       </div>
       <div
         ref={hueRef}
         className="stg-cpick-hue"
+        tabIndex={0}
+        role="slider"
+        aria-label="Hue"
+        aria-valuemin={0}
+        aria-valuemax={360}
+        aria-valuenow={h}
         onPointerDown={e => {
           e.currentTarget.setPointerCapture(e.pointerId)
           pickHue(e)
         }}
         onPointerMove={e => e.buttons && pickHue(e)}
+        onKeyDown={e => {
+          const step = e.shiftKey ? 30 : 5
+          if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+            e.preventDefault()
+            commit((h + step) % 360, sv.s, sv.v)
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+            e.preventDefault()
+            commit((h - step + 360) % 360, sv.s, sv.v)
+          }
+        }}
       >
         <div className="stg-cpick-hue-dot" style={{ left: `${(h / 360) * 100}%` }} />
       </div>
@@ -946,9 +1198,45 @@ function ColorPicker({ value, onChange, onClose }) {
   )
 }
 
+// The mock content lines drawn inside a theme swatch preview, factored out so
+// a split (e.g. System) swatch can render it twice with two different ink colors.
+function ThemeSwatchMarks({ fg, accent }) {
+  return (
+    <>
+      <g stroke={fg} strokeOpacity="0.08" strokeWidth="0.5">
+        <line x1="0" y1="18" x2="120" y2="18" />
+        <line x1="0" y1="36" x2="120" y2="36" />
+        <line x1="0" y1="54" x2="120" y2="54" />
+        <line x1="30" y1="0" x2="30" y2="72" />
+        <line x1="60" y1="0" x2="60" y2="72" />
+        <line x1="90" y1="0" x2="90" y2="72" />
+      </g>
+      <rect x="6" y="6" width="48" height="2" fill={fg} opacity="0.85" />
+      <rect x="6" y="10" width="30" height="1" fill={fg} opacity="0.4" />
+      <rect x="6" y="24" width="108" height="1" fill={fg} opacity="0.25" />
+      <rect x="6" y="28" width="70" height="2" fill={fg} opacity="0.7" />
+      <rect x="100" y="28" width="14" height="2" fill={accent} />
+      <rect x="6" y="38" width="108" height="1" fill={fg} opacity="0.25" />
+      <rect x="6" y="42" width="60" height="2" fill={fg} opacity="0.7" />
+      <rect x="6" y="52" width="108" height="1" fill={fg} opacity="0.25" />
+      <rect x="6" y="56" width="82" height="2" fill={fg} opacity="0.7" />
+      <circle cx="112" cy="9" r="1.6" fill={accent} />
+    </>
+  )
+}
+
 // PANES
 
 function AppearancePane({ s, theme, setTheme, matches }) {
+  // Default theme is 'system' (follows the OS) but that card was removed; resolve
+  // it to the concrete theme so the matching swatch shows as active.
+  const resolvedTheme =
+    theme === 'system'
+      ? typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-color-scheme: light)').matches
+        ? 'light'
+        : 'dark'
+      : theme
   const typefaceId = typefaceFromAether(s.fontFamily)
   const motionId = motionFromAether(s.reducedMotion || 'system')
   const [showAccentAdv, setShowAccentAdv] = useState(false)
@@ -962,33 +1250,38 @@ function AppearancePane({ s, theme, setTheme, matches }) {
               <button
                 key={t.id}
                 type="button"
-                className={`stg-theme ${theme === t.id ? 'active' : ''}`}
+                className={`stg-theme ${resolvedTheme === t.id ? 'active' : ''}`}
                 onClick={() => setTheme(t.id)}
-                aria-pressed={theme === t.id}
+                aria-pressed={resolvedTheme === t.id}
               >
                 <div
                   className="stg-theme-swatch"
-                  style={{ background: t.swatch.bg, color: t.swatch.fg }}
+                  style={{
+                    background: t.swatchRight
+                      ? `linear-gradient(90deg, ${t.swatch.bg} 50%, ${t.swatchRight.bg} 50%)`
+                      : t.swatch.bg,
+                    color: t.swatch.fg
+                  }}
                 >
                   <svg viewBox="0 0 120 72" preserveAspectRatio="none" width="100%" height="100%">
-                    <g stroke={t.swatch.fg} strokeOpacity="0.08" strokeWidth="0.5">
-                      <line x1="0" y1="18" x2="120" y2="18" />
-                      <line x1="0" y1="36" x2="120" y2="36" />
-                      <line x1="0" y1="54" x2="120" y2="54" />
-                      <line x1="30" y1="0" x2="30" y2="72" />
-                      <line x1="60" y1="0" x2="60" y2="72" />
-                      <line x1="90" y1="0" x2="90" y2="72" />
-                    </g>
-                    <rect x="6" y="6" width="48" height="2" fill={t.swatch.fg} opacity="0.85" />
-                    <rect x="6" y="10" width="30" height="1" fill={t.swatch.fg} opacity="0.4" />
-                    <rect x="6" y="24" width="108" height="1" fill={t.swatch.fg} opacity="0.25" />
-                    <rect x="6" y="28" width="70" height="2" fill={t.swatch.fg} opacity="0.7" />
-                    <rect x="100" y="28" width="14" height="2" fill={t.swatch.accent} />
-                    <rect x="6" y="38" width="108" height="1" fill={t.swatch.fg} opacity="0.25" />
-                    <rect x="6" y="42" width="60" height="2" fill={t.swatch.fg} opacity="0.7" />
-                    <rect x="6" y="52" width="108" height="1" fill={t.swatch.fg} opacity="0.25" />
-                    <rect x="6" y="56" width="82" height="2" fill={t.swatch.fg} opacity="0.7" />
-                    <circle cx="112" cy="9" r="1.6" fill={t.swatch.accent} />
+                    {t.swatchRight ? (
+                      <>
+                        <clipPath id={`stg-theme-clip-l-${t.id}`}>
+                          <rect x="0" y="0" width="60" height="72" />
+                        </clipPath>
+                        <clipPath id={`stg-theme-clip-r-${t.id}`}>
+                          <rect x="60" y="0" width="60" height="72" />
+                        </clipPath>
+                        <g clipPath={`url(#stg-theme-clip-l-${t.id})`}>
+                          <ThemeSwatchMarks fg={t.swatch.fg} accent={t.swatch.accent} />
+                        </g>
+                        <g clipPath={`url(#stg-theme-clip-r-${t.id})`}>
+                          <ThemeSwatchMarks fg={t.swatchRight.fg} accent={t.swatchRight.accent} />
+                        </g>
+                      </>
+                    ) : (
+                      <ThemeSwatchMarks fg={t.swatch.fg} accent={t.swatch.accent} />
+                    )}
                   </svg>
                 </div>
                 <div className="stg-theme-meta">
@@ -1141,29 +1434,28 @@ function AppearancePane({ s, theme, setTheme, matches }) {
           sub="Default technical face, dyslexia-friendly, or drag and drop any font file."
         >
           <div className="stg-tf-grid">
-            {TYPEFACES.map(t => (
-              <button
-                key={t.id}
-                type="button"
-                className={`stg-tf ${typefaceId === t.id && s.fontFamily !== 'custom' ? 'active' : ''}`}
-                onClick={() => set('fontFamily', typefaceToAether(t.id))}
-                aria-pressed={typefaceId === t.id && s.fontFamily !== 'custom'}
-              >
-                <span className={`stg-tf-spec ${t.id === 'dyslexic' ? 'stg-tf-dys' : ''}`}>
-                  {t.spec}
-                </span>
-                <span className="stg-tf-meta">
-                  <span className="stg-tf-name">{t.name}</span>
-                  <span className="stg-tf-sub">{t.sub}</span>
-                  <span className={`stg-tf-sample ${t.id === 'dyslexic' ? 'stg-tf-dys' : ''}`}>
-                    The quick brown fox
+            {TYPEFACES.map(t => {
+              const previewClass = t.id === 'dyslexic' ? 'stg-tf-dys' : ''
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  className={`stg-tf ${typefaceId === t.id && s.fontFamily !== 'custom' ? 'active' : ''}`}
+                  onClick={() => set('fontFamily', typefaceToAether(t.id))}
+                  aria-pressed={typefaceId === t.id && s.fontFamily !== 'custom'}
+                >
+                  <span className={`stg-tf-spec ${previewClass}`}>{t.spec}</span>
+                  <span className="stg-tf-meta">
+                    <span className="stg-tf-name">{t.name}</span>
+                    <span className="stg-tf-sub">{t.sub}</span>
+                    <span className={`stg-tf-sample ${previewClass}`}>The quick brown fox</span>
                   </span>
-                </span>
-                <span className="stg-tf-check" aria-hidden="true">
-                  <span />
-                </span>
-              </button>
-            ))}
+                  <span className="stg-tf-check" aria-hidden="true">
+                    <span />
+                  </span>
+                </button>
+              )
+            })}
           </div>
           <FontDropZone
             fontName={s.fontFamily === 'custom' ? s.fontFamilyCustom || '' : ''}
@@ -1224,17 +1516,27 @@ function AppearancePane({ s, theme, setTheme, matches }) {
             value={s.showEmptyDomains}
             onChange={v => set('showEmptyDomains', v)}
           />
+          <span className="stg-adv-cat">Default topic order</span>
+          <RadioGroup
+            items={[
+              {
+                id: 'curriculum',
+                name: 'Curriculum',
+                sub: 'The order each course teaches them in.'
+              },
+              { id: 'alphabetical', name: 'Alphabetical', sub: 'A to Z within each subject.' }
+            ]}
+            value={s.defaultTopicOrder || 'curriculum'}
+            getId={x => x.id}
+            getLabel={x => x.name}
+            getSub={x => x.sub}
+            onChange={v => set('defaultTopicOrder', v)}
+          />
         </Group>
       )}
 
-      {matches('topbar action icons shortcuts hints pomodoro') && (
+      {matches('topbar action icons shortcuts hints') && (
         <Group label="08" title="Topbar" sub="Trim the action cluster on learning pages.">
-          <ToggleRow
-            name="Pomodoro"
-            sub="Hourglass icon for the Pomodoro timer."
-            value={s.pomodoro}
-            onChange={v => set('pomodoro', v)}
-          />
           <ToggleRow
             name="Search"
             sub="Magnifier icon that opens command palette."
@@ -1292,7 +1594,7 @@ function ReadingPane({ s, matches }) {
           title="Measure"
           sub="Characters per line. Keep between 45–80 for comfortable reading."
         >
-          <SegmentedCustom
+          <RadioGroupCustom
             items={READ_WIDTHS}
             value={
               s.contentWidth === 'custom' ? s.contentWidthCustom || '' : s.contentWidth || 'medium'
@@ -1319,7 +1621,7 @@ function ReadingPane({ s, matches }) {
           title="Line height"
           sub="Leading. Tighter for scanning; looser for long-form."
         >
-          <SegmentedCustom
+          <RadioGroupCustom
             items={LINE_HEIGHTS}
             value={s.lineHeight || 1.625}
             getId={x => x.id}
@@ -1415,7 +1717,8 @@ function ReadingPane({ s, matches }) {
   )
 }
 
-function LearningPane({ s, matches }) {
+function LearningPane({ s, matches, hasQuery }) {
+  const [showAdv, setShowAdv] = useState(false)
   return (
     <div className="stg-pane">
       {matches('difficulty pace retention interval') && (
@@ -1471,9 +1774,45 @@ function LearningPane({ s, matches }) {
               }}
             />
           </LabelRow>
+          <LabelRow label="Learn-ahead limit">
+            <input
+              type="number"
+              className="stg-input"
+              min={0}
+              step={5}
+              placeholder="0"
+              value={s.learnAheadMinutes}
+              onChange={e => {
+                const v = parseInt(e.target.value, 10)
+                if (!isNaN(v)) set('learnAheadMinutes', Math.max(0, v))
+              }}
+            />
+          </LabelRow>
+          <LabelRow label="Day starts at">
+            <input
+              type="time"
+              className="stg-time"
+              value={s.dayStartsAt}
+              onChange={e => set('dayStartsAt', e.target.value)}
+            />
+          </LabelRow>
+          <LabelRow label="Session time limit">
+            <input
+              type="number"
+              className="stg-input"
+              min={0}
+              step={5}
+              placeholder="0"
+              value={s.sessionTimeLimit}
+              onChange={e => {
+                const v = parseInt(e.target.value, 10)
+                if (!isNaN(v)) set('sessionTimeLimit', Math.max(0, v))
+              }}
+            />
+          </LabelRow>
         </Group>
       )}
-      {matches('pedagogy practice timer auto advance review') && (
+      {matches('pedagogy practice timer auto advance review search web hints understanding') && (
         <Group label="02" title="Pedagogy" sub="How sessions are structured.">
           <ToggleRow
             name="Spaced repetition"
@@ -1536,52 +1875,66 @@ function LearningPane({ s, matches }) {
           />
         </Group>
       )}
-      {matches('formula render math code speech') && (
+      <button
+        type="button"
+        className="stg-accent-adv-toggle"
+        onClick={() => setShowAdv(v => !v)}
+        aria-expanded={showAdv}
+      >
+        <span>Advanced</span>
+        <svg
+          width="10"
+          height="10"
+          viewBox="0 0 10 10"
+          fill="none"
+          style={{
+            transform: showAdv ? 'rotate(180deg)' : 'none',
+            transition: 'transform 0.15s'
+          }}
+        >
+          <path d="M1 3l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
+      </button>
+      {(showAdv || hasQuery) && matches('formula render math code speech') && (
         <Group label="04" title="Rendering" sub="How formulas and code display.">
-          <LabelRow label="Formula engine">
-            <Segmented
-              items={[
-                { id: 'katex', name: 'KaTeX' },
-                { id: 'mathml', name: 'MathML' },
-                { id: 'ascii', name: 'ASCII' }
-              ]}
-              value={s.formulaRender}
-              getId={x => x.id}
-              getLabel={x => x.name}
-              onChange={v => set('formulaRender', v)}
-              compact
-            />
-          </LabelRow>
-          <LabelRow label="Code theme">
-            <Segmented
-              items={[
-                { id: 'mono', name: 'Mono' },
-                { id: 'syntax', name: 'Syntax' },
-                { id: 'contrast', name: 'Contrast' }
-              ]}
-              value={s.codeTheme}
-              getId={x => x.id}
-              getLabel={x => x.name}
-              onChange={v => set('codeTheme', v)}
-              compact
-            />
-          </LabelRow>
-          <LabelRow label="Math speech">
-            <Segmented
-              items={[
-                { id: 'ClearSpeak', name: 'ClearSpeak' },
-                { id: 'MathSpeak', name: 'MathSpeak' }
-              ]}
-              value={s.mathSpeechStyle}
-              getId={x => x.id}
-              getLabel={x => x.name}
-              onChange={v => set('mathSpeechStyle', v)}
-              compact
-            />
-          </LabelRow>
+          <span className="stg-adv-cat">Formula engine</span>
+          <RadioGroup
+            items={[
+              { id: 'katex', name: 'KaTeX' },
+              { id: 'mathml', name: 'MathML' },
+              { id: 'ascii', name: 'ASCII' }
+            ]}
+            value={s.formulaRender}
+            getId={x => x.id}
+            getLabel={x => x.name}
+            onChange={v => set('formulaRender', v)}
+          />
+          <span className="stg-adv-cat">Code theme</span>
+          <RadioGroup
+            items={[
+              { id: 'mono', name: 'Mono' },
+              { id: 'syntax', name: 'Syntax' },
+              { id: 'contrast', name: 'Contrast' }
+            ]}
+            value={s.codeTheme}
+            getId={x => x.id}
+            getLabel={x => x.name}
+            onChange={v => set('codeTheme', v)}
+          />
+          <span className="stg-adv-cat">Math speech</span>
+          <RadioGroup
+            items={[
+              { id: 'ClearSpeak', name: 'ClearSpeak' },
+              { id: 'MathSpeak', name: 'MathSpeak' }
+            ]}
+            value={s.mathSpeechStyle}
+            getId={x => x.id}
+            getLabel={x => x.name}
+            onChange={v => set('mathSpeechStyle', v)}
+          />
         </Group>
       )}
-      {matches('card limits new reviews daily') && (
+      {(showAdv || hasQuery) && matches('card limits new reviews daily') && (
         <Group label="06" title="Card limits" sub="Max cards per day. Leave blank for unlimited.">
           <LabelRow label="New cards">
             <input
@@ -1688,9 +2041,11 @@ function LearningPane({ s, matches }) {
 }
 
 function NotifPane({ s, matches }) {
+  const notifPermission =
+    typeof window !== 'undefined' && 'Notification' in window ? Notification.permission : null
   return (
     <div className="stg-pane">
-      {matches('channels desktop') && (
+      {matches('channels desktop notifications') && (
         <Group label="01" title="Channels" sub="Where Aether may reach you.">
           <ToggleRow
             name="Desktop notifications"
@@ -1698,6 +2053,11 @@ function NotifPane({ s, matches }) {
             value={s.notifDesktop}
             onChange={v => set('notifDesktop', v)}
           />
+          {s.notifDesktop && notifPermission === 'denied' && (
+            <span className="stg-shortcut-conflict">
+              BROWSER PERMISSION DENIED · ENABLE IN YOUR BROWSER'S SITE SETTINGS
+            </span>
+          )}
         </Group>
       )}
       {matches('study reminder time') && (
@@ -1760,18 +2120,37 @@ function ShortcutRow({ action, overrides, onChange }) {
     if (editing && inputRef.current) inputRef.current.focus()
   }, [editing])
 
+  // A lone modifier is a legal bind (it fires as a tap), so it has to be
+  // recordable. It can only be recognised on release: while Ctrl is still down,
+  // "Ctrl" and "Ctrl+C" look identical. So hold the modifier as pending on
+  // keydown and only commit it if it comes back up untouched.
+  const pendingMod = useRef(null)
+
   const onCapture = e => {
     e.preventDefault()
     e.stopPropagation()
     if (e.key === 'Escape') {
+      pendingMod.current = null
       setEditing(false)
       return
     }
-    // Ignore pure modifier keys.
-    if (['Shift', 'Control', 'Meta', 'Alt'].includes(e.key)) return
+    if (MODIFIER_EVENT_KEYS[e.key]) {
+      if (!e.repeat) pendingMod.current = e.key
+      return
+    }
+    pendingMod.current = null // a real key arrived: this is a chord, not a tap
     const next = eventToCombo(e)
     if (!next) return
     onChange(action.id, next)
+    setEditing(false)
+  }
+
+  const onCaptureUp = e => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!MODIFIER_EVENT_KEYS[e.key] || pendingMod.current !== e.key) return
+    pendingMod.current = null
+    onChange(action.id, e.key)
     setEditing(false)
   }
 
@@ -1802,6 +2181,7 @@ function ShortcutRow({ action, overrides, onChange }) {
               className="stg-shortcut-capture"
               data-keybind-capture="1"
               onKeyDown={onCapture}
+              onKeyUp={onCaptureUp}
               onBlur={() => setEditing(false)}
               readOnly
               aria-label={`Press a key combination for ${action.label}`}
@@ -1815,9 +2195,9 @@ function ShortcutRow({ action, overrides, onChange }) {
             aria-label={`Rebind ${action.label}`}
           >
             {tokens.map((tok, i) =>
-              tok === 'then' ? (
+              COMBO_SEPARATORS.has(tok) ? (
                 <span key={i} className="stg-shortcut-sep">
-                  then
+                  {tok}
                 </span>
               ) : (
                 <kbd key={i}>{tok}</kbd>
@@ -1847,7 +2227,7 @@ function KeyboardPane({ s, matches }) {
     <div className="stg-pane">
       {matches('keymap vim') && (
         <Group label="01" title="Input model" sub="Choose the navigation grammar.">
-          <Segmented
+          <RadioGroup
             items={[
               { id: 'default', name: 'Default' },
               { id: 'vim', name: 'Vim-like' }
@@ -1941,6 +2321,14 @@ function PrivacyPane({ matches }) {
           >
             SIGN OUT OF THIS DEVICE
           </button>
+        </Group>
+      )}
+      {matches('data collection telemetry analytics') && (
+        <Group label="02" title="Data collection" sub="What leaves this device.">
+          <p className="stg-group-sub">
+            Aether sends no data anywhere. No analytics, no crash reporting, no telemetry.
+            Everything above lives only in this browser's local storage.
+          </p>
         </Group>
       )}
     </div>
@@ -2142,6 +2530,10 @@ function AccountPane({ s }) {
 
 function DataPane({ s }) {
   const [storage, setStorage] = useState(null)
+  const [lastBackup, setLastBackup] = useState(() => {
+    const raw = localStorage.getItem(LAST_BACKUP_KEY)
+    return raw ? Number(raw) : null
+  })
 
   const computeStorage = async () => {
     const [cards, meta] = await Promise.all([getAllCards(), getAllMeta()])
@@ -2200,6 +2592,45 @@ function DataPane({ s }) {
     a.download = `aether-progress-${new Date().toISOString().slice(0, 10)}.json`
     a.click()
     URL.revokeObjectURL(url)
+    try {
+      const now = Date.now()
+      localStorage.setItem(LAST_BACKUP_KEY, String(now))
+      setLastBackup(now)
+    } catch {}
+  }
+
+  const doImportProgress = async e => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    try {
+      const text = await file.text()
+      const parsed = JSON.parse(text)
+      if (Array.isArray(parsed.cards) && parsed.cards.length) await saveCards(parsed.cards)
+      if (Array.isArray(parsed.meta)) await Promise.all(parsed.meta.map(m => saveMeta(m)))
+      if (parsed.legacyProgress && typeof parsed.legacyProgress === 'object') {
+        Object.entries(parsed.legacyProgress).forEach(([k, v]) => {
+          if (k.startsWith('progress-')) localStorage.setItem(k, v)
+        })
+      }
+    } catch (err) {
+      console.error('progress import failed', err)
+    }
+  }
+
+  const doImport = async e => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    try {
+      const text = await file.text()
+      const parsed = JSON.parse(text, (_, v) => (v === '__Infinity__' ? Infinity : v))
+      Object.keys(parsed).forEach(k => {
+        if (Object.prototype.hasOwnProperty.call(s, k)) set(k, parsed[k])
+      })
+    } catch (err) {
+      console.error('settings import failed', err)
+    }
   }
 
   const doClear = async () => {
@@ -2247,12 +2678,42 @@ function DataPane({ s }) {
         </div>
         <div className="stg-data-row">
           <div>
+            <div className="stg-data-k">IMPORT SETTINGS</div>
+            <div className="stg-data-s">Load a previously exported settings JSON.</div>
+          </div>
+          <label className="stg-data-btn" style={{ cursor: 'pointer' }}>
+            IMPORT →
+            <input
+              type="file"
+              accept="application/json"
+              onChange={doImport}
+              style={{ display: 'none' }}
+            />
+          </label>
+        </div>
+        <div className="stg-data-row">
+          <div>
             <div className="stg-data-k">EXPORT PROGRESS</div>
             <div className="stg-data-s">FSRS reviews, streaks, course history.</div>
           </div>
           <button type="button" className="stg-data-btn" onClick={doExportProgress}>
             EXPORT →
           </button>
+        </div>
+        <div className="stg-data-row">
+          <div>
+            <div className="stg-data-k">IMPORT PROGRESS</div>
+            <div className="stg-data-s">Restore reviews from a previously exported file.</div>
+          </div>
+          <label className="stg-data-btn" style={{ cursor: 'pointer' }}>
+            IMPORT →
+            <input
+              type="file"
+              accept="application/json"
+              onChange={doImportProgress}
+              style={{ display: 'none' }}
+            />
+          </label>
         </div>
         <div className="stg-data-row danger">
           <div>
@@ -2301,6 +2762,46 @@ function DataPane({ s }) {
           )}
         </div>
       </Group>
+      <Group
+        label="03"
+        title="Backup reminder"
+        sub="A local nudge to export your progress. No automatic upload: browsers can't write files silently."
+      >
+        <ToggleRow
+          name="Remind me to back up"
+          sub={
+            lastBackup
+              ? `Last export: ${relTime(lastBackup)}.`
+              : 'No progress export on record yet.'
+          }
+          value={s.backupReminder}
+          onChange={v => set('backupReminder', v)}
+        />
+        {s.backupReminder && (
+          <LabelRow label="Every">
+            <input
+              type="number"
+              className="stg-input"
+              min={1}
+              step={1}
+              placeholder="14"
+              value={s.backupReminderDays}
+              onChange={e => {
+                const v = parseInt(e.target.value, 10)
+                if (!isNaN(v)) set('backupReminderDays', Math.max(1, v))
+              }}
+            />
+          </LabelRow>
+        )}
+        {s.backupReminder &&
+          (!lastBackup || Date.now() - lastBackup > (s.backupReminderDays || 14) * 86400000) && (
+            <span className="stg-shortcut-conflict">
+              {lastBackup
+                ? `LAST EXPORT ${relTime(lastBackup).toUpperCase()} · EXPORT A BACKUP`
+                : 'NO BACKUP ON RECORD · EXPORT PROGRESS ABOVE'}
+            </span>
+          )}
+      </Group>
     </div>
   )
 }
@@ -2310,25 +2811,10 @@ function AboutPane() {
     <div className="stg-pane">
       <Group label="01" title="System">
         <div className="stg-about">
-          <svg
-            className="stg-about-banner"
-            viewBox="0 0 480 140"
-            role="img"
-            aria-label="Aether"
-          >
-            <text
-              x="0"
-              y="115"
-              fill="#ededed"
-              fontFamily="Inter, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif"
-              fontSize="120"
-              fontWeight="700"
-              letterSpacing="2.4"
-            >
-              ÆTHER
-            </text>
-          </svg>
-          <div className="stg-about-v">Version 1.0.0 · Build 20260509</div>
+          <div className="stg-about-banner">ÆTHER</div>
+          {/* The version is the release date, so a separate build stamp would
+              repeat it. Both come from the latest commit via vite.config.js. */}
+          <div className="stg-about-v">Version {__APP_VERSION__}</div>
         </div>
         <div className="stg-credits">
           <div className="stg-credit">
@@ -2413,6 +2899,19 @@ export function SettingsSheet({ open, onClose }) {
 
   const q = query.trim().toLowerCase()
   const matches = useMemo(() => txt => !q || txt.toLowerCase().includes(q), [q])
+  const tabHasMatch = tabId => !q || (TAB_SEARCH_INDEX[tabId] || '').includes(q)
+
+  // Search is scoped to whichever tab is open. If the active tab has no match for
+  // the query, jump to the first tab that does instead of showing a dead end.
+  useEffect(() => {
+    if (q && !tabHasMatch(tab)) {
+      const next = TABS.find(t => tabHasMatch(t.id))
+      if (next) setTab(next.id)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q])
+
+  const noTabMatches = !!q && !TABS.some(t => tabHasMatch(t.id))
 
   if (!open) return null
 
@@ -2485,23 +2984,71 @@ export function SettingsSheet({ open, onClose }) {
           </nav>
 
           <div className="stg-body" key={tab}>
-            {tab === 'appearance' && (
-              <AppearancePane s={settings} theme={theme} setTheme={setTheme} matches={matches} />
-            )}
-            {tab === 'reading' && <ReadingPane s={settings} matches={matches} />}
-            {tab === 'learning' && <LearningPane s={settings} matches={matches} />}
+            {noTabMatches ? (
+              <div className="stg-pane">
+                <p className="stg-group-sub">No settings match “{query.trim()}”.</p>
+              </div>
+            ) : (
+              <>
+                {TAB_KEYS[tab] && (
+                  <button
+                    type="button"
+                    className="stg-shortcut-reset stg-section-reset"
+                    onClick={() => {
+                      const label = TABS.find(t => t.id === tab)?.label || 'this section'
+                      if (!confirm(`Reset ${label} to defaults?`)) return
+                      resetSection(TAB_KEYS[tab])
+                      // The theme picker lives in Appearance but persists outside
+                      // the settings object, so it needs its own reset.
+                      if (tab === 'appearance') {
+                        resetTheme()
+                        localStorage.removeItem(FONT_DATA_KEY)
+                      }
+                    }}
+                  >
+                    RESET SECTION
+                  </button>
+                )}
+                {tab === 'appearance' && (
+                  <AppearancePane
+                    s={settings}
+                    theme={theme}
+                    setTheme={setTheme}
+                    matches={matches}
+                  />
+                )}
+                {tab === 'reading' && <ReadingPane s={settings} matches={matches} />}
+                {tab === 'learning' && (
+                  <LearningPane s={settings} matches={matches} hasQuery={!!q} />
+                )}
 
-            {tab === 'notif' && <NotifPane s={settings} matches={matches} />}
-            {tab === 'keyboard' && <KeyboardPane s={settings} matches={matches} />}
-            {tab === 'privacy' && <PrivacyPane matches={matches} />}
-            {tab === 'account' && <AccountPane s={settings} />}
-            {tab === 'data' && <DataPane s={settings} />}
-            {tab === 'about' && <AboutPane />}
+                {tab === 'notif' && <NotifPane s={settings} matches={matches} />}
+                {tab === 'keyboard' && <KeyboardPane s={settings} matches={matches} />}
+                {tab === 'privacy' && <PrivacyPane matches={matches} />}
+                {tab === 'account' && <AccountPane s={settings} />}
+                {tab === 'data' && <DataPane s={settings} />}
+                {tab === 'about' && <AboutPane />}
+              </>
+            )}
           </div>
         </div>
 
         <footer className="stg-foot">
-          <button type="button" className="stg-reset" onClick={() => resetSection(MANAGED_KEYS)}>
+          <button
+            type="button"
+            className="stg-reset"
+            onClick={() => {
+              if (
+                confirm(
+                  'Restore ALL settings to defaults? This resets every tab, including your profile name and photo.'
+                )
+              ) {
+                resetSection(MANAGED_KEYS)
+                resetTheme() // theme + reader vars live outside the settings object
+                localStorage.removeItem(FONT_DATA_KEY)
+              }
+            }}
+          >
             <svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true">
               <path
                 d="M2,6 a4,4 0 1,0 1.5,-3"
@@ -2525,7 +3072,7 @@ export function SettingsSheet({ open, onClose }) {
             </span>
             <span>AUTO-SAVED</span>
             <span className="stg-foot-sep">·</span>
-            <span>V 1.0.0</span>
+            <span>V {__APP_VERSION__}</span>
           </div>
         </footer>
       </aside>

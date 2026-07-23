@@ -127,9 +127,93 @@ function TopicStandalone() {
   const lessonNavRef = useRef(null)
   const [contentLoaded, setContentLoaded] = useState(false)
   const [imagesLoaded, setImagesLoaded] = useState(false)
-  const [curtainDone, setCurtainDone] = useState(false)
-  const handleCurtainDone = useCallback(() => setCurtainDone(true), [])
+  // renderSettled: MathJax has typeset and the layout/viz have painted, so the
+  // page is fully rendered - not just JS-mounted - before the loader lifts.
+  const [renderSettled, setRenderSettled] = useState(false)
+  // contentReady: content becomes visible immediately when ready (no waiting for animation)
+  const [contentReady, setContentReady] = useState(false)
+  // screenDone: loading screen unmounts after its own fade animation finishes
+  const [screenDone, setScreenDone] = useState(false)
+  const handleScreenDone = useCallback(() => setScreenDone(true), [])
   const handleLoad = useCallback(() => setContentLoaded(true), [])
+  // On a content load/render error, lift the loader immediately so the
+  // ErrorBoundary's message isn't hidden behind the overlay until the failsafe.
+  const revealNow = useCallback(() => {
+    setContentLoaded(true)
+    setImagesLoaded(true)
+    setRenderSettled(true)
+  }, [])
+
+  useEffect(() => {
+    if (contentLoaded && imagesLoaded && renderSettled) setContentReady(true)
+  }, [contentLoaded, imagesLoaded, renderSettled])
+
+  // Authoritative "render settled" for template pages. LearningTemplate holds
+  // its real content behind three nested lazy chunks (learn/solve/reference)
+  // plus MathJax typesetting - all of which resolve AFTER the wrapper mounts.
+  // It fires aether:typeset-ready only once every mode chunk has mounted
+  // and MathJax has finished, so the loader can lift onto a fully-painted page
+  // instead of the blank frame the wrapper-mount heuristic used to reveal.
+  useEffect(() => {
+    const onReady = () => setRenderSettled(true)
+    window.addEventListener('aether:typeset-ready', onReady)
+    return () => window.removeEventListener('aether:typeset-ready', onReady)
+  }, [])
+
+  // After the lazy module mounts, hold the loader until the page has actually
+  // rendered: wait for MathJax to typeset the initial view, then two animation
+  // frames so viz mount and layout settle. Without this the screen lifts on
+  // JS-mount and the reader sees raw $...$ LaTeX and shifting viz for a moment.
+  useEffect(() => {
+    if (!contentLoaded) return
+    // A typeset-host template (LearningTemplate) owns readiness and emits
+    // aether:typeset-ready when all its lazy modes + MathJax have settled.
+    // Defer to that event entirely - the wrapper is mounted but the mode chunks
+    // are still resolving, so settling here would lift the loader onto a blank
+    // frame. The mount-relative failsafe below still backstops a stuck event.
+    if (containerRef.current?.querySelector('[data-typeset-host]')) return
+    let cancelled = false
+    let raf1 = 0
+    let raf2 = 0
+    let pollId = 0
+    const start = performance.now()
+    const settle = () => {
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => {
+          if (!cancelled) setRenderSettled(true)
+        })
+      })
+    }
+    const tick = () => {
+      if (cancelled) return
+      const mj = window.MathJax
+      if (mj?.typesetPromise) {
+        const container = containerRef.current
+        Promise.resolve(mj.typesetPromise(container ? [container] : undefined))
+          .catch(() => {})
+          .then(() => {
+            if (!cancelled) settle()
+          })
+        return
+      }
+      const elapsed = performance.now() - start
+      const mjLoading = document.querySelector('script[src*="mathjax"]')
+      // No MathJax in play (ascii mode / no equations) or it never booted:
+      // reveal without waiting. Hard cap keeps a stuck CDN from stalling.
+      if ((!mjLoading && elapsed > 500) || elapsed > 2500) {
+        settle()
+        return
+      }
+      pollId = setTimeout(tick, 80)
+    }
+    tick()
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(raf1)
+      cancelAnimationFrame(raf2)
+      clearTimeout(pollId)
+    }
+  }, [contentLoaded])
 
   // After JS loads, wait for all images in the container
   useEffect(() => {
@@ -169,23 +253,47 @@ function TopicStandalone() {
     }
   }, [contentLoaded])
 
-  // Lock scroll while loading overlay is visible
+  // Lock scroll while loading overlay is visible. Scroll to top FIRST so locking
+  // the body doesn't freeze it at the previous page's scroll position (this child
+  // effect runs before the app-level scrollTo(0,0)).
   useEffect(() => {
-    if (!curtainDone) {
-      document.body.style.overflow = 'hidden'
-      return () => {
-        document.body.style.overflow = ''
-      }
+    if (contentReady) {
+      window.scrollTo(0, 0) // land at the top the instant the loader lifts
+      return
     }
-  }, [curtainDone])
+    window.scrollTo(0, 0)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [contentReady])
 
-  // Failsafe: dismiss loader if content never resolves (10s)
+  // Failsafe, two tiers. The old single 10s timer forced contentLoaded even when
+  // the lazy chunk had NOT mounted yet - so a heavy page (dev-mode, large
+  // physics/math bundles) whose chunk takes >10s lifted the loader onto a blank,
+  // unmounted frame. Now:
+  //   1. Only once the chunk has MOUNTED, reveal within 15s even if typeset /
+  //      images never settle - the content is in the DOM, just not finalized.
+  //   2. Absolute last resort at 30s forces contentLoaded too, for a chunk that
+  //      never mounts AND never errors. A real load failure trips the
+  //      ErrorBoundary first (onError -> revealNow below), so this only covers a
+  //      true silent hang.
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    if (!contentLoaded) return
+    const t = setTimeout(() => {
+      setImagesLoaded(true)
+      setRenderSettled(true)
+    }, 15000)
+    return () => clearTimeout(t)
+  }, [contentLoaded])
+
+  useEffect(() => {
+    const t = setTimeout(() => {
       setContentLoaded(true)
       setImagesLoaded(true)
-    }, 10000)
-    return () => clearTimeout(timeout)
+      setRenderSettled(true)
+    }, 30000)
+    return () => clearTimeout(t)
   }, [])
 
   useEffect(() => {
@@ -283,14 +391,17 @@ function TopicStandalone() {
 
   return (
     <>
-      {!curtainDone && (
-        <LoadingScreen open={contentLoaded && imagesLoaded} onDone={handleCurtainDone} />
-      )}
+      {!screenDone && <LoadingScreen open={contentReady} onDone={handleScreenDone} />}
       <div
         ref={containerRef}
-        style={curtainDone ? undefined : { visibility: 'hidden', position: 'fixed', inset: 0 }}
+        style={contentReady ? undefined : { visibility: 'hidden', position: 'fixed', inset: 0 }}
       >
-        <ErrorBoundary level="content" resetKeys={[slug]} onReset={() => navigate(0)}>
+        <ErrorBoundary
+          level="content"
+          resetKeys={[slug]}
+          onReset={() => navigate(0)}
+          onError={revealNow}
+        >
           <Suspense fallback={null}>
             <LoadedNotifier onLoad={handleLoad} />
             <TopicMetaContext.Provider value={{ moduleNumber, unitTitle }}>

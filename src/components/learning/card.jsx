@@ -24,7 +24,7 @@ export const Card = memo(function Card({
   }
 
   // Keyboard navigation (WCAG 2.2 compliant)
-  const handleKeyDown = (e) => {
+  const handleKeyDown = e => {
     switch (e.key) {
       case 'Enter':
       case ' ':
@@ -53,11 +53,11 @@ export const Card = memo(function Card({
   }
 
   // Touch gesture: swipe up to reveal
-  const handleTouchStart = (e) => {
+  const handleTouchStart = e => {
     touchStart.current = e.touches[0].clientY
   }
 
-  const handleTouchEnd = (e) => {
+  const handleTouchEnd = e => {
     if (touchStart.current === null) return
     const diff = touchStart.current - e.changedTouches[0].clientY
 
@@ -74,9 +74,10 @@ export const Card = memo(function Card({
   }
 
   // Generate accessible question preview
-  const questionPreview = typeof item.q === 'string'
-    ? item.q.substring(0, 50) + (item.q.length > 50 ? '...' : '')
-    : `Practice question ${index + 1}`
+  const questionPreview =
+    typeof item.q === 'string'
+      ? item.q.substring(0, 50) + (item.q.length > 50 ? '...' : '')
+      : `Practice question ${index + 1}`
 
   return (
     <div
@@ -95,14 +96,18 @@ export const Card = memo(function Card({
       <span className="card-num" aria-hidden="true">{`Q${index + 1}`}</span>
       {hasBeenRevealed && (
         <svg className="card-checkmark" viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M13 4L6 11L3 8" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="M13 4L6 11L3 8"
+            stroke="currentColor"
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       )}
       <div className="card-q">{item.q}</div>
-      <div
-        className={`card-a ${visible ? 'show' : ''}`}
-        aria-hidden={!visible}
-      >
+      <div className={`card-a ${visible ? 'show' : ''}`} aria-hidden={!visible}>
         {item.a}
       </div>
     </div>

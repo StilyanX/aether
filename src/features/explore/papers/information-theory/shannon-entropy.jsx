@@ -1,4 +1,14 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import {
+  BinaryEntropyViz,
+  ShannonHartleyViz,
+  GaussianEntropyViz,
+  RateDistortionViz,
+  CommunicationSystemViz,
+  TwoStateMarkovViz,
+  ShannonFanoTreeViz,
+  BinarySymmetricChannelViz
+} from '../../../../components/viz'
 
 const config = {
   cssPrefix: 'she',
@@ -9,6 +19,7 @@ const config = {
     subtitle: 'The mathematical foundation of all modern communication systems.',
     sections: [
       <>
+        <h2>The Fundamental Problem of Communication</h2>
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
           <p>
@@ -24,8 +35,6 @@ const config = {
             </p>
           </details>
         </div>
-
-        <h2>The Fundamental Problem of Communication</h2>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">The Engineering Problem</span>
@@ -89,6 +98,32 @@ const config = {
           A noise source is also present. It corrupts the signal between transmitter and receiver.
         </p>
 
+        <CommunicationSystemViz />
+
+        <h3>What Is a Logarithm?</h3>
+
+        <p>
+          A logarithm is the reverse of raising a number to a power. Powers go one way:{' '}
+          {`$2^3 = 8$`} means "multiply three 2s together." The logarithm goes back the other way:{' '}
+          {`$\\log_2 8 = 3$`} means "how many 2s multiply to make 8?" The answer is 3.
+        </p>
+
+        <div className="lrn-callout">
+          <span className="lrn-callout-label">Reading log₂</span>
+          <p>
+            Base-2 logarithm, written {`$\\log_2 x$`}, counts how many times you double from 1 to
+            reach {`$x$`}. Double once: {`$2$`}. Double twice: {`$4$`}. Double three times: {`$8$`}.
+            So {`$\\log_2 2 = 1$`}, {`$\\log_2 4 = 2$`}, {`$\\log_2 8 = 3$`}. Doubling and{' '}
+            {`$\\log_2$`} undo each other: {`$2^{\\log_2 x} = x$`}.
+          </p>
+          <p>
+            The one rule that matters here: a logarithm turns multiplication into addition.{' '}
+            {`$\\log(m \\cdot n) = \\log m + \\log n$`}. Check it:{' '}
+            {`$\\log_2(4 \\cdot 8) = \\log_2 32 = 5$`}, and {`$\\log_2 4 + \\log_2 8 = 2 + 3 = 5$`}.
+            Same answer.
+          </p>
+        </div>
+
         <h3>Why Logarithms?</h3>
 
         <p>Shannon measured information in logarithms for three concrete reasons.</p>
@@ -142,7 +177,9 @@ const config = {
               <span>{`$$C = \\lim_{T \\to \\infty} \\frac{\\log N(T)}{T}$$`}</span>
             </div>
             <p>
-              Here {`$N(T)$`} is the number of allowed sequences of duration {`$T$`}.
+              Here {`$N(T)$`} is the number of allowed sequences of duration {`$T$`}. The symbol{' '}
+              {`$\\lim_{T \\to \\infty}$`} means the value the ratio settles toward as {`$T$`} gets
+              very large.
             </p>
           </div>
         </div>
@@ -150,15 +187,15 @@ const config = {
         <div className="lrn-predict">
           <span className="lrn-predict-label">PREDICT</span>
           <p>
-            A telegraph uses dots (1 unit), dashes (3 units), letter spaces (3 units), and word
-            spaces (6 units). Before computing, predict: will the capacity be closer to 0.1, 0.5, or
-            1.0 bits per unit time?
+            A telegraph uses dots (2 units), dashes (4 units), letter spaces (3 units), and word
+            spaces (6 units). A space never follows another space. Before computing, predict: will
+            the capacity be closer to 0.1, 0.5, or 1.0 bits per unit time?
           </p>
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              Shannon computed {`$C = 0.539$`} bits per unit time for this telegraph. The mix of
-              short and long symbols gives a capacity less than 1 but well above 0.1.
+              Solving for this telegraph gives {`$C = 0.539$`} bits per unit time. The mix of short
+              and long symbols gives a capacity less than 1 but well above 0.1.
             </p>
           </details>
         </div>
@@ -175,7 +212,10 @@ const config = {
         </div>
 
         <p>
-          This recurrence has a characteristic equation. Solving it gives the capacity directly.
+          To solve it, guess that the count grows like a power: {`$N(t) = X^t$`} for some growth
+          factor {`$X$`}. Substitute that guess into the recurrence and divide every term by{' '}
+          {`$X^t$`}. Each term {`$X^{t - t_i}$`} divided by {`$X^t$`} leaves {`$X^{-t_i}$`}. So the
+          guess works exactly when:
         </p>
 
         <div className="lrn-eq">
@@ -183,12 +223,23 @@ const config = {
         </div>
 
         <p>
-          The largest real root {`$X_0$`} gives {`$C = \\log X_0$`}.
+          This is the characteristic equation. Find its largest real root {`$X_0$`} (search for the{' '}
+          {`$X$`} that makes the left side equal 1). The largest real root {`$X_0$`} gives{' '}
+          {`$C = \\log X_0$`}.
         </p>
 
         <h3>Telegraph Example</h3>
 
-        <p>For the telegraph, the recurrence is:</p>
+        <p>
+          The telegraph has one extra rule: a space never follows another space. So the simple
+          durations-only recurrence does not apply directly. Instead, count every legal way a
+          sequence can end. A dot (2 units) or dash (4 units) can follow anything. A letter space (3
+          units) or word space (6 units) must be followed by a dot or dash, so they always come in
+          pairs: letter-space then dot is {`$3 + 2 = 5$`} units, letter-space then dash is{' '}
+          {`$3 + 4 = 7$`} units, word-space then dot is {`$6 + 2 = 8$`} units, and word-space then
+          dash is {`$6 + 4 = 10$`} units. That gives six ending blocks with durations 2, 4, 5, 7, 8,
+          and 10:
+        </p>
 
         <div className="lrn-eq">
           <span>{`$$N(t) = N(t-2) + N(t-4) + N(t-5) + N(t-7) + N(t-8) + N(t-10)$$`}</span>
@@ -226,21 +277,6 @@ const config = {
             </p>
           </details>
         </div>
-
-        <h3>Capacity via Determinant</h3>
-
-        <p>
-          For channels with multiple states and symbol durations {`$b^{(s)}_{ij}$`} for transition
-          from state {`$i$`} to state {`$j$`} via symbol {`$s$`}, the capacity solves:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$\\left| \\sum_s W^{-b^{(s)}_{ij}} - \\delta_{ij} \\right| = 0, \\quad C = \\log W$$`}</span>
-        </div>
-
-        <p>
-          Here {`$\\delta_{ij}$`} is 1 when {`$i = j$`} and 0 otherwise.
-        </p>
       </>,
 
       <>
@@ -282,15 +318,41 @@ const config = {
         <h3>Digram Probabilities</h3>
 
         <p>
-          For a stationary Markov process with states {`$i$`} and transition probabilities{' '}
-          {`$p_i(j)$`}:
+          "Stationary" means the symbol statistics do not drift over time. Three probabilities show
+          up. Each says something different:
         </p>
+
+        <ul className="lrn-list">
+          <li>
+            {`$p_i(j)$`} is the transition probability: the chance the next symbol is {`$j$`} when
+            you are in state {`$i$`}.
+          </li>
+          <li>
+            {`$p(i, j)$`} is the joint probability: the chance of seeing the pair {`$i$`} then{' '}
+            {`$j$`}.
+          </li>
+          <li>
+            {`$p(i)$`} is the marginal probability: the chance of being in state {`$i$`} at all,
+            ignoring what comes next.
+          </li>
+        </ul>
+
+        <p>These three connect in plain ways:</p>
 
         <div className="lrn-eq">
           <span>{`$$p(i) = \\sum_j p(i, j), \\quad p(i, j) = p(i) \\, p_i(j), \\quad \\sum_{i,j} p(i,j) = 1$$`}</span>
         </div>
 
-        <p>The equilibrium condition for a stationary Markov process is:</p>
+        <p>
+          The first adds the pairs over every next symbol to recover {`$p(i)$`}. The second splits a
+          pair into "land in {`$i$`}, then move to {`$j$`}." The third says all pairs add to one.
+        </p>
+
+        <p>
+          The long-run, or stationary, probability of state {`$i$`} is written {`$P_i$`} with a
+          capital P. It is the fraction of time the source spends in state {`$i$`} after running a
+          long while. At equilibrium it obeys:
+        </p>
 
         <div className="lrn-eq">
           <span>{`$$P_j = \\sum_i P_i \\, p_i(j)$$`}</span>
@@ -298,7 +360,7 @@ const config = {
 
         <h3>N-gram Approximations to English</h3>
 
-        <p>Shannon gave six levels of approximation to natural English text.</p>
+        <p>There are six natural levels of approximation to English text.</p>
 
         <div className="lrn-steps">
           <div className="lrn-step">
@@ -390,6 +452,8 @@ const config = {
           distribution and the digram probabilities step by step.
         </p>
 
+        <TwoStateMarkovViz />
+
         <div className="lrn-steps">
           <div className="lrn-step">
             <span className="lrn-step-title">Step 1: Stationary equations</span>
@@ -468,10 +532,28 @@ const config = {
               <span>{`$$H = -K \\sum_{i=1}^{n} p_i \\log p_i$$`}</span>
             </div>
             <p>
+              The sign {`$\\sum_{i=1}^{n}$`} means "add up over all the outcomes." You compute the
+              term {`$p_i \\log p_i$`} for each outcome {`$i$`}, from the first to the last, and add
+              them. The {`$i$`} is just a counter that walks through every outcome.
+            </p>
+            <p>
               {`$K$`} is a positive constant that sets the unit. With base-2 logarithms and{' '}
               {`$K = 1$`}, entropy is measured in bits.
             </p>
           </div>
+        </div>
+
+        <div className="lrn-callout">
+          <span className="lrn-callout-label">Entropy Is a Weighted Average</span>
+          <p>
+            Each outcome carries a surprise of {`$\\log_2 \\tfrac{1}{p_i}$`} bits: rare outcomes
+            surprise you more. Entropy is the weighted average of that surprise.
+          </p>
+          <p>
+            A weighted average multiplies each value by how often it happens, then adds. So entropy
+            weights each outcome's surprise by its own probability {`$p_i$`}. Common outcomes pull
+            the average toward their small surprise. That is why a lopsided source has low entropy.
+          </p>
         </div>
 
         <p>
@@ -520,21 +602,126 @@ const config = {
           <div className="lrn-step">
             <span className="lrn-step-title">Weighted decomposition</span>
             <p className="lrn-step-content">
-              Breaking a single choice into two successive choices gives the same total uncertainty.
-              The tree diagram:{' '}
-              {`$H(\\tfrac{1}{2}, \\tfrac{1}{3}, \\tfrac{1}{6}) = H(\\tfrac{1}{2}, \\tfrac{1}{2}) + \\tfrac{1}{2} H(\\tfrac{2}{3}, \\tfrac{1}{3})$`}
-              .
+              You can split one choice into two steps and the total uncertainty must not change. The
+              order you ask the questions in cannot change how much you learn.
             </p>
           </div>
+        </div>
+
+        <div className="lrn-callout">
+          <span className="lrn-callout-label">Walking the Decomposition Axiom</span>
+          <p>
+            Pick one of three outcomes with probabilities{' '}
+            {`$\\tfrac{1}{2}, \\tfrac{1}{3},
+            \\tfrac{1}{6}$`}
+            . You can make this pick in two steps instead of one.
+          </p>
+          <p>
+            Step one: flip a fair coin. Heads (probability {`$\\tfrac{1}{2}$`}) means the first
+            outcome, and you stop. Tails (probability {`$\\tfrac{1}{2}$`}) means you go to step two.
+          </p>
+          <p>
+            Step two only happens on tails. There you choose between the last two outcomes. Their
+            shares were {`$\\tfrac{1}{3}$`} and {`$\\tfrac{1}{6}$`}, which together make
+            {`$\\tfrac{1}{2}$`}. Rescaled to add to one, they become {`$\\tfrac{2}{3}$`} and{' '}
+            {`$\\tfrac{1}{3}$`}.
+          </p>
+          <p>
+            The second question only gets asked half the time, so its uncertainty counts only half
+            as much. That is where the {`$\\tfrac{1}{2}$`} weight comes from:
+          </p>
+          <div className="lrn-eq">
+            <span>{`$$H(\\tfrac{1}{2}, \\tfrac{1}{3}, \\tfrac{1}{6}) = H(\\tfrac{1}{2}, \\tfrac{1}{2}) + \\tfrac{1}{2} H(\\tfrac{2}{3}, \\tfrac{1}{3})$$`}</span>
+          </div>
+          <p>
+            Both sides work out to about 1.46 bits. Asking in one step or two steps gives the same
+            total. That is exactly what the axiom demands.
+          </p>
         </div>
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            The functional equation {`$A(s^m) = m A(s)$`} forces the measure to be a logarithm. The
-            decomposition axiom then forces the weighted-sum form. Together they uniquely determine{' '}
-            {`$H = -K \\sum p_i \\log p_i$`} up to the constant {`$K$`}.
+            Start with {`$s$`} equally likely outcomes and write its uncertainty as {`$A(s)$`}.
+            Picking from {`$s^m$`} equally likely outcomes is the same as making {`$m$`} separate
+            picks from {`$s$`}. So the uncertainty must add up: {`$A(s^m) = m A(s)$`}. Only a
+            logarithm behaves this way.
           </p>
+          <p>
+            The decomposition axiom then forces the weighted-sum shape. Together the two facts pin
+            down {`$H = -K \\sum p_i \\log p_i$`}, with only the constant {`$K$`} left to set the
+            unit.
+          </p>
+        </div>
+
+        <h3>Joint and Conditional Entropy</h3>
+
+        <p>
+          So far each source had one output {`$x$`}. Now track two outputs {`$x$`} and {`$y$`}
+          together, like an input symbol and the symbol that comes out the other end.
+        </p>
+
+        <p>
+          The joint entropy {`$H(x, y)$`} is the total uncertainty in the pair. The conditional
+          entropy {`$H_x(y)$`} is the uncertainty left in {`$y$`} once you already know {`$x$`}:
+        </p>
+
+        <div className="lrn-eq">
+          <span>{`$$H_x(y) = -\\sum_{i,j} p(i, j) \\log p_i(j)$$`}</span>
+        </div>
+
+        <p>
+          Here {`$p(i,j)$`} is the chance of seeing the pair, and {`$p_i(j)$`} is the chance of{' '}
+          {`$y=j$`} once {`$x=i$`} is known. The chain rule ties the two together:
+        </p>
+
+        <div className="lrn-eq lrn-eq-display">
+          <span>{`$$H(x, y) = H(x) + H_x(y)$$`}</span>
+        </div>
+
+        <p>
+          Total uncertainty in the pair equals the uncertainty in {`$x$`} plus the uncertainty still
+          left in {`$y$`} after {`$x$`} is known.
+        </p>
+
+        <h3>Worked Example: Conditional Entropy of a Noisy Bit</h3>
+
+        <p>
+          Send a fair bit {`$x$`} (0 or 1, each with probability {`$\\tfrac{1}{2}$`}) through a
+          channel that flips it with probability 0.2. Let {`$y$`} be the received bit. Compute the
+          conditional entropy {`$H_x(y)$`}.
+        </p>
+
+        <div className="lrn-steps">
+          <div className="lrn-step">
+            <span className="lrn-step-title">Step 1: Uncertainty in y once x is known</span>
+            <p className="lrn-step-content">
+              If you know {`$x$`}, the only randomness left is the flip. The bit stays the same with
+              probability 0.8 and flips with probability 0.2. So {`$y$`} given {`$x$`} is a
+              two-outcome source with probabilities 0.8 and 0.2.
+            </p>
+          </div>
+          <div className="lrn-step">
+            <span className="lrn-step-title">Step 2: Entropy of that flip</span>
+            <p className="lrn-step-content">
+              {`$H = -[0.8 \\log_2 0.8 + 0.2 \\log_2 0.2]$`}{' '}
+              {`$= -[0.8 \\times (-0.322) + 0.2 \\times (-2.322)] \\approx 0.722$`} bits.
+            </p>
+          </div>
+          <div className="lrn-step">
+            <span className="lrn-step-title">Step 3: Average over x</span>
+            <p className="lrn-step-content">
+              The flip chance is the same whether {`$x = 0$`} or {`$x = 1$`}. So the average over
+              both inputs is still 0.722 bits. {`$H_x(y) \\approx 0.722$`} bits per symbol.
+            </p>
+          </div>
+          <div className="lrn-step">
+            <span className="lrn-step-title">Step 4: Check the chain rule</span>
+            <p className="lrn-step-content">
+              The input {`$x$`} is a fair bit, so {`$H(x) = 1$`} bit. The chain rule gives{' '}
+              {`$H(x, y) = H(x) + H_x(y) \\approx 1 + 0.722 = 1.722$`} bits for the pair.
+            </p>
+          </div>
         </div>
 
         <h3>Key Properties of Entropy</h3>
@@ -544,7 +731,7 @@ const config = {
             {`$H = 0$`} when one outcome has probability 1. No uncertainty means zero entropy.
           </li>
           <li>
-            {`$H$`} is maximum when all outcomes are equally likely: {`$H_\\max = \\log n$`}.
+            {`$H$`} is maximum when all outcomes are equally likely: {`$H_{\\max} = \\log n$`}.
           </li>
           <li>
             Subadditivity: {`$H(x, y) \\leq H(x) + H(y)$`}. Joint uncertainty never exceeds the sum
@@ -570,6 +757,8 @@ const config = {
           {`$p = 1$`}.
         </p>
 
+        <BinaryEntropyViz />
+
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
           <p>
@@ -592,28 +781,6 @@ const config = {
             </p>
           </details>
         </div>
-
-        <h3>Conditional Entropy and the Chain Rule</h3>
-
-        <p>
-          The conditional entropy of {`$y$`} given {`$x$`} measures remaining uncertainty in {`$y$`}{' '}
-          after learning {`$x$`}:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$H_x(y) = -\\sum_{i,j} p(i, j) \\log p_i(j)$$`}</span>
-        </div>
-
-        <p>The chain rule connects joint, marginal, and conditional entropy:</p>
-
-        <div className="lrn-eq lrn-eq-display">
-          <span>{`$$H(x, y) = H(x) + H_x(y)$$`}</span>
-        </div>
-
-        <p>
-          Joint uncertainty equals the uncertainty in {`$x$`} plus the remaining uncertainty in{' '}
-          {`$y$`} given {`$x$`}.
-        </p>
       </>,
 
       <>
@@ -727,58 +894,37 @@ const config = {
           </details>
         </div>
 
-        <h3>Asymptotic Equipartition Property</h3>
+        <h3>Typical Sequences</h3>
 
-        <p>Long sequences from an ergodic source split into two groups.</p>
+        <p>
+          Take a long sequence of {`$N$`} symbols from a steady source. These long sequences split
+          into a typical group and a rare leftover.
+        </p>
 
         <div className="lrn-callout">
           <span className="lrn-callout-label">Key Result</span>
           <p>
-            For any {`$\\epsilon > 0$`} and {`$\\delta > 0$`}, all but a fraction {`$\\epsilon$`} of
-            sequences of length {`$N$`} satisfy:
+            Almost every long sequence you actually see is "typical." All the typical sequences have
+            nearly the same probability. There are about {`$2^{NH}$`} of them, and each has
+            probability near {`$2^{-NH}$`}.
           </p>
-          <div className="lrn-eq">
-            <span>{`$$\\left| \\frac{\\log p^{-1}}{N} - H \\right| < \\delta$$`}</span>
-          </div>
           <p>
-            The set of "typical" sequences has size approximately {`$2^{NH}$`}. The remaining
-            sequences have negligible total probability.
+            The leftover sequences are so rare that together they almost never happen. So you can
+            ignore them and still describe the source almost perfectly.
           </p>
         </div>
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            The proof uses the ergodic theorem. For ergodic sources, the time average of{' '}
-            {`$\\log p_i(j)$`} along a typical path converges to the ensemble average, which equals{' '}
-            {`$-H$`}.
+            Each symbol carries about {`$H$`} bits on average. Over {`$N$`} symbols, a typical
+            sequence carries about {`$N \\times H$`} bits. That many bits names one choice out of
+            about {`$2^{NH}$`} equally likely options.
           </p>
           <p>
-            So {`$\\frac{1}{N} \\log p(\\text{sequence}) \\to -H$`} for typical sequences. This
-            means almost all probability mass concentrates on roughly {`$2^{NH}$`} sequences of
-            roughly equal probability {`$2^{-NH}$`}.
+            This is the whole reason compression works. You only need to label the {`$2^{NH}$`}
+            typical sequences, not every possible sequence. The rare ones are not worth the bits.
           </p>
-        </div>
-
-        <h3>Entropy Approximations: G_N and F_N</h3>
-
-        <p>Two sequences of approximations both converge to {`$H$`} from above.</p>
-
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">{`$G_N$`} Approximation</span>
-            <p>{`$G_N = -\\frac{1}{N} \\sum_i p(B_i) \\log p(B_i)$`}</p>
-            <p>Entropy per symbol of N-length blocks. Always overestimates {`$H$`}.</p>
-            <p>Monotone decreasing. Converges to {`$H$`}.</p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">{`$F_N$`} Approximation</span>
-            <p>{`$F_N = -\\sum_{i,j} p(B_i, S_j) \\log p_{B_i}(S_j)$`}</p>
-            <p>Conditional entropy of next symbol given previous {`$N-1$`}. Better estimate.</p>
-            <p>
-              {`$F_N \\leq G_N$`}. Also monotone decreasing, converges to {`$H$`}.
-            </p>
-          </div>
         </div>
 
         <h3>Relative Entropy and Redundancy</h3>
@@ -886,16 +1032,33 @@ const config = {
 
         <h3>Shannon-Fano Coding</h3>
 
-        <p>
-          One method to achieve near-optimal efficiency: expand the cumulative probability of each
-          symbol in binary to {`$m_s$`} places, where:
-        </p>
+        <div className="lrn-callout">
+          <span className="lrn-callout-label">The Kraft Inequality</span>
+          <p>
+            A code is prefix-free when no codeword is the start of another codeword. That lets the
+            decoder read a stream and know where each codeword ends, with no commas needed.
+          </p>
+          <p>
+            You cannot make all the codewords short at once. The Kraft inequality sets the limit. If
+            the code lengths are {`$m_1, m_2, \\ldots$`}, they must obey{' '}
+            {`$\\sum_s 2^{-m_s} \\leq 1$`}. Short codewords cost more of this budget, so only a few
+            symbols can get them.
+          </p>
+        </div>
+
+        <p>Shannon-Fano coding picks each length from the symbol's probability:</p>
 
         <div className="lrn-eq">
           <span>{`$$\\log_2 \\frac{1}{p_s} \\leq m_s < 1 + \\log_2 \\frac{1}{p_s}$$`}</span>
         </div>
 
-        <p>This produces a prefix-free code. The average code length per symbol satisfies:</p>
+        <p>
+          Likely symbols get short codes, rare symbols get long ones. To build the actual codeword,
+          stack the probabilities into a running total. Then write that running total in binary and
+          keep the first {`$m_s$`} digits.
+        </p>
+
+        <p>The average code length per symbol then satisfies:</p>
 
         <div className="lrn-eq">
           <span>{`$$G_N \\leq H' < G_N + \\frac{1}{N}$$`}</span>
@@ -917,9 +1080,14 @@ const config = {
             </p>
           </div>
           <div className="lrn-step">
-            <span className="lrn-step-title">Step 2: Assign code words</span>
+            <span className="lrn-step-title">Step 2: Build code words from running totals</span>
             <p className="lrn-step-content">
-              A = 0 (1 bit), B = 10 (2 bits), C = 110 (3 bits), D = 111 (3 bits).
+              Lengths from the rule: {`$m_A = 1, m_B = 2, m_C = 3, m_D = 3$`}. Running totals before
+              each symbol: A starts at 0, B at {`$\\tfrac{1}{2}$`}, C at {`$\\tfrac{3}{4}$`}, D at{' '}
+              {`$\\tfrac{7}{8}$`}. Write each total in binary and keep that many digits:{' '}
+              {`$0 \\to \\mathbf{0}$`}, {`$\\tfrac{1}{2} = 0.1_2 \\to \\mathbf{10}$`},{' '}
+              {`$\\tfrac{3}{4} = 0.11_2 \\to \\mathbf{110}$`},{' '}
+              {`$\\tfrac{7}{8} = 0.111_2 \\to \\mathbf{111}$`}. So A = 0, B = 10, C = 110, D = 111.
             </p>
           </div>
           <div className="lrn-step">
@@ -937,6 +1105,8 @@ const config = {
             </p>
           </div>
         </div>
+
+        <ShannonFanoTreeViz />
 
         <div className="lrn-self-explain">
           <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -959,19 +1129,6 @@ const config = {
           </details>
         </div>
 
-        <h3>Maximum Entropy Assignment</h3>
-
-        <p>
-          The transition probabilities that maximize the information rate for a constrained channel
-          are:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$p^{(s)}_{ij} = \\frac{B_j}{B_i} W^{-l^{(s)}_{ij}}, \\quad B_i = \\sum_{s,j} B_j W^{-l^{(s)}_{ij}}$$`}</span>
-        </div>
-
-        <p>Under this assignment, the rate equals the channel capacity {`$C$`}.</p>
-
         <div className="lrn-faded">
           <div className="lrn-faded-phase">
             <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
@@ -993,7 +1150,7 @@ const config = {
               <li>Result: {`$H = -(-0.311 - 0.5) = 0.811$`} bits.</li>
             </ol>
           </div>
-          <div className="lrn-faded-phase">
+          <div className="lrn-faded-phase lrn-faded-partial">
             <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
             <ol className="lrn-list">
               <li>Write the entropy formula for two symbols. (Given: same formula as above.)</li>
@@ -1030,7 +1187,7 @@ const config = {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              Shannon computed {`$H_y(x) = -[0.99 \\log 0.99 + 0.01 \\log 0.01] \\approx 0.081$`}{' '}
+              The equivocation is {`$H_y(x) = -[0.99 \\log 0.99 + 0.01 \\log 0.01] \\approx 0.081$`}{' '}
               bits per symbol. A 1% error rate causes about 0.08 bits of uncertainty per symbol, not
               zero and not 0.5.
             </p>
@@ -1098,11 +1255,15 @@ const config = {
         <h3>Correction Channel</h3>
 
         <p>
-          If a correction channel of capacity {`$H_y(x)$`} is added alongside the main channel, the
-          receiver can correct all but a fraction {`$\\epsilon$`} of errors.
+          Suppose you add a second clean channel just to send fix-up hints. How big must it be? It
+          needs capacity equal to the equivocation {`$H_y(x)$`}. With it, the receiver corrects all
+          but a tiny fraction of errors.
         </p>
 
-        <p>This shows equivocation is precisely the bandwidth needed to fix the errors.</p>
+        <p>
+          This gives equivocation a sharp meaning. It is the exact amount of extra information you
+          need to repair what the noise broke.
+        </p>
 
         <h3>The Noisy Channel Coding Theorem</h3>
 
@@ -1152,8 +1313,8 @@ const config = {
         <h3>Symmetric Channels</h3>
 
         <p>
-          A channel is symmetric when every row of the transition probability matrix is a
-          permutation of every other row. For symmetric channels:
+          A channel is symmetric when every input symbol faces the same set of error chances, just
+          shuffled among the outputs. For symmetric channels:
         </p>
 
         <div className="lrn-eq">
@@ -1162,20 +1323,73 @@ const config = {
 
         <p>
           Here {`$m$`} is the number of input symbols and {`$p_i$`} are the transition probabilities
-          from any input. The maximum entropy input is always uniform for symmetric channels.
+          from any input. The best input is always uniform for symmetric channels.
         </p>
+
+        <p>
+          Example: a bit channel that flips with probability 0.1. Here {`$m = 2$`} and the chances
+          are 0.9 (stays) and 0.1 (flips). So{' '}
+          {`$C = \\log_2 2 + (0.9 \\log_2 0.9 + 0.1 \\log_2 0.1) = 1 - 0.469 = 0.531$`} bits per
+          symbol. A noiseless bit channel would carry 1 full bit. The 10% flip rate costs about 0.47
+          bits.
+        </p>
+
+        <BinarySymmetricChannelViz />
 
         <h3>Error-Correcting Codes: Hamming Code Example</h3>
 
-        <p>Shannon illustrated error correction with the Hamming code for 7-symbol blocks.</p>
-        <p>The block has 7 positions: {`$X_1, \\ldots, X_7$`}.</p>
-        <p>Message bits: {`$X_3, X_5, X_6, X_7$`}.</p>
-        <p>Parity bits: {`$X_4, X_2, X_1$`}, set so certain parity checks pass.</p>
         <p>
-          When one error occurs, three parity checks identify the error position as a three-bit
-          binary number.
+          The Hamming code corrects any single error in a seven-bit block. The block has seven
+          positions {`$X_1, \\ldots, X_7$`}. Four carry the message ({`$X_3, X_5, X_6, X_7$`}).
+          Three are parity bits ({`$X_1, X_2, X_4$`}).
         </p>
-        <p>This gives capacity {`$\\frac{4}{7}$`} bits per symbol.</p>
+
+        <p>Each parity bit makes one group of positions have an even number of ones:</p>
+
+        <div className="lrn-eq">
+          <span>{`$$X_1 \\oplus X_3 \\oplus X_5 \\oplus X_7 = 0$$`}</span>
+        </div>
+        <div className="lrn-eq">
+          <span>{`$$X_2 \\oplus X_3 \\oplus X_6 \\oplus X_7 = 0$$`}</span>
+        </div>
+        <div className="lrn-eq">
+          <span>{`$$X_4 \\oplus X_5 \\oplus X_6 \\oplus X_7 = 0$$`}</span>
+        </div>
+
+        <p>
+          Here {`$\\oplus$`} means add and keep only whether the count is even (0) or odd (1). Each
+          check covers exactly the positions whose number has a 1 in one binary place.
+        </p>
+
+        <div className="lrn-steps">
+          <div className="lrn-step">
+            <span className="lrn-step-title">Step 1: Receive a block</span>
+            <p className="lrn-step-content">
+              The receiver gets seven bits. It runs all three checks. If every check comes out even,
+              no single error happened.
+            </p>
+          </div>
+          <div className="lrn-step">
+            <span className="lrn-step-title">Step 2: Read the failing checks</span>
+            <p className="lrn-step-content">
+              Write a 1 for each check that fails, a 0 for each that passes. Read them as a
+              three-bit binary number, with the first check as the lowest place. Say checks 1 and 4
+              fail but check 2 passes. That is {`$101$`} in binary, which equals 5.
+            </p>
+          </div>
+          <div className="lrn-step">
+            <span className="lrn-step-title">Step 3: Flip that position</span>
+            <p className="lrn-step-content">
+              The number 5 names position {`$X_5$`} as the wrong bit. Flip {`$X_5$`} back. The block
+              is now correct. The failing-check pattern points straight to the error.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          Four message bits ride in every seven-bit block, so this gives {`$\\frac{4}{7}$`} bits per
+          symbol.
+        </p>
 
         <div className="lrn-compare">
           <div className="lrn-compare-col">
@@ -1206,6 +1420,40 @@ const config = {
 
       <>
         <h2>Continuous Distributions and Entropy</h2>
+
+        <p>
+          So far the symbols came from a finite list. Now the value can be any real number, like a
+          voltage or a sound level. Two new tools handle this case: the integral and the probability
+          density.
+        </p>
+
+        <div className="lrn-callout">
+          <span className="lrn-callout-label">Reading the Integral Sign</span>
+          <p>
+            An integral {`$\\int$`} is the continuous version of a sum {`$\\sum$`}. A sum adds up a
+            value over a list of items. An integral adds up a value over a smooth range. You can
+            picture it as the area under a curve.
+          </p>
+          <p>
+            So {`$\\int_0^1 f(x)\\, dx$`} means: add up {`$f(x)$`} across every {`$x$`} from 0 to 1.
+            The {`$dx$`} marks the tiny width of each slice. Everywhere below you will see{' '}
+            {`$\\int$`} where the discrete formulas had {`$\\sum$`}.
+          </p>
+        </div>
+
+        <div className="lrn-callout">
+          <span className="lrn-callout-label">Probability Density Is Not Probability</span>
+          <p>
+            For a continuous value there is no chance of hitting one exact number. Instead we use a
+            density {`$p(x)$`}: the probability per unit length. The chance of landing in a small
+            range is the density times the width of that range.
+          </p>
+          <p>
+            Because it is "per unit length," a density can be larger than 1. A density of 10 over a
+            range of width 0.1 still gives a total probability of {`$10 \\times 0.1 = 1$`}. Only the
+            total area under the density has to equal 1.
+          </p>
+        </div>
 
         <div className="lrn-definition">
           <span className="lrn-definition-term">Continuous Entropy</span>
@@ -1265,22 +1513,33 @@ const config = {
           </div>
         </div>
 
-        <h3>Nine Properties of Continuous Entropy</h3>
+        <h3>Five Key Properties of Continuous Entropy</h3>
 
         <ul className="lrn-list">
-          <li>For fixed variance, the Gaussian distribution maximizes {`$H$`}.</li>
-          <li>For fixed mean on half-line, exponential distribution maximizes {`$H$`}.</li>
-          <li>For bounded support, uniform distribution maximizes {`$H$`}.</li>
+          <li>For a fixed variance, the Gaussian (bell curve) has the most entropy.</li>
+          <li>
+            For a fixed mean on the positive half-line, the exponential shape has the most entropy.
+          </li>
+          <li>For a fixed range of allowed values, the uniform shape has the most entropy.</li>
           <li>Joint entropy satisfies {`$H(x, y) \\leq H(x) + H(y)$`} (subadditivity).</li>
           <li>Conditional entropy: {`$H_x(y) = H(x, y) - H(x)$`}.</li>
-          <li>
-            Under linear transformation {`$y = Ax$`}: {`$H(y) = H(x) + \\log |\\det A|$`}.
-          </li>
-          <li>General coordinate change: {`$H(y) = H(x) - \\int p(x) \\log J(x/y) \\, dx$`}.</li>
-          <li>n-dimensional Gaussian: {`$H = \\log(2\\pi e)^{n/2} |a_{ij}|^{1/2}$`}.</li>
         </ul>
 
         <h3>Gaussian Entropy</h3>
+
+        <div className="lrn-callout">
+          <span className="lrn-callout-label">Spread, Variance, and σ</span>
+          <p>
+            Variance measures how far the values spread out from the mean. You take each value, find
+            its distance from the mean, square that distance, and average over all values. A wide
+            spread gives a big variance. A tight spread gives a small one.
+          </p>
+          <p>
+            The standard deviation {`$\\sigma$`} is the square root of the variance. So variance is{' '}
+            {`$\\sigma^2$`}. A Gaussian, or bell curve, is the smooth hump-shaped density set by its
+            mean and its {`$\\sigma$`}.
+          </p>
+        </div>
 
         <p>For a Gaussian distribution with variance {`$\\sigma^2$`}:</p>
 
@@ -1289,105 +1548,46 @@ const config = {
         </div>
 
         <p>
-          The Gaussian maximizes entropy for any fixed variance. This is a calculus of variations
-          result: among all distributions with a given variance, the Gaussian spreads probability
-          most evenly.
+          The Gaussian holds the most entropy of any spread with the same variance. Among all shapes
+          that wobble the same amount around the mean, the bell curve spreads its probability the
+          most evenly. The most even spread is the most uncertain.
         </p>
+
+        <GaussianEntropyViz />
 
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            The proof uses Lagrange multipliers on the functional {`$-\\int p \\log p \\, dx$`}{' '}
-            subject to {`$\\int p \\, dx = 1$`} and {`$\\int x^2 p \\, dx = \\sigma^2$`}.
+            Variance fixes how far the values stray from the mean. Within that one limit, the
+            distribution still has freedom in its shape. The shape that uses that freedom for the
+            most spread is the bell curve.
           </p>
           <p>
-            The optimal {`$p$`} satisfies {`$\\log p = \\lambda_0 + \\lambda_1 x^2$`}, which forces{' '}
-            {`$p$`} to be Gaussian. Any other distribution with the same variance has lower entropy.
+            Any other shape with the same variance has to pile probability up somewhere. Piling up
+            means more predictable, which means lower entropy. So the bell curve wins.
           </p>
         </div>
 
         <h3>The Sampling Theorem</h3>
 
         <p>
-          A band-limited signal with bandwidth {`$W$`} is completely determined by its sample values
-          at rate {`$2W$`} per second.
+          A signal is band-limited when it holds no frequencies above {`$W$`}. Such a signal is
+          fully fixed by its values sampled {`$2W$`} times per second. You can throw away everything
+          between the samples and lose nothing.
         </p>
-
-        <div className="lrn-eq">
-          <span>{`$$f(t) = \\sum_{n=-\\infty}^{\\infty} X_n \\frac{\\sin(\\pi(2Wt - n))}{\\pi(2Wt - n)}$$`}</span>
-        </div>
 
         <p>
-          A signal of duration {`$T$`} and bandwidth {`$W$`} lives in a space of approximately{' '}
-          {`$2TW$`} dimensions.
+          So a signal lasting {`$T$`} seconds with bandwidth {`$W$`} is just a list of about{' '}
+          {`$2TW$`} numbers. A continuous wave becomes a finite set of values.
         </p>
-
-        <h3>Entropy of a Continuous Signal Ensemble</h3>
-
-        <p>The entropy per degree of freedom {`$H'$`} of a band-limited ensemble is:</p>
-
-        <div className="lrn-eq">
-          <span>{`$$H' = -\\lim_{n \\to \\infty} \\frac{1}{n} \\int \\cdots \\int p(x_1, \\ldots, x_n) \\log p \\, dx_1 \\cdots dx_n$$`}</span>
-        </div>
-
-        <p>For white noise with power {`$N$`}, the entropy per second is:</p>
-
-        <div className="lrn-eq">
-          <span>{`$$H = W \\log 2\\pi e N$$`}</span>
-        </div>
 
         <div className="lrn-callout">
           <span className="lrn-callout-label">Key Note</span>
           <p>
-            White Gaussian noise has maximum entropy for a given power level. Any signal with the
-            same power has less or equal entropy.
+            White Gaussian noise carries the most entropy for a given power level. Any other signal
+            with the same power carries less.
           </p>
         </div>
-
-        <h3>Entropy Power</h3>
-
-        <div className="lrn-definition">
-          <span className="lrn-definition-term">Entropy Power</span>
-          <div className="lrn-definition-desc">
-            <p>
-              The entropy power of an ensemble is the power of the white Gaussian noise with the
-              same entropy per degree of freedom:
-            </p>
-            <div className="lrn-eq">
-              <span>{`$$\\bar{N}_1 = \\frac{1}{2\\pi e} \\exp(2H')$$`}</span>
-            </div>
-            <p>Entropy power is always less than or equal to the actual power.</p>
-          </div>
-        </div>
-
-        <h3>Entropy Loss in Linear Filters</h3>
-
-        <p>When a signal passes through a linear filter with frequency response {`$Y(f)$`}:</p>
-
-        <div className="lrn-eq lrn-eq-display">
-          <span>{`$$H_2 = H_1 + \\frac{1}{W} \\int_W \\log |Y(f)|^2 \\, df$$`}</span>
-        </div>
-
-        <p>
-          The entropy power at the output is the entropy power at the input multiplied by the
-          geometric mean of {`$|Y(f)|^2$`} over the band.
-        </p>
-
-        <h3>Entropy of a Sum</h3>
-
-        <p>
-          For two independent ensembles with entropy powers {`$\\bar{N}_1$`} and {`$\\bar{N}_2$`},
-          the entropy power of their sum {`$\\bar{N}_3$`} satisfies:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$\\bar{N}_1 + \\bar{N}_2 \\leq \\bar{N}_3 \\leq N_1 + N_2$$`}</span>
-        </div>
-
-        <p>
-          Here {`$N_1, N_2$`} are the actual powers. The lower bound is achieved when both signals
-          are Gaussian.
-        </p>
 
         <h3>Worked Example: Gaussian Entropy with σ = 2</h3>
 
@@ -1464,7 +1664,12 @@ const config = {
             <div className="lrn-eq">
               <span>{`$$C = \\lim_{T \\to \\infty} \\max_{P(x)} \\frac{1}{T} \\iint P(x,y) \\log \\frac{P(x,y)}{P(x)P(y)} \\, dx \\, dy$$`}</span>
             </div>
-            <p>Mutual information is coordinate-independent even for continuous distributions.</p>
+            <p>
+              This integral is the continuous version of the mutual information{' '}
+              {`$H(x) + H(y) - H(x, y)$`} from the noisy-channel section. Sums become integrals, but
+              the meaning is the same: how much the output tells you about the input. Mutual
+              information stays the same even if you change coordinates.
+            </p>
           </div>
         </div>
 
@@ -1514,6 +1719,8 @@ const config = {
           </p>
         </div>
 
+        <ShannonHartleyViz />
+
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
@@ -1526,64 +1733,6 @@ const config = {
             Gaussian noise: {`$H(n) = \\frac{1}{2} \\log 2\\pi e N$`}. The difference times {`$2W$`}{' '}
             samples per second gives {`$C = W \\log \\frac{P+N}{N}$`}.
           </p>
-        </div>
-
-        <h3>Capacity Bounds for Arbitrary Noise</h3>
-
-        <p>
-          For a channel with additive noise of entropy power {`$\\bar{N}_1$`} and actual power{' '}
-          {`$N$`}:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$W \\log \\frac{P + \\bar{N}_1}{\\bar{N}_1} \\leq C \\leq W \\log \\frac{P + N}{\\bar{N}_1}$$`}</span>
-        </div>
-
-        <p>
-          Both bounds converge to {`$W \\log\\left(\\frac{P}{N} + 1\\right)$`} when {`$P \\gg N$`}.
-        </p>
-
-        <h3>Capacity Increases with Power</h3>
-
-        <p>
-          As signal power {`$P$`} increases without bound, the capacity correction {`$\\eta$`}{' '}
-          (difference between actual capacity and the white noise formula) approaches zero:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$C = W \\log\\left(\\frac{P + N - \\eta}{\\bar{N}_1}\\right), \\quad \\eta \\to 0 \\text{ as } P \\to \\infty$$`}</span>
-        </div>
-
-        <h3>Peak Power Capacity Bounds</h3>
-
-        <p>
-          When signal power is limited by a peak constraint {`$S$`} rather than an average
-          constraint:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$C \\geq W \\log \\frac{2}{{\\pi e}^3} \\cdot \\frac{S}{N}$$`}</span>
-        </div>
-
-        <div className="lrn-eq">
-          <span>{`$$C \\leq W \\log \\left(\\frac{2}{\\pi e} \\cdot S + N\\right) \\frac{1+\\epsilon}{N}$$`}</span>
-        </div>
-
-        <p>The bounds are asymptotically equal as {`$\\frac{S}{N} \\to 0$`}.</p>
-
-        <div className="lrn-compare">
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Average Power Limit</span>
-            <p>Capacity {`$C = W \\log\\left(\\frac{P+N}{N}\\right)$`} exactly.</p>
-            <p>Optimal: white Gaussian signal.</p>
-            <p>Tractable closed form.</p>
-          </div>
-          <div className="lrn-compare-col">
-            <span className="lrn-compare-title">Peak Power Limit</span>
-            <p>Only bounds achievable, not exact formula.</p>
-            <p>Asymptotically equal as {`$\\frac{S}{N} \\to 0$`}.</p>
-            <p>Harder to handle mathematically.</p>
-          </div>
         </div>
 
         <h3>Worked Example: Telephone Line Capacity</h3>
@@ -1720,12 +1869,28 @@ const config = {
         <h3>Rate for a Source at Given Fidelity</h3>
 
         <p>
-          The minimum mutual information needed to represent the source at fidelity level {`$v_1$`}:
+          You pick how much error you will tolerate. Call that limit {`$v_1$`}. Then you ask: what
+          is the smallest number of bits per symbol that still stays under that error limit?
+        </p>
+
+        <p>
+          That smallest bit count is the rate {`$R_1$`}. The formula below searches over every way
+          to map source values {`$x$`} to received values {`$y$`}. It keeps only the maps whose
+          average error stays at or below {`$v_1$`}. Among those, it takes the one with the least
+          information, the integral being the continuous mutual information from the last section.
         </p>
 
         <div className="lrn-eq lrn-eq-display">
           <span>{`$$R_1 = \\min_{P_x(y): v \\leq v_1} \\iint P(x,y) \\log \\frac{P(x,y)}{P(x)P(y)} \\, dx \\, dy$$`}</span>
         </div>
+
+        <p>
+          The "min" means: find the cheapest map. The condition {`$v \\leq v_1$`} means: but only
+          among maps that hit the quality target. Loosen the target and {`$R_1$`} drops. Tighten it
+          and {`$R_1$`} climbs.
+        </p>
+
+        <RateDistortionViz />
 
         <h3>Source Coding with Fidelity</h3>
 
@@ -1767,49 +1932,6 @@ const config = {
           <span>{`$$R = W_1 \\log \\frac{Q}{N}$$`}</span>
         </div>
 
-        <h3>Rate Bounds for Arbitrary Sources</h3>
-
-        <p>
-          For a source with bandwidth {`$W_1$`} and average power {`$Q$`}, if the minimum noise
-          entropy power is {`$Q_1$`}:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$W_1 \\log \\frac{Q_1}{N} \\leq R \\leq W_1 \\log \\frac{Q}{N}$$`}</span>
-        </div>
-
-        <h3>Optimal Conditional Distribution</h3>
-
-        <p>
-          The Lagrange variational solution for the optimal conditional distribution in rate
-          minimization is:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$P_y(x) = B(x) \\, e^{-\\lambda \\rho(x,y)}$$`}</span>
-        </div>
-
-        <p>
-          Here {`$\\lambda$`} is the Lagrange multiplier and {`$B(x)$`} is a normalizing function.
-        </p>
-
-        <h3>Dimension Rate</h3>
-
-        <p>
-          The general concept connecting 2W samples per second to arbitrary ensembles. It is defined
-          as a triple limit:
-        </p>
-
-        <div className="lrn-eq">
-          <span>{`$$\\lambda = \\lim_{\\delta \\to 0} \\lim_{\\epsilon \\to 0} \\lim_{T \\to \\infty} \\frac{\\log N(\\epsilon, \\delta, T)}{T \\log \\epsilon}$$`}</span>
-        </div>
-
-        <p>
-          Here {`$N(\\epsilon, \\delta, T)$`} is the minimum number of functions needed to
-          approximate all ensemble functions within {`$\\delta$`} except on a set of probability{' '}
-          {`$\\epsilon$`}.
-        </p>
-
         <h3>Worked Example: Audio Compression Rate</h3>
 
         <p>
@@ -1841,7 +1963,7 @@ const config = {
             <span className="lrn-step-title">Step 4: Interpret</span>
             <p className="lrn-step-content">
               About 26.6 kbps suffices for this speech quality. Modern codecs (Opus, AAC) hit this
-              rate by exploiting source structure beyond simple Gaussian assumptions.
+              rate by using source structure beyond simple Gaussian assumptions.
             </p>
           </div>
         </div>
@@ -1870,14 +1992,13 @@ const config = {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            The Lagrange variational solution {`$P_y(x) = B(x) e^{-\\lambda \\rho(x,y)}$`} balances
-            the desire to compress (low rate) against the constraint of fidelity. The multiplier{' '}
-            {`$\\lambda$`} controls the trade-off: large {`$\\lambda$`} forces small distortion,
-            small {`$\\lambda$`} allows aggressive compression.
+            You choose how much distortion you will accept. A loose limit lets you compress hard. A
+            tight limit forces you to keep more bits. The minimum rate trades these two against each
+            other.
           </p>
           <p>
             As long as {`$R_1 \\leq C$`}, you can encode the source at fidelity {`$v_1$`} and
-            squeeze it through the channel. This duality (source coding meets channel coding) is the
+            squeeze it through the channel. This pairing of source coding with channel coding is the
             foundation of every modern codec.
           </p>
         </div>
@@ -1887,7 +2008,7 @@ const config = {
   practice: [
     {
       q: 'What is the fundamental problem of communication according to Shannon?',
-      a: 'The fundamental problem is to reproduce at one point a message selected at another point. Shannon emphasized that the semantic meaning of the message is irrelevant to the engineering problem. What matters is the set of possible messages and their probabilities, not what those messages mean.'
+      a: 'The fundamental problem is to reproduce at one point a message selected at another point. The meaning of the message does not matter to the engineering problem. What matters is the set of possible messages and their probabilities, not what those messages mean.'
     },
     {
       q: 'Why did Shannon use logarithms to measure information?',
@@ -1903,23 +2024,23 @@ const config = {
     },
     {
       q: 'Transfer: Temperature sensors in a weather station report readings with 0.01 probability of error. Use the equivocation formula to compute the uncertainty per reading introduced by errors.',
-      a: "This is the same calculation as Shannon's noisy channel example. Equivocation = -(0.99 log₂ 0.99 + 0.01 log₂ 0.01). Compute: 0.99 × log₂(0.99) ≈ 0.99 × (-0.0145) ≈ -0.0143. And 0.01 × log₂(0.01) = 0.01 × (-6.644) ≈ -0.0664. H_y(x) ≈ 0.0143 + 0.0664 ≈ 0.081 bits per reading. A 1% error rate introduces about 0.081 bits of ambiguity per measurement."
+      a: 'This uses the same equivocation formula as the noisy channel example. Equivocation = -(0.99 log₂ 0.99 + 0.01 log₂ 0.01). Compute: 0.99 × log₂(0.99) ≈ 0.99 × (-0.0145) ≈ -0.0143. And 0.01 × log₂(0.01) = 0.01 × (-6.644) ≈ -0.0664. So H_y(x) ≈ 0.0143 + 0.0664 ≈ 0.081 bits per reading. A 1% error rate introduces about 0.081 bits of ambiguity per measurement.'
     },
     {
-      q: 'What does the Asymptotic Equipartition Property (AEP) say? Why is it the basis of all coding theorems?',
-      a: 'The AEP says that for large N, almost all sequences from an ergodic source have probability close to 2^(-NH). The sequences split into two sets: a "typical" set of roughly 2^(NH) sequences each with probability ~2^(-NH), and the rest which has negligible total probability. It is the basis of all coding theorems because it shows you only need to encode the ~2^(NH) typical sequences, not all 2^(N log A) possible sequences. This concentration is why compression and reliable transmission are possible.'
+      q: 'What is a typical sequence, and why does it make compression possible?',
+      a: 'Take a long sequence of N symbols from a steady source. Almost every sequence you actually see is "typical." All typical sequences have nearly the same probability, about 2^(-NH). There are about 2^(NH) of them. The leftover sequences are so rare that together they almost never happen. This makes compression possible. You only need to label the 2^(NH) typical sequences, not every possible sequence. That takes about NH bits, far fewer than naming all sequences.'
     },
     {
-      q: 'Elaborate: Why is the Gaussian distribution the maximum entropy distribution for a fixed variance? Explain from first principles.',
-      a: 'The proof uses calculus of variations. You want to maximize H = -∫ p log p dx subject to ∫ p dx = 1 and ∫ x² p dx = σ². Using Lagrange multipliers, the optimal p satisfies: log p = λ₀ + λ₁ x². Solving this functional equation gives p(x) = exp(λ₀ + λ₁ x²). For this to be a valid probability density with the right variance, λ₁ must be negative and p must be a Gaussian. Any other distribution with the same variance will have a more concentrated shape and therefore lower entropy. The Gaussian spreads probability as evenly as possible while still satisfying the variance constraint.'
+      q: 'Why does the bell curve hold the most entropy of any spread with the same variance?',
+      a: 'Variance fixes how far the values stray from the mean. Within that one limit, the shape still has freedom. Entropy is largest when probability spreads out most evenly. The bell curve uses its freedom for the most even spread. Any other shape with the same variance has to pile probability up somewhere. Piling up makes the source more predictable, which lowers entropy. So the bell curve wins.'
     },
     {
       q: 'State the Noiseless Channel Coding Theorem. What does it guarantee, and what does it not tell you?',
       a: 'The noiseless channel coding theorem: if the source entropy H ≤ channel capacity C, you can transmit the source over the channel with arbitrarily small error. The best possible efficiency is $\\frac{C}{H}$. If H > C, transmission without errors is impossible. What it guarantees: that efficient codes exist. What it does not tell you: how to find such a code. It is an existence proof via probabilistic grouping and Shannon-Fano coding. Finding efficient codes in practice is a separate problem.'
     },
     {
-      q: 'Encode the source with symbols A, B, C, D at probabilities $\\frac{1}{2}, \\frac{1}{4}, \\frac{1}{8}, \\frac{1}{8}$ using a Shannon-Fano code. Verify the average length equals the entropy.',
-      a: 'Step 1: Entropy $H = -\\left(\\frac{1}{2} \\log \\frac{1}{2} + \\frac{1}{4} \\log \\frac{1}{4} + \\frac{1}{8} \\log \\frac{1}{8} + \\frac{1}{8} \\log \\frac{1}{8}\\right) = \\frac{1}{2} + \\frac{2}{4} + \\frac{3}{8} + \\frac{3}{8} = \\frac{7}{4}$ bits. Step 2: Assign code lengths $m_s = \\lceil \\log_2(\\frac{1}{p_s}) \\rceil$: A gets 1 bit, B gets 2 bits, C gets 3 bits, D gets 3 bits. Assign: A = 0, B = 10, C = 110, D = 111. Step 3: Average length $= \\frac{1}{2}(1) + \\frac{1}{4}(2) + \\frac{1}{8}(3) + \\frac{1}{8}(3) = 0.5 + 0.5 + 0.375 + 0.375 = \\frac{7}{4}$ bits. The average length equals the entropy exactly. This code is optimal.'
+      q: 'Encode the source with symbols A, B, C, D, E at probabilities $\\frac{1}{2}, \\frac{1}{4}, \\frac{1}{8}, \\frac{1}{16}, \\frac{1}{16}$ using a Shannon-Fano code. Verify the average length equals the entropy.',
+      a: 'Step 1: Entropy $H = -\\left(\\frac{1}{2} \\log \\frac{1}{2} + \\frac{1}{4} \\log \\frac{1}{4} + \\frac{1}{8} \\log \\frac{1}{8} + \\frac{1}{16} \\log \\frac{1}{16} + \\frac{1}{16} \\log \\frac{1}{16}\\right) = \\frac{1}{2} + \\frac{2}{4} + \\frac{3}{8} + \\frac{4}{16} + \\frac{4}{16} = \\frac{15}{8}$ bits. Step 2: Assign code lengths $m_s = \\lceil \\log_2(\\frac{1}{p_s}) \\rceil$: A gets 1 bit, B gets 2 bits, C gets 3 bits, D gets 4 bits, E gets 4 bits. Assign: A = 0, B = 10, C = 110, D = 1110, E = 1111. Step 3: Average length $= \\frac{1}{2}(1) + \\frac{1}{4}(2) + \\frac{1}{8}(3) + \\frac{1}{16}(4) + \\frac{1}{16}(4) = 0.5 + 0.5 + 0.375 + 0.25 + 0.25 = \\frac{15}{8}$ bits. The average length equals the entropy exactly. This code is optimal.'
     },
     {
       q: 'Predict: what happens to the entropy of a Markov information source as the transition probabilities become more extreme (one transition per state becomes probability 1)?',
@@ -1946,8 +2067,8 @@ const config = {
       a: 'For a fixed noise power N, the Gaussian distribution maximizes entropy. Since capacity C = W log((P+N)/N) assumes Gaussian noise, and capacity decreases as noise entropy increases, Gaussian noise achieves the maximum entropy for its power level, leaving the least room for signal. For any other noise distribution with the same power N, the noise entropy power N₁ < N, and bounds show C ≥ W log((P+N₁)/N₁) > W log((P+N)/N). So Gaussian noise minimizes capacity for a given noise power. It is the worst case for the communicator.'
     },
     {
-      q: 'What is the redundancy of English text, and what are two practical consequences Shannon mentioned?',
-      a: 'English has approximately 50% redundancy: $\\text{redundancy} = 1 - \\frac{H}{H_{\\max}} \\approx 0.5$. This means only about half of each English message carries new information; the rest is statistically predictable. Two practical consequences Shannon identified: (1) Crossword puzzles are solvable because the constraints (horizontal and vertical words) leave only one solution when 50% redundancy provides enough information to determine the missing letters. (2) English text can be compressed by roughly a factor of 2 without any information loss (lossless compression exploits redundancy).'
+      q: 'What is the redundancy of English text, and what are two practical consequences?',
+      a: 'English has about 50% redundancy: $\\text{redundancy} = 1 - \\frac{H}{H_{\\max}} \\approx 0.5$. So only about half of each message carries new information. The rest is predictable. Two consequences follow. First, crossword puzzles are solvable. The across and down clues constrain each other, and 50% redundancy leaves enough information to fix the missing letters. Second, English text can be compressed by roughly half with no information lost. Lossless compression uses this redundancy.'
     },
     {
       q: 'Transfer: A DNA sequence uses four bases (A, T, G, C) with frequencies 0.3, 0.3, 0.2, 0.2. Compute the entropy per base and compare it to the maximum possible entropy for 4 symbols.',
@@ -1959,7 +2080,7 @@ const config = {
     },
     {
       q: 'Self-explain: The proof of the Noisy Channel Coding Theorem uses a random coding argument. Why does showing the average error over all random codes goes to zero prove that good codes exist?',
-      a: 'If the average error probability over all codes in a class is ε, then at least one code must have error probability ≤ ε. This follows from the definition of an average: if all codes had error > ε, the average would be > ε, a contradiction. So even though the proof never constructs a specific code, proving the average goes to zero guarantees at least one code in the class achieves near-zero error. This is an existence proof by the probabilistic method. Shannon used exactly this argument: for R < C, the average over all random codes of block length T has error approaching 0 as T → ∞.'
+      a: 'Suppose the average error over all codes in a class is ε. Then at least one code must have error at most ε. If every code had error above ε, the average would be above ε too. That is a contradiction. So proving the average goes to zero guarantees one code reaches near-zero error. The proof never builds that specific code. It only proves one exists. For R below C, the average over all random codes of block length T has error approaching 0 as T grows.'
     },
     {
       q: 'State the Source Coding with Fidelity result. How does it connect rate-distortion theory to channel capacity?',
@@ -1970,20 +2091,12 @@ const config = {
       a: 'Capacity $C = W \\log\\left(\\frac{P+N}{N}\\right) = W \\log\\left(1 + \\frac{P}{N}\\right)$. As P → ∞, C → ∞, so yes, capacity grows without bound. But the rate of growth slows: C grows as $W \\log\\left(\\frac{P}{N}\\right)$ for large P, which is logarithmic in P. Doubling the signal power does not double the capacity; it adds W × 1 = W bits per second of capacity. By contrast, doubling the bandwidth W doubles the capacity (linear in W). This shows that in the Shannon-Hartley formula, bandwidth is more valuable than power at high signal-to-noise ratios.'
     },
     {
-      q: 'What is entropy power, and how does it bound the entropy power of a sum of two signals?',
-      a: "Entropy power $\\bar{N}_1 = \\frac{1}{2\\pi e} \\exp(2H')$ equates a signal ensemble to the equivalent white Gaussian noise with the same entropy per degree of freedom. It is always ≤ the actual power. If two independent ensembles have entropy powers $\\bar{N}_1$ and $\\bar{N}_2$, and actual powers $N_1$ and $N_2$, then for their sum with entropy power $\\bar{N}_3$: $\\bar{N}_1 + \\bar{N}_2 \\leq \\bar{N}_3 \\leq N_1 + N_2$. The lower bound is achieved when both signals are Gaussian. The upper bound is the standard power addition. The entropy power of a sum lies between the sum of entropy powers and the sum of actual powers."
-    },
-    {
-      q: 'Elaborate: Why does F_N ≤ G_N always hold, and why do both converge to H?',
-      a: '$G_N = -\\frac{1}{N} \\sum_i p(B_i) \\log p(B_i)$ is entropy per symbol of N-length blocks. $F_N = -\\sum_{i,j} p(B_i, S_j) \\log p_{B_i}(S_j)$ is the conditional entropy of the next symbol given the previous N-1. $F_N \\leq G_N$ because conditioning never increases entropy: knowing the previous N-1 symbols can only reduce (or maintain) uncertainty about the next symbol. Both converge to H because for an ergodic source, the entropy rate $H = \\lim G_N = \\lim F_N$ by the definition of entropy rate: as block length grows, the per-symbol entropy converges to the true entropy rate regardless of which estimator you use.'
-    },
-    {
       q: 'Transfer: A digital camera uses 8-bit grayscale (256 levels). Empirical pixel statistics show 20% are black, 60% are mid-gray, 20% are white. Compute the per-pixel entropy and the redundancy.',
       a: 'Step 1: $H = -[0.2 \\log_2 0.2 + 0.6 \\log_2 0.6 + 0.2 \\log_2 0.2]$. Compute: $0.2 \\times (-2.322) = -0.464$ (×2 = -0.929). $0.6 \\times (-0.737) = -0.442$. Total: $H \\approx 0.929 + 0.442 = 1.371$ bits per pixel. Step 2: Maximum entropy $H_{\\max} = \\log_2(256) = 8$ bits. Step 3: $\\text{Redundancy} = 1 - \\frac{1.371}{8} \\approx 82.9\\%$. The image is highly compressible: lossless compression should reduce file size by roughly a factor of 6.'
     },
     {
       q: 'Transfer: A WiFi link has bandwidth W = 20 MHz and SNR = 100 (20 dB). Compute the maximum data rate using Shannon-Hartley. Compare to actual 802.11 rates.',
-      a: 'Apply Shannon-Hartley: $C = W \\log_2(1 + \\text{SNR}) = 20 \\times 10^6 \\times \\log_2(101)$. Compute $\\log_2(101) \\approx 6.66$. So $C \\approx 1.33 \\times 10^8$ = 133 Mbps. Real 802.11n at 20 MHz tops out around 72 Mbps single-stream. The gap (54%) is due to coding overhead, guard intervals, and PAPR limits on real OFDM signals. Shannon gives the upper bound; real systems hit 50-70% of it.'
+      a: 'Apply Shannon-Hartley: $C = W \\log_2(1 + \\text{SNR}) = 20 \\times 10^6 \\times \\log_2(101)$. Compute $\\log_2(101) \\approx 6.66$. So $C \\approx 1.33 \\times 10^8$ = 133 Mbps. Real 802.11n at 20 MHz tops out around 72 Mbps single-stream. The gap (54%) comes from coding overhead, guard intervals, and limits on real radio signals. Shannon gives the upper bound. Real systems hit 50 to 70% of it.'
     },
     {
       q: 'Transfer: A two-bit memory cell has bit error rate 1e-6 per bit. Apply the noisy channel coding theorem to find what fraction of cells must be redundancy bits to enable error correction at this rate.',
@@ -1991,7 +2104,7 @@ const config = {
     },
     {
       q: 'Transfer: A robot arm has 6 joints, each described by a 16-bit angle (65,536 positions). At 100 Hz update rate, what telemetry bandwidth is needed if joint angles are uniform random? What if they are smooth (low entropy per sample)?',
-      a: 'Uniform case: each angle is $\\log_2(65536) = 16$ bits of entropy. With 6 joints at 100 Hz: rate $= 6 \\times 16 \\times 100 = 9600$ bits/s = 9.6 kbps. Smooth case: angle changes are small from sample to sample, so conditional entropy $H_y(x)$ is much lower, perhaps $\\approx 4$ bits per joint per sample. Rate drops to $6 \\times 4 \\times 100 = 2400$ bits/s = 2.4 kbps. Differential encoding (sending only changes) exploits this temporal redundancy: standard practice in motion control telemetry.'
+      a: 'Uniform case: each angle is $\\log_2(65536) = 16$ bits of entropy. With 6 joints at 100 Hz: rate $= 6 \\times 16 \\times 100 = 9600$ bits/s = 9.6 kbps. Smooth case: angle changes are small from sample to sample, so conditional entropy $H_y(x)$ is much lower, perhaps $\\approx 4$ bits per joint per sample. Rate drops to $6 \\times 4 \\times 100 = 2400$ bits/s = 2.4 kbps. Differential encoding (sending only changes) uses this time redundancy. It is standard practice in motion control telemetry.'
     },
     {
       q: 'Transfer: A speech codec must transmit 16 kHz audio at telephone quality (PESQ score 3.5 means about 12 dB signal-to-distortion ratio). Use the rate-distortion bound to estimate the minimum bit rate.',
@@ -1999,7 +2112,7 @@ const config = {
     },
     {
       q: 'Transfer: An HDR video stream needs 12 bits per pixel at 4K resolution (3840 × 2160 pixels) at 60 fps. Estimate the raw bit rate and the rate after typical (10:1) compression. Why does Shannon say compression beyond a limit destroys quality?',
-      a: 'Raw rate: $3840 \\times 2160 \\times 12 \\times 60 \\approx 5.97 \\times 10^9$ bits/s = 5.97 Gbps. After 10:1 compression: $\\approx 597$ Mbps. The source coding with fidelity result caps reliable transmission at $R_1 \\leq C$. The minimum rate $R_1$ for a given fidelity level is fixed by the source statistics. Compressing below $R_1$ for the desired fidelity is provably impossible without quality loss. Modern HEVC/AV1 codecs approach but do not break this bound: they exploit spatial and temporal redundancy to get close to the rate-distortion frontier.'
+      a: 'Raw rate: $3840 \\times 2160 \\times 12 \\times 60 \\approx 5.97 \\times 10^9$ bits/s = 5.97 Gbps. After 10:1 compression: $\\approx 597$ Mbps. The source coding with fidelity result caps reliable transmission at $R_1 \\leq C$. The minimum rate $R_1$ for a given fidelity level is fixed by the source statistics. Compressing below $R_1$ for the desired fidelity is provably impossible without quality loss. Modern HEVC/AV1 codecs approach but do not break this bound. They use space and time redundancy to get close to the rate-distortion frontier.'
     },
     {
       q: 'Transfer: A genomic compression tool stores DNA (4 symbols: A, T, G, C) with empirical frequencies 0.3, 0.3, 0.2, 0.2. Compute the Shannon-Fano code lengths and verify they satisfy Kraft inequality.',

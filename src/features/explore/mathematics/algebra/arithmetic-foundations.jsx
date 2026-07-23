@@ -19,21 +19,17 @@ function useConfig() {
     cssPrefix: 'arf',
     documentTitle: 'Arithmetic Foundations - AETHER',
     learning: {
-      groupTitle: 'Foundations',
+      groupTitle: 'Number and Algebra Foundations',
       category: 'Module 1',
       title: 'Arithmetic Foundations',
       subtitle:
         'Place value, the four operations, the laws beneath them, negative numbers, and binary.',
       sections: [
         <>
-          <div className="lrn-header">
-            <div>
-              <h1>Arithmetic Foundations</h1>
-              <p>{`Algebra is arithmetic with one stronger demand.`}</p>
-              <p>{`Every claim has to hold for every number, not just the one in front of you.`}</p>
-              <p>{`To make that work you need the rules under the four operations. This module pulls them out of plain counting.`}</p>
-            </div>
-          </div>
+          <h2>From Arithmetic to Algebra</h2>
+          <p>{`Algebra is arithmetic with one stronger demand.`}</p>
+          <p>{`Every claim has to hold for every number, not just the one in front of you.`}</p>
+          <p>{`To make that work you need the rules under the four operations. This lesson pulls them out of plain counting.`}</p>
 
           <h2>Notation</h2>
           <p>{`Arithmetic writes multiplication with a cross: $3 \\times 5$.`}</p>
@@ -50,7 +46,7 @@ function useConfig() {
           </div>
 
           <p>{`The number is fixed by what is there, not by how you tell the story.`}</p>
-          <p>{`That observation is the seed of every law in this module.`}</p>
+          <p>{`That observation is the seed of every law in this lesson.`}</p>
         </>,
 
         <>
@@ -64,9 +60,23 @@ function useConfig() {
             <span>{`$$\\text{value} = \\text{digit} \\times 10^{\\text{position}}$$`}</span>
           </div>
 
+          <h3>Powers, in one line</h3>
+          <p>{`The small raised number is a power. It is shorthand for repeated multiplication.`}</p>
+          <p>{`$10^3$ means three tens multiplied together: $10 \\cdot 10 \\cdot 10 = 1000$. The big number is the base. The raised number is the exponent, and it counts how many copies you multiply.`}</p>
+          <p>{`So $10^0 = 1$ (no tens, just the starting 1), $10^1 = 10$, $10^2 = 100$. Position 0 is the ones place, position 1 is the tens, position 2 is the hundreds.`}</p>
+          <p>{`Powers work for any base. $2^3 = 2 \\cdot 2 \\cdot 2 = 8$. A later page studies them in depth.`}</p>
+
           <p>{`We have ten symbols: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9.`}</p>
           <p>{`Counting past 9 needs a new place. So 9 + 1 becomes 10, meaning one ten and zero ones.`}</p>
           <p>{`Every later place repeats the move. Ten of anything regroups into one of the next place up.`}</p>
+
+          <h3>Past the decimal point</h3>
+          <p>{`The places do not stop at the ones. Put a dot after the ones place and keep going right, dividing by ten at each step.`}</p>
+          <p>{`The first place after the dot is tenths, the next is hundredths, then thousandths. So $0.25$ means two tenths and five hundredths.`}</p>
+          <div className="lrn-eq">
+            <span>{`$$0.25 = \\frac{2}{10} + \\frac{5}{100} = \\frac{25}{100}$$`}</span>
+          </div>
+          <p>{`A decimal is just place value running past the ones. Money already works this way: $\\$3.50$ is three dollars and five tenths of a dollar.`}</p>
 
           <div className="lrn-callout lrn-tip">
             <span className="lrn-callout-label">Archimedes</span>
@@ -79,8 +89,15 @@ function useConfig() {
           <p>{`Line the digits up by place. Add column by column, starting from the ones.`}</p>
           <p>{`If a column reaches 10 or more, write the ones digit and carry the tens digit one column left.`}</p>
           <p>{`A column holds a single digit, so any overflow has to move up. Ten ones become one ten by the definition of place value itself.`}</p>
+          <p>{`Add $47 + 68$. Ones column: $7 + 8 = 15$, so write 5 and carry 1. Tens column: $4 + 6 + 1 = 11$, so write 1 and carry 1. The carry lands in a new hundreds place. The answer is 115.`}</p>
+          <p>{`You can now add any two whole numbers.`}</p>
 
-          <h3>Problem 1 Sums of Eights</h3>
+          <h3>The Subtraction Algorithm</h3>
+          <p>{`Subtract column by column, again starting from the ones. When the top digit is too small, borrow one unit from the next place left, which is worth ten in the current place.`}</p>
+          <p>{`Subtract $52 - 7$. The ones column needs $2 - 7$, which you cannot do yet. Borrow one ten: the 5 tens become 4 tens, and the 2 ones become 12 ones. Now $12 - 7 = 5$ ones, and 4 tens stay. The answer is 45.`}</p>
+          <p>{`Borrowing is carrying run in reverse. One of the next place up unpacks into ten of the current place.`}</p>
+
+          <h3>Sums of eights</h3>
           <p>{`Using only the digit 8 and plus signs, write 1000.`}</p>
           <p>{`Every term ends in 8. So the ones column has to add up to a multiple of 10.`}</p>
           <p>{`$8 \\cdot 5 = 40$ is the first multiple of 10 that 8 reaches, so the sum needs at least five terms.`}</p>
@@ -93,8 +110,9 @@ function useConfig() {
             <span>{`$$8 + 8 + 8 + 88 + 888 = 1000$$`}</span>
           </div>
 
-          <h3>{`Problem 2 Cryptarithm $\\overline{AAA} + \\overline{BBB} = \\overline{AAAC}$`}</h3>
-          <p>{`Each capital letter stands for a single digit. Find $A$, $B$, $C$.`}</p>
+          <h3>{`A letter puzzle: $\\overline{AAA} + \\overline{BBB} = \\overline{AAAC}$`}</h3>
+          <p>{`Each capital letter stands for a single digit. A bar over a group of letters means the whole number you get by writing those digits in a row, not their product. So $\\overline{AAA}$ is the three-digit number with all three digits equal to $A$.`}</p>
+          <p>{`Find $A$, $B$, $C$.`}</p>
           <p>{`The sum is a four-digit number, but $\\overline{AAA} + \\overline{BBB}$ is at most $999 + 999 = 1998$. So $A = 1$.`}</p>
           <p>{`Now the equation is $111 + \\overline{BBB} = 1110 + C$.`}</p>
           <p>{`Add column by column. Ones column: $1 + B = C$ or $C + 10$. Tens column should produce the digit 1, and so should hundreds.`}</p>
@@ -123,32 +141,33 @@ function useConfig() {
             <span>{`$$17 \\cdot 38 = (10 + 7)(30 + 8) = 300 + 80 + 210 + 56 = 646$$`}</span>
           </div>
 
-          <p>{`The four partial products $10 \\cdot 30$, $10 \\cdot 8$, $7 \\cdot 30$, $7 \\cdot 8$ are exactly the columns long multiplication sums.`}</p>
+          <p>{`The four partial products $10 \\cdot 30$, $10 \\cdot 8$, $7 \\cdot 30$, $7 \\cdot 8$ are exactly the columns of the long-multiplication sum.`}</p>
+          <p>{`You can now multiply any two whole numbers, digit by digit.`}</p>
 
-          <h3>Problem 3 Multiply by 1001 in one step</h3>
-          <p>{`Since $1001 = 1000 + 1$, any three-digit number $\\overline{ABC}$ gives:`}</p>
+          <h3>Multiply by 1001 in one step</h3>
+          <p>{`Since $1001 = 1000 + 1$, any number $\\overline{ABC}$ in the hundreds gives:`}</p>
           <div className="lrn-eq">
             <span>{`$$\\overline{ABC} \\cdot 1001 = \\overline{ABC} \\cdot 1000 + \\overline{ABC} = \\overline{ABCABC}$$`}</span>
           </div>
           <p>{`Multiplying by 1000 shifts the digits three places left. Adding the original fills the last three places. Example: $715 \\cdot 1001 = 715715$.`}</p>
 
-          <h3>{`Problem 4 Compute $101010101 \\cdot 57$`}</h3>
-          <p>{`Break the first factor by place: $101010101 = 1 + 10^2 + 10^4 + 10^6 + 10^8$.`}</p>
+          <h3>{`A factor full of zeros`}</h3>
+          <p>{`Compute $101010101 \\cdot 57$. Break the first factor by place: $101010101 = 1 + 10^2 + 10^4 + 10^6 + 10^8$.`}</p>
           <p>{`Multiply 57 by each power and add: $57,\\ 5700,\\ 570000,\\ 57000000,\\ 5700000000$.`}</p>
           <div className="lrn-eq">
             <span>{`$$101010101 \\cdot 57 = 5757575757$$`}</span>
           </div>
           <p>{`The pair 57 repeats five times because the powers of 100 line up cleanly.`}</p>
 
-          <h3>{`Problem 5 Compute $10001 \\cdot 1020304050$`}</h3>
-          <p>{`$10001 = 10000 + 1$, so the product is $1020304050 \\cdot 10000 + 1020304050$.`}</p>
+          <h3>{`When the copies overlap`}</h3>
+          <p>{`Compute $10001 \\cdot 1020304050$. Since $10001 = 10000 + 1$, the product is $1020304050 \\cdot 10000 + 1020304050$.`}</p>
           <div className="lrn-eq">
             <span>{`$$10203040500000 + 1020304050 = 10204060804050$$`}</span>
           </div>
           <p>{`The two terms overlap in the middle. Each overlapping column adds the digit from the shifted copy to the digit from the original copy.`}</p>
 
-          <h3>{`Problem 6 Compute $11111 \\cdot 1111$`}</h3>
-          <p>{`Each digit of 1111 means "add a shifted copy of 11111." Stack the four copies:`}</p>
+          <h3>{`A pyramid of ones`}</h3>
+          <p>{`Compute $11111 \\cdot 1111$. Each digit of 1111 means "add a shifted copy of 11111." Stack the four copies:`}</p>
           <div className="lrn-eq">
             <span>{`$$11111000 + 1111100 + 111110 + 11111 = 12344321$$`}</span>
           </div>
@@ -166,81 +185,43 @@ function useConfig() {
             <span>{`$$\\text{dividend} = \\text{divisor} \\times \\text{quotient} + \\text{remainder},\\quad 0 \\le r < \\text{divisor}$$`}</span>
           </div>
           <p>{`If $r$ were as large as the divisor, you could subtract the divisor one more time and grow the quotient. So $r$ has to stay below it.`}</p>
-          <p>{`Dividing by 7 leaves only seven possible remainders: 0, 1, 2, 3, 4, 5, 6. Seven options force any long sequence of remainders to eventually repeat.`}</p>
 
-          <h3>Problem 7 The mystery six-digit number</h3>
+          <h3>A worked long division</h3>
+          <p>{`Divide 754 by 6. Take the digits from the left, one place at a time.`}</p>
+          <p>{`7 holds one 6 with 1 left over. Bring down the 5 to make 15. 15 holds two 6s with 3 left over. Bring down the 4 to make 34. 34 holds five 6s with 4 left over.`}</p>
+          <div className="lrn-eq">
+            <span>{`$$754 = 6 \\times 125 + 4$$`}</span>
+          </div>
+          <p>{`The quotient is 125 and the remainder is 4. Notice $4 < 6$, as the rule demands.`}</p>
+
+          <h3>Solving a simple equation</h3>
+          <p>{`An equation says two expressions are equal. To find the unknown, do the same thing to both sides until the unknown stands alone.`}</p>
+          <p>{`Two moves do all the work. You can add or subtract the same number on both sides. You can multiply or divide both sides by the same nonzero number.`}</p>
+          <p>{`Solve $7x + 1 = 50$. Subtract 1 from both sides: $7x = 49$. Divide both sides by 7: $x = 7$.`}</p>
+          <p>{`When the unknown sits on both sides, gather it on one side first. Solve $10x + 1 = 3x + 8$. Subtract $3x$ from both sides: $7x + 1 = 8$. Subtract 1: $7x = 7$. Divide by 7: $x = 1$.`}</p>
+          <p>{`Check by putting the answer back in: $10 \\cdot 1 + 1 = 11$ and $3 \\cdot 1 + 8 = 11$. Both sides match.`}</p>
+
+          <h3>The mystery six-digit number</h3>
           <p>{`A six-digit number starts with 1. Moving the leading 1 to the end makes the number exactly three times larger. Find it.`}</p>
           <p>{`Let the number be $\\overline{1ABCDE}$ and write $x = \\overline{ABCDE}$, so $x$ is the five-digit tail.`}</p>
           <p>{`Original: $100000 + x$. After moving the 1: $10x + 1$.`}</p>
           <p>{`The condition is $10x + 1 = 3(100000 + x)$.`}</p>
-          <p>{`Expand: $10x + 1 = 300000 + 3x$, so $7x = 299999$, giving $x = 42857$.`}</p>
+          <p>{`Expand and solve the way you just learned: $10x + 1 = 300000 + 3x$, so $7x = 299999$, giving $x = 42857$.`}</p>
           <div className="lrn-eq">
             <span>{`$$142857 \\cdot 3 = 428571 \\quad\\checkmark$$`}</span>
           </div>
 
-          <h3>{`Problem 8 Compute $123123123 \\div 123$`}</h3>
-          <p>{`Notice $123123123 = 123 \\cdot (1 + 10^3 + 10^6) = 123 \\cdot 1001001$.`}</p>
+          <h3>{`Dividing a repeated block`}</h3>
+          <p>{`Compute $123123123 \\div 123$. Notice $123123123 = 123 \\cdot (1 + 10^3 + 10^6) = 123 \\cdot 1001001$.`}</p>
           <p>{`So the quotient is $1001001$ with remainder 0.`}</p>
 
-          <h3>Problem 9 Remainder of 100 ones divided by 1111111</h3>
-          <p>{`Let $N$ be the number made of 100 ones. The divisor is the number made of 7 ones.`}</p>
-          <p>{`Group the 100 ones into blocks of 7 from the right. Since $100 = 7 \\cdot 14 + 2$, you get 14 full blocks and 2 leftover ones at the top.`}</p>
-          <p>{`Each full block is $1111111$ sitting in some position, so it contributes exactly to the quotient and leaves no remainder.`}</p>
+          <h3>Remainder of a long string of ones</h3>
+          <p>{`Let $N$ be the number made of one hundred ones. The divisor is the number made of seven ones.`}</p>
+          <p>{`Group the hundred ones into blocks of seven from the right. Since $100 = 7 \\cdot 14 + 2$, you get 14 full blocks and 2 leftover ones at the top.`}</p>
+          <p>{`Each full block is $1111111$ sitting in some position, so it adds to the quotient and leaves no remainder.`}</p>
           <p>{`The 2 leftover ones form the number 11, which is smaller than 1111111.`}</p>
           <p>{`Remainder is 11.`}</p>
-
-          <h3>Problem 10 Compute $10^{20} \\div 7$</h3>
-          <p>{`Look at the remainders of $10, 10^2, 10^3, \\ldots$ when divided by 7. They cycle:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$10^1 \\to 3,\\ 10^2 \\to 2,\\ 10^3 \\to 6,\\ 10^4 \\to 4,\\ 10^5 \\to 5,\\ 10^6 \\to 1$$`}</span>
-          </div>
-          <p>{`After six powers the cycle restarts. So $10^{20}$ has the same remainder as $10^{20 \\bmod 6} = 10^2$, which is 2.`}</p>
-          <p>{`The quotient is $\\frac{10^{20} - 2}{7} = 14285714285714285714$.`}</p>
-          <p>{`Notice the digit block 142857 repeating. The same block appeared in Problem 7. It is not coincidence it is the cycling remainders.`}</p>
-
-          <h3>Periodicity of remainders</h3>
-          <p>{`Divide a long string of zeros by 7 by hand. The remainders run 1, 3, 2, 6, 4, 5 and then start over.`}</p>
-          <p>{`Each remainder forces the next digit of the quotient. The quotient digits cycle through 1, 4, 2, 8, 5, 7.`}</p>
-          <p>{`This is the source of the famous six-digit cyclic number.`}</p>
-
-          <h3>{`Problem 12 Dividing $k \\cdot 10^{20}$ by 7 for $k = 1, 2, \\ldots, 6$`}</h3>
-          <p>{`Use the rule $10^{20} \\equiv 2 \\pmod{7}$ from Problem 10.`}</p>
-          <p>{`So $k \\cdot 10^{20} \\bmod 7 = 2k \\bmod 7$:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$k=1\\to 2,\\ k=2\\to 4,\\ k=3\\to 6,\\ k=4\\to 1,\\ k=5\\to 3,\\ k=6\\to 5$$`}</span>
-          </div>
-          <p>{`Every non-zero remainder mod 7 appears exactly once. The quotients are shifted versions of the same six-digit cyclic block.`}</p>
-
-          <h3>Problem 13 Multiply 142857 by 1, 2, 3, 4, 5, 6, 7</h3>
-          <div className="lrn-eq">
-            <span>{`$$142857 \\cdot 1 = 142857$$`}</span>
-          </div>
-          <div className="lrn-eq">
-            <span>{`$$142857 \\cdot 2 = 285714$$`}</span>
-          </div>
-          <div className="lrn-eq">
-            <span>{`$$142857 \\cdot 3 = 428571$$`}</span>
-          </div>
-          <div className="lrn-eq">
-            <span>{`$$142857 \\cdot 4 = 571428$$`}</span>
-          </div>
-          <div className="lrn-eq">
-            <span>{`$$142857 \\cdot 5 = 714285$$`}</span>
-          </div>
-          <div className="lrn-eq">
-            <span>{`$$142857 \\cdot 6 = 857142$$`}</span>
-          </div>
-          <div className="lrn-eq">
-            <span>{`$$142857 \\cdot 7 = 999999$$`}</span>
-          </div>
-          <p>{`Each product from 1 to 6 is the same six digits, rotated. Multiplying by 7 collapses everything to nines.`}</p>
-          <p>{`Reason: $142857 = \\frac{999999}{7}$. The remainders that cycle when you divide $10^n$ by 7 map directly onto digit rotations.`}</p>
-
-          <h3>Problem 14 Other dividends to try</h3>
-          <p>{`The trick is not limited to 7. Pick a divisor $d$ for which 10 has small order modulo $d$.`}</p>
-          <p>{`For $d = 13$: the cycle has length 6, and the cyclic number is $\\frac{999999}{13} = 76923$.`}</p>
-          <p>{`Multiply 076923 by 1, 3, 4, 9, 10, 12 the products are rotations of the same six digits.`}</p>
-          <p>{`For $d = 17$ the cycle length is 16 and you get a 16-digit cyclic number. Worth a session with a long pencil.`}</p>
+          <p>{`You can now divide any whole number and name both the quotient and the remainder.`}</p>
         </>,
 
         <>
@@ -262,7 +243,7 @@ function useConfig() {
             <BinaryPlaceValueViz />
           </div>
 
-          <h3>Problem 15 The generating rule</h3>
+          <h3>The generating rule</h3>
           <p>{`The list 0, 1, 10, 11, 100, 101, 110, 111, 1000, ... is the counting numbers written in binary.`}</p>
           <p>{`Each row is the previous row plus 1.`}</p>
           <p>{`In a column, $1 + 1$ writes 0 and carries 1 left.`}</p>
@@ -327,37 +308,35 @@ function useConfig() {
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Decimal</span>
-              <p>{`Ten symbols (0–9). Numbers are compact.`}</p>
-              <p>{`$14_{10}$ has 2 digits.`}</p>
+              <p>{`Ten symbols (0–9). Numbers stay short.`}</p>
+              <p>{`We write fourteen as $14_{10}$.`}</p>
               <p>{`Convenient for hands with ten fingers.`}</p>
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Binary</span>
-              <p>{`Two symbols (0, 1). Numbers are long.`}</p>
-              <p>{`$14_{10} = 1110_2$ has 4 digits.`}</p>
+              <p>{`Two symbols (0, 1). Numbers run longer.`}</p>
+              <p>{`The same fourteen becomes $1110_2$.`}</p>
               <p>{`Convenient for circuits with two states.`}</p>
             </div>
           </div>
 
           <h3>Conversions</h3>
-          <p>{`Problem 17 What is 14 in binary, and what does $10000_2$ mean in decimal?`}</p>
+          <p>{`What is 14 in binary, and what does $10000_2$ mean in decimal?`}</p>
           <p>{`$14 = 8 + 4 + 2 = 1 \\cdot 2^3 + 1 \\cdot 2^2 + 1 \\cdot 2^1 + 0 \\cdot 2^0 = 1110_2$.`}</p>
           <p>{`$10000_2 = 1 \\cdot 2^4 = 16$.`}</p>
 
-          <p>{`Problem 18 Write 45 in binary.`}</p>
-          <p>{`Pull off the largest power of 2 at each step: $45 - 32 = 13$, $13 - 8 = 5$, $5 - 4 = 1$, $1 - 1 = 0$.`}</p>
+          <p>{`Write 45 in binary. Pull off the largest power of 2 at each step: $45 - 32 = 13$, $13 - 8 = 5$, $5 - 4 = 1$, $1 - 1 = 0$.`}</p>
           <p>{`Powers used: $2^5, 2^3, 2^2, 2^0$.`}</p>
           <div className="lrn-eq">
             <span>{`$$45_{10} = 101101_2$$`}</span>
           </div>
 
-          <p>{`Problem 19 Convert $10101101_2$ to decimal.`}</p>
-          <p>{`$128 + 0 + 32 + 0 + 8 + 4 + 0 + 1 = 173$.`}</p>
+          <p>{`Convert $10101101_2$ to decimal: $128 + 0 + 32 + 0 + 8 + 4 + 0 + 1 = 173$.`}</p>
 
           <h3>Binary arithmetic</h3>
           <p>{`The algorithms are the decimal ones with the carry threshold dropped from 10 to 2.`}</p>
 
-          <p>{`Problem 20 Addition.`}</p>
+          <p>{`Addition. Add column by column. When a column reaches 2, write 0 and carry 1 left.`}</p>
           <ul className="lrn-list">
             <li>{`$1010_2 + 101_2 = 1111_2 \\quad(10 + 5 = 15)$`}</li>
             <li>{`$1111_2 + 1_2 = 10000_2 \\quad(15 + 1 = 16)$`}</li>
@@ -365,31 +344,22 @@ function useConfig() {
             <li>{`$1111_2 + 1111_2 = 11110_2 \\quad(15 + 15 = 30)$`}</li>
           </ul>
 
-          <p>{`Problem 21 Subtraction. Borrow groups of 2 instead of groups of 10.`}</p>
+          <p>{`Subtraction. Borrow groups of 2 instead of groups of 10. (Decimal borrowing is reviewed back in the subtraction algorithm above.)`}</p>
           <ul className="lrn-list">
             <li>{`$1101_2 - 101_2 = 1000_2 \\quad(13 - 5 = 8)$`}</li>
             <li>{`$110_2 - 1_2 = 101_2 \\quad(6 - 1 = 5)$`}</li>
             <li>{`$1000_2 - 1_2 = 111_2 \\quad(8 - 1 = 7)$`}</li>
           </ul>
 
-          <p>{`Problem 22 Multiplication $1101_2 \\cdot 1010_2$.`}</p>
-          <p>{`Stack the partial products: 0, then 1101 shifted one place left, then 0, then 1101 shifted three places left.`}</p>
+          <p>{`Multiplication. Stack the partial products: 0, then 1101 shifted one place left, then 0, then 1101 shifted three places left.`}</p>
           <div className="lrn-eq">
             <span>{`$$1101_2 \\cdot 1010_2 = 10000010_2 = 130_{10}$$`}</span>
           </div>
           <p>{`Check in decimal: $13 \\cdot 10 = 130$.`}</p>
 
-          <p>{`Problem 23 Division $11011_2 \\div 101_2$.`}</p>
-          <p>{`Long division in base 2: $11011_2 = 101_2 \\cdot 101_2 + 10_2$, so quotient $101_2$, remainder $10_2$ (in decimal, $27 = 5 \\cdot 5 + 2$).`}</p>
-
-          <h3>{`Problem 24 $\\frac{1}{3}$ in binary`}</h3>
-          <p>{`In decimal, $\\frac{1}{3} = 0.333\\ldots$ never ends, because 3 is not a power of 10.`}</p>
-          <p>{`In binary the rule is the same with 2 instead of 10.`}</p>
-          <p>{`A fraction terminates only when the denominator is a power of 2.`}</p>
-          <p>{`Since 3 is not, $\\frac{1}{3}$ repeats in binary too:`}</p>
-          <div className="lrn-eq">
-            <span>{`$$\\frac{1}{3} = 0.0101\\,0101\\,0101\\ldots_2$$`}</span>
-          </div>
+          <p>{`Division in base 2 works like base 10, with the carry threshold at 2.`}</p>
+          <p>{`$11011_2 = 101_2 \\cdot 101_2 + 10_2$, so the quotient is $101_2$ and the remainder is $10_2$. Check in decimal: $27 = 5 \\cdot 5 + 2$.`}</p>
+          <p>{`You can now read, write, add, subtract, multiply, and divide in binary.`}</p>
         </>,
 
         <>
@@ -470,11 +440,11 @@ function useConfig() {
           <h2>The Distributive Law</h2>
 
           <p>{`The distributive law connects multiplication and addition. It is the single most important law in algebra.`}</p>
+          <p>{`Start concrete: $3 \\cdot (4 + 2) = 3 \\cdot 6 = 18$, and $3 \\cdot 4 + 3 \\cdot 2 = 12 + 6 = 18$. Either way, 18.`}</p>
+          <p>{`The same thing works for any three numbers:`}</p>
           <div className="lrn-eq lrn-eq-hero">
             <span>{`$$a \\cdot (b + c) = a \\cdot b + a \\cdot c$$`}</span>
           </div>
-
-          <p>{`Concrete: $3 \\cdot (4 + 2) = 3 \\cdot 6 = 18$, and $3 \\cdot 4 + 3 \\cdot 2 = 12 + 6 = 18$. Either way, 18.`}</p>
 
           <p>{`Visual: a rectangle of width $b + c$ and height $a$ splits at the cut into two rectangles of areas $ab$ and $ac$. The total area is fixed by the original rectangle; the cut just renames it.`}</p>
 
@@ -489,14 +459,7 @@ function useConfig() {
           <div className="lrn-eq">
             <span>{`$$(a + b)(c + d) = ac + ad + bc + bd$$`}</span>
           </div>
-          <p>{`Each term in the first sum multiplies each term in the second. You will use this pattern constantly when expanding $(x + p)(x + q)$ in algebra.`}</p>
-
-          <h3>Worked binomial expansion</h3>
-          <p>{`Expand $(x + 3)(x + 5)$.`}</p>
-          <div className="lrn-eq">
-            <span>{`$$(x + 3)(x + 5) = x \\cdot x + x \\cdot 5 + 3 \\cdot x + 3 \\cdot 5 = x^2 + 8x + 15$$`}</span>
-          </div>
-          <p>{`Try the same pattern on $(x + 4)(x + 6)$ before reading on. Answer: $x^2 + 10x + 24$.`}</p>
+          <p>{`Each term in the first sum multiplies each term in the second. A later page uses this pattern to multiply things like $(x + 3)(x + 5)$.`}</p>
         </>,
 
         <>
@@ -561,7 +524,7 @@ function useConfig() {
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Mixed signs</span>
-              <p className="lrn-step-content">{`$(-7) + 3 = -(7 - 3) = -4$. Subtract the smaller magnitude from the larger; keep the sign of the larger.`}</p>
+              <p className="lrn-step-content">{`$(-7) + 3 = -(7 - 3) = -4$. Subtract the smaller size from the larger, where size means distance from zero. Keep the sign of the number that is farther from zero.`}</p>
             </div>
           </div>
         </>,
@@ -624,7 +587,7 @@ function useConfig() {
       },
 
       {
-        q: 'Explain from first principles why (−3)(−4) = 12, not −12.',
+        q: 'Explain step by step why (−3)(−4) = 12, not −12.',
         a: 'Start with (3 + (−3))(4 + (−4)) = 0. Expand using the distributive law: 12 + 3(−4) + (−3)(4) + (−3)(−4) = 0. Substituting 3(−4) = −12 and (−3)(4) = −12 gives 12 − 12 − 12 + (−3)(−4) = 0, so (−3)(−4) = 12. The sign rule is the only value consistent with the distributive law.'
       },
 
@@ -685,12 +648,12 @@ function useConfig() {
 
       {
         q: 'A student says (−5) + (−3) = −2. Identify the error and give the correct answer.',
-        a: 'The student subtracted instead of adding. With both numbers negative, add the magnitudes and keep the negative sign. |−5| + |−3| = 8, so (−5) + (−3) = −8.'
+        a: 'The student subtracted instead of adding. With both numbers negative, add the sizes (distances from zero) and keep the negative sign. 5 + 3 = 8, so (−5) + (−3) = −8.'
       },
 
       {
         q: 'Why does the associative law matter in practice? Give a real calculation where it saves work.',
-        a: 'Example: 37 + 63 + 48. Grouping as (37 + 63) + 48 = 100 + 48 = 148 is easier than 37 + (63 + 48) = 37 + 111 = 148. Both routes give the same answer because addition is associative so you pick the route that is easier to compute.'
+        a: 'Example: 37 + 63 + 48. Grouping as (37 + 63) + 48 = 100 + 48 = 148 is easier than 37 + (63 + 48) = 37 + 111 = 148. Both routes give the same answer because addition is associative. You pick the route that is easier to compute.'
       },
 
       {
@@ -714,8 +677,8 @@ function useConfig() {
       },
 
       {
-        q: 'Predict: will 1/5 have a terminating or repeating binary expansion?',
-        a: 'Repeating. A fraction terminates in binary only when its denominator is a power of 2. Since 5 is not, 1/5 = 0.001100110011…₂ the pattern 0011 repeats forever.'
+        q: 'Write 19 in binary by pulling off the largest power of 2 at each step.',
+        a: '19 = 16 + 2 + 1 = 1 × 2⁴ + 0 × 2³ + 0 × 2² + 1 × 2¹ + 1 × 2⁰ = 10011₂. Largest power of 2 not over 19 is 16, leaving 3; largest not over 3 is 2, leaving 1; then 1.'
       },
 
       {
@@ -725,7 +688,7 @@ function useConfig() {
 
       {
         q: 'Why is the algebraic statement a + b = b + a more powerful than showing 2 + 3 = 3 + 2 and 7 + 1 = 1 + 7?',
-        a: 'The algebraic statement covers every pair of numbers at once. Specific cases like 2 + 3 = 3 + 2 only confirm those numbers infinitely many cases stay unproven. One proof with letters settles all of them in a single step. That is the defining gain algebra offers over arithmetic.'
+        a: 'The algebraic statement covers every pair of numbers at once. Specific cases like 2 + 3 = 3 + 2 only confirm those numbers. Infinitely many cases stay unproven. One proof with letters settles all of them in a single step. That is the defining gain algebra offers over arithmetic.'
       }
     ],
 
@@ -853,21 +816,23 @@ function useConfig() {
                 <td>{`$100 = 7 \\cdot 14 + 2$: 14 full blocks of seven ones, remainder is 11.`}</td>
               </tr>
               <tr>
-                <td>{`$10^n \\bmod 7$ cycles with period 6`}</td>
-                <td>Source of the cyclic number 142857.</td>
-              </tr>
-              <tr>
-                <td>{`$142857 \\cdot k$ for $k=1\\ldots 6$`}</td>
-                <td>{`Cyclic rotations of 142857; $\\cdot 7 = 999999$.`}</td>
+                <td>{`$10x + 1 = 3(100000 + x)$`}</td>
+                <td>{`Solve to get $x = 42857$, so the mystery number is 142857.`}</td>
               </tr>
             </tbody>
           </table>
+
+          <h2>Solving a Simple Equation</h2>
+          <p>{`Do the same thing to both sides until the unknown stands alone. Add or subtract the same number; multiply or divide both sides by the same nonzero number. Gather the unknown on one side first.`}</p>
+
+          <h2>Decimal Place Value</h2>
+          <p>{`Places continue past the dot: tenths, hundredths, thousandths. So $0.25 = \\tfrac{2}{10} + \\tfrac{5}{100} = \\tfrac{25}{100}$.`}</p>
         </>
       ]
     },
 
     customCss:
-      '.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }'
+      '.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }'
   }
 
   return config
@@ -876,4 +841,8 @@ function useConfig() {
 export default function ArithmeticFoundations() {
   const config = useConfig()
   return <LearningTemplate config={config} />
+}
+
+export function useArithmeticFoundationsConfig() {
+  return useConfig()
 }

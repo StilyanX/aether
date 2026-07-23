@@ -1,4 +1,5 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import { VizFigure } from '../../../../components/viz-figure'
 
 function useConfig() {
   const config = {
@@ -11,6 +12,7 @@ function useConfig() {
       subtitle: 'How archaeologists read the human story from objects, layers, and bones.',
       sections: [
         <>
+          <h2>What Is Archaeology?</h2>
           <p>
             Most of human life left no text. Objects, layers of soil, animal bones, and buried walls
             are what remain. Archaeology is the discipline that reads those remains.
@@ -24,7 +26,31 @@ function useConfig() {
             without knowing he was there.
           </p>
 
-          <h2>What Is Archaeology?</h2>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Colossus of Psamtik I">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/9/95/Statue_of_Egyptian_King_Psamtik_I_excavation_1.jpg"
+                alt="A colossal quartzite statue of pharaoh Psamtik I being lifted from muddy groundwater"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The colossus of pharaoh Psamtik I, lifted from groundwater at Heliopolis, Cairo, in 2017. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Statue_of_Egyptian_King_Psamtik_I_excavation_1.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -96,7 +122,31 @@ function useConfig() {
               <p>
                 All physical objects made, used, or changed by humans. Material culture is one of
                 the hallmarks of being human. No other species builds tools in a systematic,
-                repeating way across generations.
+                repeating way across generations. A single object is called an artifact: any thing
+                made, shaped, or used by people.
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Context</span>
+            <div className="lrn-definition-desc">
+              <p>
+                An object's exact position when found: which layer of soil it sat in, what other
+                objects lay next to it, and how it related to the walls or features around it.
+                Context carries the information. An object torn from its context loses most of what
+                it can tell us. This idea drives nearly everything later on this page.
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Site</span>
+            <div className="lrn-definition-desc">
+              <p>
+                Any place where people left material remains: a buried village, a cave, a burial
+                mound, even a single scatter of tools. Archaeologists study sites to read what
+                happened on that spot.
               </p>
             </div>
           </div>
@@ -108,22 +158,28 @@ function useConfig() {
             formation of each unit. The objects themselves do.
           </p>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/7e/The_Terracotta_Warriors.JPG"
-              alt="Rows of life-size terracotta soldier figures standing in formation inside Pit 1, Xian, China"
-            />
-            <figcaption>
-              Pit 1 of the Terracotta Army, Xian, China. Discovered in 1974, Pit 1 contains 3,210
-              armored infantrymen. The army was buried with Qin Shi Huangdi around 210 BCE.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:The_Terracotta_Warriors.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Terracotta Army, Pit 1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/49/Terracotta_Army%2C_View_of_Pit_1.jpg"
+                alt="Rows of life-size terracotta infantry standing in earthen trenches in Pit 1"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'Ranked infantry of the Terracotta Army in Pit 1, near Xi’an, China. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Terracotta_Army,_View_of_Pit_1.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 3.0, photo by Jmhullot.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <div className="lrn-elaborate">
@@ -162,9 +218,9 @@ function useConfig() {
 
           <p>
             Archaeology is not limited to ancient ruins. The Arizona Garbage Project, run by William
-            Rathje and Cullen Murphy (1992), worked through household trash cans in Tucson. What
-            people threw out differed sharply from what they reported in surveys. The same method
-            can read any period, including the present.
+            Rathje and Cullen Murphy, worked through household trash cans in Tucson. What people
+            threw out differed sharply from what they reported in surveys. The same method can read
+            any period, including the present.
           </p>
 
           <p>
@@ -228,10 +284,11 @@ function useConfig() {
           </div>
 
           <p>
-            Archaeology covers the full 6 million years of the human lineage. Hominins, the term now
-            used for all members of the human lineage after the split from other apes, first appear
-            in Africa about 6 million years ago. Homo sapiens appears around 200,000 years ago.
-            Writing appears only in the last 0.09% of that span.
+            Archaeology covers the full 6 million years of the human lineage. Humans share a common
+            ancestor with other apes. Our lineage branched off about 6 million years ago. We call
+            all members of that branch hominins. The first hominins appear in Africa about 6 million
+            years ago. Homo sapiens appears around 200,000 years ago. Writing appears only in the
+            last 0.09% of that span.
           </p>
 
           <div className="lrn-callout">
@@ -242,25 +299,6 @@ function useConfig() {
               sense. Their oral traditions carry knowledge that no document records. Archaeology is
               the only discipline that can give those traditions physical depth.
             </p>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does the line between prehistory and history fall at different points on different
-              continents? What does this tell you about the definition of prehistory?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Prehistory is defined by the absence of written records, not by a fixed calendar
-                date. Writing spread unevenly across the globe.
-              </p>
-              <p>
-                A society without writing remained prehistoric even if another civilization was
-                already using texts. The boundary is local, not global.
-              </p>
-            </details>
           </div>
 
           <h3>Why World Archaeology Matters</h3>
@@ -298,30 +336,11 @@ function useConfig() {
           <h3>Renaissance Beginnings</h3>
 
           <p>
-            Archaeology grew from the Renaissance, roughly 500 years ago. European scholars began
-            re-reading classical Greek and Roman texts and visiting ancient monuments. The
-            Colosseum, ruined temples, and carved marble gave a visible past that the medieval
-            church had largely ignored.
+            Archaeology grew from the Renaissance (the European revival of classical Greek and Roman
+            learning, roughly 1400 to 1600). European scholars began re-reading classical Greek and
+            Roman texts and visiting ancient monuments. The Colosseum, ruined temples, and carved
+            marble gave a visible past that the medieval church had largely ignored.
           </p>
-
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Maerten_van_Heemskerck_-_Self-portrait%2C_with_the_Colosseum%2C_1553_%28Fitzwilliam_Museum%29.jpg"
-              alt="Oil painting of Maarten van Heemskerck seated with the Colosseum visible in the background, 1553"
-            />
-            <figcaption>
-              Maarten van Heemskerck (1498-1574): Self-portrait with the Colosseum, 1553.
-              Renaissance artists used ancient ruins as backdrops, showing the new hunger for
-              classical antiquity.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Maerten_van_Heemskerck_-_Self-portrait,_with_the_Colosseum,_1553_(Fitzwilliam_Museum).jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
 
           <p>
             The voyages of discovery brought a new problem: indigenous peoples living in ways that
@@ -336,6 +355,32 @@ function useConfig() {
             recorded indigenous people. Later scholars used his watercolors to imagine how pre-Roman
             Britons must have looked.
           </p>
+
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="A Pict">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/1/13/The_True_Picture_of_One_Pict.jpg"
+                alt="Engraving of a tattooed Pictish warrior holding a spear and a severed head"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A Pict, engraved by Theodor de Bry after John White, imagining an ancient Briton. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:The_True_Picture_of_One_Pict.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <div className="lrn-callout">
             <span className="lrn-callout-label">Antiquarianism vs. Archaeology</span>
@@ -392,25 +437,31 @@ function useConfig() {
           <p>
             In 1856, a worker found a premodern skeleton by chance in Feldhoffer Cave, Neander
             Valley, Germany. Scholars later named the find Neanderthal. It was the first recognized
-            fossil hominin.
+            fossil hominin (ancient bone preserved in the ground long enough to harden).
           </p>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/3/37/Neandertal_1856.jpg"
-              alt="Illustration of the Neanderthal 1 cranial vault discovered in 1856 at Feldhoffer Cave"
-            />
-            <figcaption>
-              The Neanderthal 1 skull cap, discovered 1856 at Feldhoffer Cave, Neander Valley,
-              Germany. The first recognized fossil hominin. Public domain.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Neandertal_1856.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Neanderthal 1 skullcap">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Neanderthaler_Fund.png"
+                alt="Drawing of the Neanderthal 1 skullcap found in the Neander Valley in 1856"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {'The Neanderthal 1 skullcap, found in the Neander Valley, Germany, in 1856. '}
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Neanderthaler_Fund.png"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <p>
@@ -419,25 +470,6 @@ function useConfig() {
             gave archaeologists a framework: humans had changed over time, and the fossil record
             should show that change.
           </p>
-
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/1/10/Darwin_Tree_1837.png"
-              alt="Charles Darwin's 1837 notebook sketch of branching tree of life with the annotation 'I think'"
-            />
-            <figcaption>
-              Darwin's first sketch of an evolutionary tree, from his 1837 notebook. The annotation
-              reads "I think." This diagram helped archaeologists see human change as a branching
-              process, not a straight line. Public domain.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Darwin_Tree_1837.png"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -630,6 +662,32 @@ function useConfig() {
             </div>
           </div>
 
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Olduvai Gorge strata">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Olduvai_Gorge.jpg"
+                alt="Exposed horizontal beds of sediment cut through by Olduvai Gorge in Tanzania"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The layered beds of Olduvai Gorge, Tanzania, where older deposits sit beneath younger ones. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Olduvai_Gorge.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
           <div className="lrn-callout">
             <span className="lrn-callout-label">When to use stratigraphy</span>
             <p>
@@ -654,7 +712,7 @@ function useConfig() {
                 <li>Plaster floor is youngest (shallowest). It seals all earlier deposits.</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>
                 A new trench shows: cobble floor, then animal bone scatter, then mudbrick collapse,
@@ -685,9 +743,11 @@ function useConfig() {
             <div className="lrn-definition-desc">
               <p>
                 Dates organic materials (wood, bone, charcoal, seeds) using the decay of the
-                unstable isotope carbon-14. Living organisms absorb C14 from the atmosphere. When
-                they die, absorption stops and C14 decays at a fixed rate. The half-life of C14 is
-                5,730 years.
+                unstable isotope carbon-14. Isotopes are forms of the same element that have the
+                same number of protons but different numbers of neutrons, so they differ in mass.
+                Some isotopes are unstable and break down, or decay, over time. Living organisms
+                absorb C14 from the atmosphere. When they die, absorption stops and C14 decays at a
+                fixed rate. The half-life of C14 is 5,730 years.
               </p>
             </div>
           </div>
@@ -746,7 +806,7 @@ function useConfig() {
                 <li>Calibrate against dendrochronology to get a true calendar date.</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>
                 A bone contains one quarter of the C14 of a modern sample. The half-life of C14 is
@@ -808,8 +868,9 @@ function useConfig() {
             <span className="lrn-callout-label">When to use K-Ar</span>
             <p>
               Use potassium-argon on volcanic materials associated with early hominin fossils,
-              especially in East Africa. It covers the entire Lower and Middle Paleolithic, far
-              beyond radiocarbon's reach.
+              especially in East Africa. At Olduvai Gorge in Tanzania, K-Ar dated the volcanic ash
+              just below the oldest stone tools to about 1.8 million years ago. It covers the entire
+              Lower and Middle Paleolithic, far beyond radiocarbon's reach.
             </p>
           </div>
 
@@ -839,9 +900,10 @@ function useConfig() {
 
           <p>
             <strong>Uranium-series (U-series)</strong> dating uses the radioactive decay of uranium
-            to thorium and protactinium. It dates cave flowstones (calcite deposits formed from
-            groundwater) and stalactites. At Sima de los Huesos in Spain, U-series demonstrated that
-            human fossils accumulated more than 500,000 years ago.
+            to thorium and protactinium (two elements that uranium slowly turns into as it decays).
+            It dates cave flowstones (calcite deposits formed from groundwater) and stalactites
+            (mineral spikes that hang from cave ceilings). At Sima de los Huesos in Spain, U-series
+            dated the flowstone over the human fossils to about 430,000 years ago.
           </p>
 
           <div className="lrn-self-explain">
@@ -868,7 +930,9 @@ function useConfig() {
           <p>
             <strong>Electron Spin Resonance (ESR)</strong> dating measures trapped electrons in
             dental enamel. Electrons build up at a rate proportional to the radiation dose over
-            time. Use ESR when the sample is older than 40,000 years and K-Ar is not applicable.
+            time. Use ESR when the sample is older than 40,000 years and K-Ar is not applicable. At
+            the Qafzeh and Skhul caves in Israel, ESR dating of animal teeth placed early modern
+            humans there about 100,000 years ago.
           </p>
 
           <p>
@@ -896,6 +960,13 @@ function useConfig() {
             </div>
           </div>
 
+          <p>
+            At the Jinmium rock shelter in northern Australia, early TL dates on the sediment around
+            stone tools suggested people lived there more than 100,000 years ago. A later OSL study
+            of single sand grains corrected this to less than 10,000 years. The case shows both the
+            power and the care these methods demand.
+          </p>
+
           <h3>Dendrochronology (Tree-Ring Dating)</h3>
 
           <div className="lrn-definition">
@@ -910,23 +981,30 @@ function useConfig() {
             </div>
           </div>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Cross_section_of_a_tree_showing_the_dates_of_tree_ring_formation_at_the_Ohio_History_Center_June_2022_1.jpg"
-              alt="Cross-section of a tree trunk showing visible annual growth rings with dates marked, at the Ohio History Center"
-            />
-            <figcaption>
-              Cross-section of a tree showing dated annual growth rings, Ohio History Center. Each
-              ring represents one year of growth. Matching overlapping sequences from living and
-              dead trees builds chronologies spanning thousands of years.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Cross_section_of_a_tree_showing_the_dates_of_tree_ring_formation_at_the_Ohio_History_Center_June_2022_1.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Tree rings">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Annual-rings-2119287.jpg"
+                alt="Polished cross-section of a tree trunk showing wide and narrow annual growth rings"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A polished trunk cross-section: each ring is one year, wide in good years, narrow in poor ones. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Annual-rings-2119287.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0, photo by LesMusix.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <div className="lrn-callout">
@@ -945,7 +1023,8 @@ function useConfig() {
             that record. Matching the polarity of a deposit to the dated master sequence of
             reversals places it within that sequence. The method gives no calendar year on its own,
             but it covers hundreds of millions of years and cross-checks other dating methods on
-            very old deposits.
+            very old deposits. One short flip, the Olduvai subchron (about 1.9 to 1.8 million years
+            ago), is named after Olduvai Gorge and helps date East African hominin deposits.
           </p>
         </>,
 
@@ -983,32 +1062,39 @@ function useConfig() {
             topography. The Angkor Wat LiDAR survey is the most famous recent example.
           </p>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Angkor_Wat_-_Churning_of_the_Sea_of_Milk.JPG"
-              alt="Stone bas-relief at Angkor Wat showing the Hindu creation myth scene of the churning of the sea of milk"
-            />
-            <figcaption>
-              The Churning of the Sea of Milk, eastern gallery, Angkor Wat, Cambodia. This
-              twelfth-century temple-mausoleum was the subject of a landmark LiDAR survey that
-              revealed houses and ponds filling what was thought to be an empty enclosure.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Angkor_Wat_-_Churning_of_the_Sea_of_Milk.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="LiDAR hillshade">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/e/e2/LiDAR_Hillshade_of_the_Carson_site.jpg"
+                alt="LiDAR hillshade map showing buried mounds and earthworks otherwise hidden by vegetation"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A LiDAR hillshade reveals earthworks hidden beneath vegetation, here the Carson Mounds, Mississippi. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:LiDAR_Hillshade_of_the_Carson_site.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0, by Jmmehta.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <p>
             Survey (or "off-site" archaeology) systematically collects and records material on the
             ground surface across a landscape, without excavation. It maps patterns of human
-            occupation. Geomagnetic prospection and resistivity survey identify buried pits,
-            hearths, and walls without digging. GIS (Geographic Information Systems) analyzes
-            spatial relationships between sites, finds, and landscape features. GPS maps sites
-            accurately in the field.
+            occupation. Geomagnetic prospection and resistivity survey find buried pits, hearths,
+            and walls by measuring tiny changes in the soil's magnetism and how well it carries
+            electricity. GIS (Geographic Information Systems) analyzes spatial relationships between
+            sites, finds, and landscape features. GPS maps sites accurately in the field.
           </p>
 
           <h3>Excavation</h3>
@@ -1049,10 +1135,11 @@ function useConfig() {
           </p>
 
           <p>
-            Deep-sea core analysis uses microscopic shelled protozoa called foraminifera (forams).
-            Their shells record the ratio of oxygen-16 to oxygen-18 from seawater at the time they
-            formed. Cold glacial water has more oxygen-18. Comparing these ratios in cores going
-            back tens of millions of years maps every glacial and interglacial stage.
+            Deep-sea core analysis uses tiny single-celled sea creatures with shells called
+            foraminifera (forams). Their shells record the ratio of oxygen-16 to oxygen-18 from
+            seawater at the time they formed. Cold glacial water has more oxygen-18. Comparing these
+            ratios in cores going back tens of millions of years maps every glacial and interglacial
+            stage.
           </p>
 
           <div className="lrn-callout">
@@ -1060,23 +1147,49 @@ function useConfig() {
             <p>
               A site by itself tells you what happened on that spot. Surrounding sediment cores,
               tooth chemistry, and pollen tell you the world the site sat inside. The deeper you
-              push beyond the site, the more you constrain what the people there could have done.
+              push beyond the site, the more you limit what the people there could have done.
             </p>
           </div>
 
           <p>
             Carbon isotope analysis (measuring the ratio of carbon-12 to carbon-13 in ancient soils)
-            tells researchers whether C3 plants (trees, shrubs, montane grasses) or C4 plants
+            tells researchers whether C3 plants (trees, shrubs, mountain grasses) or C4 plants
             (heat-loving tropical grasses) dominated. This reflects both diet and climate.
           </p>
 
           <p>
             Strontium and oxygen isotope ratios in tooth enamel are fixed during childhood and never
-            remodel. The ratios reflect the local rock and water where the person grew up. Compare
-            them with the burial soil and any mismatch is direct evidence that the person moved. The
-            "Amesbury Archer," buried near Stonehenge, carried the isotope signature of the European
-            continent, not Britain. He had walked or sailed in as an adult.
+            change again. The ratios reflect the local rock and water where the person grew up.
+            Compare them with the burial soil and any mismatch is direct evidence that the person
+            moved. The "Amesbury Archer," buried near Stonehenge, carried the isotope signature of
+            the European continent, not Britain. He had walked or sailed in as an adult.
           </p>
+
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="The Amesbury Archer">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Salisbury_Museum%2C_%27The_Amesbury_Archer%27_skeleton_from_the_Late_Neolithic_period_-_geograph.org.uk_-_7047710.jpg"
+                alt="Crouched skeleton of the Amesbury Archer displayed with grave goods around the body"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Amesbury Archer’s grave, whose tooth chemistry shows he grew up in continental Europe. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Salisbury_Museum,_%27The_Amesbury_Archer%27_skeleton_from_the_Late_Neolithic_period_-_geograph.org.uk_-_7047710.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 2.0, photo by Michael Garlick.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -1088,8 +1201,8 @@ function useConfig() {
               <summary>Expert explanation</summary>
               <p>
                 It proves the person grew up in a different geological area than where they were
-                buried. Tooth enamel forms in childhood and does not remodel. The local geology
-                stamps its chemical signature into developing teeth.
+                buried. Tooth enamel forms in childhood and does not change after that. The local
+                geology stamps its chemical signature into developing teeth.
               </p>
               <p>
                 It does NOT prove why they moved, how far they traveled, how many times they moved,
@@ -1136,21 +1249,30 @@ function useConfig() {
             not accidental drifts.
           </p>
 
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/67/Canoe_hokulea_under_sail_profile.jpg"
-              alt="The Hokule'a replica Polynesian double-hulled canoe sailing under sail against the sky"
-            />
-            <figcaption>
-              The Hokule'a, a replica Polynesian double-hulled voyaging canoe, under sail.{' '}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Canoe_hokulea_under_sail_profile.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Hōkūleʻa">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/2/21/Hokule%27aSailing2009.jpg"
+                alt="The double-hulled voyaging canoe Hokulea sailing under full sail on open ocean"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Hōkūleʻa, a replica Polynesian double-hulled canoe, sailing under traditional navigation. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Hokule%27aSailing2009.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.0, photo by HongKongHuey.'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <div className="lrn-self-explain">
@@ -1170,7 +1292,7 @@ function useConfig() {
                 If you see a pit full of smashed pots, you need to know whether humans smashed them
                 in a ritual (C-transform) or a tree root crushed them over centuries (N-transform).
                 Misreading the process produces a false picture of the past. Formation process
-                analysis (Schiffer 1987) is the formal study of these inputs.
+                analysis is the formal study of these inputs.
               </p>
             </details>
           </div>
@@ -1229,8 +1351,8 @@ function useConfig() {
             <p>
               Processual archaeology borrowed the rule of the physical sciences: state a hypothesis,
               test it against the data. The catch is that you cannot replay the past. Postprocessual
-              critics added a second problem: every researcher brings assumptions shaped by their
-              own culture, gender, and era, so the "objective" archaeologist is a fiction. Both
+              critics added a second problem. Every researcher brings assumptions shaped by their
+              own culture, gender, and era. So the "objective" archaeologist is a fiction. Both
               objections land. The tension between them drives most current theoretical debate.
             </p>
             <p>
@@ -1321,9 +1443,10 @@ function useConfig() {
             <div className="lrn-definition-desc">
               <p>
                 Societies adopt features from neighbors in a context of rivalry or competition. Not
-                passive copying, but active borrowing to match or surpass a rival. Peer-polity
-                interaction (Renfrew and Cherry 1982) describes how new states form around the
-                margins of existing ones.
+                passive copying, but active borrowing to match or surpass a rival. A polity is any
+                organized community with its own government, such as a city-state, kingdom, or
+                chiefdom. Peer-polity interaction describes how new states form around the margins
+                of existing ones.
               </p>
             </div>
           </div>
@@ -1363,8 +1486,8 @@ function useConfig() {
           <h3>Classification of Human Societies</h3>
 
           <p>
-            Elman Service (1962) proposed a fourfold classification of human societies by size,
-            complexity, and degree of centralization.
+            Elman Service proposed a fourfold classification of human societies by size, complexity,
+            and degree of centralization.
           </p>
 
           <div className="lrn-definition">
@@ -1428,7 +1551,7 @@ function useConfig() {
                 <li>Classification: chiefdom, despite being non-agricultural.</li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>
                 A society has 400 people. They herd cattle. Leaders are chosen by community
@@ -1483,34 +1606,25 @@ function useConfig() {
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
-              The book follows five themes across all of human prehistory: Climate Change,
-              Migration, Domestication, Urbanism, and Social Inequality. Which one do you think most
-              directly caused the others? Commit to an answer before reading.
+              Five themes run through all of human prehistory: Climate Change, Migration,
+              Domestication, Urbanism, and Social Inequality. Which one do you think most directly
+              caused the others? Commit to an answer before reading.
             </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>
                 Climate change is the strongest candidate for driving the others. The end of the
-                last Ice Age (11,600 years ago) shifted environments enough that plant and animal
+                last Ice Age (11,700 years ago) shifted environments enough that plant and animal
                 domestication became possible in new regions. Domestication allowed surplus food.
                 Surplus supported larger settlements. Larger settlements became cities. Cities
                 created conditions for wealth differences and social inequality. Migration spread
                 all of these developments.
               </p>
               <p>
-                But the chapter is careful not to make climate the only cause. Agency, emulation,
-                and local factors all matter too.
+                But climate is not the only cause. Agency, emulation, and local factors all matter
+                too.
               </p>
             </details>
-          </div>
-
-          <div className="lrn-callout lrn-tip">
-            <span className="lrn-callout-label">Key Themes Box</span>
-            <p>
-              These five themes recur as labeled boxes throughout the textbook. Each chapter
-              connects its region and period to one or more of these themes. Tracking them gives you
-              a framework for comparing very different societies across the whole book.
-            </p>
           </div>
 
           <div className="lrn-steps">
@@ -1518,10 +1632,10 @@ function useConfig() {
               <span className="lrn-step-title">Climate Change</span>
               <p className="lrn-step-content">
                 World climate has fluctuated between warm and cold periods in roughly 100,000-year
-                cycles for the last 700,000 years. The last Ice Age ended 11,600 years ago. Every
-                major shift changed what plants grew, where animals lived, and where humans could
-                settle. The Younger Dryas cold snap (12,900-11,600 years ago) briefly reversed
-                warming and forced foragers to adapt rapidly.
+                cycles for the last 700,000 years. The last Ice Age ended about 11,700 years ago.
+                Every major shift changed what plants grew, where animals lived, and where humans
+                could settle. The Younger Dryas cold snap (about 12,900-11,700 years ago) briefly
+                reversed warming and forced foragers to adapt rapidly.
               </p>
             </div>
             <div className="lrn-step">
@@ -1562,6 +1676,32 @@ function useConfig() {
               </p>
             </div>
           </div>
+
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Monks Mound, Cahokia">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/67/Great_River_Road_-_An_Aerial_View_of_Monks_Mound_-_NARA_-_7718947.jpg"
+                alt="Aerial photograph of the flat-topped earthen platform of Monks Mound at Cahokia"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Aerial view of Monks Mound at Cahokia, the largest earthwork in pre-Columbian North America. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Great_River_Road_-_An_Aerial_View_of_Monks_Mound_-_NARA_-_7718947.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -1626,6 +1766,32 @@ function useConfig() {
             claimed by Egypt).
           </p>
 
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="The Parthenon Marbles">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Duveen_Gallery_-_Parthenon_marbles_from_the_Acropolis_of_Athens_-_British_Museum.jpg"
+                alt="Marble frieze sculptures from the Parthenon displayed along the Duveen Gallery walls"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Parthenon (Elgin) Marbles in the British Museum, claimed by Greece for return to Athens. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Duveen_Gallery_-_Parthenon_marbles_from_the_Acropolis_of_Athens_-_British_Museum.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 2.0, photo by Andres Rueda.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
+
           <div className="lrn-definition">
             <span className="lrn-definition-term">Indigenous Archaeology</span>
             <div className="lrn-definition-desc">
@@ -1646,10 +1812,10 @@ function useConfig() {
               museums, and published findings without consulting descendants.
             </p>
             <p>
-              The communities whose ancestors were being studied had no voice. Indigenous
-              archaeology is the discipline's response to that history. It recognizes that the
-              people connected to a past have a legitimate stake in how it is studied and
-              represented.
+              Archaeologists studied these communities' ancestors. The communities themselves had no
+              voice. Indigenous archaeology is the discipline's response to that history. It
+              recognizes that the people connected to a past have a legitimate stake in how it is
+              studied and represented.
             </p>
           </div>
 
@@ -1671,11 +1837,11 @@ function useConfig() {
       },
       {
         q: 'ELABORATE: Why does the archaeological record contain more stone and fired clay than wood, cloth, or skin?',
-        a: 'Stone, fired clay, and metal resist decay far better than organic materials. Decay depends on water, oxygen, and bacteria. Hard inorganic materials deny those agents purchase. This means the record is biased toward what time spares, not what people valued most. A culture that prized decorated textiles leaves almost nothing; one that fired pottery leaves everything.'
+        a: 'Stone, fired clay, and metal resist decay far better than organic materials. Decay depends on water, oxygen, and bacteria. Hard materials like stone and fired clay give water and bacteria nothing to break down. This means the record is biased toward what time spares, not what people valued most. A culture that prized decorated textiles leaves almost nothing; one that fired pottery leaves everything.'
       },
       {
         q: 'What are hominins, and when does the hominin lineage begin?',
-        a: 'Hominins are all members of the human lineage after the split from other apes. The term replaces the older usage of "hominid" in this sense. The hominin lineage begins approximately 6 million years ago in Africa. Homo sapiens appears much later, around 200,000 years ago.'
+        a: 'Hominins are all members of the human lineage after the split from other apes. The word "hominin" has replaced the older word "hominid" for this group. The hominin lineage begins approximately 6 million years ago in Africa. Homo sapiens appears much later, around 200,000 years ago.'
       },
       {
         q: 'PREDICT: A new settlement appears in the archaeological record at exactly the same time as a sharp change in the pollen record showing forest clearance. What two mechanisms could explain this coincidence?',
@@ -1691,7 +1857,7 @@ function useConfig() {
       },
       {
         q: 'TRANSFER: The Arizona garbage project studied domestic trash cans in Tucson. How does this illustrate the scope of archaeology beyond ancient ruins?',
-        a: 'It shows that archaeology studies material remains of any period, including the present. Rathje and Murphy (1992) found that what people actually discarded differed from what they claimed in surveys. This gap between stated behavior and physical evidence is exactly what archaeology is designed to measure. Ancient sites pose the same challenge: the material record and the intended record often tell different stories.'
+        a: 'It shows that archaeology studies material remains of any period, including the present. The project found that what people actually discarded differed from what they claimed in surveys. This gap between stated behavior and physical evidence is exactly what archaeology is designed to measure. Ancient sites pose the same challenge: the material record and the intended record often tell different stories.'
       },
       {
         q: 'Thomas Jefferson excavated a Native American burial mound in 1784. What was methodologically significant about his approach?',
@@ -1722,8 +1888,8 @@ function useConfig() {
         a: 'Radiocarbon dating measures the decay of carbon-14 (C14), an unstable isotope absorbed by living organisms from the atmosphere. When an organism dies, it stops absorbing C14 and the existing C14 decays at a fixed rate. The half-life of C14 is 5,730 years, meaning half the C14 in a sample decays every 5,730 years. This decay rate allows researchers to calculate how long ago the organism died.'
       },
       {
-        q: 'A charred seed contains one eighth of the C14 found in a modern sample. How old is it approximately, and what must be done before reporting a calendar date?',
-        a: 'One eighth equals three half-lives (1/2 x 1/2 x 1/2 = 1/8). Three half-lives at 5,730 years each equals approximately 17,190 years before present. Before reporting a calendar date, you must calibrate the raw radiocarbon date against dendrochronology and other records. Atmospheric C14 has not been constant over time. Skipping calibration produces dates that are off by decades to centuries.'
+        q: 'A charred seed contains one sixteenth of the C14 found in a modern sample. How old is it approximately, and what must be done before reporting a calendar date?',
+        a: 'One sixteenth equals four half-lives (1/2 x 1/2 x 1/2 x 1/2 = 1/16). Four half-lives at 5,730 years each equals approximately 22,920 years before present. Before reporting a calendar date, you must calibrate the raw radiocarbon date against dendrochronology and other records. Atmospheric C14 has not been constant over time. Skipping calibration produces dates that are off by decades to centuries.'
       },
       {
         q: "Why must radiocarbon dates be calibrated, and what is dendrochronology's role in that calibration?",
@@ -1735,7 +1901,7 @@ function useConfig() {
       },
       {
         q: 'TRANSFER: Uranium-series dating is used at Sima de los Huesos, Spain. What does it date and what did it find?',
-        a: "Uranium-series dating measures uranium decay in cave flowstones (calcite deposits from groundwater). At Sima de los Huesos in Spain, it dated flowstones surrounding human fossils. The result: the fossils accumulated more than 500,000 years ago. This is far beyond radiocarbon's range, showing why multiple dating methods are needed for deep Middle Paleolithic sites."
+        a: "Uranium-series dating measures uranium decay in cave flowstones (calcite deposits from groundwater). At Sima de los Huesos in Spain, it dated flowstones surrounding human fossils. The result: the fossils accumulated about 430,000 years ago. This is far beyond radiocarbon's range, showing why multiple dating methods are needed for deep Middle Paleolithic sites."
       },
       {
         q: 'ELABORATE: How does dendrochronology produce a chronology extending thousands of years into the past, when individual trees live only hundreds of years?',
@@ -1762,7 +1928,7 @@ function useConfig() {
         a: 'Tooth enamel forms in childhood and does not remodel afterward. The strontium and oxygen isotope ratios in enamel reflect the local geology and water chemistry of the area where the child grew up. If these ratios differ from the ratios in the burial soil, the person grew up somewhere else. The "Amesbury Archer" near Stonehenge showed isotopic ratios characteristic of the European continent, not Britain, proving he had migrated to England as an adult.'
       },
       {
-        q: 'What are C-transforms and N-transforms (Schiffer 1987) and why does the distinction matter?',
+        q: 'What are C-transforms and N-transforms, and why does the distinction matter?',
         a: 'C-transforms are cultural processes: how humans used, stored, moved, and discarded artifacts. N-transforms are natural processes: decay, waterlogging, root disturbance, geological movement. Both change what the archaeologist finds compared to what was originally deposited. Misidentifying a cultural pattern as natural, or vice versa, produces a false interpretation. Formation process analysis is the systematic study of these inputs to the archaeological record.'
       },
       {
@@ -1783,15 +1949,11 @@ function useConfig() {
       },
       {
         q: 'TRANSFER: Two neighboring Bronze Age cultures develop bronze-casting at almost the same time with no evidence of direct trade. Is diffusion or independent invention more likely? What evidence would help decide?',
-        a: 'Without direct evidence of contact, independent invention is possible. Evidence that would help: lead isotope analysis (matching trace elements in metal back to its ore source) showing shared ore sources suggests contact and diffusion. Identical casting techniques too specific to arise separately also support diffusion. A clear chronological gap, one region innovating well before the other, supports diffusion from a single origin. If timing is truly simultaneous and techniques diverge, independent invention becomes more likely.'
+        a: 'Without direct evidence of contact, independent invention is possible. Three kinds of evidence would help decide. First, a shared ore source for the metal suggests the two cultures traded, which points to diffusion. Second, casting techniques too specific to arise twice by chance also point to diffusion. Third, a clear time gap, with one region casting bronze well before the other, supports diffusion from a single origin. If the timing is truly simultaneous and the techniques differ, independent invention becomes more likely.'
       },
       {
         q: "Describe Service's fourfold classification of human societies.",
-        a: 'Elman Service (1962) proposed four types: Bands (25-60 people, mobile hunter-gatherers, informal leadership), Tribes (hundreds to thousands, settled farmers or herders, identity based on common descent, no formal government), Chiefdoms (over 10,000 people, institutionalized rank hierarchy, redistribution as the key economic feature), and States (large populations, centralized control overriding kinship, permanent rank and wealth differences). The scheme is widely used for comparison but criticized for oversimplifying the diversity of actual societies.'
-      },
-      {
-        q: 'ELABORATE: Why is migration now easier to distinguish from diffusion than it was in the twentieth century?',
-        a: 'Before ancient DNA, both migration and diffusion produced the same observable result: similar artifact types appearing in a new area. Researchers could not tell whether people moved (migration) or ideas moved along trade networks (diffusion). Ancient DNA extracts genetic material from human remains and compares population profiles across time. If the genetic makeup of a population changes sharply at the same time as artifact types change, people moved. If the genetics are continuous but artifact types shift, ideas spread without significant movement of people.'
+        a: 'Elman Service proposed four types: Bands (25-60 people, mobile hunter-gatherers, informal leadership), Tribes (hundreds to thousands, settled farmers or herders, identity based on common descent, no formal government), Chiefdoms (over 10,000 people, institutionalized rank hierarchy, redistribution as the key economic feature), and States (large populations, centralized control overriding kinship, permanent rank and wealth differences). The scheme is widely used for comparison but criticized for oversimplifying the diversity of actual societies.'
       },
       {
         q: 'What is paleomagnetism and when is it used as a dating tool?',
@@ -1810,16 +1972,12 @@ function useConfig() {
         a: 'Before NAGPRA, the default assumption was that human remains and objects from the past belonged to the institution that held them. The communities whose ancestors were being studied had no legal standing. NAGPRA forced a shift: descendant communities became partners with rights over how their heritage is studied and where it is held. This changed research questions, field practices, and the power relationships between institutions and indigenous communities. It is the legal foundation of indigenous archaeology in the USA.'
       },
       {
-        q: 'TRANSFER: A country at war destroys the context records of an archaeological site even if the objects are moved to a museum. Using formation process theory, explain what is lost.',
-        a: 'Formation process theory (Schiffer) distinguishes what was deposited (the original cultural pattern) from what survives to be found. Context records are the reconstruction of spatial and stratigraphic relationships between objects. Without them, the objects are present but their deposition history is unreadable. You cannot tell whether objects were deliberately buried together, swept in by a flood, or originally stored in different rooms. The objects become artifacts without history.'
-      },
-      {
         q: 'PREDICT: If climate change drove the rise of cities, why did some regions stay forager societies for thousands of years after the Ice Age ended?',
         a: 'Climate change created new possibilities, not guaranteed outcomes. The Fertile Crescent had wild wheat, barley, sheep, and goats that were easy to domesticate. Regions without those species had no easy path to agriculture. Australia, for example, lacked domesticable cereals and large herd animals. Local biology matters as much as global climate. The themes name forces; they do not determine outcomes.'
       },
       {
         q: 'What is peer-polity interaction?',
-        a: "Peer-polity interaction (Renfrew and Cherry 1982) describes how new states tend to form around the margins of existing ones, through competition, emulation, and exchange. Rather than one center spreading outward (simple diffusion), neighboring polities of roughly equal scale stimulate each other's development through rivalry. This explains why early states in Mesopotamia, Egypt, the Indus Valley, and China appear to emerge at similar levels of complexity without direct hierarchical connection."
+        a: 'Peer-polity interaction describes how new states tend to form around the margins of existing ones, through competition, emulation, and exchange. A polity is any organized community with its own government, such as a city-state, kingdom, or chiefdom. Rather than one center spreading outward, neighboring communities of about the same size push each other to grow by competing. This explains why early states in Mesopotamia, Egypt, the Indus Valley, and China appear to emerge at similar levels of complexity without direct hierarchical connection.'
       },
       {
         q: 'TRANSFER: An archaeologist argues that Stonehenge was an astronomical observatory because its alignments match solstice sunrises. A second argues it was a healing site because of skeletal evidence of trauma and disease in burials. How does postprocessual archaeology evaluate both claims?',
@@ -2011,7 +2169,7 @@ function useConfig() {
             </div>
             <div className="lrn-timeline-item">
               <div className="lrn-timeline-marker" />
-              <span className="lrn-timeline-title">c. 11,600 years ago</span>
+              <span className="lrn-timeline-title">c. 11,700 years ago</span>
               <p className="lrn-timeline-content">End of last Ice Age. Holocene begins.</p>
             </div>
             <div className="lrn-timeline-item">
@@ -2288,12 +2446,12 @@ function useConfig() {
             </li>
           </ul>
 
-          <h2>Five Key Themes of the Book</h2>
+          <h2>Five Key Themes</h2>
 
           <ul className="lrn-list">
             <li>
               <strong>Climate Change:</strong> c. 700,000 years ago, climate cycles begin; last Ice
-              Age ends 11,600 years ago; Younger Dryas cold snap 12,900-11,600 years ago
+              Age ends 11,700 years ago; Younger Dryas cold snap 12,900-11,700 years ago
             </li>
             <li>
               <strong>Migration:</strong> tracked by aDNA, isotopes, artifact distributions; Pacific
@@ -2366,7 +2524,7 @@ function useConfig() {
       ]
     },
 
-    customCss: `.ish .lrn-table th { text-align: left; padding: 8px; border-bottom: 1px solid rgba(240,240,250,0.2); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; } .ish .lrn-table td { padding: 8px; border-bottom: 1px solid rgba(240,240,250,0.08); vertical-align: top; } .ish .lrn-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }`
+    customCss: `.ish .lrn-table th { text-align: left; padding: 8px; border-bottom: 1px solid var(--ink-hairline); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; } .ish .lrn-table td { padding: 8px; border-bottom: 1px solid var(--ink-hairline); vertical-align: top; } .ish .lrn-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }`
   }
   return config
 }

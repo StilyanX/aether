@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useState, useRef, useCallback } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import LoadingScreen from '../layout/loading-screen'
 import {
   resourceContent,
   resourceMetadata,
@@ -8,7 +9,6 @@ import {
 } from '../../config/registry'
 import { usePageTransition } from '../../hooks/use-page-transition'
 import { useBookmarks } from '../../hooks/use-bookmarks'
-import { CATEGORIES as ARITHMETIC_TOOL_CATEGORIES } from '../../features/explore/mathematics/arithmetic/arithmetic-tools'
 import './curriculum-view.css'
 
 // Supplementary UX metadata for curriculum-view consumers. Each key is a
@@ -23,16 +23,15 @@ export const RESOURCE_META = {
     depth: 1,
     prereq: 'None',
     description:
-      'Lives of the figures who shaped the world they were born into. Each book is a long-form biography rebuilt as a chapter-by-chapter reading flow with practice cards and a quick reference.',
+      'Lives of the figures who shaped the world they were born into. Each book is a long-form biography rebuilt as a section-by-section reading flow with practice cards and a quick reference.',
     moduleMinutes: {
-      'Augustus: First Emperor of Rome': 540
+      'Augustus: The Biography': 540
     },
     moduleCodes: {
-      'Augustus: First Emperor of Rome': 'A.G'
+      'Augustus: The Biography': 'A.G'
     },
     moduleThumbnails: {
-      'Augustus: First Emperor of Rome':
-        'https://books.google.com/books/content?id=EsJQrgEACAAJ&printsec=frontcover&img=1&zoom=1'
+      'Augustus: The Biography': 'https://covers.openlibrary.org/b/id/8414081-L.jpg'
     },
     unitLedes: {
       'Founders & Builders':
@@ -45,7 +44,7 @@ export const RESOURCE_META = {
     depth: 1,
     prereq: 'None',
     description:
-      'Speculative fiction across dying earth, weird tale, science fantasy, and high fantasy. Each book is rebuilt as a chapter-by-chapter reading flow with practice cards and a quick reference.',
+      'Speculative fiction across dying earth, weird tale, science fantasy, and high fantasy. Each book is rebuilt as a section-by-section reading flow with practice cards and a quick reference.',
     moduleMinutes: {
       'The Shadow of the Torturer': 480,
       'The Claw of the Conciliator': 480,
@@ -89,7 +88,7 @@ export const RESOURCE_META = {
     },
     moduleThumbnails: {
       'Andrew Bustamante: CIA Spy | Lex Fridman Podcast #310':
-        'https://img.youtube.com/vi/T3FC7qIAGZk/maxresdefault.jpg'
+        'https://i.ytimg.com/vi/T3FC7qIAGZk/maxresdefault.jpg'
     },
     unitLedes: {
       Episodes:
@@ -109,10 +108,6 @@ export const RESOURCE_META = {
     moduleCodes: {
       'Star Wars: Episode I - The Phantom Menace': 'P.M'
     },
-    moduleThumbnails: {
-      'Star Wars: Episode I - The Phantom Menace':
-        'https://upload.wikimedia.org/wikipedia/en/4/40/Star_Wars_Phantom_Menace_poster.jpg'
-    },
     unitLedes: {
       'Star Wars':
         "George Lucas's nine-film arc, beginning with the Trade Federation blockade of Naboo and the boy who would become Vader."
@@ -124,8 +119,7 @@ export const RESOURCE_META = {
     depth: 1,
     prereq: 'None',
     description:
-      'How numbers combine. The four operations of arithmetic (addition, subtraction, multiplication, division) applied to whole numbers, fractions, rationals, and decimals. Every later mathematics, from algebra to calculus to topology, assumes you can run them without thinking.',
-    skipUnits: ['Tools'],
+      'How numbers work and combine. Start with the four operations on whole numbers, fractions, decimals, and signed rationals. Then the structure underneath them: factors, primes, ratio, rate, and percent. Finish on the full number line, from integers out to irrationals and surds. Every later mathematics, from algebra to calculus to topology, assumes you can run all of this without thinking.',
     moduleMinutes: {
       'Place Value and Algorithms': 45,
       'Number Line and Number Systems': 38,
@@ -138,7 +132,7 @@ export const RESOURCE_META = {
       'Decimal Fundamentals': 40,
       'Infinite and Repeating Decimals': 32,
       'Decimal Expansion Proofs': 36,
-      'Arithmetic Tools': 30
+      'Percentages: Concept and Conversions': 35
     },
     moduleCodes: {
       'Place Value and Algorithms': 'P&V',
@@ -152,23 +146,31 @@ export const RESOURCE_META = {
       'Decimal Fundamentals': 'D.F',
       'Infinite and Repeating Decimals': 'I.R',
       'Decimal Expansion Proofs': 'D.X',
-      'Arithmetic Tools': 'A.T'
+      'Percentages: Concept and Conversions': 'P.C'
     },
     unitLedes: {
-      'Whole Numbers':
-        'Place value, algorithms, and the number line as spine for everything that follows.',
-      Fractions: 'Parts, wholes, and the equivalence between every ratio you will ever meet.',
-      'Rational Numbers': 'Every fraction sits on the number line. Here you prove it and order it.',
-      'Number Theory': 'Divisibility, primes, and the hidden structure behind every integer.',
-      Decimals: 'The same numbers in a different notation, with a formal link back to fractions.',
-      Tools: 'Hands-on manipulatives you can return to whenever an idea refuses to settle.'
-    },
-    tools: {
-      subtitle: 'Hands-on manipulatives you can return to whenever an idea refuses to settle.',
-      categories: ARITHMETIC_TOOL_CATEGORIES.map(cat => ({
-        title: cat.name,
-        tools: cat.tools.map(t => ({ slug: t.id, title: t.name, desc: t.desc }))
-      }))
+      'Place Value and Whole Numbers':
+        'Place value, mental strategies, ordering, and parity as spine for everything that follows.',
+      'Number Properties':
+        'Factors, multiples, divisibility tests, and primes: the hidden structure inside every integer, down to HCF and LCM.',
+      Fractions:
+        'What a fraction really means, how to add and multiply them, where they show up, and the harder cases.',
+      'Decimals and Approximation':
+        'Decimals as another way to write fractions, plus rounding, significant figures, and the decimals that repeat forever.',
+      Percentages:
+        'Hundredths as a language: converting them, taking a percent of an amount, and measuring increase and decrease.',
+      'Proportional Reasoning':
+        'Ratio, rate, and proportion as the engine behind scaling, speed, and maps.',
+      'Applied Finance':
+        'Discount, interest, and growth: arithmetic as the grammar of money over time.',
+      'The Rational Number System':
+        'Integers, negatives, and absolute value on the number line, then operating on every rational with its sign.',
+      'Sequences and Patterns':
+        'Lists of numbers with a rule, from simple patterns to arithmetic and geometric progressions.',
+      'Indices and Standard Form':
+        'Powers, index laws, and scientific notation as the shorthand of very large and very small.',
+      'The Real Number System':
+        'Squares, roots, irrationals, surds, and the proof that every fraction is a terminating or repeating decimal.'
     }
   },
 
@@ -263,6 +265,10 @@ export const RESOURCE_META = {
     moduleCodes: {
       'How Switzerland Engineered the Perfect Country': 'H.S'
     },
+    moduleThumbnails: {
+      'How Switzerland Engineered the Perfect Country':
+        'https://i.ytimg.com/vi/OMbV1rIPhCg/maxresdefault.jpg'
+    },
     unitLedes: {
       'HISTORY & GEOPOLITICS': 'Video essays on historical events and geopolitical dynamics.'
     }
@@ -317,7 +323,7 @@ export const RESOURCE_META = {
       'Differential Forms and Symplectic Manifolds': 65,
       'The Hamilton-Jacobi Equation': 55,
       'Action-Angle Variables and Integrable Systems': 65,
-      'Symmetries, Momentum Maps and Reduction': 60,
+      'Curvature, Geodesic Flow, and the Limits of Prediction': 60,
       // Part IV
       'Adiabatic Invariants': 50,
       'Canonical Perturbation Theory and Averaging': 65,
@@ -327,46 +333,129 @@ export const RESOURCE_META = {
     },
     moduleCodes: {
       // Part I
-      'Vectors, Kinematics and the Galilean Structure of Space-Time': 'V.K',
+      'Vectors, Kinematics, and the Galilean Structure of Space-Time': 'V.K',
       "Newton's Laws and Equations of Motion": 'N.L',
-      'Momentum and Systems of Particles': 'M.P',
-      'Work, Energy and Conservative Force Fields': 'W.E',
+      'Momentum, Systems of Particles, and Variable-Mass Dynamics': 'M.S',
+      'Work, Energy, and Conservative Force Fields': 'W.E',
       'Angular Momentum and Fixed-Axis Rotation': 'A.R',
       'Central-Force Motion and the Kepler Problem': 'C.F',
-      'Non-Inertial Frames': 'N.F',
+      'Restricted Three-Body Problem and Lagrange Points': 'R.T',
+      Tides: 'TID',
+      'Non-Inertial Frames and Coriolis Applications': 'N.F',
       'Small Oscillations (Elementary)': 'S.O',
-      'Rigid-Body Dynamics and Gyroscopic Motion (Vectorial Treatment)': 'R.G',
-      'Special Relativity (Optional Coda)': 'S.R',
+      'Rapidly Oscillating Forces: Kapitza Pendulum': 'R.O',
+      'Rigid-Body Dynamics, Gyroscopic Motion, and the Heavy Symmetric Top': 'R.D',
+      'Special Relativity and Covariant Mechanics': 'S.R',
       // Part II
+      "D'Alembert's Principle and Virtual Displacements": 'D.P',
       'The Principle of Least Action and the Euler-Lagrange Equations': 'E.L',
-      "Symmetries and Conservation Laws (Noether's Theorem)": 'N.T',
+      'Variational Problems Beyond Mechanics': 'V.P',
+      'Holonomic and Non-Holonomic Constraints': 'H.C',
+      "Symmetries and Conservation Laws: Noether's Theorem": 'N.T',
       'Integration of the Equations of Motion': 'I.E',
+      'Routhian Reduction for Cyclic Coordinates': 'R.R',
       'Collisions and Scattering': 'C.S',
-      'Small Oscillations (Systematic Theory)': 'S.T',
+      'Friction and Non-Conservative Forces': 'F.N',
+      'Small Oscillations: Systematic Theory': 'S.T',
       'Lagrangian Mechanics on Manifolds': 'L.M',
       'Rigid-Body Dynamics (Lagrangian / Geometric Treatment)': 'R.L',
       // Part III
       "Hamilton's Equations and the Legendre Transform": 'H.E',
       'Poisson Brackets and First Integrals': 'P.B',
-      'Canonical Transformations': 'C.T',
+      "Liouville's Theorem and Poincaré Recurrence": 'L.T',
+      'Canonical Transformations and Generating Functions': 'C.T',
       'Differential Forms and Symplectic Manifolds': 'D.S',
-      'The Hamilton-Jacobi Equation': 'H.J',
+      'The Hamilton-Jacobi Equation and the Optical-Mechanical Analogy': 'H.J',
       'Action-Angle Variables and Integrable Systems': 'A.A',
-      'Symmetries, Momentum Maps and Reduction': 'S.M',
+      'Curvature, Geodesic Flow, and the Limits of Prediction': 'C.G',
+      'Constrained Hamiltonian Systems: Dirac-Bergmann Algorithm': 'C.D',
+      'Classical Geometric Phase and the Hannay Angle': 'G.P',
       // Part IV
       'Adiabatic Invariants': 'A.I',
+      'Magnetic Adiabatic Invariants for Charged Particles': 'M.A',
       'Canonical Perturbation Theory and Averaging': 'C.P',
+      'Lie Transformation Method (Deprit Series)': 'L.D',
       'Normal Forms near Equilibria and Periodic Orbits': 'N.F',
+      'Floquet Theory, Mathieu Equation, and Parametric Resonance': 'F.T',
       'KAM Theory': 'KAM',
-      'Asymptotics, Singularities and Integrable Systems': 'A.S'
+      'Asymptotics, Singularities, and Integrable Systems': 'A.S'
     },
     unitLedes: {
       'Newtonian Mechanics':
-        "Undergraduate first contact: vectors, Newton's laws, energy, and angular momentum made rigorous.",
+        "Forces become trajectories via Newton's laws. You derive the three conservation laws, then apply them to orbits, tides, gyroscopes, and an inverted pendulum.",
       'Lagrangian Mechanics and Variational Principles':
-        'The action principle as foundation. Everything else follows from a single variational statement.',
+        'A single scalar function replaces all forces. Minimizing the action gives equations of motion, and every symmetry automatically produces a conservation law.',
       'Hamiltonian Mechanics and Canonical Formalism':
-        'The geometric heart: manifolds, symplectic structure, and the deep machinery underneath every Hamiltonian system.'
+        "Newton's equations recast as two first-order equations in position and momentum. The geometry of phase space then reveals conserved quantities, integrable systems, and the onset of chaos."
+    }
+  },
+
+  'explore/chemistry/general-chemistry': {
+    kicker: 'Chemistry · Foundation',
+    depth: 2,
+    prereq: 'Algebra',
+    description:
+      'Matter, and how it changes. General Chemistry covers atoms, bonds, energy, rates, and equilibrium. It builds from the periodic table to acids, redox, transition metals, and industrial synthesis.',
+    moduleMinutes: {
+      'Atomic Structure, the Periodic Table, and Periodic Trends': 60,
+      'Structure and Bonding': 60,
+      'Thermochemistry and Energy': 55,
+      'Lattice Energy and Born-Haber Cycles': 50,
+      'Entropy, Gibbs Free Energy, and Spontaneity': 60,
+      'Chemical Kinetics and Rate Laws': 60,
+      'Chemical Equilibrium and Equilibrium Constants': 55,
+      'Acids and Bases': 60,
+      'Buffer Solutions': 45,
+      'Salt Hydrolysis': 40,
+      'Solubility Product and the Common-Ion Effect': 50,
+      'Redox and Electrochemistry': 60,
+      "Electrolysis and Faraday's Laws": 50,
+      'Coordination and Transition-Metal Chemistry': 65,
+      'Qualitative and Quantitative Analysis': 50,
+      'Instrumental Analysis and Spectroscopy': 60,
+      'Industrial Synthesis Processes': 55,
+      'Green and Sustainable Chemistry': 45
+    },
+    moduleCodes: {
+      'Atomic Structure, the Periodic Table, and Periodic Trends': 'A.P',
+      'Structure and Bonding': 'S.B',
+      'Thermochemistry and Energy': 'T.E',
+      'Lattice Energy and Born-Haber Cycles': 'L.E',
+      'Entropy, Gibbs Free Energy, and Spontaneity': 'G.S',
+      'Chemical Kinetics and Rate Laws': 'K.R',
+      'Chemical Equilibrium and Equilibrium Constants': 'E.Q',
+      'Acids and Bases': 'A.B',
+      'Buffer Solutions': 'B.S',
+      'Salt Hydrolysis': 'S.H',
+      'Solubility Product and the Common-Ion Effect': 'K.S',
+      'Redox and Electrochemistry': 'R.E',
+      "Electrolysis and Faraday's Laws": 'E.F',
+      'Coordination and Transition-Metal Chemistry': 'C.M',
+      'Qualitative and Quantitative Analysis': 'Q.A',
+      'Instrumental Analysis and Spectroscopy': 'I.S',
+      'Industrial Synthesis Processes': 'I.P',
+      'Green and Sustainable Chemistry': 'G.C'
+    },
+    unitLedes: {
+      'Atomic Structure and Periodicity':
+        'How electrons fill atoms, and why the periodic table predicts size, charge, and reactivity.',
+      'Bonding and Structure':
+        'Why atoms join. Ionic, covalent, and metallic bonds set the shape and properties of matter.',
+      'Energetics and Thermodynamics':
+        'Energy in reactions: heat released, lattices built, and the drive toward spontaneous change.',
+      Kinetics: 'How fast reactions go, and what the rate law reveals about the mechanism.',
+      'Chemical Equilibrium':
+        'Forward and reverse reactions in balance, and the constant that fixes the ratio.',
+      'Acid-Base and Aqueous Equilibria':
+        'Protons in water: pH, buffers, hydrolysis, and when salts dissolve or precipitate.',
+      'Redox and Electrochemistry':
+        'Electron transfer turned into voltage, and the cells that store and supply it.',
+      'Transition-Metal and Coordination Chemistry':
+        'Metal centres bind ligands, split d-orbitals, and paint solutions with colour.',
+      'Analytical Chemistry':
+        'How chemists identify and measure what a sample contains, by test and by instrument.',
+      'Industrial and Sustainable Chemistry':
+        'Making chemicals at scale, and doing it with less waste and less harm.'
     }
   }
 }
@@ -391,20 +480,19 @@ function minsFor(title, meta) {
   return meta?.moduleMinutes?.[title] ?? 40
 }
 
-function pickGridCols(n, max = 3) {
-  if (n <= 0) return 1
-  if (n <= max) return n
-  for (let c = max; c >= 2; c--) if (n % c === 0) return c
-  let best = max
-  let minEmpty = (max - (n % max)) % max
-  for (let c = max - 1; c >= 2; c--) {
-    const empty = (c - (n % c)) % c
-    if (empty < minEmpty) {
-      minEmpty = empty
-      best = c
-    }
-  }
-  return best
+// Prerequisites are authored as a single string in RESOURCE_META: 'None' when a
+// subject is a foundation, otherwise one or more subject names joined by ' · '
+// (e.g. 'Calculus · Linear Algebra'). Split into individual requirements and
+// resolve each to a curriculum slug when one exists, so the label can link
+// straight into the prerequisite course. Unknown names (subjects not yet on the
+// platform) fall back to plain, non-navigable text.
+function parsePrereqs(prereq, titleToSlug) {
+  if (!prereq || /^none$/i.test(prereq.trim())) return []
+  return prereq
+    .split('·')
+    .map(s => s.trim())
+    .filter(Boolean)
+    .map(name => ({ name, slug: titleToSlug[name.toLowerCase()] || null }))
 }
 
 function parseSources(source) {
@@ -464,135 +552,37 @@ function buildCurriculum(slug, meta) {
   })
 }
 
-// Tool Library
-
-function ToolLibrary({ topic, tools, onOpenTool }) {
-  const [query, setQuery] = useState('')
-  const q = query.trim().toLowerCase()
-  const totalTools = tools.categories.reduce((n, c) => n + c.tools.length, 0)
-  const filtered = q
-    ? tools.categories
-        .map(c => ({
-          ...c,
-          tools: c.tools.filter(
-            t => t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)
-          )
-        }))
-        .filter(c => c.tools.length > 0)
-    : tools.categories
-  return (
-    <section className="cc-toolib" aria-labelledby="toolib-title">
-      <div className="cc-toolib-crumb">{topic.toUpperCase()} / TOOLS</div>
-      <header className="cc-toolib-head">
-        <div className="cc-toolib-kicker">{topic.toUpperCase()}</div>
-        <h3 id="toolib-title" className="cc-toolib-title">
-          Tool Library
-        </h3>
-        <p className="cc-toolib-lede">
-          {tools.subtitle}{' '}
-          <span className="cc-toolib-count">
-            {totalTools} tools across {tools.categories.length} categories.
-          </span>
-        </p>
-      </header>
-      <div className="cc-toolib-search">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-          <circle cx="6" cy="6" r="4.5" stroke="currentColor" strokeWidth="1" />
-          <path d="M9.5 9.5L13 13" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
-        </svg>
-        <input
-          type="text"
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder="Search tools..."
-          aria-label="Search tools"
-        />
-      </div>
-      {filtered.length === 0 ? (
-        <div className="cc-toolib-empty" role="status">
-          <div className="cc-toolib-empty" aria-hidden="true">
-            <svg viewBox="0 0 220 60" fill="none" stroke="rgba(240,240,250,0.45)" strokeWidth="1">
-              <line x1="0" y1="30" x2="220" y2="30" strokeDasharray="2 4" />
-              <line x1="20" y1="26" x2="20" y2="34" />
-              <line x1="60" y1="24" x2="60" y2="36" />
-              <line x1="110" y1="22" x2="110" y2="38" strokeWidth="1.4" />
-              <line x1="160" y1="24" x2="160" y2="36" />
-              <line x1="200" y1="26" x2="200" y2="34" />
-            </svg>
-            <span className="cc-toolib-empty-scan" />
-          </div>
-          <h2 className="cc-toolib-empty-h">{'// no tools match your search'}</h2>
-          <p className="cc-toolib-empty-typed">
-            Searched <b>{query}</b> across <b>{totalTools} tools</b>
-          </p>
-          <div className="cc-toolib-empty-recent">
-            <div className="cc-toolib-empty-recent-h">Browse by category</div>
-            <ul>
-              {tools.categories.slice(0, 4).map((cat, i) => (
-                <li key={i} onClick={() => setQuery(cat.title.split(/\s+/)[0].toLowerCase())}>
-                  <span>{cat.title}</span>
-                  <span className="n">{cat.tools.length} tools</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="cc-toolib-empty-actions">
-            <button type="button" className="cc-toolib-empty-btn" onClick={() => setQuery('')}>
-              Clear search
-            </button>
-          </div>
-        </div>
-      ) : (
-        filtered.map((cat, ci) => (
-          <div key={ci} className="cc-toolib-cat">
-            <div className="cc-toolib-cat-hdr">{cat.title.toUpperCase()}</div>
-            {(() => {
-              const cols = pickGridCols(cat.tools.length)
-              const trailingEmpties = (cols - (cat.tools.length % cols)) % cols
-              return (
-                <div
-                  className="cc-toolib-grid"
-                  style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
-                >
-                  {cat.tools.map((t, ti) => (
-                    <button
-                      key={ti}
-                      type="button"
-                      className="cc-toolib-card"
-                      onClick={() => onOpenTool && onOpenTool(t)}
-                      aria-label={t.title}
-                    >
-                      <div className="cc-toolib-card-title">{t.title.toUpperCase()}</div>
-                      <div className="cc-toolib-card-desc">{t.desc}</div>
-                    </button>
-                  ))}
-                  {Array.from({ length: trailingEmpties }).map((_, i) => (
-                    <div key={`empty-${i}`} className="cc-toolib-card-empty" aria-hidden="true" />
-                  ))}
-                </div>
-              )
-            })()}
-          </div>
-        ))
-      )}
-    </section>
-  )
-}
-
 // Mini cover art
+
+// YouTube thumbnails: normalize to i.ytimg.com, the canonical CDN. The legacy
+// img.youtube.com alias fails DNS (NS_ERROR_UNKNOWN_HOST) on some resolvers.
+// Then walk maxres -> hq -> mq: maxresdefault.jpg 404s for videos the uploader
+// never gave a hi-res thumbnail, but hqdefault.jpg exists for every video.
+function thumbSources(thumbnail) {
+  if (!thumbnail) return []
+  const m = thumbnail.match(/\/vi\/([^/]+)\/\w+\.jpg/)
+  if (!m || !/(?:img\.youtube\.com|i\.ytimg\.com)/.test(thumbnail)) return [thumbnail]
+  const base = `https://i.ytimg.com/vi/${m[1]}/`
+  return [`${base}maxresdefault.jpg`, `${base}hqdefault.jpg`, `${base}mqdefault.jpg`]
+}
 
 function MiniCover({ code, idx, total, thumbnail, title, aspect }) {
   const variant = idx % 4
-  if (thumbnail) {
-    const aspectClass = aspect === 'video' ? ' cc-cover-video' : ''
-    return (
-      <div className={`cc-cover cc-cover-thumb${aspectClass}`}>
-        <img src={thumbnail} alt={title || ''} loading="lazy" />
-      </div>
-    )
-  }
+  const sources = useMemo(() => thumbSources(thumbnail), [thumbnail])
+  const [srcIdx, setSrcIdx] = useState(0)
+  const [loaded, setLoaded] = useState(false)
+  const aspectClass = aspect === 'video' ? ' cc-cover-video' : ''
+  // The generated cover is always the base. The real thumbnail is overlaid but
+  // stays invisible until it actually loads, so a slow / 404 / blocked external
+  // image never flashes broken alt text - it just leaves the generated cover
+  // showing. onError walks maxres -> hq -> mq; when exhausted the img unmounts.
+  const activeSrc = thumbnail && srcIdx < sources.length ? sources[srcIdx] : null
+
   return (
-    <div className={`cc-cover cc-v-${variant}`} aria-hidden="true">
+    <div
+      className={`cc-cover cc-v-${variant}${aspectClass}${loaded ? ' cc-cover-thumb' : ''}`}
+      aria-hidden="true"
+    >
       <div className="cc-cover-inner">
         <span className="cc-cover-code">{code}</span>
         <span className="cc-cover-bars">
@@ -604,6 +594,29 @@ function MiniCover({ code, idx, total, thumbnail, title, aspect }) {
           {String(idx + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
         </span>
       </div>
+      {activeSrc ? (
+        <img
+          src={activeSrc}
+          alt={title || ''}
+          loading="lazy"
+          onLoad={() => setLoaded(true)}
+          onError={() => {
+            setLoaded(false)
+            setSrcIdx(i => i + 1)
+          }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            display: 'block',
+            opacity: loaded ? 1 : 0,
+            transition: 'opacity 200ms ease',
+            zIndex: 1
+          }}
+        />
+      ) : null}
     </div>
   )
 }
@@ -612,17 +625,46 @@ function MiniCover({ code, idx, total, thumbnail, title, aspect }) {
 
 // Masthead
 
-function Masthead({ title, description, totalModules, completed, onBegin }) {
+function Masthead({ category, title, description, prereqs, onPrereq, totalModules, completed, onBegin }) {
   const pct = totalModules > 0 ? Math.round((completed / totalModules) * 100) : 0
   return (
     <header className="cc-masthead">
+      {category ? <div className="cc-mh-breadcrumb">{category.toUpperCase()}</div> : null}
       <h1 className="cc-mh-title">{title}</h1>
-      <div className="cc-mh-titlerule" />
 
-      {description ? (
-        <div className="cc-mh-lede">
-          <span className="cc-mh-lede-rule" />
-          <p className="cc-mh-lede-p">{description}</p>
+      {description ? <p className="cc-mh-lede-p">{description}</p> : null}
+
+      {prereqs.length > 0 ? (
+        <div className="cc-mh-prereq" role="group" aria-label="Prerequisites">
+          <span className="cc-mh-prereq-label">
+            {prereqs.length === 1 ? 'Prerequisite' : 'Prerequisites'}
+          </span>
+          <span className="cc-mh-prereq-items">
+            {prereqs.map((p, i) => (
+              <Fragment key={p.name}>
+                {p.slug ? (
+                  <button
+                    type="button"
+                    className="cc-mh-prereq-link"
+                    onClick={() => onPrereq(p.slug)}
+                    aria-label={`Prerequisite: ${p.name} (open course)`}
+                  >
+                    <span className="cc-mh-prereq-name">{p.name}</span>
+                    <span className="cc-mh-prereq-arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </button>
+                ) : (
+                  <span className="cc-mh-prereq-text">{p.name}</span>
+                )}
+                {i < prereqs.length - 1 ? (
+                  <span className="cc-mh-prereq-sep" aria-hidden="true">
+                    ·
+                  </span>
+                ) : null}
+              </Fragment>
+            ))}
+          </span>
         </div>
       ) : null}
 
@@ -630,8 +672,9 @@ function Masthead({ title, description, totalModules, completed, onBegin }) {
         <div className="cc-mh-progress">
           <div className="cc-mh-progress-label">
             <span className="pct">{pct}%</span>
+            <span className="sep">·</span>
             <span className="sub">
-              {completed} / {totalModules} complete
+              {completed} / {totalModules} COMPLETE
             </span>
           </div>
           <div className="cc-mh-progress-track">
@@ -657,12 +700,22 @@ function ModuleCard({
   isDone,
   disabled,
   onToggle,
+  slug,
   isBookmarked,
   onBookmark
 }) {
-  const handleClick = () => {
+  const handleClick = e => {
     if (disabled) return
-    onOpen(module)
+    onOpen(module, e)
+  }
+  // Suppress the browser's middle-click autoscroll so onAuxClick fires cleanly.
+  const handleMouseDown = e => {
+    if (e.button === 1) e.preventDefault()
+  }
+  const handleAuxClick = e => {
+    if (disabled || e.button !== 1) return
+    e.preventDefault()
+    onOpen(module, e)
   }
   const handleToggle = e => {
     e.stopPropagation()
@@ -677,8 +730,13 @@ function ModuleCard({
       type="button"
       className={`cc-mod ${isDone ? 'done' : ''} ${disabled ? 'disabled' : ''}`}
       onClick={handleClick}
+      onMouseDown={handleMouseDown}
+      onAuxClick={handleAuxClick}
       aria-label={module.title}
       aria-disabled={disabled}
+      // Hovering this card makes it the target of the bookmark key (see
+      // use-keybinds): the dispatcher reads :hover straight off the DOM.
+      data-bookmark-slug={slug || undefined}
     >
       <MiniCover
         code={module.code}
@@ -695,17 +753,19 @@ function ModuleCard({
           <span>{disabled ? 'Soon' : 'Reading'}</span>
         </span>
       </div>
-      {isBookmarked && (
-        <span
-          className="cc-mod-bookmark"
-          role="button"
-          aria-label="Remove bookmark"
-          tabIndex={-1}
-          onClick={handleBookmark}
-        >
-          ★
-        </span>
-      )}
+      {/* Always rendered, both states. Gating it behind isBookmarked left the
+          SAVE action with no affordance at all: you could only ever unsave. */}
+      <span
+        className={`cc-mod-bookmark ${isBookmarked ? 'on' : ''}`}
+        role="button"
+        aria-pressed={isBookmarked}
+        aria-label={isBookmarked ? `Saved: ${module.title}` : `Save ${module.title}`}
+        title={isBookmarked ? 'Saved' : 'Save'}
+        tabIndex={-1}
+        onClick={handleBookmark}
+      >
+        {isBookmarked ? '★' : '☆'}
+      </span>
       <span
         className={`cc-mod-check ${isDone ? 'on' : ''}`}
         role="checkbox"
@@ -724,11 +784,22 @@ function ModuleCard({
 // Capstone card
 
 function CapstoneCard({ capstone, section, onOpen }) {
+  const target = { rawTitle: capstone.rawTitle, capstone: true }
+  const handleMouseDown = e => {
+    if (e.button === 1) e.preventDefault()
+  }
+  const handleAuxClick = e => {
+    if (e.button !== 1) return
+    e.preventDefault()
+    onOpen(target, e)
+  }
   return (
     <button
       type="button"
       className="cc-capstone"
-      onClick={() => onOpen({ rawTitle: capstone.rawTitle, capstone: true })}
+      onClick={e => onOpen(target, e)}
+      onMouseDown={handleMouseDown}
+      onAuxClick={handleAuxClick}
     >
       <div className="cc-capstone-kick">Capstone · {section}</div>
       <div className="cc-capstone-title">{capstone.title}</div>
@@ -737,6 +808,53 @@ function CapstoneCard({ capstone, section, onOpen }) {
       </div>
       <span className="cc-capstone-arrow" aria-hidden="true">
         →
+      </span>
+    </button>
+  )
+}
+
+// The course-wide final exam. Inverted (light) surface so it reads as the
+// finale, distinct from the per-unit capstone cards above it.
+function FinalExamCard({ title, rawTitle, mins, unitCount, onOpen }) {
+  const target = { rawTitle, capstone: true }
+  const handleMouseDown = e => {
+    if (e.button === 1) e.preventDefault()
+  }
+  const handleAuxClick = e => {
+    if (e.button !== 1) return
+    e.preventDefault()
+    onOpen(target, e)
+  }
+  return (
+    <button
+      type="button"
+      className="cc-finalexam"
+      onClick={e => onOpen(target, e)}
+      onMouseDown={handleMouseDown}
+      onAuxClick={handleAuxClick}
+      aria-label={`Final exam: ${title}`}
+    >
+      <span className="cc-finalexam-mark" aria-hidden="true">
+        <span>+</span>
+        <span>−</span>
+        <span>×</span>
+        <span>÷</span>
+      </span>
+      <span className="cc-finalexam-body">
+        <span className="cc-finalexam-kick">Final Exam · Arithmetic</span>
+        <span className="cc-finalexam-title">{title}</span>
+        <span className="cc-finalexam-lede">
+          Every unit, one sitting. The whole course in a single exam.
+        </span>
+        <span className="cc-finalexam-foot">
+          <span className="cc-finalexam-meta">
+            {mins}M · {unitCount} units · Synthesis
+          </span>
+          <span className="cc-finalexam-cta">
+            Begin final exam
+            <span aria-hidden="true">→</span>
+          </span>
+        </span>
       </span>
     </button>
   )
@@ -756,6 +874,17 @@ function CurriculumView() {
   const meta = useMemo(() => RESOURCE_META[slug] || {}, [slug])
   const skipUnits = useMemo(() => meta.skipUnits || [], [meta])
 
+  // Map every resource title to its slug so a prerequisite name authored in
+  // RESOURCE_META ('Arithmetic', 'Algebra') resolves to a navigable course.
+  const titleToSlug = useMemo(() => {
+    const map = {}
+    resourceMetadata.forEach(r => {
+      if (r?.title && r?.slug) map[r.title.toLowerCase()] = r.slug
+    })
+    return map
+  }, [])
+  const prereqs = useMemo(() => parsePrereqs(meta.prereq, titleToSlug), [meta, titleToSlug])
+
   useEffect(() => {
     if (resource) document.title = `${resource.title}/Aether`
   }, [resource])
@@ -765,6 +894,7 @@ function CurriculumView() {
     [slug, meta, skipUnits]
   )
   const totalModules = useMemo(() => units.reduce((n, u) => n + u.modules.length, 0), [units])
+  const finalExam = resourceContent[slug]?.finalExam || null
 
   const progressKey = `aether-progress-${slug}`
   const [done, setDone] = useState(() => {
@@ -789,11 +919,114 @@ function CurriculumView() {
       return next
     })
 
-  const routeFor = rawTitle => topicComponentMap[rawTitle]?.slug || null
+  // Loading overlay: hold until every cover image has actually loaded, so the
+  // curriculum reveals fully-painted instead of with blank cover frames that
+  // pop in one by one (covers are external openlibrary/google thumbnails).
+  const pageRef = useRef(null)
+  const [imagesReady, setImagesReady] = useState(false)
+  const [renderSettled, setRenderSettled] = useState(false)
+  const [contentReady, setContentReady] = useState(false)
+  const [screenDone, setScreenDone] = useState(false)
+  const handleScreenDone = useCallback(() => setScreenDone(true), [])
 
-  const openModule = mod => {
+  useEffect(() => {
+    if (imagesReady && renderSettled) setContentReady(true)
+  }, [imagesReady, renderSettled])
+
+  useEffect(() => {
+    const container = pageRef.current
+    if (!container) {
+      setImagesReady(true)
+      return
+    }
+    const imgs = Array.from(container.querySelectorAll('img'))
+    if (imgs.length === 0) {
+      setImagesReady(true)
+      return
+    }
+    // Force lazy covers to load now so the loader can wait on all of them.
+    imgs.forEach(img => {
+      img.loading = 'eager'
+    })
+    const pending = imgs.filter(img => !img.complete)
+    if (pending.length === 0) {
+      setImagesReady(true)
+      return
+    }
+    let remaining = pending.length
+    const onSettle = () => {
+      if (--remaining <= 0) setImagesReady(true)
+    }
+    pending.forEach(img => {
+      img.addEventListener('load', onSettle, { once: true })
+      img.addEventListener('error', onSettle, { once: true })
+    })
+    return () => {
+      pending.forEach(img => {
+        img.removeEventListener('load', onSettle)
+        img.removeEventListener('error', onSettle)
+      })
+    }
+  }, [units])
+
+  // Two frames after mount so unit/cover layout has painted before the loader lifts.
+  useEffect(() => {
+    let raf1 = 0
+    let raf2 = 0
+    raf1 = requestAnimationFrame(() => {
+      raf2 = requestAnimationFrame(() => setRenderSettled(true))
+    })
+    return () => {
+      cancelAnimationFrame(raf1)
+      cancelAnimationFrame(raf2)
+    }
+  }, [])
+
+  // Failsafe: never hold the loader long on a stalled/blocked cover URL. Covers
+  // render generated-first so they are never blank while an external image loads
+  // in behind them, so a short cap costs nothing.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setImagesReady(true)
+      setRenderSettled(true)
+    }, 4000)
+    return () => clearTimeout(t)
+  }, [])
+
+  // Lock scroll while the loading overlay is visible. Reset to the top FIRST:
+  // this effect (a child) runs before the app-level scrollTo(0,0), so locking
+  // the body here would otherwise freeze scroll at the previous page's position
+  // (the loader lifts mid-page). Scroll to top, then lock at the top.
+  useEffect(() => {
+    if (contentReady) {
+      window.scrollTo(0, 0) // land at the top the instant the loader lifts
+      return
+    }
+    window.scrollTo(0, 0)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [contentReady])
+
+  // topicComponentMap is keyed by bare title, so titles shared across curricula
+  // (e.g. "Functions" in both Algebra and C) collide. Only link a module to a
+  // lesson that actually belongs to THIS curriculum, matched by parentSlug.
+  const routeFor = rawTitle => {
+    const entry = topicComponentMap[rawTitle]
+    if (!entry) return null
+    if (resource?.slug && entry.parentSlug && entry.parentSlug !== resource.slug) return null
+    return entry.slug || null
+  }
+
+  const openModule = (mod, e) => {
     const route = routeFor(mod.rawTitle)
     if (!route) return
+    if (e && (e.shiftKey || e.metaKey || e.ctrlKey || e.button === 1)) {
+      const w = window.open(`${import.meta.env.BASE_URL}${route}`, '_blank')
+      if (w) w.opener = null
+      return
+    }
     navigate(`/${route}`)
   }
 
@@ -834,10 +1067,13 @@ function CurriculumView() {
   const sources = parseSources(resource.source)
 
   return (
-    <section
-      className={`cc-page ${pageEntered ? 'page-entered' : ''}`}
-      data-screen-label={`Curriculum · ${resource.title}`}
-    >
+    <>
+      {!screenDone && <LoadingScreen open={contentReady} onDone={handleScreenDone} />}
+      <section
+        ref={pageRef}
+        className={`cc-page ${pageEntered ? 'page-entered' : ''}`}
+        data-screen-label={`Curriculum · ${resource.title}`}
+      >
       <div className="cc-topbar">
         <button type="button" className="back-btn" onClick={handleBack}>
           <span className="back-arrow" aria-hidden="true">
@@ -864,8 +1100,11 @@ function CurriculumView() {
 
       <div className="cc-shell">
         <Masthead
+          category={resource.category}
           title={resource.title}
           description={resource.description || meta.description}
+          prereqs={prereqs}
+          onPrereq={s => navigate(`/${s}`)}
           totalModules={totalModules}
           completed={completed}
           onBegin={begin}
@@ -891,56 +1130,44 @@ function CurriculumView() {
                 </div>
               </header>
 
-              {(() => {
-                const childCount = unit.modules.length + (unit.capstone ? 1 : 0)
-                const cols = pickGridCols(childCount)
-                const trailingEmpties = (cols - (childCount % cols)) % cols
-                return (
-                  <div
-                    className="cc-mod-grid"
-                    style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}
-                  >
-                    {unit.modules.map((mod, mi) => (
-                      <ModuleCard
-                        key={mod.id}
-                        module={mod}
-                        idx={mi}
-                        total={unit.modules.length}
-                        section={unit.title}
-                        isDone={done.has(mod.id)}
-                        disabled={!routeFor(mod.rawTitle)}
-                        onOpen={openModule}
-                        onToggle={() => toggle(mod.id)}
-                        isBookmarked={bookmarks.has(routeFor(mod.rawTitle) || '')}
-                        onBookmark={() => {
-                          const s = routeFor(mod.rawTitle)
-                          if (s) toggleBookmark(s)
-                        }}
-                      />
-                    ))}
-                    {unit.capstone ? (
-                      <CapstoneCard
-                        capstone={unit.capstone}
-                        section={unit.title}
-                        onOpen={openModule}
-                      />
-                    ) : null}
-                    {Array.from({ length: trailingEmpties }).map((_, i) => (
-                      <div key={`empty-${i}`} className="cc-mod-empty" aria-hidden="true" />
-                    ))}
-                  </div>
-                )
-              })()}
+              <div className="cc-mod-grid">
+                {unit.modules.map((mod, mi) => (
+                  <ModuleCard
+                    key={mod.id}
+                    module={mod}
+                    idx={mi}
+                    total={unit.modules.length}
+                    section={unit.title}
+                    isDone={done.has(mod.id)}
+                    disabled={!routeFor(mod.rawTitle)}
+                    onOpen={openModule}
+                    onToggle={() => toggle(mod.id)}
+                    slug={routeFor(mod.rawTitle) || ''}
+                    isBookmarked={bookmarks.has(routeFor(mod.rawTitle) || '')}
+                    onBookmark={() => {
+                      const s = routeFor(mod.rawTitle)
+                      if (s) toggleBookmark(s)
+                    }}
+                  />
+                ))}
+                {unit.capstone ? (
+                  <CapstoneCard capstone={unit.capstone} section={unit.title} onOpen={openModule} />
+                ) : null}
+              </div>
             </section>
           ))}
         </div>
 
-        {meta.tools ? (
-          <ToolLibrary
-            topic={resource.title}
-            tools={meta.tools}
-            onOpenTool={tool => navigate(`/${slug}/tool/${tool.slug}`)}
-          />
+        {finalExam ? (
+          <div className="cc-final">
+            <FinalExamCard
+              title={finalExam.title.replace(/^Capstone:\s*/i, '')}
+              rawTitle={finalExam.title}
+              mins={finalExam.mins || 150}
+              unitCount={units.length}
+              onOpen={openModule}
+            />
+          </div>
         ) : null}
 
         {sources.length > 0 ? (
@@ -965,7 +1192,8 @@ function CurriculumView() {
           </aside>
         ) : null}
       </div>
-    </section>
+      </section>
+    </>
   )
 }
 

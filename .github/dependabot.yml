@@ -1,0 +1,14 @@
+# Security advisories stay on: Dependabot still opens a pull request when a
+# dependency has a real vulnerability.
+#
+# Routine version-bump pull requests are off. open-pull-requests-limit: 0
+# suppresses them. This is an application rather than a library, so nothing
+# downstream pins these versions, and a patch bump of a build tool changes
+# nothing a reader can see. Run `npm update` periodically instead.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0

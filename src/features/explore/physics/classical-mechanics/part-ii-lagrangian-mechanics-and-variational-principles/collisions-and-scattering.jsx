@@ -9,11 +9,12 @@ import {
   Arrow as Ar4,
   Tex as T4,
   Slider as Sl4,
-  OPACITY as O4,
-  VizCard
+  OPACITY as O4
 } from '../../../../../components/viz/primitives'
+import { CrossSectionDensityMap } from '../../../../../components/viz'
+import { VizFigure } from '../../../../../components/viz-figure'
 
-function ScatteringGeometry() {
+export function ScatteringGeometry() {
   const R = 1.6
   const [b, setB] = React.useState(1.0)
   const rho = Math.min(b, R - 0.001)
@@ -25,6 +26,11 @@ function ScatteringGeometry() {
   const n = [-cosA, sinA]
   const dot = inDir[0] * n[0] + inDir[1] * n[1]
   const outDir = [inDir[0] - 2 * dot * n[0], inDir[1] - 2 * dot * n[1]]
+  // cap the outgoing ray so its arrowhead stays inside the frame
+  let outLen = 4
+  if (outDir[1] > 1e-6) outLen = Math.min(outLen, (3.25 - hit[1]) / outDir[1])
+  if (outDir[0] < -1e-6) outLen = Math.min(outLen, (-4.7 - hit[0]) / outDir[0])
+  if (outDir[0] > 1e-6) outLen = Math.min(outLen, (4.7 - hit[0]) / outDir[0])
   return (
     <div style={{ width: '100%' }}>
       <P4 xRange={[-5, 5]} yRange={[-2.4, 3.6]} width={520} height={260}>
@@ -37,7 +43,7 @@ function ScatteringGeometry() {
         <T4 at={[-3.1, rho / 2]} tex="\rho" anchor="end" opacity={O4.dim} />
         <Ar4
           from={hit}
-          to={[hit[0] + 4 * outDir[0], hit[1] + 4 * outDir[1]]}
+          to={[hit[0] + outLen * outDir[0], hit[1] + outLen * outDir[1]]}
           opacity={O4.fg}
           head={7}
         />
@@ -70,32 +76,51 @@ function ScatteringGeometry() {
   )
 }
 
-function RutherfordScattering() {
+export function RutherfordScattering() {
   const [b, setB] = React.useState(0.7)
   const [a, setA] = React.useState(0.5)
   const chi = 2 * Math.atan(a / Math.max(b, 0.05))
   const e = 1 / Math.sin(chi / 2)
   const p = b / Math.tan(chi / 2)
-  const phiMin = -Math.PI + chi / 2 + 0.05
-  const phiMax = Math.PI - chi / 2 - 0.05
+  // Repulsive branch r = p/(e cos(phi) - 1) only exists for |phi| < arccos(1/e).
+  // Stop where r reaches RMAX so the drawn arc stays a genuine hyperbola arm
+  // (running phi past the limit flips r negative and draws a spurious X through
+  // the nucleus).
+  const RMAX = 7
+  const phiLim = Math.acos((1 + p / RMAX) / e)
+  const phiMin = -phiLim
+  const phiMax = phiLim
   const traj = phi => {
     const r = p / (-1 + e * Math.cos(phi))
     return [r * Math.cos(phi), r * Math.sin(phi)]
   }
-  const [t, setT] = React.useState(0)
+  // animate with PHYSICAL pacing: angular momentum conservation gives
+  // phi-dot proportional to 1/r^2 (fast at periapsis, slow on the asymptotes)
+  const phiRef = React.useRef(phiMin)
+  const [phi, setPhi] = React.useState(phiMin)
   React.useEffect(() => {
+    phiRef.current = phiMin
+    // respect prefers-reduced-motion (house convention): show the periapsis state
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      phiRef.current = 0
+      setPhi(0)
+      return
+    }
     let raf,
       last = performance.now()
     const loop = now => {
-      const dt = (now - last) / 1000
+      const dt = Math.min(0.05, (now - last) / 1000)
       last = now
-      setT(q => (q + dt * 0.4) % 1)
+      const r = p / (-1 + e * Math.cos(phiRef.current))
+      let nxt = phiRef.current + (dt * 2.2) / (r * r)
+      if (nxt >= phiMax) nxt = phiMin
+      phiRef.current = nxt
+      setPhi(nxt)
       raf = requestAnimationFrame(loop)
     }
     raf = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(raf)
-  }, [])
-  const phi = phiMin + t * (phiMax - phiMin)
+  }, [b, a, e, p, phiMin, phiMax])
   const pt = traj(phi)
   return (
     <div style={{ width: '100%' }}>
@@ -105,7 +130,8 @@ function RutherfordScattering() {
         <Pa4 xy={traj} t={[phiMin, phiMax]} samples={200} opacity={O4.fg} strokeWidth={2} />
         <D4 x={pt[0]} y={pt[1]} r={6} opacity={O4.accent} />
         <T4
-          at={[2.2, 2.4]}
+          at={[-1.2, 2.55]}
+          anchor="middle"
           tex={`\\chi = ${((chi * 180) / Math.PI).toFixed(0)}^\\circ`}
           opacity={O4.accent}
         />
@@ -117,7 +143,7 @@ function RutherfordScattering() {
   )
 }
 
-function CMvsLab() {
+export function CMvsLab() {
   const [eta, setEta] = React.useState(1.0)
   const [chiCM, setChiCM] = React.useState(Math.PI * 0.6)
   const chiLab = Math.atan2(Math.sin(chiCM), Math.cos(chiCM) + eta)
@@ -153,21 +179,30 @@ function CMvsLab() {
         />
         <T4
           at={[L * Math.cos(chiCM) + 0.1, L * Math.sin(chiCM)]}
+          dy={-8}
           tex={`\\chi_{\\rm cm}=${((chiCM * 180) / Math.PI).toFixed(0)}^\\circ`}
           opacity={O4.fg}
           size={11}
         />
         <T4
           at={[L * Math.cos(chiLab) + 0.1, L * Math.sin(chiLab)]}
+          dy={14}
           tex={`\\chi_{\\rm lab}=${((chiLab * 180) / Math.PI).toFixed(0)}^\\circ`}
           opacity={O4.accent}
           size={11}
+        />
+        <T4
+          at={[3.85, -2.3]}
+          anchor="end"
+          tex={String.raw`\tan\chi_{\rm lab}=\frac{\sin\chi_{\rm cm}}{\cos\chi_{\rm cm}+m_1/m_2}`}
+          opacity={O4.dim}
+          size={10}
         />
       </P4>
       <Sl4
         label="χ_cm"
         value={chiCM}
-        min={0.1}
+        min={0.3}
         max={Math.PI - 0.1}
         step={0.02}
         onChange={setChiCM}
@@ -186,12 +221,12 @@ const config = {
     category: 'Classical Mechanics',
     title: 'Collisions and Scattering',
     subtitle:
-      'How a particle splits, how two particles bounce, and how a beam scatters off a force. Landau and Lifshitz, sections 16 to 21.',
+      'How a particle splits, how two particles bounce, and how a beam scatters off a force.',
     sections: [
       // Section 0: Disintegration of Particles
       <>
         <div className="lrn-section" id="lrn-section-0" data-section-index="0">
-          <span className="lrn-label">Disintegration of Particles</span>
+          <h2>Disintegration of Particles</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -224,15 +259,15 @@ const config = {
           </p>
           <div className="lrn-eq">{`$$\\varepsilon = \\frac{p_0^2}{2m}, \\qquad m = \\frac{m_1 m_2}{m_1 + m_2}$$`}</div>
           <p>
-            The combination {`$m = \\frac{m_1 m_2}{m_1+m_2}$`} is the <strong>reduced mass</strong>.
-            It is the single number that lets you treat a two-body problem as if one object of mass{' '}
-            {`$m$`} carried all the kinetic energy.
+            The combination {`$m = \\frac{m_1 m_2}{m_1+m_2}$`} is the <strong>reduced mass</strong>,
+            derived in Central Force Motion. It packs the two-body problem into one effective
+            object.
           </p>
           <h3>Two viewpoints: lab and center-of-mass</h3>
           <p>
-            We can watch the same split from two frames. The lab frame is what a human observer
-            sees. The center-of-mass frame is what the parent particle sees. Each frame makes
-            different things easy to compute.
+            As in Momentum and Systems of Particles, we watch the same split from two frames: the
+            lab frame a human observer sees, and the center-of-mass frame the parent particle rides
+            in. Each frame makes different things easy to compute.
           </p>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
@@ -302,9 +337,12 @@ const config = {
           </p>
           <div className="lrn-eq">{`$$dP = \\frac{dT}{2mv_0 V}$$`}</div>
           <p>
-            The denominator is just the total width {`$T_{1,\\rm max} - T_{1,\\rm min}$`}. The
-            distribution is flat because turning the C-frame velocity uniformly over a sphere makes
-            its forward component uniform along a line.
+            The denominator is just the total width {`$T_{1,\\rm max} - T_{1,\\rm min} = 2mv_0 V$`}.
+            The two edges sit a half-width {`$mv_0 V$`} above and below the central value{' '}
+            {`$\\frac{1}{2}m_1(V^2 + v_{10}^2)$`}, so they pull apart as {`$V$`} grows and collapse
+            onto a single energy when {`$V = 0$`}. The distribution is flat because turning the
+            C-frame velocity uniformly over a sphere makes its forward component uniform along a
+            line.
           </p>
           <p>
             When the parent sits still ({`$V = 0$`}), fragment {`$m_1$`} carries a definite kinetic
@@ -337,7 +375,7 @@ const config = {
       // Section 1: Elastic Collisions
       <>
         <div className="lrn-section" id="lrn-section-1" data-section-index="1">
-          <span className="lrn-label">Elastic Collisions</span>
+          <h2>Elastic Collisions</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -370,8 +408,8 @@ const config = {
           <p>These match the speeds before the hit. Only the directions change.</p>
           <h3>Angles and speeds back in the lab</h3>
           <p>
-            To return to the lab we add the C-system motion to the parent's velocity {`$V$`}. The
-            geometry of that vector triangle gives:
+            To return to the lab we add the C-system motion to the center-of-mass velocity{' '}
+            {`$V = \\frac{m_1 v}{m_1+m_2}$`}. The geometry of that vector triangle gives:
           </p>
           <div className="lrn-eq">{`$$\\tan\\theta_1 = \\frac{m_2\\sin\\chi}{m_1 + m_2\\cos\\chi}, \\qquad \\theta_2 = \\frac{\\pi - \\chi}{2}$$`}</div>
           <p>
@@ -382,7 +420,7 @@ const config = {
           <h3>The head-on case ({`$\\chi = \\pi$`})</h3>
           <p>
             A head-on hit fully reverses the C-system momenta. The lab speeds simplify to the
-            classic textbook result:
+            familiar result:
           </p>
           <div className="lrn-eq">{`$$v_1' = \\frac{m_1 - m_2}{m_1+m_2}v, \\qquad v_2' = \\frac{2m_1}{m_1+m_2}v$$`}</div>
           <div className="lrn-elaborate">
@@ -453,7 +491,7 @@ const config = {
                 </li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <ol className="lrn-list">
                 <li>
@@ -485,7 +523,7 @@ const config = {
       // Section 2: Scattering and Cross-Section
       <>
         <div className="lrn-section" id="lrn-section-2" data-section-index="2">
-          <span className="lrn-label">Scattering and Effective Cross-Section</span>
+          <h2>Scattering and Effective Cross-Section</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -502,27 +540,37 @@ const config = {
             </details>
           </div>
           <p>
-            <strong>Scattering</strong> means a particle comes in from far away, feels the pull or
-            push of a force center, curves, and flies back out to infinity. The angle between its
+            From here on we work in the C system with one effective particle. Here {`$m$`} denotes
+            the reduced mass {`$\\frac{m_1 m_2}{m_1+m_2}$`}, not the projectile mass.{' '}
+            <strong>Scattering</strong> means this particle comes in from far away, feels the pull
+            or push of a force center, curves, and flies back out to infinity. The angle between its
             incoming and outgoing directions is the <strong>deflection angle</strong>{' '}
             {`$\\chi = |\\pi - 2\\varphi_0|$`}, where {`$\\varphi_0$`} is the angle the particle
-            sweeps out from infinity to its closest approach.
+            sweeps out from infinity to its closest approach. This is the same {`$\\chi$`} that
+            rotated the C-frame momentum in the elastic-collision section, now produced by a force
+            acting over the whole flight path.
           </p>
           <p>
-            The <strong>impact parameter</strong> {`$\\rho$`} is the aim. It is the distance by
-            which the incoming straight-line path would miss the force center if no force acted. A
+            As with central-force motion, the <strong>impact parameter</strong> {`$\\rho$`} is the
+            aim: the distance by which the incoming straight-line path would miss the force center
+            if no force acted. Central Force Motion writes this aim as {`$b$`} and the deflection as{' '}
+            {`$\\Theta$`}; here they are {`$\\rho$`} and {`$\\chi$`}, the same two quantities. A
             particle far from the center has energy and angular momentum:
           </p>
           <div className="lrn-eq">{`$$E = \\frac{1}{2}mv_\\infty^2, \\qquad M = m\\rho v_\\infty$$`}</div>
           <p>
             Here {`$v_\\infty$`} is the incoming speed measured far from the center, where the
-            potential is zero.
+            potential is zero. The symbol {`$M$`} now means angular momentum, not the total mass{' '}
+            {`$M = m_1 + m_2$`} of Section 0.
           </p>
           <h3>The cross-section, the central object</h3>
           <p>
             We never aim a single particle. We fire a wide, uniform beam and count how many come out
-            at each angle. The <strong>differential cross-section</strong> {`$d\\sigma$`} is that
-            count, divided by the beam density. It has units of area:
+            at each angle. We count them inside a small <strong>solid angle</strong> {`$d\\Omega$`}:
+            the patch of directions a detector covers, measured as area on a unit sphere in units
+            called steradians. All directions together make up the full sphere, {`$4\\pi$`}{' '}
+            steradians. The <strong>differential cross-section</strong> {`$d\\sigma$`} is the count
+            into {`$d\\Omega$`}, divided by the beam density. It has units of area:
           </p>
           <div className="lrn-eq lrn-eq-display">{`$$d\\sigma = \\frac{\\rho}{\\sin\\chi}\\left|\\frac{d\\rho}{d\\chi}\\right|d\\Omega$$`}</div>
           <p>
@@ -552,10 +600,9 @@ const config = {
           <div className="lrn-eq">{`$$d\\sigma = \\frac{a^2}{4}\\,d\\Omega$$`}</div>
           <p>
             The right side does not depend on {`$\\chi$`}. The sphere kicks particles into every
-            direction with equal weight. We say the scattering is <strong>isotropic</strong>: the
-            same in every direction. Adding up over all angles gives the total cross-section{' '}
-            {`$\\sigma = \\pi a^2$`}: the geometric shadow of the sphere, exactly what you would
-            guess.
+            direction with equal weight, so the scattering is isotropic. Adding up over all angles
+            gives the total cross-section {`$\\sigma = \\pi a^2$`}: the geometric shadow of the
+            sphere, exactly what you would guess.
           </p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -587,18 +634,16 @@ const config = {
           <div className="lrn-eq">{`$$\\sigma = \\frac{2\\pi\\alpha}{mv_\\infty^2}$$`}</div>
           <p>
             Faster beams capture less: the particle blasts past before the force can pull it in.
+            Steeper attractions {`$U = -\\frac{\\alpha}{r^n}$`} with {`$n > 2$`} also capture, by
+            the same fall-to-center condition set out in Integration by Quadrature.
           </p>
-          <p>
-            For steeper attractions {`$U = -\\frac{\\alpha}{r^n}$`} with {`$n > 2$`}:
-          </p>
-          <div className="lrn-eq">{`$$\\sigma = \\pi n\\left(\\frac{n-2}{n}\\right)^{\\frac{2-n}{n}}\\left(\\frac{\\alpha}{mv_\\infty^2}\\right)^{\\frac{2}{n}}$$`}</div>
         </div>
       </>,
 
       // Section 3: Rutherford Scattering
       <>
         <div className="lrn-section" id="lrn-section-3" data-section-index="3">
-          <span className="lrn-label">Rutherford's Formula</span>
+          <h2>Rutherford's Formula</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -620,21 +665,32 @@ const config = {
             push) or negative (an attractive pull).
           </p>
           <p>
-            Working through the orbit integral for this potential gives a clean link between the aim{' '}
-            {`$\\rho$`} and the deflection {`$\\chi$`}:
+            To get the aim-to-deflection link we run the orbit integral. The angle the particle
+            sweeps from infinity to closest approach is the same integral used for central-force
+            orbits, now with energy {`$E$`} and angular momentum {`$M = m\\rho v_\\infty$`}:
+          </p>
+          <div className="lrn-eq lrn-eq-display">{`$$\\varphi_0 = \\int_{r_{\\min}}^{\\infty} \\frac{(M/r^2)\\,dr}{\\sqrt{2m\\left(E - \\frac{\\alpha}{r}\\right) - \\frac{M^2}{r^2}}}$$`}</div>
+          <p>
+            For the Coulomb potential this integral is elementary. It gives{' '}
+            {`$\\varphi_0 = \\arccos\\!\\left(\\frac{\\alpha/m v_\\infty^2 \\rho}{\\sqrt{1 + (\\alpha/m v_\\infty^2 \\rho)^2}}\\right)$`}
+            . Using {`$\\chi = \\pi - 2\\varphi_0$`} from the deflection definition turns this into
+            a clean tie between the aim {`$\\rho$`} and the deflection {`$\\chi$`}:
           </p>
           <div className="lrn-eq">{`$$\\rho^2 = \\left(\\frac{\\alpha}{mv_\\infty^2}\\right)^2 \\cot^2\\!\\left(\\frac{\\chi}{2}\\right)$$`}</div>
           <p>
-            Plug this into the general cross-section formula. After differentiating and tidying, you
-            reach <strong>Rutherford's formula</strong>:
+            Now plug {`$\\rho(\\chi)$`} into the general cross-section{' '}
+            {`$d\\sigma = \\frac{\\rho}{\\sin\\chi}\\left|\\frac{d\\rho}{d\\chi}\\right|d\\Omega$`}.
+            Differentiate {`$\\rho$`}, use{' '}
+            {`$\\sin\\chi = 2\\sin\\!\\left(\\frac{\\chi}{2}\\right)\\cos\\!\\left(\\frac{\\chi}{2}\\right)$`}
+            , and the half-angle factors collapse to give <strong>Rutherford's formula</strong>:
           </p>
           <div className="lrn-eq lrn-eq-display">{`$$d\\sigma = \\left(\\frac{\\alpha}{2mv_\\infty^2}\\right)^2 \\frac{d\\Omega}{\\sin^4\\!\\left(\\frac{\\chi}{2}\\right)}$$`}</div>
           <p>
-            Two features deserve attention. First, the cross-section grows wildly at small angles:
-            the {`$\\sin^4\\!\\left(\\frac{\\chi}{2}\\right)$`} in the denominator means almost
+            Two features stand out. First, the cross-section grows wildly at small angles: the{' '}
+            {`$\\sin^4\\!\\left(\\frac{\\chi}{2}\\right)$`} in the denominator means almost
             everything in the beam scatters by a tiny amount. Second, the strength scales as{' '}
             {`$\\frac{1}{E^2}$`}, so a faster beam scatters much less. This is what Rutherford
-            measured in 1911 and used to deduce that atoms have tiny dense nuclei.
+            measured in 1911 and used to work out that atoms have tiny dense nuclei.
           </p>
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -661,19 +717,43 @@ const config = {
           </div>
           <h3>Rutherford's formula in the lab frame</h3>
           <p>
-            The formulas above use the C system. Experimenters measure angles in the lab. For the
-            recoil particle (mass {`$m_2$`}, initially at rest):
+            The formulas above use the C system. Experimenters measure angles in the lab. To
+            convert, add the center-of-mass motion back in. The C-frame angle {`$\\chi$`} and the
+            lab angle {`$\\theta_1$`} of the projectile are linked by the velocity triangle:
+          </p>
+          <div className="lrn-eq">{`$$\\tan\\theta_1 = \\frac{\\sin\\chi}{\\cos\\chi + \\frac{m_1}{m_2}}$$`}</div>
+          <p>
+            The cross-section counts the same particles in either frame, so the counts must agree:{' '}
+            {`$d\\sigma$`} is unchanged, but the angle it is spread over is not. Each solid angle{' '}
+            {`$d\\Omega_{\\rm cm}$`} maps to a different lab solid angle {`$d\\Omega_{\\rm lab}$`}.
+            The two cross-sections per unit solid angle therefore differ by the{' '}
+            <strong>Jacobian</strong> of that map:
+          </p>
+          <div className="lrn-eq">{`$$\\frac{d\\sigma}{d\\Omega_{\\rm lab}} = \\frac{d\\sigma}{d\\Omega_{\\rm cm}}\\left|\\frac{d\\Omega_{\\rm cm}}{d\\Omega_{\\rm lab}}\\right|$$`}</div>
+          <p>
+            Applying this map to Rutherford's C-frame result gives the lab forms. For the recoil
+            particle (mass {`$m_2$`}, initially at rest), the transformation is exact at any mass
+            ratio:
           </p>
           <div className="lrn-eq">{`$$d\\sigma_2 = \\left(\\frac{\\alpha}{mv_\\infty^2}\\right)^2 \\frac{d\\Omega_2}{\\cos^3\\theta_2}$$`}</div>
-          <p>For equal masses, the projectile angle in the lab follows:</p>
+          <p>
+            For the projectile the general result is messy, so we quote the clean case of{' '}
+            <strong>equal masses</strong> ({`$m_1 = m_2$`}), where {`$\\chi = 2\\theta_1$`} and{' '}
+            {`$E_1 = \\tfrac{1}{2}m_1 v_\\infty^2$`} is the projectile's lab kinetic energy:
+          </p>
           <div className="lrn-eq">{`$$d\\sigma_1 = \\left(\\frac{\\alpha}{E_1}\\right)^2 \\frac{\\cos\\theta_1\\,d\\Omega_1}{\\sin^4\\theta_1}$$`}</div>
           <h3>The cross-section in terms of energy loss</h3>
           <p>
-            Sometimes the easier thing to measure is not an angle but an energy. The amount of
-            kinetic energy {`$\\varepsilon$`} the projectile loses to the target leads to a
-            cross-section that has a particularly simple shape:
+            Sometimes the easier thing to measure is not an angle but an energy. The recoil target
+            picks up energy {`$\\varepsilon$`}, which the projectile loses. In this section{' '}
+            {`$\\varepsilon$`} means this energy loss, not the disintegration energy from Section 0.
+            The recoil speed sets it:{' '}
+            {`$\\varepsilon = \\frac{2m^2 v_\\infty^2}{m_2}\\sin^2\\!\\left(\\frac{\\chi}{2}\\right)$`}
+            , where {`$m$`} is again the reduced mass. Invert this to write{' '}
+            {`$\\sin^2\\!\\left(\\frac{\\chi}{2}\\right)$`} in terms of {`$\\varepsilon$`}, feed it
+            into Rutherford's formula, and the angular shape becomes an energy shape:
           </p>
-          <div className="lrn-eq">{`$$d\\sigma = \\frac{2\\pi\\alpha^2 m_2 v_\\infty^2}{\\varepsilon^2}\\,d\\varepsilon$$`}</div>
+          <div className="lrn-eq">{`$$d\\sigma = \\frac{2\\pi\\alpha^2}{m_2 v_\\infty^2}\\,\\frac{d\\varepsilon}{\\varepsilon^2}$$`}</div>
           <p>
             The {`$\\frac{1}{\\varepsilon^2}$`} factor says small energy losses are common and large
             losses are rare. This is the same story as the angular result, looked at through a
@@ -685,7 +765,7 @@ const config = {
       // Section 4: Small-Angle Scattering
       <>
         <div className="lrn-section" id="lrn-section-4" data-section-index="4">
-          <span className="lrn-label">Small-Angle Scattering</span>
+          <h2>Small-Angle Scattering</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -770,8 +850,8 @@ const config = {
       a: `$d\\sigma$ is the count of particles scattered into solid angle $d\\Omega$ per second, divided by the beam flux. A denser beam scatters more, but the flux on the bottom grows in step, so the ratio cancels out. What is left is a property of the force law and the energy alone.`
     },
     {
-      q: `[PREDICT] You run Rutherford scattering at energy $E$, then redo it at $2E$ and look at the same angle $\\chi$. How does $\\frac{d\\sigma}{d\\Omega}$ change?`,
-      a: `It drops by a factor of 4. The cross-section scales as $\\frac{1}{E^2}$, since $mv_\\infty^2 = 2E$. Doubling $E$ multiplies $E^2$ by 4, so the cross-section divides by 4.`
+      q: `Particles scatter off a hard sphere of radius $a = 2$ cm. Find $\\frac{d\\sigma}{d\\Omega}$ at $\\chi = 60°$, and the total cross-section $\\sigma$.`,
+      a: `Hard-sphere scattering is isotropic: $\\frac{d\\sigma}{d\\Omega} = \\frac{a^2}{4}$ at every angle, so at $60°$ it is $\\frac{(2)^2}{4} = 1$ cm$^2$. The total is the geometric shadow $\\sigma = \\pi a^2 = 4\\pi \\approx 12.6$ cm$^2$. The angle did not matter, which is the whole point of isotropy.`
     },
     {
       q: `Why does Rutherford's formula give the same result whether the Coulomb force pushes or pulls?`,
@@ -933,15 +1013,16 @@ const config = {
 function CollisionVizes() {
   return (
     <>
-      <VizCard id="02.4.1" title="Scattering Geometry">
+      <VizFigure aspect="auto" title="Scattering Geometry">
         <ScatteringGeometry />
-      </VizCard>
-      <VizCard id="02.4.2" title="Rutherford Scattering">
+      </VizFigure>
+      <CrossSectionDensityMap />
+      <VizFigure aspect="auto" title="Rutherford Scattering">
         <RutherfordScattering />
-      </VizCard>
-      <VizCard id="02.4.3" title="CM vs Lab Frame">
+      </VizFigure>
+      <VizFigure aspect="auto" title="CM vs Lab Frame">
         <CMvsLab />
-      </VizCard>
+      </VizFigure>
     </>
   )
 }

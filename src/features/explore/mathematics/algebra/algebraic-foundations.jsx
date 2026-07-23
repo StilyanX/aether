@@ -1,5 +1,5 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
-import { ExponentLawsViz, NumberLineViz, PemdasViz } from '../../../../components/viz'
+import { NumberLineViz } from '../../../../components/viz'
 
 const PRACTICE_CARDS = [
   {
@@ -92,7 +92,7 @@ const PRACTICE_CARDS = [
   },
   {
     q: 'Does $(2 + x)^3 = 2^3 + x^3$?',
-    a: 'No. The power-of-product rule needs a product, not a sum. Test with $x = 1$: $3^3 = 27$, but $1 + 1 = 2$.'
+    a: 'No. The power-of-product rule needs a product, not a sum. Test with $x = 1$: $3^3 = 27$, but $2^3 + 1^3 = 9$.'
   },
   {
     q: 'Simplify $\\frac{x^7}{x^3}$.',
@@ -392,8 +392,6 @@ function useConfig() {
                 gives a nonzero result.
               </p>
             </div>
-
-            <PemdasViz />
           </div>
         </>,
 
@@ -1220,10 +1218,9 @@ function useConfig() {
             </p>
 
             <div className="lrn-insight">
-              <span className="lrn-insight-label">Whitehead</span>
+              <span className="lrn-insight-label">Why notation matters</span>
               <p>
-                "By relieving the brain of all unnecessary work, a good notation sets it free to
-                concentrate on more advanced problems."
+                Good notation frees your brain from busywork so you can think about harder problems.
               </p>
             </div>
 
@@ -1321,8 +1318,7 @@ function useConfig() {
             </div>
 
             <p>
-              Now you have a map. The next module will solve it. The work of getting from words to
-              symbols is half the battle.
+              Turning the words into this equation is half the work. Solving it is the easy half.
             </p>
           </div>
         </>,
@@ -1440,8 +1436,6 @@ function useConfig() {
               Examples: $2^{`{-3}`} = \frac{1}
               {8}$. Reciprocating works too: {`$\\frac{1}{3^{-2}} = 3^2 = 9$`}.
             </p>
-
-            <ExponentLawsViz />
           </div>
         </>,
 
@@ -1538,15 +1532,17 @@ function useConfig() {
             <h3>Method 2: Least Common Multiple</h3>
 
             <p>
-              Find the LCM of the denominators by taking the highest power of each prime factor and
-              each variable that appears. Constants and variable parts work separately.
+              First find the LCM of the denominators. A prime factor is a prime number that divides
+              evenly, like the 2 and 3 inside 6. Take the highest power of each prime factor that
+              appears. Do the same for each variable. Constants and variable parts work separately.
             </p>
 
             <div className="lrn-steps">
               <div className="lrn-step">
                 <span className="lrn-step-title">{`Add $\\frac{2}{3x} + \\frac{3}{x}$`}</span>
                 <p className="lrn-step-content">
-                  LCD $= 3x$. Rewrite: {`$\\frac{2}{3x} + \\frac{9}{3x} = \\frac{11}{3x}$`}.
+                  The least common denominator (LCD) $= 3x$. Rewrite:{' '}
+                  {`$\\frac{2}{3x} + \\frac{9}{3x} = \\frac{11}{3x}$`}.
                 </p>
               </div>
               <div className="lrn-step">
@@ -1626,13 +1622,13 @@ function useConfig() {
                 <span className="lrn-compare-title">Same signs</span>
                 <p>$3 + 5 = 8$: yesterday $+3$, today $5$ warmer, so $+8$.</p>
                 <p>$(-3) + (-5) = -8$: yesterday $-3$, today $5$ colder, so $-8$.</p>
-                <p>Add the magnitudes. Keep the shared sign.</p>
+                <p>Add the sizes (how far each is from zero). Keep the shared sign.</p>
               </div>
               <div className="lrn-compare-col">
                 <span className="lrn-compare-title">Different signs</span>
                 <p>$3 + (-5) = -2$: yesterday $+3$, today $5$ colder, so $-2$.</p>
                 <p>$(-3) + 5 = 2$: yesterday $-3$, today $5$ warmer, so $+2$.</p>
-                <p>Subtract the magnitudes. Take the sign of the bigger one.</p>
+                <p>Subtract the sizes. Take the sign of the bigger one.</p>
               </div>
             </div>
 
@@ -2160,8 +2156,8 @@ function useConfig() {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Adding</span>
               <div className="lrn-definition-desc">
-                <p>Same signs: add magnitudes, keep the shared sign.</p>
-                <p>Different signs: subtract magnitudes, take the sign of the larger one.</p>
+                <p>Same signs: add sizes, keep the shared sign.</p>
+                <p>Different signs: subtract sizes, take the sign of the larger one.</p>
               </div>
             </div>
 
@@ -2249,7 +2245,7 @@ function useConfig() {
       ]
     },
     customCss:
-      '.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }'
+      '.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }'
   }
 
   return config
@@ -2258,4 +2254,8 @@ function useConfig() {
 export default function AlgebraicFoundations() {
   const config = useConfig()
   return <LearningTemplate config={config} />
+}
+
+export function useAlgebraicFoundationsConfig() {
+  return useConfig()
 }

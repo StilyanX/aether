@@ -1,9 +1,10 @@
 .lt-sidebar {
-  width: 220px;
+  /* Same token and same edge treatment as .ep-sidebar on the explore page. */
+  width: var(--sidebar-width);
   flex-shrink: 0;
   background: var(--bg);
   color: var(--text-primary);
-  border-right: 1px solid var(--border-default);
+  border-right: var(--stroke-fine) solid var(--border-subtle);
   font-family: var(--font-sans);
   display: flex;
   flex-direction: column;
@@ -20,27 +21,48 @@
   display: none;
 }
 
+/* Masthead. Deliberately identical to .ep-sidebar-identity / .ep-sidebar-sep
+   on the explore page: same tokens, same wordmark family, same hairline at the
+   same inset. One publication, one spine. Change these two together. */
 .lt-sidebar-brand {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 24px 18px;
-  border-bottom: 1px solid var(--border-default);
+  /* Uniform on all four sides: the space above and below the wordmark equals
+     the space left and right of it. */
+  padding: var(--space-5);
+}
+
+/* Full-bleed rule: spans the whole sidebar, edge to edge, with no margin of
+   its own. The brand box's own padding provides the space above it. */
+.lt-sidebar-sep {
+  height: var(--stroke-fine);
+  margin: 0;
+  background: var(--border-subtle);
 }
 
 .lt-sidebar-mark-link {
   display: inline-block;
-  line-height: 0;
   opacity: 1;
   transition: opacity 0.15s;
 }
 .lt-sidebar-mark-link:hover {
   opacity: 0.7;
 }
+/* Text in D-DIN Bold, not an Inter SVG: same family as the hero masthead and
+   as .ep-sidebar-mark. */
 .lt-sidebar-mark {
-  display: block;
-  width: 100px;
-  height: auto;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-h5);
+  line-height: 1;
+  letter-spacing: var(--track-display);
+  color: var(--text-primary);
+  font-feature-settings:
+    'liga' 0,
+    'dlig' 0;
+  font-synthesis: none;
 }
 
 .lt-sidebar-close {
@@ -73,7 +95,7 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ax-sidebar);
@@ -81,7 +103,7 @@
 }
 
 .lt-sidebar-count {
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.12em;
   color: var(--text-tertiary);
 }
@@ -100,7 +122,7 @@
   border-bottom: 1px solid var(--border-default);
   color: var(--text-primary);
   font-family: inherit;
-  font-size: 12px;
+  font-size: var(--type-small);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
@@ -139,7 +161,7 @@
 }
 
 .lt-sidebar-mode-n {
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.12em;
   color: inherit;
   opacity: 0.6;
@@ -160,7 +182,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 12px;
-  font-size: 12px;
+  font-size: var(--type-small);
   letter-spacing: 0.04em;
   color: var(--text-secondary);
 }
@@ -185,7 +207,7 @@
   padding: var(--d-sidebar-item-py, 10px) 0;
   color: var(--text-secondary);
   font-family: inherit;
-  font-size: 13px;
+  font-size: var(--type-glyph);
   letter-spacing: 0.02em;
   cursor: pointer;
   text-align: left;
@@ -196,12 +218,20 @@
   color: var(--text-primary);
 }
 
+.lt-sidebar-section:disabled {
+  cursor: default;
+}
+
+.lt-sidebar-section:disabled:hover {
+  color: var(--text-secondary);
+}
+
 .lt-sidebar-section.active {
   color: var(--ax-sidebar);
 }
 
 .lt-sidebar-section-bullet {
-  font-size: 10px;
+  font-size: var(--type-micro);
   display: grid;
   place-items: center;
   color: inherit;
@@ -217,7 +247,7 @@
 }
 
 .lt-sidebar-section-n {
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.12em;
   color: var(--text-tertiary);
   font-feature-settings: 'tnum';

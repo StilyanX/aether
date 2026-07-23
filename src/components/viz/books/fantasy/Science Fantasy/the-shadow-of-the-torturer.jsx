@@ -1,5 +1,5 @@
 // BOOK I - THE SHADOW OF THE TORTURER
-// Faithful to Wolfe's text. Every node carries a chapter citation; every
+// Faithful to Wolfe's text. Every node carries a section citation; every
 // edge traces to a scene. Clickable nodes reveal scene tooltips.
 
 import React from 'react'
@@ -10,13 +10,31 @@ import {
   useTooltip,
   Slider,
   Toggle,
-  ChapterTimeline,
+  ModuleTimeline,
   Hatch,
   CrossHatch,
   Stipple,
   FG,
   OPACITY
 } from '../../../primitives'
+import {
+  FONT_LABEL,
+  FONT_SMALL,
+  FONT_TEX,
+  LS_COMPACT,
+  LS_CONTROL,
+  LS_LABEL,
+  LS_MEDIUM,
+  LS_OPEN,
+  LS_TIGHT,
+  LS_TITLE,
+  LS_UPPER,
+  STROKE_EMPHASIS,
+  STROKE_GUIDE,
+  STROKE_HAIR,
+  STROKE_PRIMARY,
+  STROKE_SECONDARY
+} from '../../../scale-tokens'
 
 // I.01.1 - Guild Hierarchy
 export function GuildHierarchy() {
@@ -27,7 +45,7 @@ export function GuildHierarchy() {
       y: 165,
       label: 'Palaemon',
       sub: 'teacher · lens eyes',
-      cite: 'Ch. 2, 11, 35',
+      cite: '§2, 11, 35',
       body: "Severian's teacher; bestows Terminus Est at the parting."
     },
     gurloes: {
@@ -35,7 +53,7 @@ export function GuildHierarchy() {
       y: 165,
       label: 'Gurloes',
       sub: 'head master',
-      cite: 'Ch. 7–12',
+      cite: '§7–12',
       body: 'Receives Thecla; complicit when Severian gives her the knife.'
     },
     malrubius: {
@@ -43,7 +61,7 @@ export function GuildHierarchy() {
       y: 165,
       label: 'Malrubius',
       sub: 'returns in dream',
-      cite: 'Ch. 13',
+      cite: '§13',
       body: 'Once Master of Apprentices; appears to Severian in fever-dream.'
     },
     roche: {
@@ -51,7 +69,7 @@ export function GuildHierarchy() {
       y: 320,
       label: 'Roche',
       sub: 'senior journeyman',
-      cite: 'Ch. 1, 9',
+      cite: '§1, 9',
       body: 'Watches the necropolis gate the night Vodalus appears.'
     },
     others: {
@@ -67,15 +85,15 @@ export function GuildHierarchy() {
       y: 470,
       label: 'Drotte',
       sub: 'captain → journeyman',
-      cite: 'Ch. 1–11',
-      body: "Severian's predecessor as Captain of Apprentices; masked in Ch. 11."
+      cite: '§1–11',
+      body: "Severian's predecessor as Captain of Apprentices; masked in §11."
     },
     severian: {
       x: 400,
       y: 470,
       label: 'Severian',
       sub: 'captain · then exile',
-      cite: 'Ch. 1, 12, 35',
+      cite: '§1, 12, 35',
       body: 'Rises from apprentice to journeyman; exiled to Thrax as carnifex.'
     },
     eata: {
@@ -83,7 +101,7 @@ export function GuildHierarchy() {
       y: 470,
       label: 'Eata',
       sub: 'successor captain',
-      cite: 'Ch. 11',
+      cite: '§11',
       body: 'Inherits the captaincy after Severian rises.'
     }
   }
@@ -151,7 +169,7 @@ export function GuildHierarchy() {
   ]
   return (
     <Canvas w={800} h={560}>
-      <Label x={400} y={28} anchor="middle" size={10}>
+      <Label x={400} y={28} anchor="middle" size={FONT_SMALL}>
         GUILD OF THE SEEKERS FOR TRUTH AND PENITENCE
       </Label>
       {edges.map(([a, b, k], i) => (
@@ -163,7 +181,7 @@ export function GuildHierarchy() {
           y2={b.y}
           stroke={FG}
           strokeOpacity={OPACITY.faint}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
           strokeDasharray={k === 'dash' ? '3 4' : null}
         />
       ))}
@@ -177,15 +195,15 @@ export function GuildHierarchy() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
           <text
             x={b.x}
             y={b.y - 2}
             fill={FG}
-            fontSize="11"
+            fontSize={FONT_LABEL}
             textAnchor="middle"
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
           >
             {b.label}
           </text>
@@ -193,7 +211,7 @@ export function GuildHierarchy() {
             x={b.x}
             y={b.y + 14}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -217,15 +235,15 @@ export function GuildHierarchy() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={k === 'severian' ? OPACITY.fg : OPACITY.dim}
-            strokeWidth={k === 'severian' ? 1.4 : 1}
+            strokeWidth={k === 'severian' ? STROKE_PRIMARY : STROKE_SECONDARY}
           />
           <text
             x={f.x}
             y={f.y + 24}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.04em"
+            letterSpacing={LS_COMPACT}
           >
             {f.label}
           </text>
@@ -233,7 +251,7 @@ export function GuildHierarchy() {
             x={f.x}
             y={f.y + 38}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -254,34 +272,34 @@ export function CitadelMap() {
     {
       id: 'matachin',
       body: 'Guild seat. Severian sleeps here.\nOubliette beneath; gun above.',
-      cite: 'Ch. 2–13'
+      cite: '§2–13'
     },
     {
       id: 'bell',
       body: "Witches' rival keep - bells\nover the Citadel ring at duties.",
-      cite: 'Ch. 4'
+      cite: '§4'
     },
     {
       id: 'witches',
       body: "Severian's friends at the great\nbarbican; not under the Guild.",
-      cite: 'Ch. 4'
+      cite: '§4'
     },
     {
       id: 'curators',
       body: "Cyby, Master Ultan's apprentice,\nlives in the library curators' wing.",
-      cite: 'Ch. 5'
+      cite: '§5'
     },
     {
       id: 'pinako',
       body: 'Picture-galleries. Severian visits\nthe astronaut painting (Vodalus theft).',
-      cite: 'Ch. 5'
+      cite: '§5'
     },
     {
       id: 'atrium',
       body: 'Where Severian first met Valeria\nas a child; he returns at the end.',
-      cite: 'Bk IV, Ch. XXXVII'
+      cite: 'Bk IV, §XXXVII'
     },
-    { id: 'locked', body: 'Severian opens this to leave\nfor exile to Thrax.', cite: 'Ch. 12' }
+    { id: 'locked', body: 'Severian opens this to leave\nfor exile to Thrax.', cite: '§12' }
   ]
   const F = id => features.find(f => f.id === id)
   const flash = id => tip && tip.id === id
@@ -290,14 +308,14 @@ export function CitadelMap() {
   return (
     <Canvas w={800} h={580}>
       <Hatch id="cit-grass" angle={45} gap={6} opacity={0.07} />
-      <Hatch id="cit-stone" angle={90} gap={3} opacity={0.18} strokeWidth={0.5} />
+      <Hatch id="cit-stone" angle={90} gap={3} opacity={0.18} strokeWidth={STROKE_HAIR} />
       <Hatch id="cit-river" angle={0} gap={4} opacity={0.1} />
       <CrossHatch id="cit-floor" gap={6} opacity={0.08} />
 
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         THE CITADEL · SOUTHERN NESSUS
       </Label>
-      <Label x={760} y={32} size={10} anchor="end">
+      <Label x={760} y={32} size={FONT_SMALL} anchor="end">
         N ↑
       </Label>
 
@@ -308,7 +326,7 @@ export function CitadelMap() {
         fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.fg}
-        strokeWidth="1.4"
+        strokeWidth={STROKE_PRIMARY}
       />
       <path
         d="M 140 110 Q 90 280 200 460 Q 360 540 540 500 Q 660 460 680 320 Q 690 200 600 130 Q 420 70 300 90 Z"
@@ -320,7 +338,7 @@ export function CitadelMap() {
         const tx = 200 + i * 22
         return <rect key={i} x={tx} y={84} width={8} height={5} fill={FG} opacity={OPACITY.dim} />
       })}
-      <Label x={380} y={76} anchor="middle" size={10}>
+      <Label x={380} y={76} anchor="middle" size={FONT_SMALL}>
         CURTAIN WALL
       </Label>
 
@@ -337,7 +355,7 @@ export function CitadelMap() {
           fill="url(#cit-stone)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.4"
+          strokeWidth={STROKE_PRIMARY}
         />
         {Array.from({ length: 9 }).map((_, i) => (
           <rect
@@ -360,7 +378,7 @@ export function CitadelMap() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
             <rect
               x={418}
@@ -370,7 +388,7 @@ export function CitadelMap() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
           </g>
         ))}
@@ -379,13 +397,27 @@ export function CitadelMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
       </g>
-      <text x={400} y={360} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.16em">
+      <text
+        x={400}
+        y={360}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        letterSpacing={LS_TITLE}
+      >
         MATACHIN
       </text>
-      <text x={400} y={374} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={374}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         tower of the guild
       </text>
 
@@ -401,14 +433,14 @@ export function CitadelMap() {
           fill="url(#cit-stone)"
           stroke={FG}
           strokeOpacity={flash('bell') ? OPACITY.fg : OPACITY.dim}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         <path
           d="M 200 200 Q 230 168 260 200"
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <path
           d="M 224 188 Q 224 180 230 180 Q 236 180 236 188 L 238 200 L 222 200 Z"
@@ -417,7 +449,14 @@ export function CitadelMap() {
         />
         <circle cx={230} cy={202} r="1.8" fill="var(--bg)" />
       </g>
-      <text x={230} y={252} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+      <text
+        x={230}
+        y={252}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        letterSpacing={LS_UPPER}
+      >
         BELL KEEP
       </text>
 
@@ -433,7 +472,7 @@ export function CitadelMap() {
           fill="url(#cit-stone)"
           stroke={FG}
           strokeOpacity={flash('witches') ? OPACITY.fg : OPACITY.dim}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         <path d="M 560 174 L 570 154 L 580 174 Z" fill={FG} opacity={OPACITY.fg} />
         <path
@@ -442,7 +481,14 @@ export function CitadelMap() {
           opacity={OPACITY.fg}
         />
       </g>
-      <text x={570} y={252} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+      <text
+        x={570}
+        y={252}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        letterSpacing={LS_UPPER}
+      >
         WITCHES' KEEP
       </text>
 
@@ -459,7 +505,7 @@ export function CitadelMap() {
           fill="url(#cit-stone)"
           stroke={FG}
           strokeOpacity={flash('curators') ? OPACITY.fg : OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         {[0, 1, 2].map(i => (
           <rect
@@ -471,11 +517,18 @@ export function CitadelMap() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="0.5"
+            strokeWidth={STROKE_HAIR}
           />
         ))}
       </g>
-      <text x={240} y={386} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={240}
+        y={386}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         curators
       </text>
 
@@ -492,7 +545,7 @@ export function CitadelMap() {
           fill="url(#cit-stone)"
           stroke={FG}
           strokeOpacity={flash('pinako') ? OPACITY.fg : OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         {[0, 1, 2, 3].map(i => (
           <rect
@@ -504,11 +557,18 @@ export function CitadelMap() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="0.5"
+            strokeWidth={STROKE_HAIR}
           />
         ))}
       </g>
-      <text x={560} y={386} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={560}
+        y={386}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         pinakotheken
       </text>
 
@@ -526,7 +586,7 @@ export function CitadelMap() {
           fillOpacity={0.04}
           stroke={FG}
           strokeOpacity={flash('atrium') ? OPACITY.fg : OPACITY.dim}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
           strokeDasharray="3 3"
         />
         <circle
@@ -536,7 +596,7 @@ export function CitadelMap() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
         <line
           x1={400}
@@ -545,17 +605,17 @@ export function CitadelMap() {
           y2={408}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
       </g>
       <text
         x={400}
         y={394}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         ATRIUM OF TIME
       </text>
@@ -567,10 +627,10 @@ export function CitadelMap() {
         y2={398}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="0.8"
+        strokeWidth={STROKE_GUIDE}
         strokeDasharray="2 4"
       />
-      <text x={350} y={372} fill={FG} fontSize="9" textAnchor="end" opacity={OPACITY.dim}>
+      <text x={350} y={372} fill={FG} fontSize={FONT_SMALL} textAnchor="end" opacity={OPACITY.dim}>
         oubliette ↓
       </text>
 
@@ -587,7 +647,7 @@ export function CitadelMap() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={flash('locked') ? OPACITY.fg : OPACITY.dim}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         {[0, 1, 2].map(i => (
           <line
@@ -598,12 +658,12 @@ export function CitadelMap() {
             y2={482}
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="0.6"
+            strokeWidth={STROKE_HAIR}
           />
         ))}
         <circle cx={400} cy={470} r={1.4} fill={FG} opacity={OPACITY.fg} />
       </g>
-      <text x={440} y={477} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+      <text x={440} y={477} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
         locked gate
       </text>
 
@@ -613,14 +673,14 @@ export function CitadelMap() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
         <path
           d="M 100 510 Q 300 530 500 508 Q 660 490 700 504"
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
         <Stipple x={120} y={476} w={560} h={60} n={70} seed={3} opacity={0.22} r={0.6} />
         {[140, 200, 260, 320, 480, 540, 600, 660].map((gx, i) => (
@@ -632,7 +692,7 @@ export function CitadelMap() {
               y2={488 + (i % 2) * 14}
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="0.8"
+              strokeWidth={STROKE_GUIDE}
             />
             <line
               x1={gx - 3}
@@ -641,15 +701,15 @@ export function CitadelMap() {
               y2={494 + (i % 2) * 14}
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="0.8"
+              strokeWidth={STROKE_GUIDE}
             />
           </g>
         ))}
       </g>
-      <text x={730} y={485} fill={FG} fontSize="9" textAnchor="end" opacity={OPACITY.dim}>
+      <text x={730} y={485} fill={FG} fontSize={FONT_SMALL} textAnchor="end" opacity={OPACITY.dim}>
         necropolis terraces
       </text>
-      <text x={730} y={510} fill={FG} fontSize="9" textAnchor="end" opacity={OPACITY.dim}>
+      <text x={730} y={510} fill={FG} fontSize={FONT_SMALL} textAnchor="end" opacity={OPACITY.dim}>
         (downhill →)
       </text>
 
@@ -660,17 +720,17 @@ export function CitadelMap() {
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1"
+          strokeWidth={STROKE_SECONDARY}
         />
         <path
           d="M 40 572 Q 200 566 400 572 Q 600 578 760 570"
           fill="none"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
       </g>
-      <Label x={60} y={544} size={10}>
+      <Label x={60} y={544} size={FONT_SMALL}>
         GYOLL →
       </Label>
       <Tooltip tip={tip} />
@@ -689,7 +749,7 @@ export function PowerTriangle() {
       h: 70,
       label: 'THE AUTARCH',
       sub: 'sovereign · face hidden by Inire',
-      cite: 'Ch. 7 (in story), Ch. 30 (cell)',
+      cite: '§7 (in story), §30 (cell)',
       body: 'Severian glimpses his face\nonce - and does not recognise it.\nThe Autarch is also the prisoner.'
     },
     vodalus: {
@@ -699,7 +759,7 @@ export function PowerTriangle() {
       h: 70,
       label: 'VODALUS',
       sub: 'rebel of the northern forest',
-      cite: 'Ch. 1, 14, 35',
+      cite: '§1, 14, 35',
       body: 'Opens graves to fund his war;\npresses a chrisos on Severian\nat the necropolis.'
     },
     pelerines: {
@@ -709,7 +769,7 @@ export function PowerTriangle() {
       h: 70,
       label: 'PELERINES',
       sub: 'red-clad wandering order',
-      cite: 'Ch. 22, 31',
+      cite: '§22, 31',
       body: 'Keepers of the Claw. Severian\nfinds it in his sabretache after\nthe altar of Pelerines is upset.'
     },
     guild: {
@@ -727,13 +787,13 @@ export function PowerTriangle() {
       label: 'CHRISOS',
       r: 22,
       sub: 'gold coin with Autarch face',
-      cite: 'Ch. 1, 3',
+      cite: '§1, 3',
       body: "Bears the Autarch's face on one\nside; pressed on Severian by\nVodalus. He hides it."
     }
   }
   return (
     <Canvas w={800} h={540}>
-      <Label x={400} y={28} anchor="middle" size={10}>
+      <Label x={400} y={28} anchor="middle" size={FONT_SMALL}>
         POWER STRUCTURE OF THE COMMONWEALTH
       </Label>
       <polygon
@@ -741,7 +801,7 @@ export function PowerTriangle() {
         fill="none"
         stroke={FG}
         strokeOpacity={OPACITY.faint}
-        strokeWidth="0.8"
+        strokeWidth={STROKE_GUIDE}
         strokeDasharray="4 4"
       />
       {['autarch', 'vodalus', 'pelerines'].map(k => {
@@ -763,15 +823,15 @@ export function PowerTriangle() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1.4"
+              strokeWidth={STROKE_PRIMARY}
             />
             <text
               x={n.x}
               y={n.y - 4}
               fill={FG}
-              fontSize="13"
+              fontSize={FONT_TEX}
               textAnchor="middle"
-              letterSpacing="0.18em"
+              letterSpacing={LS_CONTROL}
             >
               {n.label}
             </text>
@@ -779,7 +839,7 @@ export function PowerTriangle() {
               x={n.x}
               y={n.y + 14}
               fill={FG}
-              fontSize="10"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.dim}
             >
@@ -806,15 +866,15 @@ export function PowerTriangle() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1.2"
+              strokeWidth={STROKE_PRIMARY}
             />
             <text
               x={n.x}
               y={n.y + 4}
               fill={FG}
-              fontSize="11"
+              fontSize={FONT_LABEL}
               textAnchor="middle"
-              letterSpacing="0.14em"
+              letterSpacing={LS_UPPER}
             >
               {n.label}
             </text>
@@ -822,7 +882,7 @@ export function PowerTriangle() {
               x={n.x}
               y={n.y + n.r + 14}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.dim}
             >
@@ -838,9 +898,16 @@ export function PowerTriangle() {
         y2={242}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
-      <text x={414} y={210} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.08em">
+      <text
+        x={414}
+        y={210}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        letterSpacing={LS_LABEL}
+      >
         COMMANDS
       </text>
       <line
@@ -850,16 +917,16 @@ export function PowerTriangle() {
         y2={448}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="0.8"
+        strokeWidth={STROKE_GUIDE}
         strokeDasharray="3 3"
       />
       <text
         x={250}
         y={395}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         opacity={OPACITY.dim}
-        letterSpacing="0.08em"
+        letterSpacing={LS_LABEL}
         transform="rotate(-39 250 395)"
       >
         PUNISHES
@@ -871,10 +938,17 @@ export function PowerTriangle() {
         y2={402}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="0.6"
+        strokeWidth={STROKE_HAIR}
         strokeDasharray="2 4"
       />
-      <text x={400} y={480} fill={FG} fontSize="9" opacity={OPACITY.dim} textAnchor="middle">
+      <text
+        x={400}
+        y={480}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        opacity={OPACITY.dim}
+        textAnchor="middle"
+      >
         the contested coin - bears the Autarch's face, paid by Vodalus
       </text>
       <Tooltip tip={tip} />
@@ -892,7 +966,7 @@ export function NessusRoute() {
       y: 470,
       label: 'Algedonic Quarter',
       sub: 'rag shop · the avern',
-      cite: 'Ch. 19',
+      cite: '§19',
       body: 'Severian and Agia visit a rag shop; she\nleads him to the Botanic Gardens.'
     },
     {
@@ -901,7 +975,7 @@ export function NessusRoute() {
       y: 430,
       label: 'Adamnian Steps',
       sub: 'descent to the river',
-      cite: 'Ch. 19',
+      cite: '§19',
       body: 'They take the Adamnian Steps down,\nhead toward the cathedral.'
     },
     {
@@ -910,7 +984,7 @@ export function NessusRoute() {
       y: 355,
       label: 'The Fiacre',
       sub: 'death-talk en route',
-      cite: 'Ch. 20',
+      cite: '§20',
       body: 'In a hired carriage Severian and Agia\ntalk of his guild and the avern.'
     },
     {
@@ -919,7 +993,7 @@ export function NessusRoute() {
       y: 235,
       label: 'Pelerine Cathedral',
       sub: 'altar smashed',
-      cite: 'Ch. 22',
+      cite: '§22',
       body: "The Cathedral of the Pelerines burns;\nthe altar's Claw - unbeknown - falls\ninto Severian's sabretache."
     },
     {
@@ -928,7 +1002,7 @@ export function NessusRoute() {
       y: 160,
       label: 'Botanic Gardens',
       sub: "Inire's mirrors · Dorcas",
-      cite: 'Ch. 21, 26',
+      cite: '§21, 26',
       body: 'In the Garden of Endless Sleep,\nDorcas rises from the lake.'
     },
     {
@@ -937,7 +1011,7 @@ export function NessusRoute() {
       y: 290,
       label: 'Sanguinary Field',
       sub: 'avern duel',
-      cite: 'Ch. 28',
+      cite: '§28',
       body: "Severian fights Agilus (the 'Septentrion').\nThe avern is thrown, not swung."
     },
     {
@@ -946,14 +1020,14 @@ export function NessusRoute() {
       y: 420,
       label: 'Inn of Lost Loves',
       sub: 'first night with the company',
-      cite: 'Ch. 31–34',
+      cite: '§31–34',
       body: "Dr. Talos's troupe lodges here; Severian\nfinds the Claw in his sabretache."
     }
   ]
   const path = 'M ' + stops.map(s => `${s.x} ${s.y}`).join(' L ')
   return (
     <Canvas w={800} h={540}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         NESSUS · A DAY'S WALK ACROSS THE CITY
       </Label>
       <line
@@ -963,9 +1037,9 @@ export function NessusRoute() {
         y2={500}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
-      <Label x={60} y={516} size={9}>
+      <Label x={60} y={516} size={FONT_SMALL}>
         GYOLL →
       </Label>
       <path
@@ -973,13 +1047,19 @@ export function NessusRoute() {
         fill="none"
         stroke={FG}
         strokeOpacity={OPACITY.faint}
-        strokeWidth="0.8"
+        strokeWidth={STROKE_GUIDE}
         strokeDasharray="4 4"
       />
-      <Label x={700} y={100} anchor="end" size={9}>
+      <Label x={700} y={100} anchor="end" size={FONT_SMALL}>
         THE WALL (north)
       </Label>
-      <path d={path} stroke={FG} strokeOpacity={OPACITY.fg} strokeWidth="1.2" fill="none" />
+      <path
+        d={path}
+        stroke={FG}
+        strokeOpacity={OPACITY.fg}
+        strokeWidth={STROKE_PRIMARY}
+        fill="none"
+      />
       {stops.map((s, i) => (
         <g
           key={i}
@@ -996,9 +1076,9 @@ export function NessusRoute() {
             fill="var(--bg)"
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
-          <text x={s.x} y={s.y + 4} fill={FG} fontSize="11" textAnchor="middle">
+          <text x={s.x} y={s.y + 4} fill={FG} fontSize={FONT_LABEL} textAnchor="middle">
             {s.n}
           </text>
         </g>
@@ -1013,13 +1093,20 @@ export function NessusRoute() {
           }
           onMouseLeave={() => setTip(null)}
         >
-          <text x={0} y={0} fill={FG} fontSize="11" opacity={OPACITY.dim} letterSpacing="0.1em">
+          <text
+            x={0}
+            y={0}
+            fill={FG}
+            fontSize={FONT_LABEL}
+            opacity={OPACITY.dim}
+            letterSpacing={LS_OPEN}
+          >
             {s.n}
           </text>
-          <text x={18} y={0} fill={FG} fontSize="11">
+          <text x={18} y={0} fill={FG} fontSize={FONT_LABEL}>
             {s.label}
           </text>
-          <text x={18} y={13} fill={FG} fontSize="9" opacity={OPACITY.dim}>
+          <text x={18} y={13} fill={FG} fontSize={FONT_SMALL} opacity={OPACITY.dim}>
             {s.sub}
           </text>
         </g>
@@ -1061,7 +1148,7 @@ export function InireMirrors() {
           x2={cx}
           y2={cy + h / 2}
           stroke={FG}
-          strokeWidth={Math.max(0.6, h * 0.05)}
+          strokeWidth={Math.max(STROKE_HAIR, h * 0.05)}
           strokeOpacity={1}
         />
         <line
@@ -1070,7 +1157,7 @@ export function InireMirrors() {
           x2={cx - h * 0.18}
           y2={bodyTop + h * 0.42}
           stroke={FG}
-          strokeWidth={Math.max(0.4, h * 0.04)}
+          strokeWidth={Math.max(STROKE_HAIR, h * 0.04)}
         />
         <line
           x1={cx}
@@ -1078,7 +1165,7 @@ export function InireMirrors() {
           x2={cx + h * 0.18}
           y2={bodyTop + h * 0.42}
           stroke={FG}
-          strokeWidth={Math.max(0.4, h * 0.04)}
+          strokeWidth={Math.max(STROKE_HAIR, h * 0.04)}
         />
         <line
           x1={cx}
@@ -1086,7 +1173,7 @@ export function InireMirrors() {
           x2={cx - h * 0.15}
           y2={cy + h / 2 + h * 0.2}
           stroke={FG}
-          strokeWidth={Math.max(0.4, h * 0.04)}
+          strokeWidth={Math.max(STROKE_HAIR, h * 0.04)}
         />
         <line
           x1={cx}
@@ -1094,7 +1181,7 @@ export function InireMirrors() {
           x2={cx + h * 0.15}
           y2={cy + h / 2 + h * 0.2}
           stroke={FG}
-          strokeWidth={Math.max(0.4, h * 0.04)}
+          strokeWidth={Math.max(STROKE_HAIR, h * 0.04)}
         />
       </g>
     )
@@ -1135,10 +1222,10 @@ export function InireMirrors() {
           x={400}
           y={28}
           fill={FG}
-          fontSize="10"
+          fontSize={FONT_SMALL}
           opacity={OPACITY.dim}
           textAnchor="middle"
-          letterSpacing="0.18em"
+          letterSpacing={LS_CONTROL}
           style={{ textTransform: 'uppercase' }}
         >
           FATHER INIRE'S SPECULA
@@ -1155,7 +1242,7 @@ export function InireMirrors() {
           fill="url(#ir-floor)"
           stroke={FG}
           strokeOpacity={OPACITY.faint}
-          strokeWidth="0.6"
+          strokeWidth={STROKE_HAIR}
         />
         {[0.25, 0.5, 0.75].map((p, i) => (
           <line
@@ -1166,7 +1253,7 @@ export function InireMirrors() {
             y2={310}
             stroke={FG}
             strokeOpacity={OPACITY.faint * 0.5}
-            strokeWidth="0.4"
+            strokeWidth={STROKE_HAIR}
           />
         ))}
 
@@ -1199,7 +1286,7 @@ export function InireMirrors() {
             fillOpacity={0.08}
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
           {Array.from({ length: 9 }).map((_, i) => (
             <line
@@ -1210,16 +1297,16 @@ export function InireMirrors() {
               y2={146 + i * 28 + 10}
               stroke={FG}
               strokeOpacity={0.18}
-              strokeWidth="0.5"
+              strokeWidth={STROKE_HAIR}
             />
           ))}
           <text
             x={MA_X - 30}
             y={265}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
             transform={`rotate(-90 ${MA_X - 30} 265)`}
             opacity={OPACITY.dim}
           >
@@ -1237,7 +1324,7 @@ export function InireMirrors() {
             fillOpacity={0.08}
             stroke={FG}
             strokeOpacity={OPACITY.fg}
-            strokeWidth="1.2"
+            strokeWidth={STROKE_PRIMARY}
           />
           {Array.from({ length: 9 }).map((_, i) => (
             <line
@@ -1248,16 +1335,16 @@ export function InireMirrors() {
               y2={146 + i * 28 + 10}
               stroke={FG}
               strokeOpacity={0.18}
-              strokeWidth="0.5"
+              strokeWidth={STROKE_HAIR}
             />
           ))}
           <text
             x={MB_X + 30}
             y={265}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
             transform={`rotate(90 ${MB_X + 30} 265)`}
             opacity={OPACITY.dim}
           >
@@ -1271,9 +1358,9 @@ export function InireMirrors() {
             x={subjectX}
             y={subjectY + 44}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
           >
             DOMNINA
           </text>
@@ -1281,7 +1368,7 @@ export function InireMirrors() {
             x={subjectX}
             y={subjectY + 58}
             fill={FG}
-            fontSize="9"
+            fontSize={FONT_SMALL}
             textAnchor="middle"
             opacity={OPACITY.dim}
           >
@@ -1325,27 +1412,41 @@ export function InireMirrors() {
           x={400}
           y={102}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
           opacity={OPACITY.dim}
-          letterSpacing="0.14em"
+          letterSpacing={LS_UPPER}
         >
           {totalReflections} REFLECTIONS · INFINITE IN THE LIMIT
         </text>
 
         <g transform="translate(40,420)">
-          <text x={0} y={0} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+          <text
+            x={0}
+            y={0}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            opacity={OPACITY.dim}
+            letterSpacing={LS_TITLE}
+          >
             CLAIM
           </text>
-          <text x={0} y={16} fill={FG} fontSize="11">
+          <text x={0} y={16} fill={FG} fontSize={FONT_LABEL}>
             enough reflections - a duplicate condenses.
           </text>
         </g>
         <g transform="translate(540,420)">
-          <text x={0} y={0} fill={FG} fontSize="9" opacity={OPACITY.dim} letterSpacing="0.16em">
+          <text
+            x={0}
+            y={0}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            opacity={OPACITY.dim}
+            letterSpacing={LS_TITLE}
+          >
             DOMNINA
           </text>
-          <text x={0} y={16} fill={FG} fontSize="11">
+          <text x={0} y={16} fill={FG} fontSize={FONT_LABEL}>
             saw herself walk away from herself.
           </text>
         </g>
@@ -1371,21 +1472,21 @@ export function AvernDuel() {
       id: 1,
       d: 'M 184 232 Q 400 130 616 232',
       label: '1 · first leaf - passes wide',
-      cite: 'Ch. 28',
+      cite: '§28',
       body: 'Severian throws first. The leaf passes\nwide. Agia watches her brother,\nnot the duel.'
     },
     {
       id: 2,
       d: 'M 618 244 Q 400 330 188 244',
       label: '2 · return leaf - grazes',
-      cite: 'Ch. 28',
+      cite: '§28',
       body: 'Agilus returns. The leaf grazes\nSeverian; he feels the cold.'
     },
     {
       id: 3,
       d: 'M 184 252 Q 360 370 616 252',
       label: '3 · the strike that ends it',
-      cite: 'Ch. 28',
+      cite: '§28',
       body: "Severian's third throw kills.\nThe Septentrion turns out to be\nAgilus in disguise."
     }
   ]
@@ -1404,7 +1505,7 @@ export function AvernDuel() {
               fill="none"
               stroke={FG}
               strokeOpacity={OPACITY.dim}
-              strokeWidth="0.8"
+              strokeWidth={STROKE_GUIDE}
             />
           )
         })}
@@ -1422,7 +1523,7 @@ export function AvernDuel() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
         <line
           x1={cx}
@@ -1431,16 +1532,37 @@ export function AvernDuel() {
           y2={cy - 4}
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.2"
+          strokeWidth={STROKE_PRIMARY}
         />
-        <text x={cx} y={cy + 60} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.12em">
+        <text
+          x={cx}
+          y={cy + 60}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_MEDIUM}
+        >
           {label}
         </text>
-        <text x={cx} y={cy + 74} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={cx}
+          y={cy + 74}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           {sub}
         </text>
         {sub2 && (
-          <text x={cx} y={cy + 86} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+          <text
+            x={cx}
+            y={cy + 86}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            opacity={OPACITY.dim}
+          >
             {sub2}
           </text>
         )}
@@ -1451,7 +1573,7 @@ export function AvernDuel() {
   return (
     <Canvas w={800} h={500}>
       <CrossHatch id="avern-grass" gap={8} opacity={0.07} />
-      <Label x={400} y={28} anchor="middle" size={10}>
+      <Label x={400} y={28} anchor="middle" size={FONT_SMALL}>
         THE AVERN DUEL · SANGUINARY FIELD
       </Label>
       <rect
@@ -1462,7 +1584,7 @@ export function AvernDuel() {
         fill="url(#avern-grass)"
         stroke={FG}
         strokeOpacity={OPACITY.faint}
-        strokeWidth="0.6"
+        strokeWidth={STROKE_HAIR}
       />
       <line
         x1={60}
@@ -1471,7 +1593,7 @@ export function AvernDuel() {
         y2={240}
         stroke={FG}
         strokeOpacity={OPACITY.faint}
-        strokeWidth="0.6"
+        strokeWidth={STROKE_HAIR}
         strokeDasharray="2 6"
       />
       {[200, 300, 400, 500, 600].map((tx, i) => (
@@ -1483,9 +1605,16 @@ export function AvernDuel() {
             y2={244}
             stroke={FG}
             strokeOpacity={OPACITY.dim}
-            strokeWidth="0.6"
+            strokeWidth={STROKE_HAIR}
           />
-          <text x={tx} y={258} fill={FG} fontSize="8" textAnchor="middle" opacity={OPACITY.dim}>
+          <text
+            x={tx}
+            y={258}
+            fill={FG}
+            fontSize={FONT_SMALL}
+            textAnchor="middle"
+            opacity={OPACITY.dim}
+          >
             {i + 1}
           </text>
         </g>
@@ -1494,10 +1623,10 @@ export function AvernDuel() {
         x={400}
         y={272}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         PACES
       </text>
@@ -1508,10 +1637,10 @@ export function AvernDuel() {
         x={130}
         y={154}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         AVERN BUSH
       </text>
@@ -1519,10 +1648,10 @@ export function AvernDuel() {
         x={670}
         y={154}
         fill={FG}
-        fontSize="9"
+        fontSize={FONT_SMALL}
         textAnchor="middle"
         opacity={OPACITY.dim}
-        letterSpacing="0.12em"
+        letterSpacing={LS_MEDIUM}
       >
         AVERN BUSH
       </text>
@@ -1537,12 +1666,26 @@ export function AvernDuel() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.8"
+          strokeWidth={STROKE_GUIDE}
         />
-        <text x={0} y={50} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={0}
+          y={50}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           Agia
         </text>
-        <text x={0} y={62} fill={FG} fontSize="8" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={0}
+          y={62}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           watching
         </text>
         <line
@@ -1552,7 +1695,7 @@ export function AvernDuel() {
           y2={50}
           stroke={FG}
           strokeOpacity={OPACITY.dim}
-          strokeWidth="0.5"
+          strokeWidth={STROKE_HAIR}
           strokeDasharray="2 3"
         />
       </g>
@@ -1579,7 +1722,7 @@ export function AvernDuel() {
               d={ex.d}
               stroke={FG}
               strokeOpacity={active ? OPACITY.fg : OPACITY.dim}
-              strokeWidth={active ? 1.4 : 0.8}
+              strokeWidth={active ? STROKE_PRIMARY : STROKE_GUIDE}
               fill="none"
               strokeDasharray={ex.id === 3 ? null : '4 3'}
             />
@@ -1607,7 +1750,7 @@ export function AvernDuel() {
                     fill="var(--bg)"
                     stroke={FG}
                     strokeOpacity={active ? OPACITY.fg : OPACITY.dim}
-                    strokeWidth="0.8"
+                    strokeWidth={STROKE_GUIDE}
                   />
                   <line
                     x1={0}
@@ -1616,7 +1759,7 @@ export function AvernDuel() {
                     y2={-14}
                     stroke={FG}
                     strokeOpacity={active ? OPACITY.fg : OPACITY.dim}
-                    strokeWidth="0.4"
+                    strokeWidth={STROKE_HAIR}
                   />
                 </g>
               )
@@ -1625,7 +1768,7 @@ export function AvernDuel() {
               x={400}
               y={ex.id === 1 ? 124 : ex.id === 2 ? 360 : 388}
               fill={FG}
-              fontSize="10"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={active ? OPACITY.fg : OPACITY.dim}
             >
@@ -1634,13 +1777,27 @@ export function AvernDuel() {
           </g>
         )
       })}
-      <text x={400} y={446} fill={FG} fontSize="10" textAnchor="middle" opacity={OPACITY.dim}>
+      <text
+        x={400}
+        y={446}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        textAnchor="middle"
+        opacity={OPACITY.dim}
+      >
         the avern is a thrown weapon, lethal on contact
       </text>
-      <text x={60} y={470} fill={FG} fontSize="9" letterSpacing="0.16em" opacity={OPACITY.dim}>
+      <text
+        x={60}
+        y={470}
+        fill={FG}
+        fontSize={FONT_SMALL}
+        letterSpacing={LS_TITLE}
+        opacity={OPACITY.dim}
+      >
         AGIA'S TELL
       </text>
-      <text x={60} y={482} fill={FG} fontSize="10">
+      <text x={60} y={482} fill={FG} fontSize={FONT_SMALL}>
         she watches her brother, not the duel
       </text>
       <Tooltip tip={tip} />
@@ -1656,20 +1813,20 @@ export function CharacterNetwork() {
   const factions = [
     {
       name: 'GUILD',
-      angle: -2.4,
+      angle: -2.03,
       radius: 200,
       members: [
-        { name: 'Palaemon', tag: 'mentor', cite: 'Ch. 2, 11, 35', body: 'Bestows Terminus Est.' },
+        { name: 'Palaemon', tag: 'mentor', cite: '§2, 11, 35', body: 'Bestows Terminus Est.' },
         {
           name: 'Gurloes',
           tag: 'head master',
-          cite: 'Ch. 7',
+          cite: '§7',
           body: "Lets Severian into Thecla's cell."
         },
-        { name: 'Malrubius', tag: 'ghost', cite: 'Ch. 13', body: 'Returns to him in dream.' },
-        { name: 'Drotte', tag: 'former captain', cite: 'Ch. 1', body: 'At the necropolis gate.' },
-        { name: 'Roche', tag: 'journeyman', cite: 'Ch. 9', body: 'Brothels with Severian.' },
-        { name: 'Eata', tag: 'successor', cite: 'Ch. 11', body: 'Inherits the captaincy.' }
+        { name: 'Malrubius', tag: 'ghost', cite: '§13', body: 'Returns to him in dream.' },
+        { name: 'Drotte', tag: 'former captain', cite: '§1', body: 'At the necropolis gate.' },
+        { name: 'Roche', tag: 'journeyman', cite: '§9', body: 'Brothels with Severian.' },
+        { name: 'Eata', tag: 'successor', cite: '§11', body: 'Inherits the captaincy.' }
       ]
     },
     {
@@ -1680,25 +1837,25 @@ export function CharacterNetwork() {
         {
           name: 'Thecla',
           tag: 'beloved · client',
-          cite: 'Ch. 7–11',
+          cite: '§7–11',
           body: 'Severian gives her the knife.'
         },
         {
           name: 'Autarch',
           tag: 'unseen',
-          cite: 'Ch. 7 (mentioned)',
+          cite: '§7 (mentioned)',
           body: "Father Inire's master."
         },
         {
           name: 'F. Inire',
           tag: 'shadow vizier',
-          cite: 'Ch. 6',
+          cite: '§6',
           body: "Mirror-builder. Domnina's tale."
         },
         {
           name: 'Valeria',
           tag: 'a stranger met',
-          cite: 'Ch. 6',
+          cite: '§6',
           body: 'In the Atrium of Time as a girl.'
         }
       ]
@@ -1708,14 +1865,14 @@ export function CharacterNetwork() {
       angle: 0.6,
       radius: 210,
       members: [
-        { name: 'Vodalus', tag: 'ideal', cite: 'Ch. 1, 35', body: 'Presses a chrisos on him.' },
+        { name: 'Vodalus', tag: 'ideal', cite: '§1, 35', body: 'Presses a chrisos on him.' },
         {
           name: 'Hildegrin',
           tag: 'the Badger',
-          cite: 'Ch. 1, 26',
+          cite: '§1, 26',
           body: 'Boats Severian out of the Garden.'
         },
-        { name: 'V.’s lady', tag: 'glimpsed', cite: 'Ch. 1', body: 'At the grave by torchlight.' }
+        { name: 'V.’s lady', tag: 'glimpsed', cite: '§1', body: 'At the grave by torchlight.' }
       ]
     },
     {
@@ -1723,41 +1880,42 @@ export function CharacterNetwork() {
       angle: 1.9,
       radius: 200,
       members: [
-        { name: 'Agia', tag: 'guide · trap', cite: 'Ch. 19–28', body: 'Leads him across Nessus.' },
-        { name: 'Agilus', tag: 'Septentrion', cite: 'Ch. 28', body: 'Killed in the avern duel.' }
+        { name: 'Agia', tag: 'guide · trap', cite: '§19–28', body: 'Leads him across Nessus.' },
+        { name: 'Agilus', tag: 'Septentrion', cite: '§28', body: 'Killed in the avern duel.' }
       ]
     },
     {
       name: "TALOS'S TROUPE",
-      angle: 3.1,
+      angle: 3.32,
       radius: 210,
       members: [
-        { name: 'Dr. Talos', tag: 'showman', cite: 'Ch. 17', body: 'Director of the play.' },
-        { name: 'Baldanders', tag: 'giant', cite: 'Ch. 17', body: 'Severian wakes to find him.' },
-        { name: 'Jolenta', tag: 'actress', cite: 'Ch. 34', body: 'Will join the troupe later.' }
+        { name: 'Dr. Talos', tag: 'showman', cite: '§17', body: 'Director of the play.' },
+        { name: 'Baldanders', tag: 'giant', cite: '§17', body: 'Severian wakes to find him.' },
+        { name: 'Jolenta', tag: 'actress', cite: '§34', body: 'Will join the troupe later.' }
       ]
     },
     {
       name: 'THE ROAD',
-      angle: -3.6,
+      angle: -3.62,
+      labelR: 130,
       radius: 200,
       members: [
         {
           name: 'Dorcas',
           tag: 'raised from the lake',
-          cite: 'Ch. 26',
+          cite: '§26',
           body: 'Rises beside Severian.'
         },
         {
           name: 'Jonas',
           tag: 'gate companion',
-          cite: 'Ch. 35',
+          cite: '§35',
           body: 'At the gate, with iron hand.'
         },
         {
           name: 'Hethor',
           tag: 'old sailor',
-          cite: 'Ch. 33',
+          cite: '§33',
           body: 'Follows Severian for the sword.'
         }
       ]
@@ -1773,7 +1931,7 @@ export function CharacterNetwork() {
   })
   return (
     <Canvas w={800} h={640}>
-      <Label x={40} y={32} size={10}>
+      <Label x={40} y={32} size={FONT_SMALL}>
         SEVERIAN'S RELATIONAL FIELD
       </Label>
       {factions.flatMap((f, fi) =>
@@ -1788,24 +1946,24 @@ export function CharacterNetwork() {
               y2={m._y}
               stroke={FG}
               strokeOpacity={active ? OPACITY.fg : OPACITY.faint}
-              strokeWidth={active ? 1.4 : 0.6}
+              strokeWidth={active ? STROKE_PRIMARY : STROKE_HAIR}
             />
           )
         })
       )}
       {factions.map((f, fi) => {
-        const lx = cx + Math.cos(f.angle) * (f.radius + 90)
-        const ly = cy + Math.sin(f.angle) * (f.radius + 90)
+        const lx = cx + Math.cos(f.angle) * (f.radius + (f.labelR ?? 90))
+        const ly = cy + Math.sin(f.angle) * (f.radius + (f.labelR ?? 90))
         return (
           <text
             key={fi}
             x={lx}
             y={ly}
             fill={FG}
-            fontSize="10"
+            fontSize={FONT_SMALL}
             opacity={OPACITY.dim}
             textAnchor="middle"
-            letterSpacing="0.16em"
+            letterSpacing={LS_TITLE}
           >
             {f.name}
           </text>
@@ -1828,16 +1986,16 @@ export function CharacterNetwork() {
               fill="var(--bg)"
               stroke={FG}
               strokeOpacity={OPACITY.fg}
-              strokeWidth="1"
+              strokeWidth={STROKE_SECONDARY}
             />
-            <text x={m._x} y={m._y + 24} fill={FG} fontSize="10" textAnchor="middle">
+            <text x={m._x} y={m._y + 24} fill={FG} fontSize={FONT_SMALL} textAnchor="middle">
               {m.name}
             </text>
             <text
               x={m._x}
               y={m._y + 38}
               fill={FG}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
               opacity={OPACITY.dim}
             >
@@ -1855,15 +2013,36 @@ export function CharacterNetwork() {
           fill="var(--bg)"
           stroke={FG}
           strokeOpacity={OPACITY.fg}
-          strokeWidth="1.6"
+          strokeWidth={STROKE_EMPHASIS}
         />
-        <text x={cx} y={cy + 4} fill={FG} fontSize="11" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={cx}
+          y={cy + 4}
+          fill={FG}
+          fontSize={FONT_LABEL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           SEV
         </text>
-        <text x={cx} y={cy + 44} fill={FG} fontSize="10" textAnchor="middle" letterSpacing="0.14em">
+        <text
+          x={cx}
+          y={cy + 44}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          letterSpacing={LS_UPPER}
+        >
           SEVERIAN
         </text>
-        <text x={cx} y={cy + 60} fill={FG} fontSize="9" textAnchor="middle" opacity={OPACITY.dim}>
+        <text
+          x={cx}
+          y={cy + 60}
+          fill={FG}
+          fontSize={FONT_SMALL}
+          textAnchor="middle"
+          opacity={OPACITY.dim}
+        >
           apprentice → exile
         </text>
       </g>
@@ -1872,9 +2051,9 @@ export function CharacterNetwork() {
   )
 }
 
-// I.06.2 - Journey Arc (interactive chapter scrubber)
+// I.06.2 - Journey Arc (interactive section scrubber)
 export function JourneyArc() {
-  const fullChapters = [
+  const fullSections = [
     [1, 'Resurrection and death', 'CITADEL'],
     [2, 'Severian', 'CITADEL'],
     [3, 'The autarch’s face', 'CITADEL'],
@@ -1948,7 +2127,7 @@ export function JourneyArc() {
     34: 0.6,
     35: 0.55
   }
-  const data = fullChapters.map(([n, label, band]) => ({ n, label, sub: band }))
+  const data = fullSections.map(([n, label, band]) => ({ n, label, sub: band }))
   const moods = data.map(c => moodMap[c.n])
   const beats = [
     { i: 0, label: 'Vodalus at grave' },
@@ -1963,15 +2142,15 @@ export function JourneyArc() {
   const [current, setCurrent] = React.useState(0)
   return (
     <div style={{ width: '100%' }}>
-      <ChapterTimeline
-        chapters={data}
+      <ModuleTimeline
+        sections={data}
         moods={moods}
         beats={beats}
         current={current}
         onScrub={setCurrent}
         width={780}
         height={240}
-        topLabel="THE SHADOW OF THE TORTURER · CHAPTERS 1-35"
+        topLabel="THE SHADOW OF THE TORTURER · SECTIONS 1-35"
       />
     </div>
   )
@@ -1994,7 +2173,7 @@ export function SymbolNetwork() {
       label: 'CLAW',
       sub: 'relic in his pouch',
       cluster: 'CLAW',
-      cite: 'Ch. 22, 33',
+      cite: '§22, 33',
       body: 'Falls into his sabretache when\nthe altar is overturned.'
     },
     conciliator: {
@@ -2003,7 +2182,7 @@ export function SymbolNetwork() {
       label: 'CONCILIATOR',
       sub: 'messianic figure',
       cluster: 'CLAW',
-      cite: 'Bk II Ch. 28',
+      cite: 'Bk II §28',
       body: 'Legendary precursor - said\nto have raised the dead.'
     },
     newSun: {
@@ -2012,7 +2191,7 @@ export function SymbolNetwork() {
       label: 'NEW SUN',
       sub: 'awaited renewal',
       cluster: 'CLAW',
-      cite: 'Bk II Ch. 31',
+      cite: 'Bk II §31',
       body: 'Prophecy: a new star will\ncome to warm the dying Urth.'
     },
     dyingSun: {
@@ -2021,7 +2200,7 @@ export function SymbolNetwork() {
       label: 'DYING SUN',
       sub: 'red, contracting',
       cluster: 'GRAVE',
-      cite: 'Ch. 1, 4',
+      cite: '§1, 4',
       body: "The sun is failing - a recurring\nimage from Severian's youth."
     },
     pelerines: {
@@ -2030,7 +2209,7 @@ export function SymbolNetwork() {
       label: 'PELERINES',
       sub: 'order in red',
       cluster: 'CLAW',
-      cite: 'Ch. 22, 29',
+      cite: '§22, 29',
       body: 'They lose the Claw and grieve.\nSeverian conceals what he carries.'
     },
     chrisos: {
@@ -2039,7 +2218,7 @@ export function SymbolNetwork() {
       label: 'CHRISOS',
       sub: 'gold coin',
       cluster: 'COIN',
-      cite: 'Ch. 1, 3',
+      cite: '§1, 3',
       body: 'The coin Vodalus presses\non Severian after the grave.'
     },
     autarchFace: {
@@ -2048,7 +2227,7 @@ export function SymbolNetwork() {
       label: "AUTARCH'S FACE",
       sub: 'on coin · in painting',
       cluster: 'COIN',
-      cite: 'Ch. 5, 7',
+      cite: '§5, 7',
       body: "Severian sees it on the coin and\nin Fechin's portrait of the woman."
     },
     identity: {
@@ -2066,7 +2245,7 @@ export function SymbolNetwork() {
       label: 'MIRRORS',
       sub: "Inire's specula",
       cluster: 'MIRROR',
-      cite: 'Ch. 6',
+      cite: '§6',
       body: 'Two facing mirrors - finite\ndistance, infinite reflections.'
     },
     doubling: {
@@ -2075,7 +2254,7 @@ export function SymbolNetwork() {
       label: 'DOUBLING',
       sub: 'twins · reflections',
       cluster: 'MIRROR',
-      cite: 'Ch. 32',
+      cite: '§32',
       body: 'Agilus and Agia are twins;\nSeverian sees the duplication.'
     },
     twins: {
@@ -2084,7 +2263,7 @@ export function SymbolNetwork() {
       label: 'AGIA / AGILUS',
       sub: 'twin reveal in cell',
       cluster: 'MIRROR',
-      cite: 'Ch. 32',
+      cite: '§32',
       body: "At the cell, Agia uncovers\nthe duplicate's secret."
     },
     necropolis: {
@@ -2093,7 +2272,7 @@ export function SymbolNetwork() {
       label: 'NECROPOLIS',
       sub: 'opened grave · Ch 1',
       cluster: 'GRAVE',
-      cite: 'Ch. 1',
+      cite: '§1',
       body: "Where Vodalus's party exhume\nthe dead - the volume's first scene."
     },
     resurrection: {
@@ -2102,7 +2281,7 @@ export function SymbolNetwork() {
       label: 'RESURRECTION',
       sub: 'Dorcas from the lake',
       cluster: 'GRAVE',
-      cite: 'Ch. 26',
+      cite: '§26',
       body: 'Dorcas rises from the Lake of\nBirds in the Garden of Endless Sleep.'
     }
   }
@@ -2118,22 +2297,22 @@ export function SymbolNetwork() {
     ['doubling', 'twins', 'realised by'],
     ['mirrors', 'identity', 'threatens'],
     ['necropolis', 'resurrection', 'site of'],
-    ['necropolis', 'claw', 'first movement'],
+    ['necropolis', 'claw', 'first movement', 0.7],
     ['claw', 'identity', 'reorients']
   ]
   const isOn = k => active[nodes[k].cluster]
   return (
     <div style={{ width: '100%' }}>
       <Canvas w={800} h={620}>
-        <Label x={40} y={32} size={10}>
+        <Label x={40} y={32} size={FONT_SMALL}>
           MOTIF NETWORK
         </Label>
-        {edges.map(([a, b, rel], i) => {
+        {edges.map(([a, b, rel, t = 0.5], i) => {
           if (!isOn(a) || !isOn(b)) return null
           const n1 = nodes[a],
             n2 = nodes[b]
-          const mx = (n1.x + n2.x) / 2,
-            my = (n1.y + n2.y) / 2
+          const mx = n1.x + (n2.x - n1.x) * t,
+            my = n1.y + (n2.y - n1.y) * t
           return (
             <g key={i}>
               <line
@@ -2143,16 +2322,16 @@ export function SymbolNetwork() {
                 y2={n2.y}
                 stroke={FG}
                 strokeOpacity={OPACITY.faint}
-                strokeWidth="0.8"
+                strokeWidth={STROKE_GUIDE}
               />
               <text
                 x={mx}
                 y={my - 4}
                 fill={FG}
-                fontSize="8"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
                 opacity={OPACITY.dim}
-                letterSpacing="0.06em"
+                letterSpacing={LS_TIGHT}
               >
                 {rel}
               </text>
@@ -2177,15 +2356,15 @@ export function SymbolNetwork() {
                 fill="var(--bg)"
                 stroke={FG}
                 strokeOpacity={OPACITY.fg}
-                strokeWidth="1"
+                strokeWidth={STROKE_SECONDARY}
               />
               <text
                 x={n.x}
                 y={n.y + 28}
                 fill={FG}
-                fontSize="10"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
-                letterSpacing="0.06em"
+                letterSpacing={LS_TIGHT}
               >
                 {n.label}
               </text>
@@ -2193,7 +2372,7 @@ export function SymbolNetwork() {
                 x={n.x}
                 y={n.y + 42}
                 fill={FG}
-                fontSize="9"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
                 opacity={OPACITY.dim}
               >

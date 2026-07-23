@@ -13,16 +13,16 @@ export {
   TyphonMountainAscent,
   TyphonPiatonDuality,
   LakeSceneMap,
-  Ch07ChapterTimeline,
+  Ch07ModuleTimeline,
   LakeCastleGeography,
   HierodulemaskLayers,
   ClawTransformation,
-  PowerStructureDiagram,
   BIII_Ch01SeverianAuthorityWeb as Ch01SeverianAuthorityWeb,
   BIII_Ch01StructureDiagram as Ch01StructureDiagram,
   BIII_Ch02EmotionalArc as Ch02EmotionalArc,
   BIII_Ch03EmotionalArc as Ch03EmotionalArc,
   BIII_Ch04EmotionalArc as Ch04EmotionalArc,
   BIII_Ch06ClawAuthorityWeb as Ch06ClawAuthorityWeb,
-  BIII_Ch07AuthorityWeb as Ch07AuthorityWeb
+  BIII_Ch07AuthorityWeb as Ch07AuthorityWeb,
+  Plate
 } from '../../../../../components/viz'

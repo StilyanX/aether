@@ -11,44 +11,118 @@ import {
   Tex as T7,
   Slider as Sl7,
   DragHandle as DH7,
-  OPACITY as O7,
-  VizCard
+  OPACITY as O7
 } from '../../../../../components/viz/primitives'
+import { VizFigure } from '../../../../../components/viz-figure'
 import { rk4Step as rk47 } from '../../../../../components/viz/physics'
 
-function EulerGimbals() {
-  const [phi, setPhi] = React.useState(0.4)
-  const [theta, setTheta] = React.useState(0.3)
-  const [psi, setPsi] = React.useState(0.5)
-  const ell = (a, b, rot, cx = 0, cy = 0) =>
-    Array.from({ length: 121 }, (_, i) => {
-      const t = (i / 120) * 2 * Math.PI
-      const x = a * Math.cos(t),
-        y = b * Math.sin(t)
-      return [
-        cx + x * Math.cos(rot) - y * Math.sin(rot),
-        cy + x * Math.sin(rot) + y * Math.cos(rot)
-      ]
+export function EulerGimbals() {
+  const [phi, setPhi] = React.useState(0.7)
+  const [theta, setTheta] = React.useState(0.55)
+  const [psi, setPsi] = React.useState(0.9)
+  // Honest ZXZ Euler-angle geometry, orthographically projected (z up):
+  //   line of nodes  n  = Rz(phi) x-hat            (phi rotates n round the space equator)
+  //   body axis      e3 = Rz(phi) Rx(theta) z-hat  (theta tips e3 away from z)
+  //   body e1        e1 = cos(psi) n + sin(psi) (e3 x n)  (psi turns e1 round the body equator)
+  // The two unit great circles really intersect along +-n, because the line of
+  // nodes IS the intersection of the space and body equatorial planes.
+  const AZ = 0.5,
+    EL = 0.35
+  const sa = Math.sin(AZ),
+    ca = Math.cos(AZ),
+    se = Math.sin(EL),
+    ce = Math.cos(EL)
+  const proj = v => [-sa * v[0] + ca * v[1], -se * (ca * v[0] + sa * v[1]) + ce * v[2]]
+  const lerp3 = (a, b, c1, c2) => [
+    c1 * a[0] + c2 * b[0],
+    c1 * a[1] + c2 * b[1],
+    c1 * a[2] + c2 * b[2]
+  ]
+  const XHAT = [1, 0, 0],
+    YHAT = [0, 1, 0],
+    ZHAT = [0, 0, 1]
+  const n = [Math.cos(phi), Math.sin(phi), 0]
+  const st = Math.sin(theta),
+    ct = Math.cos(theta)
+  const e3 = [st * Math.sin(phi), -st * Math.cos(phi), ct]
+  const bb = [-ct * Math.sin(phi), ct * Math.cos(phi), st] // e3 x n
+  const e1 = lerp3(n, bb, Math.cos(psi), Math.sin(psi))
+  // great-circle arc r*(cos t * a + sin t * b), t in [t0, t1], projected
+  const arc = (a, b, r, t0, t1, N = 96) =>
+    Array.from({ length: N + 1 }, (_, i) => {
+      const t = t0 + (i / N) * (t1 - t0)
+      return proj(lerp3(a, b, r * Math.cos(t), r * Math.sin(t)))
     })
+  const dTh = [Math.sin(phi), -Math.cos(phi), 0] // unit vector z rotates toward at angle theta
+  const zTip = proj([0, 0, 1.45])
+  const xTip = proj([1.3, 0, 0])
+  const nTip = proj(lerp3(n, n, 1.35, 0))
+  const e3Tip = proj(lerp3(e3, e3, 1.45, 0))
+  const e1Dot = proj(e1)
+  const phiMid = proj(lerp3(XHAT, YHAT, 0.76 * Math.cos(phi / 2), 0.76 * Math.sin(phi / 2)))
+  const thMid = proj(lerp3(ZHAT, dTh, 0.7 * Math.cos(theta / 2), 0.7 * Math.sin(theta / 2)))
+  const psiMid = proj(lerp3(n, bb, 0.76 * Math.cos(psi / 2), 0.76 * Math.sin(psi / 2)))
+  // Isotropic frame (pad 16): (520-32)/3.6 = (400-32)/2.71475 px per unit, so the
+  // projected great circles are true orthographic ellipses on screen.
+  const YMIN = -1.15
+  const YMAX = YMIN + (3.6 * 368) / 488
   return (
     <div style={{ width: '100%' }}>
-      <P7 xRange={[-3.4, 3.4]} yRange={[-2.4, 2.4]} width={520} height={240}>
-        <Pl7 points={ell(3.0, 2.1, phi)} opacity={O7.dim} closed strokeWidth={1.2} />
-        <Pl7 points={ell(2.2, 1.5, phi + theta)} opacity={O7.fg} closed strokeWidth={1.5} />
-        <Pl7
-          points={ell(1.3, 0.9, phi + theta + psi)}
-          opacity={O7.accent}
-          closed
-          strokeWidth={1.2}
+      <P7 xRange={[-1.8, 1.8]} yRange={[YMIN, YMAX]} width={520} height={400}>
+        {/* space frame: equator, z axis, x reference axis */}
+        <Pl7 points={arc(XHAT, YHAT, 1, 0, 2 * Math.PI)} opacity={O7.faint} strokeWidth={1} />
+        <Ar7 from={[0, 0]} to={zTip} opacity={O7.dim} head={5} />
+        <T7 at={zTip} dy={-6} anchor="middle" tex="z" opacity={O7.dim} size={12} />
+        <Pa7 xy={t => [t * xTip[0], t * xTip[1]]} t={[0, 1]} samples={2} opacity={O7.faint} />
+        <T7 at={xTip} dx={-4} dy={12} anchor="end" tex="x" opacity={O7.faint} size={11} />
+        {/* phi: line of nodes swings round the space equator */}
+        <Pa7
+          xy={t => {
+            const p = proj(lerp3(n, n, -1.35 + t * 2.7, 0))
+            return p
+          }}
+          t={[0, 1]}
+          samples={2}
+          opacity={O7.dim}
         />
-        <D7 x={0} y={0} />
         <T7
-          at={[3.1, -2.1]}
-          tex="\varphi,\;\theta,\;\psi"
-          anchor="end"
+          at={nTip}
+          dx={nTip[0] >= 0 ? 6 : -6}
+          dy={10}
+          anchor={nTip[0] >= 0 ? 'start' : 'end'}
+          tex="N"
           opacity={O7.dim}
           size={11}
         />
+        <Pl7 points={arc(XHAT, YHAT, 0.6, 0, phi)} opacity={O7.dim} strokeWidth={1.2} />
+        <T7 at={phiMid} anchor="middle" dy={4} tex="\varphi" opacity={O7.dim} size={12} />
+        {/* theta: body axis e3 tips away from z */}
+        <Ar7 from={[0, 0]} to={e3Tip} opacity={O7.fg} head={6} />
+        <T7
+          at={e3Tip}
+          dx={e3Tip[0] >= 0 ? 6 : -6}
+          dy={-4}
+          anchor={e3Tip[0] >= 0 ? 'start' : 'end'}
+          tex="x_3"
+          opacity={O7.fg}
+          size={12}
+        />
+        <Pl7 points={arc(ZHAT, dTh, 0.55, 0, theta)} opacity={O7.fg} strokeWidth={1.2} />
+        <T7 at={thMid} anchor="middle" dy={-4} tex="\theta" opacity={O7.fg} size={12} />
+        {/* psi: body equator (the inner gimbal ring, perpendicular to x3) */}
+        <Pl7 points={arc(n, bb, 1, 0, 2 * Math.PI)} opacity={O7.accent} strokeWidth={1.5} />
+        <Pl7 points={arc(n, bb, 0.6, 0, psi)} opacity={O7.accent} strokeWidth={1.2} />
+        <T7 at={psiMid} anchor="middle" dy={4} tex="\psi" opacity={O7.accent} size={12} />
+        <D7 x={e1Dot[0]} y={e1Dot[1]} />
+        <T7
+          at={proj(lerp3(e1, e1, 1.12, 0))}
+          anchor={e1Dot[0] >= 0 ? 'start' : 'end'}
+          dy={4}
+          tex="x_1"
+          opacity={O7.accent}
+          size={11}
+        />
+        <D7 x={0} y={0} />
       </P7>
       <Sl7
         label="φ"
@@ -81,7 +155,7 @@ function EulerGimbals() {
   )
 }
 
-function InertiaEllipsoid() {
+export function InertiaEllipsoid() {
   const a = 2.6,
     b = 1.4
   const I1 = 1 / (a * a),
@@ -96,34 +170,36 @@ function InertiaEllipsoid() {
   const Mx = I1 * ox,
     My = I2 * oy
   const mNorm = Math.hypot(Mx, My)
-  const ml = 1.6
+  const ml = 1.15
+  const tipX = ox + (Mx / mNorm) * ml
+  const tipY = oy + (My / mNorm) * ml
+  // Isotropic frame (inner 488x358 for spans 7.9x5.8) - M = I-Omega is the gradient
+  // of Omega.I-Omega = 2T, so it must look NORMAL to the ellipse on screen.
+  const labelX = Math.max(-3.3, Math.min(3.3, tipX))
   return (
     <div style={{ width: '100%' }}>
-      <P7 xRange={[-3.4, 3.4]} yRange={[-2.0, 2.0]} width={520} height={260}>
+      <P7 xRange={[-3.95, 3.95]} yRange={[-2.9, 2.9]} width={520} height={390}>
         <A7 step={1} showGrid={false} />
         <Pl7 points={ell} opacity={O7.fg} closed strokeWidth={1.5} />
         <Ar7 from={[0, 0]} to={[ox, oy]} opacity={O7.accent} head={7} strokeWidth={1.5} />
-        <Ar7
-          from={[ox, oy]}
-          to={[ox + (Mx / mNorm) * ml, oy + (My / mNorm) * ml]}
-          opacity={O7.dim}
-          head={6}
-        />
-        <DH7 x={ox} y={oy} onChange={(x, y) => setAng(Math.atan2(y / b, x / a))} label="Ω" />
+        <Ar7 from={[ox, oy]} to={[tipX, tipY]} opacity={O7.dim} head={6} />
+        <DH7 x={ox} y={oy} onChange={(x, y) => setAng(Math.atan2(y / b, x / a))} />
         <T7 at={[ox * 0.5 + 0.15, oy * 0.5 - 0.05]} tex="\boldsymbol{\Omega}" opacity={O7.accent} />
         <T7
-          at={[ox + (Mx / mNorm) * ml + 0.1, oy + (My / mNorm) * ml + 0.05]}
-          tex="\mathbf{M}=I\Omega"
+          at={[labelX, tipY]}
+          dy={oy >= 0 ? -12 : 18}
+          anchor="middle"
+          tex="\mathbf{M}=I\boldsymbol{\Omega}"
           opacity={O7.dim}
         />
         <T7
-          at={[-3.3, 1.85]}
+          at={[-3.8, 2.68]}
           tex={`\\boldsymbol{\\Omega}\\cdot I\\boldsymbol{\\Omega}=2T`}
           opacity={O7.fg}
           size={11}
         />
         <T7
-          at={[-3.3, -1.85]}
+          at={[-3.8, -2.7]}
           tex={`I_1=${I1.toFixed(2)},\\;I_2=${I2.toFixed(2)}`}
           opacity={O7.dim}
           size={10}
@@ -133,7 +209,7 @@ function InertiaEllipsoid() {
   )
 }
 
-function PrecessionCone() {
+export function PrecessionCone() {
   const Iperp = 1.5,
     I3 = 1.0
   const [omega3, setOmega3] = React.useState(2.5)
@@ -145,6 +221,8 @@ function PrecessionCone() {
   const coneH = Math.cos(halfAngle) * 2.4
   const [phase, setPhase] = React.useState(0)
   React.useEffect(() => {
+    // respect prefers-reduced-motion (house convention)
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let raf,
       last = performance.now()
     const loop = now => {
@@ -171,24 +249,40 @@ function PrecessionCone() {
         <Pa7 xy={t => [-coneR * t, coneH * t]} t={[0, 1]} opacity={O7.dim} dash="4 4" />
         <Pa7 xy={t => [coneR * t, coneH * t]} t={[0, 1]} opacity={O7.dim} dash="4 4" />
         <Ar7 from={[0, 0]} to={[tipX, tipY]} opacity={O7.accent} head={7} strokeWidth={1.5} />
-        <T7 at={[tipX + 0.1, tipY]} tex="e_3" opacity={O7.accent} />
+        <T7
+          at={[tipX, tipY]}
+          dx={tipX >= 0 ? 8 : -8}
+          anchor={tipX >= 0 ? 'start' : 'end'}
+          tex="e_3"
+          opacity={O7.accent}
+        />
         <Pl7 points={rim} opacity={O7.dim} />
+        {/* the half-angle theta, drawn where it lives: between M and the cone edge */}
+        <Pa7
+          xy={s => {
+            const aa = s * halfAngle
+            return [0.9 * Math.sin(aa), 0.9 * Math.cos(aa)]
+          }}
+          t={[0, 1]}
+          samples={32}
+          opacity={O7.fg}
+        />
+        <T7
+          at={[0.9 * Math.sin(halfAngle * 0.55) + 0.08, 0.9 * Math.cos(halfAngle * 0.55)]}
+          dy={4}
+          tex="\theta"
+          opacity={O7.fg}
+          size={12}
+        />
         <T7
           at={[-2.9, 2.7]}
-          tex={`\\theta=${((halfAngle * 180) / Math.PI).toFixed(0)}^\\circ`}
+          tex={`\\theta=\\arctan\\tfrac{I_\\perp\\omega_\\perp}{I_3\\omega_3}=${((halfAngle * 180) / Math.PI).toFixed(0)}^\\circ`}
           opacity={O7.fg}
           size={11}
         />
         <T7
-          at={[-2.9, 2.3]}
-          tex={`\\dot\\varphi=${phiDot.toFixed(2)}`}
-          opacity={O7.dim}
-          size={10}
-        />
-        <T7
-          at={[2.9, -0.7]}
-          tex={`\\tan\\theta=\\frac{I_\\perp\\omega_\\perp}{I_3\\omega_3}`}
-          anchor="end"
+          at={[-2.9, 2.25]}
+          tex={`\\dot\\varphi=M/I_\\perp=${phiDot.toFixed(2)}`}
           opacity={O7.dim}
           size={10}
         />
@@ -199,7 +293,7 @@ function PrecessionCone() {
   )
 }
 
-function LagrangeTopUeff() {
+export function LagrangeTopUeff() {
   const [Mz, setMz] = React.useState(1.0)
   const [M3, setM3] = React.useState(0.8)
   const [E, setE] = React.useState(1.6)
@@ -213,10 +307,11 @@ function LagrangeTopUeff() {
   }
   const N = 200
   const pts = []
+  const UCLIP = 3.55 // keep the curve inside the frame (yMax = 3.8)
   for (let i = 0; i < N; i++) {
     const th = 0.1 + (i / (N - 1)) * (Math.PI - 0.2)
     const u = Ueff(th)
-    if (u < 4) pts.push([th, u])
+    if (u < UCLIP) pts.push([th, u])
   }
   let th1 = null,
     th2 = null
@@ -231,7 +326,7 @@ function LagrangeTopUeff() {
   }
   return (
     <div style={{ width: '100%' }}>
-      <P7 xRange={[-0.2, 4.0]} yRange={[-0.4, 3.4]} width={520} height={260}>
+      <P7 xRange={[-0.2, 4.0]} yRange={[-0.4, 3.8]} width={520} height={260}>
         <A7 step={1} showGrid={false} />
         <Pl7 points={pts} opacity={O7.fg} strokeWidth={2} />
         <Pa7 xy={t => [-0.2 + t * 4.2, E]} t={[0, 1]} opacity={O7.accent} dash="4 4" />
@@ -250,10 +345,29 @@ function LagrangeTopUeff() {
         {th2 !== null && <D7 x={th2} y={E} />}
         <T7
           at={[3.7, E + 0.05]}
+          dy={-6}
           tex={`E'=${E.toFixed(2)}`}
           opacity={O7.accent}
           size={11}
           anchor="end"
+        />
+        <T7 at={[1.45, 0.82]} tex="U_{\rm eff}(\theta)" opacity={O7.fg} size={12} />
+        <T7
+          at={[Math.PI / 2, 0]}
+          dy={16}
+          anchor="middle"
+          tex="\tfrac{\pi}{2}"
+          opacity={O7.faint}
+          size={10}
+        />
+        <T7 at={[Math.PI, 0]} dy={16} anchor="middle" tex="\pi" opacity={O7.faint} size={10} />
+        <T7 at={[3.92, 0]} dy={-8} anchor="end" tex="\theta" opacity={O7.faint} size={11} />
+        <T7
+          at={[3.92, 3.6]}
+          anchor="end"
+          tex={`I_1=${Ip.toFixed(0)},\\ mgl=${mgl.toFixed(1)}`}
+          opacity={O7.faint}
+          size={10}
         />
       </P7>
       <Sl7 label="Mz" value={Mz} min={0} max={2} step={0.02} onChange={setMz} />
@@ -263,7 +377,7 @@ function LagrangeTopUeff() {
   )
 }
 
-function PoinsotConstruction() {
+export function PoinsotConstruction() {
   const a = 2.2,
     b = 1.5
   const [ang, setAng] = React.useState(0.6)
@@ -278,30 +392,71 @@ function PoinsotConstruction() {
   const gradMag = Math.hypot(gradX, gradY)
   const nx = (gradX / gradMag) * 1.2,
     ny = (gradY / gradMag) * 1.2
+  // tangent direction at the contact point: the trace of the invariable plane,
+  // which is tangent to the inertia ellipsoid and PERPENDICULAR to M.
+  const txu = -gradY / gradMag,
+    tyu = gradX / gradMag
+  const PLEN = 1.7
+  // Isotropic frame (inner 488x412 for spans 7.4x6.25) so M really meets pi_inv
+  // at a right angle on screen.
   return (
     <div style={{ width: '100%' }}>
-      <P7 xRange={[-3, 3]} yRange={[-2.2, 2.5]} width={520} height={260}>
+      <P7 xRange={[-3.7, 3.7]} yRange={[-3.05, 3.2]} width={520} height={444}>
         <A7 step={1} showGrid={false} />
         <Pl7 points={ell} opacity={O7.fg} closed strokeWidth={1.5} />
-        <Pa7 xy={t => [-2.7 + t * 5.4, -1.9]} t={[0, 1]} opacity={O7.dim} />
-        <T7 at={[2.4, -2.1]} tex="\pi_{\rm inv}" opacity={O7.dim} size={11} />
+        {/* invariable plane: tangent line at the contact point */}
+        <Pa7
+          xy={t => [cx + (t * 2 - 1) * PLEN * txu, cy + (t * 2 - 1) * PLEN * tyu]}
+          t={[0, 1]}
+          samples={2}
+          opacity={O7.dim}
+        />
+        <T7
+          at={[cx + PLEN * txu, cy + PLEN * tyu]}
+          dx={txu >= 0 ? 6 : -6}
+          dy={tyu >= 0 ? -4 : 12}
+          anchor={txu >= 0 ? 'start' : 'end'}
+          tex="\pi_{\rm inv}"
+          opacity={O7.dim}
+          size={11}
+        />
+        {/* Omega pierces the ellipsoid at the contact point */}
+        <Ar7 from={[0, 0]} to={[cx, cy]} opacity={O7.fg} head={6} />
+        <T7
+          at={[cx * 0.5, cy * 0.5]}
+          dx={cy >= 0 ? 10 : -10}
+          dy={cy >= 0 ? 12 : -4}
+          anchor={cy >= 0 ? 'start' : 'end'}
+          tex="\boldsymbol{\Omega}"
+          opacity={O7.fg}
+        />
         <DH7 x={cx} y={cy} onChange={(x, y) => setAng(Math.atan2(y / b, x / a))} />
         <Ar7 from={[cx, cy]} to={[cx + nx, cy + ny]} opacity={O7.accent} head={6} />
-        <T7 at={[cx + nx + 0.1, cy + ny]} tex="\mathbf{M}" opacity={O7.accent} />
-        <D7 x={cx} y={-1.9} opacity={O7.dim} />
-        <Pa7 xy={t => [cx, cy + t * (-1.9 - cy)]} t={[0, 1]} opacity={O7.faint} dash="3 3" />
+        <T7
+          at={[cx + nx, cy + ny]}
+          dx={nx >= 0 ? 8 : -8}
+          dy={ny >= 0 ? -4 : 14}
+          anchor={nx >= 0 ? 'start' : 'end'}
+          tex="\mathbf{M}\perp\pi_{\rm inv}"
+          opacity={O7.accent}
+        />
       </P7>
     </div>
   )
 }
 
-function TennisRacket() {
+export function TennisRacket() {
   const [perturb, setPerturb] = React.useState(0.15)
   const [axis, setAxis] = React.useState(2)
   const I1 = 1,
     I2 = 2,
     I3 = 3
-  const traj = (w0, T = 25, dt = 0.02) => {
+  const R = 2 // angular-momentum sphere radius (drawn circle)
+  // Euler's equations for the free body; we PLOT angular momentum M_i = I_i w_i,
+  // because |M| is exactly conserved - every trajectory lives ON the sphere |M| = R,
+  // whose silhouette is the drawn circle. (|w| is NOT conserved; plotting w against a
+  // fixed circle would be dishonest.)
+  const traj = (w0, T = 40, dt = 0.02) => {
     const f = (t, w) => [
       ((I2 - I3) / I1) * w[1] * w[2],
       ((I3 - I1) / I2) * w[2] * w[0],
@@ -311,35 +466,79 @@ function TennisRacket() {
     let w = w0.slice()
     const N = Math.floor(T / dt)
     for (let i = 0; i < N; i++) {
-      out.push([w[0], w[2]])
+      out.push([I1 * w[0], I3 * w[2]])
       w = rk47(f, 0, w, dt)
     }
     return out
   }
-  const w0 = axis === 1 ? [1.4, perturb, 0.05] : axis === 3 ? [0.05, perturb, 1.4] : [0.1, 1.4, 0.1]
-  const orbit = traj(w0)
+  const raw =
+    axis === 1 ? [1.4, perturb, 0.05] : axis === 3 ? [0.05, perturb, 1.4] : [0.1, 1.4, 0.1]
+  // normalise the start so |M(0)| = R exactly
+  const M0 = Math.hypot(I1 * raw[0], I2 * raw[1], I3 * raw[2])
+  const w0 = raw.map(v => (v * R) / M0)
+  // a full near-e2 flip cycle (out along one separatrix branch and back along the
+  // other) takes ~26 time units for these ICs; T = 52 shows two complete cycles.
+  // dt = 0.01 keeps the RK4 energy drift below a pixel so cycle 2 overlays cycle 1.
+  const orbit = traj(w0, axis === 2 ? 52 : 40, 0.01)
+  // separatrix: E = M^2/(2 I2) on the sphere  =>  M3 = +-sqrt((1/I1-1/I2)/(1/I2-1/I3)) M1
+  // = +-sqrt(3) M1 for I=(1,2,3); its two great circles through +-e2 project to the
+  // straight chords with endpoints at M2 = 0: M1 = +-R/2, M3 = +-sqrt(3) R/2
+  const sepX = R / 2,
+    sepY = (Math.sqrt(3) * R) / 2
   return (
     <div style={{ width: '100%' }}>
-      <P7 xRange={[-2.5, 2.5]} yRange={[-2.5, 2.5]} width={520} height={280}>
-        <C7 cx={0} cy={0} r={2} opacity={O7.faint} />
-        <Pl7 points={orbit} opacity={axis === 2 ? O7.accent : O7.fg} strokeWidth={1.5} />
-        <D7 x={2} y={0} />
-        <D7 x={-2} y={0} />
-        <D7 x={0} y={2} />
-        <D7 x={0} y={-2} />
-        <T7 at={[2.1, 0.05]} tex="e_1" opacity={O7.fg} />
-        <T7 at={[0.1, 2.1]} tex="e_3" opacity={O7.fg} />
+      <P7 xRange={[-2.9, 2.9]} yRange={[-2.65, 2.65]} width={520} height={448}>
+        <C7 cx={0} cy={0} r={R} opacity={O7.faint} />
+        <Pl7
+          points={[
+            [-sepX, -sepY],
+            [sepX, sepY]
+          ]}
+          opacity={O7.faint}
+          strokeWidth={1}
+        />
+        <Pl7
+          points={[
+            [-sepX, sepY],
+            [sepX, -sepY]
+          ]}
+          opacity={O7.faint}
+          strokeWidth={1}
+        />
         <T7
-          at={[-2.4, 2.4]}
+          at={[-sepX - 0.08, -sepY - 0.1]}
+          anchor="end"
+          tex="\text{separatrix}"
+          opacity={O7.faint}
+          size={10}
+        />
+        <Pl7 points={orbit} opacity={axis === 2 ? O7.accent : O7.fg} strokeWidth={1.5} />
+        <D7 x={R} y={0} />
+        <D7 x={-R} y={0} />
+        <D7 x={0} y={R} />
+        <D7 x={0} y={-R} />
+        <T7 at={[R + 0.12, 0.05]} tex="e_1" opacity={O7.fg} />
+        <T7 at={[-R - 0.12, 0.05]} anchor="end" tex="-e_1" opacity={O7.fg} />
+        <T7 at={[0.12, R + 0.18]} tex="e_3" opacity={O7.fg} />
+        <T7 at={[-0.12, -R - 0.28]} anchor="end" tex="-e_3" opacity={O7.fg} />
+        <T7
+          at={[-2.8, 2.45]}
           tex={
             axis === 2
-              ? '\\text{intermediate: flips}'
+              ? '\\text{spin near } e_2\\text{ (intermediate): flips}'
               : axis === 1
-                ? '\\text{e}_1\\;\\text{stable}'
-                : '\\text{e}_3\\;\\text{stable}'
+                ? '\\text{spin near } e_1\\text{: stable}'
+                : '\\text{spin near } e_3\\text{: stable}'
           }
           opacity={O7.accent}
           size={11}
+        />
+        <T7
+          at={[2.8, -2.45]}
+          anchor="end"
+          tex={`\\mathbf{M}\\text{-sphere},\\ (M_1, M_3)\\ \\text{view},\\ I=(1,2,3)`}
+          opacity={O7.faint}
+          size={10}
         />
       </P7>
       <Sl7
@@ -356,7 +555,7 @@ function TennisRacket() {
   )
 }
 
-export default function RigidBodyDynamicsLagrangian() {
+export default function RigidBodyDynamicsLagrangianGeometricTreatment() {
   const config = {
     cssPrefix: 'rbl',
     documentTitle: 'Rigid-Body Dynamics (Lagrangian / Geometric Treatment) - AETHER',
@@ -379,7 +578,7 @@ export default function RigidBodyDynamicsLagrangian() {
               <details className="lrn-predict-reveal">
                 <summary>Check your thinking</summary>
                 <p>
-                  {`The book tumbles when spun about its middle principal axis (the axis of intermediate moment of inertia). It spins cleanly about the axis of largest or smallest moment. This is the tennis-racket theorem, covered in Section 9.`}
+                  {`The book tumbles when spun about its middle principal axis (the axis of intermediate moment of inertia). It spins cleanly about the axis of largest or smallest moment. This is the tennis-racket theorem: a body spins stably about its largest or smallest axis, never the middle one.`}
                 </p>
               </details>
             </div>
@@ -419,7 +618,21 @@ export default function RigidBodyDynamicsLagrangian() {
               {`When a point of the body is fixed, translations disappear. The configuration space shrinks to $SO(3)$ alone. This is the setting for all the tops studied in this module.`}
             </p>
             <p>
-              {`$SO(3)$ is a three-dimensional manifold. It is not flat. Its Lie algebra $\\mathfrak{so}(3)$ consists of all $3 \\times 3$ skew-symmetric matrices, which correspond one-to-one with angular velocity vectors.`}
+              {`$SO(3)$ is a three-dimensional manifold, and it is not flat. A manifold is a smooth space that looks flat up close but can curve overall. The general manifold and Lie-group machinery is built in the mechanics-on-manifolds topic. Here we use only the parts specific to rotating bodies.`}
+            </p>
+
+            <h3>The Hat Map: Angular Velocity as a Tiny Rotation</h3>
+            <p>
+              {`Sitting at the identity of $SO(3)$ is its Lie algebra $\\mathfrak{so}(3)$. The Lie algebra is the set of tiny rotations near the identity, the velocities the group allows. It is exactly the set of $3 \\times 3$ skew-symmetric matrices.`}
+            </p>
+            <p>
+              {`Every angular-velocity vector $\\boldsymbol{\\omega} = (\\omega_1, \\omega_2, \\omega_3)$ corresponds to one such matrix, written $[\\boldsymbol{\\omega}]_\\times$. This hat map is fixed by one rule: $[\\boldsymbol{\\omega}]_\\times \\boldsymbol{v} = \\boldsymbol{\\omega} \\times \\boldsymbol{v}$ for every vector $\\boldsymbol{v}$. In components:`}
+            </p>
+            <div className="lrn-eq">
+              <span>{`$$[\\boldsymbol{\\omega}]_\\times = \\begin{pmatrix} 0 & -\\omega_3 & \\omega_2 \\\\ \\omega_3 & 0 & -\\omega_1 \\\\ -\\omega_2 & \\omega_1 & 0 \\end{pmatrix}$$`}</span>
+            </div>
+            <p>
+              {`The hat map is one-to-one: vectors in $\\mathbb{R}^3$ match skew matrices in $\\mathfrak{so}(3)$ exactly. This is the correspondence $\\mathfrak{so}(3) \\cong \\mathbb{R}^3$ that lets every later formula switch freely between a spin vector and its matrix.`}
             </p>
 
             <div className="lrn-elaborate">
@@ -485,9 +698,9 @@ export default function RigidBodyDynamicsLagrangian() {
               {`When to use this: use Euler angles whenever you write a Lagrangian for a body with one fixed point. They give explicit coordinates on $SO(3)$ so you can write $T$ and $U$ in terms of $\\dot{\\varphi}$, $\\dot{\\theta}$, $\\dot{\\psi}$.`}
             </p>
 
-            <VizCard id="02.7.1" title="Euler Angles">
+            <VizFigure aspect="auto" title="Euler Angles">
               <EulerGimbals />
-            </VizCard>
+            </VizFigure>
 
             <h3>Angular Velocity in Body Coordinates</h3>
             <p>
@@ -506,29 +719,30 @@ export default function RigidBodyDynamicsLagrangian() {
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`The angular velocity contributed by $\\dot{\\varphi}$ points along $Z$. The one from $\\dot{\\theta}$ points along the line of nodes $ON$. The one from $\\dot{\\psi}$ points along $x_3$.`}
-              </p>
-              <p>
-                {`Resolve each into body-frame components using the rotation angles already applied. The formulas follow from straightforward direction-cosine calculations.`}
+                {`The angular velocity contributed by $\\dot{\\varphi}$ points along $Z$. The one from $\\dot{\\theta}$ points along the line of nodes $ON$. The one from $\\dot{\\psi}$ points along $x_3$. Resolve each onto the body axes using the angles already applied. The worked example below does the $\\Omega_1$ component end to end.`}
               </p>
             </div>
 
             <div className="lrn-faded">
               <div className="lrn-faded-phase">
                 <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-                <p>{`Derivation of Euler-angle $\\Omega$ components, worked for you.`}</p>
+                <p>{`Derive the $\\Omega_1$ component end to end.`}</p>
                 <ol className="lrn-list">
                   <li>
-                    {`Write $\\dot{\\varphi}$ along $Z$. Rotate first by $\\theta$ about the line of nodes $ON$, then by $\\psi$ about $x_3$. This converts the space-$Z$ direction into body-frame components.`}
+                    {`The $\\dot{\\varphi}$ part points along space $Z$. The body axis $x_3$ sits at angle $\\theta$ from $Z$, so $Z$ has a piece $\\cos\\theta$ along $x_3$ and a piece $\\sin\\theta$ in the $x_1 x_2$ plane. The in-plane piece lies along the line of nodes $ON$.`}
                   </li>
                   <li>
-                    {`Write $\\dot{\\theta}$ along $ON$ (line of nodes), decompose into body axes.`}
+                    {`The spin $\\psi$ rotates the body axes away from $ON$ by angle $\\psi$ about $x_3$. So $ON$ makes angle $\\psi$ with $x_1$. The $\\sin\\theta$ piece therefore projects onto $x_1$ as $\\sin\\theta\\sin\\psi$. This gives the $\\dot{\\varphi}$ contribution: $\\dot{\\varphi}\\sin\\theta\\sin\\psi$.`}
                   </li>
-                  <li>{`$\\dot{\\psi}$ already points along $x_3$; add directly.`}</li>
-                  <li>{`Sum all three projections to get the boxed result above.`}</li>
+                  <li>
+                    {`The $\\dot{\\theta}$ part points along $ON$ itself. Since $ON$ makes angle $\\psi$ with $x_1$, its $x_1$ component is $\\cos\\psi$. This gives the $\\dot{\\theta}$ contribution: $\\dot{\\theta}\\cos\\psi$.`}
+                  </li>
+                  <li>
+                    {`The $\\dot{\\psi}$ part points along $x_3$, perpendicular to $x_1$, so it adds nothing to $\\Omega_1$. Summing the pieces: $\\Omega_1 = \\dot{\\varphi}\\sin\\theta\\sin\\psi + \\dot{\\theta}\\cos\\psi$, the boxed result.`}
+                  </li>
                 </ol>
               </div>
-              <div className="lrn-faded-phase">
+              <div className="lrn-faded-phase lrn-faded-partial">
                 <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
                 <ol className="lrn-list">
                   <li>
@@ -550,18 +764,18 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <h3>Geometric Picture</h3>
             <p>
-              {`The line of nodes $ON$ is the intersection of the space $XY$-plane and the body $x_1 x_2$-plane. It is the hinge axis for the nutation rotation. Its direction in space depends on $\\varphi$; its direction in the body depends on $\\psi$. So to project a rotation about $Z$ onto body axis $x_1$, you must account for both tilts: the result contains $\\sin\\theta\\sin\\psi$ rather than a single angle. That is why the formulas involve products of sines and cosines of two different angles.`}
+              {`The line of nodes $ON$ is the intersection of the space $XY$-plane and the body $x_1 x_2$-plane. It is the hinge axis for the nutation rotation. Its direction in space depends on $\\varphi$; its direction in the body depends on $\\psi$. So to project a rotation about $Z$ onto body axis $x_1$, you must account for both tilts. The result contains $\\sin\\theta\\sin\\psi$ rather than a single angle. That is why the formulas involve products of sines and cosines of two different angles.`}
             </p>
 
             <div className="lrn-compare">
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Arnold (Coordinate-Free)</span>
+                <span className="lrn-compare-title">Coordinate-Free View</span>
                 <p>
-                  {`Angular velocity read off from how the rotation matrix $B$ changes: $\\dot{B} = B[\\boldsymbol{\\omega}]_\\times$ where $[\\boldsymbol{\\omega}]_\\times$ is the skew-symmetric matrix encoding $\\boldsymbol{\\omega}$. No coordinates needed; the geometry of $SO(3)$ carries all the information.`}
+                  {`Angular velocity read off from how the rotation matrix $B$ changes: $\\dot{B} = B[\\boldsymbol{\\omega}]_\\times$, where $[\\boldsymbol{\\omega}]_\\times$ is the hat-map skew matrix (defined in the configuration-manifold section) that acts as $\\boldsymbol{\\omega}\\times$. No coordinates needed; the geometry of $SO(3)$ carries all the information.`}
                 </p>
               </div>
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">L&L (Explicit Components)</span>
+                <span className="lrn-compare-title">Explicit-Component View</span>
                 <p>
                   {`Euler-angle component formulas $\\Omega_i = f(\\dot{\\varphi}, \\dot{\\theta}, \\dot{\\psi}, \\varphi, \\theta, \\psi)$. Same geometric object, opposite presentations.`}
                 </p>
@@ -589,13 +803,16 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <h3>The Inertia Operator A</h3>
             <p>
-              {`The inertia operator $A$ maps angular velocity to angular momentum: $A\\boldsymbol{\\Omega} = \\mathbf{M}$. It encodes the full mass distribution of the body in a single linear map. Use the operator formulation when you want to work without choosing coordinates - it unifies the tensor components into one clean statement.`}
+              {`Start concrete. For a box lined up with its principal axes, the inertia operator is just the diagonal matrix $A = \\mathrm{diag}(I_1, I_2, I_3)$. It sends $\\boldsymbol{\\Omega} = (\\Omega_1, \\Omega_2, \\Omega_3)$ to $\\mathbf{M} = (I_1\\Omega_1, I_2\\Omega_2, I_3\\Omega_3)$. The operator below is the coordinate-free version of this same map.`}
+            </p>
+            <p>
+              {`The inertia operator $A$ maps angular velocity to angular momentum: $A\\boldsymbol{\\Omega} = \\mathbf{M}$. It encodes the full mass distribution of the body in a single linear map. Use the operator formulation when you want to work without choosing coordinates: it unifies the tensor components into one clean statement.`}
             </p>
             <div className="lrn-eq lrn-eq-display">
               <span>{`$$A\\boldsymbol{\\Omega} = \\mathbf{M}$$`}</span>
             </div>
             <p>
-              {`$A$ is symmetric: $(A\\boldsymbol{X}, \\boldsymbol{Y}) = (A\\boldsymbol{Y}, \\boldsymbol{X})$ for all $\\boldsymbol{X}, \\boldsymbol{Y}$. It is also positive definite: $(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega}) > 0$ for $\\boldsymbol{\\Omega} \\neq 0$.`}
+              {`Here $(\\boldsymbol{X}, \\boldsymbol{Y})$ denotes the inner (dot) product. $A$ is symmetric: $(A\\boldsymbol{X}, \\boldsymbol{Y}) = (A\\boldsymbol{Y}, \\boldsymbol{X})$ for all $\\boldsymbol{X}, \\boldsymbol{Y}$. It is also positive definite: $(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega}) > 0$ for $\\boldsymbol{\\Omega} \\neq 0$.`}
             </p>
 
             <div className="lrn-elaborate">
@@ -611,12 +828,12 @@ export default function RigidBodyDynamicsLagrangian() {
               <span>{`$$T = \\tfrac{1}{2}(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega}) = \\tfrac{1}{2}(\\mathbf{M}, \\boldsymbol{\\Omega})$$`}</span>
             </div>
             <p>
-              {`This is a left-invariant Riemannian metric on $SO(3)$. Every rigid body defines one such metric through its mass distribution.`}
+              {`This is a left-invariant Riemannian metric on $SO(3)$. A Riemannian metric is a rule for measuring length and angle at each point. Left-invariant means the rule looks the same after you rotate the body, so the body's own spin does not change the geometry. Every rigid body defines one such metric through its mass distribution.`}
             </p>
 
             <h3>Principal Axes and Principal Moments</h3>
             <p>
-              {`$A$ is a symmetric positive-definite operator on a 3D space. By the spectral theorem it has three mutually perpendicular eigenvectors $e_1, e_2, e_3$ (the principal axes). The matching eigenvalues $I_1, I_2, I_3$ are the principal moments of inertia.`}
+              {`Principal axes and principal moments are built in the Newtonian rigid-body topic. In the operator language they are simply the eigenvectors $e_1, e_2, e_3$ and eigenvalues $I_1, I_2, I_3$ of the symmetric operator $A$. The spectral theorem guarantees three perpendicular axes.`}
             </p>
             <p>In principal axes:</p>
             <div className="lrn-eq">
@@ -635,9 +852,9 @@ export default function RigidBodyDynamicsLagrangian() {
               {`Its semi-axes have lengths $1/\\sqrt{I_1}$, $1/\\sqrt{I_2}$, $1/\\sqrt{I_3}$ along the principal axes. A large moment means a short axis; a small moment means a long axis.`}
             </p>
 
-            <VizCard id="02.7.2" title="Inertia Ellipsoid">
+            <VizFigure aspect="auto" title="Inertia Ellipsoid">
               <InertiaEllipsoid />
-            </VizCard>
+            </VizFigure>
 
             <h3>Worked Example: Inertia Operator of a Rectangular Parallelepiped</h3>
             <p>
@@ -673,11 +890,8 @@ export default function RigidBodyDynamicsLagrangian() {
               </li>
             </ul>
             <p>
-              {`The parallel-axis (Steiner) theorem shifts from the centre-of-mass axes to any parallel axis displaced by $\\mathbf{a}$:`}
+              {`The parallel-axis (Steiner) theorem, built in the Newtonian rigid-body topic, shifts from the centre-of-mass axes to any parallel axis displaced by $\\mathbf{a}$: $I'_{ik} = I_{ik} + \\mu(|\\mathbf{a}|^2 \\delta_{ik} - a_i a_k)$.`}
             </p>
-            <div className="lrn-eq">
-              <span>{`$$I'_{ik} = I_{ik} + \\mu(|\\mathbf{a}|^2 \\delta_{ik} - a_i a_k)$$`}</span>
-            </div>
 
             <h3>Perpendicular-Axis Theorem (Coplanar Systems)</h3>
             <p>
@@ -692,13 +906,13 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <div className="lrn-compare">
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">L&L Inertia Tensor</span>
+                <span className="lrn-compare-title">Inertia Tensor (Component Form)</span>
                 <p>
                   {`Explicit component matrix $I_{ik}$, direct mass-distribution formula $I_{ik} = \\int \\rho(|\\mathbf{r}|^2 \\delta_{ik} - x_i x_k)\\, dV$.`}
                 </p>
               </div>
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Arnold Inertia Operator</span>
+                <span className="lrn-compare-title">Inertia Operator (Coordinate-Free Form)</span>
                 <p>
                   {`Abstract symmetric positive operator on $\\mathfrak{so}(3)$: $A\\boldsymbol{\\Omega} = \\mathbf{M}$. Same physical content, different mathematical language.`}
                 </p>
@@ -747,10 +961,10 @@ export default function RigidBodyDynamicsLagrangian() {
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`The angle $\\varphi$ of rotation about some axis is a generalized coordinate. The Lagrange equation for $\\varphi$ gives $\\frac{d}{dt}(\\partial L/\\partial \\dot{\\varphi}) = \\partial L/\\partial \\varphi$.`}
+                {`Apply the Euler-Lagrange equation to a rotation angle $\\varphi$. The left side $\\frac{d}{dt}(\\partial L/\\partial \\dot{\\varphi})$ is $\\dot{M}$ along that axis.`}
               </p>
               <p>
-                {`The left side is $\\dot{M}$ along that axis; the right side is $-\\partial U/\\partial \\varphi = K$ along that axis. This works for all three rotation angles.`}
+                {`The right side $\\partial L/\\partial \\varphi = -\\partial U/\\partial \\varphi$ is the torque $K$ along that axis. So the rotational equation $\\dot{M} = K$ is just Euler-Lagrange for an angle. This works for all three rotation angles.`}
               </p>
             </div>
 
@@ -767,10 +981,7 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <h3>Cyclic Coordinates and Conservation Laws</h3>
             <p>
-              {`A coordinate $q_i$ is cyclic if $\\partial L/\\partial q_i = 0$. Its conjugate momentum $p_i = \\partial L/\\partial \\dot{q}_i$ is then conserved.`}
-            </p>
-            <p>
-              {`In the Lagrange top, $\\varphi$ and $\\psi$ do not appear in $L$ (only their time derivatives do). So both are cyclic:`}
+              {`Recall a cyclic coordinate: one that does not appear in $L$, so its conjugate momentum is conserved. In the Lagrange top, $\\varphi$ and $\\psi$ do not appear in $L$ (only their time derivatives do). So both are cyclic:`}
             </p>
             <div className="lrn-eq">
               <span>{`$$p_\\varphi = I'(\\dot{\\varphi}\\sin^2\\!\\theta) + I_3(\\dot{\\psi} + \\dot{\\varphi}\\cos\\theta)\\cos\\theta = M_z = \\text{const}$$`}</span>
@@ -792,31 +1003,15 @@ export default function RigidBodyDynamicsLagrangian() {
               </p>
             </div>
 
-            <div className="lrn-self-explain">
-              <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-              <p>
-                {`The Lagrangian of the symmetric top has $\\varphi$ and $\\psi$ cyclic. Explain why in your own words.`}
-              </p>
-              <details className="lrn-self-explain-reveal">
-                <summary>Expert explanation</summary>
-                <p>
-                  {`The potential energy $U = mg\\ell\\cos\\theta$ depends only on the tilt angle $\\theta$. It does not care where the axis points in the horizontal plane (no $\\varphi$ dependence). It also does not care how the body has spun about its own axis (no $\\psi$ dependence).`}
-                </p>
-                <p>
-                  {`The kinetic energy depends on $\\theta$ through $\\sin\\theta$ factors but not on $\\varphi$ or $\\psi$ directly. So $\\partial L/\\partial \\varphi = 0$ and $\\partial L/\\partial \\psi = 0$, making both cyclic.`}
-                </p>
-              </details>
-            </div>
-
             <div className="lrn-compare">
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">L&L (Euler-Angle Formula)</span>
+                <span className="lrn-compare-title">Euler-Angle Formula</span>
                 <p>
                   {`$L = \\frac{1}{2}I'(\\dot{\\theta}^2 + \\dot{\\varphi}^2\\sin^2\\theta) + \\frac{1}{2}I_3(\\dot{\\psi} + \\dot{\\varphi}\\cos\\theta)^2 - U$. Explicit and ready to compute with.`}
                 </p>
               </div>
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Arnold (Left-Invariant Metric)</span>
+                <span className="lrn-compare-title">Left-Invariant Metric</span>
                 <p>
                   {`$L = \\frac{1}{2}\\langle A\\boldsymbol{\\omega}, \\boldsymbol{\\omega}\\rangle - U$. Coordinate-free; reveals why the metric is left-invariant under body rotations. Same object, two languages.`}
                 </p>
@@ -849,12 +1044,8 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <h3>The Routhian</h3>
             <p>
-              {`The Routhian is a modified Lagrangian that treats the conserved momenta of cyclic coordinates as fixed numbers rather than dynamic variables. The cyclic coordinates disappear from the problem entirely, leaving a smaller system. For cyclic coordinates $q_b$ with conserved momenta $p_b$, the Routhian is:`}
+              {`The Routhian (built in the Routhian-reduction topic) treats the conserved momenta of cyclic coordinates as fixed numbers, so those coordinates drop out and leave a smaller system. For the free symmetric top (or Lagrange top) it becomes:`}
             </p>
-            <div className="lrn-eq">
-              <span>{`$$R(q_a, \\dot{q}_a;\\, p_b) = L(q_a, \\dot{q}_a, \\dot{q}_b(p_b)) - \\sum_b p_b \\dot{q}_b$$`}</span>
-            </div>
-            <p>{`For the free symmetric top (or Lagrange top), the Routhian is:`}</p>
             <div className="lrn-eq lrn-eq-display">
               <span>{`$$R(\\theta, \\dot{\\theta};\\, M_z, M_3) = \\tfrac{1}{2}I'\\dot{\\theta}^2 - U_{\\rm eff}(\\theta)$$`}</span>
             </div>
@@ -881,7 +1072,7 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <h3>Body-Frame Precession from Euler's Equations</h3>
             <p>
-              {`Analyse the same free top in the body frame using Euler's equations. For a symmetric top ($I_1 = I_2 = I'$) with no torque:`}
+              {`The same free top, viewed in the body frame, gives the torque-free precession met in the Newtonian treatment. Here it falls out of Euler's equations (derived in full in the geodesic-flow section). For a symmetric top ($I_1 = I_2 = I'$) with no torque:`}
             </p>
             <div className="lrn-eq">
               <span>{`$$\\Omega_3 = \\text{const}, \\qquad \\Omega_1 = A\\cos\\omega t, \\quad \\Omega_2 = A\\sin\\omega t$$`}</span>
@@ -938,17 +1129,14 @@ export default function RigidBodyDynamicsLagrangian() {
               <details className="lrn-self-explain-reveal">
                 <summary>Expert explanation</summary>
                 <p>
-                  {`The key step is recognising that Euler equations 1 and 2 for the symmetric top decouple from equation 3. The symmetry $I_1 = I_2$ removes the $\\Omega_1\\Omega_2$ coupling in equation 3.`}
-                </p>
-                <p>
-                  {`The resulting pair of linear ODEs for $\\Omega_1$, $\\Omega_2$ describes simple harmonic oscillation in the body frame. To an outside observer this looks like uniform precession.`}
+                  {`The symmetry $I_1 = I_2$ removes the $\\Omega_1\\Omega_2$ coupling in equation 3, so equations 1 and 2 decouple from it. The resulting pair of linear ODEs for $\\Omega_1$, $\\Omega_2$ is a simple harmonic oscillation in the body frame. To an outside observer this looks like uniform precession.`}
                 </p>
               </details>
             </div>
 
-            <VizCard id="02.7.3" title="Precession Cone">
+            <VizFigure aspect="auto" title="Precession Cone">
               <PrecessionCone />
-            </VizCard>
+            </VizFigure>
 
             <div className="lrn-compare">
               <div className="lrn-compare-col">
@@ -995,6 +1183,37 @@ export default function RigidBodyDynamicsLagrangian() {
               <span>{`$$L = \\frac{I_1}{2}(\\dot{\\theta}^2 + \\dot{\\varphi}^2\\sin^2\\!\\theta) + \\frac{I_3}{2}(\\dot{\\psi} + \\dot{\\varphi}\\cos\\theta)^2 - mg\\ell\\cos\\theta$$`}</span>
             </div>
 
+            <h3>The Equation of Motion for the Tilt Angle</h3>
+            <p>
+              {`The angle $\\theta$ is the one non-cyclic coordinate. Apply the Euler-Lagrange equation $\\frac{d}{dt}\\!\\left(\\frac{\\partial L}{\\partial \\dot{\\theta}}\\right) - \\frac{\\partial L}{\\partial \\theta} = 0$ to it directly.`}
+            </p>
+            <div className="lrn-steps">
+              <div className="lrn-step">
+                <span className="lrn-step-num">1</span>
+                <div className="lrn-step-content">
+                  <p>{`Differentiate by $\\dot{\\theta}$: $\\frac{\\partial L}{\\partial \\dot{\\theta}} = I_1\\dot{\\theta}$. Take its time derivative: $\\frac{d}{dt}\\!\\left(\\frac{\\partial L}{\\partial \\dot{\\theta}}\\right) = I_1\\ddot{\\theta}$.`}</p>
+                </div>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-num">2</span>
+                <div className="lrn-step-content">
+                  <p>{`Differentiate $L$ by $\\theta$. Only the $\\sin^2\\theta$, the $\\cos\\theta$ inside the spin term, and the $\\cos\\theta$ in gravity depend on $\\theta$: $\\frac{\\partial L}{\\partial \\theta} = I_1\\dot{\\varphi}^2\\sin\\theta\\cos\\theta - I_3(\\dot{\\psi} + \\dot{\\varphi}\\cos\\theta)\\dot{\\varphi}\\sin\\theta + mg\\ell\\sin\\theta$.`}</p>
+                </div>
+              </div>
+              <div className="lrn-step">
+                <span className="lrn-step-num">3</span>
+                <div className="lrn-step-content">
+                  <p>{`Subtract to get the $\\theta$-equation:`}</p>
+                  <div className="lrn-eq">
+                    <span>{`$$I_1\\ddot{\\theta} = I_1\\dot{\\varphi}^2\\sin\\theta\\cos\\theta - I_3(\\dot{\\psi} + \\dot{\\varphi}\\cos\\theta)\\dot{\\varphi}\\sin\\theta + mg\\ell\\sin\\theta$$`}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p>
+              {`This single second-order equation governs the tilt. The next step replaces $\\dot{\\varphi}$ and $\\dot{\\psi}$ by the conserved momenta, which turns it into the effective-potential form below.`}
+            </p>
+
             <h3>Three First Integrals</h3>
             <p>
               {`The Lagrange top has three conserved quantities. Two come from cyclic coordinates:`}
@@ -1012,10 +1231,10 @@ export default function RigidBodyDynamicsLagrangian() {
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`The symmetry $\\varphi \\to \\varphi + \\varepsilon$ is rotation of the entire system about the vertical axis. The Lagrangian is invariant because gravity depends only on height ($\\propto \\cos\\theta$). Noether's theorem gives $M_z = \\text{const}$.`}
+                {`Two symmetries give the two conserved momenta by Noether's theorem. The shift $\\varphi \\to \\varphi + \\varepsilon$ rotates the system about the vertical axis; gravity depends only on height, so $L$ is invariant and $M_z$ is conserved.`}
               </p>
               <p>
-                {`The symmetry $\\psi \\to \\psi + \\varepsilon$ is spin about the body axis. The Lagrangian is invariant by the body's axial symmetry. Noether's theorem gives $M_3 = \\text{const}$.`}
+                {`The shift $\\psi \\to \\psi + \\varepsilon$ spins the body about its own axis; axial symmetry keeps $L$ invariant, so $M_3$ is conserved.`}
               </p>
             </div>
 
@@ -1036,15 +1255,15 @@ export default function RigidBodyDynamicsLagrangian() {
               {`Nutation is the oscillation of $\\theta$ between two turning points $\\theta_1$ and $\\theta_2$ where $\\dot{\\theta} = 0$. These satisfy $U_{\\rm eff}(\\theta_{1,2}) = E'$.`}
             </p>
             <p>
-              {`The substitution $u = \\cos\\theta$ converts the energy equation to $\\dot{u}^2 = f(u)$. The function $f$ is a cubic polynomial in $u$: the $(M_z - M_3 u)^2/(1 - u^2)$ term from $U_{\\rm eff}$ and the $mg\\ell u$ term each contribute powers of $u$, and the $(1 - u^2)$ denominator clears to give a cubic when you multiply through. The polynomial $f$ has two real roots $u_1 = \\cos\\theta_1$ and $u_2 = \\cos\\theta_2$ in $[-1, 1]$.`}
+              {`The substitution $u = \\cos\\theta$ converts the energy equation to $\\dot{u}^2 = f(u)$. The function $f$ is a cubic polynomial in $u$. The $(M_z - M_3 u)^2/(1 - u^2)$ term and the $mg\\ell u$ term each contribute powers of $u$. Multiplying through by the $(1 - u^2)$ denominator clears it to a cubic. The polynomial $f$ has two real roots $u_1 = \\cos\\theta_1$ and $u_2 = \\cos\\theta_2$ in $[-1, 1]$.`}
             </p>
 
-            <VizCard id="02.7.4" title="Lagrange Top">
+            <VizFigure aspect="auto" title="Lagrange Top">
               <LagrangeTopUeff />
-            </VizCard>
+            </VizFigure>
 
             <h3>Precession</h3>
-            <p>The azimuthal angle evolves as:</p>
+            <p>{`The angle $\\varphi$ around the vertical (the azimuthal angle) evolves as:`}</p>
             <div className="lrn-eq">
               <span>{`$$\\dot{\\varphi} = \\frac{M_z - M_3\\cos\\theta}{I_1\\sin^2\\!\\theta}$$`}</span>
             </div>
@@ -1102,10 +1321,7 @@ export default function RigidBodyDynamicsLagrangian() {
               <details className="lrn-self-explain-reveal">
                 <summary>Expert explanation</summary>
                 <p>
-                  {`The most non-obvious step is eliminating $\\dot{\\varphi}$ and $\\dot{\\psi}$ via the conserved momenta. The effective potential absorbs all dependence on these two angles.`}
-                </p>
-                <p>
-                  {`The result is that a three-dimensional system (three Euler angles) reduces to a single ODE for $\\theta$. It works because the symmetry of the Lagrangian provides two exact integrals. These integrals fix the other two degrees of freedom.`}
+                  {`The most non-obvious step is eliminating $\\dot{\\varphi}$ and $\\dot{\\psi}$ through the conserved momenta. The effective potential absorbs all dependence on those two angles, so the three-Euler-angle system collapses to a single ODE for $\\theta$. The two exact integrals supplied by the symmetry fix the other two degrees of freedom.`}
                 </p>
               </details>
             </div>
@@ -1119,25 +1335,28 @@ export default function RigidBodyDynamicsLagrangian() {
             <div className="lrn-predict">
               <span className="lrn-predict-label">PREDICT</span>
               <p>
-                {`A torque-free asymmetric top starts rotating about its middle principal axis. Predict whether this rotation is stable or unstable over long times.`}
+                {`A free particle in empty space moves in a straight line. A free rigid body rotates with no torque. Predict what plays the role of "straight line" for the body's orientation.`}
               </p>
               <details className="lrn-predict-reveal">
                 <summary>Check your thinking</summary>
                 <p>
-                  {`Unstable. Small perturbations from the middle axis grow and send the angular momentum far from $e_2$. This is the tennis-racket theorem. Rotation about the largest or smallest axis is stable.`}
+                  {`The orientation traces a geodesic on $SO(3)$, the straightest path the body's own geometry allows. The inertia operator sets that geometry. So free rotation is straight-line motion, just in a curved space.`}
                 </p>
               </details>
             </div>
 
             <h3>Two Routes to Euler's Equations</h3>
             <p>
+              {`A Lie group is a group of motions (here, rotations) that also forms a smooth space you can do calculus on. $SO(3)$ is one. This section reads Euler's equations as motion on that space.`}
+            </p>
+            <p>
               {`When to use this: reach for Euler's equations when you need body-frame equations for free rotation. They avoid reference to any fixed space axes.`}
             </p>
 
             <div className="lrn-callout">
-              <span className="lrn-callout-label">Route 1 (L&L): Rotating-Frame Approach</span>
+              <span className="lrn-callout-label">Route 1: Rotating-Frame Approach</span>
               <p>
-                {`The time derivative of any vector $\\mathbf{A}$ satisfies $\\frac{d\\mathbf{A}}{dt} = \\frac{d'\\mathbf{A}}{dt} + \\boldsymbol{\\Omega} \\times \\mathbf{A}$ where $d'/dt$ is the derivative in the body frame.`}
+                {`The rotating-frame derivative rule $\\frac{d\\mathbf{A}}{dt} = \\frac{d'\\mathbf{A}}{dt} + \\boldsymbol{\\Omega} \\times \\mathbf{A}$ (built in the non-inertial-frames topic) converts space-frame rates to body-frame rates. Here $d'/dt$ is the derivative in the body frame.`}
               </p>
               <p>
                 {`Apply this to $\\mathbf{M}$ in the free case ($\\mathbf{K} = 0$): $d\\mathbf{M}/dt = 0$ in space, so $d'\\mathbf{M}/dt = -\\boldsymbol{\\Omega} \\times \\mathbf{M}$. In component form:`}
@@ -1151,34 +1370,40 @@ export default function RigidBodyDynamicsLagrangian() {
             </div>
 
             <div className="lrn-callout">
-              <span className="lrn-callout-label">Route 2 (Arnold): Lie-Group Approach</span>
+              <span className="lrn-callout-label">Route 2: Lie-Group Approach</span>
               <p>
-                {`The rotation matrix $B$ converts body-frame angular momentum $\\mathbf{M}$ into the space-frame value $\\mathbf{m} = B\\mathbf{M}$. As the body rotates, $B$ changes at a rate $\\dot{B} = B[\\boldsymbol{\\Omega}, \\cdot]$ - meaning the change in $B$ equals $B$ composed with the action of $\\boldsymbol{\\Omega}$ as a rotation generator. Differentiating $\\mathbf{m}$, using $d\\mathbf{m}/dt = 0$ (free body), and converting back gives:`}
+                {`First, two frames. $\\mathbf{M}$ is angular momentum read in the body frame. $\\mathbf{m}$ is the same vector read in the fixed space frame. The rotation matrix $B$ turns one into the other: $\\mathbf{m} = B\\mathbf{M}$. As the body rotates, $B$ changes at a rate $\\dot{B} = B[\\boldsymbol{\\Omega}]_\\times$, where $[\\boldsymbol{\\Omega}]_\\times$ is the skew matrix that acts as $\\boldsymbol{\\Omega}\\times$.`}
               </p>
               <p>
-                {`$\\frac{d\\mathbf{M}}{dt} = [\\mathbf{M}, \\boldsymbol{\\Omega}]$ - the body-frame angular momentum evolves by its own cross product with $\\boldsymbol{\\Omega}$. In components: $I_i\\dot{\\Omega}_i = (I_j - I_k)\\Omega_j\\Omega_k$ (cyclic in $i, j, k$).`}
+                {`Differentiating $\\mathbf{m}$, using $d\\mathbf{m}/dt = 0$ (free body), and converting back to the body frame gives:`}
+              </p>
+              <div className="lrn-eq">
+                <span>{`$$\\frac{d\\mathbf{M}}{dt} = [\\mathbf{M}, \\boldsymbol{\\Omega}] = \\boldsymbol{\\Omega} \\times \\mathbf{M}$$`}</span>
+              </div>
+              <p>
+                {`The bracket $[\\cdot, \\cdot]$ for these rotation generators is just the cross product: $[\\mathbf{M}, \\boldsymbol{\\Omega}] = \\boldsymbol{\\Omega} \\times \\mathbf{M}$. So the body-frame angular momentum evolves by its own cross product with $\\boldsymbol{\\Omega}$. In components: $I_i\\dot{\\Omega}_i = (I_j - I_k)\\Omega_j\\Omega_k$ (cyclic in $i, j, k$). This body-frame form is the Euler-Poincaré equation: the Euler-Lagrange equation reduced onto the rotation group.`}
               </p>
             </div>
 
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`L&L works in the space frame, sets $d\\mathbf{M}/dt = \\mathbf{K} = 0$, and converts to body-frame components. Arnold works in the body frame directly, using the Lie bracket to encode how the body frame rotates.`}
+                {`The first route works in the space frame, sets $d\\mathbf{M}/dt = \\mathbf{K} = 0$, and converts to body-frame components. The second route works in the body frame directly, using the Lie bracket to encode how the body frame rotates.`}
               </p>
               <p>
-                {`The bracket $[\\mathbf{M}, \\boldsymbol{\\Omega}] = \\boldsymbol{\\Omega} \\times \\mathbf{M}$ is the same cross product that appears in the L&L derivation. Both derivations use the same underlying mathematics.`}
+                {`The bracket $[\\mathbf{M}, \\boldsymbol{\\Omega}] = \\boldsymbol{\\Omega} \\times \\mathbf{M}$ is the same cross product that appears in the first derivation. Both derivations use the same underlying mathematics.`}
               </p>
             </div>
 
             <div className="lrn-compare">
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">L&L Derivation</span>
+                <span className="lrn-compare-title">Rotating-Frame Derivation</span>
                 <p>
                   {`Rotating-frame rule $d\\mathbf{A}/dt = d'\\mathbf{A}/dt + \\boldsymbol{\\Omega} \\times \\mathbf{A}$. Explicit, coordinate-based. Directly gives the component equations.`}
                 </p>
               </div>
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Arnold Lie-Group Derivation</span>
+                <span className="lrn-compare-title">Lie-Group Derivation</span>
                 <p>
                   {`$\\dot{\\mathbf{M}} = [\\mathbf{M}, \\boldsymbol{\\Omega}]$. Intrinsic, coordinate-free. Connects Euler's equations to geodesic flow on $SO(3)$.`}
                 </p>
@@ -1187,10 +1412,10 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <h3>Geodesic Flow Interpretation</h3>
             <p>
-              {`The free rigid body is a Hamiltonian system on $T^* SO(3)$. Euler's equations are the geodesic equations for the left-invariant metric defined by the inertia operator $A$.`}
+              {`A geodesic is the straightest (shortest) path the geometry allows. The free rigid body lives on $T^* SO(3)$, the phase space of the rotating body: every orientation paired with its conjugate momentum. Euler's equations are the geodesic equations for the left-invariant metric defined by the inertia operator $A$.`}
             </p>
             <p>
-              {`The body traces a geodesic on $SO(3)$. A free particle traces a straight line in flat space: same idea, different geometry. The mass distribution shapes the geometry; the geometry determines which paths are "straight". This is why two bodies with the same initial spin but different shapes will follow different trajectories even under identical torque.`}
+              {`The body traces a geodesic on $SO(3)$. A free particle traces a straight line in flat space: same idea, different geometry. The mass distribution shapes the geometry; the geometry determines which paths are "straight". Two bodies can start with the same spin but have different shapes. Under identical torque they then follow different trajectories.`}
             </p>
 
             <h3>Two First Integrals</h3>
@@ -1236,24 +1461,14 @@ export default function RigidBodyDynamicsLagrangian() {
             <h3>Proof</h3>
             <p>Two geometric facts make this work.</p>
             <p>
-              {`First, the gradient of $(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega})$ at $\\boldsymbol{\\Omega}$ is $2A\\boldsymbol{\\Omega} = 2\\mathbf{M}$. The gradient of any smooth surface is perpendicular to that surface, so the outward normal to the inertia ellipsoid at $\\boldsymbol{\\Omega}$ points along $\\mathbf{M}$. In the body frame, $\\mathbf{M}$ and the space-frame angular momentum $\\mathbf{m}$ are the same physical vector seen in two coordinate systems, so they are parallel. The invariable plane is perpendicular to $\\mathbf{m}$, which means the ellipsoid is always tangent to this plane at the tip of $\\boldsymbol{\\Omega}$.`}
+              {`First, the gradient of $(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega})$ at $\\boldsymbol{\\Omega}$ is $2A\\boldsymbol{\\Omega} = 2\\mathbf{M}$. The gradient of any smooth surface is perpendicular to that surface. So the outward normal to the inertia ellipsoid at $\\boldsymbol{\\Omega}$ points along $\\mathbf{M}$. The body-frame $\\mathbf{M}$ and the space-frame $\\mathbf{m}$ are the same vector in two coordinate systems, so they are parallel. The invariable plane is perpendicular to $\\mathbf{m}$, which means the ellipsoid is always tangent to this plane at the tip of $\\boldsymbol{\\Omega}$.`}
             </p>
             <p>
               {`Second, the distance from the origin to the tangent plane equals $(\\mathbf{m}, \\boldsymbol{\\omega})/|\\mathbf{m}| = 2T/|\\mathbf{m}|$. Since $T$ and $|\\mathbf{m}|$ are both conserved in free rotation, this distance is constant. The tangent plane stays at exactly the same position in space.`}
             </p>
             <p>
-              {`The no-slip condition: the contact point is the tip of $\\boldsymbol{\\Omega}$, the instantaneous rotation axis of the body. Every point on the instantaneous rotation axis has zero velocity at that instant - that is what "instantaneous rotation axis" means. In particular, the contact point has zero velocity relative to the fixed plane. Zero relative velocity at contact is exactly the definition of rolling without slipping.`}
+              {`The no-slip condition: the contact point is the tip of $\\boldsymbol{\\Omega}$, the instantaneous rotation axis of the body. Every point on the instantaneous rotation axis has zero velocity at that instant. That is what "instantaneous rotation axis" means. In particular, the contact point has zero velocity relative to the fixed plane. Zero relative velocity at contact is exactly the definition of rolling without slipping.`}
             </p>
-
-            <div className="lrn-elaborate">
-              <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-              <p>
-                {`The ellipsoid is the level set $f(\\boldsymbol{\\Omega}) = (A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega}) = 1$. The gradient of $f$ at any point $\\boldsymbol{\\Omega}$ is $\\nabla f = 2A\\boldsymbol{\\Omega} = 2\\mathbf{M}$.`}
-              </p>
-              <p>
-                {`The gradient of a level set is always normal to that set. So the normal to the ellipsoid at $\\boldsymbol{\\Omega}$ is proportional to $\\mathbf{M}$.`}
-              </p>
-            </div>
 
             <h3>Polhodes and Herpolhodes</h3>
             <ul className="lrn-list">
@@ -1268,9 +1483,9 @@ export default function RigidBodyDynamicsLagrangian() {
               {`Polhodes are closed curves near the $e_1$ and $e_3$ poles; they form a figure-eight (separatrix) through the $e_2$ pole.`}
             </p>
 
-            <VizCard id="02.7.5" title="Poinsot Construction">
+            <VizFigure aspect="auto" title="Poinsot Construction">
               <PoinsotConstruction />
-            </VizCard>
+            </VizFigure>
 
             <h3>The Symmetric-Top Special Case</h3>
             <p>
@@ -1279,13 +1494,13 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <div className="lrn-compare">
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Euler's Equations (L&L)</span>
+                <span className="lrn-compare-title">Euler's Equations (Body-Frame)</span>
                 <p>
                   {`Integrate to find $\\Omega_3 = \\text{const}$ and $\\Omega_\\perp$ rotating at frequency $\\omega = \\Omega_3(I_3 - I')/I'$. Provides time description in body frame.`}
                 </p>
               </div>
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Poinsot Construction (Arnold)</span>
+                <span className="lrn-compare-title">Poinsot Construction (Geometric)</span>
                 <p>
                   {`Draw the inertia ellipsoid; note the invariable plane is fixed; conclude the ellipsoid rolls. Provides space-frame geometric picture. Easier for qualitative understanding.`}
                 </p>
@@ -1339,9 +1554,9 @@ export default function RigidBodyDynamicsLagrangian() {
               {`Near the $e_2$ pole (middle $I$): the intersection forms an X-shaped curve (separatrix). Perturbing $\\mathbf{M}$ slightly from $e_2$ sends it along the separatrix. The trajectory reaches the opposite hemisphere. Unstable.`}
             </p>
 
-            <VizCard id="02.7.6" title="Tennis Racket Effect">
+            <VizFigure aspect="auto" title="Tennis Racket Effect">
               <TennisRacket />
-            </VizCard>
+            </VizFigure>
 
             <div className="lrn-insight">
               <span className="lrn-insight-label">Tennis-Racket Theorem</span>
@@ -1350,25 +1565,15 @@ export default function RigidBodyDynamicsLagrangian() {
               </p>
             </div>
 
-            <div className="lrn-elaborate">
-              <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-              <p>
-                {`Near the $e_1$ and $e_3$ poles, the intersection of the momentum sphere and energy ellipsoid is a small closed loop. Any perturbation moves $\\mathbf{M}$ along this loop. So $\\mathbf{M}$ stays close to the pole forever.`}
-              </p>
-              <p>
-                {`Near $e_2$, the loop is not closed but passes through an X-crossing. A small perturbation can send $\\mathbf{M}$ along the separatrix branch, which reaches the opposite hemisphere. That is why the perturbation grows large.`}
-              </p>
-            </div>
-
             <h3>Two-Torus Structure of Free-Top Motion</h3>
             <p>
-              {`The two conserved quantities $(E, |\\mathbf{M}|)$ pin the motion onto a surface in phase space. Think of two clocks running independently: the body-frame wobble of $\\boldsymbol{\\Omega}$ ticks at one frequency, and the precession of the symmetry axis around the fixed $\\mathbf{M}$ ticks at a second independent frequency. Together they trace a path on the surface of a torus (doughnut shape) in phase space. The motion has two independent periodicities, one for each clock.`}
+              {`The two conserved quantities $(E, |\\mathbf{M}|)$ pin the motion onto a surface in phase space. Think of two clocks running independently. The body-frame wobble of $\\boldsymbol{\\Omega}$ ticks at one frequency. The precession of the symmetry axis around the fixed $\\mathbf{M}$ ticks at a second. Together they trace a path on the surface of a torus (doughnut shape) in phase space. The motion has two independent periodicities, one for each clock.`}
             </p>
 
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`Two independent integrals $(E, |\\mathbf{M}|)$ on the phase space carve out a 2-dimensional level set. When the motion is bounded, the Liouville-Arnold theorem identifies this level set as a 2-torus $T^2$.`}
+                {`Two independent integrals $(E, |\\mathbf{M}|)$ on the phase space carve out a 2-dimensional level set. The Liouville-Arnold theorem says that a bounded level set, cut out by enough independent conserved quantities in involution, is always a torus. So this level set is a 2-torus $T^2$.`}
               </p>
               <p>
                 {`The two circles of the torus correspond to two independent periodic motions. One is the body-frame rotation of $\\boldsymbol{\\Omega}$. The other is the precession of the symmetry axis in space.`}
@@ -1377,7 +1582,7 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <h3>Quantitative Solution: Jacobi Elliptic Functions</h3>
             <p>
-              {`The asymmetric top is integrable. The solution uses Jacobi elliptic functions:`}
+              {`The asymmetric top is integrable. The solution uses the Jacobi elliptic functions $\\operatorname{sn}, \\operatorname{cn}, \\operatorname{dn}$. These are the natural stretch of $\\sin, \\cos$ for this nonlinear oscillation. The number $K(k)$ is their quarter-period (one full cycle is $4K$):`}
             </p>
             <div className="lrn-eq">
               <span>{`$$\\Omega_1 \\propto \\operatorname{cn}(\\tau, k), \\quad \\Omega_2 \\propto \\operatorname{sn}(\\tau, k), \\quad \\Omega_3 \\propto \\operatorname{dn}(\\tau, k)$$`}</span>
@@ -1423,13 +1628,13 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <div className="lrn-compare">
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">Arnold (Geometric Proof)</span>
+                <span className="lrn-compare-title">Geometric Proof</span>
                 <p>
                   {`Sphere meets ellipsoid: closed loops near $e_1$, $e_3$; separatrix at $e_2$. A topological argument giving qualitative insight.`}
                 </p>
               </div>
               <div className="lrn-compare-col">
-                <span className="lrn-compare-title">L&L (Explicit Solution)</span>
+                <span className="lrn-compare-title">Explicit Solution</span>
                 <p>
                   {`Jacobi sn, cn, dn functions; period formula $T = 4K\\sqrt{I_1 I_2 I_3/((I_3-I_2)(M^2-2EI_1))}$. Gives quantitative results, diverges at $k \\to 1$.`}
                 </p>
@@ -1534,7 +1739,7 @@ export default function RigidBodyDynamicsLagrangian() {
 
             <h3>The Similarity Theorem</h3>
             <p>
-              {`Arnold's similarity theorem states: multiplying all angular velocities by $N$ gives the same equations as dividing $g$ by $N^2$. The physical reason: spinning faster compresses the timescale of the motion; gravity, acting over a compressed time, has less effect on the trajectory - exactly as if $g$ were weaker. Formally:`}
+              {`The similarity theorem states: multiplying all angular velocities by $N$ gives the same equations as dividing $g$ by $N^2$. Here is the physical reason. Spinning faster compresses the timescale of the motion. Gravity acts over a compressed time, so it has less effect on the trajectory. The result looks exactly as if $g$ were weaker. Formally:`}
             </p>
             <div className="lrn-eq">
               <span>{`$$\\varphi_g(t, \\xi) = \\varphi_{N^2 g}(Nt, \\xi)$$`}</span>
@@ -1552,10 +1757,7 @@ export default function RigidBodyDynamicsLagrangian() {
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`From the body-frame Euler equation analysis, the transverse angular velocity rotates at frequency $\\omega = (I_3 - I')\\Omega_3/I'$. In Lagrange's description, the nutation frequency equals this body-frame rotation frequency.`}
-              </p>
-              <p>
-                {`The frequency $I_3\\omega_3/I_1$ is the body-frame rotation frequency in the limit $I_3 \\gg I'$. This is equivalent to $g = 0$ where $I' = I_1$.`}
+                {`This is the free-top body-frame frequency $\\omega = (I_3 - I')\\Omega_3/I'$ found earlier. In the fast limit $I_3\\omega_3/I_1$ is its leading value. The nutation you see equals this same body-frame rotation.`}
               </p>
             </div>
 
@@ -1622,7 +1824,7 @@ export default function RigidBodyDynamicsLagrangian() {
       },
       {
         q: `Write the angular velocity components $(\\Omega_1, \\Omega_2, \\Omega_3)$ in body principal axes in terms of Euler angles and their time derivatives.`,
-        a: `From L&L eq. 35.1: $\\Omega_1 = \\dot{\\varphi}\\sin\\theta\\sin\\psi + \\dot{\\theta}\\cos\\psi$; $\\Omega_2 = \\dot{\\varphi}\\sin\\theta\\cos\\psi - \\dot{\\theta}\\sin\\psi$; $\\Omega_3 = \\dot{\\varphi}\\cos\\theta + \\dot{\\psi}$. These come from projecting the three partial angular velocity contributions ($\\dot{\\theta}$ along line of nodes, $\\dot{\\varphi}$ along $Z$, $\\dot{\\psi}$ along $x_3$) onto body-frame axes.`
+        a: `In body principal axes the components are: $\\Omega_1 = \\dot{\\varphi}\\sin\\theta\\sin\\psi + \\dot{\\theta}\\cos\\psi$; $\\Omega_2 = \\dot{\\varphi}\\sin\\theta\\cos\\psi - \\dot{\\theta}\\sin\\psi$; $\\Omega_3 = \\dot{\\varphi}\\cos\\theta + \\dot{\\psi}$. These come from projecting the three partial angular velocity contributions ($\\dot{\\theta}$ along line of nodes, $\\dot{\\varphi}$ along $Z$, $\\dot{\\psi}$ along $x_3$) onto body-frame axes.`
       },
       {
         q: `State the inertia operator $A$ in terms of angular velocity and angular momentum. What are its key mathematical properties?`,
@@ -1722,19 +1924,19 @@ export default function RigidBodyDynamicsLagrangian() {
       },
       {
         q: `Explain in your own words why the fast top precesses slowly (proportional to $1/\\omega_3$) while the nutation is fast (proportional to $\\omega_3$).`,
-        a: `Nutation comes from the body-frame precession of $\\boldsymbol{\\Omega}$ about $e_3$. Its frequency is $\\omega_{\\rm nut} \\approx I_3\\omega_3/I_1$: the faster you spin, the faster the body-frame oscillation. Precession comes from the slow drift of the symmetry axis around the vertical, driven by gravity. The gravitational torque $\\sim mg\\ell$ is fixed, but it acts against a large angular momentum $M_3 = I_3\\omega_3$. A larger angular momentum resists the torque more. So the precession rate $mg\\ell/(I_3\\omega_3)$ decreases as $\\omega_3$ increases. The two frequencies separate by two powers of $\\omega_3$.`
+        a: `Nutation is the body-frame wobble of $\\boldsymbol{\\Omega}$ about $e_3$, at frequency $\\omega_{\\rm nut} \\approx I_3\\omega_3/I_1$. Faster spin means a faster wobble, so $\\omega_{\\rm nut}$ grows like $\\omega_3$. Precession is the gravity-driven drift of the symmetry axis around the vertical. The fixed torque $\\sim mg\\ell$ acts against the large spin momentum $M_3 = I_3\\omega_3$, so the precession rate $mg\\ell/(I_3\\omega_3)$ falls like $1/\\omega_3$. The two rates split by two powers of $\\omega_3$.`
       },
       {
         q: `Euler's equations for a free symmetric top give body-frame precession at frequency $\\omega = \\Omega_3(I_3 - I')/I'$. If $I_3 < I'$ (prolate top, like a pencil), what is the sign of $\\omega$? What does this mean geometrically?`,
         a: `If $I_3 < I'$, then $(I_3 - I') < 0$ and $\\omega < 0$. The transverse angular velocity $\\Omega_\\perp$ rotates in the opposite direction about $e_3$. This is opposite to the oblate case. Geometrically, the body-frame cone of $\\boldsymbol{\\Omega}$ precesses in the opposite sense about the symmetry axis.`
       },
       {
-        q: `Write Arnold's Lie-group form of Euler's equations for free rotation and derive the L&L component form from it.`,
-        a: `Arnold's form: $d\\mathbf{M}/dt = [\\mathbf{M}, \\boldsymbol{\\Omega}]$ (body frame), where $[\\cdot, \\cdot]$ is the vector cross product. In body principal axes, $M_i = I_i\\Omega_i$ and $[\\mathbf{M}, \\boldsymbol{\\Omega}]_1 = M_2\\Omega_3 - M_3\\Omega_2 = I_2\\Omega_2\\Omega_3 - I_3\\Omega_3\\Omega_2 = (I_2 - I_3)\\Omega_2\\Omega_3$. So $I_1\\dot{\\Omega}_1 = (I_2 - I_3)\\Omega_2\\Omega_3$. The same for the other two components.`
+        q: `Write the Lie-group form of Euler's equations for free rotation and derive the component form from it.`,
+        a: `Lie-group form: $d\\mathbf{M}/dt = [\\mathbf{M}, \\boldsymbol{\\Omega}]$ (body frame), where $[\\cdot, \\cdot]$ is the vector cross product. In body principal axes, $M_i = I_i\\Omega_i$ and $[\\mathbf{M}, \\boldsymbol{\\Omega}]_1 = M_2\\Omega_3 - M_3\\Omega_2 = I_2\\Omega_2\\Omega_3 - I_3\\Omega_3\\Omega_2 = (I_2 - I_3)\\Omega_2\\Omega_3$. So $I_1\\dot{\\Omega}_1 = (I_2 - I_3)\\Omega_2\\Omega_3$. The same for the other two components.`
       },
       {
         q: `Why is the free rigid body viewed as geodesic flow on SO(3)?`,
-        a: `A geodesic in a Riemannian manifold is a path of shortest length. The inertia operator $A$ defines a left-invariant Riemannian metric on $SO(3)$: $(T_A SO(3))^2 = (A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega})$ at each point. The Euler-Lagrange equations for $T = \\frac{1}{2}(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega})$ with no potential are exactly the geodesic equations for this metric. So free rotation is straight-line motion in the geometry of $SO(3)$. That geometry comes from the body's mass distribution.`
+        a: `A geodesic in a Riemannian manifold is a path of shortest length. The inertia operator $A$ defines a left-invariant Riemannian metric on $SO(3)$: at the identity the metric is $\\langle X, Y\\rangle = (AX, Y)$. The Euler-Lagrange equations for $T = \\frac{1}{2}(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega})$ with no potential are exactly the geodesic equations for this metric. So free rotation is straight-line motion in the geometry of $SO(3)$. That geometry comes from the body's mass distribution.`
       },
       {
         q: `Apply Euler's equations to a free spherical top ($I_1 = I_2 = I_3 = I$). What does the motion look like?`,
@@ -1781,15 +1983,15 @@ export default function RigidBodyDynamicsLagrangian() {
         a: `Increasing energy at constant $M^2$ moves the intersection of the energy ellipsoid and momentum sphere. Near $e_3$, higher energy means a larger energy ellipsoid. The intersection loop around the $e_3$ pole gets bigger. When $2E = M^2/I_2$, the polhode reaches the separatrix. Further energy increase makes the loop cross to the other side: the body orbits the $e_1$ pole instead.`
       },
       {
-        q: `What is Arnold's similarity theorem for the fast top, and what does it allow you to conclude?`,
+        q: `What is the similarity theorem for the fast top, and what does it allow you to conclude?`,
         a: `The theorem states: $\\varphi_g(t, \\xi) = \\varphi_{N^2 g}(Nt, \\xi)$. Multiplying all angular velocities by $N$ gives the same motion as dividing gravity by $N^2$. So studying $\\omega_3 \\to \\infty$ is equivalent to studying $g \\to 0$ (the free-top limit). This lets us derive the nutation frequency $\\omega_{\\rm nut} = I_3\\omega_3/I_1$ from the simple $g = 0$ case.`
       },
       {
         q: `Explain from first principles why free rigid-body motion on SO(3) is Hamiltonian, and what role the inertia operator plays.`,
-        a: `The inertia operator $A$ defines a left-invariant kinetic energy $T = \\frac{1}{2}(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega})$ on $SO(3)$. This is a Lagrangian $L = T$ (free body, no potential). The Legendre transform gives the Hamiltonian $H = \\frac{M_1^2}{2I_1} + \\frac{M_2^2}{2I_2} + \\frac{M_3^2}{2I_3}$. The Lie-Poisson bracket on $\\mathfrak{so}^*(3)$ provides the Poisson structure. The result is a Hamiltonian system with Euler's equations as Hamilton's equations.`
+        a: `The inertia operator $A$ defines a left-invariant kinetic energy $T = \\frac{1}{2}(A\\boldsymbol{\\Omega}, \\boldsymbol{\\Omega})$ on $SO(3)$. This is a Lagrangian $L = T$ (free body, no potential). The Legendre transform (the standard switch from velocities to momenta) gives the Hamiltonian $H = \\frac{M_1^2}{2I_1} + \\frac{M_2^2}{2I_2} + \\frac{M_3^2}{2I_3}$. With this Hamiltonian, Euler's equations become Hamilton's equations. The bracket structure that makes this a Hamiltonian system is built in the momentum-maps and reduction topic.`
       },
       {
-        q: `What classification does L&L give for rigid bodies based on their principal moments?`,
+        q: `How are rigid bodies classified by their principal moments?`,
         a: `Three types: (1) Asymmetric top: all three moments different, $I_1 \\neq I_2 \\neq I_3$. (2) Symmetric top: two moments equal, $I_1 = I_2 \\neq I_3$; this is the main case for tops and gyroscopes. (3) Spherical top: all three equal, $I_1 = I_2 = I_3$; $\\mathbf{M} = I\\boldsymbol{\\Omega}$ always. A rotator is a degenerate case with $I_3 = 0$ (collinear mass distribution).`
       },
       {
@@ -1856,8 +2058,7 @@ export default function RigidBodyDynamicsLagrangian() {
                     <p>{`$\\Omega_3 = \\dot{\\varphi}\\cos\\theta + \\dot{\\psi}$`}</p>
                   </td>
                   <td>
-                    Express body-frame angular velocity components in terms of Euler angle rates
-                    (L&L eq. 35.1).
+                    Express body-frame angular velocity components in terms of Euler angle rates.
                   </td>
                 </tr>
                 <tr>
@@ -1868,9 +2069,9 @@ export default function RigidBodyDynamicsLagrangian() {
               </tbody>
             </table>
 
-            <VizCard id="02.7.1" title="Euler Angles">
+            <VizFigure aspect="auto" title="Euler Angles">
               <EulerGimbals />
-            </VizCard>
+            </VizFigure>
 
             <h2>Inertia Tensor and Inertia Operator</h2>
             <table className="lrn-table">
@@ -2084,7 +2285,7 @@ export default function RigidBodyDynamicsLagrangian() {
                   <td>{`$\\mathbf{K} = 0$`}; torque-free rotation in principal axes.</td>
                 </tr>
                 <tr>
-                  <td>Euler's equations (Arnold Lie-group form)</td>
+                  <td>Euler's equations (Lie-group form)</td>
                   <td>{`$d\\mathbf{M}/dt = [\\mathbf{M}, \\boldsymbol{\\Omega}]$ in body frame`}</td>
                   <td>Intrinsic derivation; connects to geodesic flow on {`$SO(3)$`}.</td>
                 </tr>
@@ -2129,9 +2330,9 @@ export default function RigidBodyDynamicsLagrangian() {
               </tbody>
             </table>
 
-            <VizCard id="02.7.3" title="Precession Cone">
+            <VizFigure aspect="auto" title="Precession Cone">
               <PrecessionCone />
-            </VizCard>
+            </VizFigure>
 
             <h2>Lagrange (Heavy Symmetric) Top</h2>
             <table className="lrn-table">
@@ -2190,9 +2391,9 @@ export default function RigidBodyDynamicsLagrangian() {
               </tbody>
             </table>
 
-            <VizCard id="02.7.4" title="Lagrange Top">
+            <VizFigure aspect="auto" title="Lagrange Top">
               <LagrangeTopUeff />
-            </VizCard>
+            </VizFigure>
 
             <h3>Three Precession Path Types</h3>
             <table className="lrn-table">
@@ -2271,9 +2472,9 @@ export default function RigidBodyDynamicsLagrangian() {
               </tbody>
             </table>
 
-            <VizCard id="02.7.5" title="Poinsot Construction">
+            <VizFigure aspect="auto" title="Poinsot Construction">
               <PoinsotConstruction />
-            </VizCard>
+            </VizFigure>
 
             <h2>Asymmetric Top Stability</h2>
             <table className="lrn-table">
@@ -2327,9 +2528,9 @@ export default function RigidBodyDynamicsLagrangian() {
               </tbody>
             </table>
 
-            <VizCard id="02.7.6" title="Tennis Racket Effect">
+            <VizFigure aspect="auto" title="Tennis Racket Effect">
               <TennisRacket />
-            </VizCard>
+            </VizFigure>
 
             <h2>Sleeping Top and Fast Top</h2>
             <table className="lrn-table">

@@ -12,50 +12,74 @@ function useConfig() {
     cssPrefix: 'fra',
     documentTitle: 'Fractions, Ratios and Proportions AETHER',
     learning: {
-      groupTitle: 'Numbers and Expressions',
-      category: 'Module 3.6',
+      groupTitle: 'Number and Algebra Foundations',
+      category: 'Module 1',
       title: 'Fractions, Ratios and Proportions',
       subtitle:
         'Equality, comparison, powers, ratios, conversion, percent, and proportional reasoning.',
       sections: [
         <>
-          <h2>Fraction Equality</h2>
+          <h2>What a Fraction Is</h2>
 
           <p>
-            A fraction writes part of a whole. The top number is the <strong>numerator</strong>. The
-            bottom number is the <strong>denominator</strong>. Two fractions are equal when they
-            point to the same value.
+            A fraction names part of a whole. Cut something into equal parts and take some of them.
+            The bottom number, the denominator, says how many equal parts the whole is cut into. The
+            top number, the numerator, says how many of those parts you take.
           </p>
 
           <p>
-            The fastest check is to simplify. Cancel any number that divides both top and bottom:
+            So {`$\\tfrac{3}{4}$`} means 3 of 4 equal parts. On the number line, mark off the space
+            between 0 and 1 in four equal steps; {`$\\tfrac{3}{4}$`} sits at the third step.
+          </p>
+
+          <h2>Fraction Equality</h2>
+
+          <p>Two fractions are equal when they point to the same value.</p>
+
+          <h3>Simplifying</h3>
+
+          <p>
+            To simplify a fraction means to write it with the smallest whole numbers that name the
+            same value. The fastest tool is the equivalent-fractions rule.
+          </p>
+
+          <p>
+            Multiply or divide the top and the bottom by the same nonzero number, and the value does
+            not change. This works because doing the same thing to top and bottom is multiplying by
+            1 in disguise. A fraction with equal top and bottom is one whole, so{' '}
+            {`$\\tfrac{3}{3} = 1$`}, and multiplying by 1 changes nothing.
+          </p>
+
+          <p>
+            To reduce a fraction, divide top and bottom by any number that divides both, and repeat
+            until nothing divides both. Take {`$\\tfrac{12}{18}$`}. Both divide by 2:{' '}
+            {`$\\tfrac{12}{18} = \\tfrac{6}{9}$`}. Both divide by 3:{' '}
+            {`$\\tfrac{6}{9} = \\tfrac{2}{3}$`}. Nothing divides both 2 and 3, so{' '}
+            {`$\\tfrac{2}{3}$`} is fully reduced.
           </p>
 
           <div className="lrn-eq lrn-eq-hero">{`$$\\frac{9}{15} = \\frac{3 \\cdot 3}{3 \\cdot 5} = \\frac{3}{5}$$`}</div>
 
+          <h3>Cross-multiplication</h3>
+
           <p>
-            Canceling works because dividing top and bottom by the same number is multiplying by 1
-            in disguise: {`$\\tfrac{3}{3} = 1$`}, and multiplying by 1 changes nothing.
+            When two fractions do not look alike, check them by cross-multiplying. First a small
+            case: is {`$\\tfrac{2}{4} = \\tfrac{1}{2}$`}? Multiply across: {`$2 \\cdot 2 = 4$`} and{' '}
+            {`$4 \\cdot 1 = 4$`}. The two products match, so the fractions are equal.
           </p>
 
           <p>
-            When simplification is not obvious, cross-multiply. Two fractions {`$\\tfrac{a}{b}$`}{' '}
-            and {`$\\tfrac{c}{d}$`} are equal exactly when:
+            The rule in general. Two fractions {`$\\tfrac{a}{b}$`} and {`$\\tfrac{c}{d}$`} are equal
+            exactly when:
           </p>
 
           <div className="lrn-eq">{`$$\\frac{a}{b} = \\frac{c}{d} \\iff ad = bc$$`}</div>
 
           <p>
-            Try {`$\\tfrac{221}{391}$`} and {`$\\tfrac{403}{713}$`}. Nothing in the digits suggests
-            they are equal. Factoring solves it fast: 221 = 17·13 and 391 = 17·23, so{' '}
-            {`$\\tfrac{221}{391} = \\tfrac{13}{23}$`}. Likewise 403 = 31·13 and 713 = 31·23, so{' '}
-            {`$\\tfrac{403}{713} = \\tfrac{13}{23}$`}. Equal.
-          </p>
-
-          <p>
-            If you cannot factor, fall back to cross-multiplication: 221·713 and 391·403 are both
-            157573. Same product, equal fractions. This route gets the answer but never reveals that
-            both fractions are really 13/23.
+            Cross-multiplication settles cases where reducing is hard. Are {`$\\tfrac{6}{9}$`} and{' '}
+            {`$\\tfrac{8}{12}$`} equal? Cross-multiply: {`$6 \\cdot 12 = 72$`} and{' '}
+            {`$9 \\cdot 8 = 72$`}. Same product, so they are equal. Both reduce to{' '}
+            {`$\\tfrac{2}{3}$`}.
           </p>
         </>,
 
@@ -116,7 +140,7 @@ function useConfig() {
 
           <p>
             You cannot add fractions by adding the numerators and the denominators. The combination{' '}
-            {`$\\tfrac{a+c}{b+d}$`} is called the <strong>mediant</strong>, and it is never the sum:
+            {`$\\tfrac{a+c}{b+d}$`} is called the mediant, and it is never the sum:
           </p>
 
           <div className="lrn-eq">{`$$\\frac{2}{3} + \\frac{5}{7} \\neq \\frac{2+5}{3+7} = \\frac{7}{10}.$$`}</div>
@@ -139,77 +163,133 @@ function useConfig() {
 
           <p>
             Notice {`$\\tfrac{29}{21}$`} is larger than either {`$\\tfrac{2}{3}$`} or{' '}
-            {`$\\tfrac{5}{7}$`}. A sum should be. The mediant {`$\\tfrac{7}{10}$`} is smaller than
-            both, which is one quick sanity check that it cannot be the answer.
+            {`$\\tfrac{5}{7}$`}. A sum should be. The mediant {`$\\tfrac{7}{10}$`} lies between the
+            two, so it is not larger than both. That is one quick sanity check that it cannot be the
+            answer.
           </p>
         </>,
 
         <>
-          <h2>Neighbor Fractions and Taking a Fraction of Something</h2>
+          <h2>Multiplying and Dividing Fractions</h2>
+
+          <h3>Multiplying</h3>
+
+          <p>To multiply two fractions, multiply the tops and multiply the bottoms:</p>
+
+          <div className="lrn-eq lrn-eq-hero">{`$$\\frac{a}{b} \\cdot \\frac{c}{d} = \\frac{ac}{bd}.$$`}</div>
 
           <p>
-            Two fractions {`$\\tfrac{a}{b}$`} and {`$\\tfrac{c}{d}$`} are{' '}
-            <strong>neighbor fractions</strong> when:
-          </p>
-
-          <div className="lrn-eq">{`$$ad - bc = \\pm 1.$$`}</div>
-
-          <p>Neighbor fractions have three properties.</p>
-
-          <p>
-            <strong>1. Neither can be simplified.</strong> If {`$\\tfrac{a}{b}$`} could be reduced,
-            a factor {`$f > 1$`} would divide both {`$a$`} and {`$b$`}, so {`$f$`} would also divide{' '}
-            {`$ad - bc$`}. But {`$ad - bc = \\pm 1$`}, and no integer above 1 divides 1.
+            For example,{' '}
+            {`$\\tfrac{2}{3} \\cdot \\tfrac{4}{5} = \\tfrac{2 \\cdot 4}{3 \\cdot 5} = \\tfrac{8}{15}$`}
+            .
           </p>
 
           <p>
-            <strong>2. The mediant {`$\\tfrac{a+c}{b+d}$`} lies between them</strong> on the number
-            line, and it is a neighbor to each.
+            Why this works: "{`$\\tfrac{1}{2}$`} of {`$\\tfrac{4}{5}$`}" means cut{' '}
+            {`$\\tfrac{4}{5}$`}
+            in half. Cutting each fifth in half makes tenths, and you keep 4 of them, giving{' '}
+            {`$\\tfrac{4}{10} = \\tfrac{2}{5}$`}. The rule agrees:{' '}
+            {`$\\tfrac{1}{2} \\cdot \\tfrac{4}{5} = \\tfrac{4}{10}$`}. Taking a fraction "of"
+            something is multiplication.
+          </p>
+
+          <h3>The reciprocal</h3>
+
+          <p>
+            The reciprocal of a fraction flips it: the reciprocal of {`$\\tfrac{2}{3}$`} is{' '}
+            {`$\\tfrac{3}{2}$`}. A fraction times its reciprocal is 1, since the tops and bottoms
+            swap and cancel: {`$\\tfrac{2}{3} \\cdot \\tfrac{3}{2} = \\tfrac{6}{6} = 1$`}.
+          </p>
+
+          <h3>Dividing</h3>
+
+          <p>To divide by a fraction, multiply by its reciprocal:</p>
+
+          <div className="lrn-eq lrn-eq-hero">{`$$\\frac{a}{b} \\div \\frac{c}{d} = \\frac{a}{b} \\cdot \\frac{d}{c}.$$`}</div>
+
+          <p>
+            Here is why flipping works. Dividing asks "how many of the second fit into the first?"
+            Dividing by {`$\\tfrac{c}{d}$`} is the same as multiplying by the number that undoes it,
+            and the number that undoes {`$\\tfrac{c}{d}$`} is its reciprocal {`$\\tfrac{d}{c}$`},
+            since the two multiply to 1.
           </p>
 
           <p>
-            <strong>3. No simpler fraction sneaks between them.</strong> No fraction{' '}
-            {`$\\tfrac{e}{f}$`} with positive integer {`$e$`} and {`$f < b + d$`} lies strictly
-            between {`$\\tfrac{a}{b}$`} and {`$\\tfrac{c}{d}$`}. The mediant is the simplest
-            in-between fraction there is.
+            Example:{' '}
+            {`$\\tfrac{3}{4} \\div \\tfrac{2}{3} = \\tfrac{3}{4} \\cdot \\tfrac{3}{2} = \\tfrac{9}{8}$`}
+            .
           </p>
 
+          <h3>Cutting a string with no ruler</h3>
+
           <p>
-            <strong>Taking a fraction of something.</strong> "Take {`$\\tfrac{3}{4}$`} of a{' '}
-            {`$\\tfrac{2}{3}$`}-meter string" means multiply. To cut a half-meter piece from a
-            two-thirds-meter string with no ruler, ask what fraction of the whole string is half a
-            meter:
+            Cut a half-meter piece from a two-thirds-meter string. Ask what fraction of the whole
+            string a half meter is. That is a division:
           </p>
 
           <div className="lrn-eq">{`$$\\frac{\\frac{1}{2}}{\\frac{2}{3}} = \\frac{1}{2} \\cdot \\frac{3}{2} = \\frac{3}{4}.$$`}</div>
 
-          <p>Fold the string in fourths and cut off one of the four pieces.</p>
+          <p>
+            So a half meter is three fourths of the string. Fold the string in fourths and cut off
+            one of the four pieces. You can now multiply and divide any two fractions.
+          </p>
+        </>,
+
+        <>
+          <h2>Neighbor Fractions</h2>
+
+          <p>
+            Two fractions {`$\\tfrac{a}{b}$`} and {`$\\tfrac{c}{d}$`} are neighbor fractions when:
+          </p>
+
+          <div className="lrn-eq">{`$$ad - bc = \\pm 1.$$`}</div>
+
+          <p>
+            A small pair: {`$\\tfrac{1}{2}$`} and {`$\\tfrac{2}{3}$`}, since{' '}
+            {`$1 \\cdot 3 - 2 \\cdot 2 = -1$`}. Neighbor fractions have three properties.
+          </p>
+
+          <ol className="lrn-list">
+            <li>
+              Neither can be simplified. If {`$\\tfrac{a}{b}$`} could be reduced, a factor{' '}
+              {`$f > 1$`} would divide both {`$a$`} and {`$b$`}, so {`$f$`} would also divide{' '}
+              {`$ad - bc$`}. But {`$ad - bc = \\pm 1$`}, and no whole number above 1 divides 1.
+            </li>
+            <li>
+              The mediant {`$\\tfrac{a+c}{b+d}$`} lies between them on the number line, and it is a
+              neighbor to each.
+            </li>
+            <li>
+              No simpler fraction sneaks between them. No fraction {`$\\tfrac{e}{f}$`} with{' '}
+              {`$f < b + d$`} lies strictly between {`$\\tfrac{a}{b}$`} and {`$\\tfrac{c}{d}$`}. The
+              mediant is the simplest in-between fraction there is.
+            </li>
+          </ol>
         </>,
 
         <>
           <h2>Powers</h2>
 
           <p>
-            A <strong>power</strong> is shorthand for repeated multiplication. Multiplying {`$a$`}{' '}
-            by itself {`$n$`} times:
+            You met powers in the place-value lesson. Here is a closer look. A power is shorthand
+            for repeated multiplication. Multiply {`$a$`} by itself {`$n$`} times:
           </p>
 
           <div className="lrn-eq lrn-eq-hero">{`$$a^n = \\underbrace{a \\cdot a \\cdot \\ldots \\cdot a}_{n \\text{ times}}.$$`}</div>
 
           <p>
-            The number {`$a$`} is the <strong>base</strong> and {`$n$`} is the{' '}
-            <strong>exponent</strong>. So{' '}
+            The number {`$a$`} is the base and {`$n$`} is the exponent. So{' '}
             {`$2^6 = 2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 \\cdot 2 = 64$`}.
           </p>
 
           <p>
-            Two names with geometric origin: {`$a^2$`} is "{`$a$`} squared", the area of a square
-            with side {`$a$`}. {`$a^3$`} is "{`$a$`} cubed", the volume of a cube with edge {`$a$`}.
+            Two names come from geometry. {`$a^2$`} is "{`$a$`} squared", the area of a square with
+            side {`$a$`}. {`$a^3$`} is "{`$a$`} cubed", the volume of a cube with edge {`$a$`}.
           </p>
 
           <p>
-            Powers blow up fast. {`$2^{10} = 1024$`}. {`$2^{1000}$`} has about 301 decimal digits.
-            That "0.3 per power" pattern is the gateway to logarithms, which we will meet later.
+            Powers blow up fast. {`$2^{10} = 1024$`}, which is already over a thousand. Each extra
+            power of 2 roughly multiplies the size by 1000 every ten steps.
           </p>
         </>,
 
@@ -221,20 +301,12 @@ function useConfig() {
             speed of light:
           </p>
 
-          <div className="lrn-eq">{`$$300{,}000 \\text{ \\frac{km}{s}} = 3 \\cdot 10^5 \\text{ \\frac{km}{s}} = 3 \\cdot 10^8 \\text{ \\frac{m}{s}} = 3 \\cdot 10^{10} \\text{ \\frac{cm}{s}}.$$`}</div>
+          <div className="lrn-eq">{`$$300{,}000 \\, \\frac{\\text{km}}{\\text{s}} = 3 \\cdot 10^5 \\, \\frac{\\text{km}}{\\text{s}} = 3 \\cdot 10^8 \\, \\frac{\\text{m}}{\\text{s}} = 3 \\cdot 10^{10} \\, \\frac{\\text{cm}}{\\text{s}}.$$`}</div>
 
           <p>
             Changing units shifts the exponent. 1 km = 10³ m, so {`$10^5$`} km ={' '}
             {`$10^5 \\cdot 10^3$`} m = {`$10^8$`} m. The value is the same; only the bookkeeping
             moves.
-          </p>
-
-          <p>
-            <strong>Light-year to the nearest star.</strong> The nearest star is about 4 light-years
-            away. A light-year is the distance light covers in one year. Seconds in a year ≈ 3·10⁷,
-            so a light-year ≈{' '}
-            {`$3 \\cdot 10^8 \\text{ \\frac{m}{s}} \\cdot 3 \\cdot 10^7 \\text{ s} = 9 \\cdot 10^{15}$`}{' '}
-            m. Four light-years ≈ {`$3.6 \\cdot 10^{16}$`} m.
           </p>
 
           <p>
@@ -252,10 +324,6 @@ function useConfig() {
             </thead>
             <tbody>
               <tr>
-                <td>Molecules in 1 g water</td>
-                <td>{`$\\approx 3 \\cdot 10^{22}$`}</td>
-              </tr>
-              <tr>
                 <td>Earth radius</td>
                 <td>{`$\\approx 6 \\cdot 10^6$`} m</td>
               </tr>
@@ -268,24 +336,8 @@ function useConfig() {
                 <td>{`$\\approx 1.5 \\cdot 10^{11}$`} m</td>
               </tr>
               <tr>
-                <td>Observable universe radius</td>
-                <td>{`$\\approx 10^{26}$`} m</td>
-              </tr>
-              <tr>
-                <td>Mass of Earth</td>
-                <td>{`$\\approx 6 \\cdot 10^{24}$`} kg</td>
-              </tr>
-              <tr>
-                <td>Age of Earth</td>
-                <td>{`$\\approx 5 \\cdot 10^9$`} years</td>
-              </tr>
-              <tr>
-                <td>Age of universe</td>
-                <td>{`$\\approx 1.5 \\cdot 10^{10}$`} years</td>
-              </tr>
-              <tr>
                 <td>World population</td>
-                <td>{`$\\approx 5 \\cdot 10^9$`}</td>
+                <td>{`$\\approx 8 \\cdot 10^9$`}</td>
               </tr>
               <tr>
                 <td>Human lifespan</td>
@@ -315,14 +367,14 @@ function useConfig() {
           <div className="lrn-eq lrn-eq-hero">{`$$a^0 = 1, \\quad a^{-n} = \\frac{1}{a^n}.$$`}</div>
 
           <p>
-            These are <strong>definitions</strong>, not theorems. The notation {`$2^{-1}$`} cannot
-            mean "use 2 as a factor −1 times" because no such operation exists. Mathematicians chose
+            These are choices we make, not facts we prove. The notation {`$2^{-1}$`} cannot mean
+            "use 2 as a factor −1 times" because no such operation exists. Mathematicians chose
             these definitions because they keep the product rule working for every integer.
           </p>
 
           <p>
-            <strong>Compact algebraic notation.</strong> Negative exponents replace fraction bars.
-            Repeated multiplication of variables collapses into one line:
+            Negative exponents replace fraction bars. Repeated multiplication of variables collapses
+            into one line:
           </p>
 
           <div className="lrn-eq">{`$$2 \\cdot a \\cdot a \\cdot a \\cdot a \\cdot b \\cdot b \\cdot b \\cdot c \\cdot c \\cdot d = 2a^4 b^3 c^2 d.$$`}</div>
@@ -373,22 +425,14 @@ function useConfig() {
                 <td>{`$10^{-10}$`} m</td>
               </tr>
               <tr>
-                <td>Mass of water molecule</td>
-                <td>{`$\\approx 3 \\cdot 10^{-23}$`} g</td>
+                <td>Thickness of paper</td>
+                <td>{`$\\approx 10^{-4}$`} m</td>
               </tr>
               <tr>
-                <td>Living cell size</td>
+                <td>Virus size</td>
                 <td>
-                  {`$\\approx 15$`} to {`$350 \\cdot 10^{-9}$`} m
+                  {`$\\approx 20$`} to {`$300 \\cdot 10^{-9}$`} m
                 </td>
-              </tr>
-              <tr>
-                <td>Elementary length</td>
-                <td>{`$\\approx 10^{-31}$`} cm</td>
-              </tr>
-              <tr>
-                <td>Wavelength of red light</td>
-                <td>{`$\\approx 7 \\cdot 10^{-7}$`} m</td>
               </tr>
             </tbody>
           </table>
@@ -401,9 +445,8 @@ function useConfig() {
 
           <p>
             The same physical thing can look "big" or "small" depending on the unit. Earth's radius
-            is about {`$6 \\cdot 10^6$`} km but only {`$4 \\cdot 10^{-5}$`} astronomical units. The
-            Sun–Earth distance is {`$1.5 \\cdot 10^{11}$`} m but only 0.000015 light-years. Big and
-            small are choices of unit, not facts about quantities.
+            is about {`$6 \\cdot 10^6$`} m, which is also 6000 km, or 6 million m. Big and small are
+            choices of unit, not facts about the quantity.
           </p>
         </>,
 
@@ -477,78 +520,13 @@ function useConfig() {
         </>,
 
         <>
-          <h2>
-            Why {`$a^0 = 1$`} and {`$a^{-n} = \\tfrac{1}{a^n}$`} Are Forced
-          </h2>
-
-          <p>
-            We chose the definitions {`$a^0 = 1$`} and {`$a^{-n} = \\frac{1}{a^n}$`}. We did not
-            have to. But once we insist the product rule {`$a^m \\cdot a^n = a^{m+n}$`} holds for
-            every integer, no other choice survives.
-          </p>
-
-          <p>
-            By the product rule, {`$a^n \\cdot a^{-n} = a^{n + (-n)} = a^0$`}. The same product,
-            written using {`$a^{-n} = \\frac{1}{a^n}$`}, equals{' '}
-            {`$a^n \\cdot (\\frac{1}{a^n}) = 1$`}. Set the two forms equal: {`$a^0 = 1$`}. Any other
-            value would break the product rule.
-          </p>
-
-          <p>
-            And once {`$a^0 = 1$`}, the rule {`$a^n \\cdot a^{-n} = a^0 = 1$`} forces{' '}
-            {`$a^{-n} = \\frac{1}{a^n}$`}. The two definitions stand together. Choose one, the other
-            follows.
-          </p>
-        </>,
-
-        <>
-          <h2>Why Negative Times Negative Is Positive</h2>
-
-          <p>
-            We prove {`$(-3) \\cdot (-5) = 15$`} using only the distributive law{' '}
-            {`$a(b+c) = ab + ac$`} and the fact that opposites sum to zero. Distribution is the
-            axiom that makes algebra work; if we want negative numbers to obey it too, this
-            consequence cannot be avoided.
-          </p>
-
-          <p>
-            <strong>Step 1: {`$3 \\cdot (-5) = -15$`}.</strong> Start with {`$-5 + 5 = 0$`}.
-            Multiply both sides by 3 and distribute:
-          </p>
-
-          <div className="lrn-eq">{`$$3 \\cdot (-5) + 3 \\cdot 5 = 3 \\cdot 0 = 0.$$`}</div>
-
-          <p>
-            Since {`$3 \\cdot 5 = 15$`}, this reads {`$3 \\cdot (-5) + 15 = 0$`}. The only number
-            that adds to 15 to give 0 is {`$-15$`}. So {`$3 \\cdot (-5) = -15$`}.
-          </p>
-
-          <p>
-            <strong>Step 2: {`$(-3) \\cdot (-5) = 15$`}.</strong> Start with {`$(-3) + 3 = 0$`}.
-            Multiply both sides by {`$-5$`} and distribute:
-          </p>
-
-          <div className="lrn-eq">{`$$(-3) \\cdot (-5) + 3 \\cdot (-5) = 0 \\cdot (-5) = 0.$$`}</div>
-
-          <p>
-            From Step 1, {`$3 \\cdot (-5) = -15$`}. Substitute: {`$(-3) \\cdot (-5) - 15 = 0$`}. So{' '}
-            {`$(-3) \\cdot (-5) = 15$`}.
-          </p>
-
-          <p>
-            "Negative times negative is positive" is not a slogan. It is the only rule consistent
-            with distribution.
-          </p>
-        </>,
-
-        <>
           <h2>What a Ratio Is</h2>
 
           <p>
-            A <strong>ratio</strong> tells you the relative size of two or more quantities, not
-            their absolute counts. If a pet store has dogs and cats in ratio 2:3, then for every 2
-            dogs there are 3 cats. There could be 2 dogs and 3 cats, or 200 and 300, or 2 million
-            and 3 million. The ratio is the same.
+            A ratio tells you the relative size of two or more quantities, not their absolute
+            counts. If a pet store has dogs and cats in ratio 2:3, then for every 2 dogs there are 3
+            cats. There could be 2 dogs and 3 cats, or 200 and 300, or 2 million and 3 million. The
+            ratio is the same.
           </p>
 
           <p>Ratios are written two ways:</p>
@@ -570,36 +548,38 @@ function useConfig() {
         <>
           <h2>Basic Ratio Problems</h2>
 
-          <p>A class has boys and girls in ratio 3:4 and 84 students total. How many girls?</p>
+          <p>
+            A class has boys and girls in ratio 3:4 and 84 students total. How many girls? Three
+            routes reach the same answer.
+          </p>
 
           <p>
-            <strong>Algebra.</strong> Let {`$b$`} = boys, {`$g$`} = girls. Ratio:{' '}
+            Algebra route. Let {`$b$`} = boys, {`$g$`} = girls. Ratio:{' '}
             {`$\\tfrac{b}{g} = \\tfrac{3}{4}$`}, so {`$b = \\tfrac{3}{4}g$`}. Total:{' '}
             {`$b + g = 84$`}, so {`$\\tfrac{3}{4}g + g = \\tfrac{7}{4}g = 84$`}, giving {`$g = 48$`}
             .
           </p>
 
           <p>
-            <strong>Grouping.</strong> Each group of {`$3+4 = 7$`} students has 4 girls. There are{' '}
+            Grouping route. Each group of {`$3+4 = 7$`} students has 4 girls. There are{' '}
             {`$\\frac{84}{7} = 12$`} groups, so {`$12 \\cdot 4 = 48$`} girls.
           </p>
 
           <p>
-            <strong>Part-to-whole.</strong> Girls are 4 out of every 7 students. So girls ={' '}
+            Part-to-whole route. Girls are 4 out of every 7 students. So girls ={' '}
             {`$\\tfrac{4}{7} \\cdot 84 = 48$`}.
           </p>
 
           <p>Three routes, one answer.</p>
 
           <p>
-            <strong>Three quantities.</strong> Dogs:cats:mice = 2:3:30, with 385 animals total.
-            Total ratio parts = 35. Cats are 3 out of every 35, so cats ={' '}
-            {`$\\tfrac{3}{35} \\cdot 385 = 33$`}.
+            With three quantities: dogs:cats:mice = 2:3:30, with 385 animals total. Total ratio
+            parts = 35. Cats are 3 out of every 35, so cats = {`$\\tfrac{3}{35} \\cdot 385 = 33$`}.
           </p>
 
           <p>
-            <strong>Switch the ratio to use what you know.</strong> Nine of every 11 dentists in a
-            city say no candy. 18 dentists say yes to candy. How many dentists are there?
+            Switch the ratio to use what you know. Nine of every 11 dentists in a city say no candy.
+            18 dentists say yes to candy. How many dentists are there?
           </p>
 
           <p>
@@ -617,10 +597,11 @@ function useConfig() {
         <>
           <h2>Harder Ratio Problems</h2>
 
+          <h3>A bag of marbles</h3>
+
           <p>
-            <strong>Marbles bag.</strong> A bag holds green and red marbles. Green is{' '}
-            {`$\\tfrac{2}{5}$`} of the bag. Add 4 green and remove 10 red, and green becomes twice
-            red. How many marbles were there originally?
+            A bag holds green and red marbles. Green is {`$\\tfrac{2}{5}$`} of the bag. Add 4 green
+            and remove 10 red, and green becomes twice red. How many marbles were there originally?
           </p>
 
           <p>
@@ -638,56 +619,31 @@ function useConfig() {
           <p>
             So {`$24 = 2g$`}, giving {`$g = 12$`}, {`$r = 18$`}, total 30. The wrong move here is
             writing {`$\\tfrac{g}{r} = \\tfrac{2}{5}$`} instead of{' '}
-            {`$\\tfrac{g}{g+r} = \\tfrac{2}{5}$`}. "Green is two-fifths of the bag" is
-            part-to-whole, not part-to-part.
+            {`$\\tfrac{g}{g+r} = \\tfrac{2}{5}$`}. The next section explains why.
           </p>
 
-          <div className="lrn-warning">
-            <strong>Read the ratio in words before you write the equation.</strong> "Two-fifths of
-            the bag" is part-to-whole. "Two greens for every five reds" is part-to-part. Same
-            digits, different equations.
-          </div>
+          <h3>Ratio of an expression</h3>
 
           <p>
-            <strong>Ratio of an expression.</strong> Given{' '}
-            {`$\\tfrac{10x - 3y}{13x - 2y} = \\tfrac{3}{5}$`}, find {`$\\tfrac{x}{y}$`}.
-            Cross-multiply, expand, collect:
+            Given {`$\\tfrac{10x - 3y}{13x - 2y} = \\tfrac{3}{5}$`}, find {`$\\tfrac{x}{y}$`}.
+            Cross-multiply, expand, and collect like terms:
           </p>
 
           <div className="lrn-eq">{`$$5(10x - 3y) = 3(13x - 2y) \\implies 50x - 15y = 39x - 6y \\implies 11x = 9y.$$`}</div>
 
           <p>So {`$\\tfrac{x}{y} = \\tfrac{9}{11}$`}.</p>
 
+          <h3>Linked ratios</h3>
+
           <p>
-            <strong>Linked ratios.</strong> Given {`$\\tfrac{x}{y} = \\tfrac{2}{3}$`} and{' '}
-            {`$\\tfrac{y}{z} = \\tfrac{7}{5}$`}, find {`$\\tfrac{z}{x}$`}. Express {`$x$`} and{' '}
-            {`$z$`} both in terms of {`$y$`}: {`$x = \\tfrac{2}{3}y$`}, {`$z = \\tfrac{5}{7}y$`}.
-            Then
+            Given {`$\\tfrac{x}{y} = \\tfrac{2}{3}$`} and {`$\\tfrac{y}{z} = \\tfrac{7}{5}$`}, find{' '}
+            {`$\\tfrac{z}{x}$`}. Express {`$x$`} and {`$z$`} both in terms of {`$y$`}:{' '}
+            {`$x = \\tfrac{2}{3}y$`}, {`$z = \\tfrac{5}{7}y$`}. Then
           </p>
 
           <div className="lrn-eq">{`$$\\frac{z}{x} = \\frac{(\\frac{5}{7}) y}{(\\frac{2}{3}) y} = \\frac{5}{7} \\cdot \\frac{3}{2} = \\frac{15}{14}.$$`}</div>
 
           <p>The {`$y$`}'s cancel because the final answer is itself a ratio, scale-free.</p>
-
-          <p>
-            <strong>Clock hands.</strong> At what time, just after 10:00, do the minute and hour
-            hands point the same direction? Mark positions in "minute marks" on the clock face.
-          </p>
-
-          <p>
-            The minute hand moves 60 marks per hour. The hour hand moves 5 marks per hour, since it
-            covers one hour-marker (5 minutes' worth) per hour. So the hour hand moves at{' '}
-            {`$\\tfrac{5}{60} = \\tfrac{1}{12}$`} the minute hand's speed.
-          </p>
-
-          <p>
-            Let {`$m$`} = minutes after 10:00. The minute hand sits at mark {`$m$`}. The hour hand
-            starts at mark 50 (the 10) and moves to {`$50 + \\tfrac{m}{12}$`}. They coincide when
-          </p>
-
-          <div className="lrn-eq">{`$$m = 50 + \\frac{m}{12} \\implies \\frac{11m}{12} = 50 \\implies m = \\frac{600}{11} = 54\\tfrac{6}{11}.$$`}</div>
-
-          <p>The hands meet at 10:54 and 6/11 minutes past.</p>
         </>,
 
         <>
@@ -721,8 +677,8 @@ function useConfig() {
           <h2>Conversion Factors</h2>
 
           <p>
-            A <strong>conversion factor</strong> is a ratio that equals 1. Multiplying by 1 leaves
-            the value alone, but lets you swap units. Twelve inches equal one foot, so:
+            A conversion factor is a ratio that equals 1. Multiplying by 1 leaves the value alone,
+            but lets you swap units. Twelve inches equal one foot, so:
           </p>
 
           <div className="lrn-eq">{`$$\\frac{1 \\text{ ft}}{12 \\text{ in}} = 1.$$`}</div>
@@ -737,34 +693,38 @@ function useConfig() {
             direction.
           </p>
 
+          <h3>Squared units</h3>
+
           <p>
-            <strong>Squared units.</strong> Convert 28 m² to ft². Apply the meter-to-foot factor
-            twice, because the unit is squared:
+            Convert 28 m² to ft². Apply the meter-to-foot factor twice, because the unit is squared:
           </p>
 
           <div className="lrn-eq">{`$$28 \\text{ m}^2 \\cdot \\left(\\frac{3.28 \\text{ ft}}{1 \\text{ m}}\\right)^2 \\approx 301 \\text{ ft}^2.$$`}</div>
 
+          <h3>A unit in the denominator</h3>
+
           <p>
-            <strong>Converting a unit in the denominator.</strong> A medicine doses at 32 mL per kg
-            of body weight. Scales show pounds. Convert mL/kg to mL/lb. The conversion factor is{' '}
-            0.4536 kg per pound. To cancel the kg in the denominator, put kg in the numerator of the
-            factor:
+            A medicine doses at 32 mL per kg of body weight. Scales show pounds. Convert mL/kg to
+            mL/lb. The conversion factor is 0.4536 kg per pound. To cancel the kg in the
+            denominator, put kg in the numerator of the factor:
           </p>
 
-          <div className="lrn-eq">{`$$\\frac{32 \\text{ mL}}{1 \\text{ kg}} \\cdot \\frac{0.4536 \\text{ kg}}{1 \\text{ lb}} \\approx 14.5 \\text{ \\frac{mL}{lb}}.$$`}</div>
+          <div className="lrn-eq">{`$$\\frac{32 \\text{ mL}}{1 \\text{ kg}} \\cdot \\frac{0.4536 \\text{ kg}}{1 \\text{ lb}} \\approx 14.5 \\, \\frac{\\text{mL}}{\\text{lb}}.$$`}</div>
+
+          <h3>Factors need not involve 1</h3>
 
           <p>
-            <strong>Factors do not have to involve 1.</strong> On planet Ghaap, 2 Gheeps = 3 Ghiips,
-            2 Ghiips = 5 Ghoops, 3 Ghoops = 2 Ghuups. How many Ghuups in 7 Gheeps? Chain the
-            factors:
+            On planet Ghaap, 2 Gheeps = 3 Ghiips, 2 Ghiips = 5 Ghoops, 3 Ghoops = 2 Ghuups. How many
+            Ghuups in 7 Gheeps? Chain the factors:
           </p>
 
           <div className="lrn-eq">{`$$7 \\text{ Gheeps} \\cdot \\frac{3 \\text{ Ghiips}}{2 \\text{ Gheeps}} \\cdot \\frac{5 \\text{ Ghoops}}{2 \\text{ Ghiips}} \\cdot \\frac{2 \\text{ Ghuups}}{3 \\text{ Ghoops}} = \\frac{7 \\cdot 3 \\cdot 5 \\cdot 2}{2 \\cdot 2 \\cdot 3} \\text{ Ghuups} = 17.5 \\text{ Ghuups}.$$`}</div>
 
+          <h3>Chaining several factors: a paint job</h3>
+
           <p>
-            <strong>Chained conversion: paint job.</strong> A wall is 370 m². Paint covers 300 ft²
-            per gallon. Paint is sold in 4-liter cans. 1 liter = 0.264 gallons, 1 m = 3.28 ft. How
-            many cans?
+            A wall is 370 m². Paint covers 300 ft² per gallon. Paint is sold in 4-liter cans. 1
+            liter = 0.264 gallons, 1 m = 3.28 ft. How many cans?
           </p>
 
           <div className="lrn-eq">{`$$370 \\text{ m}^2 \\cdot \\left(\\frac{3.28 \\text{ ft}}{1 \\text{ m}}\\right)^2 \\cdot \\frac{1 \\text{ gal}}{300 \\text{ ft}^2} \\cdot \\frac{1 \\text{ L}}{0.264 \\text{ gal}} \\cdot \\frac{1 \\text{ can}}{4 \\text{ L}} \\approx 12.6 \\text{ cans}.$$`}</div>
@@ -773,10 +733,35 @@ function useConfig() {
         </>,
 
         <>
+          <h2>Fractions as Decimals</h2>
+
+          <p>
+            A fraction is a division waiting to happen. To turn a fraction into a decimal, divide
+            the top by the bottom.
+          </p>
+
+          <p>
+            Take {`$\\tfrac{3}{4}$`}. Divide 3 by 4. Three ones will not cover a 4, so write 0 and a
+            dot, then keep going into the tenths: 30 tenths hold seven 4s with 2 left, and 20
+            hundredths hold five 4s exactly. So {`$\\tfrac{3}{4} = 0.75$`}.
+          </p>
+
+          <p>
+            Some divisions never end. {`$\\tfrac{2}{3}$`} gives {`$0.666\\ldots$`}, the same digit
+            forever. A fraction gives a repeating decimal when the bottom keeps leaving a remainder.
+          </p>
+
+          <p>
+            Going the other way is just place value. {`$0.75 = \\tfrac{75}{100} = \\tfrac{3}{4}$`}{' '}
+            after reducing.
+          </p>
+        </>,
+
+        <>
           <h2>Percent</h2>
 
           <p>
-            <strong>Percent</strong> means "per hundred". If {`$a$`} is {`$x\\%$`} of {`$b$`}:
+            Percent means "per hundred". If {`$a$`} is {`$x\\%$`} of {`$b$`}:
           </p>
 
           <div className="lrn-eq lrn-eq-hero">{`$$\\frac{a}{b} = \\frac{x}{100}, \\quad \\text{so} \\quad a = \\frac{x}{100} \\cdot b.$$`}</div>
@@ -784,25 +769,22 @@ function useConfig() {
           <p>Four patterns cover almost every percent problem.</p>
 
           <p>
-            <strong>What is 60% of 250?</strong> {`$\\tfrac{x}{250} = \\tfrac{60}{100}$`}, so{' '}
+            What is 60% of 250? {`$\\tfrac{x}{250} = \\tfrac{60}{100}$`}, so{' '}
             {`$x = 250 \\cdot 0.60 = 150$`}.
           </p>
 
           <p>
-            <strong>What percent of 240 is 48?</strong> {`$\\tfrac{48}{240} = \\tfrac{x}{100}$`}.
-            Simplify the left: {`$\\tfrac{48}{240} = \\tfrac{1}{5} = \\tfrac{20}{100}$`}. So 48 is
-            20% of 240.
+            What percent of 240 is 48? {`$\\tfrac{48}{240} = \\tfrac{x}{100}$`}. Simplify the left:{' '}
+            {`$\\tfrac{48}{240} = \\tfrac{1}{5} = \\tfrac{20}{100}$`}. So 48 is 20% of 240.
           </p>
 
           <p>
-            <strong>36 is 120% of what?</strong> {`$\\tfrac{36}{x} = \\tfrac{120}{100}$`}, so{' '}
+            36 is 120% of what? {`$\\tfrac{36}{x} = \\tfrac{120}{100}$`}, so{' '}
             {`$x = 36 \\cdot \\tfrac{100}{120} = 30$`}. The result 36 is larger than 30, which fits
             "more than 100% of".
           </p>
 
-          <p>
-            <strong>Increase or decrease by {`$k\\%$`}.</strong>
-          </p>
+          <p>Increase or decrease by {`$k\\%$`}:</p>
 
           <ul className="lrn-list">
             <li>
@@ -818,6 +800,11 @@ function useConfig() {
           <p>
             "Increase by 75%" means "keep the original 100% and add 75% more", which is 175% of the
             original, which is multiplying by 1.75.
+          </p>
+
+          <p>
+            You can now answer any of the four percent questions and any single increase or
+            decrease.
           </p>
         </>,
 
@@ -846,15 +833,14 @@ function useConfig() {
             always 50%, no matter what x was.
           </p>
 
-          <div className="lrn-warning">
-            Successive percentage changes <strong>multiply</strong>. They never add.
-          </div>
+          <div className="lrn-warning">Successive percentage changes multiply. They never add.</div>
+
+          <h3>Reversing a percent increase</h3>
 
           <p>
-            <strong>Reversing a percent increase.</strong> The avocado price is now 1.5 times the
-            original. What percent decrease returns it? You have to divide by 1.5, which is{' '}
-            multiplying by {`$\\tfrac{1}{1.5} = \\tfrac{2}{3}$`}. The reduction is{' '}
-            {`$1 - \\tfrac{2}{3} = \\tfrac{1}{3}$`} of the new price.
+            The avocado price is now 1.5 times the original. What percent decrease returns it? You
+            have to divide by 1.5, which is multiplying by {`$\\tfrac{1}{1.5} = \\tfrac{2}{3}$`}.
+            The reduction is {`$1 - \\tfrac{2}{3} = \\tfrac{1}{3}$`} of the new price.
           </p>
 
           <div className="lrn-eq">{`$$\\frac{0.5 x}{1.5 x} = \\frac{1}{3} = 33\\tfrac{1}{3}\\%.$$`}</div>
@@ -869,45 +855,46 @@ function useConfig() {
         <>
           <h2>Percent Problems with Ratios and Mixtures</h2>
 
-          <p>
-            <strong>Pre-tax salary.</strong> You need {`$\\$450$`} per week after a 25% tax. Find
-            the pre-tax salary.
-          </p>
+          <h3>Pre-tax salary</h3>
+
+          <p>You need {`$\\$450$`} per week after a 25% tax. Find the pre-tax salary.</p>
 
           <p>
             After tax is 75% of before tax. So {`$0.75 x = 450$`}, giving {`$x = 600$`}.
           </p>
 
           <p>
-            <strong>Visual route.</strong> Picture the pre-tax salary as a rectangle split into four
-            equal quarters. Tax takes one quarter. The remaining three quarters equal {`$\\$450$`},
-            so one quarter is {`$\\$150$`}, and the whole rectangle is {`$\\$600$`}. Same answer, no
-            algebra.
+            There is a picture route too. Split the pre-tax salary into four equal quarters. Tax
+            takes one quarter. The remaining three quarters equal {`$\\$450$`}, so one quarter is{' '}
+            {`$\\$150$`}, and the whole rectangle is {`$\\$600$`}. Same answer, no algebra.
           </p>
 
+          <h3>A fully relative problem</h3>
+
           <p>
-            <strong>MATHCOUNTS.</strong> 6% of 8th graders and 3% of 7th graders are in MATHCOUNTS.
-            There are 1.5 times as many 8th graders as 7th graders. What percent of all students
-            compete?
+            Suppose 6% of 8th graders and 3% of 7th graders join a math club. There are 1.5 times as
+            many 8th graders as 7th graders. What percent of all students join?
           </p>
 
           <p>
             All the information is relative. Pick any value for the 7th-grade headcount and the
             answer should not depend on it. Let {`$x$`} = 7th graders, so {`$1.5 x$`} = 8th graders.
-            Participants total {`$0.03 x + 0.06 \\cdot 1.5 x = 0.12 x$`}. Students total{' '}
-            {`$x + 1.5 x = 2.5 x$`}. Percent participating ={' '}
-            {`$\\tfrac{0.12 x}{2.5 x} = 0.048 = 4.8\\%$`}.
+            Club members total {`$0.03 x + 0.06 \\cdot 1.5 x = 0.12 x$`}. Students total{' '}
+            {`$x + 1.5 x = 2.5 x$`}. Percent joining = {`$\\tfrac{0.12 x}{2.5 x} = 0.048 = 4.8\\%$`}
+            .
           </p>
 
           <p>
-            The {`$x$`} cancels. That is what "scale-free" means: when every input is a ratio or a
-            percent, the absolute size drops out and you can pick any number you like even 100, so
-            all the arithmetic stays whole.
+            The {`$x$`} cancels. That is what "scale-free" means. Every input is a ratio or a
+            percent, so the absolute size drops out. You can pick any starting number you like, even
+            100, and the arithmetic stays whole.
           </p>
 
+          <h3>Acid replacement</h3>
+
           <p>
-            <strong>Acid replacement.</strong> 180 mL of solution is 20% acid. Replace {`$x$`} mL
-            with pure (100%) acid to reach 30% acid.
+            180 mL of solution is 20% acid. Replace {`$x$`} mL with pure (100%) acid to reach 30%
+            acid.
           </p>
 
           <p>
@@ -923,25 +910,27 @@ function useConfig() {
           <h2>Direct Proportion</h2>
 
           <p>
-            Two quantities are <strong>directly proportional</strong> when their ratio is constant.
-            Double one and the other doubles. Halve one and the other halves.
+            Two quantities are directly proportional when their ratio is constant. Double one and
+            the other doubles. Halve one and the other halves.
           </p>
 
           <div className="lrn-eq lrn-eq-hero">{`$$\\frac{x}{y} = k \\quad \\text{or} \\quad x = k y.$$`}</div>
 
           <p>
-            The constant {`$k$`} is the <strong>constant of proportionality</strong>. Find it once,
-            and you know how the two quantities relate forever after.
+            The constant {`$k$`} is the constant of proportionality. Find it once, and you know how
+            the two quantities relate forever after.
           </p>
 
           <p>
-            <strong>Finding y from x.</strong> If {`$\\frac{x}{y}$`} stays at {`$\\frac{5}{9}$`} and{' '}
-            {`$x = 14$`}, then {`$y = 14 \\cdot \\frac{9}{5} = \\frac{126}{5}$`}.
+            Finding y from x: if {`$\\frac{x}{y}$`} stays at {`$\\frac{5}{9}$`} and {`$x = 14$`},
+            then {`$y = 14 \\cdot \\frac{9}{5} = \\frac{126}{5}$`}.
           </p>
 
+          <h3>Shadows</h3>
+
           <p>
-            <strong>Shadows.</strong> Mary is 5 ft tall and casts a 12 ft shadow. A flagpole casts a
-            42 ft shadow. Height-over-shadow is the same constant for both, so flagpole height ={' '}
+            Mary is 5 ft tall and casts a 12 ft shadow. A flagpole casts a 42 ft shadow.
+            Height-over-shadow is the same constant for both, so flagpole height ={' '}
             {`$42 \\cdot \\frac{5}{12} = 17.5$`} ft.
           </p>
 
@@ -954,12 +943,13 @@ function useConfig() {
             Constant slope {`$k$`}.
           </p>
 
+          <h3>Higher-order direct proportion</h3>
+
           <p>
-            <strong>Higher-order direct proportion.</strong> "{`$a$`} and {`$b^2$`} are directly
-            proportional" means {`$\\frac{a}{b^2} = k$`}, not {`$\\frac{a}{b} = k$`}. If {`$a = 5$`}{' '}
-            when {`$b = 9$`}, then {`$k = \\frac{5}{81}$`}. So when {`$b = 12$`},{' '}
-            {`$a = (\\frac{5}{81}) \\cdot 144 = \\frac{80}{9}$`}. The takeaway: read the proportion
-            exactly as stated. The variable that gets the exponent keeps it.
+            "{`$a$`} and {`$b^2$`} are directly proportional" means {`$\\frac{a}{b^2} = k$`}, not{' '}
+            {`$\\frac{a}{b} = k$`}. If {`$a = 5$`} when {`$b = 9$`}, then {`$k = \\frac{5}{81}$`}.
+            So when {`$b = 12$`}, {`$a = (\\frac{5}{81}) \\cdot 144 = \\frac{80}{9}$`}. Read the
+            proportion exactly as stated. The variable that gets the exponent keeps it.
           </p>
         </>,
 
@@ -967,16 +957,18 @@ function useConfig() {
           <h2>Inverse Proportion</h2>
 
           <p>
-            Two quantities are <strong>inversely proportional</strong> when their product is
-            constant. Double one, the other halves. Triple one, the other shrinks to a third.
+            Two quantities are inversely proportional when their product is constant. Double one,
+            the other halves. Triple one, the other shrinks to a third.
           </p>
 
           <div className="lrn-eq lrn-eq-hero">{`$$x y = k.$$`}</div>
 
+          <h3>Clearing a field</h3>
+
           <p>
-            <strong>Field clearing.</strong> 12 people clear a field in 18 hours. People · hours ={' '}
-            {`$12 \\cdot 18 = 216$`}. With 9 people, time = {`$\\frac{216}{9} = 24$`} hours. Fewer
-            workers, more hours, same total work.
+            12 people clear a field in 18 hours. People · hours = {`$12 \\cdot 18 = 216$`}. With 9
+            people, time = {`$\\frac{216}{9} = 24$`} hours. Fewer workers, more hours, same total
+            work.
           </p>
 
           <div className="lrn-graph">
@@ -989,17 +981,11 @@ function useConfig() {
             constant.
           </p>
 
-          <p>
-            <strong>Higher-order inverse proportion.</strong> "{`$w^2$`} and {`$z^3$`} are inversely
-            proportional" means {`$w^2 z^3 = k$`}. If {`$w = 3$`} and {`$z = 12$`}, then{' '}
-            {`$k = 9 \\cdot 1728 = 15552$`}. When {`$w = 6$`}, {`$z^3 = \\frac{15552}{36} = 432$`},
-            so {`$z = \\sqrt[3]{432} = 6 \\sqrt[3]{2}$`}.
-          </p>
+          <h3>Inverse of inverse is direct</h3>
 
           <p>
-            <strong>Inverse of inverse is direct.</strong> If {`$x$`} and {`$y$`} are inversely
-            proportional ({`$xy = a$`}) and {`$y$`} and {`$z$`} are inversely proportional (
-            {`$yz = b$`}), divide:
+            If {`$x$`} and {`$y$`} are inversely proportional ({`$xy = a$`}) and {`$y$`} and {`$z$`}{' '}
+            are inversely proportional ({`$yz = b$`}), divide:
           </p>
 
           <div className="lrn-eq">{`$$\\frac{xy}{yz} = \\frac{a}{b} \\implies \\frac{x}{z} = \\frac{a}{b}.$$`}</div>
@@ -1014,8 +1000,8 @@ function useConfig() {
           <h2>Joint Proportion</h2>
 
           <p>
-            A quantity is <strong>jointly proportional</strong> to two others when it depends on
-            both directly at once:
+            A quantity is jointly proportional to two others when it depends on both directly at
+            once:
           </p>
 
           <div className="lrn-eq lrn-eq-hero">{`$$x = k y z \\quad \\text{or} \\quad \\frac{x}{y z} = k.$$`}</div>
@@ -1025,71 +1011,39 @@ function useConfig() {
             Double both and {`$x$`} quadruples.
           </p>
 
+          <h3>Woodchucks</h3>
+
           <p>
-            <strong>Woodchucks.</strong> Five woodchucks chuck eight pieces of wood in two hours.
-            How much would one woodchuck chuck in 24 hours? Wood is jointly proportional to
-            woodchucks and time: wood = {`$k \\cdot \\text{chucks} \\cdot \\text{time}$`}. From the
-            data, {`$k = \\frac{8}{(5 \\cdot 2)} = 0.8$`}. So{' '}
-            {`$x = 0.8 \\cdot 1 \\cdot 24 = 19.2$`} pieces.
+            Five woodchucks chuck eight pieces of wood in two hours. How much would one woodchuck
+            chuck in 24 hours? Wood is jointly proportional to woodchucks and time: wood ={' '}
+            {`$k \\cdot \\text{chucks} \\cdot \\text{time}$`}. From the data,{' '}
+            {`$k = \\frac{8}{(5 \\cdot 2)} = 0.8$`}. So {`$x = 0.8 \\cdot 1 \\cdot 24 = 19.2$`}{' '}
+            pieces.
+          </p>
+
+          <h3>A wage example</h3>
+
+          <p>
+            A crew's total wage is jointly proportional to the number of workers and the number of
+            days they work: wage = {`$k \\cdot \\text{workers} \\cdot \\text{days}$`}.
           </p>
 
           <p>
-            <strong>Ideal Gas Law.</strong> For a fixed amount of gas:
+            Suppose 4 workers earn {`$\\$960$`} in 3 days. Find {`$k$`} from the data:{' '}
+            {`$k = \\frac{960}{4 \\cdot 3} = 80$`} dollars per worker per day. So 6 workers over 5
+            days earn {`$80 \\cdot 6 \\cdot 5 = \\$2400$`}.
           </p>
 
-          <div className="lrn-eq">{`$$PV = nRT.$$`}</div>
-
           <p>
-            With {`$n$`} and {`$R$`} fixed, group everything constant on one side and everything
-            variable on the other:
-          </p>
-
-          <div className="lrn-eq">{`$$\\frac{PV}{T} = nR \\quad \\text{(constant)}.$$`}</div>
-
-          <p>This is the reusable form. Two states of the same gas satisfy</p>
-
-          <div className="lrn-eq">{`$$\\frac{P_1 V_1}{T_1} = \\frac{P_2 V_2}{T_2}.$$`}</div>
-
-          <p>From this single relation, read off three behaviors:</p>
-
-          <ul className="lrn-list">
-            <li>
-              Fix {`$T$`}: {`$PV$`} is constant. So {`$P$`} and {`$V$`} are inversely proportional.
-            </li>
-            <li>
-              Fix {`$V$`}: {`$\\frac{P}{T}$`} is constant. So {`$P$`} and {`$T$`} are directly
-              proportional.
-            </li>
-            <li>
-              Fix {`$P$`}: {`$\\frac{V}{T}$`} is constant. So {`$V$`} and {`$T$`} are directly
-              proportional.
-            </li>
-          </ul>
-
-          <p>
-            <strong>Worked use.</strong> Volume triples, pressure halves. New temperature?
-          </p>
-
-          <div className="lrn-eq">{`$$\\frac{P V}{T_1} = \\frac{(\\frac{P}{2})(3V)}{T_2} \\implies T_2 = \\frac{3}{2} T_1.$$`}</div>
-
-          <p>Temperature rises 50%.</p>
-
-          <p>
-            <strong>Why Kelvin and not Celsius.</strong> Look at {`$PV = nRT$`}. Pressure, volume,
-            and the count of molecules are all non-negative; {`$R$`} is a positive constant; so{' '}
-            {`$T$`} must be non-negative too. Celsius and Fahrenheit allow negative numbers, which
-            would force {`$P$`} or {`$V$`} negative. Kelvin starts at absolute zero (0 K = −273.16
-            °C) and never goes below. Only an absolute temperature scale works in a law of this
-            form.
+            Double the workers alone and the wage doubles. Double the days alone and it doubles.
+            Double both and it quadruples. That is the joint-proportion fingerprint.
           </p>
         </>,
 
         <>
           <h2>Rate Problems</h2>
 
-          <p>
-            <strong>Distance equals rate times time:</strong>
-          </p>
+          <p>Distance equals rate times time:</p>
 
           <div className="lrn-eq lrn-eq-hero">{`$$d = r \\cdot t.$$`}</div>
 
@@ -1098,116 +1052,44 @@ function useConfig() {
             rate. Find two of the three quantities and the third drops out.
           </p>
 
+          <h3>Same distance, new time</h3>
+
           <p>
-            <strong>Same distance, new time.</strong> Prima drives 45 mph for 40 minutes to reach
-            the dentist. Distance = {`$45 \\cdot \\tfrac{2}{3} = 30$`} miles. Leaving 10 minutes
-            late, she has 30 minutes for those 30 miles, so new rate ={' '}
-            {`$\\frac{30}{\\tfrac{1}{2}} = 60$`} mph.
+            Prima drives 45 mph for 40 minutes to reach the dentist. Distance ={' '}
+            {`$45 \\cdot \\tfrac{2}{3} = 30$`} miles. Leaving 10 minutes late, she has 30 minutes
+            for those 30 miles, so new rate = {`$\\frac{30}{\\tfrac{1}{2}} = 60$`} mph.
+          </p>
+
+          <h3>Two speeds over the same distance</h3>
+
+          <p>
+            Jack drives 30 mph to work and 45 mph home, same route both ways. The average speed is
+            not the midpoint 37.5 mph. The slower leg takes longer, so it weighs more.
           </p>
 
           <p>
-            <strong>Average speed when distances match: harmonic mean.</strong> Jack drives 30 mph
-            to work, 45 mph home. Average?
-          </p>
-
-          <p>
-            The naive {`$\\frac{(30 + 45)}{2} = 37.5$`} is wrong. The slower leg takes longer, so it
-            pulls the true average below the midpoint. Let one-way distance = {`$x$`}. Total
-            distance {`$= 2x$`}. Total time{' '}
-            {`$= \\tfrac{x}{30} + \\tfrac{x}{45} = \\tfrac{5x}{90}$`}.
+            Let the one-way distance be {`$x$`}. Total distance is {`$2x$`}. Total time is{' '}
+            {`$\\tfrac{x}{30} + \\tfrac{x}{45} = \\tfrac{5x}{90}$`}.
           </p>
 
           <div className="lrn-eq">{`$$\\bar{v} = \\frac{2x}{\\frac{5x}{90}} = 36 \\text{ mph}.$$`}</div>
 
           <p>
-            The closed form for two speeds over equal distances is the harmonic mean{' '}
-            {`$\\tfrac{2ab}{a+b}$`}. Use it whenever a round trip happens at two different speeds.
+            Always set up average speed as total distance over total time. Never average the two
+            speeds directly.
+          </p>
+
+          <h3>Combining and closing</h3>
+
+          <p>
+            Two more rate ideas show up often. When workers act at the same time, their rates add.
+            When one thing chases another, track the gap and use the difference of the rates. The
+            practice problems put both to work.
           </p>
 
           <p>
-            <strong>Rates add when workers combine.</strong> Sam paints a fence alone in 12 hours
-            (rate {`$\\tfrac{1}{12}$`} fence/hour). Pippin paints alone in 8 hours (rate{' '}
-            {`$\\tfrac{1}{8}$`} fence/hour). Sam starts at 1 pm. Pippin joins at 3 pm. When do they
-            finish?
-          </p>
-
-          <p>
-            Sam works 2 hours alone: {`$\\tfrac{2}{12} = \\tfrac{1}{6}$`} done. Remaining:{' '}
-            {`$\\tfrac{5}{6}$`}. Together they paint at{' '}
-            {`$\\tfrac{1}{12} + \\tfrac{1}{8} = \\tfrac{5}{24}$`} per hour. Time to finish:
-          </p>
-
-          <div className="lrn-eq">{`$$\\frac{5}{24} \\cdot t = \\frac{5}{6} \\implies t = 4 \\text{ hours}.$$`}</div>
-
-          <p>They finish at 7 pm. Rates add because both workers contribute in the same hour.</p>
-
-          <p>
-            <strong>Relative rate: Flo and Carl.</strong> Flo reads 1 page per minute starting at
-            1:00. Carl reads {`$\\tfrac{6}{5}$`} pages per minute and starts at 1:30 with Flo
-            already 30 pages ahead. When does Carl catch up?
-          </p>
-
-          <p>
-            You could track each reader's page count and set them equal. Faster: ask only how fast
-            Carl gains on Flo. Difference of rates: {`$\\tfrac{6}{5} - 1 = \\tfrac{1}{5}$`} page per
-            minute. Closing a 30-page gap at that rate takes {`$30 \\div \\tfrac{1}{5} = 150$`}{' '}
-            minutes. Carl catches her at 4:00.
-          </p>
-
-          <p>
-            Relative-rate framing turns chase, meeting, and round-trip problems into one-step{' '}
-            {`$d = rt$`} questions on the gap, not the positions.
-          </p>
-
-          <p>
-            <strong>Trains and a bee.</strong> Two trains 60 miles apart approach at 20 mph each. A
-            bee flies between them at 30 mph until they collide. How far does it fly?
-          </p>
-
-          <p>
-            Do not track the bee. Track the trains. They close at {`$40$`} mph, so they meet in{' '}
-            {`$\\frac{60}{40} = 1.5$`} hours. The bee flies for 1.5 hours at 30 mph: {`$45$`} miles.
-            The zig-zag count never enters.
-          </p>
-
-          <p>
-            <strong>Moving medium: the river.</strong> Barry rows 5 mph in still water. The river
-            flows 3 mph. Going downstream he covers 5 + 3 = 8 mph. Going upstream he covers 5 − 3 ={' '}
-            2 mph. He rows downstream from noon and returns home at 5 pm. When did he turn around?
-          </p>
-
-          <p>
-            Let {`$d$`} = hours downstream, {`$u$`} = hours upstream. Downstream distance equals
-            upstream distance: {`$8 d = 2 u$`}, so {`$u = 4 d$`}. Total time: {`$d + u = 5$`}, so{' '}
-            {`$d + 4 d = 5$`}, giving {`$d = 1$`} hour. He turned around at 1 pm.
-          </p>
-
-          <p>
-            <strong>The man and the tunnel.</strong> A man runs through a railway tunnel. When he is
-            2/5 of the way through, he hears a train coming from behind. If he runs back, he reaches
-            the entrance just as the train does. If he runs forward, he reaches the far end just as
-            the train reaches it. The train moves at 60 mph. How fast is the man?
-          </p>
-
-          <p>
-            Let the tunnel have length 1. The man is at position 2/5. Let the train be at distance{' '}
-            {`$T$`} from the entrance.
-          </p>
-
-          <p>
-            Running back, the man covers 2/5 in the time the train covers {`$T$`}. Running forward,
-            the man covers 3/5 in the time the train covers {`$T + 1$`} (entrance plus tunnel). Same
-            train, same speed, so for each scenario time = distance / speed gives the same time the
-            man takes:
-          </p>
-
-          <div className="lrn-eq">{`$$\\frac{\\frac{2}{5}}{v} = \\frac{T}{60}, \\quad \\frac{\\frac{3}{5}}{v} = \\frac{T + 1}{60}.$$`}</div>
-
-          <p>
-            Subtract: {`$\\tfrac{\\frac{1}{5}}{v} = \\tfrac{1}{60}$`}, so{' '}
-            {`$v = \\frac{60}{5} = 12$`} mph. In the time the man covers 1/5 of the tunnel, the
-            train covers the whole tunnel. The man runs at 1/5 the train's speed. No tunnel length,
-            no train distance, just ratios.
+            You can now solve any steady-rate problem: travel, work, reading, or filling, all from{' '}
+            {`$d = r \\cdot t$`}.
           </p>
         </>
       ]
@@ -1215,12 +1097,12 @@ function useConfig() {
 
     practice: [
       {
-        q: `Are $\\frac{221}{391}$ and $\\frac{403}{713}$ equal? Show how you would decide if you did not remember the two-digit multiplication table.`,
-        a: `They are equal, both reducing to $\\frac{13}{23}$. Fast route: factor. 221 = 17·13 and 391 = 17·23, so $\\frac{221}{391} = \\frac{13}{23}$. Likewise 403 = 31·13 and 713 = 31·23, so $\\frac{403}{713} = \\frac{13}{23}$. Slow route (no factoring): cross-multiply. 221·713 = 157573 and 391·403 = 157573. Equal products confirm equality but never reveal the underlying $\\frac{13}{23}$.`
+        q: `Are $\\frac{6}{9}$ and $\\frac{8}{12}$ equal? Decide two ways.`,
+        a: `They are equal. Reduce both: $\\frac{6}{9} = \\frac{2}{3}$ (divide top and bottom by 3) and $\\frac{8}{12} = \\frac{2}{3}$ (divide by 4). Or cross-multiply: $6 \\cdot 12 = 72$ and $9 \\cdot 8 = 72$. Equal products mean equal fractions.`
       },
       {
-        q: `Which is bigger, $\\frac{10001}{10002}$ or $\\frac{100001}{100002}$?`,
-        a: `$\\frac{100001}{100002}$ is bigger. Both fractions are just under 1, so compare distances from 1. $1 - \\frac{10001}{10002} = \\frac{1}{10002}$ and $1 - \\frac{100001}{100002} = \\frac{1}{100002}$. The second gap is smaller, so the second fraction is closer to 1 and therefore the larger.`
+        q: `Which is bigger, $\\frac{2000}{2001}$ or $\\frac{3000}{3001}$?`,
+        a: `$\\frac{3000}{3001}$ is bigger. Both fractions are just under 1, so compare distances from 1. $1 - \\frac{2000}{2001} = \\frac{1}{2001}$ and $1 - \\frac{3000}{3001} = \\frac{1}{3001}$. The second gap is smaller, so the second fraction is closer to 1 and therefore the larger.`
       },
       {
         q: `Add $\\frac{2}{3}$ and $\\frac{5}{7}$. Explain why $\\frac{7}{10}$ is not the answer.`,
@@ -1240,7 +1122,7 @@ function useConfig() {
       },
       {
         q: `The nearest star is about 4 light-years away. Express that distance in meters using powers of 10. The speed of light is $3 \\times 10^8$ m/s and a year has about $3 \\times 10^7$ seconds.`,
-        a: `Distance light covers in one year: $3 \\times 10^8 \\text{ \\frac{m}{s}} \\cdot 3 \\times 10^7 \\text{ s} = 9 \\times 10^{15}$ m. Four light-years: $3.6 \\times 10^{16}$ m. The product rule for powers handles the unit chain in one line.`
+        a: `Distance light covers in one year: $3 \\times 10^8 \\, \\frac{\\text{m}}{\\text{s}} \\cdot 3 \\times 10^7 \\text{ s} = 9 \\times 10^{15}$ m. Four light-years: $3.6 \\times 10^{16}$ m. The product rule for powers handles the unit chain in one line.`
       },
       {
         q: `The powers $2^3 = 8$, $2^2 = 4$, $2^1 = 2$ halve at each step. What must $2^0$ and $2^{-1}$ equal, and why is this a definition rather than a theorem?`,
@@ -1263,8 +1145,8 @@ function useConfig() {
         a: `From the product rule, $a^n \\cdot a^{-n} = a^{n + (-n)} = a^0$. The same product, written using $a^{-n} = \\frac{1}{a^n}$, equals $a^n \\cdot (\\frac{1}{a^n}) = 1$. So $a^0 = 1$. Any other value would break the product rule's universal validity.`
       },
       {
-        q: `Prove $(-3) \\cdot (-5) = 15$ using only the distributive law and the fact that opposites sum to zero.`,
-        a: `Step 1: $3 \\cdot (-5) = -15$. From $-5 + 5 = 0$, multiply by 3: $3 \\cdot (-5) + 3 \\cdot 5 = 0$, so $3 \\cdot (-5) = -15$. Step 2: $(-3) \\cdot (-5) = 15$. From $-3 + 3 = 0$, multiply by $-5$: $(-3)(-5) + 3 \\cdot (-5) = 0$. Substitute Step 1: $(-3)(-5) - 15 = 0$, so $(-3)(-5) = 15$.`
+        q: `Compute $\\frac{3}{4} \\cdot \\frac{2}{5}$ and $\\frac{3}{4} \\div \\frac{2}{5}$.`,
+        a: `Multiply tops and bottoms: $\\frac{3}{4} \\cdot \\frac{2}{5} = \\frac{6}{20} = \\frac{3}{10}$. To divide, flip the second fraction and multiply: $\\frac{3}{4} \\div \\frac{2}{5} = \\frac{3}{4} \\cdot \\frac{5}{2} = \\frac{15}{8}$.`
       },
       {
         q: `A class has boys and girls in ratio 3:4, with 84 students total. How many girls? Show the part-to-whole route and the grouping route.`,
@@ -1276,7 +1158,7 @@ function useConfig() {
       },
       {
         q: `A bag holds green and red marbles. Green is $\\frac{2}{5}$ of the bag. After adding 4 green and removing 10 red, green becomes twice the red count. How many marbles were originally in the bag?`,
-        a: `30 marbles (12 green, 18 red). Part-to-whole: $\\frac{g}{g+r} = \\frac{2}{5}$ gives $3g = 2r$. After the change: $g + 4 = 2(r - 10)$. Substituting $r = \\frac{3}{2}g$ gives $g + 4 = 3g - 20$, so $g = 12$, $r = 18$. The fatal slip is writing $\\frac{g}{r} = \\frac{2}{5}$ instead that is part-to-part, not part-to-whole.`
+        a: `30 marbles (12 green, 18 red). Part-to-whole: $\\frac{g}{g+r} = \\frac{2}{5}$ gives $3g = 2r$. After the change: $g + 4 = 2(r - 10)$. Substituting $r = \\frac{3}{2}g$ gives $g + 4 = 3g - 20$, so $g = 12$, $r = 18$. The fatal slip is writing $\\frac{g}{r} = \\frac{2}{5}$. That is part-to-part, not part-to-whole.`
       },
       {
         q: `Given $\\frac{x}{y} = \\frac{2}{3}$ and $\\frac{y}{z} = \\frac{7}{5}$, find $\\frac{z}{x}$.`,
@@ -1288,11 +1170,11 @@ function useConfig() {
       },
       {
         q: `Convert 64 inches to feet using a conversion factor. Why does $64 \\times 12$ give the wrong answer?`,
-        a: `64 in = $\\frac{64}{12} = 5\\frac{1}{3}$ ft. Use the factor $\\frac{1 \\text{ ft}}{12 \\text{ in}}$, which equals 1. Multiplying $64 \\text{ in} \\cdot \\frac{1 \\text{ ft}}{12 \\text{ in}} = \\frac{64}{12}$ ft cancels the inches. Multiplying by $\\frac{12 \\text{ in}}{1 \\text{ ft}}$ gives 768 with units of "in²/ft" the wrong units flag the wrong direction.`
+        a: `64 in = $\\frac{64}{12} = 5\\frac{1}{3}$ ft. Use the factor $\\frac{1 \\text{ ft}}{12 \\text{ in}}$, which equals 1. Multiplying $64 \\text{ in} \\cdot \\frac{1 \\text{ ft}}{12 \\text{ in}} = \\frac{64}{12}$ ft cancels the inches. Multiplying by $\\frac{12 \\text{ in}}{1 \\text{ ft}}$ gives 768 with units of "in²/ft". The wrong units flag the wrong direction.`
       },
       {
         q: `A medicine doses at 32 mL per kg of body weight. Scales show pounds. Convert mL/kg to mL/lb. One pound is about 0.4536 kg.`,
-        a: `14.5 mL/lb. To cancel the kg in the denominator, place kg in the numerator of the factor: $\\frac{32 \\text{ mL}}{1 \\text{ kg}} \\cdot \\frac{0.4536 \\text{ kg}}{1 \\text{ lb}} \\approx 14.5 \\text{ \\frac{mL}{lb}}$. The flipped factor $\\frac{1 \\text{ lb}}{0.4536 \\text{ kg}}$ would leave the kg uncancelled.`
+        a: `14.5 mL per lb. To cancel the kg in the denominator, place kg in the numerator of the factor: $\\frac{32 \\text{ mL}}{1 \\text{ kg}} \\cdot \\frac{0.4536 \\text{ kg}}{1 \\text{ lb}} \\approx 14.5 \\, \\frac{\\text{mL}}{\\text{lb}}$. The flipped factor $\\frac{1 \\text{ lb}}{0.4536 \\text{ kg}}$ would leave the kg uncancelled.`
       },
       {
         q: `On planet Ghaap, 2 Gheeps equal 3 Ghiips, 2 Ghiips equal 5 Ghoops, and 3 Ghoops equal 2 Ghuups. How many Ghuups in 7 Gheeps?`,
@@ -1312,7 +1194,7 @@ function useConfig() {
       },
       {
         q: `6% of 8th graders and 3% of 7th graders are in MATHCOUNTS. There are 1.5 times as many 8th graders as 7th. What percent of all students compete?`,
-        a: `4.8%. All inputs are relative, so pick any 7th-grade headcount and the answer should not depend on it. Let $x$ = 7th graders, $1.5x$ = 8th graders. Participants: $0.03x + 0.06 \\cdot 1.5x = 0.12x$. Students: $2.5x$. Percent: $\\frac{0.12x}{2.5x} = 4.8\\%$. The $x$ cancels that is the signature of a fully relative problem.`
+        a: `4.8%. All inputs are relative, so pick any 7th-grade headcount and the answer should not depend on it. Let $x$ = 7th graders, $1.5x$ = 8th graders. Participants: $0.03x + 0.06 \\cdot 1.5x = 0.12x$. Students: $2.5x$. Percent: $\\frac{0.12x}{2.5x} = 4.8\\%$. The $x$ cancels. That is the signature of a fully relative problem.`
       },
       {
         q: `180 mL of solution is 20% acid. Replace $x$ mL with pure (100%) acid to reach 30% acid. Find $x$.`,
@@ -1320,7 +1202,7 @@ function useConfig() {
       },
       {
         q: `If $a$ and $b^2$ are directly proportional, and $a = 5$ when $b = 9$, find $a$ when $b = 12$.`,
-        a: `$a = \\frac{80}{9}$. "$a$ and $b^2$ are directly proportional" means $\\frac{a}{b^2} = k$, not $\\frac{a}{b} = k$. From $a = 5$, $b = 9$: $k = \\frac{5}{81}$. With $b = 12$: $a = (\\frac{5}{81}) \\cdot 144 = \\frac{80}{9}$. Read the proportion exactly as stated the variable that gets the exponent keeps it.`
+        a: `$a = \\frac{80}{9}$. "$a$ and $b^2$ are directly proportional" means $\\frac{a}{b^2} = k$, not $\\frac{a}{b} = k$. From $a = 5$, $b = 9$: $k = \\frac{5}{81}$. With $b = 12$: $a = (\\frac{5}{81}) \\cdot 144 = \\frac{80}{9}$. Read the proportion exactly as stated. The variable that gets the exponent keeps it.`
       },
       {
         q: `12 people clear a field in 18 hours. How many hours for 9 people?`,
@@ -1331,12 +1213,12 @@ function useConfig() {
         a: `Given $xy = a$ and $yz = b$. Divide: $\\frac{xy}{yz} = \\frac{a}{b}$, so $\\frac{x}{z} = \\frac{a}{b}$. Since $a$ and $b$ are constants, $\\frac{x}{z}$ is a constant. That is the definition of direct proportion.`
       },
       {
-        q: `A gas obeys $PV = nRT$. Volume is tripled and pressure halved. What happens to the temperature?`,
-        a: `Temperature rises by a factor of 3/2 (a 50% increase). Two states satisfy $\\frac{P_1 V_1}{T_1} = \\frac{P_2 V_2}{T_2}$. Substitute $V_2 = 3V_1$ and $P_2 = \\frac{P_1}{2}$: $\\frac{P_1 V_1}{T_1} = \\frac{(\\frac{P_1}{2})(3 V_1)}{T_2}$, giving $T_2 = \\frac{3}{2} T_1$. Temperature must be in Kelvin throughout.`
+        q: `A crew's wage is jointly proportional to the number of workers and the number of days. If 4 workers earn $960 in 3 days, what do 6 workers earn in 5 days?`,
+        a: `$2400. Wage $= k \\cdot \\text{workers} \\cdot \\text{days}$. Find $k$ from the data: $k = \\frac{960}{4 \\cdot 3} = 80$ dollars per worker per day. Then $6$ workers over $5$ days earn $80 \\cdot 6 \\cdot 5 = 2400$.`
       },
       {
-        q: `Why must the temperature in $PV = nRT$ be measured in Kelvin, not Celsius or Fahrenheit?`,
-        a: `Pressure, volume, and molecule count are all non-negative. $R$ is a positive constant. So $T$ must be non-negative too. Celsius and Fahrenheit allow negative values, which would force $P$ or $V$ negative physically impossible. Kelvin has its zero at absolute zero ($0$ K $= -273.16$°C) and never goes below.`
+        q: `A quantity $x$ is jointly proportional to $y$ and $z$. You double $y$ and triple $z$. By what factor does $x$ change?`,
+        a: `By a factor of 6. Since $x = kyz$, doubling $y$ multiplies $x$ by 2 and tripling $z$ multiplies it by 3. Together $2 \\cdot 3 = 6$, so $x$ becomes six times as large.`
       },
       {
         q: `Jack drives 30 mph to work and 45 mph home. The route is the same both ways. What is his average speed for the round trip?`,
@@ -1417,8 +1299,7 @@ function useConfig() {
             <div className="lrn-definition-desc">
               <p>
                 {`$\\frac{a+c}{b+d}$`} lies strictly between {`$\\frac{a}{b}$`} and{' '}
-                {`$\\frac{c}{d}$`} and is never equal to their sum. Use only in Stern–Brocot
-                constructions and merging problems.
+                {`$\\frac{c}{d}$`} and is never equal to their sum. Use only in merging problems.
               </p>
             </div>
           </div>
@@ -1568,10 +1449,6 @@ function useConfig() {
                 </td>
               </tr>
               <tr>
-                <td>Molecules in 1 g water</td>
-                <td>{`$\\approx 3 \\times 10^{22}$`}</td>
-              </tr>
-              <tr>
                 <td>Earth radius</td>
                 <td>{`$\\approx 6 \\times 10^6$`} m</td>
               </tr>
@@ -1584,24 +1461,8 @@ function useConfig() {
                 <td>{`$\\approx 1.5 \\times 10^{11}$`} m</td>
               </tr>
               <tr>
-                <td>Observable universe radius</td>
-                <td>{`$\\approx 10^{26}$`} m</td>
-              </tr>
-              <tr>
-                <td>Mass of Earth</td>
-                <td>{`$\\approx 6 \\times 10^{24}$`} kg</td>
-              </tr>
-              <tr>
-                <td>Age of Earth</td>
-                <td>{`$\\approx 5 \\times 10^9$`} years</td>
-              </tr>
-              <tr>
-                <td>Age of universe</td>
-                <td>{`$\\approx 1.5 \\times 10^{10}$`} years</td>
-              </tr>
-              <tr>
                 <td>World population</td>
-                <td>{`$\\approx 5 \\times 10^9$`}</td>
+                <td>{`$\\approx 8 \\times 10^9$`}</td>
               </tr>
               <tr>
                 <td>Human lifespan</td>
@@ -1647,14 +1508,14 @@ function useConfig() {
                 <td>{`$\\approx 3 \\times 10^{-23}$`} g</td>
               </tr>
               <tr>
-                <td>Living cell size</td>
+                <td>Virus size</td>
                 <td>
-                  {`$\\approx 15$`} to {`$350 \\times 10^{-9}$`} m
+                  {`$\\approx 20$`} to {`$300 \\times 10^{-9}$`} m
                 </td>
               </tr>
               <tr>
-                <td>Elementary length</td>
-                <td>{`$\\approx 10^{-31}$`} cm</td>
+                <td>Proton radius</td>
+                <td>{`$\\approx 10^{-13}$`} cm</td>
               </tr>
               <tr>
                 <td>Wavelength of red light</td>
@@ -1850,48 +1711,14 @@ function useConfig() {
           </div>
 
           <div className="lrn-definition">
-            <div className="lrn-definition-term">Ideal Gas Law (two-state form)</div>
+            <div className="lrn-definition-term">Finding the constant</div>
             <div className="lrn-definition-desc">
-              <p>{`$$\\frac{P V}{T} = nR, \\quad \\frac{P_1 V_1}{T_1} = \\frac{P_2 V_2}{T_2}.$$`}</p>
               <p>
-                {`$T$`} must be in Kelvin. {`$0°\\text{C} = 273.16$`} K; Kelvin has no negative
-                values.
+                Plug in one known set of values to solve for {`$k$`}, then use {`$k$`} for any other
+                set. Doubling one factor doubles {`$x$`}; doubling both quadruples it.
               </p>
             </div>
           </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Held fixed</th>
-                <th>Relationship</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{`$T$`}</td>
-                <td>{`$PV$`} = constant</td>
-                <td>
-                  {`$P$`}, {`$V$`} inverse
-                </td>
-              </tr>
-              <tr>
-                <td>{`$V$`}</td>
-                <td>{`$\\frac{P}{T}$`} = constant</td>
-                <td>
-                  {`$P$`}, {`$T$`} direct
-                </td>
-              </tr>
-              <tr>
-                <td>{`$P$`}</td>
-                <td>{`$\\frac{V}{T}$`} = constant</td>
-                <td>
-                  {`$V$`}, {`$T$`} direct
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
           <h2>Rate, Time, Distance</h2>
 
@@ -1977,7 +1804,7 @@ function useConfig() {
     },
 
     customCss: `
-      .MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }
+      .MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }
       .fra .lrn-graph { margin: 2rem 0; }
     `
   }
@@ -1985,9 +1812,13 @@ function useConfig() {
   return config
 }
 
-// ─── Export ──────────────────────────────────────────────────────────────────
+// Export
 
 export default function FractionsRatiosAndProportions() {
   const config = useConfig()
   return <LearningTemplate config={config} />
+}
+
+export function useFractionsRatiosConfig() {
+  return useConfig()
 }

@@ -1,4 +1,5 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import { VizFigure } from '../../../../components/viz-figure'
 
 function useConfig() {
   const config = {
@@ -21,20 +22,20 @@ function useConfig() {
               <p>{`The Indus Civilization is the proof. It had cities, a script, standardized weights, and a four-tier settlement hierarchy across 500,000 square kilometers, without a single royal tomb. A civilization can exist without visible kings.`}</p>
             </details>
           </div>
-          <p>{`Archaeologists look for a cluster of features together: cities, writing, formal states, social hierarchy, and monumental architecture. No single feature is enough. Cities can exist without writing. Writing can exist without cities. The cluster signals a new level of social complexity.`}</p>
-          <p>{`Why did this cluster appear in the Old World between 3500 and 1500 BCE? The short answer is surplus. When farms grow more food than the farmers eat, some people stop farming. They become potters, metalworkers, priests, and scribes. Specialists trade goods that someone must store and redistribute. Whoever controls that redistribution gains power. That power becomes hierarchy. Hierarchy needs to track who owes what to whom. Writing is the memory system that does the tracking.`}</p>
+          <p>{`Archaeologists look for a cluster of features together: cities, writing, formal states, social stratification, and monumental architecture. Social stratification means ranked classes with unequal, often inherited, access to wealth and power. A village treats most people as equals. A stratified society does not. Monumental architecture means huge buildings like temples, tombs, and walls. The size of a monument indexes the labor a ruler could command. A bigger monument means more workers forced or persuaded to build it. No single feature is enough. Cities can exist without writing. Writing can exist without cities. The cluster signals a new level of social complexity, meaning more kinds of jobs, ranks, and rules than a village has.`}</p>
+          <p>{`Why did this cluster appear in the Old World between 3500 and 1500 BCE? The short answer is surplus. When farms grow more food than the farmers eat, some people stop farming. They become potters, metalworkers, priests, and scribes (people trained to read and write records). Specialists trade goods that someone must store and redistribute. Whoever controls that redistribution gains power. That power becomes hierarchy. Hierarchy needs to track who owes what to whom. Writing is the memory system that does the tracking.`}</p>
           <p>{`Mesopotamia, Egypt, the Indus Valley, and China each developed cities and states with little or no borrowing from one another. Archaeologists call these "primary states." States that formed in the shadow of an existing state are "secondary states." The Korean Three Kingdoms emerged in response to Han Chinese military pressure. The Mauryan Empire arose in South Asia just after Alexander's invasions reshaped the northwest frontier.`}</p>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Primary State Formation</span>
-              <p>{`Arose from internal social dynamics without significant stimulus from an already-existing state. Examples: Mesopotamia (Uruk), Indus Valley (Harappan), China (Erlitou/Shang). Social complexity emerged from local surplus, specialization, and administrative need.`}</p>
+              <p>{`Arose from internal social dynamics without significant stimulus from an already-existing state. Examples: Mesopotamia (Uruk), Indus Valley (Harappan), China (Erlitou, an early walled center, and Shang). Social complexity emerged from local surplus, specialization, and administrative need.`}</p>
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Secondary State Formation</span>
               <p>{`Arose in proximity to and interaction with an existing state. Examples: Korean Three Kingdoms (response to Han Chinese military pressure), Mauryan Empire (after Alexander's invasions reshaped the frontier), Japan's Nara state (modeled on Tang China). These states adopted foreign scripts, religions, and administrative models strategically.`}</p>
             </div>
           </div>
-          <p>{`The 4th millennium BCE is the turning point. The city of Uruk in southern Mesopotamia reached 40,000 to 50,000 people. Nothing on Earth had ever been this large. Why cities appeared when and where they did is one of archaeology's central questions.`}</p>
+          <p>{`The 4th millennium BCE is the turning point. The city of Uruk in southern Mesopotamia grew larger than anything on Earth had ever been. Why cities appeared when and where they did is one of archaeology's central questions.`}</p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>{`Why does resource scarcity, not abundance, sometimes drive social complexity faster? Form your own answer before reading on.`}</p>
@@ -57,88 +58,74 @@ function useConfig() {
           </div>
 
           <h3>The Chalcolithic Background: Halaf and Ubaid, c. 6000-4200 BCE</h3>
-          <p>{`The Chalcolithic is the Copper Age, after pure stone tools and before bronze. Southwest Asia in this period had four environmental zones: the foothills, the Tigris-Euphrates lowlands, the Syrian steppe, and the Levantine coast. The lowlands had some of the richest farmland on Earth, but no stone, no metal, and no timber. That scarcity forced long-distance trade from the earliest farming villages.`}</p>
+          <p>{`The Chalcolithic is the Copper Age, after pure stone tools and before bronze. Southwest Asia in this period had four environmental zones: the foothills, the Tigris-Euphrates lowlands, the Syrian steppe, and the Levantine coast (the Levant is the eastern Mediterranean shore, from modern Syria down to Israel). The lowlands had some of the richest farmland on Earth, but no stone, no metal, and no timber. That scarcity forced long-distance trade from the earliest farming villages.`}</p>
           <p>{`The Halaf period (c. 6000-5400 BCE) brought multi-colored pottery, female clay figurines, and stamp seals across northern Mesopotamia. Arpachiyah preserves the finest Halaf assemblage in a "Burnt House" dated to c. 5400 BCE. Stamp seals marked property. Figurines may have served as fertility symbols.`}</p>
           <p>{`The Ubaid period (c. 5900-4200 BCE) began in southern Mesopotamia. Eridu preserves the earliest temple sequence in the world: 19 temples built one on top of the other on the same spot. A cemetery of 193 graves at Eridu shows the start of social ranking. Ubaid pottery and architecture spread to Tell Madhhur, Tepe Gawra (c. 5200 BCE), Susa on the Iranian plateau, and sites along the Persian Gulf coast.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/67/Ziggurat_at_Eridu_%2830809118442%29.jpg"
-              alt="Ruins of the ziggurat at Eridu, earliest Mesopotamian temple site"
-            />
-            <figcaption>
-              {`Ruins at Eridu, site of the world's earliest known temple sequence, southern Iraq. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Ziggurat_at_Eridu_(30809118442).jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`What does the stack of 19 temples mean? The same community rebuilt the same building on the same sacred ground for centuries. That continuity needs a central institution directing collective labor across generations. The temple was not only a place of ritual. It was the organizing center of community life and surplus.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Female_clay_figurine_-_Ubaid_period_-_Ur_-_ME_122872.jpg"
-              alt="Female clay figurine from the Ubaid period, Ur"
-            />
-            <figcaption>
-              {`Female clay figurine from the Ubaid period, Ur, c. 4500-4000 BCE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Female_clay_figurine_-_Ubaid_period_-_Ur_-_ME_122872.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`Zagheh on the Iranian plateau (5200-4600 BCE) shows the same kind of complexity developing independently. Its "Painted Building" may have served communal or ritual functions. Clay tokens found there are among the earliest devices for recording quantities anywhere. Accounting was not a Mesopotamian invention spread outward. It appeared in several places at once.`}</p>
 
           <h3>The World's First True City: The Uruk Period, c. 4200-3000 BCE</h3>
-          <p>{`Uruk grew explosively in the 4th millennium BCE. Robert Adams's archaeological surveys traced its growth from scattered villages to a metropolis of 40,000 to 50,000 people. It was the world's first true city.`}</p>
+          <p>{`Uruk grew explosively in the 4th millennium BCE. Archaeological surveys traced its growth from scattered villages to a metropolis of 40,000 to 50,000 people. It was the world's first true city.`}</p>
           <p>{`The Eanna precinct held the city's largest temples and administrative buildings. The White Temple, c. 3200 BCE, rose on a high platform of whitewashed mudbrick. A building this size required labor that only a central authority could mobilize.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/4/41/White_Temple_ziggurat_in_Uruk.jpg"
-              alt="White Temple ziggurat at Uruk"
-            />
-            <figcaption>
-              {`The White Temple ziggurat at Uruk, c. 3200-3000 BCE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:White_Temple_ziggurat_in_Uruk.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`Uruk's growth came with violence. Mass graves at Tell Brak dated to c. 3800 BCE show fighting between cities. Hamoukar was destroyed around 3500 BCE. Cities did not grow peacefully. They grew by drawing surplus from their countryside and fighting rivals for land, water, and trade routes.`}</p>
 
           <h3>The Invention of Writing</h3>
-          <p>{`Writing appeared at Uruk between 3500 and 3000 BCE. The earliest form is called proto-cuneiform. About 5,000 proto-cuneiform tablets survive, using roughly 850 signs and a base-60 counting system. Their purpose was not literature. It was accounting: tracking rations, livestock, and goods.`}</p>
+          <p>{`Writing appeared at Uruk between 3500 and 3000 BCE. The earliest form is called proto-cuneiform. About 5,000 proto-cuneiform tablets survive, using roughly 850 signs and a base-60 counting system. Base-60 means counting in groups of sixty instead of groups of ten. Their purpose was not literature. It was accounting: tracking rations, livestock, and goods.`}</p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Proto-Cuneiform Tablet">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Cuneiform_tablet-_administrative_account_of_barley_distribution_with_cylinder_seal_impression_of_a_male_figure%2C_hunting_dogs%2C_and_boars_MET_DT847.jpg"
+                alt="Clay tablet with rows of impressed proto-cuneiform signs and a cylinder seal impression"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A proto-cuneiform tablet recording a barley account. Writing began as bookkeeping. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Cuneiform_tablet-_administrative_account_of_barley_distribution_with_cylinder_seal_impression_of_a_male_figure,_hunting_dogs,_and_boars_MET_DT847.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain (CC0, The Met).'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <div className="lrn-callout lrn-tip">
             <span className="lrn-callout-label">Modern legacy</span>
             <p>{`The Mesopotamian base-60 counting system is still running. You use it every day. There are 60 seconds in a minute and 60 minutes in an hour because Sumerian scribes counted in base-60 over 5,000 years ago. There are 360 degrees in a circle for the same reason.`}</p>
           </div>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/00/Warka_Vase_at_the_Sumerian_Gallery%2C_c._3000_BCE%2C_Iraq_Museum.jpg"
-              alt="Warka Vase, Uruk, c. 3000 BCE, Iraq Museum"
-            />
-            <figcaption>
-              {`The Warka Vase, c. 3000 BCE, Iraq Museum. Earliest known piece of narrative relief art. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Warka_Vase_at_the_Sumerian_Gallery,_c._3000_BCE,_Iraq_Museum.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <p>{`Proto-cuneiform was the early pictographic stage, where each sign was still a small picture of a thing. Cuneiform was the later wedge stage. It evolved from those pictographs into abstract wedge-shaped marks pressed into wet clay with a reed. A cylinder seal was a small carved stone cylinder. Rolled across wet clay, it left a signature that marked authority and ownership. The Warka Vase, an alabaster vessel about 1 meter high dated to c. 3200 BCE, is the earliest known piece of narrative relief art. It shows a procession of figures bringing goods to a temple. Writing began as bookkeeping. Literature and religious texts only came once the technology existed and scribes mastered it.`}</p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Warka Vase">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/67/Warka_vase_%28background_retouched%29.jpg"
+                alt="Tall carved alabaster vase showing registers of figures in procession toward a temple"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Warka Vase from Uruk, about 3200 BCE. Its carved procession is the earliest known narrative relief. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Warka_vase_(background_retouched).jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
-          <p>{`Cuneiform evolved from those pictographs into abstract wedge-shaped marks pressed into wet clay with a reed. Cylinder seals rolled across the clay marked authority and ownership. The Warka Vase, an alabaster vessel about 1 meter high dated to c. 3200 BCE, is the earliest known piece of narrative relief art. It shows a procession of figures bringing goods to a temple. Writing began as bookkeeping. Literature and religious texts only came once the technology existed and scribes mastered it.`}</p>
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
               <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
@@ -146,7 +133,7 @@ function useConfig() {
               <p>{`Stage 2, Simplified sign: The pictograph is rotated and drawn in fewer strokes. "Cow head" becomes a simplified angular symbol. Meaning is still tied to the picture.`}</p>
               <p>{`Stage 3, Abstract wedge marks: Signs are now pressed into clay with a reed stylus at an angle. The cow head becomes a cluster of wedges. The connection to the original picture is nearly invisible.`}</p>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Stage 1, A pictograph of a foot means "walk." Stage 2, The pictograph is simplified and rotated. Stage 3, The sign is now made of wedge marks. What cognitive shift does this sequence require from the scribe? (The key is in what the scribe must now memorize rather than draw from nature.)`}</p>
             </div>
@@ -157,28 +144,37 @@ function useConfig() {
           </div>
 
           <h3>Uruk's Reach: Colonies and Trade, c. 3500-3100 BCE</h3>
-          <p>{`Uruk's influence reached far beyond its walls. Colonies were established at Habuba Kabira and Jebel Aruda in Syria. Trade contact reached Susa and Godin Tepe on the Iranian plateau, Tepe Sialk farther east, and Hacinebi and Arslantepe in Anatolia. The first city was also the center of the first documented world system. The system collapsed around 3100 BCE, the colonies were abandoned, and Uruk's reach shrank.`}</p>
+          <p>{`Uruk's influence reached far beyond its walls. Colonies were established at Habuba Kabira and Jebel Aruda in Syria. Trade contact reached Susa and Godin Tepe on the Iranian plateau, Tepe Sialk farther east, and Hacinebi and Arslantepe in Anatolia. The first city was also the center of the first documented world system. A world system is a web of regions that each depend on the others' goods. No region in it can supply everything it needs alone. The system collapsed around 3100 BCE, the colonies were abandoned, and Uruk's reach shrank.`}</p>
 
           <h3>Sumerian City-States, c. 3000-2000 BCE</h3>
-          <p>{`After the Uruk collapse, Sumer broke into competing city-states: Ur, Uruk, Lagash, Nippur, Kish, Umma, and Eridu. Each was a walled city plus the farmland around it. Each was run by a temple economy that owned the land and employed the workers. Smaller cities covered 12 hectares; Uruk itself reached 400. Cities lived on irrigation, with maintained canals and dikes. The temple collected surplus grain and handed it out to specialists. Religious authority and economic authority sat in the same building.`}</p>
+          <p>{`After the Uruk collapse, Sumer broke into competing city-states: Ur, Uruk, Lagash, Nippur, Kish, Umma, and Eridu. Each was a walled city plus the farmland around it. Each was run by a temple economy that owned the land and employed the workers. Smaller cities covered 12 hectares; Uruk itself reached 400. Cities lived on irrigation, with maintained canals and dikes. The temple collected surplus grain and handed it out to specialists. Religious authority and economic authority sat in the same building. Each city was led by a lugal (Sumerian for "big man," the secular king who often acted as war leader).`}</p>
 
           <h3>The Royal Cemetery of Ur, c. 2500 BCE</h3>
           <p>{`The Royal Cemetery of Ur holds 16 royal graves dug around 2500 BCE. Some held as many as 74 human sacrifices: attendants killed to follow their ruler into death. The grave goods include the "Ram in a Thicket" (golden goat figures in gold, lapis lazuli, and shell), the Standard of Ur (a wooden box showing war and peace scenes), and elaborate gold and lapis jewelry. Sumerian kings could command human life itself. Political and religious power were fused in one person.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Standard_of_Ur_-_War.jpg"
-              alt="Standard of Ur, War Side, c. 2500 BCE"
-            />
-            <figcaption>
-              {`Standard of Ur, War Side, c. 2500 BCE. Royal Cemetery of Ur. British Museum. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Standard_of_Ur_-_War.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Standard of Ur">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/56/Standard_of_Ur_front_view.jpg"
+                alt="Inlaid panel in three registers showing soldiers, chariots, and prisoners in shell and lapis lazuli"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Standard of Ur, about 2500 BCE. One face shows war, the other peace. The blue is lapis lazuli. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Standard_of_Ur_front_view.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>{`Mari, on the middle Euphrates, was the largest urban center in Upper Mesopotamia. Jiroft in southeast Iran ran its own chlorite vessel industry in the same century.`}</p>
 
@@ -187,38 +183,31 @@ function useConfig() {
 
           <h3>The Akkadian Empire, 2334-2004 BCE</h3>
           <p>{`Sargon of Akkad (2334-2279 BCE) was the first empire-builder in world history. Before him, power lived in competing city-states. Sargon showed that a single military and administrative machine could hold a multi-city territory. He conquered Ebla, Mari, and Elam and ruled all of Mesopotamia. His grandson Naram-Sin (2254-2218 BCE) took the title "King of the Four Quarters" and was celebrated on a victory stela around 2250 BCE. The empire collapsed around 2200 BCE, possibly from a long drought. Every later Mesopotamian empire learned from Sargon's model and its failures.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Victory_stele_of_Naram_Sin_9068.jpg"
-              alt="Victory Stele of Naram-Sin, c. 2250 BCE, Louvre"
-            />
-            <figcaption>
-              {`Victory Stele of Naram-Sin, c. 2250 BCE. Louvre Museum. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Victory_stele_of_Naram_Sin_9068.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`The Ur III dynasty (2112-2004 BCE) restored order from the city of Ur. Its founder Ur-Nammu built the Ziggurat of Ur around 2100 BCE: a stepped platform temple dedicated to the moon god Nanna. It became the model for every later Mesopotamian ziggurat.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Ziggurat_of_Ur.jpg"
-              alt="Ziggurat of Ur, c. 2100 BCE"
-            />
-            <figcaption>
-              {`The Great Ziggurat of Ur, built by Ur-Nammu, c. 2100 BCE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Ziggurat_of_Ur.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Great Ziggurat of Ur">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/9/95/Great_Ziggurat_of_Ur.JPG"
+                alt="Massive reconstructed mudbrick stepped platform with a broad central staircase"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The reconstructed Great Ziggurat of Ur, built about 2100 BCE for the moon god Nanna. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Great_Ziggurat_of_Ur.JPG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>{`Ur III fell around 2004 BCE to Amorite invasions.`}</p>
 
@@ -231,23 +220,32 @@ function useConfig() {
             <strong>mushkenum</strong>
             {` (semi-free dependents), and the `}
             <strong>wardum</strong>
-            {` (slaves). Centuries later the Elamite king Shutruk-Nahhunte looted the stela and carried it to Susa. It now sits in the Louvre.`}
+            {` (slaves).`}
           </p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/58/Code-de-Hammurabi-1.jpg"
-              alt="Stele of Hammurabi, c. 1754 BCE, Louvre"
-            />
-            <figcaption>
-              {`The Stele of Hammurabi, c. 1754 BCE. Louvre Museum. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Code-de-Hammurabi-1.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Code of Hammurabi">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/64/P1050763_Louvre_code_Hammurabi_face_rwk.JPG"
+                alt="Tall black basalt stele, its lower body covered in dense cuneiform under a relief of two figures"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The basalt stele of Hammurabi, about 1754 BCE. It carries 282 laws under a scene of divine authority. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk.JPG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 3.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>{`The palace of Zimri-Lim at Mari (1775-1761 BCE) had 260 rooms over 2.5 hectares. Its archive of 17,000-plus tablets gives the most detailed picture we have of Bronze Age palace administration.`}</p>
 
@@ -277,22 +275,6 @@ function useConfig() {
 
           <h3>The Hittite Empire, c. 1650-1185 BCE</h3>
           <p>{`The Hittites built their empire in central Anatolia. Their capital Hattusa (modern Bogazkoy) reached about 600 hectares at its peak. Massive walls protected it, with gates guarded by carved stone lions. An archive of 30,000-plus cuneiform tablets survives, in Hittite, Akkadian, Luwian, and several other languages.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Lion_Gate_in_Hattusa.jpg"
-              alt="Lion Gate at Hattusa, Hittite capital, Turkey"
-            />
-            <figcaption>
-              {`Lion Gate at Hattusa (modern Bogazkale), 13th century BCE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Lion_Gate_in_Hattusa.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`Early Hittite kings included Labarna (the founder), Hattusili I, and Mursili I, who sacked Babylon in 1595 BCE. The empire reached its peak under Shuppiluliuma I from 1345 BCE on. The Yazilkaya rock sanctuary, cut into a cliff near Hattusa in the 13th century BCE, shows 12 upper-world gods and 12 underworld gods in procession.`}</p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -305,7 +287,7 @@ function useConfig() {
           <p>{`The Hittite Empire fell between 1200 and 1185 BCE under Sea Peoples raids and a wider climate event.`}</p>
 
           <h3>The Amarna Letters and the Bronze Age World System</h3>
-          <p>{`In the 14th century BCE, the great powers of the Near East wrote to each other in Akkadian, the international language of the day. Their letters survive in the Egyptian city of Akhetaten (Amarna) and are called the Amarna Letters. They reveal a single world system connecting Egypt, Babylonia, Assyria, the Hittites, the Hurrian kingdom of Mittani, and Cyprus. Gold, silver, lapis lazuli, horses, and royal marriages held this system together.`}</p>
+          <p>{`In the 14th century BCE, the great powers of the Near East wrote to each other in Akkadian, the language of the earlier Akkadian Empire, now the shared diplomatic tongue of the day. Their letters survive in the Egyptian city of Akhetaten (Amarna) and are called the Amarna Letters. They reveal a single world system connecting Egypt, Babylonia, Assyria, the Hittites, the Hurrian kingdom of Mittani, and Cyprus. Gold, silver, lapis lazuli, horses, and royal marriages held this system together.`}</p>
 
           <h3>Canaanite City-States and Ugarit</h3>
           <p>{`Fifteen to 17 Canaanite city-states ran the Levantine coast during the Late Bronze Age, including Megiddo, Gezer, Lachish, and Hazor.`}</p>
@@ -316,6 +298,31 @@ function useConfig() {
 
           <h3>The Uluburun Shipwreck</h3>
           <p>{`A ship that sank in the 14th century BCE off Kas in southwest Turkey carries the entire Late Bronze Age world system in one cargo. The 15-meter vessel held 350 copper ingots (9 tonnes), 1 tonne of tin, 100 glass ingots, terebinthine resin, ebony, ivory, and a gold scarab bearing the name of the Egyptian queen Nefertiti. A single ship combined copper from Cyprus, tin from distant sources, glass from Egypt, ivory and ebony from Africa. No region was self-sufficient.`}</p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Uluburun Cargo">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Uluburun_copper_ingot_oxhide_shaped.jpg"
+                alt="Corroded copper ingot shaped like a stretched oxhide with four handle-like corners"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'An oxhide copper ingot from the Uluburun shipwreck, 14th century BCE. Its cargo crossed the whole Bronze Age world. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Uluburun_copper_ingot_oxhide_shaped.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>{`Bronze needs two ingredients: copper and tin. No single region in the Near East had both. Cyprus supplied copper. Tin came from far away, possibly Afghanistan or Central Europe. Every bronze-using civilization depended on a supply chain that crossed hundreds or thousands of kilometers. If one link broke, workshops stopped, armies lost their weapons, and palace economies lost their tools. When the Bronze Age world system collapsed around 1200 BCE, the tin chain collapsed with it. The Bronze Age collapse was partly a supply chain failure.`}</p>
@@ -358,14 +365,36 @@ function useConfig() {
             </div>
           </div>
 
-          <h3>Neo-Hittites and Aramaeans</h3>
-          <p>{`Neo-Hittite successor states (c. 1200-700 BCE) continued Hittite traditions in cities like Carchemish, Zincirli, and Melid. Carved reliefs at Karatepe show Neo-Hittite art and bilingual inscriptions in Luwian and Phoenician. The Aramaeans established kingdoms across Syria. The Aramaean language became the common administrative tongue of the Neo-Assyrian and Achaemenid empires.`}</p>
-
-          <h3>Urartu, Phrygia, and Israel</h3>
-          <p>{`The kingdom of Urartu developed around Lake Van in eastern Anatolia. Its capital was Tushpa. The Ayanis shrine there was dedicated to the god Haldi. To the west, the Phrygian kingdom centered on Gordion, associated with the legendary King Midas. The Midas Mound at Gordion contains the oldest standing wooden structure in the world, dated to c. 900 BCE.`}</p>
+          <h3>Successor Peoples and the Spread of Aramaic</h3>
+          <p>{`Many smaller peoples filled the gap after the Bronze Age collapse. The most lasting change came from the Aramaeans, whose language became the common administrative tongue of the later Assyrian and Persian empires.`}</p>
 
           <h3>Israel and Judah</h3>
           <p>{`The Iron Age kingdoms of Israel and Judah occupied Canaan after the Bronze Age collapse. They inherited the Canaanite city network: Megiddo, Gezer, Lachish, and Hazor all passed under Israelite and then Judahite control. The Assyrian king Sennacherib besieged Lachish in 701 BCE. The Lachish siege relief, carved into his palace at Nineveh, is the most detailed siege record from the ancient Near East. Foreign ambassadors and defeated rulers walked past it and saw the same image: the Assyrian army crushing a Judean city. Israel fell to Assyria in 722 BCE. Judah held on until Nebuchadnezzar II of Babylon destroyed the Jerusalem temple in 586 BCE and took its population into exile.`}</p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Lachish Relief">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Lachish_Relief%2C_British_Museum_1.jpg"
+                alt="Carved gypsum relief showing Assyrian soldiers, a siege ramp, and captives leaving a walled city"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  "The Lachish relief from Sennacherib's palace at Nineveh, about 700 BCE. It records the siege of a Judean city. "
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Lachish_Relief,_British_Museum_1.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>The Neo-Assyrian Empire</h3>
           <p>{`The Assyrian Empire reached its peak in the 7th century BCE through a sequence of capital cities. Each new king built bigger:`}</p>
@@ -378,39 +407,7 @@ function useConfig() {
 
           <h3>The Neo-Babylonian Empire and Achaemenid Persia</h3>
           <p>{`The Chaldean dynasty rose in Babylon after Assyria fell. Nebuchadnezzar II (605-562 BCE) built the Ishtar Gate: a ceremonial entrance faced with glazed bricks showing bulls and dragons. He destroyed the Jerusalem temple in 586 BCE. Babylon itself fell to Cyrus of Persia in 539 BCE.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Ishtar_gate_Pergamon_Museum.JPG"
-              alt="Ishtar Gate of Babylon, reconstructed at the Pergamon Museum, Berlin"
-            />
-            <figcaption>
-              {`Ishtar Gate of Babylon, c. 575 BCE, reconstructed at the Pergamon Museum, Berlin. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Ishtar_gate_Pergamon_Museum.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`The Achaemenid Persian Empire under Cyrus (559-530 BCE) and Darius I made Pasargadae, Persepolis, and Susa its capitals. Alexander the Great conquered the Persian Empire between 334 and 323 BCE and died in Babylon.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/52/Persepolis_stairs_of_the_Apadana_relief02.JPG"
-              alt="Apadana staircase relief at Persepolis, tribute procession"
-            />
-            <figcaption>
-              {`Apadana staircase relief at Persepolis, showing tribute-bearing delegations to the Achaemenid king. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Persepolis_stairs_of_the_Apadana_relief02.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
         </>,
 
         <>
@@ -426,7 +423,7 @@ function useConfig() {
 
           <h3>The Bronze Age Mediterranean</h3>
           <p>{`The Mediterranean Sea covers 2.5 million square kilometers. Its farming triad of olives, grains, and grapevines feeds a settled population. Its real advantage is the geography: islands and peninsulas make long-distance travel possible with small boats. The Bronze Age Mediterranean was a world of constant movement, exchange, and encounter.`}</p>
-          <p>{`Metals drove the trade. Cyprus held the earliest copper-smelting sites in the Mediterranean from the mid-2nd millennium BCE. The Cycladic islanders extracted silver from lead ore (cupellation) as early as the 3rd millennium BCE.`}</p>
+          <p>{`Metals drove the trade. Cyprus held the earliest copper-smelting sites in the Mediterranean from the mid-2nd millennium BCE. The Cycladic islanders extracted silver from lead ore as early as the 3rd millennium BCE. They used cupellation: heating the ore in air so the lead burns off and leaves the silver behind.`}</p>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Minoan Thalassocracy</span>
@@ -434,28 +431,12 @@ function useConfig() {
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Mycenaean Territorial Kingdom</span>
-              <p>{`Fortified palaces controlling farmland through Linear B administration. Cyclopean walls, megaron throne-rooms, shaft graves, tholos tombs. Linear B records forced labor, textile quotas, and land grants. Military force and bureaucratic control sit at the center.`}</p>
+              <p>{`Fortified palaces controlling farmland through Linear B administration. Cyclopean walls, megaron throne-rooms (a megaron is a large rectangular hall with a central hearth), shaft graves, tholos tombs. Linear B records forced labor, textile quotas, and land grants. Military force and bureaucratic control sit at the center.`}</p>
             </div>
           </div>
 
           <h3>The Cyclades: Early Bronze Age, c. 3500-2000 BCE</h3>
           <p>{`The Cycladic islands produced a distinctive culture. Their most famous works are white marble figurines: flat, abstract female nudes plus a smaller set of male "hunter-warriors," flute players, and seated harpists. Most come from cemeteries on Syros (Chalandriani and Kastri) and from the ritual deposition site of Keros. Looting and modern forgery have done heavy damage to the surviving record.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Cycladic_female_figurine%2C_marble%2C_Chalandriani%2C_2700-2300_BC%2C_Spedos_variety%2C_180170.jpg"
-              alt="Cycladic marble female figurine, Chalandriani, 2700-2300 BCE, Spedos variety"
-            />
-            <figcaption>
-              {`Cycladic marble female figurine, Chalandriani, Syros, 2700-2300 BCE. Spedos variety. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Cycladic_female_figurine,_marble,_Chalandriani,_2700-2300_BC,_Spedos_variety,_180170.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <div className="lrn-callout lrn-tip">
             <span className="lrn-callout-label">Key Theme</span>
             <p>{`Mediterranean inequality did not appear first in the richest farming zones. It appeared on islands and in harsh environments. Khirokitia on Neolithic Cyprus shows early unequal wealth. Dhimini and Lerna on the Greek mainland show inequality in small farming communities. The Tavoliere plain in Italy shows the same pattern. In southeast Spain, the Chalcolithic site of Los Millares grew up around copper. Scarcity, not abundance, drove people to compete, accumulate, and dominate.`}</p>
@@ -467,99 +448,45 @@ function useConfig() {
           <h3>Minoan Crete: The Palace Period, c. 2000-1490 BCE</h3>
           <p>{`The First Palace Period (c. 2000-1700 BCE) brought large palaces at Knossos, Phaistos, and Mallia. They were not military forts. They combined redistribution centers, ritual spaces, and craft workshops in one complex. Each palace lined up with a sacred mountain nearby.`}</p>
           <p>{`The Second Palace Period (c. 1700-1490 BCE) saw the palaces rebuilt after earthquakes. Kato Zakros was added as a fourth palace. Elite villas appeared at Tylissos and Vathypetro. Harriet Boyd Hawes excavated the town of Gournia, a Minoan settlement below the palace level.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/03/Linear_B_tablet_Ep_704.svg"
-              alt="Linear B tablet Ep 704 from Pylos"
-            />
-            <figcaption>
-              {`Linear B tablet Ep 704 from Pylos, recording land allocations. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Linear_B_tablet_Ep_704.svg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`Peak sanctuaries on mountaintops received clay offerings from across Crete. The Minoan script sequence runs from Hieroglyphic (c. 2000 BCE) to Linear A (the main palace script, 1800-1500 BCE). Linear A is still undeciphered. Akrotiri on the island of Thera (Santorini) was a Minoan-influenced town buried in ash by a volcanic eruption in the late 17th century BCE. The ash preserved wall paintings and standing buildings, earning Akrotiri the nickname "Bronze Age Pompeii."`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/8/86/Akrotiri_Spring_Fresco.jpg"
-              alt="Spring Fresco from Akrotiri, Thera, late 17th century BCE"
-            />
-            <figcaption>
-              {`Spring Fresco from Akrotiri, Thera (Santorini), late 17th century BCE. Preserved by the volcanic eruption that buried the town. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Akrotiri_Spring_Fresco.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`A Minoan shipwreck found in 2003 near Pseira, dated 1800-1675 BCE, is the earliest actual Minoan ship recovered. Its find location lies on the eastern Aegean trade lanes between Crete and the wider Mediterranean. It is the most direct physical evidence that Minoans shipped their own goods across open water.`}</p>
           <p>{`Around 1490 BCE, most Minoan palaces burned. Knossos survived but passed under Mycenaean rulers, who introduced Linear B. The Minoan model of trade and prestige without walls had no defense against territorial conquest.`}</p>
 
           <h3>Mycenaean Greece, c. 1600-1200 BCE</h3>
           <p>{`Mycenaean civilization grew on the Greek mainland from the 16th century BCE. Its defining features are cyclopean masonry (defensive walls of massive uncut stones), megaron throne-rooms, shaft graves, and tholos (beehive-domed) tombs.`}</p>
           <p>{`At Mycenae, Heinrich Schliemann excavated Grave Circle A in 1876. He found golden death masks, weapons, and vessels. The "Mask of Agamemnon" is the most famous, though Schliemann's link to the Homeric hero was wrong. The Lion Gate at Mycenae is the earliest surviving monumental sculpture in Europe.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/2/25/Lions-Gate-Mycenae.jpg"
-              alt="Lion Gate at Mycenae, Bronze Age cyclopean masonry"
-            />
-            <figcaption>
-              {`Lion Gate at Mycenae, c. 1250 BCE. Earliest surviving monumental sculpture in Europe. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Lions-Gate-Mycenae.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/78/Athens_%E2%80%94_Mask_of_Agamemnon.jpg"
-              alt="Mask of Agamemnon, gold death mask from Shaft Grave V, Mycenae"
-            />
-            <figcaption>
-              {`The "Mask of Agamemnon," gold death mask from Shaft Grave V, Mycenae, c. 1550-1500 BCE. National Archaeological Museum, Athens. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Athens_%E2%80%94_Mask_of_Agamemnon.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Lion Gate of Mycenae">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Lion_Gate%2C_Mycenae%2C_201510.jpg"
+                alt="Stone gateway of huge uncut blocks topped by a relief of two lions flanking a column"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Lion Gate at Mycenae, about 1250 BCE. Cyclopean masonry carries the earliest monumental sculpture in Europe. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Lion_Gate,_Mycenae,_201510.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>{`The Treasury of Atreus (c. 1250 BCE) is a corbeled tholos tomb. Tiryns had massive cyclopean fortifications. The Palace of Nestor at Pylos is the best-preserved Mycenaean megaron.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Interior_of_theTreasury_of_Atreus.jpg"
-              alt="Interior of the Treasury of Atreus, corbeled tholos tomb, Mycenae, c. 1250 BCE"
-            />
-            <figcaption>
-              {`Interior of the Treasury of Atreus, Mycenae, c. 1250 BCE. The corbeled dome reaches 13.5 meters high. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Interior_of_theTreasury_of_Atreus.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`Other Mycenaean palaces included Thebes, Iolkos, Orchomenos, and Agios Vasileios near Sparta.`}</p>
 
           <h3>Linear B: Deciphering Mycenaean Administration</h3>
           <p>{`Linear B evolved from Minoan Linear A. Arthur Evans found Linear B tablets at Knossos in 1900. The fire that destroyed the Palace of Nestor at Pylos in the late 13th century BCE baked its raw clay tablets hard, accidentally preserving a complete administrative archive. Without that fire, the tablets would have been recycled like every other year's records.`}</p>
-          <p>{`In 1952, the architect Michael Ventris deciphered Linear B, building on the groundwork laid by the philologist Alice Kober. The script turned out to encode an early form of Greek. The tablets record mundane palace business: textiles, flax, perfumed oil, land allocations, and rations. They also name familiar Greek deities, including Athena, Poseidon, and Zeus.`}</p>
+          <p>{`In 1952, the architect Michael Ventris deciphered Linear B, building on the groundwork laid by the philologist Alice Kober (a scholar who studies the structure and history of languages). The script turned out to encode an early form of Greek. The tablets record mundane palace business: textiles, flax, perfumed oil, land allocations, and rations. They also name familiar Greek deities, including Athena, Poseidon, and Zeus.`}</p>
+          <p>{`Linear B fell because it had a linguistic anchor. A linguistic anchor is a known starting point that lets scholars attach an unknown script to real sounds and meanings. There are three kinds. The first is a bilingual text, where the same words appear in a known script. The second is a living descendant language that the old script grew into. The third is enough connected text with names you can recognize, like the place names Ventris used. Linear B had the third kind. Its sister script Linear A, still unread, has none. Keep this idea in mind. It explains later why some scripts can be read and others stay silent.`}</p>
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
               <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
@@ -567,7 +494,7 @@ function useConfig() {
               <p>{`Step 2, Alice Kober (1940s) establishes that Linear B has an inflecting grammar: sign groups change their endings in patterned ways. This means the underlying language has case endings, like Greek or Latin.`}</p>
               <p>{`Step 3, Michael Ventris (1952) applies phonetic values to the signs and discovers that the language is an early form of Greek. Decipherment confirmed when the tablets prove to record Greek words for textiles, food, and deities.`}</p>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Kober noticed that Linear B sign groups change their endings in patterned ways. Ventris used this to hypothesize that the underlying language had _______ (what grammatical feature?). Once Ventris applied the phonetic grid, which ancient language did the signs spell out?`}</p>
             </div>
@@ -612,22 +539,6 @@ function useConfig() {
             <li>{`The Nemean Games (573 BCE)`}</li>
           </ul>
           <p>{`The Temple of Zeus at Olympia was completed in 456 BCE. Athens built the Parthenon on its acropolis between 447 and 432 BCE. The Peloponnesian War (431-404 BCE) between Athens and Sparta ended Athenian imperial dominance.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Parthenon-Acropolis_of_Athens.jpg"
-              alt="The Parthenon, Acropolis of Athens, 447-432 BCE"
-            />
-            <figcaption>
-              {`The Parthenon, Acropolis of Athens, completed 432 BCE. Dedicated to Athena. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Parthenon-Acropolis_of_Athens.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`A Greek from Syracuse and a Greek from Sparta could compete at Olympia under a sacred truce. That shared identity made coordination possible even without political unification.`}</p>
           <div className="lrn-callout lrn-tip">
             <span className="lrn-callout-label">Modern legacy</span>
@@ -641,33 +552,17 @@ function useConfig() {
           <p>{`A large bronze krater found at Vix in eastern France, in a Hallstatt-period grave, shows how far Greek luxury objects traveled. The vessel was too large to be personal property. It was a diplomatic gift from the Greek world to an indigenous European ruler. Greek material culture reached far north of the Mediterranean coast through prestige exchange, not only colonial settlement.`}</p>
           <div className="lrn-callout lrn-warning">
             <span className="lrn-callout-label">Key Theme: Migration and Coercion</span>
-            <p>{`Chattel slavery was built into both the Greek polis and the Roman Empire. Slaves came from conquest, piracy, banditry, and an organized slave trade. Walter Scheidel (2011) estimated that at least 100 million people were involved in forced movement over the Roman Empire's history. The archaeology of slavery was under-researched for most of the discipline's history. Ancient slavery was not marginal. It was the labor foundation of the Mediterranean's most admired cities.`}</p>
+            <p>{`Chattel slavery means owning people as property. It was built into both the Greek polis and the Roman Empire. Slaves came from conquest, piracy, banditry, and an organized slave trade. At least 100 million people were caught up in forced movement over the Roman Empire's history. The archaeology of slavery was under-researched for most of the field's history. Ancient slavery was not marginal. It was the labor foundation of the Mediterranean's most admired cities.`}</p>
           </div>
 
           <h3>The Etruscans and the Rise of Rome</h3>
-          <p>{`The Etruscans developed as independent city-states (Veii, Cerveteri, Tarquinia) in central Italy from the 8th century BCE. They were never politically unified. Their Tomb of the Leopards at Tarquinia (5th century BCE) shows a banqueting scene in vivid multi-colored paint. Etruscan influence on early Rome ran deep: the fasces, the architecture of the Capitoline Temple, and the kings of Rome's Regal Period all carry Etruscan character.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Tomba_dei_Leopardi_-_banchetto.jpg"
-              alt="Tomb of the Leopards banqueting scene, Tarquinia, 5th century BCE"
-            />
-            <figcaption>
-              {`Tomb of the Leopards, Tarquinia, 5th century BCE. The banqueting scene is one of the finest examples of Etruscan fresco painting. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Tomba_dei_Leopardi_-_banchetto.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
+          <p>{`The Etruscans developed as independent city-states (Veii, Cerveteri, Tarquinia) in central Italy from the 8th century BCE. They were never politically unified. Their Tomb of the Leopards at Tarquinia (5th century BCE) shows a banqueting scene in vivid multi-colored paint. Etruscan influence on early Rome ran deep: the fasces (a bundle of rods around an axe, carried as a symbol of a ruler's authority), the architecture of the Capitoline Temple, and the kings of Rome's Regal Period all carry Etruscan character.`}</p>
           <h3>Alexander the Great and the Hellenistic World</h3>
           <p>{`Philip II of Macedon (383-336 BCE) defeated a Greek coalition at the Battle of Chaeronea in 338 BCE. His son Alexander (356-323 BCE) then conquered the Persian Empire and Egypt and reached India by 326 BCE, where his troops mutinied. He died in Babylon in 323 BCE.`}</p>
           <p>{`Alexander founded Alexandria-by-Egypt in 331 BCE. Its Pharos lighthouse (135 meters tall) was one of the Seven Wonders. Its Library became the greatest repository of texts in the ancient world. After Alexander's death, his empire broke into three Hellenistic kingdoms: Antigonid, Seleucid, and Ptolemaic. At Aï Khanoum in modern Afghanistan, a Greek-style city with temples, a gymnasium, and philosophical maxims copied from Delphi shows how far Hellenistic culture reached.`}</p>
 
           <h3>Rome: From Republic to Empire</h3>
-          <p>{`Rome grew outward from the Italian peninsula. Three Punic Wars (264-146 BCE) ended with the sack of Carthage in 146 BCE. Rome absorbed the Etruscan city-states from the 4th century BCE on; by 31 BCE, when Augustus defeated Mark Antony and Cleopatra VII at Actium, Rome controlled the entire Mediterranean.`}</p>
+          <p>{`Rome grew outward from the Italian peninsula. Three Punic Wars (264-146 BCE) ended with the sack of Carthage in 146 BCE. Rome absorbed the Etruscan city-states from the 4th century BCE on. By the late 1st century BCE, under Augustus, Rome controlled the entire Mediterranean.`}</p>
           <p>{`The Colosseum was built c. 72-80 CE. Pompeii, buried by the eruption of Vesuvius in 79 CE, is the canonical excavated Roman city. The Mahdia shipwreck off Tunisia (c. 80-70 BCE) carried roughly 60 marble columns (about 230 tonnes of stone) from Mount Pentele in Attica. Probably traveling from Piraeus to Italy after Rome's sack of Athens in 86 BCE, it records both Roman love of Greek culture and the scale of Mediterranean trade.`}</p>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
@@ -679,7 +574,7 @@ function useConfig() {
               <p>{`Greece, Egypt, and Syria were already densely urbanized in Greek-speaking cities. Rome adapted rather than imposed. Greek stayed the language of educated life. Eastern cities kept their own civic frameworks. As Horace wrote: "captive Greece took its savage victor captive."`}</p>
             </div>
           </div>
-          <p>{`Constantine founded Constantinople in 330 CE. Theodosius I divided the empire in 395 CE. Alaric and the Visigoths sacked Rome in 410 CE. Constantinople itself fell to the Ottoman sultan Mehmet II in 1453 CE.`}</p>
+          <p>{`Constantine founded Constantinople in 330 CE. Theodosius I divided the empire into western and eastern halves in 395 CE, fixing the split between the Latin west and the Greek-speaking east.`}</p>
         </>,
 
         <>
@@ -702,13 +597,13 @@ function useConfig() {
 
           <h3>Mehrgarh: The First South Asian Farmers, c. 6500-2800 BCE</h3>
           <p>{`Mehrgarh sits near the Bolan Pass in western Pakistan. Its occupation runs from c. 6500 to 2800 BCE. Period IA (c. 6500-6000 BCE) is aceramic (no pottery yet) and has rectangular mud-brick storage structures. Burials contain turquoise, marine shell, steatite beads, and a copper bead. The inhabitants grew barley and wheat and kept the earliest known domesticated zebu cattle. Period II (c. 5500-4800 BCE) shows possible cotton domestication.`}</p>
-          <p>{`Mehrgarh is the earliest undisputed farming site in South Asia. Its discovery in the 1970s overturned Mortimer Wheeler's 1953 claim that South Asian civilization was imported from Mesopotamia. Mehrgarh shows a continuous local farming tradition reaching back 3,000 years before the Indus mature phase. The Indus grew from its own agricultural base, not from borrowed Mesopotamian complexity.`}</p>
+          <p>{`Mehrgarh is the earliest undisputed farming site in South Asia. Its discovery in the 1970s overturned an older claim that South Asian civilization was imported from Mesopotamia. Mehrgarh shows a continuous local farming tradition reaching back 3,000 years before the Indus mature phase. The Indus grew from its own agricultural base, not from borrowed Mesopotamian complexity.`}</p>
 
           <h3>The Kot Diji Phase, c. 3200-2600 BCE</h3>
           <p>{`The Kot Diji phase brought wheel-thrown jars, bull motifs, pipal leaf decorations, and planned mud-brick settlements across the region. Rehman Dheri (20 hectares) and Kalibangan confirm a locally developing urban tradition. The line from Mehrgarh to Kot Diji to the mature Indus is continuous and local.`}</p>
 
           <h3>The Indus Civilization: An Era of Integration, c. 2600-1900 BCE</h3>
-          <p>{`The Indus Civilization covered 500,000 square kilometers. James Shaffer (1992) named the period from 2600 to 1900 BCE the "era of integration." Five urban sites were larger than 100 hectares: Mohenjo-daro, Harappa, Dholavira, Rakhigarhi, and Ganweriwala. Around 32 medium-sized towns clustered around them. The total site count exceeds 15,000. The defining traits include cities, standardized artifacts, a four-tier settlement hierarchy, an undeciphered writing system, and long-distance trade reaching Mesopotamia.`}</p>
+          <p>{`The Indus Civilization covered 500,000 square kilometers. Archaeologists call the period from 2600 to 1900 BCE the "era of integration." Five urban sites were larger than 100 hectares: Mohenjo-daro, Harappa, Dholavira, Rakhigarhi, and Ganweriwala. Around 32 medium-sized towns clustered around them. The total site count exceeds 15,000. The defining traits include cities, standardized artifacts, a four-tier settlement hierarchy, an undeciphered writing system, and long-distance trade reaching Mesopotamia. A settlement hierarchy ranks sites by size. The Indus had four tiers: great cities, large towns, smaller towns, and many villages. Ranked site sizes imply ranked levels of administration controlling them.`}</p>
 
           <h3>Mohenjo-daro and Harappa</h3>
           <p>{`Mohenjo-daro covered 200 hectares. Its citadel mound held three remarkable structures:`}</p>
@@ -717,23 +612,32 @@ function useConfig() {
             <li>{`The Granary (50 by 27 meters): storage for agricultural surplus.`}</li>
             <li>{`A Pillared Hall: probably an administrative assembly space.`}</li>
           </ul>
-          <p>{`Below the citadel, the lower town ran on a grid plan with covered brick drains. Ritual, food storage, and administration sat at the top of the mound. Daily life ran in the streets below.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Great_Bath%2C_Mohenjo-daro_20160806_ARN-09.jpg"
-              alt="The Great Bath at Mohenjo-daro"
-            />
-            <figcaption>
-              {`The Great Bath at Mohenjo-daro, c. 2600-1900 BCE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Great_Bath,_Mohenjo-daro_20160806_ARN-09.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Great Bath, Mohenjo-daro">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Great_bath_view_Mohenjodaro.JPG"
+                alt="Sunken rectangular brick pool surrounded by fired-brick walls and steps on the citadel mound"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Great Bath at Mohenjo-daro, a sealed fired-brick pool, likely for ritual purification. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Great_bath_view_Mohenjodaro.JPG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
+          <p>{`Below the citadel, the lower town ran on a grid plan with covered brick drains. Ritual, food storage, and administration sat at the top of the mound. Daily life ran in the streets below.`}</p>
           <p>{`Harappa covered 150-plus hectares with a completely different plan: four separately walled mounds. Its pottery kilns and Cemetery H mark the transition into the post-Indus period. Indus urbanism was not a single formula. Cities could vary in physical layout while sharing the same weights, scripts, and pottery standards.`}</p>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
@@ -746,47 +650,47 @@ function useConfig() {
             </div>
           </div>
           <p>{`Dholavira had a unique three-zone plan: an acropolis, a middle town, and a lower town. Lothal functioned as a "factory fort" with a bead workshop and a possible reservoir.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Indus_civilisation_seal_unicorn_at_Indian_Museum%2C_Kolkata.jpg"
-              alt="Indus Civilization unicorn seal, steatite, Indian Museum, Kolkata"
-            />
-            <figcaption>
-              {`Indus Civilization unicorn seal, steatite, c. 2500-2000 BCE. Indian Museum, Kolkata. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Indus_civilisation_seal_unicorn_at_Indian_Museum,_Kolkata.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/d/df/Mohenjo-daro_Priesterk%C3%B6nig.jpeg"
-              alt="Priest-King statue from Mohenjo-daro, National Museum of Pakistan"
-            />
-            <figcaption>
-              {`The "Priest-King" statue from Mohenjo-daro, c. 2000-1900 BCE. National Museum of Pakistan, Karachi. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Mohenjo-daro_Priesterk%C3%B6nig.jpeg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
 
           <h3>The Indus Script: An Unsolved Problem</h3>
-          <p>{`The Indus script survives in 2,700-plus inscriptions. It uses 170 to 220 simple signs and 170 to 200 composite signs. The script reads right to left. Scholars agree it is logo-syllabic (signs stand for both whole words and syllables), but they cannot yet read it. The underlying language might be Dravidian, Indo-European, or something else; nobody knows. The detailed argument for why decipherment is so hard lives in §12, where it can be compared cleanly with oracle bones and Linear B.`}</p>
+          <p>{`The Indus script survives in 2,700-plus inscriptions. It uses 170 to 220 simple signs and 170 to 200 composite signs. The script reads right to left. Scholars agree it is logo-syllabic (signs stand for both whole words and syllables), but they cannot yet read it. The underlying language might be Dravidian, Indo-European, or something else; nobody knows. The script stays unread because there is no bilingual key and no certain descendant language. Most inscriptions are also too short to crack the system structurally.`}</p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Indus Seal (Pashupati)">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Shiva_Pashupati.jpg"
+                alt="Carved steatite stamp seal showing a horned seated figure surrounded by animals, with script above"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The Pashupati seal from Mohenjo-daro, a steatite stamp seal. Its short Indus script line stays unread. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Shiva_Pashupati.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
 
           <h3>The Paradox of Indus Uniformity</h3>
           <p>{`The Indus Civilization showed remarkable uniformity across 500,000 square kilometers: shared town plans, a common script, standardized weights and measures, and consistent pottery forms. It shows none of the usual markers of a centralized state: no royal tombs, no elite palaces, no warrior burials.`}</p>
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`Uniformity at this scale normally needs a state to enforce it. The Indus had the uniformity without the visible enforcement. Scholars debate whether to read the Indus as a state, a chiefdom, an egalitarian federation, or an early caste society maintaining conformity through social pressure. Possible mechanisms include production at a small set of specialist centers with finished weights and measures distributed outward; apprenticeship that trained artisans in one tradition; trading communities rejecting non-standard weights as fraud; and shared ideological norms treating correct measures as morally required. The lesson is that uniformity needs trusted shared standards, not a palace dictating every transaction. How those standards were maintained at Indus scale is still an open question.`}</p>
+            <p>{`Uniformity at this scale normally needs a state to enforce it. The Indus had the uniformity without the visible enforcement. Scholars debate whether to read the Indus as a state, a chiefdom, an egalitarian federation, or an early caste society maintaining conformity through social pressure. Several mechanisms could explain the uniformity:`}</p>
+            <ul className="lrn-list">
+              <li>{`A small set of specialist centers made the finished weights and measures, then sent them outward.`}</li>
+              <li>{`Apprenticeship trained every artisan in one shared tradition.`}</li>
+              <li>{`Trading communities rejected non-standard weights as fraud.`}</li>
+              <li>{`Shared beliefs treated correct measures as morally required.`}</li>
+            </ul>
+            <p>{`The lesson is that uniformity needs trusted shared standards, not a palace dictating every transaction. How those standards were maintained at Indus scale is still an open question.`}</p>
           </div>
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
@@ -795,7 +699,7 @@ function useConfig() {
               <p>{`Stage 2, Skeptical turn: Later scholars noticed that most inscriptions had fewer than five signs. Some proposed the seals were "magic charms" or ritual objects, not text.`}</p>
               <p>{`Stage 3, Current consensus: The seals are trade tags. A merchant stamped a bundle of goods with a seal identifying ownership or destination. The signs probably encode names, titles, or commodity labels.`}</p>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Scholars called early Indus marks "writing" because they appeared on _______. Later skeptics said they were "magic charms" because the inscriptions were too _______ to carry complex messages. Current scholars treat them as trade tags that probably encode _______.`}</p>
             </div>
@@ -807,7 +711,7 @@ function useConfig() {
 
           <h3>The Eclipse of the Indus, c. 1900 BCE</h3>
           <p>{`Around 1900 BCE, the Indus Civilization slowly dissolved. Cities were abandoned. The Cemetery H phase (Late Harappan) shows new pottery traditions and smaller settlements. Trade with Mesopotamia collapsed. The causes are debated: trade collapse, loss of administrative authority, shifting rivers, or the rise of new regional elites.`}</p>
-          <p>{`Wheeler (1947) once read skeletal remains at Mohenjo-daro as evidence of an Indo-Aryan invasion "massacre." Reanalysis showed the bodies were a peaceful mass burial with grave goods. The massacre theory has been abandoned. The Gandharan Grave Culture (c. 1700-1600 BCE) in the Chitral, Dir, and Swat valleys shows bell-shaped pits and horse burials, suggesting that new populations were moving into the region.`}</p>
+          <p>{`An older theory read skeletal remains at Mohenjo-daro as evidence of an Indo-Aryan invasion "massacre." Reanalysis showed the bodies were a peaceful mass burial with grave goods. The massacre theory has been abandoned. The Gandharan Grave Culture (c. 1700-1600 BCE) in the Chitral, Dir, and Swat valleys shows bell-shaped pits and horse burials, suggesting that new populations were moving into the region.`}</p>
         </>,
 
         <>
@@ -817,7 +721,13 @@ function useConfig() {
             <p>{`After one great urban civilization collapses, what conditions would allow a second urbanization to emerge in the same region centuries later?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`Three things must come back: agricultural surplus (new iron tools open new farmland), political units large enough to coordinate trade and defense, and population density high enough to support craft specialization. In South Asia, iron technology in the 1st millennium BCE, the janapada territorial units, and expanded Ganga valley agriculture supplied all three. The second urbanization grew from inside over centuries. It was not triggered by foreign contact.`}</p>
+              <p>{`Three things must come back:`}</p>
+              <ul className="lrn-list">
+                <li>{`Farm surplus, which new iron tools created by opening new farmland.`}</li>
+                <li>{`Political units large enough to coordinate trade and defense.`}</li>
+                <li>{`Population dense enough to support full-time craft workers.`}</li>
+              </ul>
+              <p>{`In South Asia, iron technology in the 1st millennium BCE, the janapada territorial units, and expanded Ganga valley farming supplied all three. The second urbanization grew from inside over centuries. Foreign contact did not trigger it.`}</p>
             </details>
           </div>
 
@@ -825,15 +735,15 @@ function useConfig() {
           <p>{`Not all of South Asia collapsed with the Indus. Pirak (1700-700 BCE) kept its trade networks going. The Ganga-Yamuna Doab produced Ocher Colored pottery. In the western Deccan, Inamgaon (1600 BCE) and the Diamabad chiefdom held onto regional complexity.`}</p>
 
           <h3>The Re-Emergence of Complexity, c. 1200-500 BCE</h3>
-          <p>{`Iron tools spread in the 1st millennium BCE. Painted Gray Ware moved through northern India, followed by Northern Black Polished Ware in the 6th century BCE. In the northwest, Achaemenid Persian satraps ruled through administrative centers at Taxila, Dahan-e Golaman, and Kandahar.`}</p>
+          <p>{`Iron tools spread in the 1st millennium BCE. Painted Gray Ware moved through northern India, followed by Northern Black Polished Ware in the 6th century BCE. In the northwest, Achaemenid Persian satraps (provincial governors appointed by the Persian king) ruled through administrative centers at Taxila, Dahan-e Golaman, and Kandahar.`}</p>
           <p>{`By 500 BCE, 16 mahajanapadas (great territories) had formed across northern India. Hastinapura reached 6.5 hectares by 1100 to 800 BCE. Kausambi grew to 50 hectares and anchored the Vatsa kingdom. In southern India, megalithic cemeteries at Brahmagiri, Maski, and Hallur mark new burial traditions. In Sri Lanka, Anuradhapura was settled by c. 900 BCE, reached 66 hectares by 450 BCE, and developed an early Brahmi script by 400 BCE.`}</p>
 
           <h3>Did Persian Contact Trigger Second Urbanization?</h3>
-          <p>{`The Achaemenid Empire annexed northwest India in 520 BCE. Alexander invaded in 326-325 BCE. Wheeler argued that Persian contact triggered South Asia's second urbanization. Excavations at Charsadda in 1996 found occupation reaching back to the mid-2nd millennium BCE, centuries before Persian contact arrived. Indigenous development, not foreign stimulus, drove the second urbanization.`}</p>
+          <p>{`The Achaemenid Empire annexed northwest India in 520 BCE. Alexander invaded in 326-325 BCE. An older theory held that Persian contact triggered South Asia's second urbanization. Excavations at Charsadda in 1996 found occupation reaching back to the mid-2nd millennium BCE, centuries before Persian contact arrived. Indigenous development, not foreign stimulus, drove the second urbanization.`}</p>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Wheeler's Foreign-Contact Model</span>
-              <p>{`Wheeler proposed that Achaemenid Persian contact (520 BCE) triggered South Asia's second urbanization. He saw no evidence of urban activity between the Indus collapse and Persian arrival. This external-stimulus model treats South Asian development as dependent on foreign impulse.`}</p>
+              <span className="lrn-compare-title">Foreign-Contact Model</span>
+              <p>{`One older model proposed that Achaemenid Persian contact (520 BCE) triggered South Asia's second urbanization. It saw no evidence of urban activity between the Indus collapse and Persian arrival. This external-stimulus model treats South Asian development as dependent on foreign impulse.`}</p>
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Internal Dynamics Model</span>
@@ -842,23 +752,7 @@ function useConfig() {
           </div>
 
           <h3>The Mauryan Empire, c. 325-185 BCE</h3>
-          <p>{`The Mauryan Empire was the first pan-South Asian state. Asoka (reigned 272-235 BCE) was its most famous ruler. He issued edicts in Greek, Aramaic, Kharoshthi, Brahmi, and Prakrits, inscribed on rock faces and polished stone pillars across the subcontinent. His edicts promoted non-violence, religious pluralism, dharma (righteous conduct), and Buddhist missions.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f6/AshokaLions.jpg"
-              alt="Lion Capital of Ashoka, Sarnath, c. 250 BCE"
-            />
-            <figcaption>
-              {`Lion Capital of Ashoka, Sarnath, c. 250 BCE. Now the national emblem of India. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:AshokaLions.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
+          <p>{`The Mauryan Empire was the first pan-South Asian state. Asoka (reigned 272-235 BCE) was its most famous ruler. He issued edicts in Greek, Aramaic, Kharoshthi, Brahmi, and Prakrits (the everyday spoken languages of India, as opposed to formal Sanskrit), inscribed on rock faces and polished stone pillars across the subcontinent. His edicts promoted non-violence, religious pluralism, dharma (righteous conduct), and Buddhist missions.`}</p>
           <p>{`The Mauryan capital Pataliputra covered 1,350 hectares and held a stone-pillared hall for royal audiences. The empire organized its territory in a six-tier settlement hierarchy. Mahasthangarh in modern Bangladesh covered 130 hectares and contained 40-plus brick monuments. In Sri Lanka, Buddhist monasteries in the Anuradhapura hinterland replaced secular towns in the settlement hierarchy. Monks and abbots managed rural labor and surplus, a form of distributed religious administration unlike anything in Mesopotamia or China.`}</p>
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
@@ -867,7 +761,7 @@ function useConfig() {
               <p>{`Edict in Kharoshthi, script choice: Kharoshthi script (a northwest Indian adaptation of Aramaic). Audience: Gandharan communities near the former Achaemenid frontier. Ideological function: Connects the empire to an Achaemenid administrative tradition local populations already understood.`}</p>
               <p>{`Edict in Brahmi, script choice: Brahmi script (the ancestor of most modern South Asian scripts). Audience: The Indian heartland from the Deccan to the Ganges valley. Ideological function: Reaches the majority population in their own literacy tradition.`}</p>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Asoka used Greek script to reach _______ communities in the northwest. He used Kharoshthi because it was familiar to _______ populations near the former Achaemenid frontier. Brahmi reached the _______ of the empire. What does this pattern reveal about how ideology travels across diverse populations?`}</p>
             </div>
@@ -880,26 +774,10 @@ function useConfig() {
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>{`Monastery-based administration differs fundamentally from palace-based administration. A palace runs on force: the king's soldiers enforce taxation, and surplus flows to the palace by command. A monastery runs on moral obligation: communities give labor and surplus voluntarily to support the monks' spiritual work. In exchange, the monks administer the poor, the sick, and the farmland, and legitimize the social order through ritual. This is heterarchy (distributed authority across religious networks) rather than hierarchy (command authority from a single throne).`}</p>
           </div>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/5c/South_Gate_of_Stupa_1.jpg"
-              alt="South Gate of the Great Stupa at Sanchi, c. 1st century BCE"
-            />
-            <figcaption>
-              {`South Gate of the Great Stupa at Sanchi, c. 1st century BCE. Built under Mauryan and Sunga patronage. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:South_Gate_of_Stupa_1.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
 
           <h3>Post-Mauryan Dynasties</h3>
           <p>{`After the Mauryan Empire ended in 185 BCE, the Sunga dynasty extended the Buddhist sites at Sanchi and Barhut. The Kushan Empire (1st-3rd century CE) under King Kanishka controlled Central Asia down to the Indian Ocean coast and became the main conduit for Buddhism along the Silk Road.`}</p>
-          <p>{`Wheeler (1945-46) identified Arikamedu on the southeast coast as a "Roman market" town, assuming South Asian maritime trade was triggered by Roman demand. Later analysis showed its Rouletted Ware pottery was locally made, not Roman. Evidence from Anuradhapura shows that South Asian maritime trade networks predated Roman contact. Indian Ocean trade was indigenous in origin. This is the third of Wheeler's diffusionist claims to fall, after Mehrgarh overturned his Mesopotamian-import theory and Charsadda overturned his Persian-trigger theory.`}</p>
+          <p>{`An older theory identified Arikamedu on the southeast coast as a "Roman market" town. It assumed Roman demand triggered South Asian maritime trade. Later analysis showed its Rouletted Ware pottery was locally made, not Roman. Evidence from Anuradhapura shows that South Asian maritime trade networks predated Roman contact. Indian Ocean trade was indigenous in origin. This is the third old "brought-from-outside" theory to fall. Mehrgarh overturned the Mesopotamian-import theory. Charsadda overturned the Persian-trigger theory. Arikamedu overturned the Roman-demand theory.`}</p>
         </>,
 
         <>
@@ -924,42 +802,35 @@ function useConfig() {
 
           <h3>Anyang: The Late Shang Capital, c. 1250-1050 BCE</h3>
           <p>{`Anyang (ancient Yinxu) became the late Shang capital around 1250 BCE. Its royal cemetery at Xibeigang held 12 massive tombs containing mass human sacrifice. The tomb of Fu Hao is the only intact Shang royal tomb yet found. It contained 468 bronze vessels, 755 jade objects, 7,000 cowrie shells, and 1,600 kilograms of bronze in total. Fu Hao was a military general as well as a royal consort of king Wuding. Shang elite women could hold positions of military and ritual power, and the Shang elite consumed extraordinary concentrations of bronze, jade, and rare goods as markers of status.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/7/75/Ding_%28cooking_vessel%29%2C_China%2C_Shang_dynasty%2C_1300-1046_BC%2C_bronze_-_Royal_Ontario_Museum_-_DSC03993.JPG"
-              alt="Shang dynasty bronze ding vessel, 1300-1046 BCE, Royal Ontario Museum"
-            />
-            <figcaption>
-              {`Shang dynasty bronze ding (ritual vessel), 1300-1046 BCE. Royal Ontario Museum. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Ding_(cooking_vessel),_China,_Shang_dynasty,_1300-1046_BC,_bronze_-_Royal_Ontario_Museum_-_DSC03993.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`The palace at Xiaotun held the oracle bone archive: over 100,000 inscribed animal bones and turtle carapaces. The king's questions covered weather, harvests, military campaigns, and royal pregnancies. Oracle bones were the king's direct channel to the royal ancestors and to the supreme deity Di. Shang kingship was inseparable from ritual authority. The king's legitimacy depended on his ability to consult the spirit world on behalf of his people.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/59/Oracle_bones_pit.JPG"
-              alt="Oracle bones pit, Anyang, Shang dynasty"
-            />
-            <figcaption>
-              {`Oracle bones pit at Anyang (Yinxu), Shang dynasty, c. 1250-1050 BCE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Oracle_bones_pit.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
 
           <h3>The Origins of Chinese Writing</h3>
           <p>{`The earliest symbolic marks in China may be on turtle carapaces from the Neolithic site of Jiahu (c. 6500 BCE). By the Longshan period, inscribed bones dated 2500-1900 BCE appear. The Shang oracle bone script from Anyang is the earliest fully readable Chinese writing. From there, Chinese writing evolved through Western Zhou bronze vessel inscriptions to small seal script, standard script, and cursive forms. The chain is unbroken.`}</p>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="compact" title="Shang Oracle Bone">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Shang_dynasty_inscribed_scapula.jpg"
+                alt="Flat animal shoulder bone covered in columns of incised early Chinese characters"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A Shang oracle bone from Anyang, about 1250 BCE. Its script is the earliest readable Chinese writing. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Shang_dynasty_inscribed_scapula.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 3.0.'}
+              </figcaption>
+            </VizFigure>
+          </figure>
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
               <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
@@ -968,7 +839,7 @@ function useConfig() {
               <p>{`Stage 3, Small seal script (Qin, 221 BCE): Qin Shi Huangdi standardized script across the empire. One official form of each character.`}</p>
               <p>{`Stage 4, Standard script (Han and after): The script form used in most Chinese printing to this day. Modern Chinese characters are direct descendants of this chain.`}</p>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Stage 1, Oracle bone script was used for _______. Stage 2, Bronze inscriptions recorded _______. Stage 3, The Qin standardized script because _______. What is the key reason this unbroken chain makes Shang oracle bones decipherable today?`}</p>
             </div>
@@ -979,21 +850,30 @@ function useConfig() {
           </div>
           <h3>Sanxingdui: A Parallel Bronze Age Civilization in Sichuan</h3>
           <p>{`The walled city of Sanxingdui in Sichuan covered 450 hectares. In 1986, two ritual pits discovered by chance held 735 bronze objects, 61 gold objects, 486 jade items, and 60 elephant tusks. The most striking: bronze masks with eyes on stalks reaching 1.4 meters wide, and a 2.61-meter bronze standing figure weighing 180 kilograms. Sanxingdui was contemporary with the late Shang but completely different in artistic tradition, with no oracle bones, no writing, and no Shang-style ritual vessels. Bronze Age China was not a single cultural zone. It was a mosaic of complex societies in contact with each other.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Bronze_Mask_with_Protruding_Eyes.jpg"
-              alt="Sanxingdui bronze mask with protruding eyes, Sichuan, c. 1200-1000 BCE"
-            />
-            <figcaption>
-              {`Sanxingdui bronze mask with protruding eyes, Sichuan, c. 1200-1000 BCE. Eyes on stalks extending 16 cm forward. Sanxingdui Museum. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Bronze_Mask_with_Protruding_Eyes.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Sanxingdui Bronze Mask">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/6/61/Ancient_Bronze_Mask_from_Sanxingdui_with_Protruding_Eyes_%26_Ears_a.jpg"
+                alt="Broad bronze mask with cylindrical eyes projecting outward and large flared ears"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'A bronze mask from Sanxingdui in Sichuan, with eyes on stalks. Its art tradition owes nothing to the Shang. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Ancient_Bronze_Mask_from_Sanxingdui_with_Protruding_Eyes_%26_Ears_a.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · Public domain (CC0).'}
+              </figcaption>
+            </VizFigure>
           </figure>
 
           <h3>Western Zhou, 1045-771 BCE</h3>
@@ -1013,45 +893,38 @@ function useConfig() {
 
           <h3>The Qin Dynasty, 221-207 BCE</h3>
           <p>{`Qin Shi Huangdi ("First Emperor") unified China in 221 BCE through a Legalist system. Legalism is a philosophy that treats people as responsive to reward and punishment, not to moral virtue. He replaced feudal states with 36 commanderies, standardized the script, weights and measures, and currency, and built the Great Wall with 300,000 workers. His tomb at Lintong is guarded by a terracotta army of life-sized infantry, cavalry, and chariots.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Xian_guerreros_terracota_general.JPG"
-              alt="Terracotta Army of Qin Shi Huangdi, Xi'an"
-            />
-            <figcaption>
-              {`Terracotta Army of Qin Shi Huangdi, c. 210 BCE, Xi'an, Shaanxi. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Xian_guerreros_terracota_general.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Terracotta Army, Pit 1">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/49/Terracotta_Army%2C_View_of_Pit_1.jpg"
+                alt="Long earthen trenches filled with rows of life-sized terracotta soldiers standing in formation"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  "Pit 1 of the terracotta army guarding Qin Shi Huangdi's tomb at Lintong. Thousands of life-sized figures stand in rank. "
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Terracotta_Army,_View_of_Pit_1.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY 3.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>{`Qin Shi Huangdi died in 210 BCE. His dynasty collapsed in 207 BCE, 14 years after unification. Legalism was efficient but had no way to manage grievances or build loyalty. When the emperor died, only fear was holding the empire together, and fear alone could not hold it.`}</p>
 
           <h3>The Han Dynasty, 206 BCE-220 CE</h3>
-          <p>{`The Han capital Chang'an was four times the size of imperial Rome, with 12 gateways and the vast Shanglin Park. By the end of the Western Han, 120,285 officials ran the empire through a Confucian civilian bureaucracy. The Han introduced a seed drill (85 BCE) and a pit-field system producing 15,000 plants per 42 by 11 meter plot. Canal irrigation extended food production. Without that surplus, the Confucian bureaucracy had nothing to distribute and the empire's size became a liability. Emperor Wudi (140-87 BCE) expanded to the Jade Gate (Dunhuang), Vietnam, and Korea, opening the Silk Road as a sustained trade route.`}</p>
+          <p>{`The Han capital Chang'an was four times the size of imperial Rome, with 12 gateways and the vast Shanglin Park. By the end of the Western Han, 120,285 officials ran the empire through a Confucian civilian bureaucracy. The Han introduced a seed drill (85 BCE) and a pit-field system that raised crop yields. Canal irrigation extended food production. Without that surplus, the Confucian bureaucracy had nothing to distribute and the empire's size became a liability. Emperor Wudi (140-87 BCE) expanded to the Jade Gate (Dunhuang), Vietnam, and Korea, opening the Silk Road as a sustained trade route.`}</p>
 
           <h3>Mawangdui: Han Aristocratic Life Preserved</h3>
           <p>{`The Mawangdui site at Changsha in Hunan Province holds three tombs from the family of Li Cang, Marquis of Dai (died 168 BCE). His wife Xin Zhui (Lady Dai) was preserved almost perfectly after 2,000 years. Her coffin sat inside four nested lacquered wooden cases sealed in charcoal and white clay. The tomb held 312 bamboo slips listing foods for her afterlife banquets, 162 wooden servant figures, a silk tomb banner showing cosmological scenes, and a complete silk wardrobe.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Mawangdui_silk_banner_from_tomb_no1.jpg"
-              alt="Mawangdui T-shaped silk tomb banner, Han dynasty, c. 168 BCE"
-            />
-            <figcaption>
-              {`Mawangdui T-shaped silk tomb banner from Tomb No. 1, Han dynasty, c. 168 BCE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/Category:Mawangdui_silk_banner_from_tomb_no._1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
           <p>{`At Mancheng, Prince Liu Sheng was buried in a jade suit made of 2,690 jade wafers stitched together with gold wire.`}</p>
         </>,
 
@@ -1075,7 +948,7 @@ function useConfig() {
               <p>{`Step 2, Silla (37 BCE-668 CE) allied with the Tang Dynasty of China to defeat Koguryo and Paekche.`}</p>
               <p>{`Step 3, Great Silla (668 CE) unified Korea. This ends the Three Kingdoms period.`}</p>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Korean unification sequence: Han occupation (108 BCE) created Lelang province. Three Kingdoms (Koguryo, Paekche, Silla) arose from that pressure. Silla allied with _______ to defeat the others. _______ (Great Silla) unified Korea in 668 CE.`}</p>
             </div>
@@ -1085,22 +958,6 @@ function useConfig() {
             </div>
           </div>
           <p>{`Koguryo (37 BCE-668 CE) buried its rulers in tombs decorated with painted hunting scenes and gold inlay. Its capital moved from Jian to Pyongyang in 427 CE. Koguryo founded a university in 372 CE and was the first Korean kingdom to adopt Buddhism. Paekche (18 BCE-680 CE) was literate in Chinese by the 4th century CE, adopted Buddhism in 384 CE, and carried both Chinese writing and Buddhism to Japan. The intact tomb of King Muryong (523 CE) yielded gold crowns and elaborate grave goods. Silla (37 BCE-668 CE) drew on iron ore deposits and raised 155 burial mounds at Kyongju. Royal tombs held Silla gold crowns with tree and antler projections, jade ornaments, and worked gold.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Gold_crown_from_Hwangnam_Daechong_at_National_Museum_of_Korea.jpg"
-              alt="Silla gold crown from Hwangnam Daechong tomb, National Museum of Korea"
-            />
-            <figcaption>
-              {`Silla gold crown from Hwangnam Daechong tomb, 5th-6th century CE. National Museum of Korea, Seoul. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Gold_crown_from_Hwangnam_Daechong_at_National_Museum_of_Korea.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
 
           <h3>Great Silla, Yamato Japan, and the Nara State</h3>
           <p>{`Silla allied with the Tang Dynasty of China to defeat Koguryo and Paekche. The result was Great Silla (668-918 CE), which unified Korea and built its capital Kumsong on the Chinese Chang'an grid.`}</p>
@@ -1158,59 +1015,61 @@ function useConfig() {
           <p>{`The Pyu (c. 200 BCE-900 CE) built three walled cities: Beikthano, Sri Ksetra, and Halin. They adopted Buddhism in the 4th to 5th century CE and cremated their dead in mortuary jars. Their coins bear throne and srivatsa (auspicious symbol) designs. The Pagan state succeeded the Pyu in the 9th century CE.`}</p>
 
           <h3>Dvaravati and the Cham</h3>
-          <p>{`Dvaravati (c. 400-900 CE) occupied the Chao Phraya valley with Mon-speaking communities. U-Thong covered 142 hectares; Nakhon Pathom covered 740 hectares. Dvaravati built Buddhist stupas and caitya shrines. The Cham of Vietnam occupied the coastal strip and traded along the maritime Silk Road. They built the Mi Son and Po Nagar Hindu temple complexes.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Dong_Son_bronze_drum.JPG"
-              alt="Dong Son bronze drum, Vietnam, Iron Age Southeast Asia"
-            />
-            <figcaption>
-              {`Dong Son bronze drum, Vietnam, c. 2nd-1st century BCE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Dong_Son_bronze_drum.JPG"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
-          </figure>
+          <p>{`Dvaravati (c. 400-900 CE) occupied the Chao Phraya valley with Mon-speaking communities. U-Thong covered 142 hectares; Nakhon Pathom covered 740 hectares. Dvaravati built Buddhist stupas and caitya shrines (prayer halls that house a stupa). The Cham of Vietnam occupied the coastal strip and traded along the maritime Silk Road. They built the Mi Son and Po Nagar Hindu temple complexes.`}</p>
 
           <h3>Angkor: The Greatest Southeast Asian Civilization, 800-1435 CE</h3>
           <p>{`Angkor takes its modern name from the Sanskrit Nagara, "Holy City." Jayavarman II founded the state at the end of the 8th century CE. Yashovarman I moved the capital to Bakheng hill and built the Eastern Baray reservoir (7.5 by 1.8 kilometers). Water management was the spine of Angkor's power: baray reservoirs stored monsoon water for year-round rice irrigation. Rice surplus fed the labor force that built the temples. Controlling water meant controlling everything else.`}</p>
           <p>{`Suryavarman II (1113-1150 CE) built Angkor Wat, the largest religious monument in the world. Its five towers represent Mount Meru, the cosmic mountain of Hindu cosmology. Its bas-reliefs are the finest in Southeast Asia.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Angkor_Wat_Aerial_View_Siem_Reap_Cambodia_2011.jpg"
-              alt="Angkor Wat aerial view, Siem Reap, Cambodia"
-            />
-            <figcaption>
-              {`Angkor Wat aerial view, Siem Reap, Cambodia. Built by Suryavarman II, 1113-1150 CE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:Angkor_Wat_Aerial_View_Siem_Reap_Cambodia_2011.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="wide" title="Angkor Wat">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/41/Angkor_Wat.jpg"
+                alt="Five lotus-bud stone towers of a temple reflected in the surrounding moat at sunrise"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'Angkor Wat, built by Suryavarman II. Its five towers stand for Mount Meru, the cosmic mountain. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:Angkor_Wat.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>{`Jayavarman VII (1181-1219 CE), the most powerful Angkor king, converted to Buddhism and built Angkor Thom, a walled city with the Bayon temple at its center. The Bayon's giant stone faces show the king as a bodhisattva (a Buddhist figure who delays his own enlightenment to help others). LiDAR surveys of the Angkor region have revealed a vast grid of roads, canals, and rice fields stretching far beyond the city walls.`}</p>
-          <figure className="lrn-figure">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/578Bayon_Gesichtert%C3%BCrme.jpg"
-              alt="Bayon temple face towers, Angkor Thom, Cambodia"
-            />
-            <figcaption>
-              {`Bayon temple face towers, Angkor Thom, Cambodia. Built by Jayavarman VII, c. 1181-1219 CE. `}
-              <a
-                href="https://commons.wikimedia.org/wiki/File:578Bayon_Gesichtert%C3%BCrme.jpg"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Source
-              </a>
-            </figcaption>
+          <figure
+            className="lrn-figure"
+            style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            <VizFigure aspect="auto" size="body" title="Bayon Faces, Angkor Thom">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c2/20171127_Bayon_Temple_Angkor_Thom_4754_DxO.jpg"
+                alt="Stone towers each carved with several giant calm human faces looking in different directions"
+                style={{ width: '100%', display: 'block' }}
+              />
+              <figcaption>
+                {
+                  'The giant stone faces of the Bayon at Angkor Thom, built by Jayavarman VII. They show the king as a bodhisattva. '
+                }
+                <a
+                  href="https://commons.wikimedia.org/wiki/File:20171127_Bayon_Temple_Angkor_Thom_4754_DxO.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Wikimedia Commons
+                </a>
+                {' · CC BY-SA 4.0.'}
+              </figcaption>
+            </VizFigure>
           </figure>
           <p>{`Angkor was abandoned around 1431-1432 CE under combined pressures.`}</p>
           <div className="lrn-elaborate">
@@ -1258,16 +1117,6 @@ function useConfig() {
           </div>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Oracle Bones</span>
-              <p>{`Divination records. Purpose: royal communication with ancestors and deity Di. Continuous evolution into modern Chinese. Deciphered. Purpose reveals a royal ritual state where political legitimacy depended on spiritual access.`}</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Linear B</span>
-              <p>{`Palace administration records. Purpose: tracking textiles, rations, land allocations. Disappeared with Mycenaean palace collapse c. 1200 BCE. Deciphered 1952. Reveals a bureaucratic palace economy managing coerced agricultural labor.`}</p>
-            </div>
-          </div>
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
               <span className="lrn-compare-title">Mesopotamian Cuneiform</span>
               <p>{`Invented for accounting, c. 3500-3000 BCE. Evolved into literature, law, and diplomacy. The Epic of Gilgamesh, the Amarna Letters, and Hammurabi's Law Code all use descendants of this accounting tool. Accounting literacy expanded into cultural and legal literacy.`}</p>
             </div>
@@ -1290,7 +1139,7 @@ function useConfig() {
           <p>{`The Indus script has none of the three. No bilingual inscription exists. No modern language is a certain descendant. Most inscriptions are fewer than five signs long, too short to work with structurally. Linear A has the same problem: no bilingual key, no known descendant.`}</p>
 
           <h3>The Scale of Coerced Labor</h3>
-          <p>{`Monumental architecture across the Old World required mobilizing large labor forces. The Great Wall took 300,000 workers. Angkor's temples needed sustained rice surplus from managed paddies. The Qin tomb's terracotta army required specialized workshops for decades. The Royal Cemetery of Ur required 74 people to die with a single ruler. The size of a monument is a direct index of state power over human life. The bigger the monument, the more complete the coercion.`}</p>
+          <p>{`Recall the rule from the start: monument size indexes the labor a ruler could command. Set the Old World cases side by side. The Great Wall, the Qin tomb's terracotta army, Angkor's temples, and the mass graves of Ur all measure the same thing in different forms. Each shows how completely one state could command human life. The Indus is the puzzle that breaks the pattern.`}</p>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Indus Great Bath</span>
@@ -1349,7 +1198,7 @@ function useConfig() {
       },
       {
         q: 'What is the significance of Mehrgarh for understanding the origins of the Indus Civilization?',
-        a: "Mehrgarh near the Bolan Pass in western Pakistan (c. 6500-2800 BCE) is the earliest undisputed farming site in South Asia, with aceramic mud-brick storage structures, cultivated barley and wheat, and domesticated zebu cattle. Its discovery in the 1970s overturned Wheeler's 1953 claim that Indus civilization was imported from Mesopotamia. Mehrgarh shows that South Asian civilization had deep local roots stretching back to 6500 BCE."
+        a: 'Mehrgarh near the Bolan Pass in western Pakistan (c. 6500-2800 BCE) is the earliest undisputed farming site in South Asia, with aceramic mud-brick storage structures, cultivated barley and wheat, and domesticated zebu cattle. Its discovery in the 1970s overturned an older claim that Indus civilization was imported from Mesopotamia. Mehrgarh shows that South Asian civilization had deep local roots stretching back to 6500 BCE.'
       },
       {
         q: 'What was Angkor, and what was the key to its sustained power?',
@@ -1374,10 +1223,6 @@ function useConfig() {
       {
         q: 'What was the Hittite capital Hattusa, and what makes its archive significant?',
         a: 'The Hittite capital Hattusa (modern Bogazkoy) covered about 600 hectares and held an archive of 30,000 or more cuneiform tablets in Hittite, Akkadian, Luwian, and other languages. This multi-language archive shows that the Hittites were a central diplomatic and military player in the Late Bronze Age world system. The tablets include treaties, royal correspondence, and the Amarna-era diplomatic network.'
-      },
-      {
-        q: "Why does the Indus Civilization's uniformity across 500,000 sq km present a paradox?",
-        a: 'Uniformity at this scale normally requires a centralized state to enforce it. Yet the Indus shows no royal tombs, no elite palaces, and no warrior burials. The paradox is that civilization-scale standardization appeared without the visible coercive apparatus that produced it elsewhere. Scholars debate whether the Indus had a state, a chiefdom, an egalitarian federation, or a caste precursor maintaining conformity through social pressure rather than military force.'
       },
       {
         q: "What was Qin Shi Huangdi's Legalist system, and why did it collapse so quickly?",
@@ -1405,7 +1250,7 @@ function useConfig() {
       },
       {
         q: "What was the debate about the origins of South Asia's second urbanization, and how was it resolved?",
-        a: "Wheeler proposed that Achaemenid Persian contact (520 BCE) triggered South Asia's second urbanization. New excavations at Charsadda (1996) found occupation extending back to the middle 2nd millennium BCE, centuries before Persian contact. This resolved the debate in favor of internal dynamics: the second urbanization grew from indigenous development of the mahajanapada system, iron technology, and expanded agriculture, not from foreign stimulus."
+        a: "An older theory proposed that Achaemenid Persian contact (520 BCE) triggered South Asia's second urbanization. New excavations at Charsadda (1996) found occupation extending back to the middle 2nd millennium BCE, centuries before Persian contact. This resolved the debate in favor of internal dynamics: the second urbanization grew from local development of the mahajanapada system, iron technology, and expanded agriculture, not from foreign stimulus."
       },
       {
         q: 'How did Sanxingdui reveal that Bronze Age China was not a single cultural zone?',
@@ -1425,7 +1270,7 @@ function useConfig() {
       },
       {
         q: "What does the Gandharan Grave Culture suggest about South Asia after the Indus Civilization's collapse?",
-        a: "The Gandharan Grave Culture (c. 1700-1600 BCE) in the Chitral, Dir, and Swat valleys shows bell-shaped burial pits and horse burials, different from Indus burial practices. This suggests that new populations, possibly early Indo-Aryan speakers, were moving into the region during and after the Indus collapse. Wheeler's earlier 'invasion massacre' interpretation was abandoned: the skeletal evidence at Mohenjo-daro was reinterpreted as a peaceful mass burial with grave goods."
+        a: "The Gandharan Grave Culture (c. 1700-1600 BCE) in the Chitral, Dir, and Swat valleys shows bell-shaped burial pits and horse burials, different from Indus burial practices. This suggests that new populations, possibly early Indo-Aryan speakers, were moving into the region during and after the Indus collapse. An older 'invasion massacre' interpretation was abandoned: the skeletal evidence at Mohenjo-daro was reinterpreted as a peaceful mass burial with grave goods."
       },
       {
         q: 'Why did the Linear B tablets at Pylos survive when other palace records did not?',
@@ -1440,8 +1285,8 @@ function useConfig() {
         a: "The Xia Dynasty is recorded in Chinese historical tradition as China's first dynasty before the Shang. Erlitou (c. 2070-1500 BCE), which shows state-level organization with a 400-hectare site and a walled palace precinct, is the strongest archaeological candidate for a Xia capital. The question remains unresolved because no inscription at Erlitou identifies itself as Xia, and scholars debate whether Erlitou is late Xia or early Shang."
       },
       {
-        q: "Why was Wheeler's identification of Arikamedu as a 'Roman market' overturned?",
-        a: "Wheeler (1945-46) identified Arikamedu on India's southeast coast as a 'Roman market' because he found what he thought was Roman Arretine ware pottery. Later analysis showed the Rouletted Ware pottery was locally made, not Roman. Evidence from Anuradhapura also showed that Indian Ocean trade networks pre-dated Roman contact. The conclusion is that South Asian maritime trade was indigenous in origin, not created by Roman demand."
+        q: "Why was the identification of Arikamedu as a 'Roman market' overturned?",
+        a: "An older theory identified Arikamedu on India's southeast coast as a 'Roman market' because of pottery thought to be Roman Arretine ware. Later analysis showed the Rouletted Ware pottery was locally made, not Roman. Evidence from Anuradhapura also showed that Indian Ocean trade networks pre-dated Roman contact. The conclusion is that South Asian maritime trade was local in origin, not created by Roman demand."
       },
       {
         q: "What was the 'ritual bronze revolution' of the Western Zhou period?",
@@ -1449,7 +1294,7 @@ function useConfig() {
       },
       {
         q: 'Predict: Two city-states in early Mesopotamia both want control of the same river irrigation canal. What forms of political power are available to each city, and what outcomes are possible?',
-        a: "This describes the competitive dynamics of Sumerian city-states (c. 3000-2000 BCE). Each city had a temple economy that owned land and a lugal (king) who was both military leader and ritual officiant. Possible forms of power include military attack, diplomatic marriage, religious claim (declaring the canal sacred to their city's deity), or economic pressure through controlling trade access. Possible outcomes include conquest, treaty, shared administration, or destruction. The Royal Cemetery of Ur shows that kings who controlled these resources could command mass human sacrifice, suggesting that the stakes of losing were very high."
+        a: "This describes the competitive dynamics of Sumerian city-states (c. 3000-2000 BCE). Each city had a temple economy that owned land and a lugal (the secular king, who often led the city in war). Possible forms of power include military attack, diplomatic marriage, religious claim (declaring the canal sacred to their city's deity), or economic pressure through controlling trade access. Possible outcomes include conquest, treaty, shared administration, or destruction. The Royal Cemetery of Ur shows that kings who controlled these resources could command mass human sacrifice, suggesting that the stakes of losing were very high."
       },
       {
         q: 'How did Phoenician and Greek colonization patterns differ?',
@@ -1497,15 +1342,15 @@ function useConfig() {
       },
       {
         q: 'Transfer: The Indus Civilization maintained uniform weights and measures across 500,000 square kilometers. What mechanisms might have produced this uniformity without constant central inspection?',
-        a: 'The Indus case shows that uniformity can persist without visible royal coercion. Possible mechanisms include: standardized production at a small number of specialized centers with finished weights distributed outward; training of artisans in a single tradition passed through apprenticeship; social pressure within trading communities who would reject non-standard weights as fraud; and shared ideological norms that treated standard weights as morally required. The key insight is that uniformity does not require a palace dictating every transaction. It requires trusted shared standards, however those are maintained.'
+        a: 'The Indus case shows that uniformity can persist without visible royal coercion. Several mechanisms could explain it. A small set of specialist centers may have made the finished weights and sent them outward. Apprenticeship may have trained every artisan in one shared tradition. Trading communities may have rejected non-standard weights as fraud. Shared beliefs may have treated correct weights as morally required. The key insight is that uniformity does not require a palace dictating every transaction. It requires trusted shared standards, however those are maintained.'
       },
       {
-        q: 'How does migration appear as a recurring driver of change across all four chapters of this module?',
-        a: "Southwest Asia shows Amorites ending Ur III and Sea Peoples destroying Bronze Age palaces. South Asia shows the Gandharan Grave Culture introducing new populations after the Indus collapse, and Wheeler's 'invasion' theory showing how migration was (wrongly) invoked to explain collapse. East Asia shows Han Chinese expansion colonizing Korea and Vietnam. The Mediterranean shows Greek and Phoenician colonization restructuring the coastline. In every region, the arrival of new populations reshaped political, cultural, and economic systems."
+        q: 'How does migration appear as a recurring driver of change across the regions of this module?',
+        a: "Southwest Asia shows Amorites ending Ur III and Sea Peoples destroying Bronze Age palaces. South Asia shows the Gandharan Grave Culture introducing new populations after the Indus collapse, and an older 'invasion' theory showing how migration was (wrongly) invoked to explain collapse. East Asia shows Han Chinese expansion colonizing Korea and Vietnam. The Mediterranean shows Greek and Phoenician colonization restructuring the coastline. In every region, the arrival of new populations reshaped political, cultural, and economic systems."
       },
       {
         q: 'How does the Metapontum Pantanello necropolis challenge assumptions about Greek colonial demographics?',
-        a: "The Pantanello cemetery at Metapontum (southern Italy), excavated 1982-1986, contains 324 burials from c. 580 BCE to after 280 BCE. Female burials outnumbered male burials two to one. Family plots can be traced across five generations, and biological linkages were confirmed by blood group and epigenetic studies. This challenges the 'Greek colonization as male-dominated settler project' assumption and shows a more complex demographic reality where women and mixed populations were integral to colonial communities."
+        a: "The Pantanello cemetery at Metapontum (southern Italy), excavated 1982-1986, contains 324 burials from c. 580 BCE to after 280 BCE. Female burials outnumbered male burials two to one. Family plots can be traced across five generations. This challenges the 'Greek colonization as male-dominated settler project' assumption and shows a more complex demographic reality where women and mixed populations were integral to colonial communities."
       },
       {
         q: 'What is the significance of clay tokens at Zagheh and proto-cuneiform at Uruk for understanding the relationship between accounting and civilization?',
@@ -1529,7 +1374,7 @@ function useConfig() {
       },
       {
         q: 'Han China introduced a seed drill in 85 BCE and a pit-field agricultural system. Why was agricultural technology the foundation of Han political power, not military technology?',
-        a: "The Han introduced a seed drill (85 BCE) and pit-field system producing 15,000 plants per 42 by 11 meter plot. Canal irrigation extended food production. By the end of the Western Han, 120,285 officials administered the empire. Agricultural innovation was the foundation of Han political stability. Without reliable surplus, the Confucian bureaucracy had nothing to distribute, and the empire's size became a liability. Han China's 120,285 officials were paid for by the surplus the seed drill helped produce. Military technology wins territory; agricultural technology keeps it populated, taxed, and fed."
+        a: "The Han introduced a seed drill (85 BCE) and a pit-field system that raised crop yields. Canal irrigation extended food production. By the end of the Western Han, 120,285 officials administered the empire. Agricultural innovation was the foundation of Han political stability. Without reliable surplus, the Confucian bureaucracy had nothing to distribute, and the empire's size became a liability. Han China's 120,285 officials were paid for by the surplus the seed drill helped produce. Military technology wins territory; agricultural technology keeps it populated, taxed, and fed."
       },
       {
         q: "What was Confucius's concept of ru and junzi?",
@@ -1828,13 +1673,8 @@ function useConfig() {
               Each had acropolis + agora.
             </li>
             <li>
-              <strong>Pompeii premise (Binford 1981):</strong> A suddenly buried site is NOT a
-              transparent time capsule. Pompeii was pre-disturbed, underwent Romanization, has
-              complex depositional processes.
-            </li>
-            <li>
-              <strong>Human trafficking:</strong> Scheidel (2011): at least 100 million people in
-              involuntary movement over Roman Empire's course.
+              <strong>Human trafficking:</strong> at least 100 million people in involuntary
+              movement over Roman Empire's course.
             </li>
           </ul>
 
@@ -1901,8 +1741,8 @@ function useConfig() {
           </div>
           <ul className="lrn-list">
             <li>
-              <strong>Era of integration (Shaffer 1992):</strong> c. 2600-1900 BCE. 500,000 sq km.
-              Five urban sites over 100 ha. 15,000+ total sites.
+              <strong>Era of integration:</strong> c. 2600-1900 BCE. 500,000 sq km. Five urban sites
+              over 100 ha. 15,000+ total sites.
             </li>
             <li>
               <strong>Indus paradox:</strong> Civilization-scale uniformity without royal tombs,
@@ -1913,8 +1753,8 @@ function useConfig() {
               to left. No bilingual inscription. Undeciphered.
             </li>
             <li>
-              <strong>Wheeler's massacre theory (1947):</strong> Abandoned after reanalysis showed
-              peaceful mass burial with grave goods.
+              <strong>Massacre theory:</strong> Abandoned after reanalysis showed peaceful mass
+              burial with grave goods.
             </li>
           </ul>
 
@@ -1937,15 +1777,15 @@ function useConfig() {
             </div>
             <div className="ref-item">
               <strong>Charsadda</strong> excavated 1996; occupation to middle 2nd millennium BCE
-              (overturned Wheeler's Persian-contact trigger theory)
+              (overturned the Persian-contact trigger theory)
             </div>
             <div className="ref-item">
               <strong>Pataliputra (Mauryan capital)</strong> 1,350 ha; stone-pillared hall; six-tier
               settlement hierarchy
             </div>
             <div className="ref-item">
-              <strong>Arikamedu</strong> identified by Wheeler 1945-46 as "Roman market"; Rouletted
-              Ware shown to be local, not Roman
+              <strong>Arikamedu</strong> once identified as a "Roman market"; Rouletted Ware shown
+              to be local, not Roman
             </div>
             <div className="ref-item">
               <strong>Kushan Empire</strong> 1st-3rd century CE; under Kanishka; major Buddhist
@@ -2187,7 +2027,7 @@ function useConfig() {
                 <td>{`None visible`}</td>
                 <td>{`Mass sacrifice at royal tombs`}</td>
                 <td>{`Linear B records coerced labor`}</td>
-                <td>{`Slavery structural (Scheidel 2011)`}</td>
+                <td>{`Slavery structural`}</td>
                 <td>{`Monastery-managed labor`}</td>
                 <td>{`Temple construction workforce`}</td>
               </tr>
@@ -2214,70 +2054,34 @@ function useConfig() {
             </tbody>
           </table>
 
-          <h2>Key Scholars and Their Arguments</h2>
+          <h2>Debates and How They Were Settled</h2>
           <table className="lrn-table">
             <thead>
               <tr>
-                <th>{`Scholar`}</th>
-                <th>{`Date`}</th>
                 <th>{`Claim`}</th>
                 <th>{`Status`}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>{`Mortimer Wheeler`}</td>
-                <td>{`1953`}</td>
                 <td>{`Indus civilization imported from Mesopotamia`}</td>
                 <td>{`Overturned by Mehrgarh (1970s)`}</td>
               </tr>
               <tr>
-                <td>{`Mortimer Wheeler`}</td>
-                <td>{`1947`}</td>
                 <td>{`Mohenjo-daro skeletons = Indo-Aryan invasion massacre`}</td>
-                <td>{`Abandoned after reanalysis`}</td>
+                <td>{`Abandoned: reanalysis showed peaceful mass burial`}</td>
               </tr>
               <tr>
-                <td>{`Mortimer Wheeler`}</td>
-                <td>{`1945-46`}</td>
                 <td>{`Arikamedu = "Roman market"`}</td>
                 <td>{`Overturned: Rouletted Ware was local`}</td>
               </tr>
               <tr>
-                <td>{`James Shaffer`}</td>
-                <td>{`1992`}</td>
-                <td>{`Indus "era of integration" concept`}</td>
-                <td>{`Current standard framework`}</td>
+                <td>{`Persian contact triggered second urbanization`}</td>
+                <td>{`Overturned by Charsadda (1996)`}</td>
               </tr>
               <tr>
-                <td>{`Michael Ventris`}</td>
-                <td>{`1952`}</td>
-                <td>{`Linear B decipherment (early Greek)`}</td>
-                <td>{`Accepted`}</td>
-              </tr>
-              <tr>
-                <td>{`Alice Kober`}</td>
-                <td>{`pre-1952`}</td>
-                <td>{`Groundwork for Linear B decipherment`}</td>
-                <td>{`Accepted`}</td>
-              </tr>
-              <tr>
-                <td>{`Robert Adams`}</td>
-                <td>{`20th c.`}</td>
-                <td>{`Uruk growth surveys (village to metropolis)`}</td>
-                <td>{`Standard reference`}</td>
-              </tr>
-              <tr>
-                <td>{`Lewis Binford`}</td>
-                <td>{`1981`}</td>
-                <td>{`"Pompeii premise" critique`}</td>
-                <td>{`Methodological standard`}</td>
-              </tr>
-              <tr>
-                <td>{`Walter Scheidel`}</td>
-                <td>{`2011`}</td>
-                <td>{`100 million+ involuntary movements in Roman Empire`}</td>
-                <td>{`Current scholarship`}</td>
+                <td>{`Linear B is an early form of Greek`}</td>
+                <td>{`Confirmed by decipherment in 1952`}</td>
               </tr>
             </tbody>
           </table>

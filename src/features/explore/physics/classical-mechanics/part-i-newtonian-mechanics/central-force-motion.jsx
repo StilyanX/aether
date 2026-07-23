@@ -6,13 +6,16 @@ import {
   TwoBodyOrbit,
   HohmannTransfer,
   KeplerEA2,
-  OrbitDesigner
+  RutherfordScattering,
+  LeonovCoOrbit,
+  NewtonCannonball,
+  KeplerThreeLaws
 } from '../../../../../components/viz'
 
 // Learning sections
 
 const buildLearningSections = () => [
-  // Section 1: Central Force Motion (K&K)
+  // Section 1: Central Force Motion
   <>
     <h2>Central Force Motion: From Two Bodies to One</h2>
     <p>
@@ -116,12 +119,15 @@ const buildLearningSections = () => [
       </div>
       <div className="lrn-compare-col">
         <span className="lrn-compare-title">Three-body problem</span>
-        <p>No general formula exists. Most starting conditions lead to chaotic motion.</p>
+        <p>
+          The same subtraction trick fails. Three separations stay tangled, so the motion usually
+          turns unpredictable.
+        </p>
       </div>
     </div>
   </>,
 
-  // Section 2: Conservation Laws (K&K)
+  // Section 2: Conservation Laws
   <>
     <h2>Conservation Laws and Energy Diagrams in Central Forces</h2>
     <p>
@@ -178,7 +184,9 @@ const buildLearningSections = () => [
     <div className="lrn-eq">{`$$\\mu(\\ddot{r} - r \\dot\\theta^2) = f(r), \\qquad \\mu(r \\ddot\\theta + 2 \\dot{r} \\dot\\theta) = 0$$`}</div>
     <p>
       The angular equation can be rewritten as {`$\\frac{d}{dt}(\\mu r^2 \\dot\\theta) = 0$`}. So
-      the quantity in the bracket stays fixed. That quantity is the angular momentum:
+      the quantity in the bracket stays fixed. That quantity is the scalar {`$l$`}, the magnitude of
+      the vector {`$\\vec{L} = \\vec{r} \\times \\mu \\vec{v}$`} from above. In the orbit plane it
+      reduces to
     </p>
     <div className="lrn-eq lrn-eq-display">{`$$l = \\mu r^2 \\dot\\theta$$`}</div>
     <h3>Energy Equation</h3>
@@ -233,6 +241,11 @@ const buildLearningSections = () => [
       shape of the orbit, the angle as a function of the radius:
     </p>
     <div className="lrn-eq">{`$$\\frac{d\\theta}{dr} = \\frac{\\frac{l}{\\mu r^2}}{\\sqrt{\\frac{2}{\\mu}(E - U_\\text{eff})}}$$`}</div>
+    <p>
+      This shape integral is the workhorse of the whole lesson. Feed it the inverse-square{' '}
+      {`$U(r) = -\\frac{C}{r}$`} in the next section and it integrates in closed form to the orbit
+      equation. Here it stays a formal tool; the concrete evaluation comes when we pick a force law.
+    </p>
     <h3>Noninteracting Particles Energy Diagram</h3>
     <p>
       First check the simplest case. Two particles drift past each other with no force between them,
@@ -297,23 +310,42 @@ const buildLearningSections = () => [
         </p>
       </details>
     </div>
+    <h3>Circular Orbit at the Bottom of the Well</h3>
+    <p>
+      For an attractive inverse-square force the potential is {`$U(r) = -\\frac{C}{r}$`}, where{' '}
+      {`$C$`} is the strength constant (for gravity {`$C = GMm$`}). The effective potential{' '}
+      {`$U_\\text{eff} = \\frac{l^2}{2\\mu r^2} - \\frac{C}{r}$`} then has a single dip. A circular
+      orbit sits right at the bottom of that dip, where the net radial pull is zero. Set the
+      derivative to zero:
+    </p>
+    <div className="lrn-eq">{`$$U_\\text{eff}'(r) = -\\frac{l^2}{\\mu r^3} + \\frac{C}{r^2} = 0 \\;\\Longrightarrow\\; r_0 = \\frac{l^2}{\\mu C}$$`}</div>
+    <p>
+      At this radius {`$r_0$`} the body circles forever at a fixed distance. This is the orbit we
+      now disturb.
+    </p>
     <h3>Perturbed Circular Orbit</h3>
     <p>
-      A satellite sits in a circular orbit at radius {`$r_0$`}. Fire a short radial pulse from its
-      thruster. Now the radius bobs slightly above and below {`$r_0$`}. To find that wobble, write{' '}
-      {`$r = r_0 + \\delta r$`} with {`$\\delta r$`} small, drop everything quadratic in{' '}
-      {`$\\delta r$`}, and what remains is a clean simple-harmonic-oscillator equation. (This step
-      is called <em>linearization</em>: keep only the first-order piece of every term and discard
-      the rest.) The wobble swings back and forth at angular frequency
+      Fire a short radial pulse from the satellite's thruster. Now the radius bobs slightly above
+      and below {`$r_0$`}. To find that wobble, write {`$r = r_0 + \\delta r$`} with {`$\\delta r$`}{' '}
+      small. Near the bottom of the well the radial force is {`$-U_\\text{eff}'(r)$`}, and a Taylor
+      expansion about {`$r_0$`} kills the constant term (the slope is zero there) and keeps the
+      linear one:
     </p>
-    <div className="lrn-eq">{`$$\\beta = \\sqrt{\\frac{C}{m r_0^3}} = \\frac{l}{m r_0^2}$$`}</div>
+    <div className="lrn-eq">{`$$\\mu \\, \\ddot{\\delta r} = -U_\\text{eff}''(r_0) \\, \\delta r$$`}</div>
     <p>
-      The two forms agree because a circular orbit demands{' '}
-      {`$l = m r_0^2 \\dot\\theta_0 = m \\sqrt{C r_0}$`}: substitute and you get the same answer
-      either way. For inverse-square gravity, {`$\\beta$`} happens to match the orbit's own angular
-      speed {`$\\dot\\theta_0$`}, so the radial wobble lines up with one full lap. The disturbed
-      path closes after exactly one period: it is a small tilted ellipse around the original circle,
-      not a slow rosette that drifts open.
+      That is a simple-harmonic-oscillator equation,{' '}
+      {`$\\ddot{\\delta r} = -\\beta^2 \\, \\delta r$`}. (Keeping only the first-order piece and
+      dropping the rest is called <em>linearization</em>.) Working out the second derivative{' '}
+      {`$U_\\text{eff}''(r_0) = \\frac{C}{r_0^3}$`} gives the wobble frequency
+    </p>
+    <div className="lrn-eq">{`$$\\beta = \\sqrt{\\frac{U_\\text{eff}''(r_0)}{\\mu}} = \\sqrt{\\frac{C}{\\mu r_0^3}} = \\frac{l}{\\mu r_0^2}$$`}</div>
+    <p>
+      The last two forms agree because the circular orbit demands{' '}
+      {`$l = \\mu r_0^2 \\dot\\theta_0 = \\sqrt{\\mu C r_0}$`}: substitute and you get the same
+      answer either way. For inverse-square gravity, {`$\\beta$`} happens to match the orbit's own
+      angular speed {`$\\dot\\theta_0$`}, so the radial wobble lines up with one full lap. The
+      disturbed path closes after exactly one period: it is a small tilted ellipse around the
+      original circle, not a slow rosette that drifts open.
     </p>
     <div className="lrn-self-explain">
       <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -329,17 +361,23 @@ const buildLearningSections = () => [
     </div>
     <div className="lrn-compare">
       <div className="lrn-compare-col">
-        <span className="lrn-compare-title">Tangential thrust</span>
-        <p>Changes both energy and angular momentum. Reshapes the orbit dramatically.</p>
+        <span className="lrn-compare-title">Radial pulse on the circle</span>
+        <p>
+          Leaves {`$l$`} untouched and only nudges {`$E$`}. The radius starts the small wobble
+          worked out above; the orbit stays the same size on average.
+        </p>
       </div>
       <div className="lrn-compare-col">
-        <span className="lrn-compare-title">Radial thrust</span>
-        <p>Changes only the energy and leaves {`$l$`} alone. Just shifts the radial wobble.</p>
+        <span className="lrn-compare-title">Tangential pulse on the circle</span>
+        <p>
+          Shifts {`$l$`} as well as {`$E$`}, so it moves the whole circular radius {`$r_0$`}, not
+          just the wobble around it.
+        </p>
       </div>
     </div>
   </>,
 
-  // Section 3: Planetary Orbits (K&K)
+  // Section 3: Planetary Orbits
   <>
     <h2>Planetary Orbits: Conic Sections</h2>
     <p>
@@ -367,32 +405,26 @@ const buildLearningSections = () => [
         </p>
       </details>
     </div>
-    <figure className="lrn-figure">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Newton%27s_cannonball.svg"
-        alt="Newton's cannonball thought experiment showing trajectories from short range to orbit"
-        loading="lazy"
-      />
-      <figcaption>
-        Newton's cannonball, from his 1728 Treatise. Higher launch speeds curve into longer
-        trajectories, eventually closing into orbit.{' '}
-        <a
-          href="https://commons.wikimedia.org/wiki/File:Newton%27s_cannonball.svg"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Source
-        </a>
-      </figcaption>
-    </figure>
+    <NewtonCannonball />
     <h3>The Orbit Equation</h3>
     <p>
       Substitute {`$U_\\text{eff} = -\\frac{C}{r} + \\frac{l^2}{2\\mu r^2}$`} into the shape
-      integral {`$\\frac{d\\theta}{dr}$`} from the previous section and carry out the integral.
-      After the dust settles you get
+      integral {`$\\frac{d\\theta}{dr}$`} from the previous section. The radical in the denominator
+      becomes
+    </p>
+    <div className="lrn-eq">{`$$\\theta - \\theta_0 = \\int \\frac{\\frac{l}{r^2} \\, dr}{\\sqrt{2\\mu E + \\frac{2\\mu C}{r} - \\frac{l^2}{r^2}}}$$`}</div>
+    <p>
+      The quantity under the root is a quadratic in {`$\\frac{1}{r}$`}. An integral of the form{' '}
+      {`$\\int \\frac{ds}{\\sqrt{a + bs - cs^2}}$`} is a standard arcsine integral, so completing
+      the square inside the root turns the whole thing into an arcsine. Integrating and then
+      inverting the arcsine to solve for {`$r$`} gives
     </p>
     <div className="lrn-eq">{`$$r = \\frac{\\frac{l^2}{\\mu C}}{1 - \\sqrt{1 + \\frac{2 E l^2}{\\mu C^2}} \\, \\sin(\\theta - \\theta_0)}$$`}</div>
-    <p>The two messy combinations on the right deserve names. Let</p>
+    <p>
+      You can now read the orbit shape straight off {`$E$`} and {`$l$`}: those two conserved numbers
+      fix the size and the stretch of the curve, with no need to track the motion in time. The two
+      messy combinations on the right deserve names. Let
+    </p>
     <div className="lrn-eq">{`$$r_0 = \\frac{l^2}{\\mu C}, \\qquad \\epsilon = \\sqrt{1 + \\frac{2 E l^2}{\\mu C^2}}$$`}</div>
     <p>
       The length {`$r_0$`} sets the size of the orbit. The number {`$\\epsilon$`} (the{' '}
@@ -422,7 +454,13 @@ const buildLearningSections = () => [
       </details>
     </div>
     <h3>Classification by Eccentricity</h3>
-    <p>The shape of the orbit depends on the value of {`$\\epsilon$`}, which depends on energy:</p>
+    <p>
+      Try one case first. Pick an energy {`$E = -\\frac{3}{8} \\cdot \\frac{\\mu C^2}{l^2}$`}, a
+      value between the circular minimum and zero. Then{' '}
+      {`$\\epsilon = \\sqrt{1 + \\frac{2 E l^2}{\\mu C^2}} = \\sqrt{1 - \\frac{3}{4}} = \\frac{1}{2}$`}
+      . Since {`$0 < \\epsilon < 1$`}, this orbit is an ellipse, and {`$E < 0$`} confirms it is
+      bound. The full pattern follows the same rule:
+    </p>
     <ul className="lrn-list">
       <li>
         {`$\\epsilon = 0$`}: a perfect circle. The energy hits its minimum,{' '}
@@ -433,7 +471,10 @@ const buildLearningSections = () => [
         is trapped on a closed loop.
       </li>
       <li>
-        {`$\\epsilon = 1$`}: a parabola, with {`$E = 0$`}. The body just barely escapes.
+        {`$\\epsilon = 1$`}: a parabola, with {`$E = 0$`}. The body just barely escapes. Setting{' '}
+        {`$E = \\tfrac{1}{2} m v^2 - \\frac{GMm}{r} = 0$`} for a light body of mass {`$m$`} gives
+        the escape speed {`$v_\\text{esc} = \\sqrt{\\frac{2GM}{r}}$`}: the slowest launch that still
+        reaches infinity.
       </li>
       <li>
         {`$\\epsilon > 1$`}: a hyperbola, with {`$E > 0$`}. The body flies off to infinity with
@@ -441,7 +482,6 @@ const buildLearningSections = () => [
       </li>
     </ul>
     <ConicOrbits />
-    <OrbitDesigner />
     <div className="lrn-compare">
       <div className="lrn-compare-col">
         <span className="lrn-compare-title">Bounded orbit</span>
@@ -566,6 +606,7 @@ const buildLearningSections = () => [
       bouncing back at large angles from a thin gold foil, fit this rule to the data, and concluded
       that all the positive charge of the atom is concentrated in a tiny dense nucleus.
     </p>
+    <RutherfordScattering />
     <div className="lrn-self-explain">
       <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
       <p>Why does a smaller impact parameter produce a larger scattering angle?</p>
@@ -685,7 +726,7 @@ const buildLearningSections = () => [
     </div>
   </>,
 
-  // Section 4: Kepler's Three Laws (K&K)
+  // Section 4: Kepler's Three Laws
   <>
     <h2>Kepler's Three Laws Derived</h2>
     <p>
@@ -709,8 +750,8 @@ const buildLearningSections = () => [
         <summary>Check your thinking</summary>
         <p>
           Kepler's third law says {`$T^2 \\propto A^3$`}. Take {`$A \\approx 1.52$`} astronomical
-          units, then {`$\\frac{T_M}{T_E} \\approx 1.52^{\\tfrac{3}{2}} \\approx 1.88$`}. A Mars year is about
-          1.88 Earth years. The actual value is 1.881.
+          units, then {`$\\frac{T_M}{T_E} \\approx 1.52^{\\tfrac{3}{2}} \\approx 1.88$`}. A Mars
+          year is about 1.88 Earth years. The actual value is 1.881.
         </p>
       </details>
     </div>
@@ -728,10 +769,14 @@ const buildLearningSections = () => [
     </p>
     <div className="lrn-eq lrn-eq-display">{`$$\\frac{dA}{dt} = \\tfrac{1}{2} r^2 \\dot\\theta = \\frac{l}{2\\mu}$$`}</div>
     <p>
-      The middle expression is the area of a thin triangle of base {`$r d\\theta$`} and height{' '}
-      {`$r$`}. The right expression uses {`$l = \\mu r^2 \\dot\\theta$`} from earlier. Since {`$l$`}{' '}
-      stays constant in central-force motion, the area rate is constant. Equal time intervals
-      therefore sweep out equal areas, no matter where on the orbit the planet sits.
+      The middle expression is the area of a thin triangle: as the planet turns by a small angle{' '}
+      {`$d\\theta$`}, the swept sliver has base {`$r \\, d\\theta$`} (the arc) and height {`$r$`},
+      so its area is{' '}
+      {`$\\tfrac{1}{2} \\cdot \\text{base} \\cdot \\text{height} = \\tfrac{1}{2} r^2 d\\theta$`}.
+      Dividing by {`$dt$`} gives {`$\\tfrac{1}{2} r^2 \\dot\\theta$`}. The right expression uses{' '}
+      {`$l = \\mu r^2 \\dot\\theta$`} from earlier. Since {`$l$`} stays constant in central-force
+      motion, the area rate is constant. Equal time intervals therefore sweep out equal areas, no
+      matter where on the orbit the planet sits.
     </p>
     <KeplerEA2 />
     <div className="lrn-elaborate">
@@ -784,24 +829,18 @@ const buildLearningSections = () => [
     </div>
     <h3>Alternative Period Derivation</h3>
     <p>
-      The third law can also be reached by integrating directly. Solve the energy equation for{' '}
-      {`$dt$`}: {`$dt = \\frac{\\mu r \\, dr}{\\sqrt{2\\mu E r^2 + 2\\mu C r - l^2}}$`}. Integrate
-      from perihelion {`$r_\\text{min}$`} to aphelion {`$r_\\text{max}$`} (half an orbit) and double
-      the result for the full period. The integral works out to the same {`$T^2 \\propto A^3$`}{' '}
-      form.
+      The same period also comes straight from the time integral. Rearrange the radial-speed
+      equation {`$\\frac{dr}{dt} = \\sqrt{\\frac{2}{\\mu}(E - U_\\text{eff})}$`} from the quadrature
+      section, with {`$U_\\text{eff} = \\frac{l^2}{2\\mu r^2} - \\frac{C}{r}$`}, to solve for{' '}
+      {`$dt$`}:
     </p>
-    <div className="lrn-self-explain">
-      <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-      <p>Why does this radial integral give the same period as the area-sweep argument?</p>
-      <details className="lrn-self-explain-reveal">
-        <summary>Expert explanation</summary>
-        <p>
-          Both methods use the same conservation laws ({`$E$`} and {`$l$`}) applied to the same
-          orbit. They are alternative book-keeping schemes for adding up time intervals during one
-          revolution. They must agree because the orbit period is a single physical quantity.
-        </p>
-      </details>
-    </div>
+    <div className="lrn-eq">{`$$dt = \\frac{\\mu r \\, dr}{\\sqrt{2\\mu E r^2 + 2\\mu C r - l^2}}$$`}</div>
+    <p>
+      Integrate from perihelion {`$r_\\text{min}$`} to aphelion {`$r_\\text{max}$`} (half an orbit)
+      and double the result for the full period. Both methods rest on the same two conserved
+      quantities {`$E$`} and {`$l$`} for the same orbit, so they must give the same {`$T$`}. The
+      worked example below carries the integral through and lands on {`$T^2 \\propto A^3$`} again.
+    </p>
     <div className="lrn-faded">
       <div className="lrn-faded-phase">
         <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
@@ -823,7 +862,7 @@ const buildLearningSections = () => [
           </li>
         </ol>
       </div>
-      <div className="lrn-faded-phase">
+      <div className="lrn-faded-phase lrn-faded-partial">
         <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
         <p>For an Earth satellite at {`$A = 2 \\times 10^7$`} m:</p>
         <ol className="lrn-list">
@@ -855,36 +894,18 @@ const buildLearningSections = () => [
         </p>
       </div>
     </div>
-    <figure className="lrn-figure">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/9/98/Kepler_laws_diagram.svg"
-        alt="Kepler's three laws diagram with two planets, equal areas, and ellipse foci"
-        loading="lazy"
-      />
-      <figcaption>
-        Kepler's laws of planetary motion. Sun at one focus. Equal sectors swept in equal times.
-        Period grows with semi-major axis.{' '}
-        <a
-          href="https://commons.wikimedia.org/wiki/File:Kepler_laws_diagram.svg"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Source
-        </a>
-      </figcaption>
-    </figure>
+    <KeplerThreeLaws />
   </>,
 
-  // Section 5: Planar Orbits, Axial Symmetry, and Radial Motion (Arnold)
+  // Section 5: Planar Orbits, Axial Symmetry, and Radial Motion
   <>
     <h2>Orbits in Central Fields Are Planar</h2>
 
     <p>
-      A short note on notation. The next three sections follow Arnold's{' '}
-      <em>Mathematical Methods of Classical Mechanics</em>. He writes the angular momentum vector as{' '}
-      {`$M$`} (instead of {`$\\vec{L}$`}), the cross product as {`$[a, b]$`} (instead of{' '}
-      {`$a \\times b$`}), and the dot product as {`$(a, b)$`} (instead of {`$a \\cdot b$`}). The
-      physics is unchanged; only the symbols are different.
+      A short note on notation. From here the symbols shift to a more compact set: {`$M$`} for the
+      angular momentum vector (instead of {`$\\vec{L}$`}), {`$[a, b]$`} for the cross product
+      (instead of {`$a \\times b$`}), and {`$(a, b)$`} for the dot product (instead of{' '}
+      {`$a \\cdot b$`}). The physics is unchanged; only the symbols are different.
     </p>
 
     <p>
@@ -900,8 +921,8 @@ const buildLearningSections = () => [
         <span className="lrn-proof-step-num">1.</span>
         <div className="lrn-proof-step-content">
           Compute the dot product {`$(M, r) = ([r, \\dot{r}], r)$`}. This is a scalar triple product
-          (the volume of the parallelepiped built from three vectors). Two of its three vectors are
-          the same {`$r$`}, so the parallelepiped is flat and its volume is zero.
+          (the volume of the slanted box built from three vectors). Two of its three vectors are the
+          same {`$r$`}, so the box is flat and its volume is zero.
         </div>
       </div>
       <div className="lrn-proof-step">
@@ -1027,7 +1048,7 @@ const buildLearningSections = () => [
         Use {`$M_z$`} conservation any time the force field has rotational symmetry about a fixed
         axis. The full angular momentum vector is no longer constant, but its axial projection is.
         This handles cases where central symmetry breaks but axial symmetry survives: oblate
-        planets, charged particles in a uniform magnetic field, the Lagrange top.
+        planets, or a charged particle in a uniform magnetic field.
       </p>
     </div>
 
@@ -1039,15 +1060,15 @@ const buildLearningSections = () => [
     </p>
     <p>
       Setting {`$M = [r, \\dot{r}] = 0$`} forces position and velocity to be parallel. The particle
-      moves only along the line that joins it to the center. Picture a straight up-and- down fall,
+      moves only along the line that joins it to the center. Picture a straight up-and-down fall,
       with no sideways motion at all. This is called <strong>radial motion</strong>.
     </p>
     <p>
       Radial motion is a one-dimensional problem in the radial coordinate alone, governed by the
-      bare potential {`$U(r)$`}. The centrifugal barrier {`$\\frac{M^2}{2r^2}$`} is absent because{' '}
-      {`$M = 0$`}. Without a barrier, the particle can reach {`$r = 0$`} in a finite amount of time
-      if {`$U(r)$`} stays finite at the center. A ball dropped straight down toward Earth is the
-      everyday example.
+      bare potential {`$U(r)$`}. The centrifugal barrier (the {`$\\frac{l^2}{2\\mu r^2}$`} term from
+      before) is absent because the angular momentum is zero. Without a barrier, the particle can
+      reach {`$r = 0$`} in a finite amount of time if {`$U(r)$`} stays finite at the center. A ball
+      dropped straight down toward Earth is the everyday example.
     </p>
 
     <h3>Worked Example: Cosmonaut Leonov's Lens Cap</h3>
@@ -1068,7 +1089,7 @@ const buildLearningSections = () => [
         </p>
       </div>
       <div className="lrn-step">
-        <span className="lrn-step-title">Perturbation Ansatz</span>
+        <span className="lrn-step-title">Perturbation Trial Form</span>
         <p className="lrn-step-content">
           Look for the cap's path as a small wobble away from the spacecraft's circular orbit:{' '}
           {`$r = r_0 + r_1$`} and {`$\\phi = \\phi_0 + \\phi_1$`}, where {`$r_1$`} and {`$\\phi_1$`}{' '}
@@ -1117,6 +1138,8 @@ const buildLearningSections = () => [
       </div>
     </div>
 
+    <LeonovCoOrbit />
+
     <div className="lrn-self-explain">
       <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
       <p>
@@ -1135,7 +1158,7 @@ const buildLearningSections = () => [
     </div>
   </>,
 
-  // Section 6: N-Body Systems and Conservation Laws (Arnold)
+  // Section 6: N-Body Systems and Conservation Laws
   <>
     <h2>Motions of a System of {`$n$`} Points</h2>
 
@@ -1158,8 +1181,9 @@ const buildLearningSections = () => [
         <p>
           The total stays fixed. Every internal force comes paired with an equal and opposite
           partner by Newton's third law, so the sum of all internal pulls is zero. With no outside
-          push, total momentum is conserved. A rocket relies on this: throw exhaust backward and the
-          rocket itself moves forward by exactly the matching amount.
+          push, total momentum is conserved. Picture an asteroid that suddenly splits into many
+          fragments. The pieces scatter every which way, yet their momenta still add up to the same
+          total the whole rock carried before it broke.
         </p>
       </details>
     </div>
@@ -1206,7 +1230,9 @@ const buildLearningSections = () => [
       </div>
       <div className="lrn-proof-step">
         <span className="lrn-proof-step-num">3.</span>
-        <div className="lrn-proof-step-content">With no external forces, {`$\\frac{dP}{dt} = 0$`}.</div>
+        <div className="lrn-proof-step-content">
+          With no external forces, {`$\\frac{dP}{dt} = 0$`}.
+        </div>
       </div>
       <div className="lrn-qed">Q.E.D.</div>
     </div>
@@ -1239,8 +1265,9 @@ const buildLearningSections = () => [
     </div>
     <p>
       The center of mass behaves as if every gram of mass in the system were concentrated at that
-      one point and only the external forces acted on it. This is why a tossed wrench, no matter how
-      it spins, has its center tracing a clean parabola.
+      one point and only the external forces acted on it. For the Sun and a planet this point is the
+      barycenter from Section 1. The two bodies wheel around it, yet the barycenter itself coasts in
+      a straight line, because the gravity between them is purely internal.
     </p>
 
     <h3>Angular Momentum (n-body)</h3>
@@ -1289,10 +1316,8 @@ const buildLearningSections = () => [
           Newton's third law alone gives {`$F_{ij} + F_{ji} = 0$`}, which is enough to cancel the
           two momenta but not the two torques (each torque also has a position factor). Pulling out
           the common force from the pair leaves the position difference {`$(r_i - r_j)$`}
-          dotted with the force. That second cross product is zero only when the force points along
-          that line. Magnetic forces between moving charges break this assumption, and a purely
-          magnetic system can in fact carry net internal torque, with the missing piece stored in
-          the field itself.
+          crossed with the force. That cross product is zero only when the force points along that
+          line, which is exactly what a central force does.
         </p>
       </details>
     </div>
@@ -1313,7 +1338,7 @@ const buildLearningSections = () => [
     </p>
   </>,
 
-  // Section 7: Method of Similarity and Dimensional Scaling (Arnold)
+  // Section 7: Method of Similarity and Dimensional Scaling
   <>
     <h2>Method of Similarity and Dimensional Scaling</h2>
 
@@ -1337,8 +1362,8 @@ const buildLearningSections = () => [
           Gravity gives an acceleration of size {`$\\sim \\frac{1}{a^2}$`} at distance {`$a$`}. The
           orbital path is of length {`$\\sim a$`}. From {`$\\frac{v^2}{a} \\sim \\frac{1}{a^2}$`}{' '}
           the orbital speed must scale as {`$\\sqrt{\\frac{k}{a}}$`}. The period is path length over
-          speed, so {`$T \\sim \\frac{a}{\\sqrt{\\frac{1}{a}}} = a^{\\tfrac{3}{2}}$`}. This is Kepler's third law
-          without doing the integral.
+          speed, so {`$T \\sim \\frac{a}{\\sqrt{\\frac{1}{a}}} = a^{\\tfrac{3}{2}}$`}. This is
+          Kepler's third law without doing the integral.
         </p>
       </details>
     </div>
@@ -1352,9 +1377,10 @@ const buildLearningSections = () => [
         {`$\\frac{\\lambda}{\\tau^2}$`}; the gravitational acceleration {`$\\frac{k}{r^2}$`} picks
         up {`$\\frac{1}{\\lambda^2}$`}. The two factors must match, so{' '}
         {`$\\frac{\\lambda}{\\tau^2} = \\frac{1}{\\lambda^2}$`}, which forces{' '}
-        {`$\\tau = \\lambda^{\\tfrac{3}{2}}$`}. Periods scale by exactly that, so {`$T \\propto a^{\\tfrac{3}{2}}$`}.
-        The {`$\\tfrac{3}{2}$`} exponent is fixed by the {`$\\frac{1}{r^2}$`} force law alone; a{' '}
-        {`$\\frac{1}{r^3}$`} force would give {`$T \\propto a^{2}$`} instead.
+        {`$\\tau = \\lambda^{\\tfrac{3}{2}}$`}. Periods scale by exactly that, so{' '}
+        {`$T \\propto a^{\\tfrac{3}{2}}$`}. The {`$\\tfrac{3}{2}$`} exponent is fixed by the{' '}
+        {`$\\frac{1}{r^2}$`} force law alone; a {`$\\frac{1}{r^3}$`} force would give{' '}
+        {`$T \\propto a^{2}$`} instead.
       </p>
     </div>
 
@@ -1369,10 +1395,10 @@ const buildLearningSections = () => [
     </div>
     <p>
       Newtonian gravity has no genuine three-body force; everything happens through pair
-      interactions. But the three pair distances cannot all be eliminated by changing coordinates,
-      so unlike the two-body case there is no clean way to collapse the equations to one closed
-      form. Most starting conditions then lead to chaotic orbits that resist any analytic
-      description.
+      interactions. But the three pair distances cannot all be removed by a change of coordinates.
+      The two-body trick of subtracting equations to leave one separation no longer works. So the
+      orbits are usually too sensitive to start conditions to write down in closed form: nudge any
+      starting position a hair and the long-term motion veers off onto a wholly different path.
     </p>
   </>
 ]
@@ -1409,8 +1435,8 @@ const practiceCards = [
     a: `Tangential thrust changes both energy and angular momentum. The orbit becomes elliptical, not circular. The burn point becomes either perigee (if you sped up) or apogee (if you slowed down).`
   },
   {
-    q: `Predict: What happens to a satellite if you fire a tangential burn at apogee that increases its speed?`,
-    a: `Tangential thrust at apogee raises perigee on the opposite side. The orbit becomes more circular if $r_\\text{perigee}$ approaches $r_\\text{apogee}$. Continued burning lifts the entire orbit to a higher altitude.`
+    q: `What happens to a satellite if you fire a tangential burn at apogee that increases its speed?`,
+    a: `The burn adds speed at apogee, so it raises both energy $E = \\tfrac{1}{2}\\mu v^2 - \\frac{C}{r}$ and angular momentum $l = \\mu v r_a$. Higher $E$ means a larger semi-major axis $a = \\frac{C}{-2E}$. Speeding up at apogee pushes the opposite point, the perigee, outward to a higher radius. The orbit becomes more circular as $r_\\text{perigee}$ approaches $r_\\text{apogee}$. Continued burning lifts the entire orbit to a higher altitude.`
   },
   {
     q: `A comet on a parabolic orbit ($E = 0$) passes near Jupiter and emerges with $E < 0$. What happened?`,
@@ -1421,7 +1447,7 @@ const practiceCards = [
     a: `The comet starts with $E = 0$ in the heliocentric frame. During the close encounter the planet's gravity changes the comet's velocity in this frame. After the planet passes, the new total energy $E = \\tfrac{1}{2}\\mu v^2 - \\frac{C}{r}$ can be negative if the planet pulled the comet against its motion. The comet now orbits the Sun in a bound ellipse.`
   },
   {
-    q: `Predict: What kind of orbit results if eccentricity equals 2?`,
+    q: `What kind of orbit results if eccentricity equals 2?`,
     a: `$\\epsilon > 1$ corresponds to a hyperbola. Total energy is positive. The body comes in from infinity, swings around the focus, and escapes back to infinity along an asymptotic line.`
   },
   {
@@ -1441,7 +1467,7 @@ const practiceCards = [
     a: `Two-body central forces have only one independent relative coordinate $\\vec{r} = \\vec{r}_1 - \\vec{r}_2$. Subtraction yields one closed equation with reduced mass. Three bodies introduce two relative coordinates and coupled forces. No general analytic reduction exists, so chaotic motion appears.`
   },
   {
-    q: `Predict: What does the orbit look like if you fire a brief radial pulse on a circular satellite orbit?`,
+    q: `What does the orbit look like if you fire a brief radial pulse on a circular satellite orbit?`,
     a: `For inverse-square gravity radial perturbations oscillate at the same rate as the original orbit. The orbit becomes a small ellipse around the original radius. It closes after one period and stays bounded.`
   },
   {
@@ -1465,7 +1491,7 @@ const practiceCards = [
     a: `For an ellipse the semi-major axis is $a = \\frac{r_0}{1-\\epsilon^2}$, so $\\frac{r_0}{1+\\epsilon} = a(1-\\epsilon)$. For a hyperbola the analog uses $a = \\frac{r_0}{\\epsilon^2-1}$, since $\\epsilon > 1$. Then $r_\\text{min} = \\frac{r_0}{1+\\epsilon} = a(\\epsilon - 1)$. Both forms describe the same closest-approach distance, just with different sign conventions for $a$.`
   },
   {
-    q: `Predict what changes in Kepler's third law if a planet's mass is comparable to the Sun's.`,
+    q: `What changes in Kepler's third law if a planet's mass is comparable to the Sun's?`,
     a: `The constant becomes $\\frac{\\pi^2}{2(M+m)G}$. For small $m$ (most planets) this is essentially $\\frac{\\pi^2}{2MG}$. For binary stars where $m \\sim M$ the sum matters. So the period at fixed $A$ is shorter than for tiny test masses.`
   },
   {
@@ -1494,7 +1520,7 @@ const practiceCards = [
   },
   {
     q: `A satellite in circular orbit at $r_0$ executes a Hohmann transfer to a higher orbit at $r_1$. Sketch the energy changes.`,
-    a: `Burn 1 (tangential at perigee) raises $E$ from $-\\frac{C}{2r_0}$ to $-\\frac{C}{r_0 + r_1}$. The transfer ellipse has semi-major axis $a = \\frac{r_0+r_1}{2}$. Burn 2 at apogee raises $E$ to $-\\frac{C}{2r_1}$. Both burns increase energy. Total $\\Delta v$ depends on the radii ratio.`
+    a: `The transfer ellipse touches the inner orbit at perigee and the outer orbit at apogee, so its major axis is $r_0 + r_1$ and its semi-major axis is $a = \\frac{r_0+r_1}{2}$. Use the bound-orbit energy $E = -\\frac{C}{2a}$. Burn 1 (tangential at perigee) raises $E$ from $-\\frac{C}{2r_0}$ to $-\\frac{C}{2a} = -\\frac{C}{r_0 + r_1}$. Burn 2 at apogee raises $E$ to $-\\frac{C}{2r_1}$. Both burns increase energy. Total $\\Delta v$ depends on the radii ratio.`
   },
   {
     q: `A planet's orbit has $a = 4 \\times 10^{11}$ m around a star of $M = 2 \\times 10^{30}$ kg. Find its period.`,
@@ -1513,17 +1539,8 @@ const practiceCards = [
     a: `First find $A = \\frac{C}{-E} = 4\\times \\frac{10^{16}}{10^9} = 4 \\times 10^7$ m. Then $T^2 = \\frac{\\pi^2 \\mu A^3}{2C} = \\frac{\\pi^2 (100)(4\\times 10^7)^3}{2 \\cdot 4\\times 10^{16}} = \\pi^2 \\cdot 8\\times 10^7$. Compute: $T^2 \\approx 7.9\\times 10^8$, so $T \\approx 28{,}100$ s, about $7.8$ hours.`
   },
   {
-    q: `Why is angular momentum conserved in central-force motion?`,
-    a: `Angular momentum changes by torque $\\vec{\\tau} = \\vec{r}\\times \\vec{F}$. A central force $\\vec{F} = f(r)\\hat{r}$ is parallel to $\\vec{r}$. Their cross product is zero. So $\\vec{\\tau} = 0$ and $\\vec{L}$ stays constant.`
-  },
-  {
-    q: `Predict: What is the impact parameter for an alpha particle approaching a nucleus at very low energy?`,
+    q: `What is the impact parameter for an alpha particle approaching a nucleus at very low energy?`,
     a: `At low $E$ the eccentricity $\\epsilon = \\sqrt{1 + \\frac{2El^2}{\\mu C^2}}$ approaches 1. The orbit becomes nearly parabolic. Even with small $b$ the particle just barely escapes after coming close. The scattering angle approaches 180 degrees for head-on approach.`
-  },
-  // Arnold cards
-  {
-    q: `Two particles have masses $m_1 = 3$ kg and $m_2 = 6$ kg. They interact through a potential $U(|r_1 - r_2|)$. What is the reduced mass? What is the equivalent one-body problem?`,
-    a: `Reduced mass $m = \\frac{m_1 m_2}{m_1 + m_2} = \\frac{(3)(6)}{3+6} = \\tfrac{18}{9} = 2$ kg. The equivalent problem is a single particle of mass 2 kg moving in the potential $U(|r|)$, where $r = r_1 - r_2$ is the separation.`
   },
   {
     q: `Why do internal forces not change the total momentum of a closed n-body system? What specific property of Newton's third law makes this work?`,
@@ -1542,10 +1559,6 @@ const practiceCards = [
     a: `For each pair $(i,j)$: $F_{ij} = -F_{ji}$ and $F_{ij}$ is parallel to $(r_i - r_j)$. The combined torque of the pair is $[r_i, F_{ij}] + [r_j, F_{ji}] = [(r_i - r_j), F_{ij}] = 0$ because the cross product of parallel vectors is zero. Summing over all pairs gives zero total internal torque.`
   },
   {
-    q: `State the three-body gravitational potential. Why does it have exactly three terms?`,
-    a: `$U = -\\frac{m_1 m_2}{\\}|x_1-x_2\\| - \\frac{m_2 m_3}{\\}|x_2-x_3\\| - \\frac{m_3 m_1}{\\}|x_3-x_1\\|$. It has three terms because three bodies form exactly three distinct pairs: (1,2), (2,3), and (3,1). Each term is the gravitational potential energy of one pair. There is no triple interaction in Newtonian gravity.`
-  },
-  {
     q: `A central field has $M \\neq 0$. Prove that the orbit stays in a fixed plane.`,
     a: `Compute $(M, r) = ([r, \\dot{r}], r)$. This is the scalar triple product of $r, \\dot{r}, r$. Two of the three vectors are equal ($r$ appears twice), so the triple product is zero. Therefore $r \\perp M$ at all times. Since $M$ is a fixed constant vector, $r$ stays in the fixed plane perpendicular to $M$.`
   },
@@ -1562,19 +1575,11 @@ const practiceCards = [
     a: `$m = \\frac{m_1 m_2}{m_1 + m_2} = \\frac{1}{\\frac{1}{m_1} + \\frac{1}{m_2}}$. This is the harmonic mean of the masses divided by 2, which is always less than either $m_1$ or $m_2$. When one mass is much larger, $m \\approx$ the smaller mass: the heavier body barely moves, and all the relative motion belongs to the lighter one.`
   },
   {
-    q: `ELABORATE: What does the two-body reduction tell you about the Earth-Moon system?`,
-    a: `The Earth-Moon system reduces to a single body of reduced mass $m = \\frac{m_E m_M}{m_E + m_M}$ moving in the gravitational potential of the total mass $m_E + m_M$. Since $m_E \\gg m_M$, the reduced mass $m \\approx m_M$. The Moon does nearly all the relative motion. The center of mass barely moves. This is why we say the Moon orbits the Earth rather than both orbiting equally.`
-  },
-  {
-    q: `PREDICT: If two equal masses collide head-on with no external forces, what happens to the center of mass?`,
+    q: `If two equal masses collide head-on with no external forces, what happens to the center of mass?`,
     a: `The center of mass moves at constant velocity throughout. Before the collision, both masses move toward each other with equal and opposite momenta, so total $P = 0$. The center of mass stays fixed. During and after the collision, internal forces only redistribute momentum between the two masses. The total stays zero. The center of mass does not move.`
   },
   {
-    q: `TRANSFER: A rocket burns fuel and expels exhaust backward. No external force acts. What can you say about the rocket-exhaust system?`,
-    a: `The rocket and all exhaust together form a closed system with no external forces. Total momentum is conserved: $P_{rocket} + P_{exhaust} = \\text{const}$. Initially both are at rest, so $P = 0$. As exhaust goes backward (negative momentum), the rocket gains positive momentum forward. Momentum conservation is the engine of rocketry.`
-  },
-  {
-    q: `A 2-DOF conservative system satisfies $\\frac{dE}{dt} = 0$. Prove this from Newton's equations.`,
+    q: `A conservative system of two coordinates $x_1, x_2$ satisfies $\\frac{dE}{dt} = 0$. Prove this from Newton's equations.`,
     a: `$E = \\frac{1}{2}(\\dot{x}_1^2 + \\dot{x}_2^2) + U(x_1, x_2)$. Differentiate: $\\frac{dE}{dt} = \\dot{x}_1\\ddot{x}_1 + \\dot{x}_2\\ddot{x}_2 + \\frac{\\partial U}{\\partial x_1}\\dot{x}_1 + \\frac{\\partial U}{\\partial x_2}\\dot{x}_2 = \\dot{x}_1(\\ddot{x}_1 + \\frac{\\partial U}{\\partial x_1}) + \\dot{x}_2(\\ddot{x}_2 + \\frac{\\partial U}{\\partial x_2})$. Newton's equations say each bracket is zero. Therefore $\\frac{dE}{dt} = 0$.`
   }
 ]
@@ -1899,7 +1904,7 @@ const buildReferenceSections = () => [
     </div>
     <div className="ref-formula">
       <span className="ref-formula-name">Kepler's second law</span>
-      <div className="ref-formula-eq">{`$r$ sweeps equal areas in equal times`}</div>
+      <div className="ref-formula-eq">The radius sweeps equal areas in equal times</div>
       <p className="ref-formula-desc">
         When to use: Relate orbital position rate to angular momentum conservation.
       </p>
@@ -2022,8 +2027,8 @@ const buildReferenceSections = () => [
       <div className="ref-formula-eq">{`$$r \\to \\lambda r \\implies t \\to \\lambda^{\\tfrac{3}{2}} t$$`}</div>
       <p className="ref-formula-desc">
         When to use: Deriving power-law scaling relations for orbit periods without solving the full
-        equations. Consequence: {`$T \\propto a^{\\tfrac{3}{2}}$`} (Kepler's third law by dimensional
-        reasoning).
+        equations. Consequence: {`$T \\propto a^{\\tfrac{3}{2}}$`} (Kepler's third law by
+        dimensional reasoning).
       </p>
     </div>
 
@@ -2076,11 +2081,11 @@ export default function CentralForceMotion() {
   const sections = buildLearningSections()
   const config = {
     cssPrefix: 'cf',
-    documentTitle: 'Central Force Motion and the Kepler Problem - AETHER',
+    documentTitle: 'Central-Force Motion and the Kepler Problem - AETHER',
     learning: {
       groupTitle: 'Newtonian Mechanics',
       category: 'Module 8',
-      title: 'Central Force Motion and the Kepler Problem',
+      title: 'Central-Force Motion and the Kepler Problem',
       subtitle:
         "Two gravitating bodies reduce to one via reduced mass. Angular momentum conservation forces planar motion. The effective potential classifies orbits as conic sections. Kepler's three laws follow from inverse-square gravity. N-body conservation laws and dimensional scaling complete the picture.",
       sections
@@ -2088,10 +2093,10 @@ export default function CentralForceMotion() {
     practice: practiceCards,
     reference: {
       category: 'Quick Reference',
-      title: 'Central Force Motion and the Kepler Problem',
+      title: 'Central-Force Motion and the Kepler Problem',
       sections: buildReferenceSections()
     },
-    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }`
+    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }`
   }
   return <LearningTemplate config={config} />
 }

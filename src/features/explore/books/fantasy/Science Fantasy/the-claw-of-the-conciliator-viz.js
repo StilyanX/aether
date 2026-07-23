@@ -3,12 +3,10 @@
 // BII_CharacterNetwork / BII_SymbolNetwork → flat names (collide with Book I).
 export {
   SaltusMap,
-  SaltusBeats,
   MineSection,
   ForestCourt,
   Antechamber,
   HouseAbsolute as HouseAzureMap,
-  PlayStructure,
   CumaeanRitual,
   NessusToThrax,
   TerminologyTree,

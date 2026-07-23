@@ -8,8 +8,9 @@ import {
   PoincareBirkhoff,
   ResonancePortrait
 } from '../../../../../components/viz'
+import { FONT_VALUE } from '../../../../../components/viz/scale-tokens'
 
-// ─── Visualization: Resonance-3 Phase Portrait ───────────────────────────────
+// Visualization: Resonance-3 Phase Portrait
 function ResonancePhasePortrait({ C }) {
   const eps = useMovablePoint([0, 0], {
     constrain: ([x]) => [Math.max(-2, Math.min(2, x)), 0]
@@ -34,7 +35,7 @@ function ResonancePhasePortrait({ C }) {
       >
         {`ε = ${e.toFixed(2)}`} - drag point to sweep ε
       </p>
-      <Mafs viewBox={{ x: [-3.5, 3.5], y: [-3, 3] }} preserveAspectRatio={false} height={280}>
+      <Mafs viewBox={{ x: [-3.5, 3.5], y: [-3, 3] }} preserveAspectRatio={false} height={400}>
         <Coordinates.Cartesian subdivisions={1} />
         {/* Origin equilibrium */}
         <Point x={0} y={0} color={e < 0 ? C.accent : C.dim} />
@@ -71,7 +72,7 @@ function ResonancePhasePortrait({ C }) {
   )
 }
 
-// ─── Visualization: Invariant Tori ───────────────────────────────────────────
+// Visualization: Invariant Tori
 function InvariantToriDiagram({ C }) {
   return (
     <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
@@ -87,7 +88,7 @@ function InvariantToriDiagram({ C }) {
       >
         Nested invariant 2-tori on a 3D energy surface (schematic cross-section)
       </p>
-      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-3, 3] }} preserveAspectRatio={false} height={220}>
+      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-3, 3] }} preserveAspectRatio={false} height={320}>
         {/* Concentric ellipses represent torus cross-sections */}
         {[0.5, 1.1, 1.8, 2.6, 3.5].map((r, i) => (
           <Plot.Parametric
@@ -99,7 +100,7 @@ function InvariantToriDiagram({ C }) {
           />
         ))}
         <LaTeX at={[0, 2.2]} tex={String.raw`\mathbb{T}^2`} color={C.dim} />
-        <Text x={0} y={-2.7} size={24} color={C.dim}>
+        <Text x={0} y={-2.7} size={FONT_VALUE} color={C.dim}>
           non-resonant tori survive KAM
         </Text>
       </Mafs>
@@ -107,7 +108,7 @@ function InvariantToriDiagram({ C }) {
   )
 }
 
-// ─── Visualization: Frequency Repulsion ──────────────────────────────────────
+// Visualization: Frequency Repulsion
 function FrequencyRepulsionDiagram({ C }) {
   return (
     <div style={{ border: `1px solid ${C.dim}`, padding: '0 0 8px 0' }}>
@@ -123,7 +124,7 @@ function FrequencyRepulsionDiagram({ C }) {
       >
         Frequency repulsion: 1-parameter family (left) vs. 2-parameter crossing (right)
       </p>
-      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={200}>
+      <Mafs viewBox={{ x: [-5.5, 5.5], y: [-2.5, 2.5] }} preserveAspectRatio={false} height={280}>
         <Coordinates.Cartesian subdivisions={1} />
         {/* 1-parameter: hyperbola repulsion */}
         <Plot.Parametric
@@ -138,14 +139,14 @@ function FrequencyRepulsionDiagram({ C }) {
           color={C.accent}
           strokeWidth={2}
         />
-        <Text x={-3.5} y={-2.2} size={24} color={C.dim}>
+        <Text x={-3.5} y={-2.2} size={FONT_VALUE} color={C.dim}>
           1-parameter
         </Text>
 
         {/* 2-parameter: crossing allowed */}
         <Plot.Parametric t={[-2, 2]} xy={t => [1.5 + t, t]} color={C.fg} strokeWidth={2} />
         <Plot.Parametric t={[-2, 2]} xy={t => [1.5 + t, -t]} color={C.dim} strokeWidth={2} />
-        <Text x={1.5} y={-2.2} size={24} color={C.dim}>
+        <Text x={1.5} y={-2.2} size={FONT_VALUE} color={C.dim}>
           2-parameter
         </Text>
         <LaTeX at={[-4.8, 2.1]} tex={String.raw`\omega_i(\lambda)`} color={C.dim} />
@@ -154,7 +155,7 @@ function FrequencyRepulsionDiagram({ C }) {
   )
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
+// Component
 export default function NormalFormsPerturbationsContent() {
   const C = useVizColors()
 
@@ -167,10 +168,9 @@ export default function NormalFormsPerturbationsContent() {
       title: 'Normal Forms and Perturbations of Hamiltonian Systems',
       subtitle: 'Birkhoff normal forms, KAM theory, and the geometry of nearly-integrable systems',
       sections: [
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 0: Quadratic Hamiltonians
-        // ──────────────────────────────────────────────────────────────────
         <>
+          <h2>Quadratic Hamiltonians and Their Normal Forms</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -195,8 +195,6 @@ export default function NormalFormsPerturbationsContent() {
             </details>
           </div>
 
-          <h2>Quadratic Hamiltonians and Their Normal Forms</h2>
-
           <p>
             Any Hamiltonian system looks quadratic near an equilibrium - the higher-order terms are
             small when the motion stays close. The quadratic piece alone determines whether nearby
@@ -208,12 +206,26 @@ export default function NormalFormsPerturbationsContent() {
             <span className="lrn-definition-term">Quadratic Hamiltonian</span>
             <div className="lrn-definition-desc">
               <p>
-                A Hamiltonian of the form {`$H = \\tfrac{1}{2}(Ax, x)$`} where{' '}
-                {`$x = (p_1,\\ldots,p_n; q_1,\\ldots,q_n)$`}.
+                A Hamiltonian of the form {`$H = \\tfrac{1}{2}(Ax, x)$`}. Here{' '}
+                {`$x = (p_1,\\ldots,p_n; q_1,\\ldots,q_n)$`} stacks the momenta and positions into
+                one vector, and {`$(Ax, x)$`} is the ordinary dot product of {`$Ax$`} with {`$x$`}.
               </p>
               <p>
-                The matrix {`$A$`} is symmetric and the equations of motion are {`$\\dot{x} = IAx$`}
-                , where {`$I$`} is the standard symplectic matrix.
+                The matrix {`$A$`} is symmetric. It must be, because swapping the two slots of a dot
+                product leaves the quadratic form unchanged.
+              </p>
+              <p>
+                The equations of motion are {`$\\dot{x} = IAx$`}, where {`$I$`} is the standard
+                symplectic matrix, built from the {`$n\\times n$`} identity {`$E$`}:
+              </p>
+              <div className="lrn-eq">
+                <span>{`$$I = \\begin{pmatrix} 0 & -E \\\\ E & 0 \\end{pmatrix}$$`}</span>
+              </div>
+              <p>
+                This is just Hamilton's equations in one line:{' '}
+                {`$\\dot{p} = -\\partial H/\\partial q$`} and{' '}
+                {`$\\dot{q} = \\partial H/\\partial p$`}. Since {`$\\nabla H = Ax$`}, multiplying by{' '}
+                {`$I$`} shuffles and sign-flips the gradient into exactly that pair of equations.
               </p>
             </div>
           </div>
@@ -240,8 +252,13 @@ export default function NormalFormsPerturbationsContent() {
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              The symplectic structure forces the matrix {`$IA$`} to satisfy {`$(IA)^T = -IA$`} up
-              to conjugation by the symplectic form.
+              The symplectic structure makes {`$IA$`} infinitesimally symplectic: it satisfies{' '}
+              {`$(IA)^T I + I(IA) = 0$`}. Rearranged, this reads {`$(IA)^T = -I(IA)I^{-1}$`}.
+            </p>
+            <p>
+              So {`$(IA)^T$`} is similar to {`$-IA$`}: the two matrices share the same eigenvalues.
+              A matrix and its transpose always share eigenvalues, so {`$IA$`} and {`$-IA$`} have
+              the same eigenvalues too.
             </p>
             <p>
               This means: if {`$\\lambda$`} is an eigenvalue, so is {`$-\\lambda$`}. Zero is its own
@@ -316,22 +333,24 @@ export default function NormalFormsPerturbationsContent() {
             Some Jordan block structures cannot be destroyed by a small Hamiltonian perturbation.
           </p>
           <p>
-            Galin's theorem tells you exactly how rare each block type is, via a codimension
-            formula.
+            Galin's theorem tells you exactly how rare each block type is, through a single number
+            called its codimension.
           </p>
 
           <div className="lrn-definition">
             <span className="lrn-definition-term">Codimension (Galin)</span>
             <div className="lrn-definition-desc">
               <p>
-                The codimension {`$c$`} of a Jordan block configuration equals the number of
-                independent parameters you must tune to force that exact configuration in a generic
-                family.
+                The codimension {`$c$`} of a Jordan block configuration counts the independent
+                conditions you must impose to force that exact configuration. It is the number of
+                knobs you must tune at once before the configuration shows up.
               </p>
-              <p>The formula is:</p>
-              <div className="lrn-eq">
-                <span>{`$$c = \\tfrac{1}{2}\\sum_{z\\neq 0}\\bigl[\\sum(2j-1)n_j(z)-1\\bigr] + \\tfrac{1}{2}\\sum(2j-1)m_j + \\sum\\bigl[2(2j-1)\\tilde{m}_j+1\\bigr] + 2\\sum\\min\\{m_j,\\tilde{m}_k\\}$$`}</span>
-              </div>
+              <p>
+                Worked check: the simplest nonremovable case is a real pair {`$(\\pm a)$`} that has
+                degenerated into one repeated block, written {`$(\\pm a)^2$`}. A generic Hamiltonian
+                has a simple pair {`$(\\pm a)$`}. Merging the two copies into one Jordan block
+                forces a single equation on the matrix, so {`$c = 1$`}.
+              </p>
             </div>
           </div>
 
@@ -393,9 +412,7 @@ export default function NormalFormsPerturbationsContent() {
           </div>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 1: Birkhoff Normal Form
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -472,19 +489,25 @@ export default function NormalFormsPerturbationsContent() {
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>The idea is to kill nonlinear terms one by one using canonical transformations.</p>
             <p>
-              Each term in the Taylor series is a monomial {`$z^\\alpha \\bar{z}^\\beta$`} in
-              complex coordinates.
+              First pack each position-momentum pair into one complex coordinate {`$z_i$`}, so a
+              Taylor term becomes a monomial {`$z^\\alpha \\bar{z}^\\beta$`}. Here {`$\\alpha$`} and{' '}
+              {`$\\beta$`} are lists of whole-number exponents, one per mode, that record the power
+              on each {`$z_i$`} and each {`$\\bar{z}_i$`}.
             </p>
             <p>
-              The canonical transformation changes that monomial's coefficient by a factor{' '}
-              {`$\\lambda_1(\\beta_1-\\alpha_1)+\\cdots+\\lambda_n(\\beta_n-\\alpha_n)$`}.
+              To remove that one monomial, this is the same homological-equation step used in
+              averaging: you divide its coefficient by the number
+            </p>
+            <div className="lrn-eq">
+              <span>{`$$\\lambda_1(\\beta_1-\\alpha_1)+\\cdots+\\lambda_n(\\beta_n-\\alpha_n).$$`}</span>
+            </div>
+            <p>
+              Under the non-resonance condition this divisor is nonzero, so the division goes
+              through and the term is killed.
             </p>
             <p>
-              Under the non-resonance condition, this factor is nonzero, so you can always kill the
-              term.
-            </p>
-            <p>
-              Resonant terms have zero factor and cannot be killed: they stay in the normal form.
+              A resonant term makes the divisor zero. You cannot divide by zero, so that term cannot
+              be removed: it stays in the normal form.
             </p>
           </div>
 
@@ -512,21 +535,31 @@ export default function NormalFormsPerturbationsContent() {
               <ol className="lrn-list">
                 <li>
                   Write {`$\\tau = \\frac{p^2+q^2}{2}$`}, so {`$\\tfrac{1}{2}(p^2+q^2) = \\tau$`}.
+                  In polar form {`$q = \\sqrt{2\\tau}\\sin\\varphi$`}.
                 </li>
                 <li>
-                  The quartic term {`$q^4$`} generates resonant terms in {`$\\tau^2$`} (no angle
-                  dependence) and angle-dependent terms.
+                  Then {`$q^4 = 4\\tau^2\\sin^4\\varphi$`}. Expand the power:{' '}
+                  {`$\\sin^4\\varphi = \\tfrac{3}{8} - \\tfrac{1}{2}\\cos 2\\varphi + \\tfrac{1}{8}\\cos 4\\varphi$`}
+                  .
                 </li>
                 <li>
-                  Kill the angle-dependent part via a canonical transformation; the {`$\\tau^2$`}{' '}
-                  coefficient stays.
+                  The flat piece {`$\\tfrac{3}{8}$`} has no angle, so {`$q^4$`} carries a resonant
+                  part {`$4\\tau^2\\cdot\\tfrac{3}{8} = \\tfrac{3}{2}\\tau^2$`}. The{' '}
+                  {`$\\cos 2\\varphi$`} and {`$\\cos 4\\varphi$`} pieces oscillate.
                 </li>
                 <li>
-                  Result: {`$H_4 = \\tau + c\\tau^2 + O(|p,q|^5)$`} for some constant {`$c$`}.
+                  Kill one oscillating piece: a near-identity canonical transformation shifts{' '}
+                  {`$\\tau$`} by a small {`$\\varepsilon$`}-sized angle-dependent amount chosen to
+                  cancel the {`$\\cos 2\\varphi$`} term exactly. Repeat for {`$\\cos 4\\varphi$`}.
+                  Only the flat {`$\\tau^2$`} part survives.
+                </li>
+                <li>
+                  Result: {`$H_4 = \\tau + \\tfrac{3}{2}\\varepsilon\\tau^2 + O(|p,q|^5)$`}, so{' '}
+                  {`$c = \\tfrac{3}{2}\\varepsilon$`}.
                 </li>
               </ol>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <ol className="lrn-list">
                 <li>What are the canonical polar coordinates for {`$(p,q)$`}?</li>
@@ -634,9 +667,7 @@ export default function NormalFormsPerturbationsContent() {
           </div>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 2: Resonance and Splitting
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -664,9 +695,9 @@ export default function NormalFormsPerturbationsContent() {
           <h2>Resonance of Order 3: Passage Through Resonance</h2>
 
           <p>
-            At exact resonance, small perturbations accumulate coherently over time instead of
-            averaging out. The result is not merely a quantitative change but a qualitative one: the
-            entire topology of the phase portrait flips.
+            At exact resonance, small perturbations build up coherently over time instead of
+            averaging out. The change is not just a small numerical shift. The entire topology of
+            the phase portrait flips.
           </p>
 
           <div className="lrn-definition">
@@ -686,37 +717,49 @@ export default function NormalFormsPerturbationsContent() {
           <h3>Deriving the Resonance-3 Normal Form</h3>
 
           <p>
-            Start with a Hamiltonian for a closed trajectory of a 2 DOF system with oscillation
-            period {`$3\\times$`} the trajectory period.
+            Start with a Hamiltonian for a closed trajectory of a system with 2 degrees of freedom
+            (two position-momentum pairs), where the oscillation period is {`$3\\times$`} the
+            trajectory period.
           </p>
 
           <div className="lrn-steps">
             <div className="lrn-step">
               <span className="lrn-step-title">Step 1: Complex coordinates</span>
               <p className="lrn-step-content">
-                Write the Hamiltonian in complex coordinates. Keep only resonant terms - those whose
-                phase stays constant along unperturbed orbits. Non-resonant terms oscillate rapidly
-                and average to zero over many cycles; resonant terms accumulate and shape the
-                long-time behavior.
+                Pack the position-momentum pair into one complex number {`$z = q + ip$`}. Keep only
+                resonant terms, those whose phase stays constant along unperturbed orbits.
+                Non-resonant terms oscillate fast and average to zero over many cycles; resonant
+                terms accumulate and shape the long-time behavior. At order 3 the only resonant
+                cubic terms are {`$z^3$`} and {`$\\bar{z}^3$`}, each carrying a complex coefficient{' '}
+                {`$h$`} that measures how strong the resonance is.
               </p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Step 2: Rotating frame</span>
               <p className="lrn-step-content">
-                Substitute {`$z = \\zeta e^{\\frac{it}{3}}$`} to remove the explicit time
-                dependence. The Hamiltonian becomes autonomous:
+                Substitute {`$z = \\zeta e^{\\frac{it}{3}}$`}. The phase {`$e^{it/3}$`} spins at the
+                resonant rate {`$\\frac{1}{3}$`}, so {`$z^3$`} picks up {`$e^{it}$`} while the
+                driving term carries {`$e^{-it}$`}; the two cancel and the explicit time dependence
+                drops out. The Hamiltonian becomes autonomous.
               </p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Step 3: Autonomous Hamiltonian</span>
               <p className="lrn-step-content">
+                Collecting the surviving terms gives{' '}
                 {`$-2iH_0 = -i\\varepsilon\\zeta\\bar{\\zeta} + h\\zeta^3 - \\bar{h}\\bar{\\zeta}^3$`}
-                , where {`$\\varepsilon = \\omega - \\frac{1}{3}$`}.
+                , where {`$\\varepsilon = \\omega - \\frac{1}{3}$`}. The {`$-2i$`} factor is just a
+                fixed scaling that makes the quadratic part come out as the real amplitude{' '}
+                {`$\\zeta\\bar{\\zeta}$`}.
               </p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Step 4: Real form</span>
-              <p className="lrn-step-content">Rotate to make {`$h$`} real. In real coordinates:</p>
+              <p className="lrn-step-content">
+                A constant rotation {`$\\zeta \\to \\zeta e^{i\\theta}$`} can turn the coefficient{' '}
+                {`$h$`} into a positive real number {`$a$`}. Writing {`$\\zeta = x + iy$`} then
+                gives the real cubic form:
+              </p>
             </div>
           </div>
 
@@ -751,6 +794,11 @@ export default function NormalFormsPerturbationsContent() {
             <ResonancePhasePortrait C={C} />
           </div>
 
+          <p>
+            The drag-to-sweep portrait above lets you cross resonance yourself. The fixed
+            three-panel view below freezes the three cases side by side for comparison.
+          </p>
+
           <ResonancePortrait />
 
           <p>
@@ -758,8 +806,8 @@ export default function NormalFormsPerturbationsContent() {
             closed loops around it.
           </p>
           <p>
-            For {`$\\varepsilon = 0$`}: the origin is degenerate. Three separatrices meet at the
-            origin forming a triangle.
+            For {`$\\varepsilon = 0$`}: the origin is degenerate. Three separatrices (boundary
+            curves that split regions of different motion) meet at the origin forming a triangle.
           </p>
           <p>
             For {`$\\varepsilon > 0$`}: the origin becomes a saddle (unstable). Three new saddle
@@ -793,10 +841,9 @@ export default function NormalFormsPerturbationsContent() {
               <p>Almost nothing. The truncated form is integrable so its manifolds coincide.</p>
               <p>
                 But the Birkhoff series generally diverges, and the actual manifolds in the full
-                system separate by an exponentially small amount{' '}
-                {`$\\sim e^{-\\frac{1}{\\sqrt{\\varepsilon}}}$`}.
+                system pull apart by a tiny amount that no finite truncation can ever see.
               </p>
-              <p>No finite-order truncation can see this splitting.</p>
+              <p>The next section measures exactly how tiny that gap is.</p>
             </details>
           </div>
 
@@ -808,44 +855,29 @@ export default function NormalFormsPerturbationsContent() {
             which is exactly why it is so dangerous: no finite-order truncation can see it.
           </p>
 
-          <p>
-            The truncated normal form {`$H_s$`} is integrable and has stable/unstable manifolds that
-            coincide perfectly.
-          </p>
-          <p>In the full system, higher-order terms cause these manifolds to separate.</p>
-
           <div className="lrn-callout lrn-warning">
             <span className="lrn-callout-label">Splitting of Separatrices</span>
             <p>
-              The stable manifold {`$\\Gamma^+$`} and unstable manifold {`$\\Gamma^-$`} of a
-              hyperbolic fixed point generically do not coincide after perturbation.
+              A saddle point has an incoming curve and an outgoing curve, called its stable manifold{' '}
+              {`$\\Gamma^+$`} and unstable manifold {`$\\Gamma^-$`}. After a perturbation these two
+              curves generically no longer line up.
             </p>
             <p>
-              The separation is exponentially small: of order{' '}
-              {`$e^{-\\frac{1}{\\sqrt{\\varepsilon}}}$`}.
+              The gap between them is exponentially small, of order{' '}
+              {`$e^{-\\frac{1}{\\sqrt{\\varepsilon}}}$`}, so no finite-order perturbation theory can
+              detect it.
             </p>
             <p>
-              This exponential smallness means no finite-order perturbation theory can detect it.
-            </p>
-            <p>
-              Poincaré described the resulting picture as one he "would not even attempt to draw" -
-              it implies chaotic behavior via transverse homoclinic intersections.
+              Where the two curves cross at a clear angle (a transverse homoclinic crossing), the
+              orbits tangle into an infinitely folded web. This crossing is the seed of chaos, and
+              Poincaré called the resulting picture one he would not even try to draw.
             </p>
           </div>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Birkhoff normalizing series formally remove all non-resonant terms order by order.
-            </p>
-            <p>If the series converged, stable and unstable manifolds would coincide exactly.</p>
-            <p>But the series generally diverges (this is provable in many cases).</p>
-            <p>
-              The separation of the manifolds is exactly what the divergence "looks like"
-              geometrically: it is exponentially small and hence invisible to any power series in{' '}
-              {`$\\varepsilon$`}.
-            </p>
-          </div>
+          <p>
+            The divergence of the Birkhoff series is exactly this splitting seen through algebra: an
+            effect too small for any power series in {`$\\varepsilon$`} to capture.
+          </p>
 
           <div className="lrn-compare">
             <div className="lrn-compare-col">
@@ -890,6 +922,13 @@ export default function NormalFormsPerturbationsContent() {
           <div className="lrn-eq">
             <span>{`$$H_0 = \\varepsilon\\tau + \\tau^2\\alpha(\\tau) + a\\tau^{\\frac{n}{2}}\\sin n\\varphi, \\quad 2\\tau = p^2+q^2, \\quad \\alpha(0) = \\pm 1$$`}</span>
           </div>
+          <p>
+            Here {`$\\alpha(\\tau)$`} is the twist coefficient: it tells you how fast the orbit's
+            frequency changes as its amplitude {`$\\tau$`} grows. Its sign at the center,{' '}
+            {`$\\alpha(0) = \\pm 1$`}, is what decides whether the quartic term bowls the level sets
+            upward or downward. The {`$\\sin n\\varphi$`} factor is the angular pattern left behind
+            by the order-{`$n$`} resonant term.
+          </p>
 
           <p>
             Example: at resonance of order 5, the term {`$a\\tau^{\\tfrac{5}{2}}\\sin 5\\varphi$`}{' '}
@@ -962,9 +1001,7 @@ export default function NormalFormsPerturbationsContent() {
           </div>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 3: KAM Theory
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -990,21 +1027,17 @@ export default function NormalFormsPerturbationsContent() {
           </p>
 
           <div className="lrn-definition">
-            <span className="lrn-definition-term">Conditionally-Periodic Motion</span>
+            <span className="lrn-definition-term">Recall: Conditionally-Periodic Motion</span>
             <div className="lrn-definition-desc">
               <p>
-                In an integrable system with action-angle variables {`$(I, \\varphi)$`}, the motion
-                on each torus is:
-              </p>
-              <div className="lrn-eq">
-                <span>{`$$\\dot{\\varphi}_k = \\omega_k(I) = \\frac{\\partial H_0}{\\partial I_k}, \\quad \\dot{I} = 0$$`}</span>
-              </div>
-              <p>
-                If the frequencies {`$\\omega_k$`} are rationally independent, each trajectory
-                densely fills the torus {`$I = \\text{const}$`}.
+                In action-angle variables {`$(I, \\varphi)$`}, an integrable system keeps each
+                action fixed and turns each angle at its own steady rate{' '}
+                {`$\\dot{\\varphi}_k = \\omega_k(I)$`}, so every orbit lives on a torus.
               </p>
               <p>
-                If they are rationally dependent, each trajectory is a closed curve on the torus.
+                The one fact KAM hinges on: if the frequencies {`$\\omega_k$`} are rationally
+                independent the orbit densely fills its torus, while if they are rationally
+                dependent (a resonance) the orbit closes into a loop.
               </p>
             </div>
           </div>
@@ -1018,12 +1051,17 @@ export default function NormalFormsPerturbationsContent() {
             <div className="lrn-definition-desc">
               <p>The system is nondegenerate if:</p>
               <div className="lrn-eq">
-                <span>{`$$\\det\\left|\\frac{\\partial\\omega}{\\partial I}\\right| = \\det\\left|\\frac{\\partial^2 H_0}{\\partial I^2}\\right| \\neq 0$$`}</span>
+                <span>{`$$\\det\\!\\left(\\frac{\\partial\\omega}{\\partial I}\\right) = \\det\\!\\left(\\frac{\\partial^2 H_0}{\\partial I^2}\\right) \\neq 0$$`}</span>
               </div>
               <p>This means the frequencies change as you move between tori.</p>
               <p>
-                Non-resonant tori form a set of full Lebesgue measure; resonant tori form a dense
-                set of measure zero.
+                The Lebesgue measure of a set is just its total length, area, or volume. A set can
+                be dense (touching every region) yet still have zero measure, the way the rational
+                numbers sit everywhere on the line but take up no length.
+              </p>
+              <p>
+                Non-resonant tori form a set of full measure; resonant tori form a dense set of
+                measure zero.
               </p>
             </div>
           </div>
@@ -1036,8 +1074,9 @@ export default function NormalFormsPerturbationsContent() {
                 <span>{`$$\\det\\begin{pmatrix} \\dfrac{\\partial^2 H_0}{\\partial I^2} & \\dfrac{\\partial H_0}{\\partial I} \\\\ \\left(\\dfrac{\\partial H_0}{\\partial I}\\right)^T & 0 \\end{pmatrix} \\neq 0$$`}</span>
               </div>
               <p>
-                This ensures the frequency ratios change as you move between tori on a fixed energy
-                surface.
+                The extra row and column hold the frequencies themselves. Adding them fixes the
+                energy, so the test now asks whether the frequency ratios (not just the raw
+                frequencies) change as you move between tori on one energy surface.
               </p>
             </div>
           </div>
@@ -1101,109 +1140,43 @@ export default function NormalFormsPerturbationsContent() {
           <div className="lrn-definition">
             <span className="lrn-definition-term">Non-Resonance Condition (KAM)</span>
             <div className="lrn-definition-desc">
-              <p>A torus with frequencies {`$\\omega$`} survives if its frequencies satisfy:</p>
+              <p>
+                A torus with frequency vector {`$\\omega$`} survives if its frequencies satisfy:
+              </p>
               <div className="lrn-eq">
                 <span>{`$$|\\langle\\omega, k\\rangle| > C|k|^{-\\nu} \\quad \\text{for all integer vectors } k \\neq 0$$`}</span>
               </div>
               <p>
-                Tori satisfying this condition are called Diophantine. They form most of the phase
-                space by measure.
-              </p>
-            </div>
-          </div>
-
-          <h3>The Proof Idea: Newton's Method</h3>
-
-          <p>The key step in proving KAM is the use of Newton's method (super-convergence).</p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Standard perturbation theory</span>
-              <p className="lrn-step-content">
-                Small denominators {`$\\langle\\omega,k\\rangle$`} appear when you divide to solve
-                the linearized problem. Each step introduces a small error.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Newton's method</span>
-              <p className="lrn-step-content">
-                Instead of one step with a small correction, use many steps. After each step, the
-                error squares:{' '}
-                {`$\\varepsilon \\to \\varepsilon^2 \\to \\varepsilon^4 \\to \\cdots$`}
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Super-convergence beats small denominators</span>
-              <p className="lrn-step-content">
-                The exponential convergence of Newton's method overwhelms the polynomial growth of
-                small denominator terms. The whole sequence converges.
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Small denominators grow at most polynomially:{' '}
-              {`$|\\langle\\omega,k\\rangle|^{-1} \\leq C|k|^\\nu$`}.
-            </p>
-            <p>
-              Newton's method reduces the error from {`$\\varepsilon$`} to {`$\\varepsilon^2$`} in
-              each step.
-            </p>
-            <p>
-              The gain from squaring {`$(\\varepsilon^2)$`} beats the loss from denominators{' '}
-              {`$(|k|^\\nu)$`}.
-            </p>
-            <p>
-              This is why Lindstedt series (ordinary perturbation theory) diverge while KAM
-              converges.
-            </p>
-          </div>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Formal Normalization (Birkhoff / Lindstedt)</span>
-              <p>Computes coefficients of invariant tori order by order in {`$\\varepsilon$`}.</p>
-              <p>Coefficients can always be found.</p>
-              <p>Series generally diverges.</p>
-              <p>Good for finite-time, finite-order approximations.</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">KAM (Newton Method)</span>
-              <p>Uses super-convergent iteration: error squares each step.</p>
-              <p>Proves actual invariant tori exist.</p>
-              <p>Convergence guaranteed for Diophantine frequencies.</p>
-              <p>Valid for all time.</p>
-            </div>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does the standard perturbation series (Lindstedt series) diverge while the KAM
-              Newton-method iteration converges?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                In the Lindstedt series, you compute one correction at a time: order{' '}
-                {`$\\varepsilon$`}, then {`$\\varepsilon^2$`}, etc.
+                Here {`$\\langle\\omega, k\\rangle = k_1\\omega_1 + \\cdots + k_n\\omega_n$`} is the
+                combination that vanishes at a resonance, and {`$|k| = |k_1| + \\cdots + |k_n|$`} is
+                the order of that resonance. The numbers {`$C > 0$`} and {`$\\nu > 0$`} are fixed
+                constants.
               </p>
               <p>
-                Small denominators accumulate: the {`$n$`}-th coefficient grows roughly as{' '}
-                {`$(C|k|^\\nu)^n$`}.
+                In plain words: the frequencies must stay a guaranteed distance away from every
+                resonance, and that distance is allowed to shrink only as slowly as a power of the
+                order {`$|k|$`}. Frequencies that clear this bar are called Diophantine.
               </p>
-              <p>
-                In the KAM method, after step {`$n$`} the error is order {`$\\varepsilon^{2^n}$`}.
-              </p>
-              <p>This super-exponential decay beats the polynomial growth from denominators.</p>
-              <p>
-                It is the same reason Newton's method for root-finding beats bisection: quadratic
-                vs. linear convergence.
-              </p>
-            </details>
+              <p>Diophantine tori form most of the phase space by measure.</p>
+            </div>
           </div>
+
+          <h3>Why the Proof Works: Super-Convergence</h3>
+
+          <p>
+            The reason most tori survive is one clean idea. Ordinary perturbation theory corrects
+            the orbit one order at a time. This order-by-order expansion is the Lindstedt series.
+            Small denominators {`$\\langle\\omega,k\\rangle$`} then pile up and the series usually
+            diverges.
+          </p>
+          <p>
+            KAM replaces that with a Newton-style iteration. Each step solves a linearized problem,
+            so a size-{`$\\varepsilon$`} error drops to size {`$\\varepsilon^2$`}, then{' '}
+            {`$\\varepsilon^4$`}, and so on. This super-exponential decay {`$\\varepsilon^{2^n}$`}{' '}
+            beats the polynomial blow-up {`$|k|^\\nu$`} from the small denominators, so the
+            iteration converges for Diophantine frequencies. The detailed convergence machinery is
+            developed in the later KAM page.
+          </p>
 
           <h3>Small Denominators: The Jupiter-Saturn Example</h3>
 
@@ -1214,7 +1187,7 @@ export default function NormalFormsPerturbationsContent() {
             </p>
             <p>The denominator {`$2\\omega_J - 5\\omega_S$`} is very small, not zero.</p>
             <p>
-              This causes a long-period perturbation of about 800 years and a large amplitude in the
+              This causes a long-period perturbation of about 880 years and a large amplitude in the
               orbital elements.
             </p>
             <p>It does not cause instability - the KAM tori keep the orbits bounded.</p>
@@ -1244,8 +1217,8 @@ export default function NormalFormsPerturbationsContent() {
 
           <p>
             KAM guarantees confinement in 2 degrees of freedom. In higher dimensions, this guarantee
-            breaks down - not catastrophically, but through an exponentially slow drift that no
-            finite-order perturbation theory can detect.
+            breaks down. The escape is not sudden. It happens through an exponentially slow drift
+            that no finite-order perturbation theory can detect.
           </p>
 
           <div className="lrn-compare">
@@ -1277,124 +1250,25 @@ export default function NormalFormsPerturbationsContent() {
             </div>
           </div>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>In 2 DOF, the energy surface has 3 dimensions and the tori have 2 dimensions.</p>
-            <p>Codimension 1 means each torus separates the energy surface into two sides.</p>
-            <p>
-              A trajectory starting on one side cannot reach the other without crossing the torus.
-            </p>
-            <p>
-              In {`$n > 2$`} DOF, the energy surface has {`$2n-1 > 3$`} dimensions and {`$n$`}-tori
-              have codimension {`$n-1 > 1$`}.
-            </p>
-            <p>Higher codimension means you can go around the tori, not just over them.</p>
-          </div>
-
-          <h3>Six Variants of the KAM Theorem</h3>
+          <h3>Reach of the KAM Theorem</h3>
 
           <p>
-            The KAM theorem adapts to several different settings, each with its own nondegeneracy
-            condition.
+            The same proof idea adapts far beyond the basic case. There are versions for
+            time-periodic systems, for area-preserving maps, and for motion near a stable
+            equilibrium. Each swaps in its own nondegeneracy test but keeps the conclusion: most
+            invariant tori survive a small perturbation.
           </p>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Autonomous systems</span>
-              <p className="lrn-step-content">
-                {`$H = H_0(I) + \\varepsilon H_1(I,\\varphi)$`}. Nondegeneracy:{' '}
-                {`$\\det|\\frac{\\partial^2 H_0}{\\partial I^2}| \\neq 0$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Periodic systems</span>
-              <p className="lrn-step-content">
-                {`$H = H_0(I) + \\varepsilon H_1(I,\\varphi,t)$`} with {`$t$`}-periodic. Extended
-                phase space has {`$(n+1)$`}-dimensional tori.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Symplectic mappings</span>
-              <p className="lrn-step-content">
-                Nondegeneracy: {`$\\det|\\frac{\\partial^2 S_0}{\\partial I^2}| \\neq 0$`} for the
-                generating function {`$S_0$`}.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Neighborhoods of equilibria (autonomous)</span>
-              <p className="lrn-step-content">
-                Nondegeneracy matrix: {`$\\det|\\omega_{kl}| \\neq 0$`} where{' '}
-                {`$H_0(\\tau) = \\sum\\omega_k\\tau_k + \\tfrac{1}{2}\\sum\\omega_{kl}\\tau_k\\tau_l$`}
-                .
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Neighborhoods of equilibria (periodic)</span>
-              <p className="lrn-step-content">
-                Same as autonomous but with the extended phase space technique for the driving
-                frequency.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Fixed points of mappings</span>
-              <p className="lrn-step-content">
-                Applies to symplectic maps near an elliptic fixed point.
-              </p>
-            </div>
-          </div>
-
-          <h3>Applications of the KAM Theorem</h3>
-
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Geodesic flow on a convex surface</span>
-              <p className="lrn-step-content">
-                A surface close to an ellipsoid has 2 DOF. Geodesics oscillate between two caustics.
-                The KAM tori persist for surfaces close enough to the ellipsoid.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Billiard table</span>
-              <p className="lrn-step-content">
-                Convex billiard tables have stable closed trajectories in linear approximation. The
-                minor axis trajectory of an elliptic table is stable. KAM proves Lyapunov stability.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Pendulum with oscillating suspension</span>
-              <p className="lrn-step-content">
-                The upper equilibrium can be stabilized by oscillation. KAM proves Lyapunov
-                stability when resonances of order 3 and 4 are absent.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Rapidly rotating rigid body</span>
-              <p className="lrn-step-content">
-                After eliminating cyclic coordinates, a 2 DOF system remains. KAM shows the angular
-                momentum vector stays near its initial value for all time.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Restricted three-body problem</span>
-              <p className="lrn-step-content">
-                Asteroid in Jupiter's field, planar circular restricted 3-body problem. For small
-                Jupiter mass, invariant tori survive and the asteroid remains bounded.
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Motion of n planets around the sun</span>
-              <p className="lrn-step-content">
-                The Laplace vector characterizes eccentricity. Conditionally-periodic motions fill
-                most of the Keplerian phase space. Secular changes of actions are exponentially
-                small.
-              </p>
-            </div>
-          </div>
+          <p>
+            One concrete anchor: track a light asteroid in the field of the Sun and Jupiter, with
+            Jupiter on a fixed circular orbit. This is a 2 DOF system. When Jupiter's mass is small,
+            KAM tori survive and trap the asteroid, so its orbit stays bounded forever. The same
+            survival argument covers convex billiards, fast-spinning rigid bodies, and the long-term
+            motion of the planets. The later KAM page works these variants and applications in full
+            detail.
+          </p>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 4: Poincaré–Birkhoff and Symplectic Topology
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -1416,9 +1290,13 @@ export default function NormalFormsPerturbationsContent() {
           <h2>Poincaré–Birkhoff Fixed-Point Theorem</h2>
 
           <p>
-            How do you prove a periodic orbit exists without finding it explicitly? One method:
-            reduce the flow to a map on a cross-section, then prove the map must have a fixed point.
-            The Poincaré–Birkhoff theorem is the key tool for this.
+            How do you prove a periodic orbit exists without finding it explicitly? Pick a surface
+            that every trajectory crosses, called a cross-section. Follow a starting point on it
+            until the flow brings it back, and record where it lands. This back-and-forth rule is
+            the Poincaré return map. A fixed point of the return map (a point that returns to
+            itself) is exactly a periodic orbit of the flow. So you reduce the flow to a map, then
+            prove the map must have a fixed point. The Poincaré–Birkhoff theorem is the key tool for
+            this.
           </p>
 
           <div className="lrn-callout lrn-success">
@@ -1463,28 +1341,35 @@ export default function NormalFormsPerturbationsContent() {
 
           <h3>Connection to Generating Functions</h3>
 
-          <p>Fixed points of a symplectic map are critical points of a generating function.</p>
+          <p>
+            Write the image of a point {`$(x,y)$`} under the map as {`$(X,Y)$`}. A generating
+            function is one function {`$S$`} whose derivatives reproduce this whole coordinate
+            change, so it packs the map into a single scalar. Fixed points of the map turn out to be
+            the flat spots of {`$S$`}.
+          </p>
 
           <div className="lrn-proof">
             <span className="lrn-proof-header">Key Idea</span>
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">1.</span>
               <div className="lrn-proof-step-content">
-                The generating function for a symplectic diffeomorphism of the annulus satisfies{' '}
-                {`$dS = (x-X)dy + (Y-y)dX$`}.
+                Area preservation is equivalent to saying the one-form {`$(x-X)\\,dy + (Y-y)\\,dX$`}{' '}
+                is the differential of a single function {`$S$`}. That
+                {`$S$`} is the generating function: {`$dS = (x-X)\\,dy + (Y-y)\\,dX$`}.
               </div>
             </div>
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">2.</span>
               <div className="lrn-proof-step-content">
-                A fixed point satisfies {`$X = x$`} and {`$Y = y$`}, which forces {`$dS = 0$`}.
+                At a fixed point the image equals the start: {`$X = x$`} and {`$Y = y$`}. Both
+                coefficients {`$(x-X)$`} and {`$(Y-y)$`} vanish, so {`$dS = 0$`} there.
               </div>
             </div>
             <div className="lrn-proof-step">
               <span className="lrn-proof-step-num">3.</span>
               <div className="lrn-proof-step-content">
-                Define {`$F(x,y) = S(X(x,y),y)$`}. Every fixed point of the diffeomorphism is a
-                critical point of {`$F$`}.
+                Define {`$F(x,y) = S(X(x,y),y)$`}. Step 2 shows {`$dF = 0$`} exactly at the fixed
+                points, so every fixed point is a critical point of {`$F$`}.
               </div>
             </div>
             <div className="lrn-qed">Q.E.D.</div>
@@ -1499,16 +1384,21 @@ export default function NormalFormsPerturbationsContent() {
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                Morse theory gives lower bounds on the number of critical points of a smooth
-                function.
+                A critical point of a smooth function is where its slope is zero in every direction:
+                a peak, a valley, or a mountain pass.
               </p>
               <p>
-                A smooth function on a compact manifold has at least as many critical points as the
-                sum of Betti numbers.
+                Morse theory says a smooth function on a closed, bounded surface must have a minimum
+                number of these, set by the surface's shape.
               </p>
               <p>
-                Translating "fixed point counting" into "critical point counting" lets you use these
-                topological tools.
+                That minimum is the sum of the Betti numbers, which count the independent holes of
+                the surface in each dimension. A doughnut, for example, has more holes than a
+                sphere, so it forces more peaks and valleys.
+              </p>
+              <p>
+                Rewriting "count the fixed points" as "count the critical points" lets you borrow
+                this lower bound.
               </p>
             </details>
           </div>
@@ -1538,11 +1428,14 @@ export default function NormalFormsPerturbationsContent() {
             <span className="lrn-definition-term">Homologous to the Identity</span>
             <div className="lrn-definition-desc">
               <p>
-                A symplectic diffeomorphism {`$g: M \\to M$`} is homologous to the identity if it
-                can be continuously deformed back to the identity map while remaining symplectic
-                throughout, and without the deformation winding around any topological holes in the
-                space. The condition that {`$\\dot{g}_t$`} has a single-valued Hamiltonian at each
-                moment is exactly what prevents such winding.
+                A symplectic map {`$g: M \\to M$`} is homologous to the identity if you can deform
+                it back to the do-nothing map by a smooth path that stays symplectic the whole way.
+              </p>
+              <p>
+                The path must not wind around any topological hole in the space. Concretely, the
+                velocity of the deformation must come from one ordinary Hamiltonian function at each
+                instant, not a many-valued one. A single-valued generator is exactly what blocks the
+                unwanted winding.
               </p>
             </div>
           </div>
@@ -1571,12 +1464,29 @@ export default function NormalFormsPerturbationsContent() {
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Lagrangian Intersection Approach</span>
-              <p>Fixed points = intersections of graph of map with diagonal.</p>
+              <p>Fixed points = intersections of the graph of the map with the diagonal.</p>
               <p>
-                Both are Lagrangian submanifolds; they must intersect in {`$\\geq 2^n$`} points.
+                Both are Lagrangian submanifolds (half-dimensional surfaces on which the symplectic
+                pairing vanishes). They cannot be pulled fully apart.
               </p>
               <p>Global method; works in any dimension.</p>
             </div>
+          </div>
+
+          <div className="lrn-elaborate">
+            <span className="lrn-elaborate-label">WHERE DOES {`$2^n$`} COME FROM?</span>
+            <p>
+              For a torus the fixed-point lower bound is the sum of its Betti numbers, the count of
+              independent holes in each dimension.
+            </p>
+            <p>
+              The {`$n$`}-torus has {`$\\binom{n}{k}$`} independent holes in dimension {`$k$`}, and
+              these add up to {`$\\sum_k \\binom{n}{k} = 2^n$`}.
+            </p>
+            <p>
+              So a map of the {`$n$`}-torus homologous to the identity must keep at least {`$2^n$`}{' '}
+              fixed points.
+            </p>
           </div>
 
           <h3>Periodic Points from Disintegrating Tori</h3>
@@ -1588,25 +1498,25 @@ export default function NormalFormsPerturbationsContent() {
               trajectories, its disintegration under perturbation creates at least {`$2^{n-1}$`}{' '}
               closed trajectories of the perturbed system.
             </p>
+            <p>
+              The power drops from {`$2^n$`} to {`$2^{n-1}$`} because one circle of the torus is
+              used up tracking the closed trajectory itself. The surviving orbits sit at the fixed
+              points of a return map on the remaining {`$(n-1)$`}-torus, whose Betti numbers add to{' '}
+              {`$2^{n-1}$`}.
+            </p>
+            <p>
+              Example: for {`$n=2$`} this guarantees at least {`$2^{1}=2$`} closed orbits, the same
+              count the Poincaré-Birkhoff theorem gives for the annulus.
+            </p>
           </div>
 
           <div className="lrn-callout">
-            <span className="lrn-callout-label">Generating Function Invariance</span>
-            <p>
-              The generating function {`$\\Phi$`} defined on the torus satisfies:{' '}
-              {`$\\Phi(z) = \\Phi'(g(z)) + \\text{const}$`} for any symplectic diffeomorphism{' '}
-              {`$g$`}.
-            </p>
-            <p>
-              Arnold notes this work triggered the growth of symplectic topology as a branch of
-              mathematics (first edition, 1974).
-            </p>
+            <span className="lrn-callout-label">Why this matters</span>
+            <p>This circle of fixed-point results launched the field of symplectic topology.</p>
           </div>
         </>,
 
-        // ──────────────────────────────────────────────────────────────────
         // SECTION 5: Multiplicities of Frequencies
-        // ──────────────────────────────────────────────────────────────────
         <>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -1653,13 +1563,15 @@ export default function NormalFormsPerturbationsContent() {
           <h3>Ellipsoids and Their Revolution Classes</h3>
 
           <p>
-            An ellipsoid in {`$\\mathbb{R}^n$`} has {`$\\frac{n(n+1)}{2}$`} parameters (one for each
-            axis length and one for each pair of axes in the principal frame).
+            An ellipsoid in {`$\\mathbb{R}^n$`} is fixed by two kinds of data. First the {`$n$`}{' '}
+            axis lengths. Then the orientation of the principal frame, which takes one angle for
+            each pair of axes, so {`$\\frac{n(n-1)}{2}$`} angles. Adding these gives{' '}
+            {`$n + \\frac{n(n-1)}{2} = \\frac{n(n+1)}{2}$`} parameters.
           </p>
           <p>An ellipsoid of revolution (two equal axes) is a special case.</p>
 
           <div className="lrn-callout lrn-success">
-            <span className="lrn-callout-label">Theorem 1 (Appendix 10)</span>
+            <span className="lrn-callout-label">Ellipsoids of Revolution Theorem</span>
             <p>
               The set of ellipsoids of revolution in {`$\\mathbb{R}^n$`} is a finite union of smooth
               submanifolds of codimension 2 and higher in the space of all ellipsoids.
@@ -1696,8 +1608,15 @@ export default function NormalFormsPerturbationsContent() {
             <span className="lrn-definition-term">Codimension Formula for Multiple Axes</span>
             <div className="lrn-definition-desc">
               <p>
-                The set of ellipsoids with {`$v_2$`} double, {`$v_3$`} triple, {`$v_4$`} fourfold
-                axes (etc.) has codimension:
+                Forcing {`$i$`} axes to share one length is the same as forcing the shape matrix to
+                have an eigenvalue repeated {`$i$`} times. Such a repeated eigenvalue is a stratum
+                of codimension {`$\\frac{i(i+1)}{2} - 1$`} in the space of symmetric matrices. That
+                simplifies to {`$\\frac{1}{2}(i-1)(i+2)$`}.
+              </p>
+              <p>
+                Plug in: {`$i=2$`} gives {`$2$`}, {`$i=3$`} gives {`$5$`}, {`$i=4$`} gives {`$9$`}.
+                So the set of ellipsoids with {`$v_2$`} double, {`$v_3$`} triple, {`$v_4$`} fourfold
+                axes (and so on) has codimension:
               </p>
               <div className="lrn-eq">
                 <span>{`$$2v_2 + 5v_3 + 9v_4 + \\cdots = \\sum \\tfrac{1}{2}(i-1)(i+2)v_i$$`}</span>
@@ -1746,8 +1665,16 @@ export default function NormalFormsPerturbationsContent() {
               The characteristic frequencies split into "symmetric" modes (matching the rotation)
               and "non-symmetric" modes.
             </p>
-            <p>Non-symmetric modes come in pairs with forced equal frequencies.</p>
-            <p>Perturbations that preserve the 3-fold symmetry cannot split these pairs.</p>
+            <p>
+              The non-symmetric modes come in pairs. The 3-fold rotation acts on each pair as a real
+              rotation by {`$120°$`}, which has no real eigenvector and so cannot be split into two
+              one-dimensional invariant pieces. Such an unsplittable 2D pattern is called a
+              two-dimensional irreducible representation of the symmetry group {`$\\mathbb{Z}_3$`}.
+            </p>
+            <p>
+              Because the rotation mixes the two modes, they must share one frequency, and any
+              perturbation that keeps the 3-fold symmetry cannot split the pair.
+            </p>
           </div>
 
           <div className="lrn-callout lrn-success">
@@ -1757,8 +1684,13 @@ export default function NormalFormsPerturbationsContent() {
               preserving the symmetry cannot split a forced double frequency.
             </p>
             <p>
-              The minimum parameter count for a collision between {`$i$`} simple and {`$j$`} double
-              frequencies is {`$\\frac{(i-1)(i+2)}{2} + j^2$`}.
+              The minimum parameter count to force a single mode of multiplicity {`$i$`} to merge is{' '}
+              {`$\\frac{(i-1)(i+2)}{2}$`}, the same coefficient as above. Making {`$j$`} pairs of
+              already-double frequencies collide at once costs an extra {`$j^2$`} parameters.
+            </p>
+            <p>
+              Check: a plain double frequency ({`$i=2$`}) costs {`$\\frac{(1)(4)}{2} = 2$`}{' '}
+              parameters, matching the codimension-2 result for ellipsoids of revolution.
             </p>
           </div>
 
@@ -1777,43 +1709,27 @@ export default function NormalFormsPerturbationsContent() {
             </div>
           </div>
 
-          <h3>Quasi-Classical Asymptotics and the Drum Problem</h3>
+          <h3>The Same Idea for Vibrating Membranes</h3>
 
           <p>
-            The same codimension theory applies to vibrating continuous media. A stretched membrane
-            has a spectrum of resonant frequencies governed by its shape. Asking how many shapes
-            share a given spectrum is a codimension question of the same kind as asking when two
-            eigenfrequencies of a Hamiltonian collide.
+            The same counting works for a vibrating drum. A stretched membrane has a whole set of
+            resonant frequencies fixed by its shape. Asking how many shapes share a frequency, or
+            when two frequencies meet, is the same codimension question as for a Hamiltonian.
           </p>
 
           <div className="lrn-callout">
-            <span className="lrn-callout-label">Quasi-Classical Asymptotics</span>
+            <span className="lrn-callout-label">See also</span>
             <p>
-              For oscillations of continuous media (waves, vibrations), quasi-classical asymptotics
-              seeks solutions locally close to simple harmonic waves of short wavelength.
-            </p>
-            <p>
-              This yields approximate eigenfunctions and connects to the spectrum of the Laplacian
-              on a domain.
-            </p>
-          </div>
-
-          <div className="lrn-callout lrn-warning">
-            <span className="lrn-callout-label">Can You Hear the Shape of a Drum?</span>
-            <p>
-              The question asks whether the spectrum of eigenfrequencies determines the shape of a
-              domain.
-            </p>
-            <p>
-              The answer is negative: non-isometric Riemannian manifolds can share the same spectrum
-              of eigenvalues.
+              The famous version is "can you hear the shape of a drum?", which asks whether the full
+              list of frequencies pins down the shape. The answer is no: two differently shaped
+              drums can ring with exactly the same set of frequencies.
             </p>
           </div>
         </>
       ]
     },
 
-    // ─── PRACTICE CARDS ───────────────────────────────────────────────────────
+    // PRACTICE CARDS
     practice: [
       // Quadratic Hamiltonians
       {
@@ -1858,7 +1774,7 @@ export default function NormalFormsPerturbationsContent() {
         a: 'The goal of the normal form construction is to kill all angle-dependent terms in the Taylor series by canonical transformations. A non-resonant term can always be killed because the denominator {`$\\lambda_1(\\beta_1-\\alpha_1)+\\cdots$`} is nonzero. Angle-independent terms in {`$\\tau_i$`} (which are resonant with themselves) cannot be killed - they are the unavoidable residue.'
       },
       {
-        q: '[PREDICT] What happens to the Birkhoff normal form when you cross a resonance of order 3 (i.e., {`$k_1\\omega_1 + k_2\\omega_2 = 0$`} with {`$|k_1|+|k_2|=3$`})?',
+        q: '[PREDICT] What happens to the Birkhoff normal form when you cross a resonance of order 3, meaning {`$k_1\\omega_1 + k_2\\omega_2 = 0$`} with {`$|k_1|+|k_2|=3$`}?',
         a: 'The resonant terms of degree 3 in the normal form can no longer be killed. These terms are of the form {`$z_1^{\\alpha}z_2^{\\beta}$`} with {`$|\\alpha|+|\\beta|=3$`} satisfying the resonance relation. They change the topology of the phase portrait near the equilibrium - the origin can lose stability and an equilateral triangle of new periodic orbits appears.'
       },
       // Resonance and Splitting
@@ -1926,11 +1842,11 @@ export default function NormalFormsPerturbationsContent() {
       },
       {
         q: '[ELABORATE] Why does the generalized Poincaré theorem require the map to be homologous to the identity, not just symplectic?',
-        a: 'A general symplectic map can have few fixed points (e.g., a rotation of a sphere may have exactly 2). The homologous-to-identity condition ensures the map is "topologically trivial" in a precise sense: it can be deformed to the identity through symplectic maps with single-valued Hamiltonians. This forces the fixed-point count to match the topological lower bound given by the sum of Betti numbers.'
+        a: 'A general symplectic map can have few fixed points. For example, a rotation of a sphere may have exactly 2. The homologous-to-identity condition ensures the map is "topologically trivial" in a precise sense: it can be deformed to the identity through symplectic maps with single-valued Hamiltonians. This forces the fixed-point count to match the topological lower bound given by the sum of Betti numbers.'
       },
       {
         q: '[SELF-EXPLAIN] Explain why the Lagrangian intersection approach gives fixed points of a symplectic map.',
-        a: 'The graph of a symplectic map {`$A: M \\to M$`} is a Lagrangian submanifold of {`$M \\times M$`} (with the product symplectic form). The diagonal {`$\\Delta = \\{(x,x)\\}$`} is also Lagrangian. Their intersection consists exactly of the points {`$(x, A(x))$`} with {`$A(x)=x$`}, i.e., the fixed points of {`$A$`}. Lagrangian intersection theory then gives the lower bound {`$2^n$`} on the number of intersection points, hence on fixed points.'
+        a: 'The graph of a symplectic map {`$A: M \\to M$`} is a Lagrangian submanifold of {`$M \\times M$`} (with the product symplectic form). The diagonal {`$\\Delta = \\{(x,x)\\}$`} is also Lagrangian. Their intersection consists exactly of the points {`$(x, A(x))$`} with {`$A(x)=x$`}, which are the fixed points of {`$A$`}. Lagrangian intersection theory then gives the lower bound {`$2^n$`} on the number of intersection points, hence on fixed points.'
       },
       // Multiplicities of Frequencies
       {
@@ -1955,7 +1871,7 @@ export default function NormalFormsPerturbationsContent() {
       }
     ],
 
-    // ─── REFERENCE MODE ───────────────────────────────────────────────────────
+    // REFERENCE MODE
     reference: {
       category: 'Quick Reference',
       title: 'Normal Forms and Perturbations of Hamiltonian Systems',
@@ -1984,13 +1900,15 @@ export default function NormalFormsPerturbationsContent() {
           </div>
 
           <div className="lrn-callout">
-            <span className="lrn-callout-label">Galin Codimension Formula</span>
-            <div className="lrn-eq">
-              <span>{`$$c = \\tfrac{1}{2}\\sum_{z\\neq 0}\\bigl[\\sum(2j-1)n_j(z)-1\\bigr] + \\tfrac{1}{2}\\sum(2j-1)m_j + \\sum\\bigl[2(2j-1)\\tilde{m}_j+1\\bigr] + 2\\sum\\min\\{m_j,\\tilde{m}_k\\}$$`}</span>
-            </div>
+            <span className="lrn-callout-label">Galin Codimension Rule</span>
             <p>
-              When to use: determining which Jordan block structures appear in {`$l$`}-parameter
-              families.
+              Codimension {`$c$`} = number of independent conditions forcing a Jordan block
+              configuration. A general-position {`$l$`}-parameter family meets only configurations
+              with {`$c \\leq l$`}.
+            </p>
+            <p>
+              Codimension-1 cases (the only ones in a one-parameter family): {`$(\\pm a)^2$`},{' '}
+              {`$(\\pm ia)^2$`}, {`$0^2$`}.
             </p>
           </div>
 
@@ -2181,7 +2099,7 @@ export default function NormalFormsPerturbationsContent() {
         </>
       ]
     },
-    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }`
+    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }`
   }
 
   return <LearningTemplate config={config} />

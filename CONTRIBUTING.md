@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 20+ (Vite also accepts 18, but 18 is past end of life)
 - npm
 - Git
 
@@ -15,7 +15,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:8000/Aether/](http://localhost:8000/Aether/).
+Open [http://localhost:8000/aether/](http://localhost:8000/aether/).
 
 ## Reporting a bug
 
@@ -27,38 +27,55 @@ Open an issue on GitHub. Include:
 - Browser and OS (for UI bugs).
 - A screenshot or short screencast if the issue is visual.
 
-Add the `track:code` label so the bug is triaged correctly. If the bug is in a topic's prose, math, or simulation, use `track:content` and link the affected file.
+You do not need to apply labels yourself, and GitHub will not let you unless you have triage rights. Maintainers label on triage. What helps is saying which kind of bug it is in the issue body: code, or a topic's prose, math, or simulation. For the latter, link the affected file.
 
 ## Project structure
 
 ```
-src/features/explore/   Subject content. Eight categories:
-                        books, films, languages, mathematics,
-                        papers, physics, podcasts, videos
+src/features/explore/   Subject content. Ten categories:
+                        books, chemistry, films, history, languages,
+                        mathematics, papers, physics, podcasts, videos
 src/components/         UI shell, learning template, viz primitives
 src/config/             registry.js (single source of truth for all topics)
 src/hooks/              Settings, theme, FSRS, MathJax, Prism, et al.
-src/lib/                IndexedDB store, keybinds, session management
+src/lib/                IndexedDB store, keybinds, session management,
+                        vendored Q.js, lazy-loaded ELK
 src/styles/             tokens.css, typography.css, themes.css
 ```
+
+See [`src/README.md`](src/README.md) for the file-naming and folder conventions
+inside `src/features/explore/`.
 
 ## Making a code change
 
 1. Fork the repo and create a branch off `main`
 2. Make your change
-3. Run `npm run lint` and `npm run format`, then fix any errors
+3. Run `npm run lint` and `npm run format`
 4. Run `npm run build` to confirm the production bundle still compiles
 5. Open a PR against `main`
+
+`npm run lint` runs ESLint and then `scripts/check-exports.mjs`, which verifies
+that every named import resolves to something its module actually exports.
+ESLint cannot see that case: `import { Foo } from './bar'` is a valid binding
+even when `./bar` never exports `Foo`, and the page then fails at runtime.
+
+It reports 0 errors and 86 warnings. Keep the error count at zero.
+The warnings are a known backlog described in [`WANTED.md`](WANTED.md); you are
+not expected to clear them, though a PR that does is welcome.
+
+Do not dismiss a lint error as noise. Every error this project has had turned
+out to be a real defect, including a component that crashed at runtime and a
+LaTeX command that silently lost its backslash and rendered as plain text.
 
 ## Making a content change
 
 Content lives in `src/features/explore/`. Each topic is a single `.jsx` file that imports `LearningTemplate` and exports a default component, passing a config object with learning cards, solving cards, and reference sections. LaTeX is written inline (`$...$`) or as a block (`$$...$$`) and rendered by MathJax; Mafs visualizations use KaTeX. The dev server hot-reloads on save, so no build step is needed to preview.
 
-Adding a new topic requires four steps: add an entry to `resourceMetadata`, add a `resourceContent[slug]` entry, add a `topicComponentMap[title]` entry, and create the `.jsx` file at the `filePath` you declared.
+Adding a new topic requires four steps, all in `src/config/registry.js` plus one new file: add an entry to `resourceMetadata`, add a `resourceContent[slug]` entry, add a `topicComponentMap[title]` entry, and create the `.jsx` file at the `filePath` you declared. Vite's glob in `topic-standalone.jsx` picks the file up automatically; there is no lazy-import registry to update.
 
 ### Content style rules
 
-The rules that catch most contributors:
+The ones that catch most contributors:
 
 - Active voice. Max 20 words per sentence. Plain language at a 12-year-old reading level. "You can write" beats "it is possible to write."
 - Lists are typed: `<ul className="lrn-list">` for bullets, `<ol className="lrn-list">` for numbered. Never mix the two for the same list.
@@ -78,8 +95,12 @@ content: add German A2 greetings chapter
 
 ## Issue labels
 
+Maintainers apply these on triage. They are listed so you can filter the issue
+list and know what a label means when you see one.
+
 | Label                     | Meaning                                      |
 | ------------------------- | -------------------------------------------- |
+| `bug`                     | Applied automatically by the bug template    |
 | `track:code`              | Code contribution wanted                     |
 | `track:content`           | Content contribution wanted                  |
 | `track:fsrs`              | Relates to the spaced-repetition scheduler   |

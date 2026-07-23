@@ -43,13 +43,22 @@ const DEFAULTS = {
   accentProgress: true,
   accentTopbar: true,
   accentPageNav: true,
-  accentEquations: true,
-  accentAlgorithms: true,
-  accentHeadings: true,
-  accentDividers: true,
+  // Industry standard (GitBook / Material / NN/g 60-30-10): the brand accent marks
+  // navigational + interactive + state elements only (active nav, progress, current
+  // location, page nav) plus genuine callouts (insights). Typography, structure, and
+  // body-content chrome stay neutral — so headings, dividers, and equation/definition
+  // block borders are OFF by default. Callouts that need distinction use the reserved
+  // semantic palette (info/warn/danger/success), not the brand accent.
+  accentEquations: false,
+  accentAlgorithms: false,
+  accentHeadings: false,
+  accentDividers: false,
   accentInsights: true,
-  gridOverlay: true,
+  accentCard: true,
+  _accentDefaultsV3: true,
+  gridOverlay: false,
   showEmptyDomains: false,
+  defaultTopicOrder: 'curriculum',
 
   // Appearance - topbar
   topbarShowSearch: true,
@@ -67,12 +76,15 @@ const DEFAULTS = {
 
   // Learning
   difficulty: 'auto',
+  dayStartsAt: '04:00',
+  learnAheadMinutes: 0,
+  sessionTimeLimit: 0,
   spacedRepetition: true,
   interleave: false,
   showHints: true,
   checkUnderstanding: true,
   formulaRender: 'katex',
-  codeTheme: 'mono',
+  codeTheme: 'syntax',
 
   pomodoro: false,
   pomodoroWork: 25,
@@ -95,6 +107,10 @@ const DEFAULTS = {
 
   // Region
   timeFormat: '24',
+
+  // Data
+  backupReminder: false,
+  backupReminderDays: 14,
 
   // Account - top-level fields mirror the active profile for back-compat
   displayName: 'Operator',
@@ -261,6 +277,12 @@ function apply(s) {
     '--ax-insights',
     s.accentInsights !== false ? 'var(--accent)' : 'var(--border-default)'
   )
+  root.style.setProperty(
+    '--ax-card',
+    s.accentCard !== false
+      ? 'color-mix(in srgb, var(--accent) 60%, transparent)'
+      : 'color-mix(in srgb, var(--base-color) 15%, transparent)'
+  )
   root.style.setProperty('--lrn-paragraph-spacing', s.paragraphSpacing)
   root.style.setProperty('--lrn-letter-spacing', `${s.letterSpacing}em`)
   root.style.setProperty('--lrn-word-spacing', `${s.wordSpacing}em`)
@@ -287,7 +309,7 @@ function apply(s) {
   root.setAttribute('data-hints', s.showHints ? 'on' : 'off')
   root.setAttribute('data-check-understanding', s.checkUnderstanding ? 'on' : 'off')
   root.setAttribute('data-formula-render', s.formulaRender || 'katex')
-  root.setAttribute('data-code-theme', s.codeTheme || 'mono')
+  root.setAttribute('data-code-theme', s.codeTheme || 'syntax')
 
   if (s.notifDesktop && 'Notification' in window) {
     const wasOff = !lastNotifDesktop
@@ -393,6 +415,26 @@ function initSettings() {
       const parsed = JSON.parse(saved, (_, v) => (v === '__Infinity__' ? Infinity : v))
       if (parsed.newCardsPerDay === 10) parsed.newCardsPerDay = Infinity
       if (parsed.maxReviewsPerDay === 100) parsed.maxReviewsPerDay = Infinity
+      // One-time: adopt the industry-standard accent scope — brand accent only on
+      // nav/interactive/state + callouts; typography, structure, and body-content
+      // chrome neutral. These were accented only because that was the old default;
+      // flip existing users once, then respect any deliberate toggle afterward.
+      if (!parsed._accentDefaultsV3) {
+        parsed.accentHeadings = false
+        parsed.accentDividers = false
+        parsed.accentEquations = false
+        parsed.accentAlgorithms = false
+        parsed._accentDefaultsV3 = true
+      }
+      // One-time: the old default 'mono' flattened code to a single ink and
+      // read as broken syntax highlighting. Adopt stock prism-tomorrow colours.
+      // Flip the old default only; a deliberate 'contrast' choice is respected.
+      if (!parsed._codeThemeSyntaxV1) {
+        if (parsed.codeTheme === 'mono' || parsed.codeTheme == null) {
+          parsed.codeTheme = 'syntax'
+        }
+        parsed._codeThemeSyntaxV1 = true
+      }
       settings = { ...DEFAULTS, ...parsed }
     }
   } catch {
@@ -402,6 +444,12 @@ function initSettings() {
   mirrorActiveProfile(settings)
   persist()
   apply(settings)
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    mq.addEventListener('change', () => {
+      if (settings.reducedMotion === 'system') apply(settings)
+    })
+  }
 }
 
 function persist() {

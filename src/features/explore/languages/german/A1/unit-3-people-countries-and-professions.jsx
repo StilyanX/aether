@@ -4,20 +4,20 @@ const config = {
   cssPrefix: 'pcp',
   documentTitle: 'People, Countries and Professions: AETHER',
   learning: {
-    category: 'Unit 2',
+    category: 'Unit 3',
     title: 'Menschen, Länder und Berufe',
-    subtitle: 'Personal pronouns, professions, countries, numbers, geography, and key phrases',
+    subtitle: 'Titles, professions, countries, university subjects, geography, and key phrases',
     sections: [
       <>
+        <h2>Why This Unit Matters</h2>
         <div id="lrn-section-0">
-          <h1>People, Countries and Professions</h1>
           <p>
-            German assigns every noun a gender, pairs every profession noun with a male and female
-            form, and uses three separate words for "you" depending on who you are speaking to. This
-            module gives you the vocabulary for people, jobs, countries, and languages.
+            This unit builds on Unit 1. You learn the words for people, jobs, countries, and
+            languages.
           </p>
+          <p>You also learn titles, how to introduce people, and university subjects.</p>
           <div className="lrn-callout lrn-tip">
-            <span className="lrn-callout-label">How to use this module</span>
+            <span className="lrn-callout-label">How to use this unit</span>
             <p>Use the Learning tab to study first principles and patterns.</p>
             <p>Use the Practice tab to test yourself with flashcards.</p>
             <p>Use the Reference tab to scan vocabulary tables quickly.</p>
@@ -25,76 +25,106 @@ const config = {
         </div>
       </>,
       <>
-        <div id="lrn-section-1">
-          <h2>Personal Pronouns</h2>
+        <div id="lrn-section-gender">
+          <h2>The Three Genders: der, die, das</h2>
           <p>
-            The biggest surprise for English speakers: German has three words for "you". Which one
-            you use depends on formality and whether you are speaking to one person or several.
+            Every German noun has a gender. There are three: <strong>masculine</strong>,{' '}
+            <strong>feminine</strong>, and <strong>neuter</strong>. The gender shows in the word for
+            "the".
           </p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>German keeps a formal/informal distinction that English lost centuries ago.</p>
-            <p>
-              You use <strong>Sie</strong> with strangers, teachers, and people you address by
-              surname.
-            </p>
-            <p>
-              You use <strong>du</strong> with friends, family, and children.
-            </p>
+          <ul className="lrn-list">
+            <li>
+              <strong>der</strong> = the (masculine): der Lehrer (the teacher), der Tag (the day).
+            </li>
+            <li>
+              <strong>die</strong> = the (feminine): die Lehrerin (the teacher), die Stadt (the
+              city).
+            </li>
+            <li>
+              <strong>das</strong> = the (neuter): das Land (the country), das Hobby (the hobby).
+            </li>
+          </ul>
+          <p>
+            You cannot guess the gender from the meaning. You learn each noun together with its
+            article (the small word for "the" or "a"). That is why every table in this unit shows
+            der, die, or das next to the word.
+          </p>
+
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">der die das = masculine, feminine, neuter</span>
+            <p>When you see "neuter", it just means the das group. It is not male or female.</p>
           </div>
-          <div className="lrn-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>German</th>
-                  <th>English</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>ich</td>
-                  <td>I</td>
-                  <td>1st person singular</td>
-                </tr>
-                <tr>
-                  <td>du</td>
-                  <td>you (informal, singular)</td>
-                  <td>use with friends and family</td>
-                </tr>
-                <tr>
-                  <td>er</td>
-                  <td>he</td>
-                  <td>masculine nouns</td>
-                </tr>
-                <tr>
-                  <td>sie</td>
-                  <td>she / they</td>
-                  <td>she (singular) or they (plural)</td>
-                </tr>
-                <tr>
-                  <td>es</td>
-                  <td>it</td>
-                  <td>neuter nouns</td>
-                </tr>
-                <tr>
-                  <td>wir</td>
-                  <td>we</td>
-                  <td>1st person plural</td>
-                </tr>
-                <tr>
-                  <td>ihr</td>
-                  <td>you (informal, plural)</td>
-                  <td>talking to a group of friends</td>
-                </tr>
-                <tr>
-                  <td>Sie</td>
-                  <td>you (formal)</td>
-                  <td>always capitalised; singular and plural</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+          <h3>"A" and "An": ein and eine</h3>
+          <p>German also has a word for "a" or "an". It follows the same gender:</p>
+          <ul className="lrn-list">
+            <li>
+              <strong>ein</strong> for masculine and neuter: ein Lehrer (a teacher), ein Land (a
+              country).
+            </li>
+            <li>
+              <strong>eine</strong> for feminine: eine Lehrerin (a teacher), eine Stadt (a city).
+            </li>
+          </ul>
+          <p>
+            One exception comes up soon: you drop this "a" when you state a job. A later section
+            explains why.
+          </p>
+
+          <h3>Reading the Plural Marks</h3>
+          <p>Each table shows a short mark for the plural. Here is what each mark means.</p>
+          <ul className="lrn-list">
+            <li>
+              <strong>-e</strong>: add e. der Tag → die Tage.
+            </li>
+            <li>
+              <strong>-n / -en</strong>: add n or en. die Sprache → die Sprachen.
+            </li>
+            <li>
+              <strong>-nen</strong>: add nen. die Lehrerin → die Lehrerinnen.
+            </li>
+            <li>
+              <strong>-s</strong>: add s. das Hobby → die Hobbys.
+            </li>
+            <li>
+              <strong>-</strong> (just a dash): no change. der Lehrer → die Lehrer.
+            </li>
+            <li>
+              <strong>²e</strong>: add e and put two dots (an umlaut) on the vowel. der Koch → die
+              Köche.
+            </li>
+            <li>
+              <strong>²er</strong>: add er and an umlaut. das Land → die Länder.
+            </li>
+          </ul>
+        </div>
+      </>,
+      <>
+        <div id="lrn-section-1">
+          <h2>Personal Pronouns (the short words for people)</h2>
+          <p className="lrn-insight">
+            A pronoun is the short word that stands in for a person: I, you, he, and so on. Unit 1
+            already teaches <strong>ich</strong> (I), <strong>du</strong> (you, one friend), and{' '}
+            <strong>Sie</strong> (you, formal).
+          </p>
+          <p>Here are the rest, so you can talk about other people too:</p>
+          <ul className="lrn-list">
+            <li>
+              <strong>er</strong> = he, <strong>sie</strong> = she, <strong>es</strong> = it
+            </li>
+            <li>
+              <strong>wir</strong> = we
+            </li>
+            <li>
+              <strong>ihr</strong> = you (a group of friends)
+            </li>
+          </ul>
+          <p>
+            So German has three words for "you": <strong>du</strong> for one friend,{' '}
+            <strong>ihr</strong> for a group of friends, and <strong>Sie</strong> for formal
+            address. You use <strong>ihr</strong> when you speak to more than one person you know
+            well: <em>Woher kommt ihr?</em> (Where do you all come from?)
+          </p>
           <div className="lrn-callout lrn-tip">
             <span className="lrn-callout-label">Tip: sie vs. Sie</span>
             <p>
@@ -110,69 +140,17 @@ const config = {
       <>
         <div id="lrn-section-2">
           <h2>
-            The Verb <em>sein</em> (to be)
+            Saying Your Job with <em>sein</em>
           </h2>
-          <p>
-            Use <strong>sein</strong> to say who you are, what your job is, and where you are from.
+          <p className="lrn-insight">
+            You already know how to conjugate <strong>sein</strong> (change the verb to match who is
+            doing it: ich bin, du bist, er ist…) from Unit 1. Here you use it to state your job.
+            German has one special rule for that.
           </p>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">sein</span>
-            <div className="lrn-definition-desc">
-              <p>To be. Irregular: the forms do not follow a single pattern.</p>
-            </div>
-          </div>
-          <div className="lrn-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Pronoun</th>
-                  <th>Form</th>
-                  <th>Example</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>ich</td>
-                  <td>bin</td>
-                  <td>Ich bin Lehrerin. (I am a teacher.)</td>
-                </tr>
-                <tr>
-                  <td>du</td>
-                  <td>bist</td>
-                  <td>Du bist Student. (You are a student.)</td>
-                </tr>
-                <tr>
-                  <td>er / sie</td>
-                  <td>ist</td>
-                  <td>Er ist 16. (He is 16.)</td>
-                </tr>
-                <tr>
-                  <td>wir</td>
-                  <td>sind</td>
-                  <td>Wir sind aus Deutschland. (We are from Germany.)</td>
-                </tr>
-                <tr>
-                  <td>ihr</td>
-                  <td>seid</td>
-                  <td>Ihr seid Ingenieure. (You are engineers.)</td>
-                </tr>
-                <tr>
-                  <td>Sie</td>
-                  <td>sind</td>
-                  <td>Sind Sie verheiratet? (Are you married?)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="lrn-callout lrn-tip">
-            <span className="lrn-callout-label">Key phrase</span>
-            <p>
-              In German, you say <strong>Ich bin Ingenieur</strong> without an article.
-            </p>
-            <p>
-              You do NOT say <em>Ich bin ein Ingenieur</em> when stating your profession.
-            </p>
-          </div>
+          <p>
+            When you say your profession, you drop the article: <strong>Ich bin Ingenieur.</strong>{' '}
+            You do NOT say <em>Ich bin ein Ingenieur</em>.
+          </p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>Why do you drop the article when you say your profession in German?</p>
@@ -180,12 +158,13 @@ const config = {
               <summary>Expert explanation</summary>
               <p>
                 After <strong>sein</strong>, the profession describes a category, not a specific
-                person. Articles point to specific individual things. Since no specific individual
-                is meant, the article is dropped.
+                person. Articles point to specific individual things. You mean no specific person,
+                so German drops the article.
               </p>
               <p>
-                You only add an article when you modify the noun:{' '}
-                <em>Ich bin ein guter Ingenieur.</em> (I am a good engineer.)
+                You only add an article when you describe the noun:{' '}
+                <em>Ich bin ein guter Ingenieur.</em> (I am a good engineer.) The ending on{' '}
+                <em>guter</em> changes to fit the noun; you learn those endings later.
               </p>
             </details>
           </div>
@@ -194,46 +173,32 @@ const config = {
       <>
         <div id="lrn-section-3">
           <h2>Professions: Male and Female Forms</h2>
-          <p>German professions come in male and female pairs.</p>
           <p>
-            The female form usually adds <strong>-in</strong> to the male form.
+            German jobs have a male form and a female form. Start with the male form. To make the
+            female form, you add <strong>-in</strong> to the end.
           </p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>German nouns have grammatical gender: masculine, feminine, or neuter.</p>
-            <p>
-              When a noun describes a person, the grammatical gender matches the person's gender.
-            </p>
-            <p>
-              The suffix <strong>-in</strong> marks the feminine form of most profession nouns. Male
-              professions take <strong>der</strong>; female professions take <strong>die</strong>.
-            </p>
-            <p>
-              The plural of feminine <strong>-in</strong> nouns always ends in <strong>-nen</strong>
-              .
-            </p>
-            <p>
-              A small number of professions don't follow the <strong>-in</strong> pattern and must
-              be learned separately.
-            </p>
-          </div>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              If <em>der Lehrer</em> means "teacher (male)", what do you think <em>die Lehrerin</em>{' '}
-              means?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <em>die Lehrerin</em> means "teacher (female)".
-              </p>
-              <p>
-                The pattern <strong>-in</strong> reliably marks the feminine form of a profession
-                noun.
-              </p>
-            </details>
-          </div>
+          <div className="lrn-eq">der Lehrer → die Lehrerin (teacher)</div>
+          <p>
+            The male form takes <strong>der</strong>. The female form takes <strong>die</strong>.
+            That fits the genders you just learned: a male teacher is masculine, a female teacher is
+            feminine.
+          </p>
+          <p>
+            Now you can talk about other people's jobs. Use <strong>er</strong> (he) or{' '}
+            <strong>sie</strong> (she) with <em>ist</em>: <em>Er ist Lehrer.</em> (He is a teacher.){' '}
+            <em>Sie ist Ärztin.</em> (She is a doctor.) You still drop the article after{' '}
+            <em>ist</em>.
+          </p>
+          <p>
+            For more than one woman, the plural adds <strong>-nen</strong>: die Lehrerin → die
+            Lehrerinnen. That is why every female job below shows the mark <strong>-nen</strong>.
+          </p>
+          <p>
+            A few jobs change a little more. <em>der Koch</em> (cook) becomes <em>die Köchin</em>,
+            and <em>der Arzt</em> (doctor) becomes <em>die Ärztin</em>: the vowel gets an umlaut.
+            You still hear the -in ending. Now read the job words below. Each one follows this
+            pattern.
+          </p>
 
           <h3>Teaching and Academia</h3>
           <div className="lrn-compare">
@@ -396,118 +361,80 @@ const config = {
       </>,
       <>
         <div id="lrn-section-4">
-          <h2>Key Question Words</h2>
-          <p>Six question words cover almost every conversation you will have at this level.</p>
-          <div className="lrn-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>German</th>
-                  <th>English</th>
-                  <th>Example</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <strong>wie?</strong>
-                  </td>
-                  <td>how? / what?</td>
-                  <td>
-                    Wie heißen Sie? (What is your name?) / Wie alt sind Sie? (How old are you?)
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>was?</strong>
-                  </td>
-                  <td>what?</td>
-                  <td>Was sind Sie von Beruf? (What is your profession?)</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>wo?</strong>
-                  </td>
-                  <td>where?</td>
-                  <td>Wo wohnen Sie? (Where do you live?)</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>woher?</strong>
-                  </td>
-                  <td>from where?</td>
-                  <td>Woher kommen Sie? (Where do you come from?)</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>welcher? / welche? / welches?</strong>
-                  </td>
-                  <td>which?</td>
-                  <td>
-                    Welche Sprachen sprechen Sie? (Which languages do you speak?). Use welcher for
-                    masculine nouns, welche for feminine or plural, welches for neuter
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>wie viel?</strong>
-                  </td>
-                  <td>how much? / how many?</td>
-                  <td>Wie viel kostet das? (How much does that cost?)</td>
-                </tr>
-              </tbody>
-            </table>
+          <h2>More Question Words</h2>
+          <p className="lrn-insight">
+            Unit 1 already teaches the question words wie (how), wo (where), and woher (from where).
+            One more basic one: <strong>was</strong> means "what". You ask <em>Was ist das?</em>{' '}
+            (What is that?). This page then adds two harder ones: welcher and wie viel.
+          </p>
+
+          <h3>welcher / welche / welches (which?)</h3>
+          <p>
+            Start with one example: <em>Welcher Tag ist heute?</em> (Which day is today?). Here{' '}
+            <strong>welcher</strong> ends in -er because <em>der Tag</em> is masculine.
+          </p>
+          <p>
+            The ending of "which" changes to match the noun's gender. Use <strong>welcher</strong>{' '}
+            for masculine, <strong>welche</strong> for feminine or plural, and{' '}
+            <strong>welches</strong> for neuter.
+          </p>
+          <div className="lrn-compare">
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">Examples</span>
+              <p>
+                <em>Welcher Tag ist heute?</em> (Which day?). der Tag is masculine.
+              </p>
+              <p>
+                <em>Welche Stadt?</em> (Which city?). die Stadt is feminine.
+              </p>
+              <p>
+                <em>Welche Sprachen sprechen Sie?</em> (Which languages do you speak?). This is
+                plural.
+              </p>
+              <p>
+                <em>Welches Land?</em> (Which country?). das Land is neuter.
+              </p>
+            </div>
           </div>
-          <div className="lrn-callout lrn-tip">
-            <span className="lrn-callout-label">Tip: wie vs. was</span>
-            <p>
-              <strong>Wie heißen Sie?</strong> literally means "How are you called?" but translates
-              as "What is your name?"
-            </p>
-            <p>
-              Use <strong>wie</strong> when asking about names and descriptions.
-            </p>
-            <p>
-              Use <strong>was</strong> when asking about things or facts.
-            </p>
-          </div>
+
+          <h3>wie viel? (how much? / how many?)</h3>
+          <p>
+            Use <strong>wie viel</strong> to ask about amount or quantity.
+          </p>
+          <p>
+            Example: <em>Wie viel kostet das?</em> (How much does that cost?)
+          </p>
         </div>
       </>,
       <>
         <div id="lrn-section-5">
-          <h2>Introducing Yourself: Key Phrases</h2>
-          <p>Use these phrases to give basic personal information.</p>
-          <div className="lrn-steps">
-            <div className="lrn-step">
-              <span className="lrn-step-title">Name</span>
-              <p className="lrn-step-content">
-                Ich heiße Anna. / Mein Name ist Anna. (My name is Anna.)
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Profession</span>
-              <p className="lrn-step-content">
-                Ich bin Lehrerin. (I am a teacher. Note: no article.)
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Origin</span>
-              <p className="lrn-step-content">
-                Ich komme aus Deutschland. / Ich bin aus Deutschland. (I am from Germany.)
-              </p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Where you live</span>
-              <p className="lrn-step-content">Ich wohne in Berlin. (I live in Berlin.)</p>
-            </div>
-            <div className="lrn-step">
-              <span className="lrn-step-title">Introducing others</span>
-              <p className="lrn-step-content">
-                Das ist Herr Meyer. / Das ist Frau Schmidt. (This is Mr. Meyer. / This is Mrs.
-                Schmidt.)
-              </p>
-            </div>
-          </div>
+          <h2>Introducing Yourself and Others</h2>
+          <p className="lrn-insight">
+            In Unit 1 you learned to give your name (Ich heiße…), origin (Ich komme aus…), and where
+            you live (Ich wohne in…). This page adds titles, how to introduce other people, and the
+            verb for introducing yourself.
+          </p>
+          <p>
+            To introduce someone else, say <strong>Das ist…</strong>: <em>Das ist Herr Meyer.</em>{' '}
+            (This is Mr. Meyer.) <em>Das ist Frau Schmidt.</em> (This is Mrs. Schmidt.)
+          </p>
+
+          <h3>Asking about a job: von Beruf</h3>
+          <p>
+            To ask someone's job, German uses the fixed phrase <strong>von Beruf</strong> (by
+            profession). You attach it to the verb <em>sein</em>.
+          </p>
+          <div className="lrn-eq">Was sind Sie von Beruf? (What is your profession?)</div>
+          <p>
+            To answer, name your job and add <strong>von Beruf</strong>. You still drop the article
+            before the job, just like before.
+          </p>
+          <div className="lrn-eq">Ich bin Lehrer von Beruf. (I am a teacher by profession.)</div>
+          <p>
+            You can also drop <em>von Beruf</em> and just say <em>Ich bin Lehrer.</em> Both are
+            correct. The phrase <strong>von Beruf</strong> simply makes the question about work
+            clear.
+          </p>
 
           <h3>Titles: Herr and Frau</h3>
           <div className="lrn-compare">
@@ -529,60 +456,88 @@ const config = {
             </div>
           </div>
 
-          <h3>The verb vorstellen (to introduce)</h3>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">sich vorstellen</span>
-            <div className="lrn-definition-desc">
-              <p>To introduce oneself (reflexive use).</p>
-              <p>
-                Example: <em>Ich stelle mich vor.</em> (I introduce myself.)
-              </p>
-            </div>
-          </div>
+          <h3>The verb sich vorstellen (to introduce yourself)</h3>
+          <p>Here is the sentence you are building toward:</p>
+          <div className="lrn-eq">Ich stelle mich vor. (I introduce myself.)</div>
+          <p>That short sentence has three moving parts. Watch how it is built, step by step.</p>
+          <ul className="lrn-list">
+            <li>
+              Start with the subject and the verb: <em>Ich stelle…</em> (I … place).
+            </li>
+            <li>
+              Add <strong>mich</strong> (myself): <em>Ich stelle mich…</em>
+            </li>
+            <li>
+              Send the front part <strong>vor-</strong> to the very end:{' '}
+              <em>Ich stelle mich vor.</em>
+            </li>
+          </ul>
+          <p>Two rules are at work here. Learn them one at a time.</p>
           <p>
-            To introduce someone else, say: <em>Das ist mein Freund Tom.</em> (This is my friend
-            Tom.)
+            <strong>First, the reflexive part.</strong> The dictionary form shows{' '}
+            <strong>sich</strong>, which means "oneself". It is a placeholder. When <em>I</em> do
+            the action, "oneself" becomes "myself", so <strong>sich</strong> turns into{' '}
+            <strong>mich</strong>. That is why you say <em>mich</em> and not <em>sich</em> here.
           </p>
+          <p>
+            <strong>Second, the split.</strong> The verb is <em>vorstellen</em>. The front part{' '}
+            <strong>vor-</strong> breaks off and jumps to the end of the sentence. The rest,{' '}
+            <strong>stelle</strong>, stays in second place after <em>ich</em>.
+          </p>
+          <div className="lrn-callout lrn-success">
+            <span className="lrn-callout-label">Payoff</span>
+            <p>
+              You can now introduce yourself in German: <em>Ich stelle mich vor.</em> Then give your
+              name, job, and where you come from.
+            </p>
+          </div>
         </div>
       </>,
       <>
         <div id="lrn-section-6">
           <h2>Countries and Nationalities</h2>
-          <p>German country names usually have no article.</p>
           <p>
-            A few countries are exceptions and do take an article: <strong>die Schweiz</strong>{' '}
-            (Switzerland), <strong>die Türkei</strong> (Turkey), <strong>die Ukraine</strong>{' '}
-            (Ukraine), <strong>die Niederlande</strong> (Netherlands, plural).
+            Most country names take <strong>no article</strong>. You just say the name.
           </p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Country names are grammatically neuter by default. Neuter nouns take no article when
-              used alone, so <em>Deutschland</em> and <em>Frankreich</em> stand without one.
-            </p>
-            <p>
-              Countries with a feminine grammatical gender (die Schweiz, die Türkei, die Ukraine)
-              always carry their article. The Netherlands is plural, so it takes <em>die</em> for
-              that reason.
-            </p>
-          </div>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              If <em>Deutschland</em> means "Germany", what do you think <em>Österreich</em> and{' '}
-              <em>die Schweiz</em> refer to?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <em>Österreich</em> = Austria.
-              </p>
-              <p>
-                <em>die Schweiz</em> = Switzerland. Note the article <em>die</em> (it is one of the
-                exceptions).
-              </p>
-            </details>
-          </div>
+          <div className="lrn-eq">Ich komme aus Deutschland. (I come from Germany.)</div>
+          <p>
+            You met <strong>aus</strong> (from) and <strong>in</strong> (in) in Unit 1. Use{' '}
+            <strong>aus</strong> for where you come from, and <strong>in</strong> for where you
+            live. With most countries you add no article after them: <em>aus Deutschland</em>,{' '}
+            <em>in Italien</em>.
+          </p>
+          <p>
+            A small group of countries always carries an article. You must learn these by heart:
+          </p>
+          <ul className="lrn-list">
+            <li>
+              <strong>die Schweiz</strong> (Switzerland)
+            </li>
+            <li>
+              <strong>die Türkei</strong> (Turkey)
+            </li>
+            <li>
+              <strong>die Ukraine</strong> (Ukraine)
+            </li>
+            <li>
+              <strong>die Niederlande</strong> (the Netherlands, always plural)
+            </li>
+            <li>
+              <strong>die USA</strong> (the USA, always plural)
+            </li>
+          </ul>
+          <p>
+            With these, the article changes after <em>aus</em>: you say{' '}
+            <em>Ich komme aus der Schweiz</em>. For now, just remember that these few countries keep
+            their article.
+          </p>
+
+          <h3>Nationalities and Languages</h3>
+          <p>
+            The name of the language and the adjective often end in <strong>-isch</strong>:
+            Deutschland → Deutsch, Italien → Italienisch, Spanien → Spanisch. The tables below give
+            you the country and its main language together.
+          </p>
 
           <h3>German-speaking countries</h3>
           <div className="lrn-table">
@@ -608,7 +563,7 @@ const config = {
                 <tr>
                   <td>die Schweiz</td>
                   <td>Deutsch / Französisch / Italienisch / Rätoromanisch</td>
-                  <td>Switzerland; 4 official languages</td>
+                  <td>Switzerland</td>
                 </tr>
               </tbody>
             </table>
@@ -649,28 +604,12 @@ const config = {
                   <td>Portugiesisch</td>
                 </tr>
                 <tr>
-                  <td>Griechenland</td>
-                  <td>Griechisch</td>
-                </tr>
-                <tr>
                   <td>Polen</td>
                   <td>Polnisch</td>
                 </tr>
                 <tr>
-                  <td>Rumänien</td>
-                  <td>Rumänisch</td>
-                </tr>
-                <tr>
                   <td>Russland</td>
                   <td>Russisch</td>
-                </tr>
-                <tr>
-                  <td>Schweden</td>
-                  <td>Schwedisch</td>
-                </tr>
-                <tr>
-                  <td>Ungarn</td>
-                  <td>Ungarisch</td>
                 </tr>
                 <tr>
                   <td>Tschechien</td>
@@ -686,15 +625,11 @@ const config = {
                 </tr>
                 <tr>
                   <td>die Niederlande (Pl.)</td>
-                  <td>Niederländisch / Holländisch</td>
+                  <td>Niederländisch</td>
                 </tr>
                 <tr>
                   <td>die Türkei</td>
                   <td>Türkisch</td>
-                </tr>
-                <tr>
-                  <td>die Ukraine</td>
-                  <td>Ukrainisch</td>
                 </tr>
               </tbody>
             </table>
@@ -727,10 +662,6 @@ const config = {
                   <td>Hindi / Englisch</td>
                 </tr>
                 <tr>
-                  <td>Japan</td>
-                  <td>Japanisch</td>
-                </tr>
-                <tr>
                   <td>Tunesien</td>
                   <td>Arabisch / Französisch</td>
                 </tr>
@@ -741,159 +672,48 @@ const config = {
       </>,
       <>
         <div id="lrn-section-7">
-          <h2>Numbers 0 to 1000</h2>
-          <p>Two patterns build almost every number from 13 to 99.</p>
-          <p>
-            <strong>13–19:</strong> root + zehn. dreizehn = drei + zehn. sechzehn drops the trailing
-            -s (sechs → sechzehn); siebzehn drops the -en (sieben → siebzehn).
+          <h2>Numbers 21 to 99</h2>
+          <p className="lrn-insight">
+            Unit 1 teaches the numbers up to 20. Here you learn how to build the numbers from 21 to
+            99. You need them for your age, phone number, and the year.
           </p>
+          <p>First, the round tens. Each one has its own word.</p>
+          <ul className="lrn-list">
+            <li>20 = zwanzig</li>
+            <li>30 = dreißig</li>
+            <li>40 = vierzig</li>
+            <li>50 = fünfzig</li>
+            <li>60 = sechzig (the -s of sechs drops)</li>
+            <li>70 = siebzig (the -en of sieben drops)</li>
+            <li>80 = achtzig</li>
+            <li>90 = neunzig</li>
+          </ul>
+          <h3>The reversed pattern</h3>
           <p>
-            <strong>21–99:</strong> German reverses the English order. Ones come first, joined by{' '}
-            <em>und</em>, then tens, written as one word. einundzwanzig = eins + und + zwanzig
-            (one-and-twenty). This is genuinely backwards for English speakers and takes practice.
+            German says the small digit first, then the ten. You glue them together with{' '}
+            <strong>und</strong> (and). It all becomes one word.
           </p>
-          <div className="lrn-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Number</th>
-                  <th>German</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>0</td>
-                  <td>null</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>eins</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>zwei</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>drei</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>vier</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>fünf</td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td>sechs</td>
-                </tr>
-                <tr>
-                  <td>7</td>
-                  <td>sieben</td>
-                </tr>
-                <tr>
-                  <td>8</td>
-                  <td>acht</td>
-                </tr>
-                <tr>
-                  <td>9</td>
-                  <td>neun</td>
-                </tr>
-                <tr>
-                  <td>10</td>
-                  <td>zehn</td>
-                </tr>
-                <tr>
-                  <td>11</td>
-                  <td>elf</td>
-                </tr>
-                <tr>
-                  <td>12</td>
-                  <td>zwölf</td>
-                </tr>
-                <tr>
-                  <td>13</td>
-                  <td>dreizehn</td>
-                </tr>
-                <tr>
-                  <td>14</td>
-                  <td>vierzehn</td>
-                </tr>
-                <tr>
-                  <td>15</td>
-                  <td>fünfzehn</td>
-                </tr>
-                <tr>
-                  <td>16</td>
-                  <td>sechzehn</td>
-                </tr>
-                <tr>
-                  <td>17</td>
-                  <td>siebzehn</td>
-                </tr>
-                <tr>
-                  <td>18</td>
-                  <td>achtzehn</td>
-                </tr>
-                <tr>
-                  <td>19</td>
-                  <td>neunzehn</td>
-                </tr>
-                <tr>
-                  <td>20</td>
-                  <td>zwanzig</td>
-                </tr>
-                <tr>
-                  <td>21</td>
-                  <td>einundzwanzig</td>
-                </tr>
-                <tr>
-                  <td>30</td>
-                  <td>dreißig</td>
-                </tr>
-                <tr>
-                  <td>40</td>
-                  <td>vierzig</td>
-                </tr>
-                <tr>
-                  <td>50</td>
-                  <td>fünfzig</td>
-                </tr>
-                <tr>
-                  <td>60</td>
-                  <td>sechzig</td>
-                </tr>
-                <tr>
-                  <td>70</td>
-                  <td>siebzig</td>
-                </tr>
-                <tr>
-                  <td>80</td>
-                  <td>achtzig</td>
-                </tr>
-                <tr>
-                  <td>90</td>
-                  <td>neunzig</td>
-                </tr>
-                <tr>
-                  <td>100</td>
-                  <td>hundert</td>
-                </tr>
-                <tr>
-                  <td>1000</td>
-                  <td>tausend</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <div className="lrn-eq">21 = ein + und + zwanzig = einundzwanzig</div>
+          <p>
+            Read it as "one-and-twenty". The 1 comes first, then "and", then "twenty". German keeps
+            this order for every number from 21 to 99.
+          </p>
+          <ul className="lrn-list">
+            <li>22 = zweiundzwanzig (two-and-twenty)</li>
+            <li>34 = vierunddreißig (four-and-thirty)</li>
+            <li>57 = siebenundfünfzig (seven-and-fifty)</li>
+            <li>99 = neunundneunzig (nine-and-ninety)</li>
+          </ul>
+          <p>
+            Note: for 21, 31, 41 and so on, you write <strong>ein</strong>, not eins. So 21 is{' '}
+            <em>einundzwanzig</em>, not einsundzwanzig.
+          </p>
           <div className="lrn-definition">
             <span className="lrn-definition-term">die Zahl, -en</span>
             <div className="lrn-definition-desc">
-              <p>Number (noun, feminine, plural -en).</p>
+              <p>Number (feminine, plural -en).</p>
               <p>
-                Also: <strong>die Nummer, -n</strong> = number (in a series, e.g. phone number).
+                Also: <strong>die Nummer, -n</strong> = number in a series, like a phone number.
               </p>
             </div>
           </div>
@@ -902,24 +722,48 @@ const config = {
       <>
         <div id="lrn-section-8">
           <h2>Hobbies and Leisure</h2>
+          <p className="lrn-insight">
+            To talk about hobbies, you need two little words: <strong>gern(e)</strong> and{' '}
+            <strong>lieber</strong>. You also need the verb <strong>haben</strong> (to have).
+          </p>
+
+          <h3>Saying what you like: gern(e) and lieber</h3>
           <p>
-            Use <strong>gern(e)</strong> after a verb to say you like doing something.
+            <strong>gern</strong> (also written <strong>gerne</strong>) means "like to". You add it
+            after the verb to show you enjoy doing something.
+          </p>
+          <div className="lrn-eq">Ich spiele gern Fußball. (I like playing football.)</div>
+          <p>
+            The verb stays in second place. The word <strong>gern</strong> comes right after it.
+            Look: <em>spiele</em> is the verb, <em>gern</em> follows it, then the activity.
           </p>
           <p>
-            Use <strong>lieber</strong> to say you prefer something.
+            <strong>lieber</strong> means "prefer to". It is the stronger version of gern. Use it
+            when you like one thing more than another.
           </p>
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">gern(e): like to</span>
-              <p>Ich lese gerne Romane. (I like reading novels.)</p>
-              <p>Er hat viele Hobbys. (He has many hobbies.)</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">lieber: prefer to / rather</span>
-              <p>Ich spiele lieber Tennis. (I prefer to play tennis.)</p>
-              <p>Ich spiele nicht so gut Tennis. (I do not play tennis very well.)</p>
-            </div>
-          </div>
+          <div className="lrn-eq">Ich spiele gern Fußball, aber ich spiele lieber Tischtennis.</div>
+          <p>
+            That means: "I like playing football, but I prefer playing table tennis." Both{' '}
+            <strong>gern</strong> and <strong>lieber</strong> sit right after the verb.
+          </p>
+
+          <h3>The verb haben (to have)</h3>
+          <p>
+            You use <strong>haben</strong> to say what someone has. It is a little irregular, so
+            learn these forms by heart.
+          </p>
+          <ul className="lrn-list">
+            <li>ich habe (I have)</li>
+            <li>du hast (you have)</li>
+            <li>er / sie / es hat (he / she / it has)</li>
+            <li>wir haben (we have)</li>
+            <li>ihr habt (you have, group)</li>
+            <li>sie / Sie haben (they / you have)</li>
+          </ul>
+          <p>
+            Example: <em>Er hat viele Hobbys.</em> (He has many hobbies.) Notice the short form{' '}
+            <strong>hat</strong> for "he has".
+          </p>
           <div className="lrn-table">
             <table>
               <thead>
@@ -1016,16 +860,16 @@ const config = {
                   <td>Fußball spielen, Gitarre spielen</td>
                 </tr>
                 <tr>
-                  <td>lesen [er liest]</td>
+                  <td>lesen</td>
                   <td>-</td>
                   <td>to read</td>
-                  <td>irregular: er liest</td>
+                  <td>irregular: er liest (e becomes ie)</td>
                 </tr>
                 <tr>
                   <td>sammeln</td>
                   <td>-</td>
                   <td>to collect</td>
-                  <td>stem-changing: ich sammle</td>
+                  <td>verb</td>
                 </tr>
               </tbody>
             </table>
@@ -1081,8 +925,16 @@ const config = {
           <h2>Academic Subjects</h2>
           <p>These nouns name fields of study at university.</p>
           <p>
-            The verb <strong>studieren</strong> means "to study at university".
+            The verb <strong>studieren</strong> means "to study at university". It is a regular
+            verb. You already know how regular verbs work from Unit 1: keep the stem (
+            <em>studier-</em>) and swap the ending.
           </p>
+          <ul className="lrn-list">
+            <li>ich studiere (I study)</li>
+            <li>du studierst (you study)</li>
+            <li>er / sie studiert (he / she studies)</li>
+            <li>wir / sie / Sie studieren (we / they / you study)</li>
+          </ul>
           <p>
             Example: <em>Ich studiere Jura.</em> (I study law.)
           </p>
@@ -1328,8 +1180,11 @@ const config = {
         <div id="lrn-section-11">
           <h2>Germany, Austria and Switzerland</h2>
           <p>
-            This is the vocabulary you need to read about German-speaking countries in numbers and
-            geography.
+            Germany and Austria split into regions called Bundesländer. Switzerland uses Kantone.
+          </p>
+          <p>
+            Switzerland has four official languages: Deutsch, Französisch, Italienisch, and
+            Rätoromanisch.
           </p>
           <div className="lrn-table">
             <table>
@@ -1343,24 +1198,6 @@ const config = {
               </thead>
               <tbody>
                 <tr>
-                  <td>die Alpen (Pl.)</td>
-                  <td>die</td>
-                  <td>Alps</td>
-                  <td>plural only</td>
-                </tr>
-                <tr>
-                  <td>die Amtssprache, -n</td>
-                  <td>die</td>
-                  <td>official language</td>
-                  <td>plural -n</td>
-                </tr>
-                <tr>
-                  <td>bevölkerungsreich</td>
-                  <td>-</td>
-                  <td>populous, heavily populated</td>
-                  <td>adjective</td>
-                </tr>
-                <tr>
                   <td>das Bundesland, ²er</td>
                   <td>das</td>
                   <td>region (Germany/Austria)</td>
@@ -1373,82 +1210,22 @@ const config = {
                   <td>plural -e</td>
                 </tr>
                 <tr>
+                  <td>die Amtssprache, -n</td>
+                  <td>die</td>
+                  <td>official language</td>
+                  <td>plural -n</td>
+                </tr>
+                <tr>
                   <td>die Millionenstadt, ²e</td>
                   <td>die</td>
                   <td>city with over a million people</td>
                   <td>plural ²e</td>
                 </tr>
                 <tr>
-                  <td>die Milliarde, -n</td>
+                  <td>die Alpen (Pl.)</td>
                   <td>die</td>
-                  <td>billion</td>
-                  <td>plural -n</td>
-                </tr>
-                <tr>
-                  <td>die Million, -en</td>
-                  <td>die</td>
-                  <td>million</td>
-                  <td>plural -en</td>
-                </tr>
-                <tr>
-                  <td>das Prozent, -e</td>
-                  <td>das</td>
-                  <td>per cent</td>
-                  <td>plural -e</td>
-                </tr>
-                <tr>
-                  <td>die Republik, -en</td>
-                  <td>die</td>
-                  <td>republic</td>
-                  <td>plural -en</td>
-                </tr>
-                <tr>
-                  <td>der Nationalstaat, -en</td>
-                  <td>der</td>
-                  <td>nation-state</td>
-                  <td>plural -en</td>
-                </tr>
-                <tr>
-                  <td>die Statistik, -en</td>
-                  <td>die</td>
-                  <td>statistics</td>
-                  <td>plural -en</td>
-                </tr>
-                <tr>
-                  <td>die Regionalsprache, -n</td>
-                  <td>die</td>
-                  <td>regional language</td>
-                  <td>plural -n</td>
-                </tr>
-                <tr>
-                  <td>die Deutschlandkarte, -n</td>
-                  <td>die</td>
-                  <td>map of Germany</td>
-                  <td>plural -n</td>
-                </tr>
-                <tr>
-                  <td>offiziell</td>
-                  <td>-</td>
-                  <td>official</td>
-                  <td>adjective</td>
-                </tr>
-                <tr>
-                  <td>Rätoromanisch</td>
-                  <td>-</td>
-                  <td>Rhaeto-Romanic</td>
-                  <td>one of Switzerland's official languages</td>
-                </tr>
-                <tr>
-                  <td>seit (1871)</td>
-                  <td>-</td>
-                  <td>since (1871)</td>
-                  <td>preposition</td>
-                </tr>
-                <tr>
-                  <td>über (800 Jahre)</td>
-                  <td>-</td>
-                  <td>over (800 years)</td>
-                  <td>preposition with numbers</td>
+                  <td>Alps</td>
+                  <td>plural only</td>
                 </tr>
               </tbody>
             </table>
@@ -1463,27 +1240,17 @@ const config = {
           </p>
 
           <h3>Compass Points</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              The German word for north is <em>Norden</em>. Before looking at the table, can you
-              guess what south, east, and west might be?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                der Süden (south), der Osten (east), der Westen (west). All four take{' '}
-                <strong>der</strong>.
-              </p>
-            </details>
-          </div>
+          <p>
+            All four main directions take <strong>der</strong>. Compounds combine two words: Nord +
+            Osten = Nordosten.
+          </p>
 
           <table className="lrn-table">
             <thead>
               <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
+                <th>German</th>
+                <th>English</th>
+                <th>Article</th>
               </tr>
             </thead>
             <tbody>
@@ -1535,23 +1302,14 @@ const config = {
             </tbody>
           </table>
 
-          <div className="lrn-callout lrn-tip">
-            <span className="lrn-callout-label">Memory tip</span>
-            <p>
-              All compass directions take <strong>der</strong> in German.
-            </p>
-            <p>North = Norden, South = Süden, East = Osten, West = Westen.</p>
-            <p>Compound directions combine two words: Nord + Osten = Nordosten.</p>
-          </div>
-
           <h3>Describing Cities and Regions</h3>
           <p>
-            Germany has 16 states (Bundesländer), each with its own capital city. You will see these
-            words in factual texts about German cities.
+            Germany has 16 states (Bundesländer), each with its own capital city. These words help
+            you describe where a place is and what it is.
           </p>
 
           <div className="lrn-definition">
-            <span className="lrn-definition-term">die Landeshauptstadt, -"e</span>
+            <span className="lrn-definition-term">die Landeshauptstadt, ²e</span>
             <div className="lrn-definition-desc">
               <p>The capital city of a German federal state (Bundesland).</p>
             </div>
@@ -1560,9 +1318,9 @@ const config = {
           <table className="lrn-table">
             <thead>
               <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
+                <th>German</th>
+                <th>English</th>
+                <th>Article</th>
                 <th>Plural</th>
               </tr>
             </thead>
@@ -1571,37 +1329,13 @@ const config = {
                 <td>die Landeshauptstadt</td>
                 <td>regional capital</td>
                 <td>die</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>das Bundesland</td>
-                <td>federal state</td>
-                <td>das</td>
-                <td>-"er</td>
+                <td>²e</td>
               </tr>
               <tr>
                 <td>der Platz</td>
                 <td>place, square</td>
                 <td>der</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>die Firma</td>
-                <td>company, firm</td>
-                <td>die</td>
-                <td>die Firmen</td>
-              </tr>
-              <tr>
-                <td>der Hersteller</td>
-                <td>producer, manufacturer</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Besucher</td>
-                <td>visitor</td>
-                <td>der</td>
-                <td>-</td>
+                <td>²e</td>
               </tr>
               <tr>
                 <td>der Einwohner</td>
@@ -1610,111 +1344,10 @@ const config = {
                 <td>-</td>
               </tr>
               <tr>
-                <td>das Wirthaus</td>
+                <td>das Wirtshaus</td>
                 <td>inn</td>
                 <td>das</td>
-                <td>-"er</td>
-              </tr>
-              <tr>
-                <td>das Elektrogerät</td>
-                <td>electrical device</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>der Lastkraftwagen</td>
-                <td>truck</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Liter</td>
-                <td>litre</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Superlatives for Describing Cities</h3>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              To form a superlative, add <strong>-st-</strong> to the adjective stem, then add the
-              normal gender ending. The stem alone (bekanntst-, berühmtst-) is not a usable form; it
-              always needs an ending.
-            </p>
-            <p>
-              bekannt (well-known) → bekanntest- → die bekannteste Stadt (the most well-known city)
-            </p>
-            <p>berühmt (famous) → berühmtest- → das berühmteste Museum (the most famous museum)</p>
-          </div>
-
-          <h3>Useful Adverbs and Adjectives (Geography)</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>insgesamt</td>
-                <td>in total</td>
-              </tr>
-              <tr>
-                <td>international</td>
-                <td>international</td>
-              </tr>
-              <tr>
-                <td>historisch</td>
-                <td>historical</td>
-              </tr>
-              <tr>
-                <td>europäisch</td>
-                <td>European</td>
-              </tr>
-              <tr>
-                <td>romantisch</td>
-                <td>romantic</td>
-              </tr>
-              <tr>
-                <td>mehr</td>
-                <td>more</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Useful Verbs (Geography)</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Beispiel</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>interessieren</td>
-                <td>to interest someone</td>
-                <td>Welche Stadt interessiert Sie?</td>
-              </tr>
-              <tr>
-                <td>belegen</td>
-                <td>to occupy, to be in (a place)</td>
-                <td>Den ersten Platz belegt Berlin.</td>
-              </tr>
-              <tr>
-                <td>umfassen</td>
-                <td>to comprise, include</td>
-                <td>Die Sammlung umfasst 900 Bilder.</td>
-              </tr>
-              <tr>
-                <td>raten [er rät]</td>
-                <td>to guess</td>
-                <td>Raten Sie!</td>
+                <td>²er</td>
               </tr>
             </tbody>
           </table>
@@ -1724,20 +1357,20 @@ const config = {
   },
   practice: [
     {
-      q: 'Translate: "What is your name?" (formal)',
-      a: 'Wie heißen Sie? Use Sie (capitalised) for formal address. Wie heißen Sie? is the standard formal greeting question.'
+      q: 'Translate: "This is Mr. Meyer." (introducing someone else)',
+      a: 'Das ist Herr Meyer. Use Das ist… to introduce another person. der Herr (Mr.) goes before the surname for formal address.'
     },
     {
-      q: 'What is the German word for "engineer" (male)? Give the article and plural.',
-      a: 'der Ingenieur, -e. Article: der (masculine). Plural: Ingenieure. Female form: die Ingenieurin, -nen.'
+      q: 'Which form of "which" do you use with das Land: welcher, welche, or welches?',
+      a: 'welches. das Land is neuter, so use welches: Welches Land? Use welcher for masculine, welche for feminine or plural, welches for neuter.'
     },
     {
       q: 'Translate: "I am a journalist." (female speaker)',
       a: 'Ich bin Journalistin. No article before the profession noun. Female form of Journalist adds -in: die Journalistin.'
     },
     {
-      q: 'Translate: "Where do you come from?" (formal)',
-      a: 'Woher kommen Sie? woher = from where. kommen = to come. Sie = you (formal).'
+      q: 'Translate: "She is a doctor." (use the female form)',
+      a: 'Sie ist Ärztin. The female form of der Arzt is die Ärztin (the vowel gets an umlaut, then -in). Drop the article after sein: Sie ist Ärztin, not Sie ist eine Ärztin.'
     },
     {
       q: 'Translate: "He is 16 years old."',
@@ -1748,8 +1381,8 @@ const config = {
       a: 'die Lehrerin, -nen. Add -in to form the female version. All female -in nouns take -nen in the plural.'
     },
     {
-      q: 'Translate: "I live in London." ',
-      a: 'Ich wohne in London. wohnen = to live (somewhere). Use in + city name with no article.'
+      q: 'Translate: "My home town is Vienna." (use die Heimatstadt)',
+      a: 'Meine Heimatstadt ist Wien. die Heimatstadt = home town (feminine). Wien is the German name for Vienna, the capital of Österreich (Austria).'
     },
     {
       q: 'What does "gern(e)" mean and how do you use it?',
@@ -1797,15 +1430,15 @@ const config = {
     },
     {
       q: 'Translate: "I introduce myself."',
-      a: 'Ich stelle mich vor. vorstellen is a separable verb. The prefix vor- moves to the end of the clause. sich vorstellen = to introduce oneself (reflexive).'
+      a: 'Ich stelle mich vor. The verb vorstellen splits: the front part vor- jumps to the end of the sentence. sich means the action points back at you, so you add mich (myself).'
     },
     {
-      q: 'Give the numbers 1, 2, 3, 10, 20, 100 in German.',
-      a: 'eins, zwei, drei, zehn, zwanzig, hundert.'
+      q: 'Write 21 and 34 in German. Explain the pattern.',
+      a: '21 = einundzwanzig. 34 = vierunddreißig. German says the small digit first, then und, then the ten, all as one word. For 21 you write ein, not eins.'
     },
     {
-      q: 'What does "woher?" mean and how is it used?',
-      a: 'woher = from where. Use it in questions about origin: Woher kommen Sie? (Where do you come from?). It combines wo (where) + her (from here, direction toward speaker).'
+      q: 'Answer in German: "Woher kommen Sie?" Say you come from Switzerland.',
+      a: 'Ich komme aus der Schweiz. die Schweiz is one of the few countries that keep their article. After aus, die Schweiz becomes der Schweiz.'
     },
     {
       q: 'Translate: "He has many hobbies."',
@@ -1825,103 +1458,9 @@ const config = {
     title: 'Menschen, Länder und Berufe',
     sections: [
       <>
-        <h2>Personal Pronouns</h2>
-        <div className="lrn-table">
-          <table>
-            <thead>
-              <tr>
-                <th>German</th>
-                <th>English</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ich</td>
-                <td>I</td>
-              </tr>
-              <tr>
-                <td>du</td>
-                <td>you (informal, sg)</td>
-              </tr>
-              <tr>
-                <td>er / sie / es</td>
-                <td>he / she / it</td>
-              </tr>
-              <tr>
-                <td>wir</td>
-                <td>we</td>
-              </tr>
-              <tr>
-                <td>ihr</td>
-                <td>you (informal, pl)</td>
-              </tr>
-              <tr>
-                <td>Sie</td>
-                <td>you (formal)</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <p className="lrn-insight">This reference lists only what is new to Unit 3.</p>
 
-        <h2>Key Phrases</h2>
-        <div className="lrn-table">
-          <table>
-            <thead>
-              <tr>
-                <th>German</th>
-                <th>English</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Wie heißen Sie?</td>
-                <td>What is your name? (formal)</td>
-              </tr>
-              <tr>
-                <td>Was sind Sie von Beruf?</td>
-                <td>What is your profession? (formal)</td>
-              </tr>
-              <tr>
-                <td>Wie alt sind Sie?</td>
-                <td>How old are you? (formal)</td>
-              </tr>
-              <tr>
-                <td>Woher kommen Sie?</td>
-                <td>Where do you come from? (formal)</td>
-              </tr>
-              <tr>
-                <td>Wo wohnen Sie?</td>
-                <td>Where do you live? (formal)</td>
-              </tr>
-              <tr>
-                <td>Wie ist Ihre Telefonnummer?</td>
-                <td>What is your telephone number? (formal)</td>
-              </tr>
-              <tr>
-                <td>Welche Sprachen sprechen Sie?</td>
-                <td>Which languages do you speak? (formal)</td>
-              </tr>
-              <tr>
-                <td>Ich bin Ingenieur.</td>
-                <td>I am an engineer. (no article!)</td>
-              </tr>
-              <tr>
-                <td>Guten Tag!</td>
-                <td>Good day.</td>
-              </tr>
-              <tr>
-                <td>Guten Morgen!</td>
-                <td>Good morning.</td>
-              </tr>
-              <tr>
-                <td>Hallo!</td>
-                <td>Hello! / Hi!</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Professions (Selected)</h2>
+        <h2>New Professions</h2>
         <div className="lrn-table">
           <table>
             <thead>
@@ -1933,89 +1472,9 @@ const config = {
             </thead>
             <tbody>
               <tr>
-                <td>der Lehrer, -</td>
-                <td>die Lehrerin, -nen</td>
-                <td>teacher</td>
-              </tr>
-              <tr>
-                <td>der Student, -en</td>
-                <td>die Studentin, -nen</td>
-                <td>student</td>
-              </tr>
-              <tr>
-                <td>der Ingenieur, -e</td>
-                <td>die Ingenieurin, -nen</td>
-                <td>engineer</td>
-              </tr>
-              <tr>
-                <td>der Informatiker, -</td>
-                <td>die Informatikerin, -nen</td>
-                <td>computer scientist</td>
-              </tr>
-              <tr>
-                <td>der Journalist, -en</td>
-                <td>die Journalistin, -nen</td>
-                <td>journalist</td>
-              </tr>
-              <tr>
-                <td>der Jurist, -en</td>
-                <td>die Juristin, -nen</td>
-                <td>lawyer / legal expert</td>
-              </tr>
-              <tr>
-                <td>der Mathematiker, -</td>
-                <td>die Mathematikerin, -nen</td>
-                <td>mathematician</td>
-              </tr>
-              <tr>
-                <td>der Physiker, -</td>
-                <td>die Physikerin, -nen</td>
-                <td>physicist</td>
-              </tr>
-              <tr>
-                <td>der Philosoph, -en</td>
-                <td>die Philosophin, -nen</td>
-                <td>philosopher</td>
-              </tr>
-              <tr>
-                <td>der Maler, -</td>
-                <td>die Malerin, -nen</td>
-                <td>painter</td>
-              </tr>
-              <tr>
-                <td>der Musiker, -</td>
-                <td>die Musikerin, -nen</td>
-                <td>musician</td>
-              </tr>
-              <tr>
-                <td>der Manager, -</td>
-                <td>die Managerin, -nen</td>
-                <td>manager</td>
-              </tr>
-              <tr>
-                <td>der Kellner, -</td>
-                <td>die Kellnerin, -nen</td>
-                <td>waiter / waitress</td>
-              </tr>
-              <tr>
-                <td>der Mechaniker, -</td>
-                <td>die Mechanikerin, -nen</td>
-                <td>mechanic</td>
-              </tr>
-              <tr>
-                <td>der Taxifahrer, -</td>
-                <td>die Taxifahrerin, -nen</td>
-                <td>taxi driver</td>
-              </tr>
-              <tr>
                 <td>der Sekretär, -e</td>
                 <td>die Sekretärin, -nen</td>
                 <td>secretary</td>
-              </tr>
-              <tr>
-                <td>der Kommissar, -e</td>
-                <td>die Kommissarin, -nen</td>
-                <td>inspector</td>
               </tr>
               <tr>
                 <td>der Kriminalkommissar, -e</td>
@@ -2031,154 +1490,6 @@ const config = {
                 <td>der Elektronikingenieur, -e</td>
                 <td>-</td>
                 <td>electronics engineer</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Numbers</h2>
-        <div className="lrn-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Number</th>
-                <th>German</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>0</td>
-                <td>null</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>eins</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>zwei</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>drei</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>vier</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>fünf</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>sechs</td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>sieben</td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>acht</td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>neun</td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>zehn</td>
-              </tr>
-              <tr>
-                <td>11</td>
-                <td>elf</td>
-              </tr>
-              <tr>
-                <td>12</td>
-                <td>zwölf</td>
-              </tr>
-              <tr>
-                <td>20</td>
-                <td>zwanzig</td>
-              </tr>
-              <tr>
-                <td>30</td>
-                <td>dreißig</td>
-              </tr>
-              <tr>
-                <td>100</td>
-                <td>hundert</td>
-              </tr>
-              <tr>
-                <td>1000</td>
-                <td>tausend</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>Countries and Languages (Selected)</h2>
-        <div className="lrn-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Country</th>
-                <th>Language / Adjective</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Deutschland</td>
-                <td>Deutsch</td>
-              </tr>
-              <tr>
-                <td>Österreich</td>
-                <td>Deutsch</td>
-              </tr>
-              <tr>
-                <td>die Schweiz</td>
-                <td>Deutsch / Französisch / Italienisch / Rätoromanisch</td>
-              </tr>
-              <tr>
-                <td>England / Großbritannien</td>
-                <td>Englisch</td>
-              </tr>
-              <tr>
-                <td>Frankreich</td>
-                <td>Französisch</td>
-              </tr>
-              <tr>
-                <td>Italien</td>
-                <td>Italienisch</td>
-              </tr>
-              <tr>
-                <td>Spanien</td>
-                <td>Spanisch</td>
-              </tr>
-              <tr>
-                <td>Russland</td>
-                <td>Russisch</td>
-              </tr>
-              <tr>
-                <td>Polen</td>
-                <td>Polnisch</td>
-              </tr>
-              <tr>
-                <td>die Türkei</td>
-                <td>Türkisch</td>
-              </tr>
-              <tr>
-                <td>Japan</td>
-                <td>Japanisch</td>
-              </tr>
-              <tr>
-                <td>Kanada</td>
-                <td>Englisch / Französisch</td>
-              </tr>
-              <tr>
-                <td>die USA (Pl.)</td>
-                <td>Englisch</td>
               </tr>
             </tbody>
           </table>
@@ -2211,16 +1522,6 @@ const config = {
                 <td>computer science</td>
               </tr>
               <tr>
-                <td>die Mathematik</td>
-                <td>die</td>
-                <td>mathematics</td>
-              </tr>
-              <tr>
-                <td>die Physik</td>
-                <td>die</td>
-                <td>physics</td>
-              </tr>
-              <tr>
                 <td>die Philosophie, -n</td>
                 <td>die</td>
                 <td>philosophy</td>
@@ -2230,11 +1531,16 @@ const config = {
                 <td>das</td>
                 <td>engineering</td>
               </tr>
+              <tr>
+                <td>die Universität, -en</td>
+                <td>die</td>
+                <td>university</td>
+              </tr>
             </tbody>
           </table>
         </div>
 
-        <h2>Geography (Part B)</h2>
+        <h2>Geography and Admin</h2>
         <div className="lrn-table">
           <table>
             <thead>
@@ -2246,16 +1552,6 @@ const config = {
             </thead>
             <tbody>
               <tr>
-                <td>die Alpen (Pl.)</td>
-                <td>die</td>
-                <td>Alps</td>
-              </tr>
-              <tr>
-                <td>die Amtssprache, -n</td>
-                <td>die</td>
-                <td>official language</td>
-              </tr>
-              <tr>
                 <td>das Bundesland, ²er</td>
                 <td>das</td>
                 <td>region (Germany/Austria)</td>
@@ -2266,61 +1562,26 @@ const config = {
                 <td>canton (Switzerland)</td>
               </tr>
               <tr>
+                <td>die Amtssprache, -n</td>
+                <td>die</td>
+                <td>official language</td>
+              </tr>
+              <tr>
                 <td>die Millionenstadt, ²e</td>
                 <td>die</td>
-                <td>city with over a million people</td>
-              </tr>
-              <tr>
-                <td>die Milliarde, -n</td>
-                <td>die</td>
-                <td>billion</td>
-              </tr>
-              <tr>
-                <td>die Million, -en</td>
-                <td>die</td>
-                <td>million</td>
-              </tr>
-              <tr>
-                <td>das Prozent, -e</td>
-                <td>das</td>
-                <td>per cent</td>
-              </tr>
-              <tr>
-                <td>die Statistik, -en</td>
-                <td>die</td>
-                <td>statistics</td>
-              </tr>
-              <tr>
-                <td>die Regionalsprache, -n</td>
-                <td>die</td>
-                <td>regional language</td>
-              </tr>
-              <tr>
-                <td>offiziell</td>
-                <td>-</td>
-                <td>official</td>
-              </tr>
-              <tr>
-                <td>bevölkerungsreich</td>
-                <td>-</td>
-                <td>populous, heavily populated</td>
-              </tr>
-              <tr>
-                <td>Rätoromanisch</td>
-                <td>-</td>
-                <td>Rhaeto-Romanic</td>
+                <td>city over a million people</td>
               </tr>
             </tbody>
           </table>
         </div>
 
-        <h2>Compass Directions</h2>
+        <h2>Compass Directions (all der)</h2>
         <div className="lrn-table">
           <table>
             <thead>
               <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
+                <th>German</th>
+                <th>English</th>
               </tr>
             </thead>
             <tbody>
@@ -2341,24 +1602,38 @@ const config = {
                 <td>west</td>
               </tr>
               <tr>
-                <td>der Nordosten</td>
-                <td>north-east</td>
-              </tr>
-              <tr>
-                <td>der Nordwesten</td>
-                <td>north-west</td>
-              </tr>
-              <tr>
-                <td>der Südosten</td>
-                <td>south-east</td>
-              </tr>
-              <tr>
-                <td>der Südwesten</td>
-                <td>south-west</td>
+                <td>der Nordosten / Südwesten …</td>
+                <td>compounds: Nord + Osten</td>
               </tr>
               <tr>
                 <td>die Mitte</td>
                 <td>middle, centre</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>New Phrases</h2>
+        <div className="lrn-table">
+          <table>
+            <thead>
+              <tr>
+                <th>German</th>
+                <th>English</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Das ist Herr Meyer.</td>
+                <td>This is Mr. Meyer. (introducing others)</td>
+              </tr>
+              <tr>
+                <td>Ich stelle mich vor.</td>
+                <td>I introduce myself.</td>
+              </tr>
+              <tr>
+                <td>Ich studiere Jura.</td>
+                <td>I study law.</td>
               </tr>
             </tbody>
           </table>

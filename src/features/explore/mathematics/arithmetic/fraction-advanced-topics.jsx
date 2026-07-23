@@ -1,8 +1,622 @@
+import { useState } from 'react'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
 import { useVizColors } from '../../../../hooks/use-viz-colors'
 import { useMathJax } from '../../../../hooks/use-mathjax'
+import { VizFigure } from '../../../../components/viz-figure'
+import {
+  FONT_BODY,
+  FONT_CONTROL,
+  FONT_LABEL,
+  FONT_TEX,
+  FONT_VALUE
+} from '../../../../components/viz/scale-tokens'
+import {
+  Plot,
+  Polyline,
+  Dot,
+  Tex,
+  Slider,
+  FG,
+  OPACITY
+} from '../../../../components/viz/primitives'
 
-import { HarmonicMeanVis, CucumberVis, WineTeaVis } from '../../../../components/viz'
+// Mathematics domain: Approved engine: hand-rolled monochrome SVG primitives.
+// Plots H (harmonic), G (geometric), A (arithmetic) means of two endpoints a, b
+// on a single number line. Axis range scales with the (b - a) span so the dots
+// never crowd the tick marks. Labels stagger above/below per Mafs Rule 2; the
+// inequality summary tracks the line as a caption rather than floating loose.
+function Hm_HarmonicMeanInline() {
+  const [a, setA] = useState(1.5)
+  const [b, setB] = useState(4.5)
+  const am = (a + b) / 2
+  const gm = Math.sqrt(a * b)
+  const hm = (2 * a * b) / (a + b)
+  const span = b - a
+  // Generous symmetric padding: full plot covers roughly 1.4x the (a,b) span,
+  // so the working range stays in the comfortable middle of the canvas.
+  const xMin = a - span * 0.2
+  const xMax = b + span * 0.2
+  const mid = (a + b) / 2
+  return (
+    <div style={{ width: '100%' }}>
+      <Plot xRange={[xMin, xMax]} yRange={[-1.2, 1.4]} width={620} height={300}>
+        {/* main interval line */}
+        <Polyline
+          points={[
+            [a, 0],
+            [b, 0]
+          ]}
+          opacity={OPACITY.fg}
+          strokeWidth={1.5}
+        />
+        {/* endpoint ticks */}
+        <Polyline
+          points={[
+            [a, -0.18],
+            [a, 0.18]
+          ]}
+          opacity={OPACITY.fg}
+        />
+        <Polyline
+          points={[
+            [b, -0.18],
+            [b, 0.18]
+          ]}
+          opacity={OPACITY.fg}
+        />
+        {/* midpoint hair tick: anchors the eye to the symmetric center */}
+        <Polyline
+          points={[
+            [mid, -0.08],
+            [mid, 0.08]
+          ]}
+          opacity={OPACITY.hair}
+        />
+        <Tex
+          at={[a, -0.4]}
+          tex={`a=${a.toFixed(1)}`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.dim}
+        />
+        <Tex
+          at={[b, -0.4]}
+          tex={`b=${b.toFixed(1)}`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.dim}
+        />
+        {/* H: harmonic, label below with connector */}
+        <Polyline
+          points={[
+            [hm, 0],
+            [hm, -0.55]
+          ]}
+          opacity={OPACITY.hair}
+        />
+        <Dot x={hm} y={0} r={5} opacity={OPACITY.fg} />
+        <Tex
+          at={[hm, -0.78]}
+          tex={`H=${hm.toFixed(2)}`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.fg}
+        />
+        {/* G: geometric, label above (close), accent opacity */}
+        <Polyline
+          points={[
+            [gm, 0],
+            [gm, 0.4]
+          ]}
+          opacity={OPACITY.hair}
+        />
+        <Dot x={gm} y={0} r={5} opacity={OPACITY.accent} />
+        <Tex
+          at={[gm, 0.58]}
+          tex={`G=${gm.toFixed(2)}`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.accent}
+        />
+        {/* A: arithmetic, label further above to avoid colliding with G */}
+        <Polyline
+          points={[
+            [am, 0],
+            [am, 0.95]
+          ]}
+          opacity={OPACITY.hair}
+        />
+        <Dot x={am} y={0} r={5} opacity={OPACITY.fg} />
+        <Tex
+          at={[am, 1.13]}
+          tex={`A=${am.toFixed(2)}`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.fg}
+        />
+        {/* inequality summary: pulled close to line as a caption */}
+        <Tex
+          at={[(xMin + xMax) / 2, -1.05]}
+          tex={`H \\le G \\le A`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.dim}
+        />
+      </Plot>
+      <Slider
+        label="a"
+        value={a}
+        min={0.5}
+        max={4}
+        step={0.1}
+        onChange={setA}
+        format={v => v.toFixed(2)}
+      />
+      <Slider
+        label="b"
+        value={b}
+        min={0.5}
+        max={8}
+        step={0.1}
+        onChange={setB}
+        format={v => v.toFixed(2)}
+      />
+    </div>
+  )
+}
+
+// Mathematics domain: Approved engine: hand-rolled monochrome SVG primitives.
+// Cucumber paradox: 100 kg of cucumbers at 99% water carry 1 kg of dry solids.
+// Dry the batch to 98% water and the solids are now 2% of the new total -
+// so the new mass must halve to 50 kg. The bars show both states side-by-side
+// with the dry-mass band tied by leader lines to a single shared annotation,
+// making the conserved quantity visible across the transformation.
+function Cuc_CucumberInline() {
+  const [waterPct, setW] = useState(98)
+  // Integer math from the start: avoids 1.0000000000000009 float dust.
+  const initialMass = 100
+  const initialWater = 99
+  const dryMass = initialMass - initialWater
+  // newMass = dryMass / (1 - waterPct/100); waterPct < 100 always by slider clamp.
+  const newMass = dryMass / (1 - waterPct / 100)
+  const newWater = newMass - dryMass
+
+  const BAR_W = 110
+  const H0 = 180
+  const scale = H0 / initialMass
+  const X_BEFORE = 80
+  const X_AFTER = 330
+  const Y_TOP = 30
+  const Y_BOT = Y_TOP + H0
+
+  // Bars share a common BOTTOM (Y_BOT) so they read as "settled" jars.
+  // Dry sinks; water floats on top. AFTER bar is shorter because mass is less.
+  const beforeWaterH = initialWater * scale // 178.2 of 180
+  const beforeDryH = dryMass * scale // 1.8
+  const afterTop = Y_BOT - newMass * scale
+  const afterWaterH = newWater * scale
+  const afterDryH = dryMass * scale // identical to beforeDryH: that's the point.
+
+  // Dry band y-coords (dry sits at bottom of each bar, just above Y_BOT).
+  const beforeDryTop = Y_BOT - beforeDryH
+  const afterDryTop = Y_BOT - afterDryH
+
+  return (
+    <div style={{ width: '100%' }}>
+      <svg viewBox="0 0 520 270" width="100%" style={{ display: 'block' }}>
+        <g fontFamily="'D-DIN', ui-monospace, monospace" fill={FG}>
+          {/* BEFORE: full-height jar */}
+          <g>
+            {/* water fill (top) */}
+            <rect
+              x={X_BEFORE}
+              y={Y_TOP}
+              width={BAR_W}
+              height={beforeWaterH}
+              fill={FG}
+              fillOpacity={0.38}
+            />
+            {/* dry fill (bottom, brighter so the 1.8px band is visible) */}
+            <rect
+              x={X_BEFORE}
+              y={beforeDryTop}
+              width={BAR_W}
+              height={beforeDryH}
+              fill={FG}
+              fillOpacity={0.95}
+            />
+            {/* jar outline */}
+            <rect
+              x={X_BEFORE}
+              y={Y_TOP}
+              width={BAR_W}
+              height={H0}
+              fill="none"
+              stroke={FG}
+              strokeWidth={1.5}
+              opacity={OPACITY.fg}
+            />
+            {/* in-bar water % label */}
+            <text
+              x={X_BEFORE + BAR_W / 2}
+              y={Y_TOP + beforeWaterH / 2 + 4}
+              textAnchor="middle"
+              fontSize={FONT_LABEL}
+              opacity={OPACITY.fg}
+            >
+              99% water
+            </text>
+            <text
+              x={X_BEFORE + BAR_W / 2}
+              y={Y_TOP - 10}
+              textAnchor="middle"
+              fontSize={FONT_LABEL}
+              opacity={OPACITY.accent}
+              letterSpacing="0.12em"
+            >
+              BEFORE
+            </text>
+            <text
+              x={X_BEFORE + BAR_W / 2}
+              y={Y_BOT + 18}
+              textAnchor="middle"
+              fontSize={FONT_TEX}
+              opacity={OPACITY.fg}
+            >
+              100 kg
+            </text>
+          </g>
+
+          {/* shrink arrow centered on the AFTER bar top */}
+          <text
+            x={(X_BEFORE + BAR_W + X_AFTER) / 2}
+            y={(Y_TOP + afterTop) / 2 + 6}
+            textAnchor="middle"
+            fontSize={FONT_VALUE}
+            opacity={OPACITY.dim}
+          >
+            →
+          </text>
+
+          {/* AFTER: shorter jar, same bottom, same dry band */}
+          <g>
+            <rect
+              x={X_AFTER}
+              y={afterTop}
+              width={BAR_W}
+              height={afterWaterH}
+              fill={FG}
+              fillOpacity={0.38}
+            />
+            <rect
+              x={X_AFTER}
+              y={afterDryTop}
+              width={BAR_W}
+              height={afterDryH}
+              fill={FG}
+              fillOpacity={0.95}
+            />
+            <rect
+              x={X_AFTER}
+              y={afterTop}
+              width={BAR_W}
+              height={newMass * scale}
+              fill="none"
+              stroke={FG}
+              strokeWidth={1.5}
+              opacity={OPACITY.fg}
+            />
+            <text
+              x={X_AFTER + BAR_W / 2}
+              y={afterTop + afterWaterH / 2 + 4}
+              textAnchor="middle"
+              fontSize={FONT_LABEL}
+              opacity={OPACITY.fg}
+            >
+              {`${waterPct.toFixed(1)}% water`}
+            </text>
+            <text
+              x={X_AFTER + BAR_W / 2}
+              y={afterTop - 10}
+              textAnchor="middle"
+              fontSize={FONT_LABEL}
+              opacity={OPACITY.accent}
+              letterSpacing="0.12em"
+            >
+              AFTER
+            </text>
+            <text
+              x={X_AFTER + BAR_W / 2}
+              y={Y_BOT + 18}
+              textAnchor="middle"
+              fontSize={FONT_TEX}
+              opacity={OPACITY.fg}
+            >
+              {`${newMass.toFixed(1)} kg`}
+            </text>
+          </g>
+
+          {/* Single footer line. Conservation is read directly off the labels:
+              100 kg × 1% = 50 kg × 2% = 1 kg. No leaders required. */}
+          <text
+            x={(X_BEFORE + BAR_W / 2 + X_AFTER + BAR_W / 2) / 2}
+            y={Y_BOT + 48}
+            textAnchor="middle"
+            fontSize={FONT_LABEL}
+            opacity={OPACITY.dim}
+            letterSpacing="0.1em"
+          >
+            {`100 KG · 1% = ${newMass.toFixed(1)} KG · ${(100 - waterPct).toFixed(1)}% = ${dryMass} KG DRY MASS`}
+          </text>
+        </g>
+      </svg>
+      <Slider
+        label="water %"
+        value={waterPct}
+        min={50}
+        max={98.9}
+        step={0.1}
+        onChange={setW}
+        format={v => v.toFixed(1) + '%'}
+      />
+    </div>
+  )
+}
+
+// Mathematics: Approved engine: hand-rolled monochrome SVG primitives.
+// Honest content: the equality wine-in-tea = tea-in-wine is computed from
+// conservation of volume, then drawn as two columns whose guest bands share
+// the exact same y position so the eye sees the equality directly.
+function Wt_WineTeaInline() {
+  const C = useVizColors()
+  const [V, setV] = useState(120)
+  const [s, setS] = useState(20)
+  const sClamped = Math.min(s, Math.floor(V / 2))
+  const guest = (sClamped * V) / (V + sClamped)
+
+  const W = 1000
+  const H = 460
+  const padX = 110
+  const padTop = 60
+  const padBot = 130
+  const colGap = 110
+  const colW = (W - 2 * padX - colGap) / 2
+  const colH = H - padTop - padBot
+  const xLeft = padX
+  const xRight = padX + colW + colGap
+  const guestPx = colH * (guest / V)
+  const yGuestTop = padTop
+  const yGuestBot = padTop + guestPx
+  const yHost = yGuestBot
+  const yHostBot = padTop + colH
+
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        gap: 8,
+        padding: '12px 16px',
+        boxSizing: 'border-box',
+        color: C.fg,
+        fontFamily: 'var(--reader-font-family)'
+      }}
+    >
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ width: '100%', flex: 1, minHeight: 0, display: 'block' }}
+        aria-label={`Two glasses after the exchange. Each column shows the same guest-liquid band at the top: tea-in-wine = wine-in-tea = ${guest.toFixed(2)} cc.`}
+      >
+        <g>
+          <rect
+            x={xLeft}
+            y={yHost}
+            width={colW}
+            height={yHostBot - yHost}
+            fill={C.fg}
+            fillOpacity={0.5}
+          />
+          <rect
+            x={xLeft}
+            y={yGuestTop}
+            width={colW}
+            height={guestPx}
+            fill={C.fg}
+            fillOpacity={0.14}
+          />
+          <rect
+            x={xLeft}
+            y={padTop}
+            width={colW}
+            height={colH}
+            fill="none"
+            stroke={C.fg}
+            strokeWidth={2}
+          />
+          <text
+            x={xLeft + colW / 2}
+            y={(yHost + yHostBot) / 2 + 6}
+            textAnchor="middle"
+            fill={C.fg}
+            fontSize={FONT_VALUE}
+            letterSpacing="0.18em"
+          >
+            WINE
+          </text>
+          <text
+            x={xLeft + colW / 2}
+            y={padTop - 22}
+            textAnchor="middle"
+            fill={C.fg}
+            fontSize={FONT_BODY}
+            letterSpacing="0.22em"
+          >
+            WINE GLASS
+          </text>
+          <text
+            x={xLeft + colW / 2}
+            y={H - padBot + 38}
+            textAnchor="middle"
+            fill={C.fg}
+            fontSize={FONT_BODY}
+            style={{ fontVariantNumeric: 'tabular-nums' }}
+          >
+            {`tea = ${guest.toFixed(2)}`}
+          </text>
+        </g>
+
+        <g>
+          <rect
+            x={xRight}
+            y={yHost}
+            width={colW}
+            height={yHostBot - yHost}
+            fill={C.fg}
+            fillOpacity={0.5}
+          />
+          <rect
+            x={xRight}
+            y={yGuestTop}
+            width={colW}
+            height={guestPx}
+            fill={C.fg}
+            fillOpacity={0.14}
+          />
+          <rect
+            x={xRight}
+            y={padTop}
+            width={colW}
+            height={colH}
+            fill="none"
+            stroke={C.fg}
+            strokeWidth={2}
+          />
+          <text
+            x={xRight + colW / 2}
+            y={(yHost + yHostBot) / 2 + 6}
+            textAnchor="middle"
+            fill={C.fg}
+            fontSize={FONT_VALUE}
+            letterSpacing="0.18em"
+          >
+            TEA
+          </text>
+          <text
+            x={xRight + colW / 2}
+            y={padTop - 22}
+            textAnchor="middle"
+            fill={C.fg}
+            fontSize={FONT_BODY}
+            letterSpacing="0.22em"
+          >
+            TEA GLASS
+          </text>
+          <text
+            x={xRight + colW / 2}
+            y={H - padBot + 38}
+            textAnchor="middle"
+            fill={C.fg}
+            fontSize={FONT_BODY}
+            style={{ fontVariantNumeric: 'tabular-nums' }}
+          >
+            {`wine = ${guest.toFixed(2)}`}
+          </text>
+        </g>
+
+        <line
+          x1={xLeft + colW}
+          y1={yGuestTop}
+          x2={xRight}
+          y2={yGuestTop}
+          stroke={C.dim}
+          strokeWidth={1.25}
+          strokeDasharray="4 5"
+        />
+        <line
+          x1={xLeft + colW}
+          y1={yGuestBot}
+          x2={xRight}
+          y2={yGuestBot}
+          stroke={C.dim}
+          strokeWidth={1.25}
+          strokeDasharray="4 5"
+        />
+        <g>
+          <line
+            x1={(xLeft + colW + xRight) / 2}
+            y1={yGuestTop}
+            x2={(xLeft + colW + xRight) / 2}
+            y2={yGuestBot}
+            stroke={C.fg}
+            strokeWidth={2}
+          />
+          <line
+            x1={(xLeft + colW + xRight) / 2 - 7}
+            y1={yGuestTop}
+            x2={(xLeft + colW + xRight) / 2 + 7}
+            y2={yGuestTop}
+            stroke={C.fg}
+            strokeWidth={2}
+          />
+          <line
+            x1={(xLeft + colW + xRight) / 2 - 7}
+            y1={yGuestBot}
+            x2={(xLeft + colW + xRight) / 2 + 7}
+            y2={yGuestBot}
+            stroke={C.fg}
+            strokeWidth={2}
+          />
+          <text
+            x={(xLeft + colW + xRight) / 2}
+            y={(yGuestTop + yGuestBot) / 2 + 5}
+            textAnchor="middle"
+            fill={C.fg}
+            fontSize={FONT_VALUE}
+            dx={18}
+            style={{ fontFamily: 'var(--reader-font-family)' }}
+          >
+            =
+          </text>
+        </g>
+
+        <text
+          x={W / 2}
+          y={H - 24}
+          textAnchor="middle"
+          fill={C.dim}
+          fontSize={FONT_CONTROL}
+          letterSpacing="0.18em"
+          style={{ fontVariantNumeric: 'tabular-nums' }}
+        >
+          {`WINE IN TEA  =  TEA IN WINE  =  ${guest.toFixed(2)}  CC`}
+        </text>
+      </svg>
+
+      <Slider
+        label="bottle V"
+        value={V}
+        min={60}
+        max={200}
+        step={1}
+        onChange={setV}
+        format={v => String(v)}
+      />
+      <Slider
+        label="spoon s"
+        value={s}
+        min={1}
+        max={50}
+        step={1}
+        onChange={setS}
+        format={() => String(sClamped)}
+      />
+    </div>
+  )
+}
 
 function useConfig() {
   useMathJax([])
@@ -15,14 +629,14 @@ function useConfig() {
       title: 'Fraction Advanced Topics',
       subtitle: 'Harmonic mean, paradoxes, and the big picture of fraction teaching.',
       sections: [
-        /* ═══ HARMONIC MEAN ═══ */
+        /* HARMONIC MEAN */
         <>
           <h2>Harmonic Mean and Average Speed</h2>
           <p>
-            You drive to a town and back at two different speeds. Your average speed is total
-            distance divided by total time. You spend more time at the slower speed, so the true
-            average falls below the simple midpoint. This quantity has a name: the{' '}
-            <strong>harmonic mean</strong>.
+            You drive to a town and back at two different speeds. You already know average speed is
+            total distance over total time. You spend more time at the slower speed, so the true
+            average falls below the simple midpoint. For two equal-distance legs, this quantity has
+            a name: the <strong>harmonic mean</strong>.
           </p>
 
           <div className="lrn-predict">
@@ -37,18 +651,26 @@ function useConfig() {
           <h3>Round Trip Problem</h3>
           <p>{`Paul rides 15 mph out and 18 mph back. Distance each way: $D$.`}</p>
           <p>{`Total distance: $2D$. Total time: $\\frac{D}{15} + \\frac{D}{18}$.`}</p>
+          <p>{`Divide the top and bottom by $D$. Every term has a $D$, so it cancels:`}</p>
           <div className="lrn-eq lrn-eq-display">{`$$\\text{Average speed} = \\frac{2D}{\\frac{D}{15} + \\frac{D}{18}} = \\frac{2}{\\frac{1}{15} + \\frac{1}{18}}$$`}</div>
           <p>
             This is the <strong>harmonic mean</strong> of 15 and 18.
           </p>
-          <p>{`Computing: $\\frac{1}{15} + \\frac{1}{18} = \\frac{11}{90}$.`}</p>
+          <p>
+            The harmonic mean of two numbers is what you get when you average their reciprocals and
+            flip the result. It is the right average speed for two equal-distance legs at speeds{' '}
+            {`$a$ and $b$:`}
+          </p>
+          <div className="lrn-eq">{`$$H = \\frac{2}{\\frac{1}{a} + \\frac{1}{b}} = \\frac{2ab}{a+b}$$`}</div>
+          <p>{`Computing for 15 and 18, first add the reciprocals over a common denominator: $\\frac{1}{15} + \\frac{1}{18} = \\frac{6}{90} + \\frac{5}{90} = \\frac{11}{90}$.`}</p>
           <p>{`Average speed = $\\frac{2}{\\frac{11}{90}} = \\frac{180}{11} = 16\\frac{4}{11}$ mph.`}</p>
-          <p>{`This is less than the arithmetic mean $\\frac{15 + 18}{2} = 16.5$.`}</p>
-          <p>{`The distance $D$ cancels. The harmonic mean depends only on the two speeds.`}</p>
+          <p>{`This is less than the arithmetic mean $\\frac{15 + 18}{2} = 16.5$. The harmonic mean always sits below it. The extra time at the slower speed drags the true average down. It counts the slow speed more because you spend more time at it.`}</p>
+          <p>{`There is a third average in between. The geometric mean is the square root of the two numbers multiplied: $G = \\sqrt{ab}$. For any two positive numbers the three line up as $H \\le G \\le A$. All three are equal only when the two numbers match.`}</p>
+          <p>{`The distance $D$ canceled above. So the harmonic mean depends only on the two speeds, never on how far you go.`}</p>
 
-          <div className="lrn-graph">
-            <HarmonicMeanVis C={C} />
-          </div>
+          <VizFigure title="Harmonic Mean" size="body" aspect="16/9">
+            <Hm_HarmonicMeanInline />
+          </VizFigure>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -57,14 +679,6 @@ function useConfig() {
               <summary>Expert explanation</summary>
               <p>{`Total distance ($2D$) and total time ($D/v_1 + D/v_2$) are both proportional to $D$. Their ratio eliminates $D$.`}</p>
             </details>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              You spend more time at the slower speed. That pulls the average below the arithmetic
-              mean. The harmonic mean accounts for this by weighting speeds inversely.
-            </p>
           </div>
 
           <div className="lrn-compare">
@@ -79,8 +693,10 @@ function useConfig() {
           </div>
 
           <h3>Speed and Time</h3>
-          <p>{`A train travels at speed $s$ and takes time $I$. Increase speed by $\\frac{1}{3}$: new speed is $\\frac{4}{3}s$. Distance is fixed, so new time is $\\frac{3}{4}I$. You save exactly 25% of the trip.`}</p>
-          <p>{`General rule: speed up by $\\frac{1}{n}$ and time drops by $\\frac{1}{n+1}$. Speed up by 50% ($n = 2$): time drops by $\\frac{1}{3}$, or 33%.`}</p>
+          <p>A related idea: what happens when a single speed changes?</p>
+          <p>{`A train travels at speed $s$ and takes time $I$ for the trip ($I$ stands for the time). Increase the speed by $\\frac{1}{3}$, so the new speed is $\\frac{4}{3}s$. The distance is fixed, and distance = speed × time. So if speed grows to $\\frac{4}{3}$ of its old value, time must shrink to $\\frac{3}{4}$ of its old value. The new time is $\\frac{3}{4}I$, and you save exactly 25% of the trip.`}</p>
+          <p>{`The same steps give a general rule. Speed up by $\\frac{1}{n}$, so the new speed is $\\frac{n+1}{n}s$. Time shrinks the inverse way, to $\\frac{n}{n+1}I$. So the time saved is $I - \\frac{n}{n+1}I = \\frac{1}{n+1}I$.`}</p>
+          <p>{`Check it with $n = 2$, a 50% speed-up: time drops by $\\frac{1}{3}$, or about 33%.`}</p>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -92,7 +708,7 @@ function useConfig() {
           </div>
         </>,
 
-        /* ═══ CUCUMBER PARADOX ═══ */
+        /* CUCUMBER PARADOX */
         <>
           <h2>The Cucumber Paradox</h2>
 
@@ -107,28 +723,23 @@ function useConfig() {
             </details>
           </div>
 
-          <p>Solids: 1% of 300 = 3 lbs. After drying, solids are 2% of new weight.</p>
-          <div className="lrn-eq">{`$$3 = \\frac{2}{100} \\times w, \\quad w = 150 \\text{ lbs}$$`}</div>
+          <p>
+            The solids are the dry part that is not water. Drying removes water only, so the dry
+            solids never change. They stay fixed at 1% of 300 = 3 lbs the whole time.
+          </p>
+          <p>
+            At 99% water the solids are 1% of the total. At 98% water they are 2% of the total. The
+            solid share doubled. For the same 3 lbs of solids, the total weight must halve.
+          </p>
+          <p>After drying, solids are 2% of the new weight $w$, so:</p>
+          <div className="lrn-eq">{`$$3 = \\frac{2}{100} \\times w, \\quad w = 3 \\times 50 = 150 \\text{ lbs}$$`}</div>
 
-          <div className="lrn-graph">
-            <CucumberVis C={C} />
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does a tiny 1% change in water percentage cause such a massive weight change?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                The solids are a tiny fraction. At 99% water, solids = 1%. At 98% water, solids =
-                2%. The solid percentage doubled. For the same 3 lbs of solids, the total must
-                halve.
-              </p>
-            </details>
-          </div>
+          <VizFigure title="Cucumber Paradox" size="body" aspect="auto">
+            <Cuc_CucumberInline />
+          </VizFigure>
         </>,
 
-        /* ═══ WINE AND TEA ═══ */
+        /* WINE AND TEA */
         <>
           <h2>The Wine and Tea Exchange</h2>
 
@@ -155,44 +766,37 @@ function useConfig() {
           <p>{`Let $b$ = bottle volume and $s$ = spoon volume.`}</p>
           <p>
             <strong>Stirred case:</strong>
-            {` Wine in kettle = $\\frac{bs}{b+s}$. Tea in bottle = $\\frac{sb}{b+s}$. Equal.`}
+            {` Start with $b$ cc of wine. Drop in the $s$ cc tea spoon and stir. The bottle now holds $b + s$ cc, and the wine share is $\\frac{b}{b+s}$. Scoop $s$ cc back out. That scoop carries wine equal to its volume times the wine share:`}
           </p>
+          <div className="lrn-eq">{`$$\\text{Wine to kettle} = s \\times \\frac{b}{b+s} = \\frac{bs}{b+s}.$$`}</div>
+          <p>{`Try $b = 100$, $s = 20$: wine to kettle = $\\frac{100 \\times 20}{120} = 16\\frac{2}{3}$ cc. The tea left in the bottle is $s$ minus the tea scooped back, which also comes to $\\frac{bs}{b+s}$. Equal.`}</p>
           <p>
             <strong>Unstirred case:</strong>
             {` Return spoon has $T$ cc tea and $W$ cc wine ($T + W = s$). Wine in kettle = $W$. Tea in bottle = $s - T = W$. Still equal.`}
           </p>
 
-          <div className="lrn-graph">
-            <WineTeaVis C={C} />
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does the unstirred case give the same answer?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`Return spoon: $T$ cc tea + $W$ cc wine ($T + W = s$). Wine leaving = $W$. Tea staying in bottle = $s - T = W$. Whatever wine goes to the kettle is replaced by an equal volume of tea.`}</p>
-            </details>
-          </div>
+          <VizFigure title="Wine and Tea Exchange" size="body" aspect="16/9">
+            <Wt_WineTeaInline />
+          </VizFigure>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              Conservation: the total liquid volume in each container stays constant after the
-              exchange. Whatever foreign liquid enters must displace an equal volume of the
-              original. So the amounts exchanged are always equal.
+              Each container ends with the same total liquid it started with. So any liquid that
+              comes in must push out the same amount of the old liquid. That is why the amounts
+              exchanged are always equal, stirred or not.
             </p>
           </div>
         </>,
 
-        /* ═══ ON TEACHING FRACTIONS ═══ */
+        /* ON TEACHING FRACTIONS */
         <>
           <h2>The Big Picture</h2>
           <p>Four major problems in traditional fraction instruction:</p>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
-            <p>What goes wrong when fractions are introduced as &ldquo;parts of a pizza&rdquo;?</p>
+            <p>What goes wrong when you introduce fractions as &ldquo;parts of a pizza&rdquo;?</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>
@@ -204,42 +808,29 @@ function useConfig() {
 
           <ol className="lrn-list">
             <li>
-              <strong>Unclear definitions.</strong> Fraction, decimal, percent, ratio are never
-              clearly defined. Without clear definitions, you cannot reason precisely.
+              <strong>Unclear definitions.</strong> Textbooks never clearly define fraction,
+              decimal, percent, and ratio. Without clear definitions, you cannot reason precisely.
             </li>
             <li>
               <strong>Too many "meanings."</strong>
-              {` Textbooks give $\\frac{c}{d}$ five different meanings (parts of a whole, portion, quotient, ratio, and scaling tool). No single meaning covers everything, so students juggle five. This creates confusion.`}
+              {` Textbooks give $\\frac{c}{d}$ five different meanings. These are parts of a whole, portion, quotient, ratio, and scaling tool. No single meaning covers everything, so students juggle five at once. This creates confusion.`}
             </li>
             <li>
-              <strong>Rules without reasons.</strong> The rules of fraction arithmetic are stated
-              without showing where they come from.
+              <strong>Rules without reasons.</strong> Textbooks state the rules of fraction
+              arithmetic without showing where they come from.
             </li>
             <li>
-              <strong>No proofs.</strong> &ldquo;Invert and multiply&rdquo; is handed down as a rule
-              with no justification.
+              <strong>No proofs.</strong> Textbooks hand down &ldquo;invert and multiply&rdquo; as a
+              rule with no justification.
             </li>
           </ol>
           <p>
-            The number line approach fixes all four. One clear definition. Fractions connect to
-            whole numbers. Every rule has a proof.
+            The number line definition you met at the start of this fraction strand fixes all four.
+            It gives one clear meaning, and you can prove every rule from it.
           </p>
 
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does one definition fix all four problems?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                The number line uses the same structure for fractions as for whole numbers.
-                Addition, subtraction, multiplication, and division extend naturally. No new rules.
-                Every formula is proved from the definition.
-              </p>
-            </details>
-          </div>
-
           <h3>On Division</h3>
-          <p>{`Take "invert and multiply." It is handed to students as a rule. But it is also a theorem: one that follows from a precise definition. $\\frac{A}{B}$ is the unique number $C$ such that $A = CB$. From there, the invert-and-multiply rule follows directly. That is the difference between a rule and a proof.`}</p>
+          <p>{`Take "invert and multiply." Teachers hand it to students as a rule. But the fraction operations you already learned prove it as a theorem. For example, $\\frac{1}{2} \\div \\frac{1}{4} = \\frac{1}{2} \\times 4 = 2$, and you can check it: $2 \\times \\frac{1}{4} = \\frac{1}{2}$. The new lens here is simple: a rule you memorize and a rule you can prove are not the same thing.`}</p>
         </>
       ]
     },
@@ -298,20 +889,20 @@ function useConfig() {
         a: 'Total distance $(2D)$ and total time $\\left(\\frac{D}{v_1} + \\frac{D}{v_2}\\right)$ are both proportional to $D$. The ratio eliminates $D$.'
       },
       {
-        q: 'A painter finishes in 8 hrs, another in 6. They start together but after 2 hrs the first leaves. How much longer for the second?',
-        a: '$2\\frac{1}{2}$ more hours. In 2 hrs together: $2\\left(\\frac{1}{8} + \\frac{1}{6}\\right) = \\frac{7}{12}$ done. Remaining: $\\frac{5}{12}$. At $\\frac{1}{6}$ per hr: $\\frac{\\frac{5}{12}}{\\frac{1}{6}} = \\frac{5}{2}$ hrs.'
+        q: '200 lbs of mushrooms are 90% water. After drying to 80% water, what do they weigh?',
+        a: '100 lbs. The dry solids stay fixed: 10% of 200 = 20 lbs. After drying, solids are 20% of the new weight. So $20 = \\frac{20}{100} \\times w$, which gives $w = 100$ lbs.'
       },
       {
-        q: 'Two shuttles: A takes 3 hrs, B takes 5 hrs same route. Start from opposite ends. When meet?',
-        a: '$1\\frac{7}{8}$ hours. Combined closing rate: $\\frac{1}{3} + \\frac{1}{5} = \\frac{8}{15}$. Time: $\\frac{15}{8}$.'
+        q: 'A bottle holds 100 cc of wine. You add a 20 cc spoon of tea, stir, then scoop 20 cc back. How much wine moves to the kettle?',
+        a: '$\\frac{100 \\times 20}{120} = \\frac{2000}{120} = 16\\frac{2}{3}$ cc. After adding tea the bottle holds 120 cc, and $\\frac{100}{120}$ of it is wine. The scoop carries that same wine fraction. The tea left behind in the bottle equals this exactly.'
       },
       {
-        q: 'A car travels at constant speed. In $2\\frac{1}{3}$ hours it covers 125 miles. How far in 4 hours?',
-        a: '$214\\frac{2}{7}$ miles. Speed $= \\frac{125}{\\frac{7}{3}} = \\frac{375}{7}$. In 4 hrs: $\\frac{1500}{7}$.'
+        q: 'You drive to a friend at 40 mph and return along the same road at 60 mph. What is your average speed?',
+        a: '48 mph. Equal distances, so use the harmonic mean: $H = \\frac{2ab}{a+b} = \\frac{2 \\times 40 \\times 60}{40 + 60} = \\frac{4800}{100} = 48$. This sits below the arithmetic mean of 50, because you spend more time at 40 mph.'
       },
       {
-        q: 'Shawna drives $\\frac{2}{3}$ hr to work. Firm moved: now $\\frac{5}{6}$ hr at same speed. She drives 12 more miles. How far is firm?',
-        a: '60 miles. Extra time: $\\frac{5}{6} - \\frac{2}{3} = \\frac{1}{6}$ hr = 12 mi. Speed = 72 mph. Distance $= \\frac{5}{6} \\times 72 = 60$.'
+        q: 'A train speeds up by $\\frac{1}{4}$ ($n = 4$). By what fraction does the trip time drop?',
+        a: '$\\frac{1}{5}$. The new speed is $\\frac{5}{4}s$. Distance is fixed, so the new time is $\\frac{4}{5}I$. Time saved $= I - \\frac{4}{5}I = \\frac{1}{5}I$. This matches the rule: speed up by $\\frac{1}{n}$, time drops by $\\frac{1}{n+1}$.'
       },
       {
         q: 'A sack of rice weighs $4\\frac{2}{3}$ times 5 books. Each book is $1\\frac{1}{2}$ lbs. Sack weight?',
@@ -346,8 +937,8 @@ function useConfig() {
         a: 'Dividing by $\\frac{1}{2}$: how many $\\frac{1}{2}$s fit? In 5, there are 10. Invert-and-multiply: dividing by $\\frac{k}{l}$ = multiplying by $\\frac{l}{k}$. For $\\frac{1}{2}$: multiply by 2.'
       },
       {
-        q: 'Two fractions differ by $\\frac{4}{5}$ of the smaller. Sum is $\\frac{28}{15}$. Find them.',
-        a: 'Let $x$ = smaller. Larger $= \\frac{9x}{5}$. Sum: $\\frac{14x}{5} = \\frac{28}{15}$. $x = \\frac{2}{3}$. Larger $= \\frac{6}{5}$.'
+        q: 'Find the harmonic mean of 20 and 30 using $H = \\frac{2ab}{a+b}$.',
+        a: '24. $H = \\frac{2 \\times 20 \\times 30}{20 + 30} = \\frac{1200}{50} = 24$. This sits below the arithmetic mean 25, as it always does.'
       },
       {
         q: '$\\frac{7}{18} \\times 3\\frac{1}{6} = ?$',
@@ -431,7 +1022,7 @@ function useConfig() {
               <ul className="lrn-list">
                 <li>Must use total distance / total time</li>
                 <li>Percent is a number ({`$\\frac{N}{100}$`})</li>
-                <li>Gives the mediant, not the sum</li>
+                <li>Gives the mediant (top plus top over bottom plus bottom), not the sum</li>
                 <li>Gives a pair, not one number</li>
               </ul>
             </div>

@@ -1,3 +1,84 @@
+/* Type scale, tracking, and measure.
+   Perfect-fourth ratio (1.333), nine steps, anchored at 16px body. */
+:root {
+  --type-caption: 0.563rem; /* 9px */
+  --type-small: 0.75rem; /* 12px */
+  --type-body: 1rem; /* 16px */
+  --type-h6: 1.333rem; /* 21px */
+  --type-h5: 1.777rem; /* 28px */
+  --type-h4: 2.369rem; /* 38px */
+  --type-h3: 3.157rem; /* 51px */
+  --type-h2: 4.209rem; /* 67px */
+  --type-h1: 5.61rem; /* 90px */
+
+  /* Extensions to the closed nine-step scale above. §2.2 does not define
+     these steps; added because several category-page.css literals sit
+     between canonical steps and are used repeatedly enough (the mono
+     chrome/metadata register) that snapping to the nearest legal step
+     would be a visible, unvalidated regression across many components at
+     once. Values match the literals already shipping — no visual change. */
+  --type-micro: 0.625rem; /* 10px */
+  --type-caption-lg: 0.6875rem; /* 11px */
+  --type-glyph: 0.8125rem; /* 13px */
+  --type-button: 0.875rem; /* 14px — §2.2's tracking table names "Button
+    uppercase (default 14 px)" but the nine-step scale has no size step
+    at 14px; this token fills that gap at the size the table already
+    assumes. */
+  --type-button-lg: 1.125rem; /* 18px */
+
+  /* Fluid-size extensions. The nine-step scale is fixed-value only; these
+     cover the two category-page.css surfaces that need viewport-fluid
+     sizing (the root masthead, tokenized above the fold per the wiki's
+     T1 spine, and the empty-state instrument-dial glyph/heading, neither
+     of which are reading-surface prose). Values match the clamp()/px
+     literals already shipping — no visual change. */
+  --type-h1-fluid: clamp(3rem, 6vw, 6rem); /* .ep-masthead-title, wiki T1 */
+  --type-h1-fluid-mobile: clamp(2rem, 9vw, 2.75rem); /* .ep-masthead-title ≤560px */
+  --type-dial-glyph: 8.25rem; /* 132px, .ep-empty .dial .qm */
+  --type-dial-glyph-mobile: 5rem; /* 80px, .ep-empty .dial .qm ≤760px */
+  --type-empty-heading: clamp(2.25rem, 5vw, 3.5rem); /* 36-56px, .ep-empty .col h2 */
+
+  /* Tracking (em-scaled, closed). */
+  --track-display: 0.02em;
+  --track-heading: 0.04em;
+  --track-body-caps: 0.12em;
+  --track-label: 0.16em;
+  --track-button: 0.16em;
+  --track-eyebrow: 0.18em;
+
+  /* Extensions to the closed six-value tracking list above. The scale does
+     not define these. --track-display is positive and already correctly
+     consumed at the small sidebar wordmark (.ep-sidebar-mark); it is not
+     the token for the large masthead's negative optical-tightening
+     convention, which runs across a T1-T3 spine (three tiers, all negative
+     tracking, two distinct magnitudes). Named tokens instead of bare component literals
+     for that convention and for two further component-specific tight
+     settings. Values match the literals already shipping, so there is no
+     visual change. */
+  --track-display-tight: -0.02em; /* T1/T2 masthead, wiki hero-section.md spine */
+  --track-heading-tight: -0.01em; /* T3 masthead tier + .ep-section-num */
+  --track-dial-tight: -0.04em; /* empty-state dial glyph, large scale */
+  --track-empty-heading-tight: -0.025em; /* empty-state column heading */
+
+  /* Weight extension. §2.2's two-weight rule (400/700) governs D-DIN, the
+     editorial/heading face. JetBrains Mono is registered as a true
+     variable font (font-weight: 100 900, line 85 below) and a medium
+     weight renders distinctly on it, unlike a third weight requested on
+     D-DIN (which only has 400/700 cut and silently collapses to 400).
+     Named token instead of a bare 500 literal for that one legitimate
+     mono-register exception. */
+  --weight-mono-medium: 500;
+
+  /* Measure. */
+  --measure-reading: 72ch;
+  --measure-code: 84ch;
+  /* Not in §2.2; category-page.css's empty-state column is a fixed-width
+     instrument-dial layout, not a reading surface — 72ch would overflow
+     it. Named token instead of a bare literal for the deliberately
+     narrower measure. */
+  --measure-note: 44ch;
+}
+
 /* Global MathJax inline styling */
 mjx-container {
   display: inline !important;
@@ -27,6 +108,20 @@ mjx-container svg {
   font-display: swap;
 }
 
+/* JetBrains Mono — variable-weight latin subset. One file covers both 400
+   and 700 because the subset Google ships is a variable font with the wght
+   axis intact. Italic explicitly never declared (Iter 7 C6 lockup of
+   no-italic in the metadata register). */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src:
+    url('/assets/fonts/JetBrainsMono-latin.woff2') format('woff2-variations'),
+    url('/assets/fonts/JetBrainsMono-latin.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 @font-face {
   font-family: OpenDyslexic;
   src: url('/assets/fonts/OpenDyslexic-Regular.woff') format('woff');
@@ -41,4 +136,11 @@ mjx-container svg {
   font-style: normal;
   font-weight: 700;
   font-display: swap;
+}
+
+/* Glue closing punctuation to a preceding inline math box so a lone `.` / `,`
+   never wraps onto its own line. Applied by useMathJax after typesetting via
+   the injected `.math-nowrap` wrapper. */
+.math-nowrap {
+  white-space: nowrap;
 }

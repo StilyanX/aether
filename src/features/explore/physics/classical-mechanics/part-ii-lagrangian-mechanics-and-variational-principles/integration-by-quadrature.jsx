@@ -7,11 +7,11 @@ import {
   Dot as D3,
   Tex as T3,
   Slider as Sl3,
-  OPACITY as O3,
-  VizCard
+  OPACITY as O3
 } from '../../../../../components/viz/primitives'
+import { VizFigure } from '../../../../../components/viz-figure'
 
-function PotentialWell() {
+export function PotentialWell() {
   const [E, setE] = React.useState(1.0)
   const U = x => 0.05 * x * x * x * x + 0.4 * x * x - 1.2
   const dU = x => 0.2 * x * x * x + 0.8 * x
@@ -30,6 +30,8 @@ function PotentialWell() {
   if (stateRef.current.E !== E) stateRef.current = { x: -xT + 0.001, v: 0, E }
   const [, force] = React.useState(0)
   React.useEffect(() => {
+    // respect prefers-reduced-motion (house convention): bead rests at its release point
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let raf,
       last = performance.now()
     const loop = now => {
@@ -51,14 +53,8 @@ function PotentialWell() {
     raf = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(raf)
   }, [])
-  let period = 0
-  const Nperiod = 400
-  for (let i = 0; i < Nperiod; i++) {
-    const x = -xT + ((i + 0.5) / Nperiod) * 2 * xT
-    const v2 = 2 * (E - U(x))
-    if (v2 > 0) period += (2 * xT) / Nperiod / Math.sqrt(v2)
-  }
-  period *= 2
+  // (period readout removed: the quadrature-for-T story lives in PeriodFromU;
+  // this figure is about bounded motion between the turning points)
   const xNow = stateRef.current.x
   return (
     <div style={{ width: '100%' }}>
@@ -70,24 +66,19 @@ function PotentialWell() {
         <D3 x={xT} y={E} />
         <D3 x={xNow} y={U(xNow)} r={7} opacity={O3.fg} />
         <Pa3 xy={s => [xNow, U(xNow) + s * (E - U(xNow))]} t={[0, 1]} opacity={O3.faint} />
-        <T3 at={[3.7, E]} tex={`E=${E.toFixed(2)}`} opacity={O3.accent} dy={-3} />
+        <T3 at={[4.35, E]} anchor="end" tex={`E=${E.toFixed(2)}`} opacity={O3.accent} dy={-9} />
         <T3 at={[-xT - 0.05, E - 0.1]} tex="x_1" anchor="end" opacity={O3.accent} dy={18} />
         <T3 at={[xT + 0.05, E - 0.1]} tex="x_2" opacity={O3.accent} dy={18} />
-        <T3
-          at={[0, -1.55]}
-          tex={`T = ${period.toFixed(2)}`}
-          anchor="middle"
-          opacity={O3.fg}
-          size={11}
-        />
+        <T3 at={[-3.5, 3.15]} tex="U(x)" opacity={O3.fg} size={11} />
+        <T3 at={[4.35, 0]} anchor="end" dy={-8} tex="x" opacity={O3.dim} size={11} />
       </P3>
       <Sl3 label="E" value={E} min={-1.1} max={3.0} step={0.02} onChange={setE} />
     </div>
   )
 }
 
-function EffectivePotentialCentral() {
-  const [E, setE] = React.useState(-0.7)
+export function EffectivePotentialCentral() {
+  const [E, setE] = React.useState(-0.45)
   const U = r => -1.5 / r + 0.8 / (r * r)
   const N = 1000
   const turns = []
@@ -104,31 +95,40 @@ function EffectivePotentialCentral() {
   }
   return (
     <div style={{ width: '100%' }}>
-      <P3 xRange={[0, 6]} yRange={[-2.4, 2.6]} width={520} height={260}>
+      <P3 xRange={[0, 6]} yRange={[-2.4, 1.9]} width={520} height={260}>
         <A3 step={1} showGrid={false} />
-        <Pa3 xy={r => [r, U(r)]} t={[0.45, 6]} samples={200} opacity={O3.fg} strokeWidth={2} />
+        <Pa3 xy={r => [r, U(r)]} t={[0.37, 6]} samples={200} opacity={O3.fg} strokeWidth={2} />
         <Pa3 xy={s => [s, E]} t={[0.4, 6]} opacity={O3.accent} dash="4 4" />
         {turns.map((rt, i) => (
           <D3 key={i} x={rt} y={E} />
         ))}
-        <T3 at={[5.2, E + 0.1]} tex={`E=${E.toFixed(2)}`} opacity={O3.accent} />
-        <T3 at={[3.2, -2.1]} tex="U_{\rm eff}(r)" anchor="middle" opacity={O3.fg} />
-        <T3 at={[5.7, 0.05]} tex="r" opacity={O3.dim} dy={18} />
+        <T3
+          at={[5.2, Math.max(E, U(5.2))]}
+          anchor="end"
+          dy={-12}
+          tex={`E=${E.toFixed(2)}`}
+          opacity={O3.accent}
+        />
+        <T3 at={[3.4, U(3.4)]} dy={-10} tex="U_{\rm eff}(r)" anchor="middle" opacity={O3.fg} />
+        <T3 at={[5.85, 0]} anchor="end" tex="r" opacity={O3.dim} dy={-8} />
       </P3>
       <Sl3 label="E" value={E} min={-1.4} max={1.5} step={0.02} onChange={setE} />
     </div>
   )
 }
 
-function ConicSections() {
+export function ConicSections() {
   const [e, setE] = React.useState(0.5)
   const p = 1.4
   const orbit = phi => {
     const r = p / (1 + e * Math.cos(phi))
     return [r * Math.cos(phi), r * Math.sin(phi)]
   }
-  let phiMax = Math.PI * 0.999
-  if (e >= 1) phiMax = Math.acos(-1 / e) - 0.05
+  // sweep only where r stays below RMAX, so near-parabolic orbits do not shoot
+  // off to enormous radii (the same cap handles e < 1, e = 1, e > 1 uniformly)
+  const RMAX = 7
+  const cosLim = (p / RMAX - 1) / e
+  const phiMax = e > 0 ? Math.acos(Math.max(-1, Math.min(1, cosLim))) : Math.PI
   return (
     <div style={{ width: '100%' }}>
       <P3 xRange={[-4.5, 4.5]} yRange={[-3, 3]} width={520} height={280}>
@@ -155,7 +155,7 @@ function ConicSections() {
   )
 }
 
-function PeriodFromU() {
+export function PeriodFromU() {
   const [E, setE] = React.useState(1.5)
   const U = x => 0.5 * x * x
   const xT = Math.sqrt(2 * E)
@@ -164,7 +164,17 @@ function PeriodFromU() {
     const x = (i / 8) * xT
     slices.push([x, U(x)])
   }
-  const T = 2 * Math.PI
+  // T computed by genuine quadrature with the substitution x = xT sin(u), which
+  // absorbs the inverse-sqrt singularity at the turning points: the figure's point
+  // is that the integral returns 2pi at EVERY energy for the harmonic well.
+  let T = 0
+  const NQ = 400
+  for (let i = 0; i < NQ; i++) {
+    const u = -Math.PI / 2 + ((i + 0.5) / NQ) * Math.PI
+    const x = xT * Math.sin(u)
+    const v2 = 2 * (E - U(x))
+    if (v2 > 0) T += ((xT * Math.cos(u) * Math.PI) / NQ) * (2 / Math.sqrt(v2))
+  }
   return (
     <div style={{ width: '100%' }}>
       <P3 xRange={[-2.6, 2.6]} yRange={[-0.4, 2.6]} width={520} height={260}>
@@ -176,14 +186,14 @@ function PeriodFromU() {
         ))}
         <D3 x={-xT} y={E} />
         <D3 x={xT} y={E} />
-        <T3 at={[xT + 0.1, E]} tex={`E=${E.toFixed(2)}`} opacity={O3.accent} size={11} />
+        <T3 at={[xT + 0.18, E]} dy={-8} tex={`E=${E.toFixed(2)}`} opacity={O3.accent} size={11} />
         <T3
-          at={[0, -0.3]}
-          tex={`T = ${T.toFixed(3)}`}
-          anchor="middle"
+          at={[2.45, -0.05]}
+          tex={`T = ${T.toFixed(3)} = 2\\pi\\ \\text{at every }E`}
+          anchor="end"
           opacity={O3.fg}
           size={11}
-          dy={20}
+          dy={16}
         />
       </P3>
       <Sl3 label="E" value={E} min={0.2} max={2.8} step={0.02} onChange={setE} />
@@ -193,18 +203,17 @@ function PeriodFromU() {
 
 const config = {
   cssPrefix: 'ibq',
-  documentTitle: 'Integration by Quadrature: AETHER',
+  documentTitle: 'Integration of the Equations of Motion: AETHER',
   learning: {
     groupTitle: 'Lagrangian Mechanics and Variational Principles',
     category: 'Classical Mechanics',
-    title: 'Integration by Quadrature',
-    subtitle:
-      'One-dimensional motion, quadrature, reduced mass, central fields, and Kepler orbits from Landau & Lifshitz §6–14',
+    title: 'Integration of the Equations of Motion',
+    subtitle: 'One-dimensional motion, quadrature, reduced mass, central fields, and Kepler orbits',
     sections: [
       // Section 0: Motion in One Dimension
       <>
         <div className="lrn-section" id="lrn-section-0" data-section-index="0">
-          <span className="lrn-label">Motion in One Dimension</span>
+          <h2>Motion in One Dimension</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -231,10 +240,10 @@ const config = {
             Total energy {`$E$`} is the kinetic energy plus the potential energy:{' '}
             {`$E = \\frac{1}{2}m\\dot{x}^2 + U(x)$`}. The particle can trade these two freely, but
             their sum stays the same as it moves. Solve for the speed:{' '}
-            {`$\\dot{x} = \\sqrt{\\frac{2[E - U(x)]}{m}}$`}. This is the central fact of the
-            chapter: in one dimension, knowing the energy turns the dynamics into a pure geometry
-            problem. Speed is no longer a separate unknown. It is just whatever value makes the
-            energy add up at the current position.
+            {`$\\dot{x} = \\sqrt{\\frac{2[E - U(x)]}{m}}$`}. This is the central fact of the lesson.
+            In one dimension, knowing the energy turns the dynamics into a pure geometry problem.
+            Speed is no longer a separate unknown. It is just whatever value makes the energy add up
+            at the current position.
           </p>
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -242,8 +251,11 @@ const config = {
               An ordinary differential equation, or ODE, is an equation that relates a quantity to
               its rate of change. Energy conservation hands us {`$\\dot{x}$`} as a function of{' '}
               {`$x$`} alone, with no second derivative left. That splits the equation so time and
-              position sit on opposite sides: {`$dt = \\frac{dx}{\\dot{x}(x)}$`}. Integrate each
-              side and you get {`$t$`} as a function of {`$x$`}.
+              position sit on opposite sides: {`$dt = \\frac{dx}{\\dot{x}(x)}$`}. Now drop in the
+              speed from above. Since {`$\\dot{x} = \\sqrt{\\frac{2[E-U]}{m}}$`}, its reciprocal is{' '}
+              {`$\\frac{1}{\\dot{x}} = \\sqrt{\\frac{m}{2}}\\,\\frac{1}{\\sqrt{E-U}}$`}, so{' '}
+              {`$dt = \\sqrt{\\frac{m}{2}}\\,\\frac{dx}{\\sqrt{E-U(x)}}$`}. Integrate each side and
+              you get {`$t$`} as a function of {`$x$`}.
             </p>
           </div>
           <p>Integrating both sides gives time as a function of position:</p>
@@ -313,7 +325,7 @@ const config = {
             {`$U = mgl(1 - \\cos\\theta)$`}, where {`$\\theta$`} is the angle from straight down.
             Plug this into the period formula and the integral that comes out is famous: the{' '}
             <strong>complete elliptic integral of the first kind</strong> {`$K(k)$`}. It is called
-            elliptic because it first turned up while measuring the arc length of an ellipse, and it
+            elliptic because it first turned up while measuring the arc length of an ellipse. It
             cannot be written using sines, cosines, exponentials, or any other elementary function.
             With swing amplitude {`$\\theta_0$`}:
           </p>
@@ -426,7 +438,7 @@ const config = {
       // Section 1: Reconstructing the Potential
       <>
         <div className="lrn-section" id="lrn-section-1" data-section-index="1">
-          <span className="lrn-label">Reconstructing the Potential from the Period</span>
+          <h2>Reconstructing the Potential from the Period</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -445,23 +457,20 @@ const config = {
           <p>
             The forward problem takes a known {`$U(x)$`} and computes {`$T(E)$`}. The{' '}
             <strong>inverse problem</strong> turns this around: given the measured period {`$T(E)$`}{' '}
-            at every energy, can we recover {`$U(x)$`}? Landau and Lifshitz solve it with a trick
-            called <strong>Abel inversion</strong>: a way to recover an unknown function from a
-            particular kind of integral that hides it. Niels Abel invented the trick to solve the
-            tautochrone problem (find the curve along which a bead always slides to the bottom in
-            the same time, regardless of where it starts).
+            at every energy, can we recover {`$U(x)$`}? Think of it as reading a well's shape from a
+            stopwatch alone. You time the swing at each energy level, and from those times you
+            rebuild the wall the particle bounced between. The standard trick is{' '}
+            <strong>Abel inversion</strong>: a way to recover an unknown function from a particular
+            kind of integral that hides it. It first solved the tautochrone problem: find the curve
+            on which a bead always slides to the bottom in the same time, no matter where it starts.
+            We state the result rather than grind through the inversion here.
           </p>
-          <p>The inverted formula gives the width of the well at each energy level:</p>
+          <p>
+            The inverted formula gives the width of the well at each energy level. It only knows the
+            distance between the two turning points, never where the well sits, since sliding the
+            whole well sideways leaves every period untouched:
+          </p>
           <div className="lrn-eq lrn-eq-display">{`$$x_2(U) - x_1(U) = \\frac{1}{\\pi\\sqrt{2m}}\\int_0^U \\frac{T(E)\\,dE}{\\sqrt{U - E}}$$`}</div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The period only knows about the distance between the two turning points at each
-              energy. Sliding the entire well sideways by any constant {`$c$`} keeps that distance
-              the same at every level. So {`$T(E)$`} cannot pick out the position of the well, only
-              its width.
-            </p>
-          </div>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">General Potential</span>
@@ -485,7 +494,7 @@ const config = {
       // Section 2: Reduced Mass and Two-Body Problems
       <>
         <div className="lrn-section" id="lrn-section-2" data-section-index="2">
-          <span className="lrn-label">Reduced Mass and Two-Body Problems</span>
+          <h2>Reduced Mass and Two-Body Problems</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -505,56 +514,27 @@ const config = {
           <p>
             A <strong>two-body problem</strong> describes two particles whose interaction depends
             only on the gap between them: the potential is {`$U(|r_1 - r_2|)$`}. Gravity, the
-            Coulomb force, and an idealised spring all fit this shape.
+            Coulomb force, and an ideal spring all fit this shape.
           </p>
           <p>
-            Two particles in 3D give six coordinates and a tangle of equations. The trick is to
-            split the motion into two independent pieces. Total momentum is conserved, so we can
-            jump into the frame where the centre of mass stands still. That frame removes three free
-            coordinates in one move. What remains is the gap {`$r = r_1 - r_2$`}, and the Lagrangian
-            for it is:
+            You already know the two-body reduction: jump to the centre-of-mass frame, write the
+            kinetic energy with {`$R = \\frac{m_1 r_1 + m_2 r_2}{m_1+m_2}$`} and the gap{' '}
+            {`$r = r_1 - r_2$`}, and the cross term {`$\\dot R \\cdot \\dot r$`} cancels. The energy
+            splits into a free centre {`$\\frac{1}{2}(m_1+m_2)\\dot R^2$`} plus a lone particle{' '}
+            {`$\\frac{1}{2}m\\dot r^2 - U(r)$`}. So the gap obeys a single-particle Lagrangian:
           </p>
           <div className="lrn-eq">{`$$L = \\frac{1}{2}m\\dot{r}^2 - U(r)$$`}</div>
           <p>
-            The number {`$m$`} that plays the role of mass for the gap is the{' '}
-            <strong>reduced mass</strong>:
+            The mass that plays the role of mass for the gap is the <strong>reduced mass</strong>:
           </p>
           <div className="lrn-eq lrn-eq-display">{`$$m = \\frac{m_1 m_2}{m_1 + m_2}$$`}</div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              When you write the original kinetic energy in terms of the centre-of-mass coordinate
-              and the gap {`$r$`}, the cross term cancels. The Lagrangian splits cleanly: a free
-              particle that carries the centre, plus a fictitious particle of mass {`$m$`} that
-              feels the potential {`$U(r)$`}. The gap obeys the same equation as a single particle
-              would.
-            </p>
-          </div>
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Imagine a heavy particle (mass {`$M$`}) plus {`$n$`} light particles (each mass{' '}
-              {`$m$`}). Why can we drop the heavy particle's coordinate {`$r_0$`} from the
-              Lagrangian entirely?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Sit in the centre-of-mass frame. The condition {`$Mr_0 + m\\sum r_i = 0$`} is a
-                constraint that pins {`$r_0$`} to a fixed combination of the {`$r_i$`}. Plug that
-                expression into the Lagrangian and {`$r_0$`} drops out completely. What is left is{' '}
-                {`$n$`} relative coordinates plus a free centre-of-mass coordinate, which has no
-                effect on the dynamics and can be ignored.
-              </p>
-            </details>
-          </div>
         </div>
       </>,
 
       // Section 3: Central Field
       <>
         <div className="lrn-section" id="lrn-section-3" data-section-index="3">
-          <span className="lrn-label">Motion in a Central Field</span>
+          <h2>Motion in a Central Field</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
@@ -578,48 +558,30 @@ const config = {
           </p>
           <div className="lrn-eq">{`$$L = \\frac{1}{2}m(\\dot{r}^2 + r^2\\dot{\\varphi}^2) - U(r)$$`}</div>
           <p>
-            The angle {`$\\varphi$`} appears only through its rate of change {`$\\dot\\varphi$`},
-            never on its own. A coordinate that shows up only as a velocity is called{' '}
-            <strong>cyclic</strong>. The Lagrange equation for a cyclic coordinate has zero on the
-            right, so {`$\\frac{\\partial L}{\\partial \\dot\\varphi}$`} stays the same forever.
-            That preserved quantity is the <strong>angular momentum</strong>:
+            Here {`$\\varphi$`} is cyclic, so its conjugate momentum is conserved. That conserved
+            quantity is the <strong>angular momentum</strong> {`$M = mr^2\\dot\\varphi$`}, the same{' '}
+            {`$M = r \\times p$`} you already know: the tangential speed is {`$r\\dot\\varphi$`}, so{' '}
+            {`$mr^2\\dot\\varphi = r \\cdot m(r\\dot\\varphi)$`} is just radius times tangential
+            momentum.
           </p>
           <div className="lrn-eq lrn-eq-display">{`$$M = mr^2\\dot{\\varphi} = \\text{constant}$$`}</div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The Lagrange equation for {`$\\varphi$`} reads{' '}
-              {`$\\frac{d}{dt}\\!\\left(\\frac{\\partial L}{\\partial\\dot{\\varphi}}\\right) = \\frac{\\partial L}{\\partial\\varphi}$`}
-              . The right side is zero because {`$\\varphi$`} never appears in {`$L$`}. So the time
-              derivative of {`$\\frac{\\partial L}{\\partial\\dot\\varphi} = mr^2\\dot\\varphi$`} is
-              zero, which means {`$M$`} is conserved.
-            </p>
-          </div>
           <h3>Kepler's Second Law</h3>
           <p>
-            Draw the line from the centre to the particle. As the particle moves, that line sweeps
-            out area. The rate at which it sweeps is called the <strong>sectorial velocity</strong>{' '}
-            {`$\\dot f$`}. For any central force, the sectorial velocity is constant:
+            Draw the line from the centre to the particle. In a short time it turns by{' '}
+            {`$d\\varphi$`} and sweeps a thin triangle of base {`$r$`} and height{' '}
+            {`$r\\,d\\varphi$`}, so the swept area is {`$dA = \\frac{1}{2}r^2\\,d\\varphi$`}. The
+            rate is the <strong>sectorial velocity</strong>, and conservation of {`$M$`} fixes it
+            for any central force:
           </p>
           <div className="lrn-eq">{`$$\\dot{f} = \\frac{1}{2}r^2\\dot{\\varphi} = \\frac{M}{2m} = \\text{constant}$$`}</div>
           <h3>Effective Potential</h3>
           <p>
-            Use the conservation of {`$M$`} to write {`$\\dot\\varphi = \\frac{M}{mr^2}$`}. Drop
-            that into the energy and the angular motion folds into a single extra term that depends
-            only on {`$r$`}:
+            Substitute {`$\\dot\\varphi = \\frac{M}{mr^2}$`} into the energy and the angular motion
+            folds into one extra radial term, the <strong>effective potential</strong>{' '}
+            {`$U_{\\rm eff}(r) = U(r) + \\frac{M^2}{2mr^2}$`}. Its second piece is the centrifugal
+            barrier, which walls the particle off from {`$r = 0$`}:
           </p>
           <div className="lrn-eq">{`$$E = \\frac{1}{2}m\\dot{r}^2 + \\underbrace{U(r) + \\frac{M^2}{2mr^2}}_{U_{\\rm eff}(r)}$$`}</div>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The new term {`$\\frac{M^2}{2mr^2}$`} is the <strong>centrifugal barrier</strong>. It
-              is the cost of the particle's swing-around motion: a particle with non-zero {`$M$`}{' '}
-              cannot stop spinning around the centre, and the closer it gets to the centre, the
-              faster it has to spin to keep {`$M$`} fixed. As {`$r \\to 0$`} that spin energy blows
-              up, so the centrifugal term shoots to {`$+\\infty$`} and acts like an inward-facing
-              wall. The particle bounces off it instead of reaching the centre.
-            </p>
-          </div>
           <h3>Orbit Equation</h3>
           <p>
             We can now ask for the shape of the orbit, {`$r(\\varphi)$`}, without ever solving for
@@ -642,17 +604,13 @@ const config = {
               centre at the middle.
             </li>
           </ul>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              For any other power law, the closest-approach point rotates a small amount each time
-              the particle returns to it. After many loops the orbit traces out a rosette that never
-              repeats. The angle {`$\\Delta\\varphi$`} the particle sweeps between two closest
-              approaches depends on the size of the orbit. Only the {`$\\frac{1}{r}$`} and {`$r^2$`}{' '}
-              laws give exactly {`$\\Delta\\varphi = 2\\pi$`} for every orbit, which is what closure
-              requires.
-            </p>
-          </div>
+          <p>
+            For any other power law, the closest-approach point rotates a little each loop, so the
+            orbit traces out a rosette that never repeats. That only these two laws give closed
+            orbits is a known result. Its proof tracks the angle swept between two closest
+            approaches and shows it equals {`$2\\pi$`} only for these two cases. We use the result
+            here without proving it.
+          </p>
           <h3>Fall to the Centre</h3>
           <p>
             The centrifugal barrier usually keeps the particle out of {`$r=0$`}. But if the inward
@@ -668,20 +626,22 @@ const config = {
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              Near the origin, {`$U_{\\rm eff} \\approx -\\frac{C}{r^n} + \\frac{M^2}{2mr^2}$`}. The
-              two terms compete as {`$r \\to 0$`}. If {`$n < 2$`}, the centrifugal term wins and the
-              effective potential heads to {`$+\\infty$`}, so the particle is repelled. If{' '}
-              {`$n > 2$`}, the attractive term wins and the effective potential drops to{' '}
-              {`$-\\infty$`}, so the particle accelerates inward and never stops.
+              The barrier loses when {`$U_{\\rm eff}(r) = U(r) + \\frac{M^2}{2mr^2}$`} dives to{' '}
+              {`$-\\infty$`} as {`$r \\to 0$`}. Multiply by {`$r^2$`} to compare the two terms head
+              to head: {`$r^2 U_{\\rm eff} = r^2 U(r) + \\frac{M^2}{2m}$`}. For this to stay
+              negative near the origin you need {`$r^2 U(r) < -\\frac{M^2}{2m}$`}, which is exactly
+              the condition above. For {`$U = -\\frac{C}{r^n}$`}, the term {`$r^2 U = -Cr^{2-n}$`}{' '}
+              runs off to {`$-\\infty$`} only when {`$n > 2$`}; for {`$n < 2$`} it fades to zero and
+              the centrifugal {`$\\frac{M^2}{2m}$`} wins, so the particle is turned back.
             </p>
           </div>
-          <h3>Worked Example: Spherical Pendulum</h3>
+          <h3>A Harder Case: Spherical Pendulum</h3>
           <p>
             A bead slides on a smooth sphere of radius {`$l$`} under gravity. The polar angle{' '}
             {`$\\theta$`} measures how far it has tipped from the bottom. The azimuthal angle (the
             swing around the vertical axis) is cyclic and gives a conserved angular momentum. That
-            conservation feeds back into the polar-angle equation as a centrifugal term, and the
-            resulting time integral cannot be done with sines and cosines alone. It produces{' '}
+            conservation feeds back into the polar-angle equation as a centrifugal term, and you
+            cannot do the resulting time integral with sines and cosines alone. It produces{' '}
             <strong>elliptic integrals of the first and third kind</strong>: integrals with both a
             square root in the denominator and a separate rational pole, which arise whenever two
             angular variables couple this way.
@@ -709,13 +669,14 @@ const config = {
       // Section 4: Kepler Problem
       <>
         <div className="lrn-section" id="lrn-section-4" data-section-index="4">
-          <span className="lrn-label">The Kepler Problem</span>
+          <h2>The Kepler Problem</h2>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>
               A comet runs along a very stretched ellipse around the Sun. At its closest approach
-              (perihelion) it is 0.1 AU away. At its farthest point (aphelion) it is 100 AU away.
-              Roughly how many times faster does it move at perihelion than at aphelion?
+              (perihelion) it is 0.1 AU away, where one AU is the Earth-Sun distance. At its
+              farthest point (aphelion) it is 100 AU away. Roughly how many times faster does it
+              move at perihelion than at aphelion?
             </p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
@@ -742,52 +703,19 @@ const config = {
           </p>
           <h3>Conic Section Orbit</h3>
           <p>
-            Plug {`$U = -\\frac{\\alpha}{r}$`} into the orbit equation, do the integral, and the
-            answer is stunningly clean:
-          </p>
-          <div className="lrn-eq lrn-eq-display">{`$$\\frac{p}{r} = 1 + e\\cos\\varphi$$`}</div>
-          <p>
-            This is the polar equation of a conic section: ellipse, parabola, or hyperbola depending
-            on the value of {`$e$`}. The number {`$p$`} is the <strong>semi-latus rectum</strong>:
-            the distance from the focus to the curve along the line perpendicular to the long axis.
-            It sets the overall scale of the orbit. The number {`$e$`} is the{' '}
-            <strong>eccentricity</strong>: it measures how stretched the orbit is.
+            Put {`$U = -\\frac{\\alpha}{r}$`} into the {`$\\varphi$`}-integral above and evaluate
+            it. The result is the conic {`$\\frac{p}{r} = 1 + e\\cos\\varphi$`} you already know as
+            the orbit shape, with semi-latus rectum {`$p$`} and eccentricity {`$e$`} now read off in
+            terms of the energy and angular momentum:
           </p>
           <div className="lrn-eq">{`$$p = \\frac{M^2}{m\\alpha}, \\qquad e = \\sqrt{1 + \\frac{2EM^2}{m\\alpha^2}}$$`}</div>
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Orbit type by eccentricity</span>
-            <div className="lrn-definition-desc">
-              <ul className="lrn-list">
-                <li>
-                  {`$e < 1$`} ({`$E < 0$`}): ellipse (bounded)
-                </li>
-                <li>
-                  {`$e = 1$`} ({`$E = 0$`}): parabola (escape from rest at infinity)
-                </li>
-                <li>
-                  {`$e > 1$`} ({`$E > 0$`}): hyperbola (scattering)
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Elliptic Orbit ({`$E < 0$`})</span>
-              <p>
-                The semi-axes are {`$a = \\frac{\\alpha}{2|E|}$`} and{' '}
-                {`$b = \\frac{M}{\\sqrt{2m|E|}}$`}. The long axis {`$a$`} depends only on the
-                energy. The short axis {`$b$`} also carries the angular-momentum info.
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Hyperbolic Orbit ({`$E > 0$`})</span>
-              <p>
-                The particle escapes to infinity. Closest approach is {`$r_{\\rm min} = a(e-1)$`}.
-                For a repulsive {`$\\frac{1}{r}$`} force (like two same-sign charges), the orbit
-                equation flips sign: {`$\\frac{p}{r} = -1 + e\\cos\\varphi$`}.
-              </p>
-            </div>
-          </div>
+          <p>
+            So the quadrature does more than draw the curve. It labels each conic with its physics:{' '}
+            {`$e < 1$`} (bound, {`$E < 0$`}) is an ellipse, {`$e = 1$`} ({`$E = 0$`}) a parabola,
+            and {`$e > 1$`} ({`$E > 0$`}) a hyperbola. The ellipse has semi-axes{' '}
+            {`$a = \\frac{\\alpha}{2|E|}$`} and {`$b = \\frac{M}{\\sqrt{2m|E|}}$`}, so the long axis
+            tracks the energy and the short axis carries the angular momentum.
+          </p>
           <h3>Kepler's Third Law</h3>
           <p>
             The time it takes to complete one bound orbit depends only on the energy (equivalently,
@@ -798,13 +726,14 @@ const config = {
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              The area of an ellipse is {`$\\pi ab$`}. The sectorial velocity (area swept per
-              second) is {`$\\frac{M}{2m}$`}, a constant. So the period is{' '}
-              {`$T = \\frac{\\pi ab}{\\frac{M}{2m}} = \\frac{2\\pi mab}{M}$`}. Now look at where the
-              angular momentum {`$M$`} hides: {`$a$`} does not depend on it at all, but{' '}
-              {`$b = \\frac{M}{\\sqrt{2m|E|}}$`} does. The {`$M$`} on the top from {`$b$`} cancels
-              the {`$M$`} on the bottom from the sectorial velocity. What is left depends only on{' '}
-              {`$E$`}.
+              You can read the {`$a^{3/2}$`} off the geometry: dividing the ellipse area{' '}
+              {`$\\pi ab$`} by the constant sectorial velocity {`$\\frac{M}{2m}$`} cancels the
+              angular momentum and leaves a function of {`$a$`} alone. But the law also follows from
+              pure scaling, with no orbit shape needed. Shrink every length by {`$\\lambda$`} in a{' '}
+              {`$U \\propto -1/r$`} field. The potential energy scales as {`$1/\\lambda$`}, and
+              matching it against the kinetic energy {`$\\sim (\\text{length}/\\text{time})^2$`}{' '}
+              forces time to scale as {`$\\lambda^{3/2}$`}. So {`$T^2 \\propto a^3$`} for every
+              orbit in the family at once.
             </p>
           </div>
           <h3>Parametric Equations for the Elliptic Orbit</h3>
@@ -817,9 +746,16 @@ const config = {
           </p>
           <div className="lrn-eq">{`$$r = a(1 - e\\cos\\xi), \\qquad t = \\sqrt{\\frac{ma^3}{\\alpha}}(\\xi - e\\sin\\xi)$$`}</div>
           <p>
-            The second equation is <strong>Kepler's equation</strong>. In Cartesian coordinates:
+            The second equation is <strong>Kepler's equation</strong>. The same {`$\\xi$`} also
+            places the orbit point directly. Take the point at angle {`$\\xi$`} on the auxiliary
+            circle, shift it by the focus offset {`$ae$`}, and squash its height by{' '}
+            {`$\\sqrt{1-e^2}$`}:
           </p>
           <div className="lrn-eq">{`$$x = a(\\cos\\xi - e), \\qquad y = a\\sqrt{1-e^2}\\sin\\xi$$`}</div>
+          <p>
+            That squash is exactly how the circle of radius {`$a$`} becomes the ellipse, so{' '}
+            {`$\\xi$`} ties the shape and the timing of the orbit together in one angle.
+          </p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
@@ -844,9 +780,9 @@ const config = {
           <p>
             When {`$E = 0$`}, the eccentricity hits exactly {`$e = 1$`} and the orbit becomes a
             parabola: {`$\\frac{p}{r} = 1 + \\cos\\varphi$`}. The particle starts at rest infinitely
-            far away, falls in, swings through closest approach {`$r_{\\rm min} = \\frac{p}{2}$`}{' '}
-            (where {`$\\varphi = 0$`}), and coasts back out to infinity, again coming to rest. It is
-            the boundary case between trapped and free.
+            far away and falls in. It swings through closest approach{' '}
+            {`$r_{\\rm min} = \\frac{p}{2}$`} (where {`$\\varphi = 0$`}), then coasts back out to
+            infinity and comes to rest again. It is the boundary case between trapped and free.
           </p>
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -862,69 +798,6 @@ const config = {
               </p>
             </details>
           </div>
-          <h3>The Laplace-Runge-Lenz Vector</h3>
-          <p>
-            Most central forces conserve only two things: the energy {`$E$`} and the angular
-            momentum {`$M$`}. The {`$\\frac{1}{r}$`} force is special. It has a third conserved
-            vector, usually called the <strong>Laplace-Runge-Lenz vector</strong>:
-          </p>
-          <div className="lrn-eq">{`$$v \\times M + \\frac{\\alpha r}{r} = \\text{constant}$$`}</div>
-          <p>
-            This vector points along the line from the centre to the perihelion (the closest
-            approach point). The fact that its direction never changes is exactly the statement that
-            the perihelion never drifts: a pure {`$\\frac{1}{r}$`} orbit closes back on itself
-            perfectly every loop. This extra hidden symmetry is what makes the Kepler problem so
-            unusually solvable.
-          </p>
-          <div className="lrn-faded">
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-              <p>
-                Show that{' '}
-                {`$\\frac{d}{dt}\\!\\left(v \\times M + \\frac{\\alpha r}{r}\\right) = 0$`} using
-                Newton's law {`$m\\ddot{r} = -\\frac{\\alpha r}{r^3}$`}:
-              </p>
-              <ol className="lrn-list">
-                <li>
-                  Compute{' '}
-                  {`$\\frac{d(v\\times M)}{dt} = \\dot v \\times M = \\left(-\\frac{\\alpha r}{mr^3}\\right)\\times M$`}
-                  .
-                </li>
-                <li>Expand the cross product using {`$M = m r\\times v$`}.</li>
-                <li>
-                  Apply the BAC-CAB identity{' '}
-                  {`$A\\times(B\\times C) = B(A\\cdot C) - C(A\\cdot B)$`}.
-                </li>
-                <li>
-                  Compute{' '}
-                  {`$\\frac{d}{dt}\\!\\left(\\frac{\\alpha r}{r}\\right) = \\alpha\\!\\left(\\frac{\\dot r}{r} - \\frac{r\\dot r}{r^2}\\right) = \\alpha\\!\\left(\\frac{v}{r} - \\frac{r(r\\cdot v)}{r^3}\\right)$`}
-                  .
-                </li>
-                <li>Show the two pieces cancel.</li>
-              </ol>
-            </div>
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-              <ol className="lrn-list">
-                <li>
-                  Write {`$\\dot v = -\\frac{\\alpha r}{mr^3}$`} and form {`$\\dot v \\times M$`}.
-                </li>
-                <li>Substitute {`$M = mr\\times v$`} and apply the BAC-CAB identity.</li>
-                <li>
-                  The {`$\\frac{d}{dt}\\!\\left(\\frac{\\alpha r}{r}\\right)$`} term is given to
-                  you: {`$\\alpha\\!\\left(\\frac{v}{r} - \\frac{r(r\\cdot v)}{r^3}\\right)$`}.
-                </li>
-                <li>Verify the cancellation.</li>
-              </ol>
-            </div>
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
-              <p>
-                Prove that {`$v\\times M + \\frac{\\alpha r}{r}$`} is conserved from scratch using
-                only Newton's second law and the BAC-CAB identity.
-              </p>
-            </div>
-          </div>
         </div>
       </>
     ]
@@ -936,7 +809,7 @@ const config = {
     },
     {
       q: `[PREDICT] A ball starts at rest at height $h$ inside a smooth bowl shaped like $U = Ax^4$. Does its oscillation period grow or shrink as $h$ rises?`,
-      a: `It shrinks. The walls of $U = Ax^n$ for $n > 2$ are steeper than harmonic, so when you raise the energy, the speed gain wins out over the longer path. The formula $T \\propto E^{\\frac{1}{n} - \\frac{1}{2}}$ makes it explicit: for $n = 4$, $T \\propto E^{-\\frac{1}{4}}$, so a higher release means a shorter swing.`
+      a: `It shrinks. The walls of $U = Ax^n$ for $n > 2$ are steeper than harmonic. So when you raise the energy, the speed gain wins out over the longer path. The formula $T \\propto E^{\\frac{1}{n} - \\frac{1}{2}}$ makes it explicit: for $n = 4$, $T \\propto E^{-\\frac{1}{4}}$, so a higher release means a shorter swing.`
     },
     {
       q: `State the period integral $T(E)$ for a 1D oscillating particle and explain each symbol.`,
@@ -964,7 +837,7 @@ const config = {
     },
     {
       q: `Write the condition for a particle to fall to the centre of a central field $U(r)$. Why does the centrifugal barrier usually stop it?`,
-      a: `The condition is $[r^2 U(r)]_{r\\to 0} < -\\frac{M^2}{2m}$. The centrifugal barrier is the term $\\frac{M^2}{2mr^2}$ inside the effective potential. It comes from the kinetic energy of the particle's swing-around motion: a particle with non-zero $M$ must spin faster as $r$ shrinks, and that spin energy blows up as $r \\to 0$. Falling to the centre requires the inward pull to grow faster than $\\frac{1}{r^2}$. For $U = -\\frac{C}{r^n}$, that means $n > 2$.`
+      a: `The condition is $[r^2 U(r)]_{r\\to 0} < -\\frac{M^2}{2m}$. The centrifugal barrier is the term $\\frac{M^2}{2mr^2}$ inside the effective potential. It comes from the kinetic energy of the particle's swing-around motion. A particle with non-zero $M$ must spin faster as $r$ shrinks, and that spin energy blows up as $r \\to 0$. Falling to the centre requires the inward pull to grow faster than $\\frac{1}{r^2}$. For $U = -\\frac{C}{r^n}$, that means $n > 2$.`
     },
     {
       q: `[SELF-EXPLAIN] In $\\frac{p}{r} = 1 + e\\cos\\varphi$, why does $e < 1$ give a closed orbit and $e > 1$ give an open one?`,
@@ -981,7 +854,7 @@ const config = {
   ],
   reference: {
     category: 'Quick Reference',
-    title: 'Integration by Quadrature',
+    title: 'Integration of the Equations of Motion',
     sections: [
       // Reference Section 0: One-Dimensional Motion
       <>
@@ -1039,7 +912,10 @@ const config = {
               <tr>
                 <td>{`$mgl(1-\\cos\\theta)$`} (pendulum)</td>
                 <td>{`$4\\sqrt{\\frac{l}{g}}\\,K\\!\\left(\\sin\\!\\left(\\frac{\\theta_0}{2}\\right)\\right)$`}</td>
-                <td>{`$K$`} = complete elliptic integral, first kind</td>
+                <td>
+                  {`$K$`} = complete elliptic integral, first kind: a special function that cannot
+                  be written with sines and cosines
+                </td>
               </tr>
               <tr>
                 <td>{`$-\\frac{U_0}{\\cosh^2(\\alpha x)}$`}</td>
@@ -1175,30 +1051,30 @@ const configWithViz = {
         return (
           <>
             {section}
-            <VizCard id="02.3.1" title="Potential Well">
+            <VizFigure aspect="auto" title="Potential Well">
               <PotentialWell />
-            </VizCard>
-            <VizCard id="02.3.2" title="Period from Potential">
+            </VizFigure>
+            <VizFigure aspect="auto" title="Period from Potential">
               <PeriodFromU />
-            </VizCard>
+            </VizFigure>
           </>
         )
       if (i === 3)
         return (
           <>
             {section}
-            <VizCard id="02.3.3" title="Effective Central Potential">
+            <VizFigure aspect="auto" title="Effective Central Potential">
               <EffectivePotentialCentral />
-            </VizCard>
+            </VizFigure>
           </>
         )
       if (i === 4)
         return (
           <>
             {section}
-            <VizCard id="02.3.4" title="Conic Sections">
+            <VizFigure aspect="auto" title="Conic Sections">
               <ConicSections />
-            </VizCard>
+            </VizFigure>
           </>
         )
       return section
@@ -1206,6 +1082,6 @@ const configWithViz = {
   }
 }
 
-export default function IntegrationByQuadrature() {
+export default function IntegrationOfTheEquationsOfMotion() {
   return <LearningTemplate config={configWithViz} />
 }

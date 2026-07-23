@@ -1,1914 +1,3337 @@
 import React from 'react'
-import { VizCard } from './primitives'
+import { VizFigure } from '../viz-figure'
 import * as am from './arithmetic'
 import * as cm from './classical-mechanics'
+import * as ilpr from './part-iii-inline-lpr'
+import * as ihan from './part-iii-inline-han'
+import * as idbc from './part-iii-inline-dbc'
 import * as al from './algebra'
+import * as it from './information-theory'
+import * as chem from './chemistry'
 import * as bI from './books/fantasy/Science Fantasy/the-shadow-of-the-torturer'
 import * as bII from './books/fantasy/Science Fantasy/the-claw-of-the-conciliator'
 import * as bIII from './books/fantasy/Science Fantasy/the-sword-of-the-lictor'
 import * as bIV from './books/fantasy/Science Fantasy/the-citadel-of-the-autarch'
+import * as bio from './books/biography/Founders & Builders/augustus-the-biography'
 import * as tpmI from './films/star-wars/the-phantom-menace'
+import * as enr from './mathematics/arithmetic/estimation-and-rounding/estimation-and-rounding'
+import * as dplA from './mathematics/arithmetic/discount-profit-loss/discount-profit-loss'
+import * as scI from './mathematics/arithmetic/simple-and-compound-interest/simple-and-compound-interest'
+import * as gda from './mathematics/arithmetic/growth-depreciation-applied-tax/growth-depreciation-applied-tax'
+import * as ags from './mathematics/arithmetic/arithmetic-and-geometric-sequences/arithmetic-and-geometric-sequences'
+import * as nsp from './mathematics/arithmetic/number-sequences-and-patterns/number-sequences-and-patterns'
+import * as ili from './mathematics/arithmetic/index-notation-and-laws-of-integral-indices/index-notation-and-laws-of-integral-indices'
+import * as scR from './mathematics/arithmetic/squares-cubes-square-roots-cube-roots/squares-cubes-square-roots-cube-roots'
+import * as inr from './mathematics/arithmetic/irrational-numbers-and-the-real-number-system/irrational-numbers-and-the-real-number-system'
+import * as rnl from './mathematics/arithmetic/real-numbers-on-the-number-line/real-numbers-on-the-number-line'
+import * as sqs from './mathematics/arithmetic/simple-quadratic-surds/simple-quadratic-surds'
+import * as pcc from './mathematics/arithmetic/percentages-concept-and-conversions/percentages-concept-and-conversions'
+import * as poq from './mathematics/arithmetic/percentage-of-a-quantity/percentage-of-a-quantity'
+import * as pid from './mathematics/arithmetic/percentage-increase-and-decrease/percentage-increase-and-decrease'
+import * as rat from './mathematics/arithmetic/ratio/ratio'
+import * as dip from './mathematics/arithmetic/direct-and-inverse-proportion/direct-and-inverse-proportion'
+import * as rsa from './mathematics/arithmetic/rate-speed-average-speed/rate-speed-average-speed'
+import * as ms from './mathematics/arithmetic/map-scales/map-scales'
+import * as oav from './mathematics/arithmetic/opposite-numbers-and-absolute-value/opposite-numbers-and-absolute-value'
+import * as osr from './mathematics/arithmetic/operations-on-signed-rationals/operations-on-signed-rationals'
+import * as asf from './mathematics/arithmetic/approximation-significant-figures-and-decimal-places/approximation-significant-figures-and-decimal-places'
+import * as ian from './mathematics/arithmetic/integers-and-negative-numbers/integers-and-negative-numbers'
+import * as hcl from './mathematics/arithmetic/hcf-and-lcm/hcf-and-lcm'
+import * as oen from './mathematics/arithmetic/odd-and-even-numbers/odd-and-even-numbers'
 
-// ─── ARITHMETIC ───────────────────────────────────────────────────────────────
+// One frame factory replaces the ~596 hand-written VizFigure wrapper blocks below.
+// wrap(Component, opts) === props => <VizFigure {...opts}><Component {...props} /></VizFigure>
+const wrap = (Comp, opts) => {
+  const Wrapped = props => (
+    <VizFigure {...opts}>
+      <Comp {...props} />
+    </VizFigure>
+  )
+  Wrapped.displayName = opts.id || Comp.displayName || Comp.name
+  return Wrapped
+}
 
-// ─── FRACTION FOUNDATIONS ─────────────────────────────────────────────────────
-export const NumberLineBasic = props => (
-  <VizCard id={'01.1.1'} title={'Number Line: Unit Division'}>
-    <am.NumberLineBasic {...props} />
-  </VizCard>
-)
-export const NumberLineFraction34 = props => (
-  <VizCard id={'01.1.2'} title={'Fraction ¾ on Number Line'}>
-    <am.NumberLineFraction34 {...props} />
-  </VizCard>
-)
-export const NumberLine17over4 = props => (
-  <VizCard id={'01.1.3'} title={'Improper Fraction 17/4'}>
-    <am.NumberLine17over4 {...props} />
-  </VizCard>
-)
-export const AreaModelFraction = props => (
-  <VizCard id={'01.1.4'} title={'Area Model Fraction'}>
-    <am.AreaModelFraction {...props} />
-  </VizCard>
-)
-export const EquivalentFractionVis = props => (
-  <VizCard id={'01.1.5'} title={'Equivalent Fractions'}>
-    <am.EquivalentFractionVis {...props} />
-  </VizCard>
-)
-export const DecimalNumberLine = props => (
-  <VizCard id={'01.1.6'} title={'Decimal on Number Line'}>
-    <am.DecimalNumberLine {...props} />
-  </VizCard>
-)
-export const DecimalFractionCompare = props => (
-  <VizCard id={'01.1.7'} title={'Decimal–Fraction Comparison'}>
-    <am.DecimalFractionCompare {...props} />
-  </VizCard>
-)
-export const CompareFractionsVis = props => (
-  <VizCard id={'01.1.8'} title={'Compare Fractions'}>
-    <am.CompareFractionsVis {...props} />
-  </VizCard>
-)
-export const FFPVis = props => (
-  <VizCard id={'01.1.9'} title={'Fraction–Percent Conversion'}>
-    <am.FFPVis {...props} />
-  </VizCard>
-)
+// ARITHMETIC
 
-// ─── FRACTION OPERATIONS ──────────────────────────────────────────────────────
-export const AdditionNumberLine = props => (
-  <VizCard id={'02.1.1'} title={'Fraction Addition'}>
-    <am.AdditionNumberLine {...props} />
-  </VizCard>
-)
-export const SubtractionNumberLine = props => (
-  <VizCard id={'02.1.2'} title={'Fraction Subtraction'}>
-    <am.SubtractionNumberLine {...props} />
-  </VizCard>
-)
-export const FractionMultiplicationArea = props => (
-  <VizCard id={'02.1.3'} title={'Fraction Multiplication Area'}>
-    <am.FractionMultiplicationArea {...props} />
-  </VizCard>
-)
-export const FractionDistributiveLaw = props => (
-  <VizCard id={'02.1.4'} title={'Fraction Distributive Law'}>
-    <am.FractionDistributiveLaw {...props} />
-  </VizCard>
-)
-export const FractionOfNumberLine = props => (
-  <VizCard id={'02.1.5'} title={'Fraction of a Number'}>
-    <am.FractionOfNumberLine {...props} />
-  </VizCard>
-)
-export const DivisionNumberLine = props => (
-  <VizCard id={'02.1.6'} title={'Fraction Division'}>
-    <am.DivisionNumberLine {...props} />
-  </VizCard>
-)
-export const FiniteDecimalVis = props => (
-  <VizCard id={'02.1.7'} title={'Finite Decimal Expansion'}>
-    <am.FiniteDecimalVis {...props} />
-  </VizCard>
-)
+// FRACTION OPERATIONS
 
-// ─── FRACTION APPLICATIONS ────────────────────────────────────────────────────
-export const PercentBarVis = props => (
-  <VizCard id={'03.1.1'} title={'Percent Bar'}>
-    <am.PercentBarVis {...props} />
-  </VizCard>
-)
-export const RatioBarVis = props => (
-  <VizCard id={'03.1.2'} title={'Ratio Bar'}>
-    <am.RatioBarVis {...props} />
-  </VizCard>
-)
-export const RateGraphVis = props => (
-  <VizCard id={'03.1.3'} title={'Rate Graph'}>
-    <am.RateGraphVis {...props} />
-  </VizCard>
-)
-export const CoopWorkVis = props => (
-  <VizCard id={'03.1.4'} title={'Cooperative Work'}>
-    <am.CoopWorkVis {...props} />
-  </VizCard>
-)
-export const ComplexFractionVis = props => (
-  <VizCard id={'03.1.5'} title={'Complex Fraction'}>
-    <am.ComplexFractionVis {...props} />
-  </VizCard>
-)
+// RATIONAL NUMBERS
+export const MirrorReflectionDiagram = wrap(am.MirrorReflectionDiagram, {
+  aspect: 'auto',
+  title: 'Mirror Reflection'
+})
+export const TwoSidedNumberLine = wrap(am.TwoSidedNumberLine, {
+  aspect: 'auto',
+  title: 'Two-Sided Number Line'
+})
+export const VectorAdditionDiagram = wrap(am.VectorAdditionDiagram, {
+  aspect: 'auto',
+  title: 'Vector Addition'
+})
+export const InequalityFlipDiagram = wrap(am.InequalityFlipDiagram, {
+  aspect: 'auto',
+  title: 'Inequality Flip'
+})
+export const AbsoluteValueDiagram = wrap(am.AbsoluteValueDiagram, {
+  aspect: 'auto',
+  title: 'Absolute Value'
+})
 
-// ─── FRACTION ADVANCED TOPICS ─────────────────────────────────────────────────
-export const HarmonicMeanVis = props => (
-  <VizCard id={'04.1.1'} title={'Harmonic Mean'}>
-    <am.HarmonicMeanVis {...props} />
-  </VizCard>
-)
-export const CucumberVis = props => (
-  <VizCard id={'04.1.2'} title={'Mixture: Cucumber'}>
-    <am.CucumberVis {...props} />
-  </VizCard>
-)
-export const WineTeaVis = props => (
-  <VizCard id={'04.1.3'} title={'Mixture: Wine and Tea'}>
-    <am.WineTeaVis {...props} />
-  </VizCard>
-)
+// PLACE VALUE AND ALGORITHMS
+export const PlaceValueNumberLine = wrap(am.PlaceValueNumberLine, {
+  aspect: 'auto',
+  title: 'Place Value Number Line'
+})
+export const WholeDistributiveLawArea = wrap(am.WholeDistributiveLawArea, {
+  aspect: 'auto',
+  title: 'Distributive Law Area'
+})
+export const AdditionCarryVis = wrap(am.AdditionCarryVis, {
+  aspect: 'auto',
+  title: 'Addition with Carry'
+})
+export const SubtractionTradingVis = wrap(am.SubtractionTradingVis, {
+  aspect: 'auto',
+  title: 'Subtraction by Trading'
+})
+export const WholeMultiplicationArea = wrap(am.WholeMultiplicationArea, {
+  aspect: 'auto',
+  title: 'Multiplication Area Model'
+})
+export const LongDivisionStepVis = wrap(am.LongDivisionStepVis, {
+  aspect: 'auto',
+  title: 'Long Division Steps'
+})
 
-// ─── RATIONAL NUMBERS ─────────────────────────────────────────────────────────
-export const MirrorReflectionDiagram = props => (
-  <VizCard id={'05.1.1'} title={'Mirror Reflection'}>
-    <am.MirrorReflectionDiagram {...props} />
-  </VizCard>
-)
-export const TwoSidedNumberLine = props => (
-  <VizCard id={'05.1.2'} title={'Two-Sided Number Line'}>
-    <am.TwoSidedNumberLine {...props} />
-  </VizCard>
-)
-export const VectorAdditionDiagram = props => (
-  <VizCard id={'05.1.3'} title={'Vector Addition'}>
-    <am.VectorAdditionDiagram {...props} />
-  </VizCard>
-)
-export const InequalityFlipDiagram = props => (
-  <VizCard id={'05.1.4'} title={'Inequality Flip'}>
-    <am.InequalityFlipDiagram {...props} />
-  </VizCard>
-)
-export const AbsoluteValueDiagram = props => (
-  <VizCard id={'05.1.5'} title={'Absolute Value'}>
-    <am.AbsoluteValueDiagram {...props} />
-  </VizCard>
-)
+// Number theory viz (08.1.x) moved inline into
+// src/features/explore/mathematics/arithmetic/number-theory.jsx.
 
-// ─── PLACE VALUE AND ALGORITHMS ───────────────────────────────────────────────
-export const PlaceValueNumberLine = props => (
-  <VizCard id={'06.1.1'} title={'Place Value Number Line'}>
-    <am.PlaceValueNumberLine {...props} />
-  </VizCard>
-)
-export const WholeDistributiveLawArea = props => (
-  <VizCard id={'06.1.2'} title={'Distributive Law Area'}>
-    <am.WholeDistributiveLawArea {...props} />
-  </VizCard>
-)
-export const AdditionCarryVis = props => (
-  <VizCard id={'06.1.3'} title={'Addition with Carry'}>
-    <am.AdditionCarryVis {...props} />
-  </VizCard>
-)
-export const SubtractionTradingVis = props => (
-  <VizCard id={'06.1.4'} title={'Subtraction by Trading'}>
-    <am.SubtractionTradingVis {...props} />
-  </VizCard>
-)
-export const WholeMultiplicationArea = props => (
-  <VizCard id={'06.1.5'} title={'Multiplication Area Model'}>
-    <am.WholeMultiplicationArea {...props} />
-  </VizCard>
-)
-export const LongDivisionStepVis = props => (
-  <VizCard id={'06.1.6'} title={'Long Division Steps'}>
-    <am.LongDivisionStepVis {...props} />
-  </VizCard>
-)
+// Decimal-fundamentals viz (09.1.x) moved inline into
+// src/features/explore/mathematics/arithmetic/decimal-fundamentals.jsx.
 
-// ─── NUMBER LINE AND NUMBER SYSTEMS ───────────────────────────────────────────
-export const OperationsOnNumberLine = props => (
-  <VizCard id={'07.1.1'} title={'Operations on Number Line'}>
-    <am.OperationsOnNumberLine {...props} />
-  </VizCard>
-)
-export const NumberLineWithTypes = props => (
-  <VizCard id={'07.1.2'} title={'Number Types on Line'}>
-    <am.NumberLineWithTypes {...props} />
-  </VizCard>
-)
-export const RoundingVisualization = props => (
-  <VizCard id={'07.1.3'} title={'Rounding'}>
-    <am.RoundingVisualization {...props} />
-  </VizCard>
-)
-export const BaseConversionVis = props => (
-  <VizCard id={'07.1.4'} title={'Base Conversion'}>
-    <am.BaseConversionVis {...props} />
-  </VizCard>
-)
+// Infinite-and-repeating-decimals viz (10.1.x) moved inline into
+// src/features/explore/mathematics/arithmetic/infinite-and-repeating-decimals.jsx.
 
-// ─── NUMBER THEORY ────────────────────────────────────────────────────────────
-export const DivisionRemainderVis = props => (
-  <VizCard id={'08.1.1'} title={'Division and Remainder'}>
-    <am.DivisionRemainderVis {...props} />
-  </VizCard>
-)
-export const SieveVis = props => (
-  <VizCard id={'08.1.2'} title={'Sieve of Eratosthenes'}>
-    <am.SieveVis {...props} />
-  </VizCard>
-)
-export const GcdLinearCombinationVis = props => (
-  <VizCard id={'08.1.3'} title={'GCD Linear Combination'}>
-    <am.GcdLinearCombinationVis {...props} />
-  </VizCard>
-)
-export const EAStepperVis = props => (
-  <VizCard id={'08.1.4'} title={'Euclidean Algorithm Steps'}>
-    <am.EAStepperVis {...props} />
-  </VizCard>
-)
-export const GcdLcmVennVis = props => (
-  <VizCard id={'08.1.5'} title={'GCD and LCM Venn'}>
-    <am.GcdLcmVennVis {...props} />
-  </VizCard>
-)
-export const PythagoreanTripleVis = props => (
-  <VizCard id={'08.1.6'} title={'Pythagorean Triple'}>
-    <am.PythagoreanTripleVis {...props} />
-  </VizCard>
-)
-export const PerfectSquareParityVis = props => (
-  <VizCard id={'08.1.7'} title={'Perfect Square Parity'}>
-    <am.PerfectSquareParityVis {...props} />
-  </VizCard>
-)
+// Decimal-expansion-proofs viz (11.1.x) moved inline into
+// src/features/explore/mathematics/arithmetic/decimal-expansion-proofs.jsx.
 
-// ─── DECIMAL FUNDAMENTALS ─────────────────────────────────────────────────────
-export const FractionToDecimalVis = props => (
-  <VizCard id={'09.1.1'} title={'Fraction to Decimal'}>
-    <am.FractionToDecimalVis {...props} />
-  </VizCard>
-)
-export const NumberLinePlacement = props => (
-  <VizCard id={'09.1.2'} title={'Decimal Number Line Placement'}>
-    <am.NumberLinePlacement {...props} />
-  </VizCard>
-)
-export const DecimalComparisonVis = props => (
-  <VizCard id={'09.1.3'} title={'Decimal Comparison'}>
-    <am.DecimalComparisonVis {...props} />
-  </VizCard>
-)
-export const ScientificNotationVis = props => (
-  <VizCard id={'09.1.4'} title={'Scientific Notation'}>
-    <am.ScientificNotationVis {...props} />
-  </VizCard>
-)
-export const PlaceValueVis = props => (
-  <VizCard id={'09.1.5'} title={'Place Value'}>
-    <am.PlaceValueVis {...props} />
-  </VizCard>
-)
+// CLASSICAL MECHANICS
 
-// ─── INFINITE AND REPEATING DECIMALS ─────────────────────────────────────────
-export const SqueezingVis = props => (
-  <VizCard id={'10.1.1'} title={'Squeezing Argument'}>
-    <am.SqueezingVis {...props} />
-  </VizCard>
-)
-export const MultiplySubtractVis = props => (
-  <VizCard id={'10.1.2'} title={'Multiply-Subtract Method'}>
-    <am.MultiplySubtractVis {...props} />
-  </VizCard>
-)
-export const LongDivisionVis = props => (
-  <VizCard id={'10.1.3'} title={'Long Division'}>
-    <am.LongDivisionVis {...props} />
-  </VizCard>
-)
+// Vectors-Kinematics-and-Galilean-Structure viz (01.1.x + 01.11.1–3) moved inline
+// into src/features/explore/physics/classical-mechanics/part-i-newtonian-mechanics/
+// vectors-kinematics-and-galilean-structure.jsx.
 
-// ─── DECIMAL EXPANSION PROOFS ─────────────────────────────────────────────────
-export const FactorTreeVis = props => (
-  <VizCard id={'11.1.1'} title={'Factor Tree'}>
-    <am.FactorTreeVis {...props} />
-  </VizCard>
-)
-export const RepeatingDecimalVis = props => (
-  <VizCard id={'11.1.2'} title={'Repeating Decimal'}>
-    <am.RepeatingDecimalVis {...props} />
-  </VizCard>
-)
-export const PigeonholeVis = props => (
-  <VizCard id={'11.1.3'} title={'Pigeonhole Principle'}>
-    <am.PigeonholeVis {...props} />
-  </VizCard>
-)
+export const ViscousDecay = wrap(cm.ViscousDecay, {
+  aspect: 'auto',
+  size: 'body',
+  title: 'Viscous Decay'
+})
+export const SHM = wrap(cm.SHM, { aspect: 'auto', title: 'Simple Harmonic Motion' })
+export const HarmonicPhasePortrait = wrap(cm.HarmonicPhasePortrait, {
+  aspect: 'auto',
+  title: 'Harmonic Phase Portrait'
+})
+export const Lissajous = wrap(cm.Lissajous, { aspect: 'auto', title: 'Lissajous' })
+export const ShellTheoremForce = wrap(cm.ShellTheoremForce, {
+  aspect: 'auto',
+  title: 'Shell Theorem Force'
+})
+export const MomentumAddition = wrap(cm.MomentumAddition, {
+  aspect: 'auto',
+  title: 'Momentum Addition'
+})
+export const CMTwo = wrap(cm.CMTwo, { aspect: 'auto', title: 'CM · Two Particles' })
+export const CMRod = wrap(cm.CMRod, { aspect: 'auto', title: 'CM · Non-Uniform Rod' })
+export const CMTriangle = wrap(cm.CMTriangle, { aspect: 'auto', title: 'CM · Triangle (centroid)' })
+export const BatonCMParabola = wrap(cm.BatonCMParabola, {
+  aspect: 'auto',
+  title: "CM Parabola · Drum Major's Baton"
+})
+export const SpringGunRecoil = wrap(cm.SpringGunRecoil, {
+  aspect: 'auto',
+  title: 'Spring Gun Recoil'
+})
 
-// ─── CLASSICAL MECHANICS ─────────────────────────────────────────────────────
+// MATHEMATICS · ESTIMATION AND ROUNDING
+// Each viz function self-wraps in <VizFigure>; bare re-exports here.
+export const AbsoluteVsRelativeError = enr.AbsoluteVsRelativeError
+export const MomentumFlux = wrap(cm.MomentumFlux, { aspect: 'auto', title: 'Momentum Flux Stream' })
+export const EnergyDiagram = wrap(cm.EnergyDiagram, { aspect: 'auto', title: 'Energy Diagram' })
+export const ConservativeLoop = wrap(cm.ConservativeLoop, {
+  aspect: 'auto',
+  title: 'Closed Loop · ∮F·dl = 0 (conservative central field)'
+})
+export const GradLevelCurves = wrap(cm.GradLevelCurves, {
+  aspect: 'auto',
+  title: 'Gradient ⊥ Level Curves (U = x² + ¼y² ellipses)'
+})
+export const PotentialWellOsc = wrap(cm.PotentialWellOsc, {
+  aspect: 'auto',
+  title: 'Oscillation in a Potential Well'
+})
+export const ConicalNoWork = wrap(cm.ConicalNoWork, {
+  aspect: 'auto',
+  title: 'Conical Pendulum · Tension does no work'
+})
+export const ElasticCollision = wrap(cm.ElasticCollision, {
+  aspect: 'auto',
+  title: 'Elastic Collision'
+})
+export const StokesTheorem = wrap(cm.StokesTheorem, {
+  aspect: 'auto',
+  title: "Stokes' Theorem · circulation = enclosed curl"
+})
+export const PathDependentWork = wrap(cm.PathDependentWork, {
+  aspect: 'auto',
+  title: 'Path-Dependent Work'
+})
+export const SpringFieldViz = wrap(cm.SpringFieldViz, {
+  aspect: 'auto',
+  title: 'Spring Force Field'
+})
+export const AreaUnderForce = wrap(cm.AreaUnderForce, {
+  aspect: 'auto',
+  title: 'Area Under Force Curve = Work'
+})
+export const FromUtoF = wrap(cm.FromUtoF, { aspect: 'auto', title: 'From U to F · F = −U′(x)' })
+export const GradientHill = wrap(cm.GradientHill, { aspect: 'auto', title: 'Gradient on a Hill' })
+export const PaddleWheelCurl = wrap(cm.PaddleWheelCurl, {
+  aspect: 'auto',
+  title: 'Paddle Wheel · Curl (rotational vs irrotational)'
+})
+export const KeplerEqualAreas = wrap(cm.KeplerEqualAreas, {
+  aspect: 'auto',
+  title: 'Kepler Equal Areas'
+})
+export const EffectivePotentialPlot = wrap(cm.EffectivePotentialPlot, {
+  aspect: 'auto',
+  title: 'Effective Potential V(r)'
+})
+export const PolarDecomp = wrap(cm.PolarDecomp, {
+  aspect: 'auto',
+  title: 'Polar Frame Decomposition'
+})
+// 01.6.x central-force viz: leaf functions self-wrap in <VizFigure>; bare re-exports here.
+export const TwoBodyOrbit = cm.TwoBodyOrbit
+export const EffPotV = cm.EffPotV
+export const ConicOrbits = cm.ConicOrbits
+export const EllipseGeom = cm.EllipseGeom
+export const HohmannTransfer = cm.HohmannTransfer
+export const KeplerEA2 = cm.KeplerEA2
+export const RutherfordScattering = cm.RutherfordScattering
+export const LeonovCoOrbit = cm.LeonovCoOrbit
+export const NewtonCannonball = cm.NewtonCannonball
+export const KeplerThreeLaws = cm.KeplerThreeLaws
+export const CoriolisDrop = wrap(cm.CoriolisDrop, { aspect: 'auto', title: 'Coriolis' })
+export const PhaseShift = wrap(cm.PhaseShift, {
+  aspect: 'auto',
+  title: 'Sine and Cosine Phase Shift'
+})
+export const DampedOsc = wrap(cm.DampedOsc, { aspect: 'auto', title: 'Damped Oscillator' })
+export const DampingRegimes = wrap(cm.DampingRegimes, {
+  aspect: 'auto',
+  title: 'Three Damping Regimes'
+})
+export const LorentzianRes = wrap(cm.LorentzianRes, {
+  aspect: 'auto',
+  title: 'Lorentzian Resonance'
+})
+export const OrientationNonComm = wrap(cm.OrientationNonComm, {
+  aspect: 'auto',
+  title: 'Orientation Non-Commutativity'
+})
+export const SkewRod = wrap(cm.SkewRod, { aspect: 'auto', title: 'Skew Rod' })
+export const Gyroscope = wrap(cm.Gyroscope, { aspect: 'auto', title: 'Gyroscope precession' })
+export const EquinoxPrecession = wrap(cm.EquinoxPrecession, {
+  aspect: 'auto',
+  title: 'Equinox Precession'
+})
+export const InertiaTensor = wrap(cm.InertiaTensor, {
+  aspect: 'auto',
+  title: 'Tensor of Inertia (table-style)'
+})
+export const OblateProlate = wrap(cm.OblateProlate, { aspect: 'auto', title: 'Oblate vs Prolate' })
+export const PrecessionCone = wrap(cm.PrecessionCone, {
+  aspect: 'auto',
+  title: 'Torque-Free Precession Cone'
+})
+export const TennisRacket = wrap(cm.TennisRacket, { aspect: 'auto', title: 'Tennis Racket' })
+export const NonCentralPair = wrap(cm.NonCentralPair, {
+  aspect: 'auto',
+  title: 'Non-Central Force Pair'
+})
+export const OffsetSphere = wrap(cm.OffsetSphere, { aspect: 'auto', title: 'Offset sphere' })
+export const DumbbellTensor = wrap(cm.DumbbellTensor, { aspect: 'auto', title: 'Dumbbell tensor' })
+export const CycloidalNutation = wrap(cm.CycloidalNutation, {
+  aspect: 'auto',
+  title: 'Cycloidal Nutation'
+})
+export const Michelson = wrap(cm.Michelson, {
+  aspect: 'auto',
+  title: 'Michelson Interferometer (schematic)'
+})
+export const GammaVsBeta = wrap(cm.GammaVsBeta, { aspect: 'auto', title: 'Gamma vs β' })
+export const LightCone = wrap(cm.LightCone, { aspect: 'auto', title: 'Light Cone' })
+export const LengthContraction = wrap(cm.LengthContraction, {
+  aspect: 'auto',
+  title: 'Length Contraction'
+})
+export const LightClock = wrap(cm.LightClock, { aspect: 'auto', title: 'Light Clock' })
+export const RelDoppler = wrap(cm.RelDoppler, { aspect: 'auto', title: 'Relativistic Doppler' })
+export const TwinParadox = wrap(cm.TwinParadox, { aspect: 'auto', title: 'Twin Paradox' })
+export const RelMass = wrap(cm.RelMass, {
+  aspect: 'auto',
+  title: 'Relativistic Mass (Interactive)'
+})
+export const PairProduction = wrap(cm.PairProduction, { aspect: 'auto', title: 'Pair Production' })
+export const PendulumEnergy = wrap(cm.PendulumEnergy, { aspect: 'auto', title: 'Pendulum Energy' })
+export const ElasticCollisionCalc = wrap(cm.ElasticCollisionCalc, {
+  aspect: 'auto',
+  title: '1D Elastic Collision Calculator'
+})
+export const PhasePortraitDrag = wrap(cm.PhasePortraitDrag, {
+  aspect: 'auto',
+  title: 'Phase Portrait'
+})
+export const LorentzBoostInteractive = wrap(cm.LorentzBoostInteractive, {
+  aspect: 'auto',
+  title: 'Lorentz Boost'
+})
+export const ResonanceDriver = wrap(cm.ResonanceDriver, {
+  aspect: 'auto',
+  title: 'Resonance Driver'
+})
+export const ThreeBodyField = wrap(cm.ThreeBodyField, { aspect: 'auto', title: 'Three-Body Drag' })
 
-export const VecAddition = props => (
-  <VizCard id={'01.1.1'} title={'Vector Addition'}>
-    <cm.VecAddition {...props} />
-  </VizCard>
-)
-export const SlidingVector = props => (
-  <VizCard id={'01.1.2'} title={'Sliding Vector'}>
-    <cm.SlidingVector {...props} />
-  </VizCard>
-)
-export const ForceDecomp = props => (
-  <VizCard id={'01.1.3'} title={'Force Decomposition'}>
-    <cm.ForceDecomp {...props} />
-  </VizCard>
-)
-export const ComponentsRotation = props => (
-  <VizCard id={'01.1.4'} title={'Components Under Rotation'}>
-    <cm.ComponentsRotation {...props} />
-  </VizCard>
-)
-export const BaseVectors = props => (
-  <VizCard id={'01.1.5'} title={'Base Vectors'}>
-    <cm.BaseVectors {...props} />
-  </VizCard>
-)
-export const CrossProduct = props => (
-  <VizCard id={'01.1.6'} title={'Cross Product'}>
-    <cm.CrossProduct {...props} />
-  </VizCard>
-)
-export const CrossAntisym = props => (
-  <VizCard id={'01.1.7'} title={'Cross Antisymmetry'}>
-    <cm.CrossAntisym {...props} />
-  </VizCard>
-)
-export const DotWork = props => (
-  <VizCard id={'01.1.8'} title={'Dot Product · Work'}>
-    <cm.DotWork {...props} />
-  </VizCard>
-)
-export const DotProjection = props => (
-  <VizCard id={'01.1.9'} title={'Dot Projection'}>
-    <cm.DotProjection {...props} />
-  </VizCard>
-)
-export const PolarUnits = props => (
-  <VizCard id={'01.1.10'} title={'Polar Unit Vectors'}>
-    <cm.PolarUnits {...props} />
-  </VizCard>
-)
-export const DisplacementInvariant = props => (
-  <VizCard id={'01.1.11'} title={'Displacement Origin Invariance'}>
-    <cm.DisplacementInvariant {...props} />
-  </VizCard>
-)
-export const RotatingChord = props => (
-  <VizCard id={'01.1.12'} title={'Rotating Vector Chord'}>
-    <cm.RotatingChord {...props} />
-  </VizCard>
-)
-export const UCM = props => (
-  <VizCard id={'01.1.13'} title={'Uniform Circular Motion'}>
-    <cm.UCM {...props} />
-  </VizCard>
-)
-export const ProjectileMotion = props => (
-  <VizCard id={'01.1.14'} title={'Projectile Motion'}>
-    <cm.ProjectileMotion {...props} />
-  </VizCard>
-)
-export const TaylorSin = props => (
-  <VizCard id={'01.1.15'} title={'Taylor sin x'}>
-    <cm.TaylorSin {...props} />
-  </VizCard>
-)
-export const GalileanTable = cm.GalileanTable
-export const BlockOnWedge = props => (
-  <VizCard id={'01.2.1'} title={'Block on Wedge'}>
-    <cm.BlockOnWedge {...props} />
-  </VizCard>
-)
-export const WeightDecomp = props => (
-  <VizCard id={'01.2.2'} title={'Weight Decomposition (FBD only, geometric)'}>
-    <cm.WeightDecomp {...props} />
-  </VizCard>
-)
-export const ConicalBifurcation = props => (
-  <VizCard id={'01.2.3'} title={'Conical Pendulum Bifurcation'}>
-    <cm.ConicalBifurcation {...props} />
-  </VizCard>
-)
-export const HangingRope = props => (
-  <VizCard id={'01.2.4'} title={'Hanging Rope Tension'}>
-    <cm.HangingRope {...props} />
-  </VizCard>
-)
-export const ViscousDecay = props => (
-  <VizCard id={'01.2.5'} title={'Viscous Decay'}>
-    <cm.ViscousDecay {...props} />
-  </VizCard>
-)
-export const SHM = props => (
-  <VizCard id={'01.2.6'} title={'Simple Harmonic Motion'}>
-    <cm.SHM {...props} />
-  </VizCard>
-)
-export const HarmonicPhasePortrait = props => (
-  <VizCard id={'01.2.7'} title={'Harmonic Phase Portrait'}>
-    <cm.HarmonicPhasePortrait {...props} />
-  </VizCard>
-)
-export const CenterSaddle = props => (
-  <VizCard id={'01.2.8'} title={'Center vs Saddle'}>
-    <cm.CenterSaddle {...props} />
-  </VizCard>
-)
-export const DoubleWell = props => (
-  <VizCard id={'01.2.9'} title={'Double-Well'}>
-    <cm.DoubleWell {...props} />
-  </VizCard>
-)
-export const Lissajous = props => (
-  <VizCard id={'01.2.10'} title={'Lissajous'}>
-    <cm.Lissajous {...props} />
-  </VizCard>
-)
-export const PendulumPhasePlane = props => (
-  <VizCard id={'01.2.11'} title={'Pendulum Phase Plane'}>
-    <cm.PendulumPhasePlane {...props} />
-  </VizCard>
-)
-export const MomentumAddition = props => (
-  <VizCard id={'01.3.1'} title={'Momentum Addition'}>
-    <cm.MomentumAddition {...props} />
-  </VizCard>
-)
-export const CMTwo = props => (
-  <VizCard id={'01.3.2'} title={'CM · Two Particles'}>
-    <cm.CMTwo {...props} />
-  </VizCard>
-)
-export const CMRod = props => (
-  <VizCard id={'01.3.3'} title={'CM · Non-Uniform Rod'}>
-    <cm.CMRod {...props} />
-  </VizCard>
-)
-export const CMTriangle = props => (
-  <VizCard id={'01.3.4'} title={'CM · Triangle (centroid)'}>
-    <cm.CMTriangle {...props} />
-  </VizCard>
-)
-export const SpringGunRecoil = props => (
-  <VizCard id={'01.3.5'} title={'Spring Gun Recoil'}>
-    <cm.SpringGunRecoil {...props} />
-  </VizCard>
-)
-export const ImpulseVsTime = props => (
-  <VizCard id={'01.3.6'} title={'Impulse vs Time'}>
-    <cm.ImpulseVsTime {...props} />
-  </VizCard>
-)
-export const Tsiolkovsky = props => (
-  <VizCard id={'01.3.7'} title={'Tsiolkovsky Rocket'}>
-    <cm.Tsiolkovsky {...props} />
-  </VizCard>
-)
-export const MomentumFlux = props => (
-  <VizCard id={'01.3.8'} title={'Momentum Flux Stream'}>
-    <cm.MomentumFlux {...props} />
-  </VizCard>
-)
-export const MomentumVsForce = props => (
-  <VizCard id={'01.3.9'} title={'Momentum Form vs Force Form'}>
-    <cm.MomentumVsForce {...props} />
-  </VizCard>
-)
-export const EnergyDiagram = props => (
-  <VizCard id={'01.4.1'} title={'Energy Diagram'}>
-    <cm.EnergyDiagram {...props} />
-  </VizCard>
-)
-export const ConservativeLoop = props => (
-  <VizCard id={'01.4.2'} title={'Closed Loop · ∮F·dl = 0 (conservative central field)'}>
-    <cm.ConservativeLoop {...props} />
-  </VizCard>
-)
-export const GradLevelCurves = props => (
-  <VizCard id={'01.4.3'} title={'Gradient ⊥ Level Curves (U = x² + ¼y² ellipses)'}>
-    <cm.GradLevelCurves {...props} />
-  </VizCard>
-)
-export const PotentialWellOsc = props => (
-  <VizCard id={'01.4.4'} title={'Oscillation in a Potential Well'}>
-    <cm.PotentialWellOsc {...props} />
-  </VizCard>
-)
-export const ConicalNoWork = props => (
-  <VizCard id={'01.4.5'} title={'Conical Pendulum · Tension does no work'}>
-    <cm.ConicalNoWork {...props} />
-  </VizCard>
-)
-export const ElasticCollision = props => (
-  <VizCard id={'01.4.6'} title={'Elastic Collision'}>
-    <cm.ElasticCollision {...props} />
-  </VizCard>
-)
-export const StokesTheorem = props => (
-  <VizCard id={'01.4.7'} title={"Stokes' Theorem"}>
-    <cm.StokesTheorem {...props} />
-  </VizCard>
-)
-export const PathDependentWork = props => (
-  <VizCard id={'01.4.8'} title={'Path-Dependent Work'}>
-    <cm.PathDependentWork {...props} />
-  </VizCard>
-)
-export const SpringFieldViz = props => (
-  <VizCard id={'01.4.9'} title={'Spring Force Field'}>
-    <cm.SpringFieldViz {...props} />
-  </VizCard>
-)
-export const AreaUnderForce = props => (
-  <VizCard id={'01.4.10'} title={'Area Under Force Curve = Work'}>
-    <cm.AreaUnderForce {...props} />
-  </VizCard>
-)
-export const FromUtoF = props => (
-  <VizCard id={'01.4.11'} title={'From U to F · F = −U′(x)'}>
-    <cm.FromUtoF {...props} />
-  </VizCard>
-)
-export const GradientHill = props => (
-  <VizCard id={'01.4.12'} title={'Gradient on a Hill'}>
-    <cm.GradientHill {...props} />
-  </VizCard>
-)
-export const PaddleWheelCurl = props => (
-  <VizCard id={'01.4.13'} title={'Paddle Wheel · Curl'}>
-    <cm.PaddleWheelCurl {...props} />
-  </VizCard>
-)
-export const KeplerEqualAreas = props => (
-  <VizCard id={'01.4.14'} title={'Kepler Equal Areas'}>
-    <cm.KeplerEqualAreas {...props} />
-  </VizCard>
-)
-export const EffectivePotentialPlot = props => (
-  <VizCard id={'01.4.15'} title={'Effective Potential V(r)'}>
-    <cm.EffectivePotentialPlot {...props} />
-  </VizCard>
-)
-export const PolarDecomp = props => (
-  <VizCard id={'01.4.16'} title={'Polar Frame Decomposition'}>
-    <cm.PolarDecomp {...props} />
-  </VizCard>
-)
-export const AngMomGeom = props => (
-  <VizCard id={'01.5.1'} title={'L = r × p geometry'}>
-    <cm.AngMomGeom {...props} />
-  </VizCard>
-)
-export const SlidingTwoOrigins = props => (
-  <VizCard id={'01.5.2'} title={'Sliding block'}>
-    <cm.SlidingTwoOrigins {...props} />
-  </VizCard>
-)
-export const ConicalPendulum2 = props => (
-  <VizCard id={'01.5.3'} title={'Conical pendulum'}>
-    <cm.ConicalPendulum2 {...props} />
-  </VizCard>
-)
-export const TorqueLever = props => (
-  <VizCard id={'01.5.4'} title={'Torque & lever arm'}>
-    <cm.TorqueLever {...props} />
-  </VizCard>
-)
-export const MomentsTable = props => (
-  <VizCard id={'01.5.5'} title={'Moments of Inertia'}>
-    <cm.MomentsTable {...props} />
-  </VizCard>
-)
-export const ParallelAxis = props => (
-  <VizCard id={'01.5.6'} title={'Parallel Axis: I = I_cm + Md²'}>
-    <cm.ParallelAxis {...props} />
-  </VizCard>
-)
-export const PhysicalPendulum = props => (
-  <VizCard id={'01.5.7'} title={'Physical pendulum'}>
-    <cm.PhysicalPendulum {...props} />
-  </VizCard>
-)
-export const RollingWheel = props => (
-  <VizCard id={'01.5.8'} title={'Rolling wheel'}>
-    <cm.RollingWheel {...props} />
-  </VizCard>
-)
-export const DrumOnIncline = props => (
-  <VizCard id={'01.5.9'} title={'Drum on Incline'}>
-    <cm.DrumOnIncline {...props} />
-  </VizCard>
-)
-export const BohrAtom = props => (
-  <VizCard id={'01.5.10'} title={'Bohr atom'}>
-    <cm.BohrAtom {...props} />
-  </VizCard>
-)
-export const ChaslesRod = props => (
-  <VizCard id={'01.5.11'} title={'Chasles two-mass rod'}>
-    <cm.ChaslesRod {...props} />
-  </VizCard>
-)
-export const TwoBodyOrbit = props => (
-  <VizCard id={'01.6.1'} title={'Two-Body Orbit (Reduced Mass)'}>
-    <cm.TwoBodyOrbit {...props} />
-  </VizCard>
-)
-export const EffPotV = props => (
-  <VizCard id={'01.6.2'} title={'Effective Potential'}>
-    <cm.EffPotV {...props} />
-  </VizCard>
-)
-export const ConicOrbits = props => (
-  <VizCard id={'01.6.3'} title={'Conic Orbits (Interactive)'}>
-    <cm.ConicOrbits {...props} />
-  </VizCard>
-)
-export const EllipseGeom = props => (
-  <VizCard id={'01.6.4'} title={'Ellipse Geometry'}>
-    <cm.EllipseGeom {...props} />
-  </VizCard>
-)
-export const HohmannTransfer = props => (
-  <VizCard id={'01.6.5'} title={'Hohmann Transfer'}>
-    <cm.HohmannTransfer {...props} />
-  </VizCard>
-)
-export const KeplerEA2 = props => (
-  <VizCard id={'01.6.6'} title={'Kepler Equal Areas (compact)'}>
-    <cm.KeplerEA2 {...props} />
-  </VizCard>
-)
-export const CoriolisDrop = props => (
-  <VizCard id={'01.7.1'} title={'Coriolis'}>
-    <cm.CoriolisDrop {...props} />
-  </VizCard>
-)
-export const PhaseShift = props => (
-  <VizCard id={'01.8.1'} title={'Sine and Cosine Phase Shift'}>
-    <cm.PhaseShift {...props} />
-  </VizCard>
-)
-export const DampedOsc = props => (
-  <VizCard id={'01.8.2'} title={'Damped Oscillator'}>
-    <cm.DampedOsc {...props} />
-  </VizCard>
-)
-export const DampingRegimes = props => (
-  <VizCard id={'01.8.3'} title={'Three Damping Regimes'}>
-    <cm.DampingRegimes {...props} />
-  </VizCard>
-)
-export const LorentzianRes = props => (
-  <VizCard id={'01.8.4'} title={'Lorentzian Resonance'}>
-    <cm.LorentzianRes {...props} />
-  </VizCard>
-)
-export const OrientationNonComm = props => (
-  <VizCard id={'01.9.1'} title={'Orientation Non-Commutativity'}>
-    <cm.OrientationNonComm {...props} />
-  </VizCard>
-)
-export const SkewRod = props => (
-  <VizCard id={'01.9.2'} title={'Skew Rod'}>
-    <cm.SkewRod {...props} />
-  </VizCard>
-)
-export const Gyroscope = props => (
-  <VizCard id={'01.9.3'} title={'Gyroscope precession'}>
-    <cm.Gyroscope {...props} />
-  </VizCard>
-)
-export const EquinoxPrecession = props => (
-  <VizCard id={'01.9.4'} title={'Equinox Precession'}>
-    <cm.EquinoxPrecession {...props} />
-  </VizCard>
-)
-export const InertiaTensor = props => (
-  <VizCard id={'01.9.5'} title={'Tensor of Inertia (table-style)'}>
-    <cm.InertiaTensor {...props} />
-  </VizCard>
-)
-export const OblateProlate = props => (
-  <VizCard id={'01.9.6'} title={'Oblate vs Prolate'}>
-    <cm.OblateProlate {...props} />
-  </VizCard>
-)
-export const PrecessionCone = props => (
-  <VizCard id={'01.9.7'} title={'Torque-Free Precession Cone'}>
-    <cm.PrecessionCone {...props} />
-  </VizCard>
-)
-export const TennisRacket = props => (
-  <VizCard id={'01.9.8'} title={'Tennis Racket'}>
-    <cm.TennisRacket {...props} />
-  </VizCard>
-)
-export const NonCentralPair = props => (
-  <VizCard id={'01.9.9'} title={'Non-Central Force Pair'}>
-    <cm.NonCentralPair {...props} />
-  </VizCard>
-)
-export const OffsetSphere = props => (
-  <VizCard id={'01.9.10'} title={'Offset sphere'}>
-    <cm.OffsetSphere {...props} />
-  </VizCard>
-)
-export const DumbbellTensor = props => (
-  <VizCard id={'01.9.11'} title={'Dumbbell tensor'}>
-    <cm.DumbbellTensor {...props} />
-  </VizCard>
-)
-export const CycloidalNutation = props => (
-  <VizCard id={'01.9.12'} title={'Cycloidal Nutation'}>
-    <cm.CycloidalNutation {...props} />
-  </VizCard>
-)
-export const Michelson = props => (
-  <VizCard id={'01.10.1'} title={'Michelson Interferometer (schematic)'}>
-    <cm.Michelson {...props} />
-  </VizCard>
-)
-export const GammaVsBeta = props => (
-  <VizCard id={'01.10.2'} title={'Gamma vs β'}>
-    <cm.GammaVsBeta {...props} />
-  </VizCard>
-)
-export const LightCone = props => (
-  <VizCard id={'01.10.3'} title={'Light Cone'}>
-    <cm.LightCone {...props} />
-  </VizCard>
-)
-export const LengthContraction = props => (
-  <VizCard id={'01.10.4'} title={'Length Contraction'}>
-    <cm.LengthContraction {...props} />
-  </VizCard>
-)
-export const LightClock = props => (
-  <VizCard id={'01.10.5'} title={'Light Clock'}>
-    <cm.LightClock {...props} />
-  </VizCard>
-)
-export const RelDoppler = props => (
-  <VizCard id={'01.10.6'} title={'Relativistic Doppler'}>
-    <cm.RelDoppler {...props} />
-  </VizCard>
-)
-export const TwinParadox = props => (
-  <VizCard id={'01.10.7'} title={'Twin Paradox (FIXED: simultaneity lines bounded, no color leak)'}>
-    <cm.TwinParadox {...props} />
-  </VizCard>
-)
-export const RelMass = props => (
-  <VizCard id={'01.10.8'} title={'Relativistic Mass (Interactive)'}>
-    <cm.RelMass {...props} />
-  </VizCard>
-)
-export const PairProduction = props => (
-  <VizCard id={'01.10.9'} title={'Pair Production'}>
-    <cm.PairProduction {...props} />
-  </VizCard>
-)
-export const DragVector = props => (
-  <VizCard id={'01.11.1'} title={'Drag the Vector'}>
-    <cm.DragVector {...props} />
-  </VizCard>
-)
-export const DotProductInteractive = props => (
-  <VizCard id={'01.11.2'} title={'Dot Product Geometry'}>
-    <cm.DotProductInteractive {...props} />
-  </VizCard>
-)
-export const ProjectileLauncher = props => (
-  <VizCard id={'01.11.3'} title={'Projectile Range'}>
-    <cm.ProjectileLauncher {...props} />
-  </VizCard>
-)
-export const InclineBlock = props => (
-  <VizCard id={'01.11.4'} title={'Inclined Block'}>
-    <cm.InclineBlock {...props} />
-  </VizCard>
-)
-export const PendulumEnergy = props => (
-  <VizCard id={'01.11.5'} title={'Pendulum Energy'}>
-    <cm.PendulumEnergy {...props} />
-  </VizCard>
-)
-export const DragCenterOfMass = props => (
-  <VizCard id={'01.11.6'} title={'Drag Two Masses'}>
-    <cm.DragCenterOfMass {...props} />
-  </VizCard>
-)
-export const ElasticCollisionCalc = props => (
-  <VizCard id={'01.11.7'} title={'1D Elastic Collision Calculator'}>
-    <cm.ElasticCollisionCalc {...props} />
-  </VizCard>
-)
-export const PhasePortraitDrag = props => (
-  <VizCard id={'01.11.8'} title={'Phase Portrait'}>
-    <cm.PhasePortraitDrag {...props} />
-  </VizCard>
-)
-export const OrbitDesigner = props => (
-  <VizCard id={'01.11.9'} title={'Orbit Designer'}>
-    <cm.OrbitDesigner {...props} />
-  </VizCard>
-)
-export const LorentzBoostInteractive = props => (
-  <VizCard id={'01.11.10'} title={'Lorentz Boost'}>
-    <cm.LorentzBoostInteractive {...props} />
-  </VizCard>
-)
-export const ResonanceDriver = props => (
-  <VizCard id={'01.11.11'} title={'Resonance Driver'}>
-    <cm.ResonanceDriver {...props} />
-  </VizCard>
-)
-export const ThreeBodyField = props => (
-  <VizCard id={'01.11.12'} title={'Three-Body Drag'}>
-    <cm.ThreeBodyField {...props} />
-  </VizCard>
-)
+// Part III: Hamiltonian Mechanics
 
-// ── Part III: Hamiltonian Mechanics ─────────────────────────────────────────
+export const NestedEnergyLevels = wrap(cm.NestedEnergyLevels, {
+  aspect: 'auto',
+  title: 'Nested Energy Levels'
+})
+export const PhaseFlowOrbits = wrap(cm.PhaseFlowOrbits, {
+  aspect: 'auto',
+  title: 'Phase Flow Orbits'
+})
+export const LiouvilleBlob = wrap(cm.LiouvilleBlob, { aspect: 'auto', title: 'Liouville Theorem' })
+export const LegendreHamiltonian = wrap(cm.LegendreHamiltonian, {
+  aspect: 'auto',
+  title: 'Legendre Transform'
+})
+export const GeneratingFunctionGeom = wrap(cm.GeneratingFunctionGeom, {
+  aspect: 'auto',
+  title: 'Generating Function Geometry'
+})
+export const HJWavefronts = wrap(cm.HJWavefronts, {
+  aspect: 'auto',
+  title: 'Hamilton-Jacobi Wavefronts'
+})
+export const ActionCoordinate = wrap(cm.ActionCoordinate, {
+  aspect: 'auto',
+  title: 'Action as Coordinate'
+})
+export const ActionAngleConstruction = wrap(cm.ActionAngleConstruction, {
+  aspect: 'auto',
+  title: 'Action-Angle Construction'
+})
+export const IntegrablePhasePortrait = wrap(cm.IntegrablePhasePortrait, {
+  aspect: 'auto',
+  title: 'Integrable Phase Portrait'
+})
+export const TorusTrajectoryViz = wrap(cm.TorusTrajectoryViz, {
+  aspect: 'auto',
+  title: 'Torus Trajectory'
+})
+export const AveragingViz = wrap(cm.AveragingViz, { aspect: 'auto', title: 'Averaging Theorem' })
+export const JacobiGeodesicDeviation = wrap(cm.JacobiGeodesicDeviation, {
+  aspect: 'auto',
+  title: 'Jacobi Geodesic Deviation'
+})
+export const CoadjointOrbitSphere = wrap(cm.CoadjointOrbitSphere, {
+  aspect: 'auto',
+  title: 'Co-adjoint Orbit'
+})
+export const PoissonBracketAlgebra = wrap(cm.PoissonBracketAlgebra, {
+  aspect: 'auto',
+  title: 'Poisson Bracket Algebra'
+})
 
-export const NestedEnergyLevels = props => (
-  <VizCard id={'03.1.1'} title={'Nested Energy Levels'}>
-    <cm.NestedEnergyLevels {...props} />
-  </VizCard>
-)
-export const PhaseFlowOrbits = props => (
-  <VizCard id={'03.1.2'} title={'Phase Flow Orbits'}>
-    <cm.PhaseFlowOrbits {...props} />
-  </VizCard>
-)
-export const LiouvilleBlob = props => (
-  <VizCard id={'03.1.3'} title={'Liouville Theorem'}>
-    <cm.LiouvilleBlob {...props} />
-  </VizCard>
-)
-export const LegendreHamiltonian = props => (
-  <VizCard id={'03.1.4'} title={'Legendre Transform'}>
-    <cm.LegendreHamiltonian {...props} />
-  </VizCard>
-)
-export const GeneratingFunctionGeom = props => (
-  <VizCard id={'03.2.1'} title={'Generating Function Geometry'}>
-    <cm.GeneratingFunctionGeom {...props} />
-  </VizCard>
-)
-export const HJWavefronts = props => (
-  <VizCard id={'03.2.2'} title={'Hamilton-Jacobi Wavefronts'}>
-    <cm.HJWavefronts {...props} />
-  </VizCard>
-)
-export const ActionCoordinate = props => (
-  <VizCard id={'03.2.3'} title={'Action as Coordinate'}>
-    <cm.ActionCoordinate {...props} />
-  </VizCard>
-)
-export const ActionAngleConstruction = props => (
-  <VizCard id={'03.3.1'} title={'Action-Angle Construction'}>
-    <cm.ActionAngleConstruction {...props} />
-  </VizCard>
-)
-export const IntegrablePhasePortrait = props => (
-  <VizCard id={'03.3.2'} title={'Integrable Phase Portrait'}>
-    <cm.IntegrablePhasePortrait {...props} />
-  </VizCard>
-)
-export const TorusTrajectoryViz = props => (
-  <VizCard id={'03.3.3'} title={'Torus Trajectory'}>
-    <cm.TorusTrajectoryViz {...props} />
-  </VizCard>
-)
-export const AveragingViz = props => (
-  <VizCard id={'03.3.4'} title={'Averaging Theorem'}>
-    <cm.AveragingViz {...props} />
-  </VizCard>
-)
-export const JacobiGeodesicDeviation = props => (
-  <VizCard id={'03.4.1'} title={'Jacobi Geodesic Deviation'}>
-    <cm.JacobiGeodesicDeviation {...props} />
-  </VizCard>
-)
-export const CoadjointOrbitSphere = props => (
-  <VizCard id={'03.4.2'} title={'Co-adjoint Orbit'}>
-    <cm.CoadjointOrbitSphere {...props} />
-  </VizCard>
-)
-export const PoissonBracketAlgebra = props => (
-  <VizCard id={'03.4.3'} title={'Poisson Bracket Algebra'}>
-    <cm.PoissonBracketAlgebra {...props} />
-  </VizCard>
-)
+// Part IV: Perturbation Theory
 
-// ── Part IV: Perturbation Theory ─────────────────────────────────────────────
+export const AdiabaticOscillator = wrap(cm.AdiabaticOscillator, {
+  aspect: 'auto',
+  title: 'Adiabatic Oscillator'
+})
+export const AdiabaticInvariantArea = wrap(cm.AdiabaticInvariantArea, {
+  aspect: 'auto',
+  title: 'Adiabatic Invariant'
+})
+// self-wraps in <VizFigure>; bare re-export here.
+export const AdiabaticPhaseEllipse = cm.AdiabaticPhaseEllipse
+export const InvariantToriDiagram = wrap(cm.InvariantToriDiagram, {
+  aspect: 'auto',
+  title: 'Invariant Tori'
+})
+export const KAMCantorSet = wrap(cm.KAMCantorSet, { aspect: 'auto', title: 'KAM Cantor Set' })
+export const ConditionallyPeriodic = wrap(cm.ConditionallyPeriodic, {
+  aspect: 'auto',
+  title: 'Conditionally Periodic'
+})
+export const FrequencyMap = wrap(cm.FrequencyMap, { aspect: 'auto', title: 'Frequency Map' })
+export const ArnoldDiffusion = wrap(cm.ArnoldDiffusion, {
+  aspect: 'auto',
+  title: 'Arnold Diffusion'
+})
+export const PoincareBirkhoff = wrap(cm.PoincareBirkhoff, {
+  aspect: 'auto',
+  title: 'Poincaré-Birkhoff Theorem'
+})
+export const ResonancePortrait = wrap(cm.ResonancePortrait, {
+  aspect: 'auto',
+  title: 'Resonance Portrait'
+})
+export const FrequencyRepulsion = wrap(cm.FrequencyRepulsion, {
+  aspect: 'auto',
+  title: 'Frequency Repulsion'
+})
 
-export const AdiabaticOscillator = props => (
-  <VizCard id={'04.1.1'} title={'Adiabatic Oscillator'}>
-    <cm.AdiabaticOscillator {...props} />
-  </VizCard>
-)
-export const AdiabaticInvariantArea = props => (
-  <VizCard id={'04.1.2'} title={'Adiabatic Invariant'}>
-    <cm.AdiabaticInvariantArea {...props} />
-  </VizCard>
-)
-export const AdiabaticPhaseEllipse = props => (
-  <VizCard id={'04.1.3'} title={'Adiabatic Phase Ellipse'}>
-    <cm.AdiabaticPhaseEllipse {...props} />
-  </VizCard>
-)
-export const InvariantToriDiagram = props => (
-  <VizCard id={'04.2.1'} title={'Invariant Tori'}>
-    <cm.InvariantToriDiagram {...props} />
-  </VizCard>
-)
-export const KAMCantorSet = props => (
-  <VizCard id={'04.2.2'} title={'KAM Cantor Set'}>
-    <cm.KAMCantorSet {...props} />
-  </VizCard>
-)
-export const ConditionallyPeriodic = props => (
-  <VizCard id={'04.2.3'} title={'Conditionally Periodic'}>
-    <cm.ConditionallyPeriodic {...props} />
-  </VizCard>
-)
-export const FrequencyMap = props => (
-  <VizCard id={'04.2.4'} title={'Frequency Map'}>
-    <cm.FrequencyMap {...props} />
-  </VizCard>
-)
-export const ArnoldDiffusion = props => (
-  <VizCard id={'04.2.5'} title={'Arnold Diffusion'}>
-    <cm.ArnoldDiffusion {...props} />
-  </VizCard>
-)
-export const PoincareBirkhoff = props => (
-  <VizCard id={'04.3.1'} title={'Poincaré-Birkhoff Theorem'}>
-    <cm.PoincareBirkhoff {...props} />
-  </VizCard>
-)
-export const ResonancePortrait = props => (
-  <VizCard id={'04.3.2'} title={'Resonance Portrait'}>
-    <cm.ResonancePortrait {...props} />
-  </VizCard>
-)
-export const FrequencyRepulsion = props => (
-  <VizCard id={'04.3.3'} title={'Frequency Repulsion'}>
-    <cm.FrequencyRepulsion {...props} />
-  </VizCard>
-)
+// PHYSICS · CLASSICAL GEOMETRIC PHASE / HANNAY ANGLE
+export const SolidAngleHolonomy = wrap(ihan.SolidAngleHolonomy, {
+  aspect: 'auto',
+  title: 'Holonomy on the Sphere = Enclosed Solid Angle'
+})
+export const DynamicalVsGeometricPhase = wrap(ihan.DynamicalVsGeometricPhase, {
+  aspect: 'auto',
+  title: 'Dynamical Phase Grows with T; Geometric Phase Does Not'
+})
+export const FoucaultPrecession = wrap(ihan.FoucaultPrecession, {
+  aspect: 'auto',
+  title: 'Foucault Precession: −2π sin λ per Day'
+})
 
-// ─── ALGEBRA ─────────────────────────────────────────────────────────────────
+// Part IV: Lie Transformation Method (Deprit Series)
+export const LieSeriesFlow = wrap(cm.LieSeriesFlow, {
+  aspect: 'auto',
+  title: 'Lie Series as a Phase-Flow'
+})
+export const DepritTriangle = wrap(cm.DepritTriangle, {
+  aspect: 'auto',
+  title: 'Deprit Recursion Triangle'
+})
+export const PendulumOrderConvergence = wrap(cm.PendulumOrderConvergence, {
+  aspect: 'auto',
+  title: 'Pendulum Frequency: Order-by-Order Convergence'
+})
 
-// ─── M01 FOUNDATIONS ──────────────────────────────────────────────────────────
-export const NumberLineNegativesViz = props => (
-  <VizCard id={'A.01.1'} title={'Number Line · Negatives'}>
-    <al.NumberLineNegativesViz {...props} />
-  </VizCard>
-)
-export const BinaryPlaceValueViz = props => (
-  <VizCard id={'A.01.2'} title={'Binary Place Value'}>
-    <al.BinaryPlaceValueViz {...props} />
-  </VizCard>
-)
-export const CommutativityGridViz = props => (
-  <VizCard id={'A.01.3'} title={'Commutativity Grid'}>
-    <al.CommutativityGridViz {...props} />
-  </VizCard>
-)
-export const DistributiveLawViz = props => (
-  <VizCard id={'A.01.4'} title={'Distributive Law'}>
-    <al.DistributiveLawViz {...props} />
-  </VizCard>
-)
-export const NumberLineViz = props => (
-  <VizCard id={'A.01.5'} title={'Number Line · Real Numbers'}>
-    <al.NumberLineViz {...props} />
-  </VizCard>
-)
-export const PemdasViz = props => (
-  <VizCard id={'A.01.6'} title={'PEMDAS · Order of Operations'}>
-    <al.PemdasViz {...props} />
-  </VizCard>
-)
-export const ExponentLawsViz = props => (
-  <VizCard id={'A.01.7'} title={'Exponent Laws'}>
-    <al.ExponentLawsViz {...props} />
-  </VizCard>
-)
-export const SquareOfSumGeomViz = props => (
-  <VizCard id={'A.01.8'} title={'Square of a Sum · Geometric'}>
-    <al.SquareOfSumGeomViz {...props} />
-  </VizCard>
-)
-export const DiffOfSquaresGeomViz = props => (
-  <VizCard id={'A.01.9'} title={'Difference of Squares · Geometric'}>
-    <al.DiffOfSquaresGeomViz {...props} />
-  </VizCard>
-)
-export const PascalTriangleViz = props => (
-  <VizCard id={'A.01.10'} title={"Pascal's Triangle"}>
-    <al.PascalTriangleViz {...props} />
-  </VizCard>
-)
+// PHYSICS · LIOUVILLE & POINCARÉ RECURRENCE
+export const HamiltonianVectorField = wrap(ilpr.HamiltonianVectorField, {
+  aspect: 'auto',
+  title: 'Hamiltonian Vector Field: div f = 0'
+})
+export const PoincareRotation = wrap(ilpr.PoincareRotation, {
+  aspect: 'auto',
+  title: 'Circle Rotation: Rational vs Irrational Return'
+})
+export const TorusWinding = wrap(ilpr.TorusWinding, {
+  aspect: 'auto',
+  title: 'Winding Line on the Torus'
+})
 
-// ─── M02 LINEAR EQUATIONS ─────────────────────────────────────────────────────
-export const TwoLinesViz = props => (
-  <VizCard id={'A.02.1'} title={'Two Lines · Intersection'}>
-    <al.TwoLinesViz {...props} />
-  </VizCard>
-)
-export const ParabolaPlotViz = props => (
-  <VizCard id={'A.02.2'} title={'Parabola Plot'}>
-    <al.ParabolaPlotViz {...props} />
-  </VizCard>
-)
+// ALGEBRA
 
-// ─── M03 QUADRATIC EQUATIONS ──────────────────────────────────────────────────
-export const StandardFormViz = props => (
-  <VizCard id={'A.03.1'} title={'Quadratic · Standard Form'}>
-    <al.StandardFormViz {...props} />
-  </VizCard>
-)
-export const ParabolaDiscriminantViz = props => (
-  <VizCard id={'A.03.2'} title={'Discriminant · Three Cases'}>
-    <al.ParabolaDiscriminantViz {...props} />
-  </VizCard>
-)
-export const InteractiveDiscriminantViz = props => (
-  <VizCard id={'A.03.3'} title={'Interactive Discriminant'}>
-    <al.InteractiveDiscriminantViz {...props} />
-  </VizCard>
-)
-export const InteractiveParabolaViz = props => (
-  <VizCard id={'A.03.4'} title={'Interactive Parabola'}>
-    <al.InteractiveParabolaViz {...props} />
-  </VizCard>
-)
-export const NumberLineInequalityViz = props => (
-  <VizCard id={'A.03.5'} title={'Quadratic Inequality · Sign Chart'}>
-    <al.NumberLineInequalityViz {...props} />
-  </VizCard>
-)
-export const PowersOfIViz = props => (
-  <VizCard id={'A.03.6'} title={'Powers of i'}>
-    <al.PowersOfIViz {...props} />
-  </VizCard>
-)
-export const VietasRootsViz = props => (
-  <VizCard id={'A.03.7'} title={"Vieta's Roots"}>
-    <al.VietasRootsViz {...props} />
-  </VizCard>
-)
-export const MaxMinViz = props => (
-  <VizCard id={'A.03.8'} title={'Vertex · Max / Min'}>
-    <al.MaxMinViz {...props} />
-  </VizCard>
-)
-export const AlKhwarizmiViz = props => (
-  <VizCard id={'A.03.9'} title={'Al-Khwarizmi · Completing the Square'}>
-    <al.AlKhwarizmiViz {...props} />
-  </VizCard>
-)
+// M01 FOUNDATIONS
+export const NumberLineNegativesViz = wrap(al.NumberLineNegativesViz, {
+  aspect: 'auto',
+  title: 'Number Line · Negatives'
+})
+export const BinaryPlaceValueViz = wrap(al.BinaryPlaceValueViz, {
+  aspect: 'auto',
+  title: 'Binary Place Value'
+})
+export const CommutativityGridViz = wrap(al.CommutativityGridViz, {
+  aspect: 'auto',
+  title: 'Commutativity Grid'
+})
+export const DistributiveLawViz = wrap(al.DistributiveLawViz, {
+  aspect: 'auto',
+  title: 'Distributive Law'
+})
+export const NumberLineViz = wrap(al.NumberLineViz, {
+  aspect: 'auto',
+  title: 'Number Line · Real Numbers'
+})
+export const SquareOfSumGeomViz = wrap(al.SquareOfSumGeomViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Square of a Sum · Geometric'
+})
+export const PascalTriangleViz = wrap(al.PascalTriangleViz, {
+  aspect: 'auto',
+  title: "Pascal's Triangle"
+})
 
-// ─── M04 ROOTS · POWERS · INEQUALITIES ────────────────────────────────────────
-export const MeanChainViz = props => (
-  <VizCard id={'A.04.1'} title={'Mean Chain · HM ≤ GM ≤ AM ≤ QM'}>
-    <al.MeanChainViz {...props} />
-  </VizCard>
-)
-export const AMGMRectViz = props => (
-  <VizCard id={'A.04.2'} title={'AM-GM · Rectangle'}>
-    <al.AMGMRectViz {...props} />
-  </VizCard>
-)
-export const QMConvexViz = props => (
-  <VizCard id={'A.04.3'} title={'QM ≥ AM · Convexity'}>
-    <al.QMConvexViz {...props} />
-  </VizCard>
-)
+// M02 LINEAR EQUATIONS
+export const TwoLinesViz = wrap(al.TwoLinesViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Two Lines · Intersection'
+})
+export const ParabolaPlotViz = wrap(al.ParabolaPlotViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Parabola Plot'
+})
 
-// ─── M05 FRACTIONS · RATIOS · PROPORTIONS ─────────────────────────────────────
-export const FractionNumberLineViz = props => (
-  <VizCard id={'A.05.1'} title={'Fractions on the Number Line'}>
-    <al.FractionNumberLineViz {...props} />
-  </VizCard>
-)
-export const DirectProportionViz = props => (
-  <VizCard id={'A.05.2'} title={'Direct Proportion'}>
-    <al.DirectProportionViz {...props} />
-  </VizCard>
-)
-export const InverseProportionViz = props => (
-  <VizCard id={'A.05.3'} title={'Inverse Proportion'}>
-    <al.InverseProportionViz {...props} />
-  </VizCard>
-)
+// INFORMATION THEORY (Shannon)
+export const BinaryEntropyViz = wrap(it.BinaryEntropyViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Binary Entropy'
+})
+export const ShannonHartleyViz = wrap(it.ShannonHartleyViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Shannon–Hartley Capacity'
+})
+export const GaussianEntropyViz = wrap(it.GaussianEntropyViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Gaussian Entropy'
+})
+export const RateDistortionViz = wrap(it.RateDistortionViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Rate–Distortion'
+})
+export const CommunicationSystemViz = wrap(it.CommunicationSystemViz, {
+  aspect: 'auto',
+  title: 'Communication System'
+})
+export const TwoStateMarkovViz = wrap(it.TwoStateMarkovViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Two-State Markov Source'
+})
+export const ShannonFanoTreeViz = wrap(it.ShannonFanoTreeViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Shannon–Fano Code Tree'
+})
+export const BinarySymmetricChannelViz = wrap(it.BinarySymmetricChannelViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Binary Symmetric Channel'
+})
 
-// ─── M06 EXPONENTS · RADICALS ─────────────────────────────────────────────────
-export const PowersOf2Viz = props => (
-  <VizCard id={'A.06.1'} title={'Powers of 2'}>
-    <al.PowersOf2Viz {...props} />
-  </VizCard>
-)
-export const ExponentAdditionViz = props => (
-  <VizCard id={'A.06.2'} title={'Exponent Addition · aᵐ · aⁿ'}>
-    <al.ExponentAdditionViz {...props} />
-  </VizCard>
-)
-export const FractionCompareViz = props => (
-  <VizCard id={'A.06.3'} title={'Fraction Comparison'}>
-    <al.FractionCompareViz {...props} />
-  </VizCard>
-)
+// M03 QUADRATIC EQUATIONS
+export const StandardFormViz = wrap(al.StandardFormViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Quadratic · Standard Form'
+})
+export const ParabolaDiscriminantViz = wrap(al.ParabolaDiscriminantViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Discriminant · Three Cases'
+})
+export const InteractiveDiscriminantViz = wrap(al.InteractiveDiscriminantViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Interactive Discriminant'
+})
+export const InteractiveParabolaViz = wrap(al.InteractiveParabolaViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Interactive Parabola'
+})
+export const NumberLineInequalityViz = wrap(al.NumberLineInequalityViz, {
+  aspect: 'auto',
+  title: 'Quadratic Inequality · Sign Chart'
+})
+export const PowersOfIViz = wrap(al.PowersOfIViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Powers of i'
+})
+export const VietasRootsViz = wrap(al.VietasRootsViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: "Vieta's Roots"
+})
+export const MaxMinViz = wrap(al.MaxMinViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Vertex · Max / Min'
+})
+export const AlKhwarizmiViz = wrap(al.AlKhwarizmiViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Al-Khwarizmi · Completing the Square'
+})
 
-// ─── M07 POLYNOMIALS ──────────────────────────────────────────────────────────
-export const PolynomialLabeledViz = props => (
-  <VizCard id={'A.07.1'} title={'Polynomial · Term Degrees'}>
-    <al.PolynomialLabeledViz {...props} />
-  </VizCard>
-)
-export const PolynomialCurveViz = props => (
-  <VizCard id={'A.07.2'} title={'Polynomial Curve · Drag'}>
-    <al.PolynomialCurveViz {...props} />
-  </VizCard>
-)
-export const LogExpInverseViz = props => (
-  <VizCard id={'A.07.3'} title={'Log and Exp as Inverses'}>
-    <al.LogExpInverseViz {...props} />
-  </VizCard>
-)
-export const FloorStaircaseViz = props => (
-  <VizCard id={'A.07.4'} title={'Floor Function · Staircase'}>
-    <al.FloorStaircaseViz {...props} />
-  </VizCard>
-)
+// M04 ROOTS · POWERS · INEQUALITIES
+export const MeanChainViz = wrap(al.MeanChainViz, {
+  aspect: 'auto',
+  title: 'Mean Chain · HM ≤ GM ≤ AM ≤ QM'
+})
+export const AMGMRectViz = wrap(al.AMGMRectViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'AM-GM · Rectangle'
+})
+export const QMConvexViz = wrap(al.QMConvexViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'QM ≥ AM · Convexity'
+})
 
-// ─── M08 GRAPHING LINES ───────────────────────────────────────────────────────
-export const CartesianPlaneViz = props => (
-  <VizCard id={'A.08.1'} title={'Cartesian Plane · Quadrants'}>
-    <al.CartesianPlaneViz {...props} />
-  </VizCard>
-)
-export const PlotPointsViz = props => (
-  <VizCard id={'A.08.2'} title={'Plotting Points'}>
-    <al.PlotPointsViz {...props} />
-  </VizCard>
-)
-export const DistanceTriangleViz = props => (
-  <VizCard id={'A.08.3'} title={'Distance · Triangle'}>
-    <al.DistanceTriangleViz {...props} />
-  </VizCard>
-)
-export const SlopeTypesViz = props => (
-  <VizCard id={'A.08.4'} title={'Slope Types'}>
-    <al.SlopeTypesViz {...props} />
-  </VizCard>
-)
-export const LineSlopeInterceptViz = props => (
-  <VizCard id={'A.08.5'} title={'Slope-Intercept · y = mx + b'}>
-    <al.LineSlopeInterceptViz {...props} />
-  </VizCard>
-)
-export const ParallelPerpViz = props => (
-  <VizCard id={'A.08.6'} title={'Parallel and Perpendicular'}>
-    <al.ParallelPerpViz {...props} />
-  </VizCard>
-)
-export const SystemsViz = props => (
-  <VizCard id={'A.08.7'} title={'Two-Line System'}>
-    <al.SystemsViz {...props} />
-  </VizCard>
-)
-export const NumberLineInequalityVizGL = props => (
-  <VizCard id={'A.08.8'} title={'Linear Inequality · Number Line'}>
-    <al.NumberLineInequalityVizGL {...props} />
-  </VizCard>
-)
-export const HalfPlaneViz = props => (
-  <VizCard id={'A.08.9'} title={'Half-Plane · y > mx + b'}>
-    <al.HalfPlaneViz {...props} />
-  </VizCard>
-)
-export const FeasibleRegionViz = props => (
-  <VizCard id={'A.08.10'} title={'Feasible Region'}>
-    <al.FeasibleRegionViz {...props} />
-  </VizCard>
-)
+// M05 FRACTIONS · RATIOS · PROPORTIONS
+export const FractionNumberLineViz = wrap(al.FractionNumberLineViz, {
+  aspect: 'auto',
+  title: 'Fractions on the Number Line'
+})
+export const DirectProportionViz = wrap(al.DirectProportionViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Direct Proportion'
+})
+export const InverseProportionViz = wrap(al.InverseProportionViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Inverse Proportion'
+})
 
-// ─── M09 QUADRATIC FUNCTIONS ──────────────────────────────────────────────────
-export const ParabolaBasicViz = props => (
-  <VizCard id={'A.09.1'} title={'Parabola · y = x²'}>
-    <al.ParabolaBasicViz {...props} />
-  </VizCard>
-)
-export const ParabolaCoeffViz = props => (
-  <VizCard id={'A.09.2'} title={'Parabola · Effect of a'}>
-    <al.ParabolaCoeffViz {...props} />
-  </VizCard>
-)
-export const InteractiveVertexViz = props => (
-  <VizCard id={'A.09.3'} title={'Interactive Vertex · (x − h)² + k'}>
-    <al.InteractiveVertexViz {...props} />
-  </VizCard>
-)
-export const HorizontalParabolaViz = props => (
-  <VizCard id={'A.09.4'} title={'Horizontal Parabola'}>
-    <al.HorizontalParabolaViz {...props} />
-  </VizCard>
-)
-export const CircleViz = props => (
-  <VizCard id={'A.09.5'} title={'Circle · Center and Radius'}>
-    <al.CircleViz {...props} />
-  </VizCard>
-)
-export const QuadInequalityViz = props => (
-  <VizCard id={'A.09.6'} title={'Quadratic Inequality'}>
-    <al.QuadInequalityViz {...props} />
-  </VizCard>
-)
-export const TrivialInequalityViz = props => (
-  <VizCard id={'A.09.7'} title={'Trivial Inequality · x² ≥ 0'}>
-    <al.TrivialInequalityViz {...props} />
-  </VizCard>
-)
-export const InteractiveOptimizationViz = props => (
-  <VizCard id={'A.09.8'} title={'Interactive Optimization'}>
-    <al.InteractiveOptimizationViz {...props} />
-  </VizCard>
-)
-export const NumberLineSignViz = props => (
-  <VizCard id={'A.09.9'} title={'Polynomial Sign Chart'}>
-    <al.NumberLineSignViz {...props} />
-  </VizCard>
-)
+// M06 EXPONENTS · RADICALS
+export const PowersOf2Viz = wrap(al.PowersOf2Viz, { aspect: 'auto', title: 'Powers of 2' })
+export const ExponentAdditionViz = wrap(al.ExponentAdditionViz, {
+  aspect: 'auto',
+  title: 'Exponent Addition · aᵐ · aⁿ'
+})
+export const FractionCompareViz = wrap(al.FractionCompareViz, {
+  aspect: 'auto',
+  title: 'Fraction Comparison'
+})
 
-// ─── M10 FUNCTIONS ────────────────────────────────────────────────────────────
-export const FunctionMachineViz = props => (
-  <VizCard id={'A.10.1'} title={'Function Machine'}>
-    <al.FunctionMachineViz {...props} />
-  </VizCard>
-)
-export const CompositionChainViz = props => (
-  <VizCard id={'A.10.2'} title={'Function Composition Chain'}>
-    <al.CompositionChainViz {...props} />
-  </VizCard>
-)
-export const GraphPointViz = props => (
-  <VizCard id={'A.10.3'} title={'Point on a Graph'}>
-    <al.GraphPointViz {...props} />
-  </VizCard>
-)
-export const ParabolaViz = props => (
-  <VizCard id={'A.10.4'} title={'Parabola · y = x² − 5x + 6'}>
-    <al.ParabolaViz {...props} />
-  </VizCard>
-)
-export const IntersectionViz = props => (
-  <VizCard id={'A.10.5'} title={'Curve Intersection'}>
-    <al.IntersectionViz {...props} />
-  </VizCard>
-)
-export const VerticalScaleViz = props => (
-  <VizCard id={'A.10.6'} title={'Vertical Scaling'}>
-    <al.VerticalScaleViz {...props} />
-  </VizCard>
-)
-export const HorizontalScaleViz = props => (
-  <VizCard id={'A.10.7'} title={'Horizontal Scaling'}>
-    <al.HorizontalScaleViz {...props} />
-  </VizCard>
-)
-export const InverseGraphViz = props => (
-  <VizCard id={'A.10.8'} title={'Inverse Graph'}>
-    <al.InverseGraphViz {...props} />
-  </VizCard>
-)
-export const RefInverseViz = props => (
-  <VizCard id={'A.10.9'} title={'Reference Inverse'}>
-    <al.RefInverseViz {...props} />
-  </VizCard>
-)
+// M07 POLYNOMIALS
+export const PolynomialLabeledViz = wrap(al.PolynomialLabeledViz, {
+  aspect: 'auto',
+  title: 'Polynomial · Term Degrees'
+})
+export const PolynomialCurveViz = wrap(al.PolynomialCurveViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Polynomial Curve · Drag'
+})
+export const LogExpInverseViz = wrap(al.LogExpInverseViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Log and Exp as Inverses'
+})
+export const FloorStaircaseViz = wrap(al.FloorStaircaseViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Floor Function · Staircase'
+})
 
-// ─── M11 EXPONENTIAL FUNCTIONS ────────────────────────────────────────────────
-export const ExponentialGraphViz = props => (
-  <VizCard id={'A.11.1'} title={'Exponential Graph · bˣ'}>
-    <al.ExponentialGraphViz {...props} />
-  </VizCard>
-)
-export const GrowthComparisonViz = props => (
-  <VizCard id={'A.11.2'} title={'Linear vs Exponential Growth'}>
-    <al.GrowthComparisonViz {...props} />
-  </VizCard>
-)
-export const EqualBasesViz = props => (
-  <VizCard id={'A.11.3'} title={'Solve 3ˣ = y · Equal Bases'}>
-    <al.EqualBasesViz {...props} />
-  </VizCard>
-)
-export const CompoundVsSimpleViz = props => (
-  <VizCard id={'A.11.4'} title={'Compound vs Simple Interest'}>
-    <al.CompoundVsSimpleViz {...props} />
-  </VizCard>
-)
-export const LogarithmGraphViz = props => (
-  <VizCard id={'A.11.5'} title={'Logarithm Graph'}>
-    <al.LogarithmGraphViz {...props} />
-  </VizCard>
-)
-export const LogSolvingViz = props => (
-  <VizCard id={'A.11.6'} title={'Solving Logarithms'}>
-    <al.LogSolvingViz {...props} />
-  </VizCard>
-)
-export const InteractiveExponentialViz = props => (
-  <VizCard id={'A.11.7'} title={'Interactive Exponential'}>
-    <al.InteractiveExponentialViz {...props} />
-  </VizCard>
-)
+// M08 GRAPHING LINES
+export const CartesianPlaneViz = wrap(al.CartesianPlaneViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Cartesian Plane · Quadrants'
+})
+export const PlotPointsViz = wrap(al.PlotPointsViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Plotting Points'
+})
+export const DistanceTriangleViz = wrap(al.DistanceTriangleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Distance · Triangle'
+})
+export const SlopeTypesViz = wrap(al.SlopeTypesViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Slope Types'
+})
+export const LineSlopeInterceptViz = wrap(al.LineSlopeInterceptViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Slope-Intercept · y = mx + b'
+})
+export const ParallelPerpViz = wrap(al.ParallelPerpViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Parallel and Perpendicular'
+})
+export const SystemsViz = wrap(al.SystemsViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Two-Line System'
+})
+export const NumberLineInequalityVizGL = wrap(al.NumberLineInequalityVizGL, {
+  aspect: 'auto',
+  title: 'Linear Inequality · Number Line'
+})
+export const HalfPlaneViz = wrap(al.HalfPlaneViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Half-Plane · y > mx + b'
+})
+export const FeasibleRegionViz = wrap(al.FeasibleRegionViz, {
+  aspect: 'auto',
+  title: 'Feasible Region'
+})
 
-// ─── M12 SEQUENCES · SERIES ───────────────────────────────────────────────────
-export const SequenceVsSeriesViz = props => (
-  <VizCard id={'A.12.1'} title={'Sequence vs Series'}>
-    <al.SequenceVsSeriesViz {...props} />
-  </VizCard>
-)
-export const ArithmeticNumberLineViz = props => (
-  <VizCard id={'A.12.2'} title={'Arithmetic Sequence · Number Line'}>
-    <al.ArithmeticNumberLineViz {...props} />
-  </VizCard>
-)
-export const GaussPairingViz = props => (
-  <VizCard id={'A.12.3'} title={'Gauss Pairing'}>
-    <al.GaussPairingViz {...props} />
-  </VizCard>
-)
-export const OddSquaresViz = props => (
-  <VizCard id={'A.12.4'} title={'Odd Numbers Sum to Squares'}>
-    <al.OddSquaresViz {...props} />
-  </VizCard>
-)
-export const TelescopingViz = props => (
-  <VizCard id={'A.12.5'} title={'Telescoping Sum'}>
-    <al.TelescopingViz {...props} />
-  </VizCard>
-)
-export const PartialSumsViz = props => (
-  <VizCard id={'A.12.6'} title={'Partial Sums · Geometric'}>
-    <al.PartialSumsViz {...props} />
-  </VizCard>
-)
-export const StaircaseViz = props => (
-  <VizCard id={'A.12.7'} title={'Staircase · Half Rectangle'}>
-    <al.StaircaseViz {...props} />
-  </VizCard>
-)
-export const FibonacciStaircaseViz = props => (
-  <VizCard id={'A.12.8'} title={'Fibonacci Numbers'}>
-    <al.FibonacciStaircaseViz {...props} />
-  </VizCard>
-)
-export const PianoViz = props => (
-  <VizCard id={'A.12.9'} title={'Piano Octave · Geometric'}>
-    <al.PianoViz {...props} />
-  </VizCard>
-)
+// M09 QUADRATIC FUNCTIONS
+export const ParabolaBasicViz = wrap(al.ParabolaBasicViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Parabola · y = x²'
+})
+export const ParabolaCoeffViz = wrap(al.ParabolaCoeffViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Parabola · Effect of a'
+})
+export const InteractiveVertexViz = wrap(al.InteractiveVertexViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Interactive Vertex · (x − h)² + k'
+})
+export const HorizontalParabolaViz = wrap(al.HorizontalParabolaViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Horizontal Parabola'
+})
+export const CircleViz = wrap(al.CircleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Circle · Center and Radius'
+})
+export const QuadInequalityViz = wrap(al.QuadInequalityViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Quadratic Inequality'
+})
+export const TrivialInequalityViz = wrap(al.TrivialInequalityViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Trivial Inequality · x² ≥ 0'
+})
+export const InteractiveOptimizationViz = wrap(al.InteractiveOptimizationViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Interactive Optimization'
+})
+export const NumberLineSignViz = wrap(al.NumberLineSignViz, {
+  aspect: 'auto',
+  title: 'Polynomial Sign Chart'
+})
 
-// ─── M13 BINOMIAL THEOREM ─────────────────────────────────────────────────────
-export const SquareOfSumViz = props => (
-  <VizCard id={'A.13.1'} title={'Square of a Sum'}>
-    <al.SquareOfSumViz {...props} />
-  </VizCard>
-)
-export const DiffOfSquaresViz = props => (
-  <VizCard id={'A.13.2'} title={'Difference of Squares'}>
-    <al.DiffOfSquaresViz {...props} />
-  </VizCard>
-)
-export const PascalTriangleBinViz = props => (
-  <VizCard id={'A.13.3'} title={'Pascal · Binomial Expansion'}>
-    <al.PascalTriangleBinViz {...props} />
-  </VizCard>
-)
+// M10 FUNCTIONS
+export const FunctionMachineViz = wrap(al.FunctionMachineViz, {
+  aspect: 'auto',
+  title: 'Function Machine'
+})
+export const CompositionChainViz = wrap(al.CompositionChainViz, {
+  aspect: 'auto',
+  title: 'Function Composition Chain'
+})
+export const GraphPointViz = wrap(al.GraphPointViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Point on a Graph'
+})
+export const ParabolaViz = wrap(al.ParabolaViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Parabola · y = x² − 5x + 6'
+})
+export const IntersectionViz = wrap(al.IntersectionViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Curve Intersection'
+})
+export const VerticalScaleViz = wrap(al.VerticalScaleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Vertical Scaling'
+})
+export const HorizontalScaleViz = wrap(al.HorizontalScaleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Horizontal Scaling'
+})
+export const InverseGraphViz = wrap(al.InverseGraphViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Inverse Graph'
+})
+export const RefInverseViz = wrap(al.RefInverseViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Reference Inverse'
+})
 
-// ─── BOOK I · THE SHADOW OF THE TORTURER ──────────────────────────────────────
-export const GuildHierarchy = props => (
-  <VizCard id={'I.01.1'} title={'Guild Hierarchy'}>
-    <bI.GuildHierarchy {...props} />
-  </VizCard>
-)
-export const CitadelMap = props => (
-  <VizCard id={'I.01.2'} title={'Citadel Map'}>
-    <bI.CitadelMap {...props} />
-  </VizCard>
-)
-export const PowerTriangle = props => (
-  <VizCard id={'I.02.1'} title={'Power Triangle'}>
-    <bI.PowerTriangle {...props} />
-  </VizCard>
-)
-export const NessusRoute = props => (
-  <VizCard id={'I.03.1'} title={'Nessus Route'}>
-    <bI.NessusRoute {...props} />
-  </VizCard>
-)
-export const InireMirrors = props => (
-  <VizCard id={'I.04.1'} title={'Inire Mirrors'}>
-    <bI.InireMirrors {...props} />
-  </VizCard>
-)
-export const AvernDuel = props => (
-  <VizCard id={'I.05.1'} title={'Avern Duel'}>
-    <bI.AvernDuel {...props} />
-  </VizCard>
-)
-export const BI_CharacterNetwork = props => (
-  <VizCard id={'I.06.1'} title={'Character Network'}>
-    <bI.CharacterNetwork {...props} />
-  </VizCard>
-)
-export const JourneyArc = props => (
-  <VizCard id={'I.06.2'} title={'Journey Arc'}>
-    <bI.JourneyArc {...props} />
-  </VizCard>
-)
-export const BI_SymbolNetwork = props => (
-  <VizCard id={'I.06.3'} title={'Symbol Network'}>
-    <bI.SymbolNetwork {...props} />
-  </VizCard>
-)
+// M11 EXPONENTIAL FUNCTIONS
+export const ExponentialGraphViz = wrap(al.ExponentialGraphViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Exponential Graph · bˣ'
+})
+export const GrowthComparisonViz = wrap(al.GrowthComparisonViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Linear vs Exponential Growth'
+})
+export const EqualBasesViz = wrap(al.EqualBasesViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Solve 3ˣ = y · Equal Bases'
+})
+export const CompoundVsSimpleViz = wrap(al.CompoundVsSimpleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Compound vs Simple Interest'
+})
+export const LogarithmGraphViz = wrap(al.LogarithmGraphViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Logarithm Graph'
+})
+export const LogSolvingViz = wrap(al.LogSolvingViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Solving Logarithms'
+})
+export const ForgettingCurveViz = wrap(al.ForgettingCurveViz, {
+  aspect: 'auto',
+  title: 'Law of Forgetting · P = P0 / (t+1)^c'
+})
+export const ParetoCurveViz = wrap(al.ParetoCurveViz, {
+  aspect: 'auto',
+  title: 'Pareto Distribution · P = c / W^k'
+})
+export const LogBaseComparisonViz = wrap(al.LogBaseComparisonViz, {
+  aspect: 'auto',
+  title: 'log10 x vs ln x · Base and Steepness'
+})
+export const CommonLogTableViz = wrap(al.CommonLogTableViz, {
+  aspect: 'auto',
+  title: 'Common Log · Powers of Ten'
+})
+export const Log2GraphViz = wrap(al.Log2GraphViz, {
+  aspect: 'auto',
+  title: 'y = log2 x · Plotting the Curve'
+})
+export const LogBaseSteepnessViz = wrap(al.LogBaseSteepnessViz, {
+  aspect: 'auto',
+  title: 'log2 x vs log10 x · Larger Base is Flatter'
+})
+export const LogReflectionsViz = wrap(al.LogReflectionsViz, {
+  aspect: 'auto',
+  title: 'Reflecting log2 x Across Each Axis'
+})
+export const LogHorizontalShiftViz = wrap(al.LogHorizontalShiftViz, {
+  aspect: 'auto',
+  title: 'Horizontal Shift Drags the Asymptote'
+})
+export const LogBoundedDomainViz = wrap(al.LogBoundedDomainViz, {
+  aspect: 'auto',
+  title: 'log3(25 - x^2) · Bounded Domain'
+})
+export const ExpLineIntersectionViz = wrap(al.ExpLineIntersectionViz, {
+  aspect: 'auto',
+  title: 'e^(3-2x) = 4 · Curve Meets Line'
+})
+export const GraphOnlyRootsViz = wrap(al.GraphOnlyRootsViz, {
+  aspect: 'auto',
+  title: 'Roots Only a Graph Can Find'
+})
+export const ExtraneousDomainViz = wrap(al.ExtraneousDomainViz, {
+  aspect: 'auto',
+  title: 'Extraneous Root · The Domain Gap'
+})
+export const ExpInequalityViz = wrap(al.ExpInequalityViz, {
+  aspect: 'auto',
+  title: 'e^x > 5 · Boundary and Solution Ray'
+})
+export const LightDecayViz = wrap(al.LightDecayViz, {
+  aspect: 'auto',
+  title: 'Light Transparency · Exponential Decay'
+})
+export const LogScaleNumberLineViz = wrap(al.LogScaleNumberLineViz, {
+  aspect: 'auto',
+  size: 'wide',
+  title: 'Why Log Scales Exist · Linear vs log10'
+})
+export const HalfLifeDecayViz = wrap(al.HalfLifeDecayViz, {
+  aspect: 'auto',
+  title: 'Radioactive Decay · Half-Life Staircase'
+})
+export const CoolingCurveViz = wrap(al.CoolingCurveViz, {
+  aspect: 'auto',
+  title: "Newton's Cooling · Asymptote at Ambient"
+})
+export const PopulationRatesViz = wrap(al.PopulationRatesViz, {
+  aspect: 'auto',
+  title: 'Population · 1.4% vs 1.0% Growth'
+})
+export const BacteriaDoublingViz = wrap(al.BacteriaDoublingViz, {
+  aspect: 'auto',
+  title: 'Bacteria · Doubling Every 3 Hours'
+})
+export const APvsGPDiscreteViz = wrap(al.APvsGPDiscreteViz, {
+  aspect: 'auto',
+  title: 'AP vs GP · Line vs Exponential'
+})
+export const PartialSumsZenoViz = wrap(al.PartialSumsZenoViz, {
+  aspect: 'auto',
+  size: 'wide',
+  title: 'Zeno · Partial Sums Converge to 10/9'
+})
+export const FibonacciRatioViz = wrap(al.FibonacciRatioViz, {
+  aspect: 'auto',
+  title: 'Fibonacci Ratios Narrow to the Golden Ratio'
+})
+export const PermutationTreeViz = wrap(al.PermutationTreeViz, {
+  aspect: 'auto',
+  title: 'Permutation Tree · 3 x 2 x 1 = 6'
+})
+export const TwoSetVennViz = wrap(al.TwoSetVennViz, {
+  aspect: 'auto',
+  title: 'Two-Set Venn · Regions as Set Operations'
+})
+export const ExpVsPolyViz = wrap(al.ExpVsPolyViz, {
+  aspect: 'auto',
+  title: '2^x vs x^2 · Where the Exponential Wins'
+})
+export const BernoulliViz = wrap(al.BernoulliViz, {
+  aspect: 'auto',
+  title: 'Bernoulli · Curve Above Its Tangent'
+})
+export const TrominoTilingViz = wrap(al.TrominoTilingViz, {
+  aspect: 'auto',
+  title: 'L-Tromino Tiling · Recursive Split'
+})
+export const ArgandPointViz = wrap(al.ArgandPointViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Argand Plane · Point and Position Vector'
+})
+export const ComplexAddViz = wrap(al.ComplexAddViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Complex Addition · Parallelogram Law'
+})
+export const ModulusTriangleViz = wrap(al.ModulusTriangleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Modulus as Distance · |4+3i| = 5'
+})
+export const UnitCircleAngleViz = wrap(al.UnitCircleAngleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Unit Circle · cos and sin as Coordinates'
+})
+export const ArgumentQuadrantViz = wrap(al.ArgumentQuadrantViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Argument · Why arctan Needs the Quadrant'
+})
+export const ComplexMultiplyViz = wrap(al.ComplexMultiplyViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Multiply Moduli, Add Arguments'
+})
+export const PowerSpiralViz = wrap(al.PowerSpiralViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'De Moivre · Powers Spiral Out'
+})
+export const NthRootsPolygonViz = wrap(al.NthRootsPolygonViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'nth Roots · Regular n-gon'
+})
+export const RootsOfUnityViz = wrap(al.RootsOfUnityViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Roots of Unity · Vectors Sum to Zero'
+})
+export const PolarTriangleViz = wrap(al.PolarTriangleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Polar Triangle · x = r cos, y = r sin'
+})
+export const ReflectionMapViz = wrap(al.ReflectionMapViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Matrix as Function · Reflection Across x-axis'
+})
+export const TriangleAreaViz = wrap(al.TriangleAreaViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Determinant = Area · Triangle and Parallelogram'
+})
+export const UnitSquareTransformViz = wrap(al.UnitSquareTransformViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Unit Square -> Parallelogram · Area = |det|'
+})
+export const EigenvectorViz = wrap(al.EigenvectorViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Eigenvector · Direction Preserved by A'
+})
+export const InteractiveExponentialViz = wrap(al.InteractiveExponentialViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Interactive Exponential'
+})
 
-// ─── BOOK II · THE CLAW OF THE CONCILIATOR ────────────────────────────────────
-export const SaltusMap = props => (
-  <VizCard id={'II.01.1'} title={'Saltus Map'}>
-    <bII.SaltusMap {...props} />
-  </VizCard>
-)
-export const SaltusBeats = props => (
-  <VizCard id={'II.01.2'} title={'Saltus Beats'}>
-    <bII.SaltusBeats {...props} />
-  </VizCard>
-)
-export const MineSection = props => (
-  <VizCard id={'II.02.1'} title={'Mine Section'}>
-    <bII.MineSection {...props} />
-  </VizCard>
-)
-export const ForestCourt = props => (
-  <VizCard id={'II.03.1'} title={'Forest Court'}>
-    <bII.ForestCourt {...props} />
-  </VizCard>
-)
-export const Antechamber = props => (
-  <VizCard id={'II.04.1'} title={'Antechamber'}>
-    <bII.Antechamber {...props} />
-  </VizCard>
-)
-export const HouseAbsolute = props => (
-  <VizCard id={'II.04.2'} title={'House Absolute'}>
-    <bII.HouseAbsolute {...props} />
-  </VizCard>
-)
-export const PlayStructure = props => (
-  <VizCard id={'II.05.1'} title={'Play Structure'}>
-    <bII.PlayStructure {...props} />
-  </VizCard>
-)
-export const CumaeanRitual = props => (
-  <VizCard id={'II.06.1'} title={'Cumaean Ritual'}>
-    <bII.CumaeanRitual {...props} />
-  </VizCard>
-)
-export const NessusToThrax = props => (
-  <VizCard id={'II.07.1'} title={'Nessus → Thrax'}>
-    <bII.NessusToThrax {...props} />
-  </VizCard>
-)
-export const BII_CharacterNetwork = props => (
-  <VizCard id={'II.07.2'} title={'Character Network'}>
-    <bII.CharacterNetwork {...props} />
-  </VizCard>
-)
-export const TerminologyTree = props => (
-  <VizCard id={'II.07.3'} title={'Terminology Tree'}>
-    <bII.TerminologyTree {...props} />
-  </VizCard>
-)
-export const BII_SymbolNetwork = props => (
-  <VizCard id={'II.07.4'} title={'Symbol Network'}>
-    <bII.SymbolNetwork {...props} />
-  </VizCard>
-)
+// M12 SEQUENCES · SERIES
+export const SequenceVsSeriesViz = wrap(al.SequenceVsSeriesViz, {
+  aspect: 'auto',
+  title: 'Sequence vs Series'
+})
+export const ArithmeticNumberLineViz = wrap(al.ArithmeticNumberLineViz, {
+  aspect: 'auto',
+  title: 'Arithmetic Sequence · Number Line'
+})
+export const GaussPairingViz = wrap(al.GaussPairingViz, { aspect: 'auto', title: 'Gauss Pairing' })
+export const OddSquaresViz = wrap(al.OddSquaresViz, {
+  aspect: 'auto',
+  title: 'Odd Numbers Sum to Squares'
+})
+export const TelescopingViz = wrap(al.TelescopingViz, { aspect: 'auto', title: 'Telescoping Sum' })
+export const PartialSumsViz = wrap(al.PartialSumsViz, {
+  aspect: 'auto',
+  title: 'Partial Sums · Geometric'
+})
+export const StaircaseViz = wrap(al.StaircaseViz, {
+  aspect: 'auto',
+  title: 'Staircase · Half Rectangle'
+})
+export const FibonacciStaircaseViz = wrap(al.FibonacciStaircaseViz, {
+  aspect: 'auto',
+  title: 'Fibonacci Numbers'
+})
+export const PianoViz = wrap(al.PianoViz, { aspect: 'auto', title: 'Piano Octave · Geometric' })
 
-// ─── BOOK III · THE SWORD OF THE LICTOR ───────────────────────────────────────
-export const ThraxGeography = props => (
-  <VizCard id={'III.01.1'} title={'Thrax Geography'}>
-    <bIII.ThraxGeography {...props} />
-  </VizCard>
-)
-export const VinculaCrossSection = props => (
-  <VizCard id={'III.01.2'} title={'Vincula Cross-Section'}>
-    <bIII.VinculaCrossSection {...props} />
-  </VizCard>
-)
-export const BIII_Ch01SeverianAuthorityWeb = props => (
-  <VizCard id={'III.01.3'} title={'Authority Web'}>
-    <bIII.Ch01SeverianAuthorityWeb {...props} />
-  </VizCard>
-)
-export const BIII_Ch01StructureDiagram = props => (
-  <VizCard id={'III.01.4'} title={'Structure Diagram'}>
-    <bIII.Ch01StructureDiagram {...props} />
-  </VizCard>
-)
-export const BIII_Ch02EmotionalArc = props => (
-  <VizCard id={'III.02.1'} title={'Emotional Arc · Ch. II–IX'}>
-    <bIII.Ch02EmotionalArc {...props} />
-  </VizCard>
-)
-export const LostArchivesCosmogony = props => (
-  <VizCard id={'III.02.2'} title={'Lost Archives Cosmogony'}>
-    <bIII.LostArchivesCosmogony {...props} />
-  </VizCard>
-)
-export const ClawDualFailure = props => (
-  <VizCard id={'III.02.3'} title={'Claw Dual Failure'}>
-    <bIII.ClawDualFailure {...props} />
-  </VizCard>
-)
-export const SalamanderAnatomy = props => (
-  <VizCard id={'III.02.4'} title={'Salamander Anatomy'}>
-    <bIII.SalamanderAnatomy {...props} />
-  </VizCard>
-)
-export const BIII_Ch03EmotionalArc = props => (
-  <VizCard id={'III.03.1'} title={'Emotional Arc · Ch. XIII'}>
-    <bIII.Ch03EmotionalArc {...props} />
-  </VizCard>
-)
-export const SeverianRelationshipWeb = props => (
-  <VizCard id={'III.03.2'} title={'Relationship Web'}>
-    <bIII.SeverianRelationshipWeb {...props} />
-  </VizCard>
-)
-export const CliffStrata = props => (
-  <VizCard id={'III.03.3'} title={'Cliff Strata'}>
-    <bIII.CliffStrata {...props} />
-  </VizCard>
-)
-export const BIII_Ch04EmotionalArc = props => (
-  <VizCard id={'III.04.1'} title={'Emotional Arc · Ch. XV–XIX'}>
-    <bIII.Ch04EmotionalArc {...props} />
-  </VizCard>
-)
-export const CasdoeHouseCharacterWeb = props => (
-  <VizCard id={'III.04.2'} title={'Casdoe House'}>
-    <bIII.CasdoeHouseCharacterWeb {...props} />
-  </VizCard>
-)
-export const AlzaboVoiceMechanism = props => (
-  <VizCard id={'III.04.3'} title={'Alzabo Voice Mechanism'}>
-    <bIII.AlzaboVoiceMechanism {...props} />
-  </VizCard>
-)
-export const TyphonMountainAscent = props => (
-  <VizCard id={'III.05.1'} title={'Mountain Ascent'}>
-    <bIII.TyphonMountainAscent {...props} />
-  </VizCard>
-)
-export const TyphonPiatonDuality = props => (
-  <VizCard id={'III.05.2'} title={'Typhon Piaton Duality'}>
-    <bIII.TyphonPiatonDuality {...props} />
-  </VizCard>
-)
-export const BIII_Ch06ClawAuthorityWeb = props => (
-  <VizCard id={'III.05.3'} title={'Claw Authority Web'}>
-    <bIII.Ch06ClawAuthorityWeb {...props} />
-  </VizCard>
-)
-export const LakeSceneMap = props => (
-  <VizCard id={'III.06.1'} title={'Lake Scene Map'}>
-    <bIII.LakeSceneMap {...props} />
-  </VizCard>
-)
-export const BIII_Ch07AuthorityWeb = props => (
-  <VizCard id={'III.06.2'} title={'Authority Web · Lake'}>
-    <bIII.Ch07AuthorityWeb {...props} />
-  </VizCard>
-)
-export const Ch07ChapterTimeline = props => (
-  <VizCard id={'III.06.3'} title={'Chapter Timeline'}>
-    <bIII.Ch07ChapterTimeline {...props} />
-  </VizCard>
-)
-export const LakeCastleGeography = props => (
-  <VizCard id={'III.07.1'} title={'Castle Geography'}>
-    <bIII.LakeCastleGeography {...props} />
-  </VizCard>
-)
-export const HierodulemaskLayers = props => (
-  <VizCard id={'III.07.2'} title={'Hierodule Mask Layers'}>
-    <bIII.HierodulemaskLayers {...props} />
-  </VizCard>
-)
-export const ClawTransformation = props => (
-  <VizCard id={'III.07.3'} title={'Claw Transformation'}>
-    <bIII.ClawTransformation {...props} />
-  </VizCard>
-)
+// M13 BINOMIAL THEOREM
+// SquareOfSumViz removed (duplicate of SquareOfSumGeomViz above); consumers repointed.
+export const DiffOfSquaresViz = wrap(al.DiffOfSquaresViz, {
+  aspect: 'auto',
+  title: 'Difference of Squares'
+})
 
-// ─── BOOK IV · THE CITADEL OF THE AUTARCH ─────────────────────────────────────
-export const BIV_Ch01StructureDiagram = props => (
-  <VizCard id={'IV.01.1'} title={'Structure Diagram'}>
-    <bIV.Ch01StructureDiagram {...props} />
-  </VizCard>
-)
-export const Ch01ResurrectionSequence = props => (
-  <VizCard id={'IV.01.2'} title={'Resurrection Sequence'}>
-    <bIV.Ch01ResurrectionSequence {...props} />
-  </VizCard>
-)
-export const BIV_Ch01EmotionalArc = props => (
-  <VizCard id={'IV.01.3'} title={'Emotional Arc · Ch. 1'}>
-    <bIV.Ch01EmotionalArc {...props} />
-  </VizCard>
-)
-export const BIV_Ch01CharacterWeb = props => (
-  <VizCard id={'IV.01.4'} title={'Character Web · Ch. 1'}>
-    <bIV.Ch01CharacterWeb {...props} />
-  </VizCard>
-)
-export const BIV_Ch02StructureDiagram = props => (
-  <VizCard id={'IV.02.1'} title={'Structure Diagram · Ch. 2'}>
-    <bIV.Ch02StructureDiagram {...props} />
-  </VizCard>
-)
-export const Ch02AscianSpeechGrammar = props => (
-  <VizCard id={'IV.02.2'} title={'Ascian Speech Grammar'}>
-    <bIV.Ch02AscianSpeechGrammar {...props} />
-  </VizCard>
-)
-export const BIV_Ch02CharacterWeb = props => (
-  <VizCard id={'IV.02.3'} title={'Character Web · Ch. 2'}>
-    <bIV.Ch02CharacterWeb {...props} />
-  </VizCard>
-)
-export const Ch02ClawParadox = props => (
-  <VizCard id={'IV.02.4'} title={'Claw Paradox'}>
-    <bIV.Ch02ClawParadox {...props} />
-  </VizCard>
-)
-export const BIV_Ch03StructureDiagram = props => (
-  <VizCard id={'IV.03.1'} title={'Structure Diagram · Module 03'}>
-    <bIV.Ch03StructureDiagram {...props} />
-  </VizCard>
-)
-export const BIV_Ch03CharacterWeb = props => (
-  <VizCard id={'IV.03.2'} title={'Character Web · Module 03'}>
-    <bIV.Ch03CharacterWeb {...props} />
-  </VizCard>
-)
-export const Ch03AscianStoryArc = props => (
-  <VizCard id={'IV.03.3'} title={'Ascian Story Arc'}>
-    <bIV.Ch03AscianStoryArc {...props} />
-  </VizCard>
-)
-export const Ch03SlaveryPaths = props => (
-  <VizCard id={'IV.03.4'} title={'Slavery Paths'}>
-    <bIV.Ch03SlaveryPaths {...props} />
-  </VizCard>
-)
-export const Ch03ThreeSuitorsRoutes = props => (
-  <VizCard id={'IV.03.5'} title={'Three Suitors Routes'}>
-    <bIV.Ch03ThreeSuitorsRoutes {...props} />
-  </VizCard>
-)
-export const Ch03LastHouseTime = props => (
-  <VizCard id={'IV.03.6'} title={'Last House Time'}>
-    <bIV.Ch03LastHouseTime {...props} />
-  </VizCard>
-)
-export const Ch04ChapterArc = props => (
-  <VizCard id={'IV.04.1'} title={'Chapter Arc'}>
-    <bIV.Ch04ChapterArc {...props} />
-  </VizCard>
-)
-export const Ch04ThreeFactionStandoff = props => (
-  <VizCard id={'IV.04.2'} title={'Three-Faction Standoff'}>
-    <bIV.Ch04ThreeFactionStandoff {...props} />
-  </VizCard>
-)
-export const Ch04BattleFormation = props => (
-  <VizCard id={'IV.04.3'} title={'Battle Formation'}>
-    <bIV.Ch04BattleFormation {...props} />
-  </VizCard>
-)
-export const Ch04AutarchIdentityWeb = props => (
-  <VizCard id={'IV.04.4'} title={'Autarch Identity Web'}>
-    <bIV.Ch04AutarchIdentityWeb {...props} />
-  </VizCard>
-)
-export const Ch05ThreeFactionCollapse = props => (
-  <VizCard id={'IV.05.1'} title={'Three Faction Collapse'}>
-    <bIV.Ch05ThreeFactionCollapse {...props} />
-  </VizCard>
-)
-export const Ch05AutarchIdentityStack = props => (
-  <VizCard id={'IV.05.2'} title={'Autarch Identity Stack'}>
-    <bIV.Ch05AutarchIdentityStack {...props} />
-  </VizCard>
-)
-export const Ch05AquastorProjection = props => (
-  <VizCard id={'IV.05.3'} title={'Aquastor Projection'}>
-    <bIV.Ch05AquastorProjection {...props} />
-  </VizCard>
-)
-export const Ch05ThornBushClaw = props => (
-  <VizCard id={'IV.05.4'} title={'Thorn Bush Claw'}>
-    <bIV.Ch05ThornBushClaw {...props} />
-  </VizCard>
-)
-export const Ch06RouteMap = props => (
-  <VizCard id={'IV.06.1'} title={'Route Map'}>
-    <bIV.Ch06RouteMap {...props} />
-  </VizCard>
-)
-export const BIV_Ch06CharacterWeb = props => (
-  <VizCard id={'IV.06.2'} title={'Character Web · Module 06'}>
-    <bIV.Ch06CharacterWeb {...props} />
-  </VizCard>
-)
-export const Ch06ReturnsAndCallbacks = props => (
-  <VizCard id={'IV.06.3'} title={'Returns and Callbacks'}>
-    <bIV.Ch06ReturnsAndCallbacks {...props} />
-  </VizCard>
-)
-export const Ch06TimeLoopDiagram = props => (
-  <VizCard id={'IV.06.4'} title={'Time-Loop Diagram'}>
-    <bIV.Ch06TimeLoopDiagram {...props} />
-  </VizCard>
-)
+// BOOK I · THE SHADOW OF THE TORTURER
+export const GuildHierarchy = wrap(bI.GuildHierarchy, { aspect: 'auto', title: 'Guild Hierarchy' })
+export const CitadelMap = wrap(bI.CitadelMap, { aspect: 'auto', title: 'Citadel Map' })
+export const PowerTriangle = wrap(bI.PowerTriangle, { aspect: 'auto', title: 'Power Triangle' })
+export const NessusRoute = wrap(bI.NessusRoute, { aspect: 'auto', title: 'Nessus Route' })
+export const InireMirrors = wrap(bI.InireMirrors, { aspect: 'auto', title: 'Inire Mirrors' })
+export const AvernDuel = wrap(bI.AvernDuel, { aspect: 'auto', title: 'Avern Duel' })
+export const BI_CharacterNetwork = wrap(bI.CharacterNetwork, {
+  aspect: 'auto',
+  title: 'Character Network'
+})
+export const JourneyArc = wrap(bI.JourneyArc, { aspect: 'auto', title: 'Journey Arc' })
+export const BI_SymbolNetwork = wrap(bI.SymbolNetwork, { aspect: 'auto', title: 'Symbol Network' })
 
-// ─── Migrated legacy viz (Book III) ──────────────────────────────────────────
-export const PowerStructureDiagram = props => (
-  <VizCard id={'III.LG.1'} title={'Power Structure: Modern vs Commonwealth'}>
-    <bIII.PowerStructureDiagram {...props} />
-  </VizCard>
-)
+// BOOK II · THE CLAW OF THE CONCILIATOR
+export const SaltusMap = wrap(bII.SaltusMap, { aspect: 'auto', title: 'Saltus Map' })
+export const SaltusBeats = wrap(bII.SaltusBeats, { aspect: 'auto', title: 'Saltus Beats' })
+export const MineSection = wrap(bII.MineSection, { aspect: 'auto', title: 'Mine Section' })
+export const ForestCourt = wrap(bII.ForestCourt, { aspect: 'auto', title: 'Forest Court' })
+export const Antechamber = wrap(bII.Antechamber, { aspect: 'auto', title: 'Antechamber' })
+export const HouseAbsolute = wrap(bII.HouseAbsolute, { aspect: 'auto', title: 'House Absolute' })
+export const CumaeanRitual = wrap(bII.CumaeanRitual, { aspect: 'auto', title: 'Cumaean Ritual' })
+export const NessusToThrax = wrap(bII.NessusToThrax, { aspect: 'auto', title: 'Nessus → Thrax' })
+export const BII_CharacterNetwork = wrap(bII.CharacterNetwork, {
+  aspect: 'auto',
+  title: 'Character Network'
+})
+export const TerminologyTree = wrap(bII.TerminologyTree, {
+  aspect: 'auto',
+  title: 'Terminology Tree'
+})
+export const BII_SymbolNetwork = wrap(bII.SymbolNetwork, {
+  aspect: 'auto',
+  title: 'Symbol Network'
+})
 
-// ─── Migrated legacy viz (Book IV) ───────────────────────────────────────────
-export const Ch04AscianStructure = props => (
-  <VizCard id={'IV.04.LG1'} title={'Ascian Structure · Verbal vs Military'}>
-    <bIV.Ch04AscianStructure {...props} />
-  </VizCard>
-)
-export const Ch04SeverianFearArc = props => (
-  <VizCard id={'IV.04.LG2'} title={"Severian's Fear Arc · Ch. XXI–XXII"}>
-    <bIV.Ch04SeverianFearArc {...props} />
-  </VizCard>
-)
-export const Ch05ChapterArc = props => (
-  <VizCard id={'IV.05.LG1'} title={'Module 05 Chapter Arc'}>
-    <bIV.Ch05ChapterArc {...props} />
-  </VizCard>
-)
-export const Ch05TimeCorridor = props => (
-  <VizCard id={'IV.05.LG2'} title={'The Corridors of Time'}>
-    <bIV.Ch05TimeCorridor {...props} />
-  </VizCard>
-)
-export const Ch06ClawMeditationTree = props => (
-  <VizCard id={'IV.06.LG1'} title={"The Claw's Power · Two Theories"}>
-    <bIV.Ch06ClawMeditationTree {...props} />
-  </VizCard>
-)
-export const Ch06StructureDiagram = props => (
-  <VizCard id={'IV.06.LG2'} title={'Module 06 Structure · Return to the Citadel'}>
-    <bIV.Ch06StructureDiagram {...props} />
-  </VizCard>
-)
+// BOOK III · THE SWORD OF THE LICTOR
+export const ThraxGeography = wrap(bIII.ThraxGeography, {
+  aspect: 'auto',
+  title: 'Thrax Geography'
+})
+export const VinculaCrossSection = wrap(bIII.VinculaCrossSection, {
+  aspect: 'auto',
+  title: 'Vincula Cross-Section'
+})
+export const BIII_Ch01SeverianAuthorityWeb = wrap(bIII.Ch01SeverianAuthorityWeb, {
+  aspect: 'auto',
+  title: 'Authority Web'
+})
+export const BIII_Ch01StructureDiagram = wrap(bIII.Ch01StructureDiagram, {
+  aspect: 'auto',
+  title: 'Structure Diagram'
+})
+export const BIII_Ch02EmotionalArc = wrap(bIII.Ch02EmotionalArc, {
+  aspect: 'auto',
+  title: 'Emotional Arc · Ch. II–IX'
+})
+export const LostArchivesCosmogony = wrap(bIII.LostArchivesCosmogony, {
+  aspect: 'auto',
+  title: 'Lost Archives Cosmogony'
+})
+export const ClawDualFailure = wrap(bIII.ClawDualFailure, {
+  aspect: 'auto',
+  title: 'Claw Dual Failure'
+})
+export const SalamanderAnatomy = wrap(bIII.SalamanderAnatomy, {
+  aspect: 'auto',
+  title: 'Salamander Anatomy'
+})
+export const BIII_Ch03EmotionalArc = wrap(bIII.Ch03EmotionalArc, {
+  aspect: 'auto',
+  title: 'Emotional Arc · Ch. XIII'
+})
+export const SeverianRelationshipWeb = wrap(bIII.SeverianRelationshipWeb, {
+  aspect: 'auto',
+  title: 'Relationship Web'
+})
+export const CliffStrata = wrap(bIII.CliffStrata, { aspect: 'auto', title: 'Cliff Strata' })
+export const BIII_Ch04EmotionalArc = wrap(bIII.Ch04EmotionalArc, {
+  aspect: 'auto',
+  title: 'Emotional Arc · Ch. XV–XIX'
+})
+export const CasdoeHouseCharacterWeb = wrap(bIII.CasdoeHouseCharacterWeb, {
+  aspect: 'auto',
+  title: 'Casdoe House'
+})
+export const AlzaboVoiceMechanism = wrap(bIII.AlzaboVoiceMechanism, {
+  aspect: 'auto',
+  title: 'Alzabo Voice Mechanism'
+})
+export const TyphonMountainAscent = wrap(bIII.TyphonMountainAscent, {
+  aspect: 'auto',
+  title: 'Mountain Ascent'
+})
+export const TyphonPiatonDuality = wrap(bIII.TyphonPiatonDuality, {
+  aspect: 'auto',
+  title: 'Typhon Piaton Duality'
+})
+export const BIII_Ch06ClawAuthorityWeb = wrap(bIII.Ch06ClawAuthorityWeb, {
+  aspect: 'auto',
+  title: 'Claw Authority Web'
+})
+export const LakeSceneMap = wrap(bIII.LakeSceneMap, { aspect: 'auto', title: 'Lake Scene Map' })
+export const BIII_Ch07AuthorityWeb = wrap(bIII.Ch07AuthorityWeb, {
+  aspect: 'auto',
+  title: 'Authority Web · Lake'
+})
+export const Ch07ModuleTimeline = wrap(bIII.Ch07ModuleTimeline, {
+  aspect: 'auto',
+  title: 'Section Timeline'
+})
+export const LakeCastleGeography = wrap(bIII.LakeCastleGeography, {
+  aspect: 'auto',
+  title: 'Castle Geography'
+})
+export const HierodulemaskLayers = wrap(bIII.HierodulemaskLayers, {
+  aspect: 'auto',
+  title: 'Hierodule Mask Layers'
+})
+export const ClawTransformation = wrap(bIII.ClawTransformation, {
+  aspect: 'auto',
+  title: 'Claw Transformation'
+})
 
-// ─── Plate (painting-card wrapper for books) ─────────────────────────────────
+// BOOK IV · THE CITADEL OF THE AUTARCH
+export const BIV_Ch01StructureDiagram = wrap(bIV.Ch01StructureDiagram, {
+  aspect: 'auto',
+  title: 'Structure Diagram'
+})
+export const Ch01ResurrectionSequence = wrap(bIV.Ch01ResurrectionSequence, {
+  aspect: 'auto',
+  title: 'Resurrection Sequence'
+})
+export const BIV_Ch01EmotionalArc = wrap(bIV.Ch01EmotionalArc, {
+  aspect: 'auto',
+  title: 'Emotional Arc · Ch. 1'
+})
+export const BIV_Ch01CharacterWeb = wrap(bIV.Ch01CharacterWeb, {
+  aspect: 'auto',
+  title: 'Character Web · Ch. 1'
+})
+export const BIV_Ch02StructureDiagram = wrap(bIV.Ch02StructureDiagram, {
+  aspect: 'auto',
+  title: 'Structure Diagram · Ch. 2'
+})
+export const Ch02AscianSpeechGrammar = wrap(bIV.Ch02AscianSpeechGrammar, {
+  aspect: 'auto',
+  title: 'Ascian Speech Grammar'
+})
+export const BIV_Ch02CharacterWeb = wrap(bIV.Ch02CharacterWeb, {
+  aspect: 'auto',
+  title: 'Character Web · Ch. 2'
+})
+export const Ch02ClawParadox = wrap(bIV.Ch02ClawParadox, { aspect: 'auto', title: 'Claw Paradox' })
+export const BIV_Ch03StructureDiagram = wrap(bIV.Ch03StructureDiagram, {
+  aspect: 'auto',
+  title: 'Structure Diagram · Module 03'
+})
+export const BIV_Ch03CharacterWeb = wrap(bIV.Ch03CharacterWeb, {
+  aspect: 'auto',
+  title: 'Character Web · Module 03'
+})
+export const Ch03AscianStoryArc = wrap(bIV.Ch03AscianStoryArc, {
+  aspect: 'auto',
+  title: 'Ascian Story Arc'
+})
+export const Ch03SlaveryPaths = wrap(bIV.Ch03SlaveryPaths, {
+  aspect: 'auto',
+  title: 'Slavery Paths'
+})
+export const Ch03ThreeSuitorsRoutes = wrap(bIV.Ch03ThreeSuitorsRoutes, {
+  aspect: 'auto',
+  title: 'Three Suitors Routes'
+})
+export const Ch03LastHouseTime = wrap(bIV.Ch03LastHouseTime, {
+  aspect: 'auto',
+  title: 'Last House Time'
+})
+export const Ch04ModuleArc = wrap(bIV.Ch04ModuleArc, { aspect: 'auto', title: 'Section Arc' })
+export const Ch04ThreeFactionStandoff = wrap(bIV.Ch04ThreeFactionStandoff, {
+  aspect: 'auto',
+  title: 'Three-Faction Standoff'
+})
+export const Ch04BattleFormation = wrap(bIV.Ch04BattleFormation, {
+  aspect: 'auto',
+  title: 'Battle Formation'
+})
+export const Ch04AutarchIdentityWeb = wrap(bIV.Ch04AutarchIdentityWeb, {
+  aspect: 'auto',
+  title: 'Autarch Identity Web'
+})
+export const Ch05ThreeFactionCollapse = wrap(bIV.Ch05ThreeFactionCollapse, {
+  aspect: 'auto',
+  title: 'Three Faction Collapse'
+})
+export const Ch05AutarchIdentityStack = wrap(bIV.Ch05AutarchIdentityStack, {
+  aspect: 'auto',
+  title: 'Autarch Identity Stack'
+})
+export const Ch05AquastorProjection = wrap(bIV.Ch05AquastorProjection, {
+  aspect: 'auto',
+  title: 'Aquastor Projection'
+})
+export const Ch05ThornBushClaw = wrap(bIV.Ch05ThornBushClaw, {
+  aspect: 'auto',
+  title: 'Thorn Bush Claw'
+})
+export const Ch06RouteMap = wrap(bIV.Ch06RouteMap, { aspect: 'auto', title: 'Route Map' })
+export const BIV_Ch06CharacterWeb = wrap(bIV.Ch06CharacterWeb, {
+  aspect: 'auto',
+  title: 'Character Web · Module 06'
+})
+export const Ch06ReturnsAndCallbacks = wrap(bIV.Ch06ReturnsAndCallbacks, {
+  aspect: 'auto',
+  title: 'Returns and Callbacks'
+})
+export const Ch06TimeLoopDiagram = wrap(bIV.Ch06TimeLoopDiagram, {
+  aspect: 'auto',
+  title: 'Time-Loop Diagram'
+})
+
+// Migrated legacy viz (Book III)
+export const PowerStructureDiagram = wrap(bIII.PowerStructureDiagram, {
+  aspect: 'auto',
+  title: 'Power Structure: Modern vs Commonwealth'
+})
+
+// Migrated legacy viz (Book IV)
+export const Ch04AscianStructure = wrap(bIV.Ch04AscianStructure, {
+  aspect: 'auto',
+  title: 'Ascian Structure · Verbal vs Military'
+})
+export const Ch04SeverianFearArc = wrap(bIV.Ch04SeverianFearArc, {
+  aspect: 'auto',
+  title: "Severian's Fear Arc · Ch. XXI–XXII"
+})
+export const Ch05ModuleArc = wrap(bIV.Ch05ModuleArc, {
+  aspect: 'auto',
+  title: 'Module 05 Section Arc'
+})
+export const Ch05TimeCorridor = wrap(bIV.Ch05TimeCorridor, {
+  aspect: 'auto',
+  title: 'The Corridors of Time'
+})
+export const Ch06ClawMeditationTree = wrap(bIV.Ch06ClawMeditationTree, {
+  aspect: 'auto',
+  title: "The Claw's Power · Two Theories"
+})
+export const Ch06StructureDiagram = wrap(bIV.Ch06StructureDiagram, {
+  aspect: 'auto',
+  title: 'Module 06 Structure · Return to the Citadel'
+})
+
+// Plate (painting-card wrapper for books)
 export { Plate } from './books/fantasy/Science Fantasy/plate'
 
-// ─── STAR WARS · EPISODE I · THE PHANTOM MENACE ───────────────────────────────
-export const TfaTimelineSvg = props => (
-  <VizCard id={'SW.I.01.1'} title={'Trade Federation Scene Timeline'}>
-    <tpmI.TfaTimelineSvg {...props} />
-  </VizCard>
-)
-export const TfaRelationshipSvg = props => (
-  <VizCard id={'SW.I.01.2'} title={'Trade Federation Character Web'}>
-    <tpmI.TfaRelationshipSvg {...props} />
-  </VizCard>
-)
-export const TfaShipLayoutSvg = props => (
-  <VizCard id={'SW.I.01.3'} title={'Trade Federation Cruiser Layout'}>
-    <tpmI.TfaShipLayoutSvg {...props} />
-  </VizCard>
-)
-export const TfaThemeMapSvg = props => (
-  <VizCard id={'SW.I.01.4'} title={'Trade Federation Theme Map'}>
-    <tpmI.TfaThemeMapSvg {...props} />
-  </VizCard>
-)
-export const DmsCharacterWebSvg = props => (
-  <VizCard id={'SW.I.03.1'} title={'Tatooine · Character Web'}>
-    <tpmI.DmsCharacterWebSvg {...props} />
-  </VizCard>
-)
-export const RaceCourseMap = props => (
-  <VizCard id={'SW.I.04.1'} title={'Boonta Eve Race Course'}>
-    <tpmI.RaceCourseMap {...props} />
-  </VizCard>
-)
-export const PodracerLineup = props => (
-  <VizCard id={'SW.I.04.2'} title={'Boonta Eve Starting Lineup'}>
-    <tpmI.PodracerLineup {...props} />
-  </VizCard>
-)
-export const RaceTimeline = props => (
-  <VizCard id={'SW.I.04.3'} title={'Podrace Event Timeline'}>
-    <tpmI.RaceTimeline {...props} />
-  </VizCard>
-)
-export const PodraceCharacterWeb = props => (
-  <VizCard id={'SW.I.04.4'} title={'Podrace Character Relationships'}>
-    <tpmI.PodraceCharacterWeb {...props} />
-  </VizCard>
-)
-export const DarkSideTimelineSvg = props => (
-  <VizCard id={'SW.I.05.1'} title={'Dark Side Threat Arc'}>
-    <tpmI.DarkSideTimelineSvg {...props} />
-  </VizCard>
-)
-export const MaulAttackSvg = props => (
-  <VizCard id={'SW.I.05.2'} title={"Maul's Attack: Position and Tempo"}>
-    <tpmI.MaulAttackSvg {...props} />
-  </VizCard>
-)
-export const FirstMeetingSvg = props => (
-  <VizCard id={'SW.I.05.3'} title={'First Meeting: Obi-Wan and Anakin'}>
-    <tpmI.FirstMeetingSvg {...props} />
-  </VizCard>
-)
-export const TwoInstructionsSvg = props => (
-  <VizCard id={'SW.I.05.4'} title={'Two Instructions, One Wound'}>
-    <tpmI.TwoInstructionsSvg {...props} />
-  </VizCard>
-)
-export const IncompleteLiberationSvg = props => (
-  <VizCard id={'SW.I.05.5'} title={'The Incomplete Liberation'}>
-    <tpmI.IncompleteLiberationSvg {...props} />
-  </VizCard>
-)
-export const FarewellCascadeSvg = props => (
-  <VizCard id={'SW.I.05.6'} title={'The Farewell Cascade'}>
-    <tpmI.FarewellCascadeSvg {...props} />
-  </VizCard>
-)
-export const PoliticalPowerWeb = props => (
-  <VizCard id={'SW.I.06.1'} title={'Coruscant Power Web'}>
-    <tpmI.PoliticalPowerWeb {...props} />
-  </VizCard>
-)
-export const CoruscantModuleTimeline = props => (
-  <VizCard id={'SW.I.06.2'} title={'Coruscant Politics Scene Timeline'}>
-    <tpmI.CoruscantModuleTimeline {...props} />
-  </VizCard>
-)
-export const BattleMap = props => (
-  <VizCard id={'SW.I.07.1'} title={'Battle of Naboo: Four Fronts'}>
-    <tpmI.BattleMap {...props} />
-  </VizCard>
-)
-export const CharacterArcTimeline = props => (
-  <VizCard id={'SW.I.07.2'} title={'Character Arcs: Return and Battle of Naboo'}>
-    <tpmI.CharacterArcTimeline {...props} />
-  </VizCard>
-)
+// BIOGRAPHY · FOUNDERS & BUILDERS · AUGUSTUS THE BIOGRAPHY
+export const SuccessionNetwork = wrap(bio.SuccessionNetwork, {
+  aspect: 'auto',
+  title: 'Succession Network'
+})
+
+// STAR WARS · EPISODE I · THE PHANTOM MENACE
+export const TfaSceneTimeline = tpmI.TfaSceneTimeline
+export const TfaCharacterWeb = tpmI.TfaCharacterWeb
+export const TfaShipLayout = tpmI.TfaShipLayout
+export const TfaThemeMap = tpmI.TfaThemeMap
+export const DmsCharacterWeb = tpmI.DmsCharacterWeb
+export const BoontaRaceCourse = tpmI.BoontaRaceCourse
+export const BoontaRaceTimeline = tpmI.BoontaRaceTimeline
+export const PodraceCharacterWeb = tpmI.PodraceCharacterWeb
+export const DarkSideTimelineSvg = tpmI.DarkSideTimeline
+export const MaulAttackSvg = tpmI.MaulAttack
+export const FirstMeetingSvg = tpmI.FirstMeeting
+export const TwoInstructionsSvg = tpmI.TwoInstructions
+export const IncompleteLiberationSvg = tpmI.IncompleteLiberation
+export const FarewellCascadeSvg = tpmI.FarewellCascade
+export const PoliticalPowerWeb = tpmI.CoruscantPowerWeb
+export const CoruscantModuleTimeline = tpmI.CoruscantSceneTimeline
+export const BattleMap = tpmI.BattleMap
+export const CharacterArcTimeline = tpmI.CharacterArcTimeline
+export const CharacterRoster = tpmI.CharacterRoster
+export const ShipScaleLineup = tpmI.ShipScaleLineup
+
+// MATHEMATICS · ARITHMETIC · DISCOUNT, PROFIT, LOSS
+export const PercentageChangeNumberLine = wrap(dplA.PercentageChangeNumberLine, {
+  aspect: 'auto',
+  title: 'Percentage Change · Number Line'
+})
+export const ProfitLossBar = wrap(dplA.ProfitLossBar, {
+  aspect: 'auto',
+  title: 'Profit and Loss · Bar Comparison'
+})
+export const DiscountPriceLadder = wrap(dplA.DiscountPriceLadder, {
+  aspect: 'auto',
+  title: 'Discount · Price Ladder'
+})
+export const SuccessiveDiscountFunnel = wrap(dplA.SuccessiveDiscountFunnel, {
+  aspect: 'auto',
+  title: 'Successive Discounts · Funnel'
+})
+export const MarkupVsMarginPanel = wrap(dplA.MarkupVsMarginPanel, {
+  aspect: 'auto',
+  title: 'Markup vs Margin · Side-by-Side'
+})
+export const ReverseOriginalPrice = wrap(dplA.ReverseOriginalPrice, {
+  aspect: 'auto',
+  title: 'Reverse Problem · Finding Original Price'
+})
+export const SimpleVsCompoundInterest = wrap(dplA.SimpleVsCompoundInterest, {
+  aspect: 'auto',
+  title: 'Simple vs Compound Interest · Growth Lines'
+})
+export const DecimalMultiplierScale = wrap(dplA.DecimalMultiplierScale, {
+  aspect: 'auto',
+  title: 'Decimal Multiplier · Interactive Scale'
+})
+
+// MATHEMATICS · ARITHMETIC · SIMPLE AND COMPOUND INTEREST
+export const SimpleInterestNumberLine = wrap(scI.SimpleInterestNumberLine, {
+  aspect: 'auto',
+  title: 'Simple Interest · Linear Growth'
+})
+export const CompoundMultiplierLadder = wrap(scI.CompoundMultiplierLadder, {
+  aspect: 'auto',
+  title: 'Compound Interest · Multiplier Ladder'
+})
+export const CompoundingFrequencyComparison = wrap(scI.CompoundingFrequencyComparison, {
+  aspect: 'auto',
+  title: 'Compounding Frequency · Annual vs Monthly'
+})
+export const TieredTaxBracketBar = wrap(scI.TieredTaxBracketBar, {
+  aspect: 'auto',
+  title: 'Tiered Tax Brackets · Income Bands'
+})
+
+// MATHEMATICS · GROWTH, DEPRECIATION, APPLIED TAX
+export const PercentageChangeExplorer = wrap(gda.PercentageChangeExplorer, {
+  aspect: 'auto',
+  title: 'Percentage Change · Interactive Number Line'
+})
+export const LinearVsExponentialComparison = wrap(gda.LinearVsExponentialComparison, {
+  aspect: 'auto',
+  title: 'Linear vs Exponential Growth · Simple vs Compound'
+})
+export const CompoundGrowthDepreciationSlider = wrap(gda.CompoundGrowthDepreciationSlider, {
+  aspect: 'auto',
+  title: 'Compound Growth and Depreciation · Rate Slider'
+})
+// GDA.4 reuses the tiered tax bracket bar from the Simple-and-Compound-Interest
+// monolith: the income-tax mechanics are identical, so the shim aliases it.
+
+// MATHEMATICS · ARITHMETIC · ARITHMETIC AND GEOMETRIC SEQUENCES
+export const ArithmeticProgressionLine = wrap(ags.ArithmeticProgressionLine, {
+  aspect: 'auto',
+  title: 'Arithmetic Progression · Linear Growth'
+})
+export const APSumGaussPairing = wrap(ags.APSumGaussPairing, {
+  aspect: 'auto',
+  title: 'AP Sum · Gauss Pairing'
+})
+export const GeometricProgressionLine = wrap(ags.GeometricProgressionLine, {
+  aspect: 'auto',
+  title: 'Geometric Progression · Exponential Growth'
+})
+export const APvsGPComparison = wrap(ags.APvsGPComparison, {
+  aspect: 'auto',
+  title: 'AP vs GP · Side-by-Side'
+})
+export const GPSumDerivation = wrap(ags.GPSumDerivation, {
+  aspect: 'auto',
+  title: 'GP Sum · Partial Sums'
+})
+export const WellTemperedClavierFrequencies = wrap(ags.WellTemperedClavierFrequencies, {
+  aspect: 'auto',
+  title: 'Well-Tempered Clavier · Frequency Ratios'
+})
+export const InfiniteGPConvergence = wrap(ags.InfiniteGPConvergence, {
+  aspect: 'auto',
+  title: 'Infinite GP · Convergence to a/(1-r)'
+})
+export const SequencePositionMap = wrap(ags.SequencePositionMap, {
+  aspect: 'auto',
+  title: 'Sequence Position Map · AP vs GP Terms'
+})
+export const MixedSequenceIdentifier = wrap(ags.MixedSequenceIdentifier, {
+  aspect: 'auto',
+  title: 'Mixed Sequence Identifier · AP / GP / Both / Neither'
+})
+export const ZenoStack = wrap(ags.ZenoStack, {
+  aspect: 'auto',
+  title: "Zeno's Dichotomy · Segment Stack on [0,1]"
+})
+export const APForwardBackwardStack = wrap(ags.APForwardBackwardStack, {
+  aspect: 'auto',
+  title: 'AP Sum Derivation · Forward-Backward Pairing'
+})
+
+// MATHEMATICS · ARITHMETIC · NUMBER SEQUENCES AND PATTERNS
+export const LinearSequencePlot = wrap(nsp.LinearSequencePlot, {
+  aspect: 'auto',
+  title: 'Linear Sequence · Constant First Difference'
+})
+export const FirstDifferenceStrip = wrap(nsp.FirstDifferenceStrip, {
+  aspect: 'auto',
+  title: 'First Difference Strip · +5 Arcs'
+})
+export const QuadraticSequencePlot = wrap(nsp.QuadraticSequencePlot, {
+  aspect: 'auto',
+  title: 'Quadratic Sequence · Constant Second Difference'
+})
+export const MatchstickHouses = wrap(nsp.MatchstickHouses, {
+  aspect: 'auto',
+  title: 'Matchstick Houses · m = 4h + 1'
+})
+export const TileSequence = wrap(nsp.TileSequence, {
+  aspect: 'auto',
+  title: 'Tile Sequence · w = b + 4'
+})
+export const NthTermExplorer = wrap(nsp.NthTermExplorer, {
+  aspect: 'auto',
+  title: 'Nth Term Explorer · Interactive Formula'
+})
+export const OddSumCubes = wrap(nsp.OddSumCubes, {
+  aspect: 'auto',
+  title: 'Odd Numbers and Cubes · Visual Grouping'
+})
+export const CubicSequencePlot = wrap(nsp.CubicSequencePlot, {
+  aspect: 'auto',
+  title: 'Cubic Sequences · n³, n³+1, 2n³'
+})
+export const NicomachusSquares = wrap(nsp.NicomachusSquares, {
+  aspect: 'auto',
+  title: 'Nicomachus Identity · L-shaped Gnomons'
+})
+
+// MATHEMATICS · SCIENTIFIC NOTATION
+
+// MATHEMATICS · INDEX NOTATION
+export const HalvingLadder = wrap(ili.HalvingLadder, {
+  aspect: 'auto',
+  title: 'Halving Ladder · 2³ down to 2⁻³'
+})
+export const PowerCurves = wrap(ili.PowerCurves, {
+  aspect: 'auto',
+  title: 'Power Curves · y = 2^x and y = 3^x'
+})
+export const InteractiveExponentSlider = wrap(ili.InteractiveExponentSlider, {
+  aspect: 'auto',
+  title: 'Exponent Slider · 2^n for n in [-4, 4]'
+})
+export const ProductLawVisualizer = wrap(ili.ProductLawVisualizer, {
+  aspect: 'auto',
+  title: 'Product Law · a^m × a^n = a^(m+n)'
+})
+export const PowerOfPowerVisualizer = wrap(ili.PowerOfPowerVisualizer, {
+  aspect: 'auto',
+  title: 'Power of a Power · (a^m)^n = a^(mn)'
+})
+export const StandardFormScale = wrap(ili.StandardFormScale, {
+  aspect: 'auto',
+  title: 'Standard Form Scale · 10⁻⁴ to 10¹¹'
+})
+export const FactorBlockDiagram = wrap(ili.FactorBlockDiagram, {
+  aspect: 'auto',
+  title: 'Factor Block Diagram · 2⁴ = 2×2×2×2 = 16'
+})
+export const QuotientLawCancellation = wrap(ili.QuotientLawCancellation, {
+  aspect: 'auto',
+  title: 'Quotient Law · a⁵ ÷ a³ cancellation'
+})
+
+// MATHEMATICS · ARITHMETIC · SQUARES, CUBES, SQUARE ROOTS, CUBE ROOTS
+export const SquareArray = wrap(scR.SquareArray, {
+  aspect: 'auto',
+  title: 'Square as n by n Array'
+})
+export const SquareArrayInteractive = wrap(scR.SquareArrayInteractive, {
+  aspect: 'auto',
+  title: 'Build a Square: Interactive'
+})
+export const CubeStack = wrap(scR.CubeStack, {
+  aspect: 'auto',
+  title: 'Cube as Stacked Unit Cubes'
+})
+export const CubeStackInteractive = wrap(scR.CubeStackInteractive, {
+  aspect: 'auto',
+  title: 'Build a Cube: Interactive'
+})
+export const SquareRootNumberLine = wrap(scR.SquareRootNumberLine, {
+  aspect: 'auto',
+  title: 'Square Root on a Number Line'
+})
+export const RootCurveComparison = wrap(scR.RootCurveComparison, {
+  aspect: 'auto',
+  title: 'Square Root vs Cube Root Curves'
+})
+
+// MATHEMATICS · ARITHMETIC · IRRATIONAL NUMBERS AND THE REAL-NUMBER SYSTEM
+export const SqrtTwoBracketingViz = wrap(inr.SqrtTwoBracketingViz, {
+  aspect: 'auto',
+  title: 'Locating √2 by Bracketing'
+})
+export const NumberSystemHierarchyViz = wrap(inr.NumberSystemHierarchyViz, {
+  aspect: 'auto',
+  title: 'The Real-Number System Hierarchy'
+})
+export const DecimalExpansionStripViz = wrap(inr.DecimalExpansionStripViz, {
+  aspect: 'auto',
+  title: 'Decimal Expansions: Terminating, Repeating, Endless'
+})
+export const PerfectSquareParityViz = wrap(inr.PerfectSquareParityViz, {
+  aspect: 'auto',
+  title: 'The Perfect-Square Parity Test'
+})
+export const SqrtOnNumberLineSliderViz = wrap(inr.SqrtOnNumberLineSliderViz, {
+  aspect: 'auto',
+  title: '√n on the Number Line'
+})
+export const DensityStripViz = wrap(inr.DensityStripViz, {
+  aspect: 'auto',
+  title: 'Density of Rationals and Irrationals'
+})
+export const UnitSquareDiagonalViz = wrap(inr.UnitSquareDiagonalViz, {
+  aspect: 'auto',
+  title: 'Unit Square Diagonal'
+})
+
+// MATHEMATICS · REAL NUMBERS ON THE NUMBER LINE
+export const CompassTransferViz = wrap(rnl.CompassTransferViz, {
+  aspect: 'auto',
+  title: 'Compass Transfer of √2 onto the Line'
+})
+export const SpiralOfTheodorusViz = wrap(rnl.SpiralOfTheodorusViz, {
+  aspect: 'auto',
+  title: 'The Spiral of Theodorus'
+})
+export const RealsAsPointsViz = wrap(rnl.RealsAsPointsViz, {
+  aspect: 'auto',
+  title: 'Every Point Is One Real Number'
+})
+
+// MATHEMATICS · SIMPLE QUADRATIC SURDS
+export const SqrtDefinitionPlot = wrap(sqs.SqrtDefinitionPlot, {
+  aspect: 'auto',
+  title: 'Square Root Definition · x² = c interactive'
+})
+export const ThreeCaseDiagram = wrap(sqs.ThreeCaseDiagram, {
+  aspect: 'auto',
+  title: 'Three Cases of x² + q = 0'
+})
+export const ProductRulePlot = wrap(sqs.ProductRulePlot, {
+  aspect: 'auto',
+  title: 'Product Rule · √(ab) = √a · √b'
+})
+export const AbsoluteValueRootPlot = wrap(sqs.AbsoluteValueRootPlot, {
+  aspect: 'auto',
+  title: 'Absolute Value · √(a²) = |a|'
+})
+export const RationalisingStepDiagram = wrap(sqs.RationalisingStepDiagram, {
+  aspect: 'auto',
+  title: 'Rationalising the Denominator · Conjugate Steps'
+})
+
+// MATHEMATICS · ARITHMETIC · ODD AND EVEN NUMBERS
+export const ParityNumberLine = wrap(oen.ParityNumberLine, {
+  aspect: 'auto',
+  title: 'Parity on the Number Line'
+})
+export const ParityPairing = wrap(oen.ParityPairing, {
+  aspect: 'auto',
+  title: 'Even Numbers Pair, Odd Numbers Have a Leftover'
+})
+export const ParitySumCalculator = wrap(oen.ParitySumCalculator, {
+  aspect: 'auto',
+  title: 'Parity of a Sum Calculator'
+})
+export const ParityOfSquares = wrap(oen.ParityOfSquares, {
+  aspect: 'auto',
+  title: 'Parity of n² · Even² is Even, Odd² is Odd'
+})
+
+// ARITHMETIC · PERCENTAGES: CONCEPT AND CONVERSIONS
+export const PercentBar = wrap(pcc.PercentBar, { aspect: 'auto', title: 'Percent as a Bar' })
+export const FractionToPercentMap = wrap(pcc.FractionToPercentMap, {
+  aspect: 'auto',
+  title: 'Fraction to Percent Map'
+})
+export const PercentDecimalSlide = wrap(pcc.PercentDecimalSlide, {
+  aspect: 'auto',
+  title: 'Percent and Decimal · Two-Way Slide'
+})
+export const UpThenDownAsymmetry = wrap(pcc.UpThenDownAsymmetry, {
+  aspect: 'auto',
+  title: 'Up Then Down · Asymmetry'
+})
+export const RelativeErrorViz = wrap(pcc.RelativeErrorViz, {
+  aspect: 'auto',
+  title: 'Relative Error · Bar Comparison'
+})
+
+// MATHEMATICS · ARITHMETIC · PERCENTAGE OF A QUANTITY
+export const BarModelPercentOfQuantity = wrap(poq.BarModelPercentOfQuantity, {
+  aspect: 'auto',
+  title: 'Bar Model: Percentage of a Quantity'
+})
+export const FractionVsDecimalMethod = wrap(poq.FractionVsDecimalMethod, {
+  aspect: 'auto',
+  title: 'Fraction Method vs Decimal Method'
+})
+export const SimpleVsCompoundGrowth = wrap(poq.SimpleVsCompoundGrowth, {
+  aspect: 'auto',
+  title: 'Simple vs Compound Growth'
+})
+
+// MATHEMATICS · ARITHMETIC · PERCENTAGE INCREASE AND DECREASE
+export const SameIncreaseDifferentBase = wrap(pid.SameIncreaseDifferentBase, {
+  aspect: 'auto',
+  title: 'Same Increase, Different Base'
+})
+export const PercentageIncreaseFormula = wrap(pid.PercentageIncreaseFormula, {
+  aspect: 'auto',
+  title: 'Percentage Increase: Number Line'
+})
+export const PercentageDecreaseMirror = wrap(pid.PercentageDecreaseMirror, {
+  aspect: 'auto',
+  title: 'Percentage Decrease: Number Line'
+})
+export const ProfitLossOnCostPrice = wrap(pid.ProfitLossOnCostPrice, {
+  aspect: 'auto',
+  title: 'Profit and Loss on Cost Price'
+})
+export const GeometricAreaChange = wrap(pid.GeometricAreaChange, {
+  aspect: 'auto',
+  title: 'Geometric Area Change'
+})
+export const ReversePercentageReasoning = wrap(pid.ReversePercentageReasoning, {
+  aspect: 'auto',
+  title: 'Reverse Percentage Reasoning'
+})
+export const MultiStepCombinedChange = wrap(pid.MultiStepCombinedChange, {
+  aspect: 'auto',
+  title: 'Multi-Step Combined Percentage Change'
+})
+export const PercentageChangeSymmetryTrap = wrap(pid.PercentageChangeSymmetryTrap, {
+  aspect: 'auto',
+  title: 'Up-Then-Down Is Not Zero'
+})
+
+// MATHEMATICS · ARITHMETIC · RATIO
+export const RatioBoysGirls45 = wrap(rat.RatioBoysGirls45, {
+  aspect: 'auto',
+  title: 'Auditorium Ratio 4 to 5'
+})
+export const ProblemOneFourthSolution = wrap(rat.ProblemOneFourthSolution, {
+  aspect: 'auto',
+  title: 'Problem 1: Number-Line Concatenation'
+})
+export const ThreeQuantityBar = wrap(rat.ThreeQuantityBar, {
+  aspect: 'auto',
+  title: 'Three-Quantity Ratio Bar: 2:5:4'
+})
+export const ChairsLegsComparison = wrap(rat.ChairsLegsComparison, {
+  aspect: 'auto',
+  title: 'Chairs and Legs: Multiplicative vs Additive'
+})
+export const MapScaleVisual = wrap(rat.MapScaleVisual, {
+  aspect: 'auto',
+  title: 'Map Scale 1 to 50 000'
+})
+export const ShareSixtyTwoThree = wrap(rat.ShareSixtyTwoThree, {
+  aspect: 'auto',
+  title: 'Share 60 Dollars in Ratio 2 to 3'
+})
+export const ScalingRecipe = wrap(rat.ScalingRecipe, {
+  aspect: 'auto',
+  title: 'Scaling a Recipe: Factor 8 over 5'
+})
+export const TeacherStudentBeforeAfter = wrap(rat.TeacherStudentBeforeAfter, {
+  aspect: 'auto',
+  title: 'Teacher-Student Ratio: Before and After'
+})
+export const RatioVsRateContrast = wrap(rat.RatioVsRateContrast, {
+  aspect: 'auto',
+  title: 'Ratio vs Rate: Same Type vs Different Types'
+})
+
+// MATHEMATICS · ARITHMETIC · DIRECT AND INVERSE PROPORTION
+export const DirectProportionLine = wrap(dip.DirectProportionLine, {
+  aspect: 'auto',
+  title: 'Direct Proportion Line · y = kx'
+})
+export const InverseProportionCurve = wrap(dip.InverseProportionCurve, {
+  aspect: 'auto',
+  title: 'Inverse Proportion Curve · y = k/x'
+})
+export const UnitRateBarModel = wrap(dip.UnitRateBarModel, {
+  aspect: 'auto',
+  title: 'Unit-Rate Method · Petrol Problem'
+})
+export const HorsesHayBarModel = wrap(dip.HorsesHayBarModel, {
+  aspect: 'auto',
+  title: 'Inverse Unit-Rate · Horses and Hay'
+})
+export const DirectVsInversePlots = wrap(dip.DirectVsInversePlots, {
+  aspect: 'auto',
+  title: 'Direct vs Inverse · Side-by-Side'
+})
+export const ExchangeRateConverter = wrap(dip.ExchangeRateConverter, {
+  aspect: 'auto',
+  title: 'Foreign Exchange Converter'
+})
+
+// MATHEMATICS · ARITHMETIC · RATE, SPEED, AVERAGE SPEED
+export const ConstantSpeedPositionTimeGraph = wrap(rsa.ConstantSpeedPositionTimeGraph, {
+  aspect: 'auto',
+  title: 'Constant-Speed Position-Time Graph'
+})
+export const FaucetAccumulation = wrap(rsa.FaucetAccumulation, {
+  aspect: 'auto',
+  title: 'Faucet Accumulation at Constant Rate'
+})
+export const FaucetFillingProportion = wrap(rsa.FaucetFillingProportion, {
+  aspect: 'auto',
+  title: 'Faucet Filling · Proportion from Constancy'
+})
+export const ReducedRateCurve = wrap(rsa.ReducedRateCurve, {
+  aspect: 'auto',
+  title: 'Reduced-Rate Time Curve'
+})
+export const ReginaEricAreaModel = wrap(rsa.ReginaEricAreaModel, {
+  aspect: 'auto',
+  title: 'Cooperative Work · Area Model (Regina and Eric)'
+})
+export const CooperativeRateBars = wrap(rsa.CooperativeRateBars, {
+  aspect: 'auto',
+  title: 'Cooperative Work · Rate Bars'
+})
+export const UnitConversionChain = wrap(rsa.UnitConversionChain, {
+  aspect: 'auto',
+  title: 'Unit Conversion Chain · 85 1/15 ft/sec to 58 mph'
+})
+export const TwoNumberLines = wrap(rsa.TwoNumberLines, {
+  aspect: 'auto',
+  title: 'Two Number Lines · Rate as M/N'
+})
+export const TwoTrainsMeetingGraph = wrap(rsa.TwoTrainsMeetingGraph, {
+  aspect: 'auto',
+  title: 'Shuttle Trains · Meeting Point Graph'
+})
+export const AverageSpeedTwoLegs = wrap(rsa.AverageSpeedTwoLegs, {
+  aspect: 'auto',
+  title: 'Average Speed · Two-Leg Journey'
+})
+
+// MATHEMATICS · ARITHMETIC · MAP SCALES
+export const ScaleRatioMeaning = wrap(ms.ScaleRatioMeaning, {
+  aspect: 'auto',
+  title: 'What 1:50000 Means'
+})
+export const MapScaleConverterForward = wrap(ms.MapScaleConverterForward, {
+  aspect: 'auto',
+  title: 'Map Distance to Land Distance'
+})
+export const MapScaleConverterReverse = wrap(ms.MapScaleConverterReverse, {
+  aspect: 'auto',
+  title: 'Land Distance to Map Distance'
+})
+export const ScaleComparison = wrap(ms.ScaleComparison, {
+  aspect: 'auto',
+  title: 'Large-Scale vs Small-Scale Maps'
+})
+
+// MATHEMATICS · ARITHMETIC · OPPOSITE NUMBERS AND ABSOLUTE VALUE
+// Each viz function self-wraps in <VizFigure>; bare re-exports here.
+export const ThermometerNumberLine = oav.ThermometerNumberLine
+export const OppositeReflectionLine = oav.OppositeReflectionLine
+export const SignWalkNumberLine = oav.SignWalkNumberLine
+export const InequalityNegationFlip = oav.InequalityNegationFlip
+export const MultiplyByNegativeFlip = oav.MultiplyByNegativeFlip
+export const AbsoluteValueDistance = oav.AbsoluteValueDistance
+export const AbsoluteValueIntervalShade = oav.AbsoluteValueIntervalShade
+export const TriangleInequalityWalk = oav.TriangleInequalityWalk
+
+// ARITHMETIC · OPERATIONS ON SIGNED RATIONALS
+export const OSR_VectorAddSameSign = wrap(osr.VectorAddSameSign, {
+  aspect: 'auto',
+  title: 'Vector Addition: Same Sign'
+})
+export const OSR_VectorAddOppositeSign = wrap(osr.VectorAddOppositeSign, {
+  aspect: 'auto',
+  title: 'Vector Addition: Opposite Signs'
+})
+export const OSR_SumOfOppositesViz = wrap(osr.SumOfOppositesViz, {
+  aspect: 'auto',
+  title: 'Sum of Opposites: x + (−x) = 0'
+})
+export const OSR_SubtractionAsAddOpposite = wrap(osr.SubtractionAsAddOpposite, {
+  aspect: 'auto',
+  title: 'Subtraction as Adding the Opposite'
+})
+export const OSR_SignRuleGrid = wrap(osr.SignRuleGrid, {
+  aspect: 'auto',
+  title: 'Sign Rule Grid: Interactive'
+})
+export const OSR_NegativeTimesNegativeProof = wrap(osr.NegativeTimesNegativeProof, {
+  aspect: 'auto',
+  title: '(−1)(−1) = 1: Step-by-Step Proof'
+})
+export const OSR_DistributiveLawVizOSR = wrap(osr.DistributiveLawVizOSR, {
+  aspect: 'auto',
+  title: 'Distributive Law: x(y − z) = xy − xz'
+})
+export const OSR_AdditionFormulasViz = wrap(osr.AdditionFormulasViz, {
+  aspect: 'auto',
+  title: 'Addition Formulas: Three Cases'
+})
+export const OSR_InvertAndMultiplyViz = wrap(osr.InvertAndMultiplyViz, {
+  aspect: 'auto',
+  title: 'Invert and Multiply: Dividing Two Fractions'
+})
+export const OSR_SignRulesQuotientViz = wrap(osr.SignRulesQuotientViz, {
+  aspect: 'auto',
+  title: 'Sign Rules for Quotients'
+})
+export const OSR_FoundationsMirrorViz = wrap(osr.FoundationsMirrorViz, {
+  aspect: 'auto',
+  title: 'Mirror Reflection: x and x* on the Number Line'
+})
+export const OSR_ParenthesisRemovalViz = wrap(osr.ParenthesisRemovalViz, {
+  aspect: 'auto',
+  title: 'Parenthesis Removal: With vs Without Minus Sign'
+})
+
+// MATHEMATICS · APPROXIMATION: SIGNIFICANT FIGURES AND DECIMAL PLACES
+export const RoundingSnapDiagram = wrap(asf.RoundingSnapDiagram, {
+  aspect: 'auto',
+  title: 'Rounding Snap · Number-Line Precision Levels'
+})
+export const SigFigHighlighter = wrap(asf.SigFigHighlighter, {
+  aspect: 'auto',
+  title: 'Significant Figures Highlighter · Place-Value Columns'
+})
+export const BoundsOfAccuracyInterval = wrap(asf.BoundsOfAccuracyInterval, {
+  aspect: 'auto',
+  title: 'Bounds of Accuracy · Interval on Number Line'
+})
+export const ASF_AbsoluteVsRelativeError = wrap(asf.AbsoluteVsRelativeError, {
+  aspect: 'auto',
+  title: 'Absolute vs Relative Error · Scale Contrast'
+})
+export const EstimationExample = wrap(asf.EstimationExample, {
+  aspect: 'auto',
+  title: 'Estimation · 198×32 vs 200×30 Area Comparison'
+})
+export const SigFigVsDecimalPlacesContrast = wrap(asf.SigFigVsDecimalPlacesContrast, {
+  aspect: 'auto',
+  title: 'Sig Figs vs Decimal Places · Side-by-Side Contrast'
+})
+export const ApproximationGap = wrap(asf.ApproximationGap, {
+  aspect: 'auto',
+  title: 'Approximation Gap · Exact vs Rounded on a Number Line'
+})
+export const ThreeReasonsPanel = wrap(asf.ThreeReasonsPanel, {
+  aspect: 'auto',
+  title: 'Three Reasons to Estimate · Side-by-Side'
+})
+export const RoundingRuleSnap = wrap(asf.RoundingRuleSnap, {
+  aspect: 'auto',
+  title: 'Round-Half-Up · Distance-Derived Rule'
+})
+export const AccuracyThresholdStrip = wrap(asf.AccuracyThresholdStrip, {
+  aspect: 'auto',
+  title: 'Accuracy Threshold · Excellent / Acceptable / Too Rough'
+})
+
+// MATHEMATICS · INTEGERS AND NEGATIVE NUMBERS
+export const IAN_NumberLineSigned = wrap(ian.NumberLineSigned, {
+  aspect: 'auto',
+  title: 'Number Line: Real-World Contexts'
+})
+export const IAN_NumberLineAddJump = wrap(ian.NumberLineAddJump, {
+  aspect: 'auto',
+  title: 'Number Line: Interactive Addition Jump'
+})
+export const IAN_FourAdditionCases = wrap(ian.FourAdditionCases, {
+  aspect: 'auto',
+  title: 'Four Addition Cases: Small Multiples'
+})
+export const IAN_SequencePatternArgument = wrap(ian.SequencePatternArgument, {
+  aspect: 'auto',
+  title: 'Sequence Pattern: Why Minus Times Minus is Plus'
+})
+export const IAN_DistributiveProofWalk = wrap(ian.DistributiveProofWalk, {
+  aspect: 'auto',
+  title: 'Distributive Law Proof: 3·(−5) = −15'
+})
+export const IAN_EqualOpportunitiesGrid = wrap(ian.EqualOpportunitiesGrid, {
+  aspect: 'auto',
+  title: 'Equal Opportunities Grid'
+})
+
+// MATHEMATICS · ARITHMETIC · FACTORS AND MULTIPLES
+// FAM.11-16 (FactorPairLadder, MultiplesGrid, DivisorCountParity, FactorMultipleArray,
+// CommonMultiplesStrips, CommonFactorsOverlap) were migrated inline into
+// src/features/explore/mathematics/arithmetic/factors-and-multiples.jsx as VizFigure-wrapped
+// Fam_* functions during the viz refine, and removed from the catalog accordingly.
+
+// MATHEMATICS · ARITHMETIC · HCF AND LCM
+export const HCL_SharedMultiplesLine = wrap(hcl.HCL_SharedMultiplesLine, {
+  aspect: 'auto',
+  title: 'Shared Multiples · LCM of 4 and 6'
+})
+export const HCL_PrimeFactorVenn = wrap(hcl.HCL_PrimeFactorVenn, {
+  aspect: 'auto',
+  title: 'Prime Factor Venn · HCF and LCM of 56 and 96'
+})
+export const HCL_TwoFactorTrees = wrap(hcl.HCL_TwoFactorTrees, {
+  aspect: 'auto',
+  title: 'Two Factor Trees · Common Primes of 84 and 105'
+})
+export const HCL_EuclidSteps = wrap(hcl.HCL_EuclidSteps, {
+  aspect: 'auto',
+  title: 'Euclidean Algorithm · gcd(1560, 676)'
+})
+export const HCL_ProductRuleGrid = wrap(hcl.HCL_ProductRuleGrid, {
+  aspect: 'auto',
+  title: 'Product Rule · a × b = HCF × LCM'
+})
+export const HCL_MethodCompare = wrap(hcl.HCL_MethodCompare, {
+  aspect: 'auto',
+  title: 'Prime Power Table · HCF (min) and LCM (max)'
+})
+export const HCL_DivisorPairs = wrap(hcl.HCL_DivisorPairs, {
+  aspect: 'auto',
+  title: 'Divisor Pairs · Factor Pairs of 18'
+})
+export const HCL_CoprimeVenn = wrap(hcl.HCL_CoprimeVenn, {
+  aspect: 'auto',
+  title: 'Coprime Contrast · Empty vs Filled Intersection'
+})
+export const HCL_BezoutCombinationLine = wrap(hcl.HCL_BezoutCombinationLine, {
+  aspect: 'auto',
+  title: 'Bézout Combinations · gcd as Smallest Positive 6x + 4y'
+})
+
+// PHYSICS · DIRAC-BERGMANN CONSTRAINTS
+export const ConstraintSurfaceDiagram = wrap(idbc.ConstraintSurfaceDiagram, {
+  aspect: 'auto',
+  title: 'Singular Legendre Map: The Primary Constraint Surface'
+})
+export const FirstVsSecondClassContrast = wrap(idbc.FirstVsSecondClassContrast, {
+  aspect: 'auto',
+  title: 'First Class vs Second Class'
+})
+export const GaugeOrbitSweep = wrap(idbc.GaugeOrbitSweep, {
+  aspect: 'auto',
+  title: 'Gauge Orbit Sweep: Arbitrary v(t), Same Physical State'
+})
+export const PhaseSpaceDimensionCount = wrap(idbc.PhaseSpaceDimensionCount, {
+  aspect: 'auto',
+  title: 'Counting Physical Degrees of Freedom'
+})
+
+// Part II: Lagrangian Mechanics
+export const VirtualVsRealDisplacement = wrap(cm.VirtualVsRealDisplacement, {
+  aspect: 'auto',
+  title: 'Virtual vs Real Displacement'
+})
+export const ConstraintForceNormal = wrap(cm.ConstraintForceNormal, {
+  aspect: 'auto',
+  title: 'Constraint Force ⊥ Surface'
+})
+export const InclineVirtualWork = wrap(cm.InclineVirtualWork, {
+  aspect: 'auto',
+  title: 'Incline: Normal Force Does No Virtual Work'
+})
+export const ReversedEffectiveForce = wrap(cm.ReversedEffectiveForce, {
+  aspect: 'auto',
+  title: "D'Alembert: Reversed Effective Force"
+})
+export const BeadOnRotatingRod = wrap(cm.BeadOnRotatingRod, {
+  aspect: 'auto',
+  title: 'Bead on Rotating Tilted Rod'
+})
+
+// CLASSICAL MECHANICS · TIDES
+export const TidalStretchSqueeze = wrap(cm.TidalStretchSqueeze, {
+  aspect: 'auto',
+  title: 'Tidal Stretch and Squeeze'
+})
+
+// CLASSICAL MECHANICS · VARIATIONAL PROBLEMS BEYOND MECHANICS
+export const VariedPathAction = wrap(cm.VariedPathAction, {
+  aspect: 'auto',
+  title: 'Varied Paths and the Stationary Action'
+})
+export const GeodesicStraightLine = wrap(cm.GeodesicStraightLine, {
+  aspect: 'auto',
+  title: 'Shortest Path: The Straight Line'
+})
+export const CatenaryProfile = wrap(cm.CatenaryProfile, {
+  aspect: 'auto',
+  title: 'Minimum Surface of Revolution: The Catenary'
+})
+export const BrachistochroneCycloid = wrap(cm.BrachistochroneCycloid, {
+  aspect: 'auto',
+  title: 'The Brachistochrone: Fastest Descent'
+})
+
+// CLASSICAL MECHANICS · HOLONOMIC & NONHOLONOMIC CONSTRAINTS
+export const HoopOnIncline = wrap(cm.HoopOnIncline, {
+  aspect: 'auto',
+  title: 'Hoop on an Incline · Rolling vs Slipping'
+})
+export const StrongFieldConfinement = wrap(cm.StrongFieldConfinement, {
+  aspect: 'auto',
+  title: 'Constraint as a Strong-Field Limit'
+})
+export const HolonomicVsNonholonomic = wrap(cm.HolonomicVsNonholonomic, {
+  aspect: 'auto',
+  title: 'Holonomic vs Nonholonomic'
+})
+export const ConstraintForceMultiplier = wrap(cm.ConstraintForceMultiplier, {
+  aspect: 'auto',
+  title: 'Lagrange Multiplier as Constraint Force'
+})
+
+// CLASSICAL MECHANICS · ROUTHIAN REDUCTION
+export const KeplerEffectivePotential = wrap(cm.KeplerEffectivePotential, {
+  aspect: 'auto',
+  title: 'Kepler Effective Potential'
+})
+export const SymmetricTopPotential = wrap(cm.SymmetricTopPotential, {
+  aspect: 'auto',
+  title: 'Symmetric Top Effective Potential'
+})
+export const CyclicMomentumPhaseLine = wrap(cm.CyclicMomentumPhaseLine, {
+  aspect: 'auto',
+  title: 'Cyclic Momentum Phase Line'
+})
+
+// CLASSICAL MECHANICS · FRICTION & NON-CONSERVATIVE FORCES
+export const RayleighDissipationFunction = wrap(cm.RayleighDissipationFunction, {
+  aspect: 'auto',
+  title: 'Rayleigh Dissipation Function'
+})
+export const DissipatedEnergyDecay = wrap(cm.DissipatedEnergyDecay, {
+  aspect: 'auto',
+  title: 'Dissipated Energy Decay'
+})
+export const DampedPhasePortrait = wrap(cm.DampedPhasePortrait, {
+  aspect: 'auto',
+  title: 'Damped Phase Portrait'
+})
+export const MassSpringDamperSim = wrap(cm.MassSpringDamperSim, {
+  aspect: 'auto',
+  title: 'Mass-Spring-Damper Simulation'
+})
+
+// PHYSICS · Magnetic Adiabatic Invariants
+export const GyroOrbitMAI = wrap(cm.GyroOrbitMAI, {
+  aspect: 'auto',
+  title: 'Gyro-Orbit in Uniform B Field'
+})
+// Alias used by the feature file import
+export const GyroOrbit = GyroOrbitMAI
+export const MagMirrorBounce = wrap(cm.MagMirrorBounce, {
+  aspect: 'auto',
+  title: 'Magnetic Mirror Bounce'
+})
+// Alias used by the feature file import
+export const MagneticMirrorBounce = MagMirrorBounce
+export const MagneticMomentInvariance = wrap(cm.MagneticMomentInvariance, {
+  aspect: 'auto',
+  title: 'Magnetic Moment Invariance'
+})
+export const LossConeDiagram = wrap(cm.LossConeDiagram, {
+  aspect: 'auto',
+  title: 'Loss Cone Diagram'
+})
+// Alias used by the feature file import
+export const LossCone = LossConeDiagram
+
+// CLASSICAL MECHANICS · FLOQUET / MATHIEU / PARAMETRIC RESONANCE
+export const MathieuStabilityChart = wrap(cm.MathieuStabilityChart, {
+  aspect: 'auto',
+  title: 'Mathieu Stability Chart'
+})
+export const FloquetMultiplierCircle = wrap(cm.FloquetMultiplierCircle, {
+  aspect: 'auto',
+  title: 'Floquet Multipliers on the Unit Circle'
+})
+export const ParametricGrowthPlot = wrap(cm.ParametricGrowthPlot, {
+  aspect: 'auto',
+  title: 'Parametric Resonance Growth'
+})
+
+// PHYSICS · POINCARÉ SECTIONS AND MAPS
+export const StandardMap = wrap(cm.StandardMap, {
+  aspect: 'auto',
+  title: 'Standard (Chirikov-Taylor) Map'
+})
+export const TwistMapCircles = wrap(cm.TwistMapCircles, {
+  aspect: 'auto',
+  title: 'Twist Map: Rational vs Irrational Rotation'
+})
+export const PoincareSectionFlow = wrap(cm.PoincareSectionFlow, {
+  aspect: 'auto',
+  title: 'Poincaré Section: Henon-Heiles Flow'
+})
+export const PrecessingKeplerSection = wrap(cm.PrecessingKeplerSection, {
+  aspect: 'auto',
+  title: 'Precessing Kepler Poincaré Section'
+})
+
+// PHYSICS · FIXED POINTS, LIMIT CYCLES & POINCARÉ-BENDIXSON
+export const TraceDetPlane = wrap(cm.TraceDetPlane, {
+  aspect: 'auto',
+  title: 'Trace-Determinant Classification Plane'
+})
+export const FixedPointPortraits = wrap(cm.FixedPointPortraits, {
+  aspect: 'auto',
+  title: 'Phase Portraits: Five Linear Fixed-Point Types'
+})
+export const NullclineExplorer = wrap(cm.NullclineExplorer, {
+  aspect: 'auto',
+  title: 'Nullclines and Fixed Points'
+})
+export const MapStabilityChart = wrap(cm.MapStabilityChart, {
+  aspect: 'auto',
+  title: 'Map Stability: |Tr A| < 2 Band (Fermi Map)'
+})
+export const LimitCycleVdP = wrap(cm.LimitCycleVdP, {
+  aspect: 'auto',
+  title: 'Van der Pol Limit Cycle'
+})
+export const HopfBifurcation = wrap(cm.HopfBifurcation, {
+  aspect: 'auto',
+  title: 'Hopf Bifurcation: Birth of a Limit Cycle'
+})
+export const PoincareBendixsonTrap = wrap(cm.PoincareBendixsonTrap, {
+  aspect: 'auto',
+  title: 'Poincaré-Bendixson Trapping Region'
+})
+export const PolarLimitCycle = wrap(cm.PolarLimitCycle, {
+  aspect: 'auto',
+  title: 'Polar Limit Cycle: Isolated Stable Orbit'
+})
+export const DivergenceFlowCompare = wrap(cm.DivergenceFlowCompare, {
+  aspect: 'auto',
+  title: 'Conservative vs. Dissipative: Center vs. Spiral'
+})
+
+// PHYSICS · CHAOS & NONLINEAR DYNAMICS · BIFURCATIONS
+export const BifSaddleNode = wrap(cm.BifSaddleNode, {
+  aspect: 'auto',
+  title: 'Saddle-Node Bifurcation'
+})
+export const BifTranscritical = wrap(cm.BifTranscritical, {
+  aspect: 'auto',
+  title: 'Transcritical Bifurcation'
+})
+export const BifPitchfork = wrap(cm.BifPitchfork, {
+  aspect: 'auto',
+  title: 'Pitchfork Bifurcation'
+})
+export const BifPhaseLine = wrap(cm.BifPhaseLine, {
+  aspect: 'auto',
+  title: '1D Phase Line and Flow'
+})
+export const BifHopf = wrap(cm.BifHopf, { aspect: 'auto', title: 'Hopf Bifurcation' })
+export const BifPeriodDoubling = wrap(cm.BifPeriodDoubling, {
+  aspect: 'auto',
+  title: 'Period-Doubling Bifurcation Diagram'
+})
+export const BifFermiIsland = wrap(cm.BifFermiIsland, {
+  aspect: 'auto',
+  title: 'Fermi-Map Island Structure'
+})
+
+// PHYSICS · CHAOS & NONLINEAR DYNAMICS · LYAPUNOV EXPONENTS
+export const LyapSpectrum = wrap(cm.LyapSpectrum, {
+  aspect: 'auto',
+  title: 'Logistic Map Lyapunov Spectrum'
+})
+export const LyapDivergence = wrap(cm.LyapDivergence, {
+  aspect: 'auto',
+  title: 'Trajectory Divergence & Fitted Slope'
+})
+export const LyapThreeRegimes = wrap(cm.LyapThreeRegimes, {
+  aspect: 'auto',
+  title: 'Positive / Zero / Negative Exponent'
+})
+export const LyapRunningAverage = wrap(cm.LyapRunningAverage, {
+  aspect: 'auto',
+  title: 'Benettin Running Average Convergence'
+})
+export const LyapCatMap = wrap(cm.LyapCatMap, {
+  aspect: 'auto',
+  title: "Arnold's Cat Map Eigenstructure"
+})
+
+// PHYSICS · CHAOS & NONLINEAR DYNAMICS · ATTRACTORS
+export const AttrStrangeAttractor = wrap(cm.AttrStrangeAttractor, {
+  aspect: 'auto',
+  title: 'Rössler Strange Attractor'
+})
+
+export const AttrHenonMap = wrap(cm.AttrHenonMap, { aspect: 'auto', title: 'Hénon Map Attractor' })
+
+export const AttrCantorSet = wrap(cm.AttrCantorSet, {
+  aspect: 'auto',
+  title: 'Middle-Thirds Cantor Set'
+})
+
+export const AttrPhaseContraction = wrap(cm.AttrPhaseContraction, {
+  aspect: 'auto',
+  title: 'Phase-Volume Contraction'
+})
+
+// Chaos · Logistic Map & Feigenbaum Universality
+export const CobwebDiagram = wrap(cm.CobwebDiagram, {
+  aspect: 'auto',
+  title: 'Logistic Map Cobweb Diagram'
+})
+export const BifurcationDiagram = wrap(cm.BifurcationDiagram, {
+  aspect: 'auto',
+  title: 'Logistic Map Bifurcation Diagram'
+})
+export const PeriodDoublingTree = wrap(cm.PeriodDoublingTree, {
+  aspect: 'auto',
+  title: 'Period-Doubling Tree 1 to 2 to 4 to 8'
+})
+export const FeigenbaumDelta = wrap(cm.FeigenbaumDelta, {
+  aspect: 'auto',
+  title: 'Feigenbaum Delta Convergence'
+})
+export const LogisticTimeSeries = wrap(cm.LogisticTimeSeries, {
+  aspect: 'auto',
+  title: 'Logistic Map Time Series'
+})
+
+// PHYSICS · CHAOS · FRACTAL DIMENSION (05.5.x)
+export const FdBoxCounting = wrap(cm.FdBoxCounting, {
+  aspect: 'auto',
+  title: 'Box-Counting Dimension: log N vs log(1/ε)'
+})
+export const FdDimensionLadder = wrap(cm.FdDimensionLadder, {
+  aspect: 'auto',
+  title: 'Dimension Ladder: d_T < d_F < d_E'
+})
+export const FdSierpinskiConstruction = wrap(cm.FdSierpinskiConstruction, {
+  aspect: 'auto',
+  title: 'Sierpinski Carpet: Level Construction'
+})
+export const FdStrangeAttractorDim = wrap(cm.FdStrangeAttractorDim, {
+  aspect: 'auto',
+  title: 'Strange Attractor Dimension: 1 + λ₂/|λ₁|'
+})
+export const FdGeneralCantor = wrap(cm.FdGeneralCantor, {
+  aspect: 'auto',
+  title: 'General Cantor Set: d_f vs Removal Fraction'
+})
+
+export const AttrHenonHeilesPoincare = wrap(cm.AttrHenonHeilesPoincare, {
+  aspect: 'auto',
+  title: 'Hénon-Heiles Poincaré Section'
+})
+
+// PHYSICS · CLASSICAL MECHANICS V · HOMOCLINIC TANGLE & MELNIKOV
+export const HtSeparatrixCases = wrap(cm.HtSeparatrixCases, {
+  aspect: 'auto',
+  title: 'Separatrix Splitting: Four Cases'
+})
+export const HtMelnikovDistance = wrap(cm.HtMelnikovDistance, {
+  aspect: 'auto',
+  title: 'Melnikov Distance Geometry'
+})
+export const HtDuffingPortrait = wrap(cm.HtDuffingPortrait, {
+  aspect: 'auto',
+  title: 'Duffing Phase Portrait: Figure-Eight Separatrix'
+})
+export const HtMelnikovSignChange = wrap(cm.HtMelnikovSignChange, {
+  aspect: 'auto',
+  title: 'Melnikov Distance vs t₀: Chaos Threshold'
+})
+export const HtDuffingThreshold = wrap(cm.HtDuffingThreshold, {
+  aspect: 'auto',
+  title: 'Duffing Chaos Threshold Curve δc(ω)'
+})
+
+export const HtTangleGeometry = wrap(cm.HtTangleGeometry, {
+  aspect: 'auto',
+  title: 'Homoclinic Tangle Geometry: Lobes and Intersections'
+})
+export const HtMelnikovSetup = wrap(cm.HtMelnikovSetup, {
+  aspect: 'auto',
+  title: 'Melnikov Setup: Separatrix Splitting in Time'
+})
+export const HtBifurcationRegimes = wrap(cm.HtBifurcationRegimes, {
+  aspect: 'auto',
+  title: 'Duffing Bifurcation Regimes (Schematic)'
+})
+export const HtStandardMapThreshold = wrap(cm.HtStandardMapThreshold, {
+  aspect: 'auto',
+  title: 'Standard Map Chaos Threshold δ_c vs Q₀'
+})
+
+// CLASSICAL MECHANICS · CONTINUUM LIMIT & WAVE EQUATION (06.2.x)
+export const ChainOscillation = wrap(cm.ChainOscillation, {
+  aspect: 'auto',
+  title: 'Discrete Chain Normal Mode'
+})
+export const ContinuumLimitChain = wrap(cm.ContinuumLimitChain, {
+  aspect: 'auto',
+  title: 'Continuum Limit: Discrete to Field'
+})
+export const FiniteDifferenceToDerivative = wrap(cm.FiniteDifferenceToDerivative, {
+  aspect: 'auto',
+  title: 'Finite Difference Becomes Derivative'
+})
+export const TravelingWave = wrap(cm.TravelingWave, {
+  aspect: 'auto',
+  title: "D'Alembert Traveling Waves"
+})
+export const WaveSpeedVsModulus = wrap(cm.WaveSpeedVsModulus, {
+  aspect: 'auto',
+  title: 'Wave Speed vs Young Modulus'
+})
+export const LatticeDispersion = wrap(cm.LatticeDispersion, {
+  aspect: 'auto',
+  title: 'Lattice Dispersion: Discrete vs Continuum'
+})
+
+// PHYSICS · CLASSICAL MECHANICS VI · LAGRANGIAN DENSITY
+export const LdRodDisplacementField = wrap(cm.LdRodDisplacementField, {
+  aspect: 'auto',
+  title: 'Rod Displacement Field η(x,t)'
+})
+export const LdDensityToTotal = wrap(cm.LdDensityToTotal, {
+  aspect: 'auto',
+  title: 'Density ℒ(x) and Total Lagrangian'
+})
+export const LdKineticVsPotentialDensity = wrap(cm.LdKineticVsPotentialDensity, {
+  aspect: 'auto',
+  title: 'Kinetic vs Potential Density'
+})
+export const LdVariedPaths = wrap(cm.LdVariedPaths, {
+  aspect: 'auto',
+  title: "Hamilton's Principle: Varied Paths"
+})
+export const LdSpacetimeSymmetry = wrap(cm.LdSpacetimeSymmetry, {
+  aspect: 'auto',
+  title: 'Space and Time on Equal Footing'
+})
+export const LdGaugeAmbiguity = wrap(cm.LdGaugeAmbiguity, {
+  aspect: 'auto',
+  title: 'Gauge Freedom of the Lagrangian Density'
+})
+
+// CLASSICAL MECHANICS · HAMILTONIAN FIELD THEORY (06.4.x)
+export const MomentumDensityLimit = wrap(cm.MomentumDensityLimit, {
+  aspect: 'auto',
+  title: 'Momentum Density in the Continuum Limit'
+})
+export const HamiltonianDensityWave = wrap(cm.HamiltonianDensityWave, {
+  aspect: 'auto',
+  title: 'Hamiltonian Density of a Traveling Wave'
+})
+export const FieldPhasePortrait = wrap(cm.FieldPhasePortrait, {
+  aspect: 'auto',
+  title: 'Phase Portrait of a Fourier Mode'
+})
+export const FourierModeDecomp = wrap(cm.FourierModeDecomp, {
+  aspect: 'auto',
+  title: 'Fourier Mode Decomposition of a Field'
+})
+export const CanonicalFlowCircle = wrap(cm.CanonicalFlowCircle, {
+  aspect: 'auto',
+  title: 'Canonical Flow: Hamilton Vector Field'
+})
+
+// CLASSICAL MECHANICS · NOETHER FOR FIELDS (06.5.x)
+export const NffContinuityCurrent = wrap(cm.NffContinuityCurrent, {
+  aspect: 'auto',
+  title: 'Conserved Current: Charge Advects by Boundary Flux'
+})
+// VIZ ADD PASS (A1–A10)
+// A9 NffRealCurrent supersedes the former NffComplexPhaseRotation (same 06.5.2 slot).
+export const KapitzaEffectivePotential = wrap(cm.KapitzaEffectivePotential, {
+  aspect: 'auto',
+  title: 'Kapitza effective-potential well'
+})
+export const KapitzaDrivenPivot = wrap(cm.KapitzaDrivenPivot, {
+  aspect: 'auto',
+  title: 'Kapitza driven-pivot pendulum'
+})
+export const SmallDenominatorStem = wrap(cm.SmallDenominatorStem, {
+  aspect: 'auto',
+  title: 'Small-denominator amplification'
+})
+export const CausticFoldingManifold = wrap(cm.CausticFoldingManifold, {
+  aspect: 'auto',
+  title: 'Caustic from a folding manifold'
+})
+export const SineGordonCollision = wrap(cm.SineGordonCollision, {
+  aspect: 'auto',
+  title: 'Sine-Gordon kink collision'
+})
+export const StressEnergyContinuity = wrap(cm.StressEnergyContinuity, {
+  aspect: 'auto',
+  title: 'Stress-energy tensor & continuity'
+})
+export const CrossSectionDensityMap = wrap(cm.CrossSectionDensityMap, {
+  aspect: 'auto',
+  title: 'Cross-section as a density map'
+})
+export const NormalModeDecomposition = wrap(cm.NormalModeDecomposition, {
+  aspect: 'auto',
+  title: 'Normal-mode decomposition'
+})
+export const NffRealCurrent = wrap(cm.NffRealCurrent, {
+  aspect: 'auto',
+  title: 'Noether current: real vs complex'
+})
+export const DoublePendulumTorus = wrap(cm.DoublePendulumTorus, {
+  aspect: 'auto',
+  title: 'Double pendulum on the 2-torus'
+})
+// end VIZ ADD PASS
+export const NffEnergyMomentumTensor = wrap(cm.NffEnergyMomentumTensor, {
+  aspect: 'auto',
+  title: 'Energy-Momentum Tensor from a Scalar Field'
+})
+export const NffSymmetryToConservation = wrap(cm.NffSymmetryToConservation, {
+  aspect: 'auto',
+  title: 'Spatial Translation Symmetry Forces a Conserved Current'
+})
+export const NffDiscreteNoether = wrap(cm.NffDiscreteNoether, {
+  aspect: 'auto',
+  title: "Noether's Theorem for Discrete Systems: Jacobi Integral Conservation"
+})
+
+// CLASSICAL MECHANICS · HAMILTONIAN FIELD THEORY · REFINEMENT (06.6.x)
+export const StressTensorTorque = wrap(cm.StressTensorTorque, {
+  aspect: 'auto',
+  title: 'Stress Tensor Torque: Antisymmetric Part Drives Angular Momentum Change'
+})
+export const ConservedChargeFlux = wrap(cm.ConservedChargeFlux, {
+  aspect: 'auto',
+  title: 'Conserved Charge Flux: Local Change, Global Conservation'
+})
+export const SymplecticVsMinkowski = wrap(cm.SymplecticVsMinkowski, {
+  aspect: 'auto',
+  title: 'Symplectic Area vs Minkowski Interval: Antisymmetric vs Symmetric Structure'
+})
+
+// CLASSICAL MECHANICS · KORTEWEG-DE VRIES & SOLITONS (06.7.x)
+export const KdvSoliton = wrap(cm.KdvSoliton, {
+  aspect: 'auto',
+  title: 'Single Soliton: Amplitude, Speed, and Width All Set by c'
+})
+export const KdvAmplitudeSpeedWidth = wrap(cm.KdvAmplitudeSpeedWidth, {
+  aspect: 'auto',
+  title: 'Amplitude–Speed–Width Coupling: Three Quantities, One Parameter'
+})
+export const KdvDispersionVsNonlinearity = wrap(cm.KdvDispersionVsNonlinearity, {
+  aspect: 'auto',
+  title: 'Dispersion vs Nonlinearity: Balance Point Gives the Soliton'
+})
+export const KdvCnoidalWave = wrap(cm.KdvCnoidalWave, {
+  aspect: 'auto',
+  title: 'Cnoidal Wave: Modulus m Morphs Cosine to Soliton Train'
+})
+export const KdvConservationLaws = wrap(cm.KdvConservationLaws, {
+  aspect: 'auto',
+  title: 'Conservation Law Densities: Each I_s a Different Power of u'
+})
+
+export const KdvCubicZeroCases = wrap(cm.KdvCubicZeroCases, {
+  aspect: 'auto',
+  title: 'F(f) Cubic Zero Structure: Slider Merges Roots from Cnoidal to Soliton'
+})
+export const KdvTwoSolitonCollision = wrap(cm.KdvTwoSolitonCollision, {
+  aspect: 'auto',
+  title: 'Two-Soliton Elastic Collision: Phase Shift via Exact Hirota Solution'
+})
+
+// CLASSICAL MECHANICS · SINE-GORDON & SOLITONS (06.8.x)
+export const SgPendulumChain = wrap(cm.SgPendulumChain, {
+  aspect: 'auto',
+  title: 'Pendulum Chain Kink: 2π Twist Along the Chain'
+})
+export const SgKink = wrap(cm.SgKink, {
+  aspect: 'auto',
+  title: 'Kink Profile and Gradient: Lorentz Contraction with Velocity'
+})
+export const SgPotentialVacua = wrap(cm.SgPotentialVacua, {
+  aspect: 'auto',
+  title: 'Washboard Potential and the Kink Field'
+})
+export const SgKinkAntikink = wrap(cm.SgKinkAntikink, {
+  aspect: 'auto',
+  title: 'Kink vs Antikink: Opposite Topological Charges'
+})
+export const SgBreather = wrap(cm.SgBreather, {
+  aspect: 'auto',
+  title: 'Breather: Oscillating Kink-Antikink Bound State'
+})
+export const SgCnoidalWave = wrap(cm.SgCnoidalWave, {
+  aspect: 'auto',
+  title: 'Cnoidal Wave: Jacobi-Elliptic cn Solution'
+})
+
+// CLASSICAL MECHANICS · VISCOUS FLUIDS & NAVIER-STOKES (06.9.x)
+export const NsCouetteFlow = wrap(cm.NsCouetteFlow, {
+  aspect: 'auto',
+  title: 'Couette Flow: Linear Velocity Profile'
+})
+export const NsPoiseuilleFlow = wrap(cm.NsPoiseuilleFlow, {
+  aspect: 'auto',
+  title: 'Poiseuille Flow: Parabolic Velocity Profile in a Pipe'
+})
+export const NsStrainRateDecomp = wrap(cm.NsStrainRateDecomp, {
+  aspect: 'auto',
+  title: 'Velocity Gradient Decomposed: Expansion, Shear, Rotation'
+})
+export const NsReynoldsRegimes = wrap(cm.NsReynoldsRegimes, {
+  aspect: 'auto',
+  title: 'Reynolds Regime Map: C_D vs Re for Flow Past a Cylinder'
+})
+export const NsStokesDrag = wrap(cm.NsStokesDrag, {
+  aspect: 'auto',
+  title: 'Stokes Drag: F = 6πηav, Creeping-Flow Streamlines'
+})
+export const NsBlasiusLayer = wrap(cm.NsBlasiusLayer, {
+  aspect: 'auto',
+  title: 'Blasius Boundary Layer: Velocity Profile from rk4 Integration'
+})
+export const NsKolmogorovSpectrum = wrap(cm.NsKolmogorovSpectrum, {
+  aspect: 'auto',
+  title: 'Kolmogorov −5/3 Energy Spectrum: Inertial-Range Scaling Law'
+})
+
+// CLASSICAL MECHANICS · LINEAR ELASTICITY
+export const CM_LE_StrainDecomposition = wrap(cm.CM_LE_StrainDecomposition, {
+  aspect: 'auto',
+  title: 'Strain Decomposition: Expansion, Rotation, Shear'
+})
+export const CM_LE_ShearEllipse = wrap(cm.CM_LE_ShearEllipse, {
+  aspect: 'auto',
+  title: 'Shear Ellipse: Pure Σ Deformation at Constant Area'
+})
+export const CM_LE_StressTraction = wrap(cm.CM_LE_StressTraction, {
+  aspect: 'auto',
+  title: 'Stress Traction on a Tilted Surface'
+})
+export const CM_LE_HookeCurve = wrap(cm.CM_LE_HookeCurve, {
+  aspect: 'auto',
+  title: 'Hooke Stress-Strain Curve: Four Landmark Points'
+})
+export const CM_LE_PoissonEffect = wrap(cm.CM_LE_PoissonEffect, {
+  aspect: 'auto',
+  title: 'Poisson Effect: Rod Contraction vs ν'
+})
+export const CM_LE_ModuliRelations = wrap(cm.CM_LE_ModuliRelations, {
+  aspect: 'auto',
+  title: 'Elastic Moduli: ν Stability Constraint Number Line'
+})
+export const CM_LE_BeamDeflection = wrap(cm.CM_LE_BeamDeflection, {
+  aspect: 'auto',
+  title: 'Cantilever Beam Deflection η(x) under Load'
+})
+export const CM_LE_Buckling = wrap(cm.CM_LE_Buckling, {
+  aspect: 'auto',
+  title: 'Euler Buckling: Pitchfork Bifurcation Diagram'
+})
+export const CM_LE_PressurizedPipe = wrap(cm.CM_LE_PressurizedPipe, {
+  aspect: 'auto',
+  title: 'Pressurized Pipe: Radial Displacement and Hoop Strain'
+})
+export const CM_LE_StrainEnergyBowl = wrap(cm.CM_LE_StrainEnergyBowl, {
+  aspect: 'auto',
+  title: 'Strain Energy Density: Elliptic Contours in (Θ, |Σ|) Space'
+})
+export const CM_LE_ThermoStressLine = wrap(cm.CM_LE_ThermoStressLine, {
+  aspect: 'auto',
+  title: 'Thermal Stress vs. ΔT for a Constrained Rod'
+})
+export const CM_LE_NavierForces = wrap(cm.CM_LE_NavierForces, {
+  aspect: 'auto',
+  title: 'Navier-Cauchy: P-wave vs S-wave Displacement Fields'
+})
+export const CM_LE_BasisVectors = wrap(cm.CM_LE_BasisVectors, {
+  aspect: 'auto',
+  title: 'Rotating Basis Vectors in Cylindrical Coordinates'
+})
+
+// PHYSICS · IDEAL FLUIDS AND THE EULER EQUATIONS (06.11.x)
+// IDEAL FLUIDS: VizFigure wrappers for src/components/viz/index.jsx
+// Append after the last existing cm.* export block
+// cm and VizFigure are already in scope.
+
+export const IdFlowMaterialDeriv = wrap(cm.IdFlowMaterialDeriv, {
+  aspect: 'auto',
+  title: 'Lagrangian vs Eulerian: Material Derivative'
+})
+
+export const IdFlowContinuity = wrap(cm.IdFlowContinuity, {
+  aspect: 'auto',
+  title: 'Continuity in a Streamtube'
+})
+
+export const IdFlowEulerForce = wrap(cm.IdFlowEulerForce, {
+  aspect: 'auto',
+  title: 'Euler Equation: Force Balance on a Fluid Element'
+})
+
+export const IdFlowVenturi = wrap(cm.IdFlowVenturi, {
+  aspect: 'auto',
+  title: 'Bernoulli and Venturi: Pressure-Speed Tradeoff'
+})
+
+export const IdFlowPotentialCylinder = wrap(cm.IdFlowPotentialCylinder, {
+  aspect: 'auto',
+  title: "Potential Flow Past a Cylinder: d'Alembert's Paradox"
+})
+
+export const IdFlowSourceSinkVortex = wrap(cm.IdFlowSourceSinkVortex, {
+  aspect: 'auto',
+  title: 'Source, Sink, and Vortex: Potential Flow Building Blocks'
+})
+
+export const IdFlowVorticity = wrap(cm.IdFlowVorticity, {
+  aspect: 'auto',
+  title: 'Irrotational vs Rotational Flow: Paddle-Wheel Vorticity Test'
+})
+
+export const IdFlowVortexStretch = wrap(cm.IdFlowVortexStretch, {
+  aspect: 'auto',
+  title: 'Vortex-Line Stretching and Tornado Spin-Up'
+})
+
+export const IdFlowKelvinLoop = wrap(cm.IdFlowKelvinLoop, {
+  aspect: 'auto',
+  title: "Kelvin's Circulation Loop: Conservation in Ideal Flow"
+})
+
+export const IdFlowHydrostatic = wrap(cm.IdFlowHydrostatic, {
+  aspect: 'auto',
+  title: 'Hydrostatic Pressure vs Depth and Archimedes Buoyancy'
+})
+
+export const IdFlowSound = wrap(cm.IdFlowSound, {
+  aspect: 'auto',
+  title: 'Sound Wave: 1D Pressure Perturbation Propagating'
+})
+
+// PHYSICS · The Science of Mechanics - Statics
+export const SomLeverBalance = wrap(cm.SomLeverBalance, {
+  aspect: 'auto',
+  title: 'The Lever: Moments in Balance'
+})
+export const SomInclinedPlane = wrap(cm.SomInclinedPlane, {
+  aspect: 'auto',
+  title: 'Inclined Plane: Along-Slope Force Component'
+})
+export const SomStevinChain = wrap(cm.SomStevinChain, {
+  aspect: 'auto',
+  title: "Stevin's Endless Chain on a Double Incline"
+})
+export const SomParallelogramForces = wrap(cm.SomParallelogramForces, {
+  aspect: 'auto',
+  title: 'Parallelogram of Forces: Resultant and Direction'
+})
+export const SomVirtualWorkPulley = wrap(cm.SomVirtualWorkPulley, {
+  aspect: 'auto',
+  title: 'Virtual Work: Differential Pulley and Wheel-and-Axle'
+})
+export const SomWheelAxle = wrap(cm.SomWheelAxle, {
+  aspect: 'auto',
+  title: 'Wheel and Axle: Mechanical Advantage'
+})
+export const SomThreeStringEquilibrium = wrap(cm.SomThreeStringEquilibrium, {
+  aspect: 'auto',
+  title: 'Three-String Equilibrium at 120°'
+})
+export const SomEllipsoidStability = wrap(cm.SomEllipsoidStability, {
+  aspect: 'auto',
+  title: 'Ellipsoid: Stable, Unstable, and Indifferent Equilibrium'
+})
+export const SomCatenary = wrap(cm.SomCatenary, {
+  aspect: 'auto',
+  title: 'Catenary: Lowest Center of Gravity for a Hanging Chain'
+})
+
+// CHEMISTRY · UNIT 01 · ATOMIC STRUCTURE & PERIODICITY
+export const RutherfordScatteringViz = wrap(chem.RutherfordScatteringViz, {
+  aspect: 'auto',
+  title: 'Rutherford Scattering'
+})
+export const BalmerSeriesViz = wrap(chem.BalmerSeriesViz, {
+  aspect: 'auto',
+  title: 'Balmer Series'
+})
+export const GrotrianLadderViz = wrap(chem.GrotrianLadderViz, {
+  aspect: 'auto',
+  title: 'Grotrian Ladder'
+})
+export const PlanckCurvesViz = wrap(chem.PlanckCurvesViz, {
+  aspect: 'auto',
+  title: 'Planck Curves'
+})
+export const PhotoelectricViz = wrap(chem.PhotoelectricViz, {
+  aspect: 'auto',
+  title: 'Photoelectric'
+})
+export const HydrogenWavefunctionViz = wrap(chem.HydrogenWavefunctionViz, {
+  aspect: 'auto',
+  title: 'Hydrogen Wavefunction'
+})
+export const ParticleInBoxViz = wrap(chem.ParticleInBoxViz, {
+  aspect: 'auto',
+  title: 'Particle In Box'
+})
+export const HydrogenEnergyLevelsViz = wrap(chem.HydrogenEnergyLevelsViz, {
+  aspect: 'auto',
+  title: 'Hydrogen Energy Levels'
+})
+export const RadialDistributionViz = wrap(chem.RadialDistributionViz, {
+  aspect: 'auto',
+  title: 'Radial Distribution'
+})
+export const IsotopesMassSpectrumViz = wrap(chem.IsotopesMassSpectrumViz, {
+  aspect: 'auto',
+  title: 'Isotopes Mass Spectrum'
+})
+export const IonizationEnergyTrendViz = wrap(chem.IonizationEnergyTrendViz, {
+  aspect: 'auto',
+  title: 'Ionization Energy Trend'
+})
+export const SuccessiveIonizationViz = wrap(chem.SuccessiveIonizationViz, {
+  aspect: 'auto',
+  title: 'Successive Ionization'
+})
+export const AtomicRadiusTrendViz = wrap(chem.AtomicRadiusTrendViz, {
+  aspect: 'auto',
+  title: 'Atomic Radius Trend'
+})
+export const EffectiveNuclearChargeViz = wrap(chem.EffectiveNuclearChargeViz, {
+  aspect: 'auto',
+  title: 'Effective Nuclear Charge'
+})
+export const ShieldingPenetrationViz = wrap(chem.ShieldingPenetrationViz, {
+  aspect: 'auto',
+  title: 'Shielding Penetration'
+})
+export const POrbitalDensityViz = wrap(chem.POrbitalDensityViz, {
+  aspect: 'auto',
+  title: 'P Orbital Density'
+})
+export const DeBroglieViz = wrap(chem.DeBroglieViz, { aspect: 'auto', title: 'De Broglie' })
+export const HeisenbergViz = wrap(chem.HeisenbergViz, { aspect: 'auto', title: 'Heisenberg' })
+export const QuantumNumberTreeViz = wrap(chem.QuantumNumberTreeViz, {
+  aspect: 'auto',
+  title: 'Quantum Number Tree'
+})
+export const AufbauViz = wrap(chem.AufbauViz, { aspect: 'auto', title: 'Aufbau' })
+export const ElectronegativityTrendViz = wrap(chem.ElectronegativityTrendViz, {
+  aspect: 'auto',
+  title: 'Electronegativity Trend'
+})
+export const ElectronAffinityTrendViz = wrap(chem.ElectronAffinityTrendViz, {
+  aspect: 'auto',
+  title: 'Electron Affinity Trend'
+})
+export const SternGerlachViz = wrap(chem.SternGerlachViz, {
+  aspect: 'auto',
+  title: 'Stern Gerlach'
+})
+export const DiagonalRelationshipsViz = wrap(chem.DiagonalRelationshipsViz, {
+  aspect: 'auto',
+  title: 'Diagonal Relationships'
+})
+export const InertPairViz = wrap(chem.InertPairViz, { aspect: 'auto', title: 'Inert Pair' })
+export const HartreeFockSCFViz = wrap(chem.HartreeFockSCFViz, {
+  aspect: 'auto',
+  title: 'Hartree Fock SCF'
+})
+
+// CHEMISTRY · UNIT 02 · BONDING & STRUCTURE
+export const IonicBondBornMayerViz = wrap(chem.IonicBondBornMayerViz, {
+  aspect: 'auto',
+  title: 'Ionic Bond Born Mayer'
+})
+export const MolecularDipoleViz = wrap(chem.MolecularDipoleViz, {
+  aspect: 'auto',
+  title: 'Molecular Dipole'
+})
+export const BondingAntibondingViz = wrap(chem.BondingAntibondingViz, {
+  aspect: 'auto',
+  title: 'Bonding Antibonding'
+})
+export const MOCorrelationViz = wrap(chem.MOCorrelationViz, {
+  aspect: 'auto',
+  title: 'MO Correlation'
+})
+export const RadiusRatioViz = wrap(chem.RadiusRatioViz, { aspect: 'auto', title: 'Radius Ratio' })
+export const BondPolarityViz = wrap(chem.BondPolarityViz, {
+  aspect: 'auto',
+  title: 'Bond Polarity'
+})
+export const DispersionBoilingViz = wrap(chem.DispersionBoilingViz, {
+  aspect: 'auto',
+  title: 'Dispersion Boiling'
+})
+export const IonicRadiiViz = wrap(chem.IonicRadiiViz, { aspect: 'auto', title: 'Ionic Radii' })
+export const PiOverlapDistanceViz = wrap(chem.PiOverlapDistanceViz, {
+  aspect: 'auto',
+  title: 'Pi Overlap Distance'
+})
+
+// CHEMISTRY · UNIT 03 · ENERGETICS & THERMODYNAMICS
+export const ExpansionWorkViz = wrap(chem.ExpansionWorkViz, {
+  aspect: 'auto',
+  title: 'Expansion Work'
+})
+export const HeatingCurveViz = wrap(chem.HeatingCurveViz, {
+  aspect: 'auto',
+  title: 'Heating Curve'
+})
+export const AdiabatIsothermViz = wrap(chem.AdiabatIsothermViz, {
+  aspect: 'auto',
+  title: 'Adiabat Isotherm'
+})
+export const CoulombIonPairViz = wrap(chem.CoulombIonPairViz, {
+  aspect: 'auto',
+  title: 'Coulomb Ion Pair'
+})
+export const MadelungChainViz = wrap(chem.MadelungChainViz, {
+  aspect: 'auto',
+  title: 'Madelung Chain'
+})
+export const BornHaberViz = wrap(chem.BornHaberViz, { aspect: 'auto', title: 'Born Haber' })
+export const GibbsCrossoverViz = wrap(chem.GibbsCrossoverViz, {
+  aspect: 'auto',
+  title: 'Gibbs Crossover'
+})
+export const LatticeEnergyTrendViz = wrap(chem.LatticeEnergyTrendViz, {
+  aspect: 'auto',
+  title: 'Lattice Energy Trend'
+})
+export const TroutonRuleViz = wrap(chem.TroutonRuleViz, { aspect: 'auto', title: 'Trouton Rule' })
+export const HeatCapacityDOFViz = wrap(chem.HeatCapacityDOFViz, {
+  aspect: 'auto',
+  title: 'Heat Capacity DOF'
+})
+export const HessLawViz = wrap(chem.HessLawViz, { aspect: 'auto', title: 'Hess Law' })
+export const PhaseEquilibriumGibbsViz = wrap(chem.PhaseEquilibriumGibbsViz, {
+  aspect: 'auto',
+  title: 'Phase Equilibrium Gibbs'
+})
+export const BoltzmannEntropyViz = wrap(chem.BoltzmannEntropyViz, {
+  aspect: 'auto',
+  title: 'Boltzmann Entropy'
+})
+export const ResidualEntropyViz = wrap(chem.ResidualEntropyViz, {
+  aspect: 'auto',
+  title: 'Residual Entropy'
+})
+export const BondEnthalpyAccountingViz = wrap(chem.BondEnthalpyAccountingViz, {
+  aspect: 'auto',
+  title: 'Bond Enthalpy Accounting'
+})
+export const SystemTypesViz = wrap(chem.SystemTypesViz, { aspect: 'auto', title: 'System Types' })
+export const TwoBlockEntropyViz = wrap(chem.TwoBlockEntropyViz, {
+  aspect: 'auto',
+  title: 'Two Block Entropy'
+})
+export const EntropyChangeViz = wrap(chem.EntropyChangeViz, {
+  aspect: 'auto',
+  title: 'Entropy Change'
+})
+export const ATPCouplingViz = wrap(chem.ATPCouplingViz, { aspect: 'auto', title: 'ATP Coupling' })
+export const LatticeCovalencyViz = wrap(chem.LatticeCovalencyViz, {
+  aspect: 'auto',
+  title: 'Lattice Covalency'
+})
+export const MadelungConstantsViz = wrap(chem.MadelungConstantsViz, {
+  aspect: 'auto',
+  title: 'Madelung Constants'
+})
+
+// CHEMISTRY · UNIT 04 · KINETICS
+export const MaxwellBoltzmannViz = wrap(chem.MaxwellBoltzmannViz, {
+  aspect: 'auto',
+  title: 'Maxwell-Boltzmann Distribution · Energy and Temperature'
+})
+export const ReactionEnergyViz = wrap(chem.ReactionEnergyViz, {
+  aspect: 'auto',
+  title: 'Reaction-Energy Diagram · Reactants to Products'
+})
+export const CatalystEnergyViz = wrap(chem.CatalystEnergyViz, {
+  aspect: 'auto',
+  title: 'Catalyst on a Reaction-Energy Diagram'
+})
+export const RateTangentViz = wrap(chem.RateTangentViz, { aspect: 'auto', title: 'Rate Tangent' })
+export const IntegratedRateLawsViz = wrap(chem.IntegratedRateLawsViz, {
+  aspect: 'auto',
+  title: 'Integrated Rate Laws'
+})
+export const OrderDiagnosisViz = wrap(chem.OrderDiagnosisViz, {
+  aspect: 'auto',
+  title: 'Order Diagnosis'
+})
+export const ArrheniusViz = wrap(chem.ArrheniusViz, { aspect: 'auto', title: 'Arrhenius' })
+export const TwoStepRDSViz = wrap(chem.TwoStepRDSViz, { aspect: 'auto', title: 'Two Step RDS' })
+export const HalfLifeOrderViz = wrap(chem.HalfLifeOrderViz, {
+  aspect: 'auto',
+  title: 'Half Life Order'
+})
+
+// CHEMISTRY · UNIT 05 · CHEMICAL EQUILIBRIUM
+export const ApproachToEquilibriumViz = wrap(chem.ApproachToEquilibriumViz, {
+  aspect: 'auto',
+  title: 'Approach To Equilibrium'
+})
+export const GibbsExtentViz = wrap(chem.GibbsExtentViz, { aspect: 'auto', title: 'Gibbs Extent' })
+export const VantHoffViz = wrap(chem.VantHoffViz, { aspect: 'auto', title: 'Vant Hoff' })
+export const LeChatelierViz = wrap(chem.LeChatelierViz, { aspect: 'auto', title: 'Le Chatelier' })
+export const QvsKViz = wrap(chem.QvsKViz, { aspect: 'auto', title: 'Qvs K' })
+export const DissociationAlphaViz = wrap(chem.DissociationAlphaViz, {
+  aspect: 'auto',
+  title: 'Dissociation Alpha'
+})
+export const HemoglobinSaturationViz = wrap(chem.HemoglobinSaturationViz, {
+  aspect: 'auto',
+  title: 'Hemoglobin Saturation'
+})
+
+// CHEMISTRY · UNIT 06 · ACID-BASE & AQUEOUS EQUILIBRIA
+export const PHScaleViz = wrap(chem.PHScaleViz, { aspect: 'auto', title: 'PH Scale' })
+export const SpeciationViz = wrap(chem.SpeciationViz, { aspect: 'auto', title: 'Speciation' })
+export const HendersonHasselbalchViz = wrap(chem.HendersonHasselbalchViz, {
+  aspect: 'auto',
+  title: 'Henderson Hasselbalch'
+})
+export const StrongWeakTitrationViz = wrap(chem.StrongWeakTitrationViz, {
+  aspect: 'auto',
+  title: 'Strong Weak Titration'
+})
+export const PolyproticTitrationViz = wrap(chem.PolyproticTitrationViz, {
+  aspect: 'auto',
+  title: 'Polyprotic Titration'
+})
+export const CommonIonSolubilityViz = wrap(chem.CommonIonSolubilityViz, {
+  aspect: 'auto',
+  title: 'Common Ion Solubility'
+})
+export const SelectivePrecipitationViz = wrap(chem.SelectivePrecipitationViz, {
+  aspect: 'auto',
+  title: 'Selective Precipitation'
+})
+export const KwHyperbolaViz = wrap(chem.KwHyperbolaViz, { aspect: 'auto', title: 'Kw Hyperbola' })
+export const OstwaldDilutionViz = wrap(chem.OstwaldDilutionViz, {
+  aspect: 'auto',
+  title: 'Ostwald Dilution'
+})
+export const OxoacidStrengthViz = wrap(chem.OxoacidStrengthViz, {
+  aspect: 'auto',
+  title: 'Oxoacid Strength'
+})
+export const MolarSolubilityTypeViz = wrap(chem.MolarSolubilityTypeViz, {
+  aspect: 'auto',
+  title: 'Molar Solubility Type'
+})
+export const SolubilityPHViz = wrap(chem.SolubilityPHViz, {
+  aspect: 'auto',
+  title: 'Solubility PH'
+})
+export const QvsKspViz = wrap(chem.QvsKspViz, { aspect: 'auto', title: 'Qvs Ksp' })
+export const BufferCapacityViz = wrap(chem.BufferCapacityViz, {
+  aspect: 'auto',
+  title: 'Buffer Capacity'
+})
+export const KaPkbLadderViz = wrap(chem.KaPkbLadderViz, { aspect: 'auto', title: 'Ka Pkb Ladder' })
+export const DiluteAutoprotolysisViz = wrap(chem.DiluteAutoprotolysisViz, {
+  aspect: 'auto',
+  title: 'Dilute Autoprotolysis'
+})
+export const SaltHydrolysisMapViz = wrap(chem.SaltHydrolysisMapViz, {
+  aspect: 'auto',
+  title: 'Salt Hydrolysis Map'
+})
+export const SaltPHParentStrengthViz = wrap(chem.SaltPHParentStrengthViz, {
+  aspect: 'auto',
+  title: 'Salt PH Parent Strength'
+})
+
+// CHEMISTRY · UNIT 07 · REDOX & ELECTROCHEMISTRY
+export const DaniellCellViz = wrap(chem.DaniellCellViz, { aspect: 'auto', title: 'Daniell Cell' })
+export const StandardPotentialLadderViz = wrap(chem.StandardPotentialLadderViz, {
+  aspect: 'auto',
+  title: 'Standard Potential Ladder'
+})
+export const NernstViz = wrap(chem.NernstViz, { aspect: 'auto', title: 'Nernst' })
+export const LatimerViz = wrap(chem.LatimerViz, { aspect: 'auto', title: 'Latimer' })
+export const FaradayViz = wrap(chem.FaradayViz, { aspect: 'auto', title: 'Faraday' })
+export const WaterSplitOverpotentialViz = wrap(chem.WaterSplitOverpotentialViz, {
+  aspect: 'auto',
+  title: 'Water Split Overpotential'
+})
+export const CorrosionCellViz = wrap(chem.CorrosionCellViz, {
+  aspect: 'auto',
+  title: 'Corrosion Cell'
+})
+export const ConcentrationCellViz = wrap(chem.ConcentrationCellViz, {
+  aspect: 'auto',
+  title: 'Concentration Cell'
+})
+export const LnKvsEViz = wrap(chem.LnKvsEViz, { aspect: 'auto', title: 'Ln Kvs E' })
+export const DeltaGSignMapViz = wrap(chem.DeltaGSignMapViz, {
+  aspect: 'auto',
+  title: 'Delta G Sign Map'
+})
+
+// CHEMISTRY · UNIT 08 · COORDINATION & SPECTROSCOPY
+export const CrystalFieldSplittingViz = wrap(chem.CrystalFieldSplittingViz, {
+  aspect: 'auto',
+  title: 'Crystal Field Splitting'
+})
+export const SpectrochemicalSeriesViz = wrap(chem.SpectrochemicalSeriesViz, {
+  aspect: 'auto',
+  title: 'Spectrochemical Series'
+})
+export const LFSEDoubleHumpViz = wrap(chem.LFSEDoubleHumpViz, {
+  aspect: 'auto',
+  title: 'LFSE Double Hump'
+})
+export const BeerLambertViz = wrap(chem.BeerLambertViz, { aspect: 'auto', title: 'Beer Lambert' })
+export const RigidRotorViz = wrap(chem.RigidRotorViz, { aspect: 'auto', title: 'Rigid Rotor' })
+export const HarmonicMorseViz = wrap(chem.HarmonicMorseViz, {
+  aspect: 'auto',
+  title: 'Harmonic Morse'
+})
+export const BirgeSponerViz = wrap(chem.BirgeSponerViz, { aspect: 'auto', title: 'Birge Sponer' })
+export const VibRotBranchesViz = wrap(chem.VibRotBranchesViz, {
+  aspect: 'auto',
+  title: 'Vib Rot Branches'
+})
+export const FranckCondonViz = wrap(chem.FranckCondonViz, {
+  aspect: 'auto',
+  title: 'Franck Condon'
+})
+export const JablonskiViz = wrap(chem.JablonskiViz, { aspect: 'auto', title: 'Jablonski' })
+export const NMREthanolViz = wrap(chem.NMREthanolViz, { aspect: 'auto', title: 'NMR Ethanol' })
+export const FIDFTViz = wrap(chem.FIDFTViz, { aspect: 'auto', title: 'FIDFT' })
+export const EPRMethylViz = wrap(chem.EPRMethylViz, { aspect: 'auto', title: 'EPR Methyl' })
+export const SpinOnlyMomentViz = wrap(chem.SpinOnlyMomentViz, {
+  aspect: 'auto',
+  title: 'Spin Only Moment'
+})
+export const CFSEViz = wrap(chem.CFSEViz, { aspect: 'auto', title: 'CFSE' })
+export const ZeemanLarmorViz = wrap(chem.ZeemanLarmorViz, {
+  aspect: 'auto',
+  title: 'Zeeman Larmor'
+})
+export const KarplusViz = wrap(chem.KarplusViz, { aspect: 'auto', title: 'Karplus' })
+export const T1T2Viz = wrap(chem.T1T2Viz, { aspect: 'auto', title: 'T1 T2' })
+export const DopplerLifetimeViz = wrap(chem.DopplerLifetimeViz, {
+  aspect: 'auto',
+  title: 'Doppler Lifetime'
+})
+export const IrvingWilliamsViz = wrap(chem.IrvingWilliamsViz, {
+  aspect: 'auto',
+  title: 'Irving Williams'
+})
+export const SquarePlanarSplittingViz = wrap(chem.SquarePlanarSplittingViz, {
+  aspect: 'auto',
+  title: 'Square Planar Splitting'
+})
+export const HighLowSpinViz = wrap(chem.HighLowSpinViz, { aspect: 'auto', title: 'High Low Spin' })
+export const EMSpectrumViz = wrap(chem.EMSpectrumViz, { aspect: 'auto', title: 'EM Spectrum' })
+export const CO2NormalModesViz = wrap(chem.CO2NormalModesViz, {
+  aspect: 'auto',
+  title: 'CO2 Normal Modes'
+})
+export const CrystalFieldWavelengthViz = wrap(chem.CrystalFieldWavelengthViz, {
+  aspect: 'auto',
+  title: 'Crystal Field Wavelength'
+})
+export const TiWaterBandViz = wrap(chem.TiWaterBandViz, { aspect: 'auto', title: 'Ti Water Band' })
+export const DDvsChargeTransferViz = wrap(chem.DDvsChargeTransferViz, {
+  aspect: 'auto',
+  title: 'D Dvs Charge Transfer'
+})
+export const DOrbitalAngularDensityViz = wrap(chem.DOrbitalAngularDensityViz, {
+  aspect: 'auto',
+  title: 'D Orbital Angular Density'
+})
+export const JahnTellerViz = wrap(chem.JahnTellerViz, { aspect: 'auto', title: 'Jahn Teller' })
+export const CentrifugalDistortionViz = wrap(chem.CentrifugalDistortionViz, {
+  aspect: 'auto',
+  title: 'Centrifugal Distortion'
+})
+export const RotationalRamanViz = wrap(chem.RotationalRamanViz, {
+  aspect: 'auto',
+  title: 'Rotational Raman'
+})
+export const NuclearSpinIntensityViz = wrap(chem.NuclearSpinIntensityViz, {
+  aspect: 'auto',
+  title: 'Nuclear Spin Intensity'
+})
+export const MetalCarbonylCOViz = wrap(chem.MetalCarbonylCOViz, {
+  aspect: 'auto',
+  title: 'Metal Carbonyl CO'
+})
+export const FourLevelLaserViz = wrap(chem.FourLevelLaserViz, {
+  aspect: 'auto',
+  title: 'Four Level Laser'
+})
+export const SpectrometerBlockViz = wrap(chem.SpectrometerBlockViz, {
+  aspect: 'auto',
+  title: 'Spectrometer Block'
+})
+
+// CHEMISTRY · UNIT 09 · ANALYTICAL & SPECTROSCOPY
+export const IndicatorSelectionViz = wrap(chem.IndicatorSelectionViz, {
+  aspect: 'auto',
+  title: 'Indicator Selection'
+})
+export const CombustionAnalysisViz = wrap(chem.CombustionAnalysisViz, {
+  aspect: 'auto',
+  title: 'Combustion Analysis'
+})
+export const H2SSpeciationViz = wrap(chem.H2SSpeciationViz, {
+  aspect: 'auto',
+  title: 'H2 S Speciation'
+})
+export const ComplexSolubilityViz = wrap(chem.ComplexSolubilityViz, {
+  aspect: 'auto',
+  title: 'Complex Solubility'
+})
+
+// CHEMISTRY · UNIT 10 · INDUSTRIAL & SUSTAINABLE CHEMISTRY
+export const HaberYieldViz = wrap(chem.HaberYieldViz, { aspect: 'auto', title: 'Haber Yield' })
+export const EquilibriumKineticsCrossoverViz = wrap(chem.EquilibriumKineticsCrossoverViz, {
+  aspect: 'auto',
+  title: 'Equilibrium Kinetics Crossover'
+})
+export const AtomEconomyViz = wrap(chem.AtomEconomyViz, { aspect: 'auto', title: 'Atom Economy' })
+export const SupercriticalCO2Viz = wrap(chem.SupercriticalCO2Viz, {
+  aspect: 'auto',
+  title: 'Supercritical CO2'
+})
+export const HybridizationInterferenceViz = wrap(chem.HybridizationInterferenceViz, {
+  aspect: 'auto',
+  title: 'Hybridization Interference'
+})
+export const ElectrolyticCellViz = wrap(chem.ElectrolyticCellViz, {
+  aspect: 'auto',
+  title: 'Electrolytic Cell'
+})
+export const CompetingReactionsViz = wrap(chem.CompetingReactionsViz, {
+  aspect: 'auto',
+  title: 'Competing Reactions'
+})
+export const ChromophoreUVVisViz = wrap(chem.ChromophoreUVVisViz, {
+  aspect: 'auto',
+  title: 'Chromophore UV Vis'
+})
+export const SpecificEnthalpyFuelsViz = wrap(chem.SpecificEnthalpyFuelsViz, {
+  aspect: 'auto',
+  title: 'Specific Enthalpy Fuels'
+})
+export const ContactConversionViz = wrap(chem.ContactConversionViz, {
+  aspect: 'auto',
+  title: 'Contact Conversion'
+})
+export const ZoneRefiningViz = wrap(chem.ZoneRefiningViz, {
+  aspect: 'auto',
+  title: 'Zone Refining'
+})
+export const FuelCellViz = wrap(chem.FuelCellViz, { aspect: 'auto', title: 'Fuel Cell' })
+export const DownsCellViz = wrap(chem.DownsCellViz, { aspect: 'auto', title: 'Downs Cell' })
+export const YieldVsAtomEconomyViz = wrap(chem.YieldVsAtomEconomyViz, {
+  aspect: 'auto',
+  title: 'Yield Vs Atom Economy'
+})
+export const AirDistillationViz = wrap(chem.AirDistillationViz, {
+  aspect: 'auto',
+  title: 'Air Distillation'
+})
+export const LeadAcidBatteryViz = wrap(chem.LeadAcidBatteryViz, {
+  aspect: 'auto',
+  title: 'Lead Acid Battery'
+})
+export const SilicateSharingViz = wrap(chem.SilicateSharingViz, {
+  aspect: 'auto',
+  title: 'Silicate Sharing'
+})
+export const CathodicProtectionViz = wrap(chem.CathodicProtectionViz, {
+  aspect: 'auto',
+  title: 'Cathodic Protection'
+})
+export const FuelCellEfficiencyViz = wrap(chem.FuelCellEfficiencyViz, {
+  aspect: 'auto',
+  title: 'Fuel Cell Efficiency'
+})
+export const HaberProcessViz = wrap(chem.HaberProcessViz, {
+  aspect: 'auto',
+  title: 'Haber Process'
+})
+export const OstwaldProcessViz = wrap(chem.OstwaldProcessViz, {
+  aspect: 'auto',
+  title: 'Ostwald Process'
+})
+export const ContactProcessViz = wrap(chem.ContactProcessViz, {
+  aspect: 'auto',
+  title: 'Contact Process'
+})
+export const ClausProcessViz = wrap(chem.ClausProcessViz, {
+  aspect: 'auto',
+  title: 'Claus Process'
+})
+export const VanadiumCatalyticCycleViz = wrap(chem.VanadiumCatalyticCycleViz, {
+  aspect: 'auto',
+  title: 'Vanadium Catalytic Cycle'
+})
+export const CatalyticConverterViz = wrap(chem.CatalyticConverterViz, {
+  aspect: 'auto',
+  title: 'Catalytic Converter'
+})
+
+// A.14 MODULUS FUNCTION
+export const ModulusGraphViz = wrap(al.ModulusGraphViz, {
+  aspect: 'auto',
+  title: 'Modulus Function · The V Graph'
+})
+export const ModulusDistanceViz = wrap(al.ModulusDistanceViz, {
+  aspect: 'auto',
+  title: 'Modulus as Distance · |x - 3|'
+})
+export const ModulusTransformViz = wrap(al.ModulusTransformViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Transforming the V · a|x - h| + k'
+})
+export const ModulusEquationViz = wrap(al.ModulusEquationViz, {
+  aspect: 'auto',
+  title: 'Modulus Equation · |x - 1| = c'
+})
+export const ModulusInequalityViz = wrap(al.ModulusInequalityViz, {
+  aspect: 'auto',
+  title: 'Modulus Inequalities · Inside and Outside'
+})
+
+// A.15 RATIONAL AND IRRATIONAL FUNCTIONS
+export const ReciprocalAnchorViz = wrap(al.ReciprocalAnchorViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Reciprocal Function · y = 1/x'
+})
+export const RationalAsymptoteViz = wrap(al.RationalAsymptoteViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Rational Asymptotes · y = (ax+b)/(cx+d)'
+})
+export const RationalHoleViz = wrap(al.RationalHoleViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Removable Discontinuity · Hole at (2, 4)'
+})
+export const DegreeAsymptoteViz = wrap(al.DegreeAsymptoteViz, {
+  aspect: 'auto',
+  title: 'Horizontal Asymptotes by Degree'
+})
+export const SquareRootAnchorViz = wrap(al.SquareRootAnchorViz, {
+  aspect: 'auto',
+  title: 'Square Root Function · y = sqrt(x)'
+})
+export const SquareRootTransformViz = wrap(al.SquareRootTransformViz, {
+  aspect: 'auto',
+  title: 'Square Root Transformations · y = a sqrt(x-h) + k'
+})
+export const RadicalSquareSignViz = wrap(al.RadicalSquareSignViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Radical Equation · Why Squaring Adds Extraneous Roots'
+})
+
+// A16 SIMULTANEOUS EQUATIONS · line/curve intersection
+export const LineMeetsParabolaViz = wrap(al.LineMeetsParabolaViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Line Meets Parabola · Secant / Tangent / Miss'
+})
+export const CircleTangentLinesViz = wrap(al.CircleTangentLinesViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Circle · Two Tangent Lines of Equal Slope'
+})
+export const CircleHyperbolaFourViz = wrap(al.CircleHyperbolaFourViz, {
+  aspect: 'auto',
+  size: 'compact',
+  title: 'Circle Meets Hyperbola · Four Solutions'
+})

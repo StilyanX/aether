@@ -1,0 +1,21 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "index.html",
+    "src/features/**/*.{jsx,js}",
+    "src/config/registry.js",
+    "src/components/viz/index.jsx"
+  ],
+  "project": [
+    "src/**/*.{js,jsx}"
+  ],
+  "ignore": [
+    "src/lib/**"
+  ],
+  "ignoreDependencies": [
+    "react-compiler-runtime",
+    "postcss",
+    "autoprefixer",
+    "svgo"
+  ]
+}

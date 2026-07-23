@@ -15,16 +15,16 @@ import {
 export default function SpecialRelativityCoda() {
   const config = {
     cssPrefix: 'sr',
-    documentTitle: 'Special Relativity - AETHER',
+    documentTitle: 'Special Relativity and Covariant Mechanics - AETHER',
     learning: {
-      groupTitle: 'Newtonian Mechanics',
-      category: 'Module 10',
-      title: 'Special Relativity (Coda)',
+      groupTitle: 'Hamiltonian Mechanics and Canonical Formalism',
+      category: 'Capstone',
+      title: 'Special Relativity and Covariant Mechanics',
       subtitle:
         'Space and time mix together once observers move relative to each other. The faster the relative motion, the stronger the mixing.',
       sections: [
         <>
-          <h2>{`The Need for a New Mode of Thought`}</h2>
+          <h2>{`Why Newton and Maxwell Could Not Both Be Right`}</h2>
           <p>{`By 1900, Newtonian mechanics described every known mechanical experiment. Maxwell's equations described light. The two did not agree. Maxwell predicted light moves at speed $c$ in every frame. Newton predicted that velocities add: a light pulse should travel at $c + v$ in a frame moving at $-v$. One of them had to be wrong.`}</p>
           <p>{`Mach pushed the problem deeper. He pointed out that nobody ever measures absolute space. We only measure positions of bodies relative to other bodies. If absolute space cannot be observed, it cannot be physics.`}</p>
           <div className="lrn-elaborate">
@@ -34,7 +34,7 @@ export default function SpecialRelativityCoda() {
           </div>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
-            <p>{`Light was thought to travel through a medium called the ether. Earth orbits the Sun at 30 km/s, so an ether wind should blow past Earth and reverse direction with the seasons. Will an interferometer detect that wind?`}</p>
+            <p>{`Light was thought to travel through a medium called the ether. Earth orbits the Sun at 30 km/s, so an ether wind should blow past Earth and reverse direction with the seasons. Will an interferometer (a device that splits light into two paths and recombines them to compare their travel times) detect that wind?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>{`The interferometer should see a fringe shift as Earth's velocity through the ether changes over the year. Michelson and Morley built such a device. It saw nothing. That null result is the evidence that forced Einstein's postulates.`}</p>
@@ -66,7 +66,7 @@ export default function SpecialRelativityCoda() {
           </div>
           <p>{`The extra path the slower beam covers is $c \\Delta t = \\frac{l v^2}{c^2}$. Rotating the whole apparatus by 90 degrees swaps which arm is which, doubling the change to $\\frac{2 l v^2}{c^2}$. Dividing by the wavelength gives the fringe count above.`}</p>
           <h3>{`The null result`}</h3>
-          <p>{`They saw no shift. Not at any time of day, not at any time of year. The ether had no detectable wind. Either Earth dragged the ether perfectly along with it (a contrivance with no independent support), or the ether did not exist. Both options broke physics as it stood.`}</p>
+          <p>{`They saw no shift. Not at any time of day, not at any time of year. The ether had no detectable wind. Either Earth dragged the ether perfectly along with it (a made-up fix with no independent support), or the ether did not exist. Both options broke physics as it stood.`}</p>
           <Michelson />
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -97,11 +97,6 @@ export default function SpecialRelativityCoda() {
             </li>
           </ol>
           <p>{`The first postulate goes back to Galileo: a sailor below deck cannot tell whether the ship is at rest or gliding through calm water. The second is radical. It singles out light, and it forces space and time to bend around it.`}</p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`If two observers in relative motion measured different speeds for the same light pulse, Maxwell's equations would not produce the same value of $c$ in both frames.`}</p>
-            <p>{`That would break the first postulate, which insists every law looks the same in every inertial frame. The only way to keep both postulates is to make $c$ a universal constant.`}</p>
-          </div>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>{`Two scientists in trains moving at different velocities watch the same firecracker explode. Each writes down where and when the event happened in their own coordinates. What rule should connect their two records?`}</p>
@@ -156,7 +151,7 @@ export default function SpecialRelativityCoda() {
           <p>{`Condition 1. Setting $x' = 0$ in the first equation: $0 = A(vt) + Bt$. This forces $B = -Av$.`}</p>
           <p>{`Condition 2. Setting $x = 0$: $x' = Bt$ and $t' = Dt$. The condition $x' = -v t'$ then gives $B = -Dv$. Combined with $B = -Av$, this means $A = D$.`}</p>
           <p>{`Condition 3. Substitute $x = ct$ and $x' = ct'$: $Act + Bt = c(Cct + Dt)$. Use $B = -Av$ and $D = A$ to simplify: $A(c - v) = c(Cc + A)$. Solving for $C$: $C = -\\frac{Av}{c^2}$.`}</p>
-          <p>{`Condition 4. Apply the forward transformation, then apply it again with $v$ replaced by $-v$ (this is the inverse, since $S$ moves at $-v$ in $S'$). The composition must return $x$. Start from $x' = A x + B t = A(x - vt)$ and $t' = C x + D t = A\\left(t - \\frac{vx}{c^2}\\right)$. Substitute into the inverse:`}</p>
+          <p>{`Condition 4. Apply the forward transformation, then apply it again with $v$ replaced by $-v$. That second pass is the inverse, since $S$ moves at $-v$ in $S'$. The composition must return $x$. Start from $x' = A x + B t = A(x - vt)$ and $t' = C x + D t = A\\left(t - \\frac{vx}{c^2}\\right)$. Substitute into the inverse:`}</p>
           <div className="lrn-eq">
             <span>{`$$x = A(x' + v t') = A\\bigl(A(x - vt) + v A(t - \\tfrac{vx}{c^2})\\bigr) = A^2 \\bigl(x - vt + vt - \\tfrac{v^2 x}{c^2}\\bigr)$$`}</span>
           </div>
@@ -178,7 +173,7 @@ export default function SpecialRelativityCoda() {
           </div>
           <GammaVsBeta />
           <h3>{`Why y and z stay put`}</h3>
-          <p>{`Lengths perpendicular to the motion are unchanged: $y' = y$ and $z' = z$. The argument is symmetry. Imagine a rod held at right angles to the motion, with both ends marked. If one observer thought the moving rod was shorter and the other thought it was longer, they would disagree about whether it fits through a ring of fixed diameter, which is a question with one physical answer. The only way both observers can be right is if perpendicular lengths do not change.`}</p>
+          <p>{`Lengths perpendicular to the motion are unchanged: $y' = y$ and $z' = z$. The argument is symmetry. Imagine a rod held at right angles to the motion, with both ends marked. Send it through a ring of fixed diameter. Whether the rod fits has one physical answer. So both observers must agree on its perpendicular width. The only way that holds is if perpendicular lengths do not change.`}</p>
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>{`The Lorentz factor $\\gamma$ is always at least 1. For any object with mass, $v < c$, so $\\frac{v^2}{c^2} < 1$ and the square root in the denominator is less than one. Its reciprocal $\\gamma$ is greater than or equal to one.`}</p>
@@ -195,14 +190,14 @@ export default function SpecialRelativityCoda() {
         </>,
         <>
           <h2>{`Simultaneity and the Order of Events`}</h2>
-          <p>{`Two events that look simultaneous in one frame can look strictly ordered in another. This is the most counterintuitive consequence of the Lorentz transformation, and it follows directly from the $\\frac{vx}{c^2}$ term in $t'$.`}</p>
+          <p>{`Two events that look simultaneous in one frame can look strictly ordered in another. This is the most surprising consequence of the Lorentz transformation, and it follows directly from the $\\frac{vx}{c^2}$ term in $t'$.`}</p>
           <h3>{`Worked example: simultaneity in a freight car`}</h3>
           <p>{`A railwayman stands at the middle of a freight car of length $L$ and flashes a lantern. In his frame, light reaches the front wall and the back wall at the same instant. Both walls are at distance $\\frac{L}{2}$, and light travels at $c$ in either direction.`}</p>
           <p>{`A bystander on the ground watches the same car roll past at speed $v$. In the bystander's frame, the back wall is rushing toward the light pulse while the front wall is fleeing from it. Light still moves at $c$ for the bystander (postulate two), but the back wall has less ground to cover. The bystander sees the back wall light up first, the front wall second.`}</p>
           <p>{`Both observers are right. Simultaneity depends on the frame.`}</p>
           <h3>{`Worked example: timing the lantern flash`}</h3>
           <p>{`Pin this down with the Lorentz transformation. In the car's frame $S'$, label the lantern flash event 1 and the front-wall hit event 2:`}</p>
-          <p>{`$(x'_1, t'_1) = (0, 0)$ and $(x'_2, t'_2) = \\left(\\frac{L}{2}, \\, \\frac{L}{2c}\\right)$.`}</p>
+          <p>{`$(x'_1, t'_1) = (0, 0)$ and $(x'_2, t'_2) = \\left(\\frac{L}{2}, \\, \\frac{L}{2c}\\right)$. The time $\\frac{L}{2c}$ is simply the front wall's distance $\\frac{L}{2}$ divided by the light speed $c$.`}</p>
           <p>{`Apply the inverse Lorentz transform with $v$ equal to the car's speed in the ground frame:`}</p>
           <div className="lrn-eq">
             <span>{`$$t_1 = \\gamma\\left(t'_1 + \\frac{v x'_1}{c^2}\\right) = 0$$`}</span>
@@ -210,7 +205,7 @@ export default function SpecialRelativityCoda() {
           <div className="lrn-eq">
             <span>{`$$t_2 = \\gamma\\left(t'_2 + \\frac{v x'_2}{c^2}\\right) = \\gamma \\frac{L}{2c}\\left(1 + \\frac{v}{c}\\right)$$`}</span>
           </div>
-          <p>{`The flash and the front-wall hit happen at different times in the ground frame. The factor $\\gamma$ appears because the Lorentz transform stretches every time interval between events at different spatial positions, even when those events lie on a single light pulse's path.`}</p>
+          <p>{`The flash and the front-wall hit happen at different times in the ground frame. Two separate effects sit inside that one expression. The factor $\\gamma$ out front is time dilation: every interval read on the car's clock stretches when you watch it from the ground. The factor $\\left(1 + \\frac{v}{c}\\right)$ comes from the relativity of simultaneity: it carries the $\\frac{v x'}{c^2}$ term, which depends on where the event happens, not just when.`}</p>
           <h3>{`Timelike and spacelike intervals`}</h3>
           <p>{`Different observers disagree about $\\Delta t$ and $\\Delta x$ separately, but they always agree about a particular combination called the spacetime interval:`}</p>
           <div className="lrn-eq">
@@ -253,14 +248,19 @@ export default function SpecialRelativityCoda() {
           <h2>{`Length Contraction and Time Dilation`}</h2>
           <p>{`Two consequences of the Lorentz transformation deserve their own names. Moving rods come out shorter than at rest. Moving clocks tick slower than at rest. Both effects are real measurements, not optical illusions.`}</p>
           <h3>{`Length contraction`}</h3>
-          <p>{`A rod has rest length $l_0$, measured by an observer who moves with the rod. Now let the rod fly past your lab at speed $v$ along its own length. To measure its length you must mark its two ends at the same instant in your frame, then measure the distance between the marks. Plug those simultaneous events into the Lorentz transform and you get:`}</p>
+          <p>{`A rod has rest length $l_0$, measured by an observer who moves with the rod. Now let the rod fly past your lab at speed $v$ along its own length. To measure its length you must mark its two ends at the same instant in your frame, then measure the distance between the marks.`}</p>
+          <p>{`Call the two marking events. In your lab frame they happen at the same time, so $\\Delta t = 0$, and the distance between them is the moving length $l = \\Delta x$. In the rod's own frame the two ends are a fixed distance $l_0 = \\Delta x'$ apart. Apply the forward Lorentz transform to the spatial gap, with $\\Delta t = 0$:`}</p>
           <div className="lrn-eq">
-            <span>{`$$l = l_0 \\sqrt{1 - \\frac{v^2}{c^2}} = \\frac{l_0}{\\gamma}$$`}</span>
+            <span>{`$$\\Delta x' = \\gamma (\\Delta x - v \\Delta t) = \\gamma \\, \\Delta x$$`}</span>
+          </div>
+          <p>{`So $l_0 = \\gamma l$. Solve for the length you measure:`}</p>
+          <div className="lrn-eq">
+            <span>{`$$l = \\frac{l_0}{\\gamma} = l_0 \\sqrt{1 - \\frac{v^2}{c^2}}$$`}</span>
           </div>
           <p>{`The moving rod measures shorter by a factor $\\frac{1}{\\gamma}$. The squashing acts only along the direction of motion; widths perpendicular to the motion are unchanged.`}</p>
           <LengthContraction />
           <h3>{`Worked example: a tilted rod`}</h3>
-          <p>{`Hold a rod at 45 degrees to the direction of motion in its own rest frame. From your lab frame, only the component along the motion contracts; the perpendicular component is unchanged. The rod looks rotated as well as shortened. A rest-frame tilt of 45 degrees becomes steeper than 45 degrees in the lab when viewed at high speed, because the horizontal leg of the right triangle shrinks while the vertical leg stays fixed.`}</p>
+          <p>{`Hold a rod at 45 degrees to the direction of motion in its own rest frame. From your lab frame, only the component along the motion contracts; the perpendicular component is unchanged. The rod looks rotated as well as shortened. At high speed, a rest-frame tilt of 45 degrees becomes steeper than 45 degrees in the lab. The horizontal leg of the right triangle shrinks while the vertical leg stays fixed.`}</p>
           <h3>{`Time dilation`}</h3>
           <p>{`Now do the same for a clock. In its own rest frame, the clock ticks once every $\\tau$ seconds (call this the proper period). Watch that clock fly past your lab at speed $v$. The interval between ticks you measure is:`}</p>
           <div className="lrn-eq">
@@ -283,7 +283,7 @@ export default function SpecialRelativityCoda() {
             <p>{`The Galilean rule says velocities just add. If a spaceship moves at $0.5c$ in your frame and fires a missile forward at $0.5c$ in the ship's frame, the Galilean answer would be $c$. But every observer must measure light at exactly $c$. So the missile cannot be moving at $c$. What replacement rule combines the two velocities?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`The Lorentz transformation forces a new addition rule: $u = \\frac{u' + v}{1 + \\frac{u'v}{c^2}}$. The denominator grows just enough to keep the result below $c$ for any ordinary inputs. Plugging in $0.5c$ and $0.5c$ gives $\\frac{c}{1.25} = 0.8c$, not $c$. The next section derives this formula.`}</p>
+              <p>{`The Lorentz transformation forces a new addition rule: $u = \\frac{u' + v}{1 + \\frac{u'v}{c^2}}$. The denominator grows just enough to keep the result below $c$ for any ordinary inputs. The next section derives this formula and works the number.`}</p>
             </details>
           </div>
         </>,
@@ -357,7 +357,7 @@ export default function SpecialRelativityCoda() {
           <p>{`Setting $\\theta = 90^\\circ$ (source moving sideways, neither approaching nor receding at the instant of closest approach) leaves only $\\nu_D = \\nu_0 \\sqrt{1 - \\frac{v^2}{c^2}}$. This is the transverse Doppler shift. It comes entirely from time dilation, and it has no classical analog.`}</p>
           <h3>{`Where the formula comes from`}</h3>
           <p>{`The source emits one wave crest every proper time $\\tau_0 = \\frac{1}{\\nu_0}$ in its rest frame. From your frame, the source is a moving clock, so time dilation stretches the interval between crest emissions to $\\gamma \\tau_0$.`}</p>
-          <p>{`During that stretched interval, the source moves toward you by a distance $v \\cos\\theta \\cdot \\gamma \\tau_0$, where $\\theta$ is the angle between the source's velocity and your line of sight. The next crest then has a shorter distance to travel through space, so it arrives sooner than it would have if the source had stayed put.`}</p>
+          <p>{`During that stretched interval, the source moves toward you by a distance $v \\cos\\theta \\cdot \\gamma \\tau_0$. Here $\\theta$ is the angle between the source's velocity and your line of sight. The next crest then has a shorter distance to travel. So it arrives sooner than it would have if the source had stayed put.`}</p>
           <p>{`Subtract that travel-time saving from the dilated emission interval to get the period you actually measure between crest arrivals:`}</p>
           <div className="lrn-eq">
             <span>{`$$T = \\gamma \\tau_0 \\left(1 - \\frac{v}{c} \\cos\\theta\\right)$$`}</span>
@@ -366,12 +366,7 @@ export default function SpecialRelativityCoda() {
           <div className="lrn-eq">
             <span>{`$$\\nu_D = \\frac{\\nu_0 \\sqrt{1 - \\frac{v^2}{c^2}}}{1 - \\frac{v}{c}\\cos\\theta}$$`}</span>
           </div>
-          <p>{`Two limits worth checking. At $\\theta = 0$ (source flying directly at you), the formula collapses to the longitudinal blueshift above. At $\\theta = 90^\\circ$, the cosine vanishes and only the time dilation factor remains.`}</p>
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`A transverse shift exists even when the source is not approaching or receding because the source is itself a clock, and time dilation slows every clock that moves through your frame.`}</p>
-            <p>{`At the instant of closest approach there is no radial motion, but the source's emission rate is still slow by the factor $\\sqrt{1 - \\frac{v^2}{c^2}}$. You receive fewer crests per second than the source emits in its own frame.`}</p>
-          </div>
+          <p>{`Two limits worth checking. At $\\theta = 0$ (source flying directly at you), the formula collapses to the longitudinal blueshift above. At $\\theta = 90^\\circ$, the cosine vanishes and only the time dilation factor remains. Even with no radial motion, the moving source is a clock, so you receive fewer crests per second than it emits in its own frame.`}</p>
           <h3>{`Worked example: Doppler navigation`}</h3>
           <p>{`A satellite broadcasts a steady carrier frequency. A receiver on the ground records the frequency it actually hears as the satellite passes overhead. The frequency starts blueshifted on approach, sweeps through the rest-frame value at closest approach (modified slightly by the transverse shift), and ends redshifted on departure. The detailed shape of the curve fixes the satellite's speed and the geometry of the pass. The Transit system, the first global satellite navigation system, used exactly this principle in the 1960s. GPS uses related Doppler corrections in its precise positioning calculations.`}</p>
           <div className="lrn-predict">
@@ -389,22 +384,17 @@ export default function SpecialRelativityCoda() {
           <h3>{`The setup`}</h3>
           <p>{`Twin A stays on Earth. Twin B flies out to a distant star at constant speed $v$, turns around, and flies back at the same speed. When the two meet again, twin B is younger.`}</p>
           <h3>{`Why acceleration matters`}</h3>
-          <p>{`Twin A stays in one inertial frame from start to finish. Twin B switches frames at the turnaround: outbound and inbound are two different inertial frames. The act of switching is a real, physical event for B (engines fire, B feels weight) and no event at all for A. That asymmetry is what lets one twin age less than the other. The straight worldline through spacetime is the longest in proper time; B takes a bent worldline, so B's proper time is shorter.`}</p>
+          <p>{`The two inertial legs alone are perfectly symmetric: each twin sees the other's clock running slow on both outbound and inbound. Twin A stays in one inertial frame from start to finish. Twin B switches frames at the turnaround: outbound and inbound are two different inertial frames. The act of switching is a real, physical event for B (engines fire, B feels weight) and no event at all for A. That asymmetry is what lets one twin age less than the other. The straight worldline through spacetime is the longest in proper time; B takes a bent worldline, so B's proper time is shorter.`}</p>
           <h3>{`Counting signals: the Doppler derivation`}</h3>
           <p>{`Have twin B send one light pulse per year of B's own time. Watch what twin A receives.`}</p>
-          <p>{`Let $\\beta = \\frac{v}{c}$. On the outbound leg, B is receding from A, so A receives the pulses redshifted. The Doppler factor is $\\sqrt{\\frac{1-\\beta}{1+\\beta}} < 1$, meaning fewer than one pulse per A-year. On the inbound leg, B is approaching A, so A receives the pulses blueshifted by the reciprocal factor $\\sqrt{\\frac{1+\\beta}{1-\\beta}} > 1$, meaning more than one pulse per A-year.`}</p>
-          <p>{`Now count. Suppose the round trip takes total proper time $\\tau$ on B's clock, split equally between outbound and inbound. B emits $\\nu_0 \\tau$ pulses in total, where $\\nu_0$ is one pulse per B-year. A receives every one of those pulses, since every emitted pulse eventually arrives. Adding up A's elapsed time over the redshifted and blueshifted phases (and accounting for when each phase begins and ends, since A does not see the turnaround until light from it arrives) gives total A-time:`}</p>
+          <p>{`Let $\\beta = \\frac{v}{c}$. On the outbound leg, B is receding from A, so A receives the pulses redshifted. The Doppler factor is $\\sqrt{\\frac{1-\\beta}{1+\\beta}} < 1$, fewer than one pulse per A-year. On the inbound leg, B is approaching A, so A receives the pulses blueshifted. The reciprocal factor $\\sqrt{\\frac{1+\\beta}{1-\\beta}} > 1$ delivers more than one pulse per A-year.`}</p>
+          <p>{`Now count. Suppose the round trip takes total proper time $\\tau$ on B's clock, split equally between outbound and inbound. B emits $\\nu_0 \\tau$ pulses in total, where $\\nu_0$ is one pulse per B-year. A receives every one of those pulses, since every emitted pulse eventually arrives. Now add up A's elapsed time over the redshifted and blueshifted phases. Account for when each phase begins and ends, since A does not see the turnaround until light from it arrives. The total A-time comes out to:`}</p>
           <div className="lrn-eq">
             <span>{`$$T_A = \\gamma \\tau$$`}</span>
           </div>
-          <p>{`Twin A ages by the factor $\\gamma$ relative to twin B. The asymmetry between the redshifted and blueshifted phases of A's experience is supplied by the turnaround: A spends most of the trip seeing redshifted pulses (the slow phase) and only the final stretch seeing blueshifted pulses (the fast phase), because light from B's turnaround takes time to reach A.`}</p>
+          <p>{`Twin A ages by the factor $\\gamma$ relative to twin B. The turnaround supplies the asymmetry. A spends most of the trip seeing redshifted pulses, the slow phase. A sees blueshifted pulses only in the final stretch, the fast phase. The reason is that light from B's turnaround takes time to reach A.`}</p>
           <TwinParadox />
           <LorentzBoostInteractive />
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`The two inertial legs alone are perfectly symmetric: each twin sees the other's clock running slow during outbound and during inbound. The asymmetry sits entirely in the turnaround event.`}</p>
-            <p>{`Only twin B feels a force at the turnaround. Only B switches inertial frames. That single event makes B's worldline through spacetime shorter than A's straight one, and shorter worldlines accumulate less proper time.`}</p>
-          </div>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>{`Newton said the mass of a particle is the same regardless of how it moves. But conservation of momentum has to hold in every inertial frame, and the velocity addition rule is no longer Galilean. What does that force you to do to the formula $p = mv$ as a particle approaches the speed of light?`}</p>
@@ -436,7 +426,7 @@ export default function SpecialRelativityCoda() {
             <span>{`$$\\vec p = \\gamma m_0 \\vec u$$`}</span>
           </div>
           <div className="lrn-callout">
-            <p>{`A note on terminology. Older textbooks (including Kleppner and Kolenkow, the source for this module) call $\\gamma m_0$ the "relativistic mass" and call $m_0$ the "rest mass". Modern particle physics writes the formula as $p = \\gamma m_0 v$ and reserves the word "mass" for $m_0$ alone. Both conventions describe the same physics; the modern one avoids the misleading suggestion that a fast particle physically gains material. Watch the convention whenever you read about high-energy collisions.`}</p>
+            <p>{`A note on terminology. Older textbooks call $\\gamma m_0$ the "relativistic mass" and call $m_0$ the "rest mass". Modern particle physics writes the formula as $p = \\gamma m_0 v$ and reserves the word "mass" for $m_0$ alone. Both conventions describe the same physics; the modern one avoids the misleading suggestion that a fast particle physically gains material. Watch the convention whenever you read about high-energy collisions.`}</p>
           </div>
           <div className="lrn-compare">
             <div className="lrn-compare-col">
@@ -472,7 +462,15 @@ export default function SpecialRelativityCoda() {
           <div className="lrn-eq">
             <span>{`$$K = \\int \\vec F \\cdot d\\vec r = \\int \\vec u \\cdot d\\vec p$$`}</span>
           </div>
-          <p>{`Plug in the relativistic momentum $\\vec p = \\gamma m_0 \\vec u$ and integrate from rest up to speed $u$. After working through the calculus, the result is:`}</p>
+          <p>{`Plug in the relativistic momentum $p = \\gamma m_0 u$ and integrate from rest up to speed $u$. Work the one-dimensional integral by parts, moving the derivative off the momentum:`}</p>
+          <div className="lrn-eq">
+            <span>{`$$K = \\int_0^u u \\, dp = \\Bigl[ u p \\Bigr]_0^u - \\int_0^u p \\, du = \\gamma m_0 u^2 - m_0 \\int_0^u \\gamma u \\, du$$`}</span>
+          </div>
+          <p>{`The remaining integral is a standard substitution. With $\\gamma = (1 - \\frac{u^2}{c^2})^{-1/2}$, the integrand $\\gamma u$ has antiderivative $-c^2 \\sqrt{1 - \\frac{u^2}{c^2}}$, so the integral evaluates to $c^2 \\left(1 - \\frac{1}{\\gamma}\\right)$ over the range:`}</p>
+          <div className="lrn-eq">
+            <span>{`$$K = \\gamma m_0 u^2 - m_0 c^2 \\left(1 - \\frac{1}{\\gamma}\\right)$$`}</span>
+          </div>
+          <p>{`Write $\\gamma m_0 u^2 = \\gamma m_0 c^2 \\frac{u^2}{c^2} = \\gamma m_0 c^2 \\left(1 - \\frac{1}{\\gamma^2}\\right)$, then collect terms. Everything simplifies to:`}</p>
           <div className="lrn-eq">
             <span>{`$$K = m c^2 - m_0 c^2 = (\\gamma - 1) m_0 c^2$$`}</span>
           </div>
@@ -496,7 +494,7 @@ export default function SpecialRelativityCoda() {
             </div>
           </div>
           <h3>{`Mass-energy equivalence`}</h3>
-          <p>{`Any energy added to a system, in any form, raises its mass by $\\frac{\\Delta E}{c^2}$. Heat a brick: its mass goes up. Compress a spring: it gets heavier. Ionize an atom: heavier still. The change is fantastically small in everyday situations because $c^2$ is enormous, but it is real and shows up in nuclear and particle reactions where the energies involved are large enough to weigh on a balance.`}</p>
+          <p>{`Any energy added to a system, in any form, raises its mass by $\\frac{\\Delta E}{c^2}$. Heat a brick: its mass goes up. Compress a spring: it gets heavier. Ionize an atom: heavier still. The change is tiny in everyday situations, because $c^2$ is enormous. But it is real. It shows up in nuclear and particle reactions, where the energies are large enough to weigh on a balance.`}</p>
           <h3>{`Dynamical formulas in one place`}</h3>
           <p>{`For a particle of rest mass $m_0$ moving at speed $u$:`}</p>
           <div className="lrn-eq">
@@ -509,7 +507,7 @@ export default function SpecialRelativityCoda() {
             <span>{`$$K = (\\gamma - 1) m_0 c^2$$`}</span>
           </div>
           <h3>{`The energy-momentum relation`}</h3>
-          <p>{`Square the energy and momentum formulas, subtract, and use $\\gamma^2 \\left(1 - \\frac{u^2}{c^2}\\right) = 1$. The cross terms vanish and you get a clean identity:`}</p>
+          <p>{`Combine the energy and momentum formulas and one clean identity drops out:`}</p>
           <div className="lrn-eq">
             <span>{`$$E^2 = (p c)^2 + (m_0 c^2)^2$$`}</span>
           </div>
@@ -540,7 +538,7 @@ export default function SpecialRelativityCoda() {
         </>,
         <>
           <h2>{`Massless Particles (Photons)`}</h2>
-          <p>{`Some particles have zero rest mass. They always travel at $c$ and have no rest frame in which to sit still. The photon (the quantum of light) is the canonical example.`}</p>
+          <p>{`Some particles have zero rest mass. They always travel at $c$ and have no rest frame in which to sit still. The photon (the quantum of light, meaning the smallest indivisible packet of light) is the canonical example.`}</p>
           <h3>{`Energy and momentum of light`}</h3>
           <p>{`Set $m_0 = 0$ in the energy-momentum relation. The rest-energy term vanishes and what remains is:`}</p>
           <div className="lrn-eq">
@@ -590,7 +588,8 @@ export default function SpecialRelativityCoda() {
           <h2>{`Compton Scattering and Pair Production`}</h2>
           <p>{`Light interacts with matter as a stream of particles, not as a smooth wave. Two reactions show this most cleanly: a photon bouncing off an electron, and a photon turning itself into a particle-antiparticle pair.`}</p>
           <h3>{`Worked example: the Compton effect`}</h3>
-          <p>{`A photon of wavelength $\\lambda_0$ collides with a free electron at rest and scatters off at angle $\\theta$. The electron recoils, carrying away some of the photon's energy. Apply conservation of energy and momentum (conveniently packaged as conservation of four-momentum, see the four-vector section below) and you get:`}</p>
+          <p>{`A photon of wavelength $\\lambda_0$ collides with a free electron at rest and scatters off at angle $\\theta$. The electron recoils, carrying away some of the photon's energy.`}</p>
+          <p>{`Write down the two conservation laws. The photon carries energy $E = pc$ and momentum $p = \\frac{h}{\\lambda}$, so energy conservation reads $\\frac{hc}{\\lambda_0} + m_e c^2 = \\frac{hc}{\\lambda} + \\gamma m_e c^2$. Momentum conservation splits into the line of the incoming photon and the line across it, giving two more equations. Square the recoil-electron momentum to eliminate the unknown electron angle, then use the energy-momentum relation $E^2 = (pc)^2 + (m_e c^2)^2$ for the electron. The algebra collapses to a clean shift:`}</p>
           <div className="lrn-eq">
             <span>{`$$\\lambda - \\lambda_0 = \\frac{h}{m_e c}(1 - \\cos\\theta)$$`}</span>
           </div>
@@ -611,13 +610,9 @@ export default function SpecialRelativityCoda() {
           </div>
           <p>{`If the nucleus is heavy ($M \\gg m_e$), the recoil correction $\\frac{m_e}{M}$ is tiny and the threshold sits just above $2 m_e c^2 \\approx 1.022$ MeV.`}</p>
           <PairProduction />
-          <h3>{`Worked example: the Doppler effect from a single photon`}</h3>
-          <p>{`The Doppler formula derived earlier treated light as a wave with a period that gets stretched by motion. Here is a second derivation that treats light as a single photon with a four-momentum. Both routes must give the same answer because they are describing the same physics from two angles.`}</p>
-          <p>{`In the source's rest frame, the emitted photon has four-momentum $\\left(\\frac{E_0}{c}, 0, 0, \\frac{E_0}{c}\\right)$ along its direction of travel, where $E_0 = h\\nu_0$. Apply a Lorentz boost to the observer's frame, where the source moves at speed $v$. The new energy is the time component of the boosted four-momentum, and that energy gives the observed frequency through $E = h\\nu_D$. Working it through reproduces the same formula $\\nu_D = \\dfrac{\\nu_0 \\sqrt{1 - \\frac{v^2}{c^2}}}{1 - \\frac{v}{c}\\cos\\theta}$ as before.`}</p>
-          <p>{`Two routes, identical answer. The agreement is not a coincidence: it is the wave-particle duality of light expressed at the level of the Doppler effect.`}</p>
           <h3>{`Worked example: how light pulses bound the photon's rest mass`}</h3>
           <p>{`Special relativity assumes the photon has zero rest mass. Could it have a tiny one? If so, $E^2 = (pc)^2 + (m_\\gamma c^2)^2$ would have a nonzero second term, and the speed of light would depend slightly on frequency: low-energy (long-wavelength) light would travel slower than high-energy (short-wavelength) light.`}</p>
-          <p>{`Pulsars emit sharp pulses simultaneously across many frequencies. After light from a pulsar travels thousands of light-years to Earth, any frequency-dependent delay would smear the pulse. Astronomers see no smearing within their measurement precision. The observed limits give $m_\\gamma < 10^{-40}$ kg from optical observations, and $m_\\gamma < 10^{-47}$ kg from the radio-frequency Crab pulsar pulses. Either bound is consistent with the photon being exactly massless.`}</p>
+          <p>{`Pulsars emit sharp pulses simultaneously across many frequencies. After light from a pulsar travels thousands of light-years to Earth, any frequency-dependent delay would smear the pulse. Astronomers see no smearing within their measurement precision. Optical observations give $m_\\gamma < 10^{-40}$ kg. The radio pulses of the Crab pulsar tighten this to $m_\\gamma < 10^{-47}$ kg. Either bound is consistent with the photon being exactly massless.`}</p>
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>{`In three dimensions, a vector has a length and a direction, and we know how its components change when we rotate the coordinate axes. Special relativity mixes space and time. What rule should pick out the "true" four-component vectors that survive a Lorentz boost?`}</p>
@@ -678,7 +673,7 @@ export default function SpecialRelativityCoda() {
           <h2>{`Minkowski Space and Four-vectors`}</h2>
           <p>{`In four dimensions, a Lorentz boost looks just like a rotation. The trick is to combine the three space coordinates with time into a single object whose squared length is preserved by every boost.`}</p>
           <h3>{`Spacetime as four dimensions`}</h3>
-          <p>{`Build a four-component object out of position and time, attaching an imaginary unit to the time part (this is K&K's convention; modern texts use a metric instead, but the physics is the same):`}</p>
+          <p>{`Build a four-component object out of position and time, attaching an imaginary unit to the time part (this is one common convention; modern texts use a metric instead, but the physics is the same):`}</p>
           <div className="lrn-eq">
             <span>{`$$s = (x, \\, y, \\, z, \\, i c t)$$`}</span>
           </div>
@@ -686,7 +681,7 @@ export default function SpecialRelativityCoda() {
           <div className="lrn-eq">
             <span>{`$$x^2 + y^2 + z^2 - (c t)^2 = \\text{invariant}$$`}</span>
           </div>
-          <p>{`Apply a Lorentz boost between two inertial frames. The four components mix exactly the way ordinary rotations mix the components of a three-dimensional vector. The squared length stays the same. We met this combination earlier as the spacetime interval.`}</p>
+          <p>{`Apply a Lorentz boost between two inertial frames. The four components mix exactly the way ordinary rotations mix the components of a three-dimensional vector. The squared length stays the same. We met this combination earlier as the spacetime interval, written there as $c^2 \\Delta t^2 - \\Delta x^2 - \\Delta y^2 - \\Delta z^2$. This norm is its negative: the two differ only by an overall sign, and both conventions are standard.`}</p>
           <LightCone />
           <h3>{`What counts as a four-vector`}</h3>
           <p>{`A four-vector is any set of four components $(A_1, A_2, A_3, A_4)$ that transforms under a Lorentz boost by exactly the same rule that transforms $s$. This generalizes the rotation rule from three dimensions to four. Quantities that fail the rule are not four-vectors, even if they happen to have four components.`}</p>
@@ -808,15 +803,15 @@ export default function SpecialRelativityCoda() {
             </div>
           </div>
           <h3>{`Worked example: pair production in electron-electron collision`}</h3>
-          <p>{`A fast electron hits a stationary electron. How much kinetic energy does the projectile need to produce two extra electron-positron pairs, in the reaction $e^- + e^- \\to 4 \\, e^- + 2 \\, e^+$? Use four-momentum invariance.`}</p>
-          <p>{`In the CM frame at the threshold, all six final-state particles are at rest, so the total CM energy is $6 m_e c^2$ and the squared invariant mass is $(6 m_e c^2)^2$. Equate this to the lab-frame squared invariant of the initial state, $(E_1 + m_e c^2)^2 - (p_1 c)^2$, where $E_1$ and $p_1$ are the projectile electron's lab energy and momentum. Use $E_1^2 - (p_1 c)^2 = (m_e c^2)^2$ to simplify, and solve for $E_1$. The result is $E_1 = 17 m_e c^2$, so the projectile's kinetic energy is:`}</p>
+          <p>{`A fast electron hits a stationary electron. How much kinetic energy does the projectile need to make one extra electron-positron pair, in the reaction $e^- + e^- \\to e^- + e^- + e^- + e^+$? Use four-momentum invariance.`}</p>
+          <p>{`In the CM frame at the threshold, all four final-state particles are at rest, so the total CM energy is $4 m_e c^2$ and the squared invariant mass is $(4 m_e c^2)^2$. Equate this to the lab-frame squared invariant of the initial state, $(E_1 + m_e c^2)^2 - (p_1 c)^2$, where $E_1$ and $p_1$ are the projectile electron's lab energy and momentum. Use $E_1^2 - (p_1 c)^2 = (m_e c^2)^2$ to simplify, and solve for $E_1$. The result is $E_1 = 7 m_e c^2$, so the projectile's kinetic energy is:`}</p>
           <div className="lrn-eq">
-            <span>{`$$K_\\text{min} = E_1 - m_e c^2 = 16 m_e c^2$$`}</span>
+            <span>{`$$K_\\text{min} = E_1 - m_e c^2 = 6 m_e c^2$$`}</span>
           </div>
-          <p>{`(K&K, working with a different stoichiometry that produces a total of four electrons in the final state, gets $K_\\text{min} = 6 m_e c^2$. The reasoning is identical; only the rest-mass count differs.) The threshold is many times the rest mass of the new pairs, because four-momentum invariance forces the projectile to supply enough energy for the new particles' bulk motion as well as their rest mass.`}</p>
+          <p>{`The threshold is six times the electron rest energy, far more than the $2 m_e c^2$ rest energy of the single new pair. Four-momentum invariance forces the projectile to supply enough energy for the bulk motion of the whole final state, not just the rest mass of the new particles.`}</p>
           <h3>{`Beyond special relativity`}</h3>
-          <p>{`Special relativity describes how physics looks when observers move at constant velocity relative to each other in flat, gravity-free spacetime. It does not handle accelerating frames or gravity. To extend the theory to those, you need general relativity. The key bridge is the equivalence principle: locally, a uniformly accelerating frame and a frame at rest in a gravitational field are indistinguishable. General relativity then describes gravity as the curvature of four-dimensional spacetime, with special relativity recovered as the local, flat-spacetime limit.`}</p>
-          <p>{`Even within its proper scope, special relativity is not just a curiosity. It underlies all of particle physics, where particles routinely move at near-light speeds. It corrects the timing in the GPS satellites that your phone uses to navigate (their fast orbital motion plus the gravitational shift adds up to tens of microseconds per day). It is built into Maxwell's equations and into every modern formulation of electromagnetism. The two postulates and their consequences are not academic; they are the working tools of every physicist who deals with energy, motion, or light.`}</p>
+          <p>{`Special relativity describes how physics looks when observers move at constant velocity relative to each other in flat, gravity-free spacetime. It does not handle accelerating frames or gravity. To extend the theory to those, you need general relativity. The key bridge is the equivalence principle: locally, a uniformly accelerating frame and a frame at rest in a gravitational field are impossible to tell apart. General relativity then describes gravity as the curvature of four-dimensional spacetime, with special relativity recovered as the local, flat-spacetime limit.`}</p>
+          <p>{`Even within its proper scope, special relativity is not just a curiosity. It underlies all of particle physics, where particles routinely move at near-light speeds. It corrects the timing in the GPS satellites that your phone uses to navigate (their fast orbital motion plus the gravitational shift adds up to tens of microseconds per day). It is built into Maxwell's equations and into every modern formulation of electromagnetism. The two postulates and their consequences are not just theory; they are the working tools of every physicist who deals with energy, motion, or light.`}</p>
         </>
       ]
     },
@@ -867,7 +862,7 @@ export default function SpecialRelativityCoda() {
       },
       {
         q: `Distinguish timelike and spacelike intervals.`,
-        a: `Timelike: $c^2 \\Delta t^2 - \\Delta x^2 > 0$. Order is fixed in every frame, and one event can causally influence the other. Spacelike: $c^2 \\Delta t^2 - \\Delta x^2 < 0$. Order can flip between frames, and no causal link is possible.`
+        a: `Timelike: $c^2 \\Delta t^2 - \\Delta x^2 > 0$. Order is fixed in every frame, and one event can cause the other. Spacelike: $c^2 \\Delta t^2 - \\Delta x^2 < 0$. Order can flip between frames, and no cause-and-effect link is possible.`
       },
       {
         q: `A rod has rest length 10 m. It moves at $v = 0.6c$ along its length. What length does the lab measure?`,
@@ -899,7 +894,7 @@ export default function SpecialRelativityCoda() {
       },
       {
         q: `Two beams of light approach each other from opposite directions. What is their relative speed in either beam's frame?`,
-        a: `Light has no rest frame, so the question of "the beam's frame" is not well-defined. From the lab frame, both beams move at $c$. In any inertial frame, each beam moves at $c$.`
+        a: `Light has no rest frame, so the phrase "the beam's frame" has no clear meaning. From the lab frame, both beams move at $c$. In any inertial frame, each beam moves at $c$.`
       },
       {
         q: `A particle moves at 0.9c. From your frame it shoots out another particle forward at 0.9c. Find the second particle's lab speed.`,
@@ -1019,7 +1014,7 @@ export default function SpecialRelativityCoda() {
       },
       {
         q: `An absorbing surface receives light of intensity $I$. What radiation pressure does it experience? What if the surface is a perfect mirror?`,
-        a: `K&K shows pressure equals $\\frac{I}{c}$ for a perfect absorber and $\\frac{2I}{c}$ for a perfect mirror. The mirror case doubles the pressure because each photon's momentum reverses on reflection, so the surface absorbs twice the momentum per unit time.`
+        a: `The pressure equals $\\frac{I}{c}$ for a perfect absorber and $\\frac{2I}{c}$ for a perfect mirror. The mirror case doubles the pressure because each photon's momentum reverses on reflection, so the surface absorbs twice the momentum per unit time.`
       },
       {
         q: `How does the radiation pressure on a mirror compare to that on an absorber?`,
@@ -1051,7 +1046,7 @@ export default function SpecialRelativityCoda() {
       },
       {
         q: `Why does a tiny photon mass give a frequency-dependent speed?`,
-        a: `A massive photon obeys $E^2 = (pc)^2 + (m_\\gamma c^2)^2$. The group velocity then depends on $E$, hence on frequency. Different colors travel at slightly different speeds, observable over long distances.`
+        a: `A massive photon obeys $E^2 = (pc)^2 + (m_\\gamma c^2)^2$. The group velocity (the speed at which the pulse itself travels) then depends on $E$, hence on frequency. Different colors travel at slightly different speeds, observable over long distances.`
       },
       {
         q: `Define a vector by its transformation rule.`,
@@ -1066,7 +1061,7 @@ export default function SpecialRelativityCoda() {
         a: `It depends on the order of grouping. $(\\vec A \\times \\vec B) \\times \\vec A$ differs from $\\vec A \\times (\\vec B \\times \\vec A)$. So such ill-defined expressions do not transform consistently.`
       },
       {
-        q: `Write the position four-vector in K&K notation.`,
+        q: `Write the position four-vector using the imaginary-time component.`,
         a: `$s^\\mu = (x, y, z, ict)$. The fourth component uses an imaginary factor so that the squared norm becomes $x^2 + y^2 + z^2 - (ct)^2$. This norm is invariant under Lorentz transformations.`
       },
       {
@@ -1099,11 +1094,11 @@ export default function SpecialRelativityCoda() {
       },
       {
         q: `Compute the velocity of the CM frame for two particles with energies $E_1, E_2$ and momentum $p_1$ (the second at rest).`,
-        a: `$V = \\frac{p_1 c^2}{E_1 + E_2}$. This is the velocity at which total spatial momentum is zero. The transformation simplifies many collision problems.`
+        a: `$V = \\frac{p_1 c^2}{E_1 + E_2}$. With the second particle at rest, $E_2 = Mc^2$, so $V = \\frac{p_1 c^2}{E_1 + Mc^2}$. This is the velocity at which total spatial momentum is zero. The transformation simplifies many collision problems.`
       },
       {
-        q: `What is the threshold kinetic energy for $e^- + e^- \\to 4 e$ in lab frame fixed target?`,
-        a: `$K_\\text{min} = 6 m_0 c^2$. Use four-momentum invariance: at threshold, all four products are at rest in the CM frame. The total invariant is $(4 m_0 c^2)^2$, which sets the lab-frame condition.`
+        q: `One electron hits a stationary electron and makes one extra pair, $e^- + e^- \\to e^- + e^- + e^- + e^+$. What is the threshold lab kinetic energy?`,
+        a: `$K_\\text{min} = 6 m_0 c^2$. Use four-momentum invariance: at threshold, all four products sit at rest in the CM frame. The total invariant is $(4 m_0 c^2)^2$. Equate it to the lab-frame invariant $(E_1 + m_0 c^2)^2 - (p_1 c)^2$ and solve for $K_\\text{min} = E_1 - m_0 c^2$.`
       },
       {
         q: `Why is the pair production threshold so much larger than the rest mass of the new particles?`,
@@ -1131,7 +1126,7 @@ export default function SpecialRelativityCoda() {
       },
       {
         q: `Predict the order of two events that are spacelike separated.`,
-        a: `Different inertial observers can see the events in different orders. There is no absolute "before" or "after" for spacelike events. They cannot causally affect one another.`
+        a: `Different inertial observers can see the events in different orders. There is no absolute "before" or "after" for spacelike events. Neither one can cause the other.`
       },
       {
         q: `Why does the photon picture of the Doppler effect give the same answer as the wave picture?`,
@@ -1156,7 +1151,7 @@ export default function SpecialRelativityCoda() {
     ],
     reference: {
       category: 'Quick Reference',
-      title: 'Special Relativity (Coda)',
+      title: 'Special Relativity and Covariant Mechanics',
       sections: [
         <>
           <div className="ref-section">
@@ -1414,7 +1409,8 @@ export default function SpecialRelativityCoda() {
                 <span>{`$m = \\dfrac{m_0}{\\sqrt{1 - \\frac{u^2}{c^2}}} = \\gamma m_0$`}</span>
               </div>
               <p className="ref-when">
-                <strong>When to use:</strong> {`Mass of a particle moving at speed $u$.`}
+                <strong>When to use:</strong>{' '}
+                {`Mass of a particle moving at speed $u$. Modern usage reserves "mass" for the rest mass $m_0$ and writes momentum as $\\gamma m_0 u$ instead.`}
               </p>
             </div>
             <div className="ref-formula">
@@ -1625,7 +1621,7 @@ export default function SpecialRelativityCoda() {
               </div>
               <p className="ref-when">
                 <strong>When to use:</strong>{' '}
-                {`Lorentz-covariant version of velocity; norm is $-c^2$.`}
+                {`Lorentz-covariant (Lorentz-transforming) version of velocity; norm is $-c^2$.`}
               </p>
             </div>
             <div className="ref-formula">
@@ -1654,7 +1650,8 @@ export default function SpecialRelativityCoda() {
                 <span>{`$x^2 + y^2 + z^2 - (ct)^2 = \\text{invariant}$`}</span>
               </div>
               <p className="ref-when">
-                <strong>When to use:</strong> {`Computing spacetime intervals between events.`}
+                <strong>When to use:</strong>{' '}
+                {`The squared norm of the four-position. This is the negative of the spacetime interval $\\Delta s^2$ above; the two differ only by an overall sign, and both are standard.`}
               </p>
             </div>
             <div className="ref-formula">
@@ -1679,14 +1676,14 @@ export default function SpecialRelativityCoda() {
             </div>
             <div className="ref-formula">
               <span className="ref-formula-name">
-                Pair production threshold $e^- + e^- \to 4 e$
+                Pair production threshold $e^- + e^- \to e^- + e^- + e^- + e^+$
               </span>
               <div className="lrn-eq">
                 <span>{`$K_\\text{min} = 6 m_0 c^2$`}</span>
               </div>
               <p className="ref-when">
                 <strong>When to use:</strong>{' '}
-                {`Threshold lab kinetic energy for double pair production from electron-electron.`}
+                {`Threshold lab kinetic energy to make one extra pair when one electron hits a stationary electron.`}
               </p>
             </div>
           </div>

@@ -56,8 +56,8 @@
   padding: 40px 20px;
   overflow-y: auto;
   background-image:
-    linear-gradient(rgba(240, 240, 250, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240, 240, 250, 0.03) 1px, transparent 1px);
+    linear-gradient(var(--ink-hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ink-hairline) 1px, transparent 1px);
   background-size: 50px 50px;
 }
 
@@ -124,7 +124,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.36em;
   text-transform: uppercase;
   font-weight: 700;
@@ -161,7 +161,7 @@
 }
 .fault-explainer {
   margin: 28px 0 0;
-  font-size: 16px;
+  font-size: var(--type-body);
   line-height: 1.55;
   color: var(--text-secondary);
   max-width: 38ch;
@@ -184,7 +184,7 @@
   border-right: 1px solid var(--line);
   padding: 22px 18px;
   font-family: var(--reader-font-family);
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-weight: 700;
@@ -203,7 +203,7 @@
 }
 .fault-btn .num {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0;
   color: var(--fg-4);
   font-weight: 400;
@@ -211,7 +211,7 @@
 .fault-btn .arrow {
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--type-button);
   color: var(--fg-3);
   transition:
     color var(--t),
@@ -242,7 +242,7 @@
   right: 24px;
   top: 24px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.28em;
   color: var(--fg-4);
   text-align: right;
@@ -257,7 +257,7 @@
 .fault-side {
   display: flex;
   flex-direction: column;
-  background: rgba(240, 240, 250, 0.015);
+  background: var(--ink-hairline);
 }
 .fault-side-head {
   display: grid;
@@ -265,7 +265,7 @@
   align-items: center;
   padding: 18px 24px;
   border-bottom: 1px solid var(--line);
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-weight: 700;
@@ -287,7 +287,7 @@
   border-right: 0;
 }
 .telemetry .k {
-  font-size: 8px;
+  font-size: var(--type-caption);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--fg-4);
@@ -296,7 +296,7 @@
 }
 .telemetry .v {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--type-button);
   color: var(--text-primary);
   font-feature-settings: 'tnum';
   line-height: 1;
@@ -306,7 +306,7 @@
 }
 .telemetry .sub {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--type-caption);
   color: var(--fg-3);
   margin-top: 4px;
 }
@@ -314,7 +314,7 @@
 .console-msg {
   padding: 14px 24px;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--type-small);
   color: var(--warn);
   background: rgba(212, 160, 23, 0.05);
   border-top: 1px solid rgba(212, 160, 23, 0.18);
@@ -326,14 +326,14 @@
 }
 .console-msg .lbl {
   font-family: var(--reader-font-family);
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-weight: 700;
 }
 .console-msg .stamp {
   color: var(--fg-3);
-  font-size: 11px;
+  font-size: var(--type-micro);
 }
 
 .stack {
@@ -346,7 +346,7 @@
   padding: 20px 0;
   overflow-y: auto;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--type-small);
   line-height: 1.6;
   color: var(--text-secondary);
 }
@@ -381,12 +381,12 @@
 }
 .stack-section {
   padding: 8px 24px;
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--fg-4);
   font-weight: 700;
-  background: rgba(240, 240, 250, 0.015);
+  background: var(--ink-hairline);
   border-top: 1px solid var(--line-2);
   border-bottom: 1px solid var(--line-2);
   margin: 6px 0;
@@ -398,14 +398,14 @@
   right: 16px;
   max-width: 600px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-micro);
   color: var(--fg-3);
 }
 .err-app-details summary {
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  font-size: 9px;
+  font-size: var(--type-caption);
 }
 .err-app-details pre {
   margin-top: 12px;
@@ -459,7 +459,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.36em;
   text-transform: uppercase;
   font-weight: 700;
@@ -481,7 +481,7 @@
   text-transform: uppercase;
 }
 .err-msg {
-  font-size: 24px;
+  font-size: var(--type-h6);
   line-height: 1.25;
   font-weight: 700;
   color: var(--text-primary);
@@ -489,7 +489,7 @@
   letter-spacing: -0.012em;
 }
 .err-sub {
-  font-size: 13px;
+  font-size: var(--type-glyph);
   color: var(--text-secondary);
   margin: 0 0 18px;
   max-width: 56ch;
@@ -500,7 +500,7 @@
   gap: 22px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: var(--type-micro);
   color: var(--fg-3);
 }
 .err-meta b {
@@ -519,7 +519,7 @@
   border-bottom: 1px solid rgba(212, 160, 23, 0.18);
   padding: 14px 22px;
   font-family: var(--reader-font-family);
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-weight: 700;
@@ -539,7 +539,7 @@
 .err-btn .arrow {
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--type-button);
   transition: transform var(--t);
 }
 .err-btn.primary {
@@ -561,7 +561,7 @@
 }
 .err-btn .num {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: var(--type-caption);
   font-weight: 400;
   opacity: 0.6;
   letter-spacing: 0;
@@ -624,7 +624,7 @@
   gap: 4px;
 }
 .ver .k {
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--fg-3);
@@ -632,7 +632,7 @@
 }
 .ver .v {
   font-family: var(--font-mono);
-  font-size: 22px;
+  font-size: var(--type-h6);
   color: var(--text-primary);
 }
 .ver.is-old {
@@ -658,9 +658,9 @@
   justify-content: center;
   padding: 0 22px;
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: var(--type-body);
   color: var(--fg-3);
-  background: rgba(240, 240, 250, 0.02);
+  background: var(--ink-hairline);
 }
 .upd-body {
   padding: 48px 40px 40px;
@@ -670,7 +670,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.36em;
   text-transform: uppercase;
   font-weight: 700;
@@ -692,7 +692,7 @@
   margin: 0 0 18px;
 }
 .upd-body p {
-  font-size: 14px;
+  font-size: var(--type-button);
   color: var(--text-secondary);
   max-width: 50ch;
   margin: 0 auto;
@@ -709,7 +709,7 @@
   border-right: 1px solid var(--line);
   padding: 22px;
   font-family: var(--reader-font-family);
-  font-size: 11px;
+  font-size: var(--type-micro);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-weight: 700;
@@ -734,12 +734,12 @@
   color: #000;
 }
 .upd-btn.secondary:hover {
-  background: rgba(240, 240, 250, 0.04);
+  background: var(--ink-hairline);
   color: var(--text-primary);
 }
 .upd-btn .arrow {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--type-button);
   transition: transform var(--t);
 }
 .upd-btn:hover .arrow {
@@ -771,13 +771,13 @@
   align-items: center;
   padding: 12px 22px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-micro);
   color: var(--fg-3);
   border-top: 1px solid var(--line);
 }
 .meter-info .lbl {
   font-family: var(--reader-font-family);
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-weight: 700;
@@ -787,7 +787,7 @@
   color: var(--tip);
   font-feature-settings: 'tnum';
   text-align: center;
-  font-size: 12px;
+  font-size: var(--type-small);
 }
 .meter-info .pause {
   background: transparent;
@@ -798,7 +798,7 @@
   text-transform: uppercase;
   letter-spacing: 0.24em;
   font-family: var(--reader-font-family);
-  font-size: 9px;
+  font-size: var(--type-caption);
   font-weight: 700;
   transition: color var(--t);
 }
@@ -848,7 +848,7 @@
   grid-template-columns: 1fr auto;
   padding: 10px 14px;
   border-bottom: 1px solid rgba(212, 160, 23, 0.25);
-  font-size: 9px;
+  font-size: var(--type-caption);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--warn);
@@ -858,7 +858,7 @@
 .tile.err-tile .tile-bar .pill {
   font-family: var(--font-mono);
   letter-spacing: 0;
-  font-size: 9px;
+  font-size: var(--type-caption);
   font-weight: 400;
   color: var(--warn);
   text-transform: none;
@@ -897,14 +897,14 @@
   color: var(--warn);
 }
 .err-glyph .ttl {
-  font-size: 18px;
+  font-size: var(--type-body);
   font-weight: 700;
   line-height: 1.2;
   color: var(--text-primary);
   margin: 0;
 }
 .err-glyph .sub {
-  font-size: 12px;
+  font-size: var(--type-small);
   color: var(--text-secondary);
   margin: 4px 0 0;
   line-height: 1.45;
@@ -918,7 +918,7 @@
 }
 .err-foot .err-meta {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--type-micro);
   color: var(--fg-3);
   line-height: 1.7;
   display: block;
@@ -933,7 +933,7 @@
   color: var(--warn);
   padding: 10px 18px;
   font-family: var(--reader-font-family);
-  font-size: 10px;
+  font-size: var(--type-micro);
   letter-spacing: 0.32em;
   text-transform: uppercase;
   font-weight: 700;
@@ -965,7 +965,7 @@
 }
 .err-retry .arrow {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--type-glyph);
   transition: transform var(--t);
 }
 .err-retry:hover .arrow {

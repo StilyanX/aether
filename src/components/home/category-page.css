@@ -1,241 +1,491 @@
 /* Explore page - sidebar + numbered sections + rich topic rows.
    Adapted from the Aether platform UI kit. Namespaced with .ep-*. */
 
+/* Skip link - accessible nav bypass per WCAG 2.4.1. Hidden via a full-height
+   translate (not top: -40px, which left a 2px sliver poking below the top edge
+   - invisible on the old soft palette but a glaring white line in the
+   high-contrast theme). translateY(-100%) clears it whatever its rendered
+   height (density / font-scale), and it slides in on focus. */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  background: var(--accent);
+  color: var(--bg);
+  padding: var(--space-2) var(--space-3);
+  text-decoration: none;
+  z-index: 100;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 .ep-layout {
+  /* 56px page gutter - off-scale (between --space-9 48px and --space-10 64px), hand-tuned; tokenized so the .ep-main padding and the search bar full-bleed negative margin can never drift apart. */
+  --ep-gutter: 56px;
+  /* 58px section-number column - off-scale (between --space-9 48px and --space-10 64px), hand-tuned to fit two tabular digits at --type-h4; no exact --space match. */
+  --ep-num-col: 58px;
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  /* Row 1 (sidebar + main) fills the viewport; row 2 (colophon) is auto.
+     Stretching row 1 lets .ep-sidebar's border-right run the full height
+     down to the colophon rule instead of stopping at content height. */
+  grid-template-rows: 1fr auto;
   min-height: 100vh;
   background: var(--bg);
-  padding-bottom: 32px;
+  /* No padding-bottom: the colophon is the hard bottom of the page. Any space
+     here would be an empty scrollable gap BELOW the footer - the "scroll past
+     the barrier" the footer is meant to stop. The footer's own breathing room
+     lives on .ep-colophon's padding-bottom instead (inside the grid, so the
+     sidebar's vertical line still runs to the very bottom). */
 }
 /* Sidebar */
 .ep-sidebar {
-  border-right: 1px solid var(--border-subtle);
+  /* Column 1, spanning BOTH rows, so the border-right runs the full page
+     height - all the way down, over/past the footer, to the very bottom, an
+     unbroken vertical line. It does NOT "cross" the footer rule because that
+     rule spans only the content column (see .ep-colophon): the horizontal
+     footer line butts into this vertical line from the right instead of
+     passing through it. */
+  grid-column: 1;
+  grid-row: 1 / -1;
+  border-right: var(--stroke-fine) solid var(--border-subtle);
 }
 .ep-sidebar-inner {
-  padding: 28px 0 40px;
+  /* No top padding: .ep-sidebar-identity's own uniform --space-5 sets the
+     clearance above the wordmark. An extra offset here stacked on top of it
+     and pushed this masthead lower than the learning sidebar's. */
+  padding: 0 0 var(--space-4);
   position: sticky;
   top: 0;
   max-height: 100vh;
   overflow-y: auto;
   scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
 }
 .ep-sidebar-inner::-webkit-scrollbar {
   display: none;
 }
 
 .ep-sidebar-identity {
-  padding: 8px 20px 12px;
+  /* Uniform on all four sides: the space above and below the wordmark equals
+     the space left and right of it. Matches .lt-sidebar-brand. */
+  padding: var(--space-5);
   display: flex;
   align-items: center;
 }
+/* Brand mark - text in D-DIN Bold, not Inter SVG. Same family as the hero
+   masthead; one publication, one spine. Iter 3 S1 + Iter 7 C6 (no role="img"). */
 .ep-sidebar-mark {
-  display: block;
-  width: 100px;
-  height: auto;
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--type-h5);
+  line-height: 1;
+  letter-spacing: var(--track-display);
+  color: var(--text-primary);
+  font-feature-settings:
+    'liga' 0,
+    'dlig' 0;
+  font-synthesis: none;
 }
+/* Masthead rule - single hairline framing the wordmark + credo as a
+   publication masthead unit. The former double-rule (1px/gap/1px gradient)
+   rendered as two fuzzy, unevenly-spaced lines at real screen density; a
+   single crisp construction line reads correctly. */
+/* Full-bleed rule: spans the whole sidebar, edge to edge, with no margin of
+   its own. The identity box's own padding provides the space above it.
+   Identical to .lt-sidebar-sep on the learning sidebar; change both together. */
 .ep-sidebar-sep {
-  height: 1px;
+  height: var(--stroke-fine);
+  margin: 0;
   background: var(--border-subtle);
-  margin: 14px 0 10px;
 }
 
+/* Group label - metadata register (JetBrains Mono Medium). Whitespace,
+   not a divider rule, separates groups. Iter 3 S3. */
 .ep-nav-group {
-  padding: 8px 0 2px;
+  padding: 0;
+}
+.ep-nav-group-items {
+  display: contents;
 }
 .ep-nav-group-label {
+  /* SpaceX / Tesla "eyebrow": quiet all-caps microtext, wide tracking, no
+     underline / rule / box. Dimmer than the domain items (--text-tertiary vs
+     their --text-secondary) so it reads as a section kicker, separated by
+     whitespace alone - the austere D-DIN engineering register. */
   display: block;
   padding: var(--d-nav-pad, 8px 20px);
-  font-size: 10px;
-  letter-spacing: 0.26em;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: var(--weight-mono-medium);
+  font-size: var(--type-micro);
+  /* 0.14em: eyebrow tracking that still keeps the longest name ("FORMAL &
+     NATURAL SCIENCES") on one line in the ~220px column (nowrap-pinned). */
+  letter-spacing: 0.14em;
+  white-space: nowrap;
   text-transform: uppercase;
   color: var(--text-tertiary);
+  margin-top: var(--space-7);
+  margin-bottom: var(--space-2);
+  font-variant-numeric: tabular-nums;
+  font-size-adjust: var(--font-mono-size-adjust);
+  font-synthesis: none;
+}
+.ep-nav-group:first-of-type .ep-nav-group-label {
+  margin-top: var(--space-4);
 }
 
+/* Domain item - editorial register (D-DIN Bold). Iter 3 S4 + C7
+   (border-inline-start, never border-left, for i18n + cross-layout consistency). */
 .ep-nav-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   width: 100%;
+  min-height: var(--space-9);
   padding: var(--d-nav-pad, 8px 20px);
   background: transparent;
   border: 0;
-  border-left: 2px solid transparent;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  letter-spacing: 0.18em;
+  border-inline-start: var(--stroke-bold) solid transparent;
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 700;
+  font-size: var(--type-small);
+  letter-spacing: var(--track-button);
   text-transform: uppercase;
   color: var(--text-secondary);
   cursor: pointer;
   text-align: left;
-  transition:
-    color 180ms,
-    background 180ms,
-    border-color 180ms;
-}
-.ep-nav-item:hover {
-  color: var(--text-primary);
-  background: color-mix(in srgb, var(--accent) 3%, transparent);
-}
-.ep-nav-all {
-  padding-top: 8px;
-  padding-bottom: 8px;
-}
-.ep-nav-item.active {
-  color: var(--ax-page-nav);
-  border-left-color: var(--ax-page-nav);
-  background: color-mix(in srgb, var(--ax-page-nav) 5%, transparent);
-}
-.ep-nav-all.active {
-  background: color-mix(in srgb, var(--accent) 7%, transparent);
-  border-left-color: var(--accent);
-}
-.ep-nav-count {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.14em;
+  transition: color var(--dur-micro) var(--ease-in-out);
+  font-feature-settings:
+    'liga' 0,
+    'dlig' 0;
+  font-synthesis: none;
 }
 
-.ep-nav-dot {
-  width: 6px;
-  height: 6px;
-  flex-shrink: 0;
-  opacity: 0.5;
-  transition:
-    opacity 180ms,
-    transform 180ms;
-  filter: saturate(0.75);
+/* HOVER - color-only, no bg. Iter 3 S5. */
+.ep-nav-item:hover {
+  color: var(--text-primary);
 }
-.ep-nav-item:hover .ep-nav-dot,
-.ep-nav-item.active .ep-nav-dot {
-  opacity: 1;
-  transform: scale(1.2);
-  filter: saturate(1);
+
+/* ACTIVE - dual redundant cue: a crisp --stroke-bold inline-start accent bar
+   PLUS brighter ink on both the name (inherits Bold) and its count. No fill.
+   The bar + raised ink are the two non-color cues the standards require
+   (NN/g "Tabs Used Right": two selection indicators, never a single stroke;
+   USWDS .usa-current is exactly a left highlight border, not a fill). The
+   former 8% translucent tint box (Iter 7 C4) read as decoration in an
+   otherwise line-based plate and is retired per deep-research findings. */
+.ep-nav-item.active {
+  color: var(--ax-page-nav);
+  border-inline-start-color: var(--ax-page-nav);
+  transition: none;
 }
+
+/* ALL active - accent variant + 1px inset hairline as filter-vs-territory
+   differentiator (kept: it distinguishes the ALL filter from a territory row).
+   Fill retired here too; bar + brighter ink carry the state. */
+.ep-nav-all.active {
+  color: var(--accent);
+  border-inline-start-color: var(--accent);
+  border-bottom: var(--stroke-fine) solid var(--accent);
+}
+
+/* EMPTY - dim to text-secondary; hoverable. Iter 6 E2. */
+.ep-nav-item.is-empty {
+  color: var(--text-secondary);
+}
+.ep-nav-item.is-empty:hover {
+  color: var(--text-secondary);
+}
+
+/* FOCUS - keyboard only, 2px inset outline at -2px offset, no bg change.
+   2px matches WCAG 2.2 focus-indicator minimum. Iter 3 S5. */
+.ep-nav-item:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 85%, transparent);
+  outline-offset: -2px;
+}
+.ep-nav-item.active:focus-visible {
+  outline-color: var(--ax-page-nav);
+}
+
+/* Counts - mono, tabular nums, light tracking. Iter 3 S6.
+   Dual-count form per deep-dive-sidebar-130 PR B: `{resources} · {topics}`.
+   Rendered as `{n}R · {n}T`, not the full noun (contrast the masthead
+   counter and .ep-sidebar-footer, which spell TOPIC(S)/RESOURCES out per
+   design-system.md §6.4). Deliberate exception: --sidebar-width is a fixed
+   220px token and this row shares it with .ep-nav-name (hard-clip, never
+   wraps - see below), so there is no room for the full noun without
+   truncating the domain name. aria-label on every instance spells the
+   words out in full for assistive tech; the sidebar footer a few rows
+   below teaches the abbreviation to sighted users for free. */
+
+/* Name - hard-clip, never wrap, never ellipsis. Iter 6 E3. */
 .ep-nav-name {
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  min-width: 0;
+}
+
+/* Corpus footer - pinned to the bottom of the sidebar scroll area via
+   `margin-top: auto` inside the flex column. Metadata register; two lines.
+   deep-dive-sidebar-130 PR C. */
+.ep-sidebar-footer {
+  margin-top: auto;
+  padding: var(--space-3) var(--space-5) var(--space-1);
+  border-top: var(--stroke-fine) solid var(--border-subtle);
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-weight: 400;
+  font-size: var(--type-caption);
+  /* §7 caption uppercase (≤10px): 0.18em. */
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings:
+    'tnum' 1,
+    'zero' 1;
+  font-size-adjust: var(--font-mono-size-adjust);
+}
+/* Corpus stats - aligned two-column table: each metric's number right-aligns
+   in a shared column (units line up: 173/10/13) with the label beside it. The
+   number is the scannable anchor (primary ink); the label is quiet. Replaces
+   the former paired "N TOPICS · N DOMAINS" rows, whose second pair overflowed
+   the 220px column and wrapped the date onto a ragged third line. */
+.ep-sidebar-stats {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: var(--space-2);
+  row-gap: var(--space-1);
+}
+.ep-stat {
+  display: contents;
+}
+.ep-stat-num {
+  text-align: right;
+  color: var(--text-primary);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.ep-stat-label {
+  color: var(--text-secondary);
+}
+/* Build date - least-weighted metadata, its own full-width line so it never
+   wraps mid-value. */
+.ep-sidebar-updated {
+  margin-top: var(--space-2);
+  color: var(--text-tertiary);
+}
+
+/* Fuzzy filter input - spotlight-class entry. Mod+\ focuses this.
+   deep-dive-sidebar-130 PR E. */
+.ep-search-count {
+  padding: 0 var(--space-3) var(--space-2);
+  font-size: var(--type-caption);
+  color: var(--text-tertiary);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+}
+
+/* Screen-reader-only live region for sidebar group announcements. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Main column */
 .ep-main {
+  /* Explicit column 2 / row 1 - the sidebar now spans both rows in column 1
+     and the colophon fills row 2, so pin main to avoid any auto-placement
+     ambiguity. */
+  grid-column: 2;
+  grid-row: 1;
   position: relative;
-  padding: 0 56px 0;
+  /* 80px bottom = the optical break above the colophon, held INSIDE row 1 so
+     the sidebar (which stretches to row 1) draws its border-right all the way
+     down to the colophon rule instead of stopping short at content height. */
+  padding: 0 var(--ep-gutter) 80px;
   min-width: 0;
+  /* Approximate rendered height of the sticky .ep-search-wrap bar at its
+     tallest density tier (spacious: --d-search-pad 24px top / 18px bottom)
+     plus .ep-search-row's own border/padding/content line. Reused as
+     scroll-margin-top on .ep-row/.ep-section so keyboard focus-scroll never
+     lands a focused element underneath the opaque sticky bar (WCAG 2.2 SC
+     2.4.11/2.4.12). Sized to the largest density tier; smaller tiers get a
+     safe surplus margin, never insufficient clearance. */
+  --ep-sticky-search-h: calc(24px + 18px + 1px + var(--space-3) * 2 + 2px + 20px);
 }
 
 .ep-profile-slot {
   position: absolute;
-  top: 60px;
-  right: 56px;
+  top: var(--d-mh-top, 60px);
+  right: var(--ep-gutter);
   z-index: 41;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
 }
-.ep-profile-slot .stg-profile-wrap {
-  position: relative;
-  top: auto;
-  right: auto;
+
+/* Breadcrumb navigation */
+.ep-breadcrumb {
+  padding: var(--space-3) 0 0;
+  font-size: var(--type-small);
 }
-.ep-profile-slot .stg-dial {
-  position: static;
-  top: auto;
-  right: auto;
+.ep-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ep-breadcrumb-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: inherit;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  padding: 0;
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  transition: color var(--dur-micro) var(--ease-in-out);
+}
+.ep-breadcrumb-link:hover,
+.ep-breadcrumb-link:focus {
+  color: var(--text-secondary);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.ep-breadcrumb-sep {
+  color: var(--text-tertiary);
+  margin: 0 var(--space-1);
+}
+.ep-breadcrumb-current {
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
 }
 
 /* Masthead */
 .ep-masthead {
   position: relative;
   z-index: 2;
-  padding: var(--d-mh-top, 60px) 0 32px;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: var(--d-mh-top, var(--space-8)) 0 var(--space-7);
+  border-bottom: var(--stroke-fine) solid var(--border-subtle);
   display: block;
 }
-.ep-masthead-meta {
-  display: flex;
-  gap: 40px;
-  padding-bottom: 36px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-.ep-masthead-kv {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.ep-masthead-kv .k {
-  color: var(--text-tertiary);
-}
-.ep-masthead-kv .v {
-  color: var(--text-primary);
-}
-
+/* Display-headline mixed case (`The map of / necessary truth`) is a
+   deliberate divergence from §1 "All headings + buttons: uppercase";
+   see DOMAIN_MAP_TITLE's Penguin Classics-subtitle voice. §1 applies
+   to structural chrome, not editorial display type at this scale. */
 .ep-masthead-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(3rem, 6vw, 6rem);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
+  font-size: var(--type-h1-fluid);
+  line-height: 0.95;
+  letter-spacing: var(--track-display-tight);
   text-transform: none;
-  margin: 0 0 32px;
+  margin: 0 0 var(--space-7);
   color: var(--ax-headings);
   display: flex;
   flex-direction: column;
+  font-feature-settings:
+    'liga' 0,
+    'dlig' 0;
+  font-variant-ligatures: no-common-ligatures;
+  font-synthesis: none;
 }
 .ep-mh-l {
-  font-style: italic;
-  font-weight: 300;
+  font-style: normal;
+  font-weight: 400;
   color: var(--text-secondary);
 }
 .ep-mh-r {
-  font-weight: 500;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+.ep-mh-r-fadein {
+  animation: ep-mh-r-fade var(--dur-fast) var(--ease-in-out) both;
+}
+@keyframes ep-mh-r-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ep-mh-r-fadein {
+    animation: none;
+  }
+  /* Explicit in-app "Full" motion (data-reduced-motion='off') overrides
+     the OS-level signal above; when neither JS nor an explicit choice
+     has run, the OS-level rule above still applies as a no-JS fallback. */
+  html[data-reduced-motion='off'] .ep-mh-r-fadein {
+    animation: ep-mh-r-fade var(--dur-fast) var(--ease-in-out) both;
+  }
 }
 
-.ep-masthead-lede {
-  max-width: 680px;
-  padding: 20px 0 0;
-}
-.ep-masthead-lede p {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  margin: 0;
-  letter-spacing: 0.005em;
-  max-width: 680px;
-}
-
+/* Counter: two (num, LABEL) pairs joined by a middle-dot separator.
+   Pair grouping makes the num-tight-to-label / pair-loose-to-sep rhythm
+   explicit - the prior version mixed flex gap + margin-right + margin-x
+   on the sep, so the spaces compounded unpredictably. */
 .ep-masthead-counter {
   display: flex;
   align-items: baseline;
-  gap: 14px;
-  margin-top: 44px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-subtle);
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--stroke-fine) solid var(--border-subtle);
   font-family: var(--font-mono);
+  font-size-adjust: var(--font-mono-size-adjust);
+}
+.ep-masthead-counter .c-pair {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
 }
 .ep-masthead-counter .c-num {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
+  font-style: normal;
+  font-size: var(--type-h6);
+  font-weight: 400;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
+  font-feature-settings:
+    'tnum' 1,
+    'zero' 1;
 }
 .ep-masthead-counter .c-label {
-  font-size: 10px;
-  letter-spacing: 0.22em;
+  font-style: normal;
+  font-size: var(--type-caption-lg);
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-right: 16px;
+  color: var(--text-secondary);
+  font-weight: 400;
 }
 .ep-masthead-counter .c-sep {
   color: var(--text-tertiary);
-  opacity: 0.5;
-  margin: 0 6px;
+}
+.ep-masthead-counter.is-empty .c-num {
+  color: var(--text-secondary);
 }
 
 /* Search */
@@ -244,32 +494,47 @@
   top: 0;
   z-index: 5;
   background: var(--bg);
-  padding: var(--d-search-pad, 18px 56px 14px);
-  border-bottom: 1px solid var(--border-subtle);
-  margin: 0 -56px;
+  padding: var(--d-search-pad, 18px var(--ep-gutter) var(--space-3));
+  border-bottom: var(--stroke-fine) solid var(--border-subtle);
+  margin: 0 calc(-1 * var(--ep-gutter));
 }
 .ep-search-row {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  border: 1px solid var(--border-interactive);
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border: var(--stroke-fine) solid var(--border-interactive);
   background: var(--bg);
-  transition:
-    border-color 180ms,
-    box-shadow 180ms;
+  transition: border-color var(--dur-micro) var(--ease-in-out);
 }
 .ep-search-row:focus-within {
   border-color: var(--accent);
-  box-shadow: var(--focus-ring);
+  outline: 2px solid color-mix(in srgb, var(--accent) 85%, transparent);
+  outline-offset: -2px;
 }
 .ep-search-row:focus-within .ep-search-slash {
   color: var(--accent);
 }
 .ep-search-slash {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-style: normal;
+  font-size: var(--type-button);
   color: var(--text-tertiary);
+  font-size-adjust: var(--font-mono-size-adjust);
+  transition: color var(--dur-micro) var(--ease-in-out);
+}
+/* Visible label for the search input (§4.4.5 a11y: label MUST be associated
+   via <label for>, not substituted by placeholder). Metadata register,
+   matches the input's own typography. */
+.ep-search-label {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-size-adjust: var(--font-mono-size-adjust);
 }
 .ep-search {
   flex: 1;
@@ -278,64 +543,102 @@
   border: 0;
   outline: 0;
   color: var(--text-primary);
-  font-family: var(--font-sans);
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  font-family: var(--font-mono);
+  /* Same register as .ep-search-label (--type-micro / --track-eyebrow, the ≤10px
+     caption tier). The row reads as one line — "/ SEARCH  WITHIN MATHEMATICS…" —
+     so the label and the field must share a size and a baseline; at 12px the
+     field sat a tier above its own label and their glyphs never lined up. */
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  font-size-adjust: var(--font-mono-size-adjust);
+}
+/* Placeholder inherits the input's metrics (set on .ep-search to the label's
+   register), so "/ SEARCH" and "WITHIN MATHEMATICS…" share one baseline. Styling
+   only ::placeholder to 10px while the input stayed 12px left the two boxes the
+   same height but their text on different baselines: flex centres boxes, not
+   glyphs. Matching the metrics is what actually aligns them. */
+.ep-search::placeholder {
+  color: var(--text-secondary);
   text-transform: uppercase;
 }
-.ep-search::placeholder {
-  color: var(--text-tertiary);
+/* type="search" makes WebKit paint a native ✕ cancel button; suppress it so
+   the custom .ep-search-clear ✕ is the single clear affordance (avoids the
+   double-✕ mis-tap trap on iOS Safari / iPadOS). Scoped to .ep-search only -
+   (the sidebar filter that used to share this rule has been removed). */
+.ep-search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
 }
 .ep-search-count {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.14em;
+  font-style: normal;
+  font-size: var(--type-micro);
+  color: var(--text-secondary);
+  letter-spacing: var(--track-label);
+  font-variant-numeric: tabular-nums;
 }
 .ep-search-clear {
+  position: relative;
   background: transparent;
   border: 0;
-  color: var(--text-tertiary);
-  font-size: 18px;
+  color: var(--text-secondary);
+  font-size: var(--type-button-lg);
   cursor: pointer;
-  padding: 0 4px;
+  padding: 0 var(--space-1);
   line-height: 1;
+  transition: color var(--dur-micro) var(--ease-in-out);
+}
+/* The × glyph stays its visual size; ::after is an invisible hit-slop that
+   extends the actual clickable box past the WCAG 2.2 SC 2.5.8 (AA) 24x24px
+   minimum, without growing the button's own box (which would inflate
+   .ep-search-row's height and desync --ep-sticky-search-h, above). */
+.ep-search-clear::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--space-2));
 }
 .ep-search-clear:hover {
   color: var(--text-primary);
 }
 .ep-search-shortcut {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.2em;
+  font-style: normal;
+  font-size: var(--type-micro);
+  color: var(--text-secondary);
+  /* §7 caption uppercase (≤10px): 0.18em. */
+  letter-spacing: var(--track-eyebrow);
+  /* 3px/7px have no exact match on the --space-* scale (nearest: --space-1
+     4px / --space-2 8px); kept literal, tight kbd-glyph badge padding. */
   padding: 3px 7px;
-  border: 1px solid var(--border-default);
+  border: var(--stroke-fine) solid var(--border-default);
 }
 
 .ep-filter-strip {
   display: flex;
   align-items: center;
+  /* 10px has no exact match on the --space-* scale; see .ep-nav-item. */
   gap: 10px;
-  margin-top: 12px;
+  margin-top: var(--space-3);
   font-family: var(--font-mono);
   flex-wrap: wrap;
 }
 .ep-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--space-9);
   background: color-mix(in srgb, var(--accent) 5%, transparent);
-  border: 1px solid var(--border-default);
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  border: var(--stroke-fine) solid var(--border-default);
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
   color: var(--text-primary);
   cursor: pointer;
   transition:
-    background 180ms,
-    border-color 180ms;
+    background var(--dur-micro) var(--ease-in-out),
+    border-color var(--dur-micro) var(--ease-in-out);
 }
 .ep-chip:hover {
   background: color-mix(in srgb, var(--accent) 10%, transparent);
@@ -348,39 +651,54 @@
 }
 .ep-chip-x {
   color: var(--text-tertiary);
-  font-size: 13px;
+  font-size: var(--type-glyph);
   line-height: 1;
 }
 .ep-filter-result {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--text-tertiary);
+  font-size: var(--type-micro);
+  /* §7 caption uppercase (≤10px): 0.18em. */
+  letter-spacing: var(--track-eyebrow);
+  color: var(--text-secondary);
   margin-left: 6px;
+}
+
+/* Empty-domain note - metadata register, sits between search row and content.
+   Iter 6 E1: the masthead does not lie about the corpus; the truth lives here. */
+.ep-empty-note {
+  margin: var(--space-6) 0 0;
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: var(--type-caption-lg);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Sections */
 .ep-content {
-  padding: 32px 0 80px;
+  padding: var(--space-7) 0 0;
   position: relative;
   z-index: 1;
 }
 
 .ep-section {
-  margin-bottom: var(--d-section-mb, 64px);
+  margin-bottom: var(--d-section-mb, var(--space-7));
+  scroll-margin-top: var(--ep-sticky-search-h);
 }
 .ep-section-header {
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 18px;
-  margin-bottom: 4px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border-default);
+  gap: var(--space-4);
+  margin-bottom: var(--space-1);
+  padding-bottom: var(--space-3);
+  border-bottom: var(--stroke-fine) solid var(--border-default);
 }
 .ep-section-lede {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--space-3);
   min-width: 0;
 }
 .ep-section-dot {
@@ -389,46 +707,47 @@
   height: 6px;
   transform: translateY(-3px);
   flex-shrink: 0;
-  opacity: 0.55;
-  filter: saturate(0.75);
 }
 .ep-section-num {
   font-family: var(--font-display);
-  font-size: 2.25rem;
+  font-size: var(--type-h4);
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--track-heading);
   font-variant-numeric: tabular-nums;
   line-height: 1;
-  min-width: 58px;
+  min-width: var(--ep-num-col);
 }
 .ep-section-name {
-  font-size: 14px;
-  letter-spacing: 0.22em;
+  margin: 0;
+  font-size: var(--type-button);
+  /* §7 label uppercase (10-12px) / button uppercase (14px): 0.16em. */
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-primary);
   white-space: nowrap;
 }
 .ep-section-group {
-  font-size: 10px;
-  letter-spacing: 0.22em;
+  font-size: var(--type-micro);
+  /* §7 caption uppercase (≤10px): 0.18em. */
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   font-family: var(--font-mono);
 }
 .ep-section-rule {
-  height: 1px;
-  background: transparent;
+  height: var(--stroke-hairline, 0.5px);
+  background: var(--border-subtle);
   display: block;
   width: 100%;
 }
 .ep-section-count {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   background: transparent;
   border: 0;
   cursor: default;
@@ -436,7 +755,7 @@
 }
 .ep-section-more {
   cursor: pointer;
-  transition: color 180ms;
+  transition: color var(--dur-micro) var(--ease-in-out);
 }
 .ep-section-more:hover {
   color: var(--text-primary);
@@ -446,26 +765,32 @@
 .ep-rows {
   display: flex;
   flex-direction: column;
+  /* <ol> reset: no marker/indent/margin so the list semantics add no visual
+     change; each <li> is a full-width flex item wrapping its .ep-row link. */
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .ep-row,
 .ep-row:link,
 .ep-row:visited {
   display: grid;
-  grid-template-columns: 48px 1fr 24px;
+  grid-template-columns: var(--space-9) 1fr var(--space-6);
   align-items: center;
-  gap: 24px;
+  gap: var(--space-6);
   width: 100%;
-  padding: var(--row-pad, 20px) 8px;
+  padding: var(--row-pad, 20px) var(--space-2);
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: var(--stroke-fine) solid var(--border-subtle);
+  scroll-margin-top: var(--ep-sticky-search-h);
   text-align: left;
   text-decoration: none;
   cursor: pointer;
   transition:
-    background 200ms,
-    padding 260ms var(--ease-signature),
-    color 200ms;
+    background var(--dur-micro) var(--ease-in-out),
+    padding var(--dur-micro) var(--ease-in-out),
+    color var(--dur-micro) var(--ease-in-out);
   font-family: var(--font-sans);
   color: var(--text-secondary);
   position: relative;
@@ -476,15 +801,15 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 2px;
+  width: var(--stroke-bold);
   background: var(--accent);
   transform: scaleY(0);
   transform-origin: top;
-  transition: transform 260ms var(--ease-signature);
+  transition: transform var(--dur-micro) var(--ease-in-out);
 }
 .ep-row:hover {
   background: color-mix(in srgb, var(--accent) 4%, transparent);
-  padding-left: 16px;
+  padding-left: var(--space-4);
   color: var(--text-primary);
 }
 .ep-row:hover::before {
@@ -492,44 +817,50 @@
 }
 .ep-row-idx {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
+  font-size: var(--type-micro);
+  letter-spacing: var(--track-label);
   color: var(--text-tertiary);
   font-variant-numeric: tabular-nums;
+  transition: color var(--dur-micro) var(--ease-in-out);
 }
 .ep-row:hover .ep-row-idx {
   color: var(--text-primary);
 }
 .ep-row-title {
-  font-size: 16px;
-  letter-spacing: 0.005em;
+  font-size: var(--type-body);
   color: inherit;
   font-weight: 400;
+  /* Force the 1fr grid column to respect the container width; without
+     this, a long .ep-row-desc keeps its one-line width because the
+     default grid min-width: auto lets its intrinsic size stretch the
+     column past the viewport. */
+  min-width: 0;
 }
 .ep-row-desc {
   display: block;
-  font-size: 11px;
-  color: var(--text-tertiary);
-  letter-spacing: 0.04em;
-  margin-top: 4px;
+  font-size: var(--type-caption-lg);
+  color: var(--text-secondary);
+  letter-spacing: var(--track-heading);
+  margin-top: var(--space-1);
   line-height: 1.4;
 }
 .ep-mark {
   background: transparent;
   color: var(--accent);
-  border-bottom: 1px solid var(--accent);
+  border-bottom: var(--stroke-fine) solid var(--accent);
   padding-bottom: 1px;
 }
 
 .ep-row-chev {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: var(--type-button);
   color: var(--text-tertiary);
   transform: translateX(-6px);
   opacity: 0;
   transition:
-    transform 220ms var(--ease-signature),
-    opacity 220ms;
+    transform var(--dur-micro) var(--ease-in-out),
+    opacity var(--dur-micro) var(--ease-in-out),
+    color var(--dur-micro) var(--ease-in-out);
 }
 .ep-row:hover .ep-row-chev {
   transform: none;
@@ -537,23 +868,61 @@
   color: var(--text-primary);
 }
 
+/* WCAG 2.3.3: suppress the row's motion-based hover cues under reduced
+   motion - the padding-left layout shift, the accent-bar's Y-scale
+   reveal, and the chevron's translateX slide-in. Color + background
+   indication still runs, since those aren't motion. */
+@media (prefers-reduced-motion: reduce) {
+  .ep-row:hover {
+    padding-left: var(--space-2);
+  }
+  .ep-row::before {
+    transform: scaleY(1);
+    opacity: 0;
+    transition: opacity var(--dur-micro) var(--ease-in-out);
+  }
+  .ep-row:hover::before {
+    opacity: 1;
+  }
+  .ep-row-chev {
+    transform: none;
+  }
+  /* Explicit in-app "Full" motion (data-reduced-motion='off') overrides
+     the OS-level signal above; when neither JS nor an explicit choice
+     has run, the OS-level rule above still applies as a no-JS fallback. */
+  html[data-reduced-motion='off'] .ep-row:hover {
+    padding-left: var(--space-4);
+  }
+  html[data-reduced-motion='off'] .ep-row::before {
+    transform: scaleY(0);
+    opacity: 1;
+    transition: transform var(--dur-micro) var(--ease-in-out);
+  }
+  html[data-reduced-motion='off'] .ep-row:hover::before {
+    transform: scaleY(1);
+  }
+  html[data-reduced-motion='off'] .ep-row-chev {
+    transform: translateX(-6px);
+  }
+}
+
 /* Empty state - instrument dial */
 .ep-empty.zone {
-  border: 1px solid var(--line);
-  background: #000;
-  padding: 80px 56px 64px;
+  border: var(--stroke-fine) solid var(--border-subtle);
+  background: var(--bg-elevated);
+  padding: var(--space-9) var(--space-8) var(--space-10);
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 48px;
+  gap: var(--space-9);
   align-items: center;
-  animation: ep-empty-in 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: ep-empty-in var(--dur-fast) var(--ease-in-out) both;
   max-width: none;
 }
 @keyframes ep-empty-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(var(--space-2));
   }
   to {
     opacity: 1;
@@ -565,8 +934,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(240, 240, 250, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(240, 240, 250, 0.025) 1px, transparent 1px);
+    linear-gradient(color-mix(in srgb, var(--accent) 2.5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 2.5%, transparent) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
 }
@@ -582,17 +951,24 @@
   width: 100%;
   height: 100%;
 }
-.ep-empty .dial .ring {
-  animation: ep-rot 22s linear infinite;
-  transform-origin: 50% 50%;
-}
-.ep-empty .dial .ring2 {
-  animation: ep-rot 32s linear infinite reverse;
-  transform-origin: 50% 50%;
-}
-@keyframes ep-rot {
-  to {
-    transform: rotate(360deg);
+/* WCAG 2.3.3 / §2.6: the dial is a static instrument - no decorative
+   loop animation. The empty-state block still appears without
+   translateY arrival, and the button arrow does not slide on hover. */
+@media (prefers-reduced-motion: reduce) {
+  .ep-empty.zone {
+    animation: none;
+  }
+  .ep-empty .btn:hover .arrow {
+    transform: none;
+  }
+  /* Explicit in-app "Full" motion (data-reduced-motion='off') overrides
+     the OS-level signal above; when neither JS nor an explicit choice
+     has run, the OS-level rule above still applies as a no-JS fallback. */
+  html[data-reduced-motion='off'] .ep-empty.zone {
+    animation: ep-empty-in var(--dur-fast) var(--ease-in-out) both;
+  }
+  html[data-reduced-motion='off'] .ep-empty .btn:hover .arrow {
+    transform: translate(2px, -2px);
   }
 }
 .ep-empty .dial .qm {
@@ -601,21 +977,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--reader-font-family);
-  font-size: 132px;
-  font-weight: 100;
+  font-size: var(--type-dial-glyph);
+  font-weight: 400;
   color: var(--text-primary);
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: var(--track-dial-tight);
 }
 .ep-empty .dial .ticks line {
-  stroke: rgba(240, 240, 250, 0.4);
+  stroke: color-mix(in srgb, var(--accent) 40%, transparent);
   stroke-width: 1;
 }
 .ep-empty .dial .arc {
   fill: none;
-  stroke: rgba(240, 240, 250, 0.18);
+  stroke: var(--text-disabled);
   stroke-width: 1;
+}
+.ep-empty .dial .ring2-track {
+  stroke: var(--border-subtle);
 }
 .ep-empty .col {
   position: relative;
@@ -623,12 +1001,18 @@
 .ep-empty .col .tag {
   display: inline-flex;
   align-items: center;
+  /* 10px has no exact match on the --space-* scale; see .ep-nav-item. */
   gap: 10px;
-  font-size: 9px;
-  letter-spacing: 0.36em;
+  font-family: var(--font-mono);
+  font-size-adjust: var(--font-mono-size-adjust);
+  font-size: var(--type-caption);
+  /* §7 caption uppercase (≤10px): 0.18em. */
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--fg-3);
+  color: var(--text-secondary);
+  /* 22px has no exact match on the --space-* scale (nearest: --space-6
+     24px / --space-5 20px); kept literal, hand-tuned tag clearance. */
   margin-bottom: 22px;
 }
 .ep-empty .col .tag::before {
@@ -638,136 +1022,143 @@
   background: var(--text-primary);
   transform: rotate(45deg);
 }
-.ep-empty .col h1 {
-  font-size: clamp(36px, 5vw, 56px);
+.ep-empty .col h2 {
+  font-size: var(--type-empty-heading);
   line-height: 0.95;
-  letter-spacing: -0.025em;
+  letter-spacing: var(--track-empty-heading-tight);
   font-weight: 700;
+  /* 18px has no exact match on the --space-* scale (nearest: --space-4
+     16px / --space-5 20px); kept literal, hand-tuned heading clearance. */
   margin: 0 0 18px;
   color: var(--text-primary);
 }
-.ep-empty .col h1 em {
-  font-style: normal;
-  color: var(--fg-3);
+.ep-empty .col h2 small {
+  color: var(--text-secondary);
   display: block;
-  font-size: 0.4em;
-  letter-spacing: 0.04em;
+  font-size: var(--type-small);
+  /* §7 label uppercase (10-12px): 0.16em. --type-small is 12px; kept legible
+     as reading content (this status line carries the user's query), not shrunk
+     to the ≤10px caption tier - matches the reading-prose treatment below. */
+  letter-spacing: var(--track-label);
   text-transform: uppercase;
+  /* 18px has no exact match on the --space-* scale; see .ep-empty .col h2. */
   margin-top: 18px;
 }
 .ep-empty .col p {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: var(--type-button);
+  /* §6 reading-surface floor: this explanatory copy is prose the user reads,
+     so line-height is ≥1.625 (not the 1.4 chrome value). */
+  line-height: 1.625;
   color: var(--text-secondary);
-  max-width: 44ch;
+  max-width: var(--measure-note);
+  /* 28px has no exact match on the --space-* scale (nearest: --space-6
+     24px / --space-7 32px); kept literal, hand-tuned paragraph clearance. */
   margin: 0 0 28px;
 }
 .ep-empty .actions {
   display: flex;
+  /* 10px has no exact match on the --space-* scale; see .ep-nav-item. */
   gap: 10px;
   flex-wrap: wrap;
 }
 .ep-empty .btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   background: transparent;
-  border: 1px solid var(--line-3);
-  padding: 12px 18px;
-  font-family: var(--reader-font-family);
-  font-size: 10px;
-  letter-spacing: 0.32em;
+  border: var(--stroke-fine) solid var(--border-default);
+  padding: var(--space-3) 18px;
+  font-family: var(--font-mono);
+  font-size-adjust: var(--font-mono-size-adjust);
+  font-size: var(--type-micro);
+  /* §7 button uppercase (default 14px, scaled): 0.16em. */
+  letter-spacing: var(--track-button);
   text-transform: uppercase;
   font-weight: 700;
   color: var(--text-primary);
   cursor: pointer;
   transition:
-    background var(--t),
-    color var(--t),
-    border-color var(--t);
+    background var(--dur-micro) var(--ease-in-out),
+    color var(--dur-micro) var(--ease-in-out),
+    border-color var(--dur-micro) var(--ease-in-out);
 }
 .ep-empty .btn .arrow {
   font-family: var(--font-mono);
-  font-size: 13px;
-  transition: transform var(--t);
+  font-size: var(--type-glyph);
+  transition: transform var(--dur-micro) var(--ease-in-out);
 }
 .ep-empty .btn:hover {
-  background: var(--text-primary);
-  color: #000;
+  background: color-mix(in srgb, var(--text-primary) 10%, transparent);
+  border-color: var(--border-active);
 }
 .ep-empty .btn:hover .arrow {
   transform: translate(2px, -2px);
 }
-.ep-empty .btn.ghost {
-  border-color: var(--line);
-  color: var(--text-secondary);
-}
-.ep-empty .btn.ghost:hover {
-  background: rgba(240, 240, 250, 0.04);
-  color: var(--text-primary);
-  border-color: var(--line-3);
-}
 .ep-empty .ribbon {
-  margin-top: 32px;
+  margin-top: var(--space-7);
+  /* 18px/22px have no exact match on the --space-* scale (nearest for 18:
+     --space-4 16px / --space-5 20px; nearest for 22: --space-5 20px /
+     --space-6 24px); kept literal, hand-tuned ribbon rhythm. */
   padding: 18px 0 0;
-  border-top: 1px solid var(--line);
+  border-top: var(--stroke-fine) solid var(--border-subtle);
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 22px;
   align-items: center;
 }
 .ep-empty .ribbon .lbl {
-  font-size: 9px;
-  letter-spacing: 0.32em;
+  font-family: var(--font-mono);
+  font-size-adjust: var(--font-mono-size-adjust);
+  font-size: var(--type-caption);
+  /* §7 caption uppercase (≤10px): 0.18em. */
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
   font-weight: 700;
-  color: var(--fg-3);
+  color: var(--text-secondary);
 }
 .ep-empty .ribbon .opts {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 .ep-empty .ribbon .opt {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  letter-spacing: 0.02em;
+  gap: var(--space-2);
+  /* Same visual contract as .ep-chip: font-size, border pressure, padding. */
+  font-size: var(--type-micro);
+  /* §7 caption uppercase (≤10px): 0.18em, matching .ep-chip and .lbl above. */
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
   color: var(--text-secondary);
   cursor: pointer;
-  padding: 4px 10px;
-  border: 1px solid var(--line);
+  padding: var(--space-2) var(--space-3);
+  border: var(--stroke-fine) solid var(--border-default);
   background: transparent;
-  font-family: var(--reader-font-family);
+  font-family: var(--font-mono);
+  font-size-adjust: var(--font-mono-size-adjust);
   transition:
-    background var(--t),
-    color var(--t),
-    border-color var(--t);
-}
-.ep-empty .ribbon .opt::before {
-  content: '';
-  width: 4px;
-  height: 4px;
-  background: currentColor;
-  opacity: 0.5;
-  transform: rotate(45deg);
+    background var(--dur-micro) var(--ease-in-out),
+    color var(--dur-micro) var(--ease-in-out),
+    border-color var(--dur-micro) var(--ease-in-out);
 }
 .ep-empty .ribbon .opt:hover {
   color: var(--text-primary);
-  border-color: var(--line-3);
+  /* Brighten the border on hover like its siblings .ep-chip / .ep-empty .btn
+     (the "same visual contract as .ep-chip" this rule is commented to match);
+     --border-default here equalled the resting border, leaving it inert. */
+  border-color: var(--border-active);
 }
 .ep-empty .ribbon .opt .n {
   font-family: var(--font-mono);
-  opacity: 0.5;
-  font-size: 10px;
+  font-size: var(--type-micro);
 }
 
 @media (max-width: 760px) {
   .ep-empty.zone {
     grid-template-columns: 1fr;
-    padding: 48px 28px;
-    gap: 32px;
+    padding: var(--space-9) 28px;
+    gap: var(--space-7);
   }
   .ep-empty .dial {
     width: 140px;
@@ -775,33 +1166,66 @@
     margin: 0 auto;
   }
   .ep-empty .dial .qm {
-    font-size: 80px;
+    font-size: var(--type-dial-glyph-mobile);
   }
 }
 
 /* Colophon */
 .ep-colophon {
-  margin-top: 80px;
-  padding-top: 28px;
-  border-top: 1px solid var(--border-default);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  /* Sibling of .ep-sidebar/.ep-main under the 2-col .ep-layout grid, not a
+     child of .ep-main - lives in the CONTENT column only (column 2). Its
+     top rule therefore spans just the content width and stops at the sidebar
+     border, so the full-height sidebar line is never crossed by it - the
+     footer rule meets the vertical line at a clean corner. */
+  grid-column: 2;
+  grid-row: 2;
+  /* No margin-top: the 80px optical break lives on .ep-main's padding-bottom
+     instead, INSIDE row 1, so the sidebar's vertical line stays continuous
+     through the gap rather than being interrupted by a margin. */
+  /* 28px is off-scale but 4px-baseline-aligned; kept for the same optical
+     spacing this rule already uses above. Gutter padding matches .ep-main so
+     EDITION/LICENCE/REPOSITORY align with the body column above. The
+     --space-7 bottom is the footer's breathing room AND the page's hard
+     bottom edge - it sits inside the grid row, so the sidebar's vertical
+     line runs all the way down to it. */
+  padding: 28px var(--ep-gutter) var(--space-7);
+  border-top: var(--stroke-fine) solid var(--border-default);
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
+  font-size: var(--type-micro);
+  /* §7 caption uppercase (≤10px): 0.18em. */
+  letter-spacing: var(--track-eyebrow);
   text-transform: uppercase;
 }
-.ep-colophon-row {
+.ep-colophon-list {
   display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 20px;
+  grid-template-columns: 110px 1fr;
+  column-gap: var(--space-5);
+  row-gap: var(--space-2);
+  margin: 0;
 }
-.ep-colophon-row .k {
-  color: var(--text-tertiary);
+.ep-colophon-list dt {
+  color: var(--text-secondary);
 }
-.ep-colophon-row .v {
+.ep-colophon-list dd {
   color: var(--text-primary);
+  margin: 0;
+}
+.ep-colophon-repo {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border-default);
+  text-underline-offset: var(--space-1);
+  transition:
+    color var(--dur-micro) var(--ease-in-out),
+    text-decoration-color var(--dur-micro) var(--ease-in-out);
+}
+.ep-colophon-repo:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+.ep-colophon-repo:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 85%, transparent);
+  outline-offset: 2px;
 }
 
 /* Focus */
@@ -812,54 +1236,118 @@
 .ep-empty .btn:focus-visible,
 .ep-empty .ribbon .opt:focus-visible,
 .ep-section-more:focus-visible {
-  box-shadow: var(--focus-ring);
-  position: relative;
-  z-index: 3;
+  outline: 2px solid color-mix(in srgb, var(--accent) 85%, transparent);
+  outline-offset: -2px;
 }
 
 @media (max-width: 1024px) {
   .ep-layout {
     grid-template-columns: 1fr;
+    /* Stacked single column - drop the desktop 1fr content row so the
+       sidebar, main, and colophon each take their natural height. */
+    grid-template-rows: none;
   }
   .ep-sidebar {
+    /* Stacked - undo the desktop row span so the sidebar, main, and colophon
+       each occupy their own row instead of the sidebar covering all three. */
+    grid-row: auto;
     border-right: 0;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: var(--stroke-fine) solid var(--border-subtle);
   }
   .ep-sidebar-inner {
     position: relative;
     max-height: none;
-    padding: 16px 24px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 4px 8px;
+    padding: var(--space-4) var(--space-6);
+    display: block;
   }
-  .ep-sidebar-identity,
-  .ep-nav-group-label,
-  .ep-sidebar-sep {
-    grid-column: 1 / -1;
+  .ep-sidebar-footer {
+    padding: 14px 0 var(--space-1);
+  }
+  .ep-sidebar-identity {
+    padding: var(--space-2) 0;
+  }
+  .ep-nav-group {
+    margin-top: var(--space-6);
+  }
+  .ep-nav-group:first-of-type {
+    margin-top: var(--space-3);
+  }
+  .ep-nav-group-label {
+    display: block;
+    padding: 0 0 var(--space-2);
+    margin: 0 0 var(--space-2);
+  }
+  .ep-nav-group-items {
+    display: grid;
+    /* 200px, not 140px: the longest labels (MATHEMATICS, LINGUISTICS - 11
+       uppercase D-DIN Bold chars at 0.16em tracking) plus their dual count
+       need ~175px; 140px hard-clipped them mid-word since .ep-nav-name never
+       wraps or ellipsizes. */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-1) var(--space-2);
+  }
+  .ep-nav-item {
+    /* 48px, above the 44px touch-target floor; --space-9 = 48px. */
+    min-height: var(--space-9);
+    min-width: 0;
+    padding: var(--d-nav-pad-mobile, 12px 14px);
+  }
+  /* .ep-mh-r stayed nowrap up to this breakpoint while the clamp(3rem, 6vw,
+     6rem) title font is still large enough that long domain titles (e.g.
+     "matter and change") ran under the absolutely-positioned profile/dial
+     cluster. Rather than reserve dead space on every wrapped line for a
+     badge that only occupies the first ~32px of vertical space, drop
+     .ep-profile-slot into normal flow above the masthead - the title then
+     gets the full content width back for a clean wrap. */
+  .ep-mh-r {
+    white-space: normal;
+  }
+  .ep-profile-slot {
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 var(--space-4);
   }
   .ep-main {
-    padding: 0 32px;
+    /* Stacked - undo the desktop explicit placement so main flows as a normal
+       single-column row (grid-column: 2 would spawn a phantom 2nd column). */
+    grid-column: auto;
+    grid-row: auto;
+    padding: 0 var(--space-7);
+  }
+  /* Single-column: the full-bleed colophon must track .ep-main's inset so
+     EDITION/LICENCE/REPOSITORY align with the body block above it (the
+     desktop 2-col full-bleed footer is left untouched by the base rule). */
+  .ep-colophon {
+    /* Single column - revert to the sole column and track .ep-main's gutter
+       on both sides. The optical break lives on margin-top here (no vertical
+       divider alongside it) since .ep-main's 80px bottom padding is dropped
+       in this stacked layout. */
+    grid-column: auto;
+    grid-row: auto;
+    margin-top: 80px;
+    padding-left: var(--space-7);
+    padding-right: var(--space-7);
   }
   .ep-search-wrap {
-    padding-left: 32px;
-    padding-right: 32px;
-    margin: 0 -32px;
+    padding-left: var(--space-7);
+    padding-right: var(--space-7);
+    margin: 0 calc(-1 * var(--space-7));
   }
 }
 
 @media (max-width: 768px) {
   .ep-main {
-    padding: 0 24px;
+    padding: 0 var(--space-6);
+  }
+  .ep-colophon {
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
   }
   .ep-search-wrap {
-    padding-left: 24px;
-    padding-right: 24px;
-    margin: 0 -24px;
-  }
-  .ep-masthead-meta {
-    flex-wrap: wrap;
-    gap: 24px;
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+    margin: 0 calc(-1 * var(--space-6));
   }
   .ep-masthead-counter {
     flex-wrap: wrap;
@@ -868,8 +1356,89 @@
 
 @media (max-width: 560px) {
   .ep-row {
-    grid-template-columns: 32px 1fr 24px;
-    gap: 16px;
-    padding: 16px 8px;
+    grid-template-columns: var(--space-7) 1fr var(--space-6);
+    gap: var(--space-4);
+    padding: var(--row-pad-mobile, var(--space-4)) var(--space-2);
+  }
+  .ep-nav-all {
+    width: 100%;
+  }
+  .ep-masthead-title {
+    font-size: var(--type-h1-fluid-mobile);
+    line-height: 0.95;
+  }
+  .ep-masthead {
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-5);
+  }
+  .ep-masthead-counter {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+  }
+  .ep-masthead-counter .c-num {
+    font-size: var(--type-body);
+  }
+  .ep-section-group {
+    display: none;
+  }
+}
+
+/* Print - Iter 6 E10. A printed Aether page is a printed editorial cover,
+   not a printed screenshot. Drop interaction surfaces; invert for ink. */
+@media print {
+  .ep-layout {
+    grid-template-columns: 1fr;
+    --text-primary: #000;
+    --text-secondary: #333;
+    --text-tertiary: #555;
+    --text-disabled: #888;
+    --border-subtle: #ccc;
+    --border-default: #ccc;
+    --accent: #000;
+    --bg: #fff;
+    --bg-elevated: #fff;
+  }
+  .ep-sidebar,
+  .ep-search-wrap,
+  .ep-masthead-counter,
+  .ep-profile-slot,
+  .ep-empty .actions,
+  .ep-empty .ribbon {
+    display: none !important;
+  }
+  .ep-masthead {
+    border-bottom: 0;
+    padding: 0 0 24pt;
+  }
+  .ep-masthead-title {
+    font-size: 36pt;
+    line-height: 1;
+    color: #000;
+  }
+  .ep-mh-l {
+    color: #555;
+  }
+  .ep-mh-r {
+    color: #000;
+  }
+  .ep-section-dot {
+    display: none !important;
+  }
+  .ep-section-rule {
+    background: #ccc;
+  }
+  .ep-main {
+    padding: 24pt;
+  }
+  .ep-colophon {
+    padding-left: 24pt;
+    padding-right: 24pt;
+  }
+  .ep-empty.zone {
+    background: #fff;
+  }
+  body {
+    background: #fff;
+    color: #000;
   }
 }

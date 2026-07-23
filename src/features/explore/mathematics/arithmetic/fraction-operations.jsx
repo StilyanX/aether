@@ -1,14 +1,1017 @@
+import { useState, useRef, useEffect, useMemo } from 'react'
+import katex from 'katex'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
 import { useVizColors } from '../../../../hooks/use-viz-colors'
-
+import { VizFigure } from '../../../../components/viz-figure'
 import {
-  AdditionNumberLine,
-  SubtractionNumberLine,
-  FractionMultiplicationArea as MultiplicationAreaModel,
-  FractionDistributiveLaw as DistributiveLawVis,
-  FractionOfNumberLine,
-  FiniteDecimalVis
-} from '../../../../components/viz'
+  Plot,
+  Polyline,
+  Dot,
+  Tex,
+  TexPx,
+  Slider,
+  OPACITY
+} from '../../../../components/viz/primitives'
+import { fracAdd, fracSub, fracMul, factor } from '../../../../components/viz/math-utils'
+import {
+  FONT_BODY,
+  FONT_CONTROL,
+  FONT_LABEL,
+  FONT_TEX,
+  FONT_VALUE
+} from '../../../../components/viz/scale-tokens'
+
+// Inline viz: 02.1.4 Fraction Distributive Law
+// Hand-rolled SVG (Approved Engine Stack: Mathematics → hand-rolled SVG).
+// 2D area decomposition: a rectangle of side A and (B+C) splits geometrically
+// into two adjacent rectangles of areas A·B and A·C, demonstrating
+// A(B+C) = AB + AC.
+function Fo_FractionDistributiveLawRefined() {
+  const C_ = useVizColors()
+  const [A, setA] = useState(2)
+  const [B, setB] = useState(3)
+  const [C, setC] = useState(2)
+  const W = 460
+  const H = 160
+  const total = B + C
+  const wB = (B / total) * W
+  const wC = (C / total) * W
+  return (
+    <div style={{ width: '100%' }}>
+      <svg
+        viewBox={`0 0 ${W + 60} ${H + 80}`}
+        width="100%"
+        style={{ display: 'block', color: C_.fg }}
+        aria-label={`Rectangle with side A=${A} and width B+C=${B + C} split into two parts: A·B=${A * B} and A·C=${A * C}.`}
+      >
+        <g transform="translate(20, 30)">
+          <rect
+            x={0}
+            y={0}
+            width={wB}
+            height={H}
+            fill={C_.fg}
+            fillOpacity={0.55}
+            stroke={C_.fg}
+            strokeWidth={1}
+          />
+          <rect
+            x={wB}
+            y={0}
+            width={wC}
+            height={H}
+            fill={C_.fg}
+            fillOpacity={0.25}
+            stroke={C_.fg}
+            strokeWidth={1}
+          />
+          <text
+            x={wB / 2}
+            y={H / 2 + 4}
+            fill={C_.fg}
+            fontSize={FONT_CONTROL}
+            textAnchor="middle"
+            fontFamily="'D-DIN', ui-monospace, monospace"
+          >{`${A}·${B}`}</text>
+          <text
+            x={wB + wC / 2}
+            y={H / 2 + 4}
+            fill={C_.fg}
+            fontSize={FONT_CONTROL}
+            textAnchor="middle"
+            fontFamily="'D-DIN', ui-monospace, monospace"
+          >{`${A}·${C}`}</text>
+          <text
+            x={-12}
+            y={H / 2 + 4}
+            fill={C_.dim}
+            fontSize={FONT_LABEL}
+            textAnchor="end"
+            fontFamily="'D-DIN', ui-monospace, monospace"
+          >{`A=${A}`}</text>
+          <text
+            x={wB / 2}
+            y={-8}
+            fill={C_.dim}
+            fontSize={FONT_LABEL}
+            textAnchor="middle"
+            fontFamily="'D-DIN', ui-monospace, monospace"
+          >{`B=${B}`}</text>
+          <text
+            x={wB + wC / 2}
+            y={-8}
+            fill={C_.dim}
+            fontSize={FONT_LABEL}
+            textAnchor="middle"
+            fontFamily="'D-DIN', ui-monospace, monospace"
+          >{`C=${C}`}</text>
+        </g>
+        <text
+          x={(W + 60) / 2}
+          y={H + 65}
+          fill={C_.fg}
+          fontSize={FONT_TEX}
+          textAnchor="middle"
+          fontFamily="'D-DIN', ui-monospace, monospace"
+          letterSpacing="0.04em"
+        >
+          {`A(B+C) = ${A}·${B + C} = ${A * (B + C)} = ${A * B} + ${A * C}`}
+        </text>
+      </svg>
+      <Slider
+        label="A"
+        value={A}
+        min={1}
+        max={5}
+        step={1}
+        onChange={v => setA(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="B"
+        value={B}
+        min={1}
+        max={6}
+        step={1}
+        onChange={v => setB(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="C"
+        value={C}
+        min={1}
+        max={6}
+        step={1}
+        onChange={v => setC(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+    </div>
+  )
+}
+
+// Inline viz: 02.1.1 Addition on the Number Line
+// Hand-rolled monochrome SVG. Computed sum locates (a/b) + (c/d) by walking the
+// two segments end to end from 0; landing point sn/sd is the reduced result.
+function Fo_AdditionNumberLineRefined() {
+  const C = useVizColors()
+  const [a, setA] = useState(1)
+  const [b, setB] = useState(3)
+  const [c, setC] = useState(1)
+  const [d, setD] = useState(4)
+  const v1 = a / b
+  const v2 = c / d
+  const sum = v1 + v2
+  const [sn, sd] = fracAdd([a, b], [c, d])
+  const xMax = Math.max(1.2, sum + 0.2)
+  const lcdT = b * d
+  const W = 1000
+  const H = 360
+  const padL = 60
+  const padR = 60
+  const yLine = 220
+  const xAt = t => padL + (t / xMax) * (W - padL - padR)
+  const tickH = 14
+  const yA = yLine - 70
+  const yB = yLine - 110
+  const segHalf = 6
+  const subCount = Math.min(Math.ceil(xMax * lcdT), 200)
+
+  const eqRef = useRef(null)
+  useEffect(() => {
+    if (!eqRef.current) return
+    try {
+      katex.render(
+        `\\dfrac{${a}}{${b}}+\\dfrac{${c}}{${d}} = \\dfrac{${sn}}{${sd}}`,
+        eqRef.current,
+        { throwOnError: false, displayMode: false }
+      )
+    } catch {
+      eqRef.current.textContent = `${a}/${b} + ${c}/${d} = ${sn}/${sd}`
+    }
+  }, [a, b, c, d, sn, sd])
+
+  const labelARef = useRef(null)
+  const labelBRef = useRef(null)
+  useEffect(() => {
+    if (labelARef.current) {
+      try {
+        katex.render(`\\tfrac{${a}}{${b}}`, labelARef.current, {
+          throwOnError: false,
+          displayMode: false
+        })
+      } catch {
+        labelARef.current.textContent = `${a}/${b}`
+      }
+    }
+    if (labelBRef.current) {
+      try {
+        katex.render(`\\tfrac{${c}}{${d}}`, labelBRef.current, {
+          throwOnError: false,
+          displayMode: false
+        })
+      } catch {
+        labelBRef.current.textContent = `${c}/${d}`
+      }
+    }
+  }, [a, b, c, d])
+
+  const sliderRow = (label, value, min, max, onChange) => (
+    <Slider
+      label={label}
+      value={value}
+      min={min}
+      max={max}
+      step={1}
+      onChange={onChange}
+      format={v => String(v)}
+    />
+  )
+
+  return (
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 10,
+        padding: '12px 16px',
+        boxSizing: 'border-box',
+        color: C.fg,
+        fontFamily: 'var(--reader-font-family)'
+      }}
+    >
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ width: '100%', display: 'block' }}
+        aria-label={`Number-line addition: ${a}/${b} plus ${c}/${d} equals ${sn}/${sd}.`}
+      >
+        {Array.from({ length: subCount + 1 }, (_, i) => {
+          const t = i / lcdT
+          if (t > xMax) return null
+          return (
+            <line
+              key={`sub${i}`}
+              x1={xAt(t)}
+              y1={yLine - 4}
+              x2={xAt(t)}
+              y2={yLine + 4}
+              stroke={C.faint}
+              strokeWidth={1}
+            />
+          )
+        })}
+        <line
+          x1={xAt(0)}
+          y1={yLine}
+          x2={xAt(xMax)}
+          y2={yLine}
+          stroke={C.fg}
+          strokeWidth={2}
+          strokeLinecap="square"
+        />
+        {Array.from({ length: Math.floor(xMax) + 1 }, (_, i) => (
+          <g key={`u${i}`}>
+            <line
+              x1={xAt(i)}
+              y1={yLine - tickH}
+              x2={xAt(i)}
+              y2={yLine + tickH}
+              stroke={C.fg}
+              strokeWidth={2}
+            />
+            <text
+              x={xAt(i)}
+              y={yLine + tickH + 22}
+              textAnchor="middle"
+              fill={C.dim}
+              fontSize="18"
+              fontFamily="var(--reader-font-family)"
+            >
+              {i}
+            </text>
+          </g>
+        ))}
+        <line
+          x1={xAt(0)}
+          y1={yA}
+          x2={xAt(v1)}
+          y2={yA}
+          stroke={C.fg}
+          strokeWidth={3}
+          strokeLinecap="square"
+        />
+        <line
+          x1={xAt(0)}
+          y1={yA - segHalf}
+          x2={xAt(0)}
+          y2={yA + segHalf}
+          stroke={C.fg}
+          strokeWidth={2}
+        />
+        <line
+          x1={xAt(v1)}
+          y1={yA - segHalf}
+          x2={xAt(v1)}
+          y2={yA + segHalf}
+          stroke={C.fg}
+          strokeWidth={2}
+        />
+        <line
+          x1={xAt(v1)}
+          y1={yA + segHalf}
+          x2={xAt(v1)}
+          y2={yLine - tickH}
+          stroke={C.dim}
+          strokeWidth={1}
+          strokeDasharray="3 4"
+        />
+        <foreignObject x={xAt(v1 / 2) - 50} y={yA - 38} width={100} height={28}>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: C.fg,
+              fontSize: FONT_BODY,
+              lineHeight: 1
+            }}
+          >
+            <span ref={labelARef} />
+          </div>
+        </foreignObject>
+        <line
+          x1={xAt(v1)}
+          y1={yB}
+          x2={xAt(sum)}
+          y2={yB}
+          stroke={C.dim}
+          strokeWidth={3}
+          strokeLinecap="square"
+          strokeDasharray="6 3"
+        />
+        <line
+          x1={xAt(v1)}
+          y1={yB - segHalf}
+          x2={xAt(v1)}
+          y2={yB + segHalf}
+          stroke={C.dim}
+          strokeWidth={2}
+        />
+        <line
+          x1={xAt(sum)}
+          y1={yB - segHalf}
+          x2={xAt(sum)}
+          y2={yB + segHalf}
+          stroke={C.dim}
+          strokeWidth={2}
+        />
+        <line
+          x1={xAt(sum)}
+          y1={yB + segHalf}
+          x2={xAt(sum)}
+          y2={yLine - tickH}
+          stroke={C.dim}
+          strokeWidth={1}
+          strokeDasharray="3 4"
+        />
+        <foreignObject x={xAt((v1 + sum) / 2) - 50} y={yB - 38} width={100} height={28}>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: C.dim,
+              fontSize: FONT_BODY,
+              lineHeight: 1
+            }}
+          >
+            <span ref={labelBRef} />
+          </div>
+        </foreignObject>
+        <circle cx={xAt(sum)} cy={yLine} r={5} fill={C.fg} stroke={C.fg} strokeWidth={1} />
+        <foreignObject x={W / 2 - 280} y={yLine + 48} width={560} height={60}>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: C.fg,
+              fontSize: FONT_VALUE,
+              lineHeight: 1
+            }}
+          >
+            <span ref={eqRef} />
+          </div>
+        </foreignObject>
+      </svg>
+      {sliderRow('numerator a', a, 0, 6, v => setA(v))}
+      {sliderRow('denominator b', b, 1, 8, v => setB(v))}
+      {sliderRow('numerator c', c, 0, 6, v => setC(v))}
+      {sliderRow('denominator d', d, 1, 8, v => setD(v))}
+    </div>
+  )
+}
+
+// Inline viz: 02.1.2 Subtraction on the Number Line
+// Hand-rolled SVG via Plot primitive. A − B is the gap from B to A; common
+// denominator b·d gives the tick subdivision so the gap reads in integer units
+// of 1/(b·d).
+function Fo_SubtractionNumberLineRefined() {
+  useVizColors()
+  const [a, setA] = useState(3)
+  const [b, setB] = useState(4)
+  const [c, setC] = useState(1)
+  const [d, setD] = useState(3)
+  const v1 = a / b
+  const v2 = c / d
+  const [sn, sd] = fracSub([a, b], [c, d])
+  const xMax = Math.max(1.1, Math.max(v1, v2) + 0.15)
+  const lo = Math.min(v1, v2)
+  const hi = Math.max(v1, v2)
+  const lcdT = b * d
+  return (
+    <div style={{ width: '100%' }}>
+      <Plot xRange={[-0.05, xMax]} yRange={[-0.45, 0.7]} width={620} height={260}>
+        <Polyline
+          points={[
+            [0, 0],
+            [xMax, 0]
+          ]}
+          opacity={OPACITY.fg}
+          strokeWidth={1.5}
+        />
+        {Array.from({ length: Math.ceil(xMax * lcdT) + 1 }, (_, i) =>
+          i / lcdT <= xMax ? (
+            <Polyline
+              key={i}
+              points={[
+                [i / lcdT, -0.05],
+                [i / lcdT, 0.05]
+              ]}
+              opacity={OPACITY.faint}
+            />
+          ) : null
+        )}
+        <Polyline
+          points={[
+            [0, -0.12],
+            [0, 0.12]
+          ]}
+          opacity={OPACITY.fg}
+        />
+        <Tex at={[0, -0.22]} tex="0" anchor="middle" size={FONT_LABEL} opacity={OPACITY.dim} />
+        <Dot x={v1} y={0} r={5} opacity={OPACITY.fg} />
+        <Dot x={v2} y={0} r={5} opacity={OPACITY.accent} />
+        <Tex
+          at={[v1, 0.22]}
+          tex={`\\tfrac{${a}}{${b}}`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.fg}
+        />
+        <Tex
+          at={[v2, -0.32]}
+          tex={`\\tfrac{${c}}{${d}}`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.accent}
+        />
+        <Polyline
+          points={[
+            [lo, 0.46],
+            [hi, 0.46]
+          ]}
+          opacity={OPACITY.fg}
+          strokeWidth={1.5}
+        />
+        <Polyline
+          points={[
+            [lo, 0.42],
+            [lo, 0.5]
+          ]}
+          opacity={OPACITY.fg}
+        />
+        <Polyline
+          points={[
+            [hi, 0.42],
+            [hi, 0.5]
+          ]}
+          opacity={OPACITY.fg}
+        />
+        <Tex
+          at={[(lo + hi) / 2, 0.66]}
+          tex={`\\dfrac{${a}}{${b}}-\\dfrac{${c}}{${d}} = \\dfrac{${sn}}{${sd}}`}
+          anchor="middle"
+          size={FONT_LABEL}
+          opacity={OPACITY.fg}
+        />
+      </Plot>
+      <Slider
+        label="a"
+        value={a}
+        min={0}
+        max={6}
+        step={1}
+        onChange={v => setA(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="b"
+        value={b}
+        min={1}
+        max={8}
+        step={1}
+        onChange={v => setB(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="c"
+        value={c}
+        min={0}
+        max={6}
+        step={1}
+        onChange={v => setC(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="d"
+        value={d}
+        min={1}
+        max={8}
+        step={1}
+        onChange={v => setD(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+    </div>
+  )
+}
+
+// Inline viz: 02.1.3 Fraction Multiplication Area
+// Unit square split into b columns and d rows; shaded a×c sub-rectangle has
+// area (a/b)·(c/d) = (a·c)/(b·d). Each cell carries area 1/(b·d); the count of
+// shaded cells IS the product.
+function Fo_FractionMultiplicationAreaRefined() {
+  const C = useVizColors()
+  const [a, setA] = useState(2)
+  const [b, setB] = useState(3)
+  const [c, setC] = useState(3)
+  const [d, setD] = useState(4)
+  const W = 320
+  const H = 220
+  const cw = W / b
+  const ch = H / d
+  const aClamp = Math.min(a, b)
+  const cClamp = Math.min(c, d)
+  const [pn, pd] = fracMul([aClamp, b], [cClamp, d])
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '12px 16px',
+        boxSizing: 'border-box',
+        color: C.fg,
+        fontFamily: 'var(--reader-font-family)'
+      }}
+    >
+      <svg
+        viewBox={`0 0 ${W + 200} ${H + 60}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ width: '100%', flex: 1, minHeight: 0, display: 'block' }}
+      >
+        <g transform="translate(20, 20)">
+          {Array.from({ length: b }, (_, i) =>
+            Array.from({ length: d }, (_, j) => {
+              const sel = i < aClamp && j < cClamp
+              return (
+                <rect
+                  key={`${i}-${j}`}
+                  x={i * cw}
+                  y={j * ch}
+                  width={cw}
+                  height={ch}
+                  fill={sel ? C.accent : 'transparent'}
+                  stroke={C.dim}
+                  strokeWidth={1}
+                />
+              )
+            })
+          )}
+          <rect
+            x={0}
+            y={0}
+            width={aClamp * cw}
+            height={cClamp * ch}
+            fill="none"
+            stroke={C.fg}
+            strokeWidth={2}
+          />
+        </g>
+        <TexPx
+          x={W + 32}
+          y={H / 2 - 2}
+          size={FONT_TEX}
+          width={180}
+          tex={`\\tfrac{${aClamp}}{${b}} \\times \\tfrac{${cClamp}}{${d}}`}
+        />
+        <TexPx
+          x={W + 32}
+          y={H / 2 + 26}
+          size={FONT_TEX}
+          width={120}
+          opacity={0.7}
+          tex={`= \\tfrac{${aClamp * cClamp}}{${b * d}}`}
+        />
+        <TexPx
+          x={W + 32}
+          y={H / 2 + 50}
+          size={FONT_TEX}
+          width={100}
+          opacity={0.5}
+          tex={pn !== aClamp * cClamp ? `= \\tfrac{${pn}}{${pd}}` : ''}
+        />
+      </svg>
+      <Slider
+        label="a"
+        value={a}
+        min={0}
+        max={b}
+        step={1}
+        onChange={v => setA(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="b"
+        value={b}
+        min={1}
+        max={8}
+        step={1}
+        onChange={v => setB(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="c"
+        value={c}
+        min={0}
+        max={d}
+        step={1}
+        onChange={v => setC(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="d"
+        value={d}
+        min={1}
+        max={8}
+        step={1}
+        onChange={v => setD(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+    </div>
+  )
+}
+
+// Inline viz: 02.1.5 Fraction of a Number Line
+// Divide [0, k/l] into n equal parts; take m of them. The highlighted segment
+// on the main number line ends at v = (m/n)·(k/l) = (m·k)/(n·l).
+function Fo_gcd(a, b) {
+  a = Math.abs(a)
+  b = Math.abs(b)
+  while (b) {
+    ;[a, b] = [b, a % b]
+  }
+  return a || 1
+}
+
+function Fo_NumberPicker({ label, value, min, max, onChange }) {
+  return (
+    <Slider
+      label={label}
+      value={value}
+      min={min}
+      max={max}
+      step={1}
+      onChange={onChange}
+      format={v => String(v)}
+    />
+  )
+}
+
+function Fo_FractionOfNumberLineRefined() {
+  const C = useVizColors()
+  const [m, setM] = useState(2)
+  const [n, setN] = useState(3)
+  const [k, setK] = useState(3)
+  const [l, setL] = useState(4)
+  const mc = Math.min(m, n)
+  const kc = Math.min(k, l)
+  const seg = kc / l
+  const v = (mc / n) * seg
+  const pNum = mc * kc
+  const pDen = n * l
+  const g = Fo_gcd(pNum, pDen)
+  const rNum = pNum / g
+  const rDen = pDen / g
+
+  const W = 1000
+  const H = 420
+  const padX = 80
+  const yMain = H * 0.62
+  const ySeg = yMain - 80
+  const xAt = t => padX + t * (W - 2 * padX)
+  const tickH = 16
+  const segTickH = 10
+
+  const segLabelTex = useMemo(
+    () =>
+      katex.renderToString(`\\dfrac{${kc}}{${l}}`, {
+        throwOnError: false,
+        displayMode: false
+      }),
+    [kc, l]
+  )
+  const resultTex = useMemo(() => {
+    const lhs = `\\dfrac{${mc}}{${n}}\\cdot\\dfrac{${kc}}{${l}}`
+    const rhs =
+      rNum === pNum
+        ? `\\dfrac{${pNum}}{${pDen}}`
+        : `\\dfrac{${pNum}}{${pDen}} = \\dfrac{${rNum}}{${rDen}}`
+    return katex.renderToString(`${lhs} = ${rhs}`, {
+      throwOnError: false,
+      displayMode: false
+    })
+  }, [mc, n, kc, l, pNum, pDen, rNum, rDen])
+
+  return (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 8,
+        padding: '12px 16px',
+        boxSizing: 'border-box',
+        color: C.fg,
+        fontFamily: 'var(--reader-font-family)'
+      }}
+    >
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ width: '100%', flex: 1, minHeight: 0, display: 'block' }}
+      >
+        <line
+          x1={xAt(0)}
+          y1={yMain}
+          x2={xAt(1)}
+          y2={yMain}
+          stroke={C.fg}
+          strokeWidth={2}
+          strokeLinecap="square"
+        />
+        <line
+          x1={xAt(0)}
+          y1={yMain - tickH}
+          x2={xAt(0)}
+          y2={yMain + tickH}
+          stroke={C.fg}
+          strokeWidth={2}
+        />
+        <line
+          x1={xAt(1)}
+          y1={yMain - tickH}
+          x2={xAt(1)}
+          y2={yMain + tickH}
+          stroke={C.fg}
+          strokeWidth={2}
+        />
+        <text
+          x={xAt(0)}
+          y={yMain + tickH + 26}
+          textAnchor="middle"
+          fill={C.fg}
+          fontSize="20"
+          fontFamily="var(--reader-font-family)"
+        >
+          0
+        </text>
+        <text
+          x={xAt(1)}
+          y={yMain + tickH + 26}
+          textAnchor="middle"
+          fill={C.fg}
+          fontSize="20"
+          fontFamily="var(--reader-font-family)"
+        >
+          1
+        </text>
+        <line x1={xAt(0)} y1={ySeg} x2={xAt(seg)} y2={ySeg} stroke={C.dim} strokeWidth={2} />
+        <line
+          x1={xAt(seg)}
+          y1={ySeg - segTickH}
+          x2={xAt(seg)}
+          y2={ySeg + segTickH}
+          stroke={C.dim}
+          strokeWidth={2}
+        />
+        <line
+          x1={xAt(0)}
+          y1={ySeg - segTickH}
+          x2={xAt(0)}
+          y2={ySeg + segTickH}
+          stroke={C.dim}
+          strokeWidth={2}
+        />
+        <foreignObject x={xAt(seg / 2) - 80} y={ySeg - 78} width={160} height={72}>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: C.dim,
+              fontSize: FONT_VALUE,
+              lineHeight: 1.2
+            }}
+            dangerouslySetInnerHTML={{ __html: segLabelTex }}
+          />
+        </foreignObject>
+        <line
+          x1={xAt(seg)}
+          y1={ySeg + segTickH + 2}
+          x2={xAt(seg)}
+          y2={yMain - tickH - 2}
+          stroke={C.faint}
+          strokeWidth={1}
+          strokeDasharray="3 4"
+        />
+        {Array.from({ length: n + 1 }, (_, i) => {
+          const x = (i / n) * seg
+          const isEnd = i === 0 || i === n
+          return (
+            <line
+              key={`sub-${i}`}
+              x1={xAt(x)}
+              y1={yMain - tickH * 0.45}
+              x2={xAt(x)}
+              y2={yMain + tickH * 0.45}
+              stroke={isEnd ? C.fg : C.faint}
+              strokeWidth={1.5}
+            />
+          )
+        })}
+        <line
+          x1={xAt(0)}
+          y1={yMain}
+          x2={xAt(v)}
+          y2={yMain}
+          stroke={C.fg}
+          strokeWidth={4}
+          strokeLinecap="square"
+        />
+        <circle cx={xAt(v)} cy={yMain} r={6} fill={C.fg} stroke={C.fg} strokeWidth={1} />
+        <foreignObject x={W / 2 - 360} y={yMain + tickH + 40} width={720} height={88}>
+          <div
+            xmlns="http://www.w3.org/1999/xhtml"
+            style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: C.fg,
+              fontSize: FONT_VALUE,
+              lineHeight: 1.2
+            }}
+            dangerouslySetInnerHTML={{ __html: resultTex }}
+          />
+        </foreignObject>
+      </svg>
+      <div>
+        <Fo_NumberPicker label="m" value={mc} min={0} max={n} onChange={setM} C={C} />
+        <Fo_NumberPicker
+          label="n"
+          value={n}
+          min={1}
+          max={6}
+          onChange={v => {
+            const nv = v | 0
+            setN(nv)
+            if (m > nv) setM(nv)
+          }}
+          C={C}
+        />
+        <Fo_NumberPicker label="k" value={kc} min={0} max={l} onChange={setK} C={C} />
+        <Fo_NumberPicker
+          label="l"
+          value={l}
+          min={1}
+          max={6}
+          onChange={v => {
+            const nv = v | 0
+            setL(nv)
+            if (k > nv) setK(nv)
+          }}
+          C={C}
+        />
+      </div>
+    </div>
+  )
+}
+
+// Inline viz: 02.1.7 Finite Decimal Expansion
+// Factor n, show its prime list; n=2^a·5^b implies 1/n terminates. Otherwise
+// repeats. Computed live from factor(n).
+function Fo_FiniteDecimalVisRefined() {
+  const C = useVizColors()
+  const [n, setN] = useState(40)
+  const f = factor(n)
+  const primes = Object.keys(f)
+    .map(Number)
+    .sort((a, b) => a - b)
+  const ok = primes.every(p => p === 2 || p === 5)
+  const list = []
+  primes.forEach(p => {
+    for (let i = 0; i < f[p]; i++) list.push(p)
+  })
+  return (
+    <div style={{ width: '100%', color: C.fg }}>
+      <svg viewBox="0 0 520 275" width="100%" style={{ display: 'block' }}>
+        <g fontFamily="'D-DIN', ui-monospace, monospace">
+          <text x={260} y={32} fill={C.fg} textAnchor="middle" fontSize={FONT_VALUE}>
+            {n}
+          </text>
+          {list.map((p, i) => {
+            const x = 60 + (i + 0.5) * (400 / Math.max(1, list.length))
+            const okP = p === 2 || p === 5
+            return (
+              <g key={i}>
+                <line x1={260} y1={42} x2={x} y2={178} stroke={C.dim} />
+                <circle
+                  cx={x}
+                  cy={200}
+                  r={16}
+                  fill="none"
+                  stroke={okP ? C.fg : C.dim}
+                  strokeWidth={okP ? 2 : 1}
+                  strokeDasharray={okP ? null : '3 3'}
+                />
+                <text
+                  x={x}
+                  y={205}
+                  fill={okP ? C.fg : C.dim}
+                  textAnchor="middle"
+                  fontSize={FONT_TEX}
+                >
+                  {p}
+                </text>
+              </g>
+            )
+          })}
+          <text
+            x={260}
+            y={258}
+            fill={C.fg}
+            textAnchor="middle"
+            fontSize={FONT_CONTROL}
+            opacity={0.85}
+            letterSpacing="0.04em"
+          >
+            <tspan>{`1/${n}`}</tspan>
+            <tspan dx={10} letterSpacing="0.06em">
+              {ok ? 'TERMINATES' : 'REPEATS'}
+            </tspan>
+          </text>
+        </g>
+      </svg>
+      <Slider
+        label="n"
+        value={n}
+        min={2}
+        max={120}
+        step={1}
+        onChange={v => setN(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+    </div>
+  )
+}
 
 function useConfig() {
   const C = useVizColors()
@@ -21,7 +1024,7 @@ function useConfig() {
       subtitle:
         'Addition, subtraction, multiplication, and division of fractions. Every formula proved from one definition.',
       sections: [
-        /* ═══ ADDITION ═══ */
+        /* ADDITION */
         <>
           <h2>Addition of Fractions</h2>
           <p>
@@ -53,7 +1056,7 @@ function useConfig() {
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Wrong: Adding Tops and Bottoms</span>
-              <p>{`$\\frac{1}{2} + \\frac{1}{3} \\neq \\frac{2}{5}$. Different-sized pieces cannot be added directly.`}</p>
+              <p>{`$\\frac{1}{2} + \\frac{1}{3} \\neq \\frac{2}{5}$. Different-sized pieces cannot be added directly. That tops-and-bottoms result has a name, the mediant, but it is not the sum.`}</p>
             </div>
           </div>
 
@@ -77,9 +1080,9 @@ function useConfig() {
             {`$$\\frac{2}{3} + \\frac{5}{7} = \\frac{2 \\times 7 + 3 \\times 5}{3 \\times 7} = \\frac{14 + 15}{21} = \\frac{29}{21} = 1\\frac{8}{21}$$`}
           </div>
 
-          <div className="lrn-graph">
-            <AdditionNumberLine C={C} />
-          </div>
+          <VizFigure title="Fraction Addition" size="body" aspect="auto">
+            <Fo_AdditionNumberLineRefined />
+          </VizFigure>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -93,7 +1096,7 @@ function useConfig() {
           </div>
 
           <h3>Same-Denominator Shortcut</h3>
-          <p>When the denominators match:</p>
+          <p>{`Same-sized pieces just add. So $\\frac{2}{5} + \\frac{1}{5} = \\frac{3}{5}$. When the denominators match:`}</p>
           <div className="lrn-eq">{`$$\\frac{k}{\\ell} + \\frac{m}{\\ell} = \\frac{k + m}{\\ell}$$`}</div>
 
           <h3>Mixed Numbers</h3>
@@ -125,31 +1128,9 @@ function useConfig() {
             <strong>{`Example: $4.0451 + 3.27$`}</strong>
           </p>
           <p>{`Align decimal places: $4.0451 + 3.2700 = 7.3151$. Aligning creates equal denominators (both in ten-thousandths), so the numerators add directly.`}</p>
-
-          <h3>Neighboring Fractions and the Mediant</h3>
-          <p>
-            {`Some people add fractions by adding tops and bottoms: "$\\frac{2}{5} + \\frac{3}{7} = \\frac{5}{12}$." That is wrong. The correct sum is $\\frac{29}{35}$. The "tops and bottoms" result has a name: the `}
-            <strong>mediant</strong>
-            {`. It is not a sum. It does something else entirely.`}
-          </p>
-          <p>
-            {`Two fractions $\\frac{a}{b}$ and $\\frac{c}{d}$ are `}
-            <strong>neighboring</strong>
-            {` if $|ad - bc| = 1$. The mediant of neighboring fractions always lands between them.`}
-          </p>
-          <p>
-            {`Example: $\\frac{2}{5}$ and $\\frac{3}{7}$. Check: $|2 \\times 7 - 5 \\times 3| = 1$. They are neighbors. Their mediant $\\frac{2+3}{5+7} = \\frac{5}{12}$ satisfies $\\frac{2}{5} < \\frac{5}{12} < \\frac{3}{7}$.`}
-          </p>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              {`Cross-multiplication: $2 \\times 12 = 24 < 25 = 5 \\times 5$, so $\\frac{2}{5} < \\frac{5}{12}$. And $5 \\times 7 = 35 < 36 = 12 \\times 3$, so $\\frac{5}{12} < \\frac{3}{7}$.`}
-            </p>
-          </div>
         </>,
 
-        /* ═══ SUBTRACTION ═══ */
+        /* SUBTRACTION */
         <>
           <h2>Subtraction of Fractions</h2>
           <p>
@@ -173,34 +1154,22 @@ function useConfig() {
           <div className="lrn-eq lrn-eq-display">
             {`$$\\frac{k}{\\ell} - \\frac{m}{n} = \\frac{kn - \\ell m}{\\ell n}$$`}
           </div>
+          <p>{`When the denominators match, just subtract the tops: $\\frac{4}{7} - \\frac{1}{7} = \\frac{3}{7}$. In general $\\frac{k}{\\ell} - \\frac{m}{\\ell} = \\frac{k - m}{\\ell}$.`}</p>
 
-          <div className="lrn-graph">
-            <SubtractionNumberLine C={C} />
-          </div>
+          <VizFigure title="Fraction Subtraction" size="body" aspect="620/208">
+            <Fo_SubtractionNumberLineRefined />
+          </VizFigure>
 
           <h3>Proof from Addition</h3>
           <p>{`$A - B = C$ means $C + B = A$. So $\\frac{k}{\\ell} - \\frac{m}{n}$ is the $C$ with $C + \\frac{m}{n} = \\frac{k}{\\ell}$.`}</p>
           <div className="lrn-eq">
             {`$$\\frac{kn - \\ell m}{\\ell n} + \\frac{m}{n} = \\frac{(kn - \\ell m) + \\ell m}{\\ell n} = \\frac{kn}{\\ell n} = \\frac{k}{\\ell}$$`}
           </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does adding the subtraction result back to B always give A?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`By definition. $A - B$ is the number $C$ satisfying $C + B = A$. Adding $B$ back to $C$ gives $A$ by the very definition of subtraction.`}</p>
-            </details>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The subtraction formula mirrors the addition formula. Both come from rewriting
-              fractions with a common denominator. Addition joins segments; subtraction measures the
-              gap between them.
-            </p>
-          </div>
+          <p>
+            Adding {`$B$`} back to the result lands on {`$A$`} again. That is the test of a correct
+            subtraction. One common-denominator rewrite drives both. Addition joins segments.
+            Subtraction measures the gap.
+          </p>
 
           <h3>Comparing Fractions by Subtraction</h3>
           <p>
@@ -213,21 +1182,9 @@ function useConfig() {
           </div>
           <p>{`Cross-multiply: $2 \\times 11 = 22$ and $9 \\times 6 = 54$. Since $22 < 54$, $\\frac{2}{9} < \\frac{6}{11}$.`}</p>
           <p>{`So $\\frac{7}{9}$ is closer to 1.`}</p>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does finding the distance to 1 answer the &ldquo;closer to 1&rdquo; question?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Distance from a fraction to 1 measures how far it sits from 1 on the number line.
-                The fraction with the smaller distance is closer.
-              </p>
-            </details>
-          </div>
         </>,
 
-        /* ═══ CONCEPT OF "m/n OF k/l" ═══ */
+        /* CONCEPT OF "m/n OF k/l" */
         <>
           <h2>{`The Concept of "$\\frac{m}{n}$ of $\\frac{k}{\\ell}$"`}</h2>
           <p>
@@ -251,9 +1208,9 @@ function useConfig() {
           </ol>
           <p>{`This is the same as $\\frac{m}{n} \\times \\frac{k}{\\ell}$. We prove this formally below.`}</p>
 
-          <div className="lrn-graph">
-            <FractionOfNumberLine C={C} />
-          </div>
+          <VizFigure title="Fraction of a Number" size="body" aspect="16/9">
+            <Fo_FractionOfNumberLineRefined />
+          </VizFigure>
 
           <div className="lrn-compare">
             <div className="lrn-compare-col">
@@ -283,7 +1240,7 @@ function useConfig() {
           </div>
         </>,
 
-        /* ═══ MULTIPLICATION ═══ */
+        /* MULTIPLICATION */
         <>
           <h2>Multiplication of Fractions</h2>
           <p>
@@ -322,44 +1279,27 @@ function useConfig() {
             <strong>{`Example: $\\frac{2}{3} \\times \\frac{4}{5} = \\frac{8}{15}$`}</strong>
           </p>
 
-          <div className="lrn-graph">
-            <MultiplicationAreaModel C={C} />
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why does counting small rectangles ($mk$ out of $n\\ell$) give the area?`}</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`Each small rectangle has area $\\frac{1}{n\\ell}$ because the unit square is divided into $n\\ell$ equal parts. The shaded rectangle covers $mk$ of them. Total: $\\frac{mk}{n\\ell}$.`}</p>
-            </details>
-          </div>
+          <VizFigure title="Fraction Multiplication Area" size="body" aspect="4/3">
+            <Fo_FractionMultiplicationAreaRefined />
+          </VizFigure>
 
           <h3>Multiplication of Decimals</h3>
           <p>
-            <strong>{`Example: $1.25 \\times 0.064$`}</strong>
+            A decimal is just a fraction with a power of ten on the bottom. So the fraction product
+            rule handles decimals too.
           </p>
           <div className="lrn-eq">{`$$1.25 \\times 0.064 = \\frac{125}{100} \\times \\frac{64}{1000} = \\frac{8000}{100000} = 0.08$$`}</div>
-          <p>Count total decimal places in both factors. The product has that many places.</p>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why do the decimal places add when you multiply?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`The denominators multiply: $10^a \\times 10^b = 10^{a+b}$. Two places times three places equals five places in the product.`}</p>
-            </details>
-          </div>
+          <p>{`The bottoms multiply: $100 \\times 1000 = 10^5$. So you add the decimal places: two plus three gives five.`}</p>
 
           <h3>The Distributive Law</h3>
           <div className="lrn-eq lrn-eq-display">{`$$A(B + C) = AB + AC$$`}</div>
           <p>
-            {`A rectangle with sides $A$ and $(B + C)$ splits into two smaller rectangles. One has area $AB$, the other $AC$.`}
+            {`The same distributive law you know for whole numbers now holds over fractions. A rectangle with sides $A$ and $(B + C)$ splits into two: one of area $AB$, the other $AC$.`}
           </p>
 
-          <div className="lrn-graph">
-            <DistributiveLawVis C={C} />
-          </div>
+          <VizFigure title="Fraction Distributive Law" size="body" aspect="16/9">
+            <Fo_FractionDistributiveLawRefined />
+          </VizFigure>
 
           <h3>Whole Number Times Fraction</h3>
           <p>{`$m \\times \\frac{k}{\\ell} = \\frac{mk}{\\ell}$. This is $m$ copies joined end to end.`}</p>
@@ -373,7 +1313,7 @@ function useConfig() {
           </div>
         </>,
 
-        /* ═══ SECOND INTERPRETATION (17.7) ═══ */
+        /* SECOND INTERPRETATION (17.7) */
         <>
           <h2>Multiplication as &ldquo;Of&rdquo;</h2>
           <p>
@@ -384,6 +1324,9 @@ function useConfig() {
             {`One fact powers the proof: for any fraction $A$ and any nonzero fraction $B$, exactly one fraction $C$ satisfies $A = CB$. That $C$ is what we call $A/B$. This is the `}
             <strong>uniqueness lemma</strong>
             {`.`}
+          </p>
+          <p>
+            {`At least one $C$ exists: multiply $A$ by the flipped $B$ and you have one. Only one can work. Try $C \\times \\frac{2}{3} = 1$: only $C = \\frac{3}{2}$ fits. Check: $\\frac{3}{2} \\times \\frac{2}{3} = \\frac{6}{6} = 1$. No other fraction lands on 1. One target, one answer.`}
           </p>
 
           <div className="lrn-predict">
@@ -444,17 +1387,13 @@ function useConfig() {
           <p>
             {`"Three-fifths of a rod" equals $\\frac{3}{5} \\times (\\text{rod length})$. The word "of" is not a definition. It is a result of the area-based multiplication theorem.`}
           </p>
-          <p>Start with the precise definition (area). Then prove that &ldquo;of&rdquo; works.</p>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              {`Any fraction $\\frac{m}{n}$ can be written as $m$ copies of $\\frac{1}{n}$. Case II proves the formula for one copy. Case III scales to $m$ copies. Nothing is left uncovered.`}
-            </p>
-          </div>
+          <p>
+            Start with the precise definition (area). Then prove that &ldquo;of&rdquo; works. The
+            three cases above cover every fraction, so nothing is left out.
+          </p>
         </>,
 
-        /* ═══ DIVISION ═══ */
+        /* DIVISION */
         <>
           <h2>Division of Fractions</h2>
           <p>
@@ -471,7 +1410,7 @@ function useConfig() {
             <p>{`How many pieces of $\\frac{5}{3}$ meters fit in a $43\\frac{3}{8}$ meter rod?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`$\\frac{\\frac{347}{8}}{\\frac{5}{3}} = \\frac{347}{8} \\times \\frac{3}{5} = \\frac{1041}{40} = 26\\frac{1}{40}$. You get 26 complete pieces.`}</p>
+              <p>{`Divide the rod length by the piece length: $\\frac{347}{8} \\div \\frac{5}{3}$. Invert and multiply, then read off the whole-number part. The full solve is in Applications below.`}</p>
             </details>
           </div>
 
@@ -490,25 +1429,13 @@ function useConfig() {
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Example 3</span>
-              <p className="lrn-step-content">{`$\\frac{\\frac{15}{4}}{\\frac{3}{4}} = 5$. In units of $\\frac{1}{4}$: $\\frac{15 \\text{ units}}{3 \\text{ units}} = 5$.`}</p>
+              <p className="lrn-step-content">{`$\\frac{\\frac{15}{4}}{\\frac{3}{4}} = 5$. Both share denominator 4, so in units of $\\frac{1}{4}$ this is just $\\frac{15 \\text{ units}}{3 \\text{ units}} = 5$.`}</p>
             </div>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              In Example 3, why does using {`$\\frac{1}{4}$`} as the unit reduce this to whole
-              number division?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`Both fractions share denominator 4. In units of $\\frac{1}{4}$, the dividend is 15 and the divisor is 3. Dividing 15 by 3 is just $5$.`}</p>
-            </details>
           </div>
 
           <h3>The Invert-and-Multiply Rule</h3>
           <div className="lrn-eq lrn-eq-display">{`$$\\frac{\\frac{m}{n}}{\\frac{k}{\\ell}} = \\frac{m}{n} \\times \\frac{\\ell}{k}$$`}</div>
-          <p>To divide by a fraction, multiply by its reciprocal.</p>
+          <p>To divide by a fraction, multiply by its reciprocal (flip it).</p>
 
           <h3>Derivation</h3>
           <div className="lrn-faded">
@@ -556,145 +1483,9 @@ function useConfig() {
             {` Trail is $12\\frac{1}{3}$ miles. Speed is $3\\frac{1}{2}$ mph.`}
           </p>
           <div className="lrn-eq">{`$$T = \\frac{\\frac{37}{3}}{\\frac{7}{2}} = \\frac{37}{3} \\times \\frac{2}{7} = \\frac{74}{21} = 3\\frac{11}{21} \\text{ hours}$$`}</div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why does $T = D/v$ follow from constant speed?`}</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`Constant speed means $D/T = v$. Rearranging: $T = D/v$. This is division-multiplication equivalence.`}</p>
-            </details>
-          </div>
         </>,
 
-        /* ═══ DIVISION OF DECIMALS ═══ */
-        <>
-          <h2>Division of Decimals</h2>
-          <p>Every division of decimals reduces to whole number division.</p>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>How would you simplify {`$\\frac{2.0498}{14.3}$`}?</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`Convert to fractions: $\\frac{\\frac{20498}{10000}}{\\frac{143}{10}} = \\frac{20498}{143000}$.`}</p>
-            </details>
-          </div>
-
-          <h3>The Method</h3>
-          <div className="lrn-eq">{`$$\\frac{2.0498}{14.3} = \\frac{20498}{10000} \\times \\frac{10}{143} = \\frac{20498}{143000}$$`}</div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does converting decimals to fractions reduce the problem to whole numbers?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                {`Trace the example: $2.0498 = \\frac{20498}{10000}$ and $14.3 = \\frac{143}{10}$. Inverting $\\frac{143}{10}$ gives $\\frac{10}{143}$. Multiplying: $\\frac{20498}{10000} \\times \\frac{10}{143} = \\frac{20498}{143000}$. The numerator and denominator are both whole numbers.`}
-              </p>
-            </details>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Every decimal, when written as a fraction, has a power-of-10 denominator.
-              Invert-and-multiply then gives a fraction with whole numbers on both top and bottom.
-            </p>
-          </div>
-        </>,
-
-        /* ═══ FINITE VS INFINITE DECIMALS ═══ */
-        <>
-          <h2>Finite vs. Infinite Decimals</h2>
-          <p>
-            Your calculator shows 0.333... for {`$\\frac{1}{3}$`} and never stops. Why? Because 3 is
-            neither 2 nor 5. A reduced fraction {`$\\frac{m}{n}$`} is a finite decimal if and only
-            if {`$n$`}
-            &rsquo;s only prime factors are 2 and 5.
-          </p>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              Is {`$\\frac{7}{12}$`} a finite or infinite decimal? What about {`$\\frac{7}{40}$`}?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`$\\frac{7}{12}$ is infinite ($12 = 2^2 \\times 3$, the 3 prevents it). $\\frac{7}{40}$ is finite ($40 = 2^3 \\times 5$, only 2s and 5s).`}</p>
-            </details>
-          </div>
-
-          <h3>The Finite Decimal Test</h3>
-          <p>{`$\\frac{m}{n}$ (reduced) equals a finite decimal if and only if $n = 2^a \\times 5^b$.`}</p>
-
-          <h3>Why This Works</h3>
-          <p>
-            {`$10^k = 2^k \\times 5^k$. To turn a fraction into $\\frac{q}{10^k}$, you need $10^k / n$ to be a whole number.`}
-          </p>
-          <p>
-            {`This works only when every prime factor of $n$ divides $10^k$. A `}
-            <strong>prime factor</strong> is a prime number that divides evenly into another number.
-            The only prime factors of {`$10^k$`} are 2 and 5.
-          </p>
-
-          <p>
-            <strong>{`Example: $\\frac{3}{8}$`}</strong>
-          </p>
-          <p>{`$8 = 2^3$. Pick $k = 3$: $\\frac{10^3}{8} = 125$. So $\\frac{3}{8} = \\frac{3 \\times 125}{1000} = \\frac{375}{1000} = 0.375$.`}</p>
-
-          <p>
-            <strong>{`Example: $\\frac{15}{32}$`}</strong>
-          </p>
-          <p>{`$32 = 2^5$. Pick $k = 5$: $\\frac{10^5}{32} = 3125$. So $\\frac{15}{32} = \\frac{15 \\times 3125}{100000} = \\frac{46875}{100000} = 0.46875$.`}</p>
-
-          <div className="lrn-graph">
-            <FiniteDecimalVis C={C} />
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Why does $8 = 2^3$ tell you to use $10^3$?`}</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`$10^3 = 2^3 \\times 5^3$. The $2^3$ cancels the 8. Any smaller power of 10 would not fully cancel it.`}</p>
-            </details>
-          </div>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Finite Decimals</span>
-              <p>{`Denominator = $2^a \\times 5^b$. Terminates. Ex: $\\frac{3}{8} = 0.375$.`}</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Infinite Decimals</span>
-              <p>{`Other prime factors present. Never ends. Ex: $\\frac{1}{7} = 0.142857\\ldots$`}</p>
-            </div>
-          </div>
-
-          <h3>Error Bounds</h3>
-          <p>{`For an infinite decimal, truncating after $k$ places gives error less than $\\frac{1}{10^k}$.`}</p>
-          <div className="lrn-eq lrn-eq-display">{`$$0 < \\frac{m}{n} - \\frac{q}{10^k} < \\frac{1}{10^k}$$`}</div>
-          <p>More places = smaller error = better approximation.</p>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`The remainder after long division is less than the divisor. So the leftover fraction $\\frac{r}{n} \\times \\frac{1}{10^k} < \\frac{1}{10^k}$.`}</p>
-          </div>
-
-          <h3>Reciprocals Reverse Order</h3>
-          <p>One general property of fractions connects directly to these comparisons.</p>
-          <p>{`If $A$ and $B$ are positive and $A < B$, then $\\frac{1}{A} > \\frac{1}{B}$.`}</p>
-          <p>Smaller positive numbers have larger reciprocals.</p>
-
-          <h3>A Note on Calculators</h3>
-          <p>
-            Calculators give decimal approximations. They do not tell you why an answer is correct.
-            Understanding the formulas lets you verify results and catch errors.
-          </p>
-        </>,
-
-        /* ═══ FALSE DOCTRINES ═══ */
+        /* FALSE DOCTRINES */
         <>
           <h2>False Doctrines in Division</h2>
           <p>
@@ -728,8 +1519,8 @@ function useConfig() {
           <div className="lrn-warning">
             <p>
               The equivalent fractions theorem applies to whole number multipliers only. This
-              argument uses it with fraction multipliers. That has not been proved yet. The argument
-              assumes what it tries to prove.
+              argument uses it with fraction multipliers. We have not proved that step yet. The
+              argument assumes what it tries to prove.
             </p>
           </div>
 
@@ -737,9 +1528,9 @@ function useConfig() {
           <div className="lrn-warning">
             <p>
               Same circular reasoning as Doctrine 2, just disguised differently. It declares the
-              divisor the new unit, then computes in those new units, but computing in fractional
-              units requires fraction multiplication, which requires fraction division to be already
-              defined.
+              divisor the new unit. Then it computes in those new units. But computing in fractional
+              units needs fraction multiplication. And that needs fraction division to be defined
+              first.
             </p>
           </div>
 
@@ -771,6 +1562,57 @@ function useConfig() {
               <p>Assume division works before defining it. Circular.</p>
             </div>
           </div>
+        </>,
+
+        /* DIVISION OF DECIMALS */
+        <>
+          <h2>Division of Decimals</h2>
+          <p>
+            A decimal is just a fraction with a power of ten on the bottom. So every fraction rule
+            you just learned applies. To divide decimals, write each as a fraction and invert and
+            multiply.
+          </p>
+          <div className="lrn-eq">{`$$\\frac{2.0498}{14.3} = \\frac{20498}{10000} \\times \\frac{10}{143} = \\frac{20498}{143000}$$`}</div>
+          <p>
+            {`Now $143000 = 2^3 \\times 5^3 \\times 11 \\times 13$. The 11 and 13 are not 2 or 5, so this answer does not become a finite decimal. It repeats forever. The next section explains exactly when a fraction terminates.`}
+          </p>
+        </>,
+
+        /* FINITE VS INFINITE DECIMALS */
+        <>
+          <h2>Finite vs. Infinite Decimals</h2>
+          <p>
+            Multiplying fractions tells you when a fraction becomes a finite decimal. A finite
+            decimal is just a fraction with a power of ten on the bottom. So {`$\\frac{3}{8}$`} is
+            finite because {`$\\frac{3}{8} = \\frac{375}{1000} = 0.375$`}. You can rewrite the
+            bottom as a power of ten.
+          </p>
+          <p>
+            This works only when {`$n$`}&rsquo;s only prime factors are 2 and 5. The reason:{' '}
+            {`$10^k = 2^k \\times 5^k$`}, so a power of ten is built from just 2s and 5s. A 3 or a 7
+            on the bottom can never be cancelled into a power of ten. That is why{' '}
+            {`$\\frac{1}{3} = 0.333\\ldots$`} never stops.
+          </p>
+
+          <div className="lrn-predict">
+            <span className="lrn-predict-label">PREDICT</span>
+            <p>
+              Is {`$\\frac{7}{12}$`} a finite or infinite decimal? What about {`$\\frac{7}{40}$`}?
+            </p>
+            <details className="lrn-predict-reveal">
+              <summary>Check your thinking</summary>
+              <p>{`$\\frac{7}{12}$ is infinite ($12 = 2^2 \\times 3$, the 3 prevents it). $\\frac{7}{40}$ is finite ($40 = 2^3 \\times 5$, only 2s and 5s).`}</p>
+            </details>
+          </div>
+
+          <div className="lrn-insight">
+            <p>{`A reduced fraction $\\frac{m}{n}$ is a finite decimal in one case only. That case: $n = 2^a \\times 5^b$, so $n$'s only prime factors are 2 and 5.`}</p>
+          </div>
+
+          <VizFigure title="Finite Decimal Expansion" size="body" aspect="16/9">
+            <Fo_FiniteDecimalVisRefined />
+          </VizFigure>
+          <p>{`Slide $n$ and watch: when every prime factor is a 2 or a 5, $\\frac{1}{n}$ terminates. Any other prime makes it repeat.`}</p>
         </>
       ]
     },
@@ -853,8 +1695,8 @@ function useConfig() {
         a: '$0.46875$. Since $32 = 2^5$, use $10^5$: $\\frac{15 \\times 100000}{32} = 46875$. So $\\frac{15}{32} = 0.46875$.'
       },
       {
-        q: 'Express the division $\\frac{2.0498}{14.3}$ as whole number division.',
-        a: '$\\frac{20498}{143000}$. Convert: $2.0498 = \\frac{20498}{10000}$, $14.3 = \\frac{143}{10}$. Then $\\frac{20498}{10000} \\times \\frac{10}{143} = \\frac{20498}{143000}$.'
+        q: 'Express the division $\\frac{2.0498}{14.3}$ as whole number division. Does it terminate?',
+        a: '$\\frac{20498}{143000}$. Convert: $2.0498 = \\frac{20498}{10000}$, $14.3 = \\frac{143}{10}$. Then $\\frac{20498}{10000} \\times \\frac{10}{143} = \\frac{20498}{143000}$. It does not terminate: $143000 = 2^3 \\times 5^3 \\times 11 \\times 13$, and 11 and 13 are not 2 or 5, so the decimal repeats forever.'
       },
       {
         q: 'Which fraction is closer to 1: $\\frac{11}{13}$ or $\\frac{8}{9}$?',
@@ -925,7 +1767,6 @@ function useConfig() {
             <span className="lrn-definition-term">Finite Decimal Test</span>
             <div className="lrn-definition-desc">{`$\\frac{m}{n}$ (reduced) terminates iff $n = 2^a \\times 5^b$.`}</div>
           </div>
-          <div className="lrn-eq">{`$$\\text{Error bound: } 0 < \\frac{m}{n} - \\frac{q}{10^k} < \\frac{1}{10^k}$$`}</div>
           <p>
             <strong>Reciprocal inequality:</strong>
             {` $A < B \\Rightarrow \\frac{1}{A} > \\frac{1}{B}$ (positive fractions)`}

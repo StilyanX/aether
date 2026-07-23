@@ -9,14 +9,12 @@ const config = {
     subtitle: 'Food vocabulary, drink, cooking, shopping, quantities, and restaurant culture',
     sections: [
       <>
-        <div className="lrn-header">
-          <h1>Essen und Trinken</h1>
-          <p>You learn vocabulary for breakfast, shopping, cooking, and eating out.</p>
-          <p>
-            You also learn key grammar: adjective endings, noun plurals, the verb <em>mögen</em>,
-            the imperative, and the simple past of <em>sein</em> and <em>haben</em>.
-          </p>
-        </div>
+        <h2>Essen und Trinken</h2>
+        <p>You learn vocabulary for breakfast, shopping, cooking, and eating out.</p>
+        <p>
+          You also learn key grammar: adjective endings, noun plurals, the verb <em>mögen</em>, the
+          imperative, and the simple past of <em>sein</em> and <em>haben</em>.
+        </p>
       </>,
 
       <>
@@ -341,8 +339,8 @@ const config = {
               <em>ein Glas Saft</em>.
             </p>
             <p>
-              This is called noun apposition. The two nouns sit together and the meaning is clear
-              from context.
+              This is called noun apposition: two nouns placed side by side with no joining word.
+              The meaning stays clear from context.
             </p>
           </details>
         </div>
@@ -350,16 +348,12 @@ const config = {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            German breakfast vocabulary keeps each noun in its grammatical gender (der, die, das).
+            You met der/die/das in Unit 1. In this unit that gender does real work: it controls the
+            adjective endings and pronouns you are about to learn.
           </p>
           <p>
-            You must learn each item with its article. For example: <em>der Kaffee</em>,{' '}
-            <em>die Milch</em>, <em>das Brötchen</em>.
-          </p>
-          <p>
-            This matters later because the article controls adjective endings and pronouns. Saying
-            "I drink it" needs the right pronoun: <em>er</em> for masculine drinks, <em>sie</em> for
-            feminine drinks, <em>es</em> for neuter drinks.
+            Saying "I drink it" needs the right pronoun: <em>er</em> for masculine drinks,{' '}
+            <em>sie</em> for feminine drinks, <em>es</em> for neuter drinks.
           </p>
         </div>
       </>,
@@ -552,8 +546,9 @@ const config = {
               change <em>e to i</em>: <em>er nimmt</em>.
             </p>
             <p>
-              Step 2: add the objects in the correct accusative form. <em>zwei Eier</em> (plural, no
-              change) and <em>einen Kaffee</em> (masculine accusative needs <em>einen</em>).
+              Step 2: add the objects in the correct accusative form (the form for the object that
+              receives the action). <em>zwei Eier</em> (plural, no change) and <em>einen Kaffee</em>{' '}
+              (masculine accusative needs <em>einen</em>).
             </p>
             <p>
               Step 3: connect with <em>und</em>. Result:
@@ -866,6 +861,34 @@ const config = {
           </tbody>
         </table>
 
+        <div className="lrn-insight">
+          <p>
+            <strong>The rule for adjective endings after ein, eine, ein:</strong>
+          </p>
+          <p>
+            The adjective takes the <em>strong</em> ending in the three spots where <em>ein</em>{' '}
+            shows no gender: masculine nominative (<em>ein roher Schinken</em>), neuter nominative (
+            <em>ein altes Brot</em>), and neuter accusative (<em>ein altes Brot</em>).
+          </p>
+          <p>
+            Everywhere else, <em>ein</em> already marks the gender or case, so the adjective takes
+            the <em>weak</em> ending <em>-e</em> or <em>-en</em>. That is why masculine accusative
+            becomes <em>einen rohen Schinken</em> with <em>-en</em>.
+          </p>
+        </div>
+
+        <div className="lrn-callout lrn-tip">
+          <span className="lrn-callout-label">3-Step Recipe: Pick the adjective ending</span>
+          <ol className="lrn-list">
+            <li>Find the noun's gender and case (e.g. der Schinken, masculine, accusative).</li>
+            <li>Find which article is in front: definite (der), indefinite (ein), or none.</li>
+            <li>
+              Pick the ending: strong (<em>-er</em>, <em>-es</em>) only where the article hides the
+              gender; weak (<em>-e</em>, <em>-en</em>) everywhere else.
+            </li>
+          </ol>
+        </div>
+
         <div className="lrn-faded">
           <div className="lrn-faded-phase">
             <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
@@ -881,7 +904,7 @@ const config = {
               Answer: <strong>das frische Brot</strong>.
             </p>
           </div>
-          <div className="lrn-faded-phase">
+          <div className="lrn-faded-phase lrn-faded-partial">
             <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
             <ol className="lrn-list">
               <li>
@@ -1016,7 +1039,10 @@ const config = {
         <p>
           These nouns add <em>-s</em> in the plural.
         </p>
-        <p>This group includes many foreign loanwords and abbreviations.</p>
+        <p>
+          This group includes many loanwords (words German borrowed from other languages) and
+          abbreviations.
+        </p>
         <table className="lrn-table">
           <thead>
             <tr>
@@ -1110,13 +1136,11 @@ const config = {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            German has so many plural patterns because the language preserved different historical
-            noun classes from Old High German.
+            You already know the umlaut from Unit 4. Here it returns as part of the five-group
+            system: some groups add an umlaut, some do not.
           </p>
-          <p>Each class had its own plural ending, and those endings survived in modern German.</p>
           <p>
-            Unlike English (which standardized to <em>-s</em>), German kept the variety: so gender
-            and plural form must be memorized together for each noun.
+            German keeps this variety, so you memorize each noun's plural together with its article.
           </p>
         </div>
 
@@ -1151,8 +1175,8 @@ const config = {
               an umlaut.
             </p>
             <p>
-              <em>Brötchen</em> ends in the diminutive suffix <em>-chen</em>. All <em>-chen</em>{' '}
-              nouns belong to Group 1: no ending change.
+              <em>Brötchen</em> ends in <em>-chen</em>, the ending that means "little". All{' '}
+              <em>-chen</em> nouns belong to Group 1: no ending change.
             </p>
             <p>
               The article also changes from <em>das</em> to <em>die</em> in plural for both. Only
@@ -1351,6 +1375,11 @@ const config = {
             <p>
               German compound nouns work like this: base word + category suffix (<em>-waren</em> =
               goods/wares).
+            </p>
+            <p>
+              A compound noun always takes the article of its last word. <em>der Apfel</em> +{' '}
+              <em>der Saft</em> = <em>der Apfelsaft</em>. <em>die Tomate</em> + <em>die Suppe</em> ={' '}
+              <em>die Tomatensuppe</em>.
             </p>
           </details>
         </div>
@@ -1711,7 +1740,7 @@ const config = {
               <em>Ich mag keine Leberwurst</em> means "I don't like liver sausage."
             </p>
             <p>
-              <em>Kein</em> is the negative article: it negates the noun directly:{' '}
+              You know <em>kein</em> from Unit 4. Here you use it the same way:{' '}
               <em>keine Leberwurst</em> = no liver sausage / not any liver sausage.
             </p>
           </details>
@@ -1756,8 +1785,8 @@ const config = {
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
           <p>
-            <em>Mögen</em> is a modal verb, and modal verbs in German have identical forms for{' '}
-            <em>ich</em> and <em>er/sie/es</em>.
+            <em>Mögen</em> is a modal verb (a helper verb like "can" or "must"), and modal verbs in
+            German have identical forms for <em>ich</em> and <em>er/sie/es</em>.
           </p>
           <p>
             This is the opposite of regular verbs, which add <em>-t</em> to the <em>er</em> form:{' '}
@@ -2073,12 +2102,11 @@ const config = {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              The adverb goes between the verb and the noun: <em>Essen Sie oft Fisch</em>.
+              The adverb goes after the subject and before the object noun:{' '}
+              <em>Essen Sie oft Fisch</em>. Here <em>oft</em> sits after <em>Sie</em> and before{' '}
+              <em>Fisch</em>.
             </p>
-            <p>
-              German keeps a tight word order around the verb. The adverb of frequency sits right
-              after the subject and before the object.
-            </p>
+            <p>German keeps a tight word order around the verb.</p>
           </details>
         </div>
 
@@ -2306,23 +2334,6 @@ const config = {
             </p>
           </details>
         </div>
-
-        <div className="lrn-elaborate">
-          <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-          <p>
-            Strong verbs are a leftover from Old Germanic. They use vowel changes to signal grammar,
-            like English <em>sing-sang-sung</em>.
-          </p>
-          <p>
-            German kept this system for the present tense in <em>du</em> and <em>er</em> forms. It
-            also uses vowel changes for the past tense: <em>nehmen to nahm</em>,{' '}
-            <em>essen to aß</em>.
-          </p>
-          <p>
-            Knowing which verbs are strong saves time later because the present-tense vowel change
-            often predicts the past-tense vowel change too.
-          </p>
-        </div>
       </>,
 
       <>
@@ -2437,8 +2448,8 @@ const config = {
           <details className="lrn-predict-reveal">
             <summary>Check your thinking</summary>
             <p>
-              <em>Ich hätte gern …</em> is the most polite: it uses the conditional form (would
-              like).
+              <em>Ich hätte gern …</em> is the most polite. Learn it as a fixed phrase meaning "I
+              would like".
             </p>
             <p>
               <em>Ich möchte …</em> is polite and very common.
@@ -2705,8 +2716,8 @@ const config = {
           </p>
           <p>All three are acceptable. The level changes the social signal but not the meaning.</p>
           <p>
-            <em>Hätte</em> is the conditional form of <em>haben</em>. The conditional softens any
-            request in German, just as English uses "would" instead of plain "want."
+            <em>Ich hätte gern</em> softens the request, just as English uses "would like" instead
+            of plain "want." Learn it as a set phrase.
           </p>
         </div>
       </>,
@@ -2771,6 +2782,10 @@ const config = {
         <div className="lrn-callout lrn-tip">
           <span className="lrn-callout-label">Grammar Note: Personalpronomen</span>
           <p>
+            For now, learn <em>Ich finde ihn lecker</em> as a fixed phrase. The form <em>ihn</em>{' '}
+            replaces a masculine noun like <em>der Lachs</em>.
+          </p>
+          <p>
             <em>Schmeckt er gut?</em>: The pronoun <em>er</em> is nominative (subject of{' '}
             <em>schmeckt</em>).
           </p>
@@ -2778,7 +2793,7 @@ const config = {
             <em>Ich finde ihn lecker.</em>: The pronoun <em>ihn</em> is accusative (direct object of{' '}
             <em>finde</em>).
           </p>
-          <p>This is the accusative pronoun system: you learn it in the next section.</p>
+          <p>The next section shows the full accusative pronoun system, including why it is ihn.</p>
         </div>
 
         <div className="lrn-faded">
@@ -2816,8 +2831,8 @@ const config = {
               <em>Ich finde X lecker</em> is the standard idiom for "I think X tastes good."
             </p>
             <p>
-              <em>Finden</em> in this context means "to perceive" or "to judge," not "to discover by
-              searching."
+              <em>Finden</em> in this context means "to notice" or "to judge how it seems," not "to
+              discover by searching."
             </p>
             <p>
               Other languages use the same trick: French <em>trouver</em>, Italian <em>trovare</em>.
@@ -2865,11 +2880,7 @@ const config = {
               The accusative form is <em>mich</em>: <em>Er sieht mich.</em> (He sees me.)
             </p>
             <p>
-              <em>Mir</em> is the dative form: used for indirect objects.
-            </p>
-            <p>
-              German has three pronoun forms per person: nominative, accusative, and dative: each
-              for a different grammatical role.
+              The third form, <em>mir</em>, comes in a later unit. For now, focus on the accusative.
             </p>
           </details>
         </div>
@@ -3309,2066 +3320,6 @@ const config = {
       </>,
 
       <>
-        <div id="lrn-section-18" className="lrn-section">
-          <div className="lrn-header">
-            <h2>Food and Eating</h2>
-          </div>
-
-          <h3>Meals and Eating Occasions</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              Look at <strong>das Mittagessen</strong>. You know <em>Mittag</em> = midday.
-            </p>
-            <p>
-              What does <em>essen</em> add to the meaning?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <em>essen</em> = to eat.
-              </p>
-              <p>
-                So <strong>das Mittagessen</strong> = midday meal = lunch.
-              </p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>das Abendbrot</td>
-                <td>dinner (evening bread)</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Mittagessen</td>
-                <td>lunch</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Essen</td>
-                <td>food, meal</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Mahlzeit</td>
-                <td>meal</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>die Hauptmahlzeit</td>
-                <td>main meal</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>das Normalfrühstück</td>
-                <td>standard breakfast</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Frühstücksangebot</td>
-                <td>breakfast menu</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Frühstücksbüfett</td>
-                <td>breakfast buffet</td>
-                <td>das</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>das Büffet</td>
-                <td>buffet</td>
-                <td>das</td>
-                <td>-s</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Fruit</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>der Apfel</td>
-                <td>apple</td>
-                <td>der</td>
-                <td>-"</td>
-              </tr>
-              <tr>
-                <td>die Ananas</td>
-                <td>pineapple</td>
-                <td>die</td>
-                <td>-se</td>
-              </tr>
-              <tr>
-                <td>die Aprikose</td>
-                <td>apricot</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Banane</td>
-                <td>banana</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Birne</td>
-                <td>pear</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Erdbeere</td>
-                <td>strawberry</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Frucht</td>
-                <td>fruit (individual)</td>
-                <td>die</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>die Haselnuss</td>
-                <td>hazelnut</td>
-                <td>die</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>die Kirsche</td>
-                <td>cherry</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Kiwi</td>
-                <td>kiwi</td>
-                <td>die</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>die Limette</td>
-                <td>lime</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Mango</td>
-                <td>mango</td>
-                <td>die</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>die Melone</td>
-                <td>melon</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Nektarine</td>
-                <td>nectarine</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Nuss</td>
-                <td>nut</td>
-                <td>die</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>das Obst</td>
-                <td>fruit (collective)</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Obstsalat</td>
-                <td>fruit salad</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Orange</td>
-                <td>orange</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Pflaume</td>
-                <td>plum</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Traube</td>
-                <td>grape</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Weintrauben</td>
-                <td>wine grapes</td>
-                <td>die</td>
-                <td>Pl.</td>
-              </tr>
-              <tr>
-                <td>die Zitrone</td>
-                <td>lemon</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-compare">
-            <p>
-              <strong>das Obst</strong> vs. <strong>die Frucht</strong>
-            </p>
-            <ul className="lrn-list">
-              <li>
-                <strong>das Obst</strong> = fruit as a food category (uncountable, like "fruit" in
-                English)
-              </li>
-              <li>
-                <strong>die Frucht</strong> = a single fruit (countable)
-              </li>
-            </ul>
-          </div>
-
-          <h3>Vegetables</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              You know <strong>das Gemüse</strong> = vegetables. What do you think{' '}
-              <strong>der Gemüsehändler</strong> means?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>Händler = dealer/seller. So der Gemüsehändler = vegetable seller.</p>
-              <p>The article follows Händler (der), not Gemüse (das).</p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>die Bohnen</td>
-                <td>beans</td>
-                <td>die</td>
-                <td>Pl.</td>
-              </tr>
-              <tr>
-                <td>die Erbse</td>
-                <td>pea</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>das Gemüse</td>
-                <td>vegetables</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Gemüsehändler</td>
-                <td>vegetable seller</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Karotte</td>
-                <td>carrot</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>der Knoblauch</td>
-                <td>garlic</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Möhre</td>
-                <td>carrot</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>der Rotkohl</td>
-                <td>red cabbage</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Rotkraut</td>
-                <td>red cabbage</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Salzkartoffel</td>
-                <td>boiled potato</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Tomate</td>
-                <td>tomato</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Zwiebel</td>
-                <td>onion</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-compare">
-            <p>
-              <strong>die Karotte</strong> vs. <strong>die Möhre</strong>
-            </p>
-            <ul className="lrn-list">
-              <li>Both mean carrot.</li>
-              <li>
-                <strong>Karotte</strong> is more standard German.
-              </li>
-              <li>
-                <strong>Möhre</strong> is regional (used in northern Germany).
-              </li>
-            </ul>
-          </div>
-
-          <h3>Meat, Fish and Dairy</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              You know <strong>der Fisch</strong> = fish. What article does{' '}
-              <strong>Fischgericht</strong> take?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <em>Gericht</em> = das Gericht (dish). The last word determines the article.
-              </p>
-              <p>
-                So: <strong>das Fischgericht</strong>.
-              </p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>das Fleisch</td>
-                <td>meat</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Fischgericht</td>
-                <td>fish dish</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>der Fisch</td>
-                <td>fish</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Forelle</td>
-                <td>trout</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>das Huhn</td>
-                <td>chicken</td>
-                <td>das</td>
-                <td>-"er</td>
-              </tr>
-              <tr>
-                <td>das Hühnerfilet</td>
-                <td>chicken fillet</td>
-                <td>das</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>der Lachs</td>
-                <td>salmon</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Leberwurst</td>
-                <td>liver sausage</td>
-                <td>die</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>das Rind</td>
-                <td>beef</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>der Rindergulasch</td>
-                <td>beef goulash</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Salami</td>
-                <td>salami</td>
-                <td>die</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>die Sardine</td>
-                <td>sardine</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>der Schinken</td>
-                <td>ham</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Schnitzel</td>
-                <td>cutlet, schnitzel</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Schweinebraten</td>
-                <td>roast pork</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Schweinslende</td>
-                <td>pork tenderloin</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>das Steak</td>
-                <td>steak</td>
-                <td>das</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>der Steinbutt</td>
-                <td>turbot</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Wurst</td>
-                <td>sausage</td>
-                <td>die</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>die Wurstware</td>
-                <td>sausage goods</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>der Käse</td>
-                <td>cheese</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Käseauswahl</td>
-                <td>cheese selection</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>der Frischkäse</td>
-                <td>fresh cheese</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Schnittkäse</td>
-                <td>slicing cheese</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der/das Joghurt</td>
-                <td>yoghurt</td>
-                <td>der/das</td>
-                <td>-(s)</td>
-              </tr>
-              <tr>
-                <td>das Milchprodukt</td>
-                <td>dairy product</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Sahne</td>
-                <td>cream</td>
-                <td>die</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Schlagsahne</td>
-                <td>whipped cream</td>
-                <td>die</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Bread and Baked Goods</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              You see <strong>das Vollkornbrot</strong> in a bakery. <em>Voll</em> = full,{' '}
-              <em>Korn</em> = grain.
-            </p>
-            <p>What type of bread is it?</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <strong>das Vollkornbrot</strong> = wholemeal bread (bread made from whole grain).
-              </p>
-              <p>
-                German bakeries commonly list Weißbrot, Schwarzbrot, and Vollkornbrot as options.
-              </p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>das Brot</td>
-                <td>bread</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Schwarzbrot</td>
-                <td>black bread</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Toastbrot</td>
-                <td>toast</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Vollkornbrot</td>
-                <td>wholemeal bread</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Weißbrot</td>
-                <td>white bread</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Backware</td>
-                <td>pastries, baked goods</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>der Apfelkuchen</td>
-                <td>apple cake</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Kuchen</td>
-                <td>cake</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Sahnetorte</td>
-                <td>cream cake</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Torte</td>
-                <td>gateau, layer cake</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Erdbeersahnetorte</td>
-                <td>strawberry cream cake</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Notice that all bread types above are <strong>das</strong>: das Brot, das Schwarzbrot,
-              das Weißbrot, das Vollkornbrot, das Toastbrot.
-            </p>
-            <p>
-              The compound article follows the last word. Brot = das, so all Brot compounds = das.
-            </p>
-            <p>Cakes are different: Kuchen = der, Torte = die.</p>
-          </div>
-
-          <h3>Drinks</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              What do you think <strong>die Weinschorle</strong> is? <em>Wein</em> = wine.{' '}
-              <em>Schorle</em> = sparkling mix.
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                die Weinschorle = wine mixed with sparkling mineral water. Common in Germany,
-                especially in summer.
-              </p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>das Getränk</td>
-                <td>drink</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Erfrischungsgetränk</td>
-                <td>refreshing drink</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>der Apfelsaft</td>
-                <td>apple juice</td>
-                <td>der</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>der Apfelwein</td>
-                <td>cider</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>der Champagner</td>
-                <td>champagne</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Likör</td>
-                <td>liqueur</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Mineralwasser</td>
-                <td>mineral water</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Rotwein</td>
-                <td>red wine</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>der Rum</td>
-                <td>rum</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Saft</td>
-                <td>juice</td>
-                <td>der</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>das Wasser</td>
-                <td>water</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Wein</td>
-                <td>wine</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Weinschorle</td>
-                <td>wine with sparkling water</td>
-                <td>die</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Weißwein</td>
-                <td>white wine</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Many drinks above are <strong>der</strong> (Saft, Wein, Apfelsaft, Orangensaft,
-              Rotwein, Weißwein). Why?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Der Saft (juice) and der Wein (wine) are both masculine. Compound drinks inherit
-                their article from the last word.
-              </p>
-              <p>
-                Apfelsaft = Apfel + Saft (der) = der Apfelsaft. Rotwein = rot + Wein (der) = der
-                Rotwein.
-              </p>
-              <p>Knowing der Saft and der Wein unlocks six more compounds automatically.</p>
-            </details>
-          </div>
-
-          <h3>Seasonings and Basics</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>die Butter</td>
-                <td>butter</td>
-                <td>die</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Ei</td>
-                <td>egg</td>
-                <td>das</td>
-                <td>-er</td>
-              </tr>
-              <tr>
-                <td>der Essig</td>
-                <td>vinegar</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>der Honig</td>
-                <td>honey</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Margarine</td>
-                <td>margarine</td>
-                <td>die</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Marmelade</td>
-                <td>marmalade, jam</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>das Öl</td>
-                <td>oil</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>der Pfeffer</td>
-                <td>pepper</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Quark</td>
-                <td>cottage cheese</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Rührei</td>
-                <td>scrambled egg</td>
-                <td>das</td>
-                <td>-er</td>
-              </tr>
-              <tr>
-                <td>das Salz</td>
-                <td>salt</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Zucker</td>
-                <td>sugar</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Restaurant and Ordering</h3>
-          <p>
-            You use these phrases when you sit down at a restaurant, order food, or pay the bill.
-          </p>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>der Appetit</td>
-                <td>appetite</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Auswahl</td>
-                <td>choice, selection</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>das Gericht</td>
-                <td>dish</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Hauptgericht</td>
-                <td>main dish</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Nachspeise</td>
-                <td>dessert</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Speisekarte</td>
-                <td>menu</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Suppe</td>
-                <td>soup</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>der Suppenteller</td>
-                <td>soup plate</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Tomatensuppe</td>
-                <td>tomato soup</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Vorspeise</td>
-                <td>starter</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Rechnung</td>
-                <td>bill, check</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>der Service</td>
-                <td>service</td>
-                <td>der</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>die Serviette</td>
-                <td>napkin</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Cutlery and Tableware</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              You know <strong>das Glas</strong> = glass. What article does{' '}
-              <strong>Wasserglas</strong> take?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                The article of a compound follows the last word. Glas = das, so{' '}
-                <strong>das Wasserglas</strong>.
-              </p>
-            </details>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              <strong>Compound noun article rule:</strong> the article always follows the last word.
-            </p>
-            <ul className="lrn-list">
-              <li>
-                Stadt (die) + Plan (der) = <strong>der</strong> Stadtplan
-              </li>
-              <li>
-                Wasser (das) + Glas (das) = <strong>das</strong> Wasserglas
-              </li>
-              <li>
-                Zimmer (das) + Schlüssel (der) = <strong>der</strong> Zimmerschlüssel
-              </li>
-            </ul>
-            <p>Learn this rule once. It applies to every compound noun in German.</p>
-          </div>
-
-          <h3>Quantities and Measurements</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>You are at a market. The seller says: "Das macht zwei Euro, bitte passend."</p>
-            <p>
-              What does <strong>passend</strong> mean here?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <strong>passend</strong> = exact (money). The seller asks you to pay the exact
-                amount.
-              </p>
-              <p>A useful word when you want to say you do not have change.</p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Beispiel</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>das Gramm</td>
-                <td>gram</td>
-                <td>200 Gramm Butter</td>
-              </tr>
-              <tr>
-                <td>das Kilo</td>
-                <td>kilogram</td>
-                <td>ein Kilo Äpfel</td>
-              </tr>
-              <tr>
-                <td>das Pfund</td>
-                <td>pound (0.5 kg)</td>
-                <td>ein Pfund Butter</td>
-              </tr>
-              <tr>
-                <td>die Menge</td>
-                <td>quantity</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Maß</td>
-                <td>measure</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Scheibe</td>
-                <td>slice</td>
-                <td>zwei Scheiben Brot</td>
-              </tr>
-              <tr>
-                <td>die Tube</td>
-                <td>tube</td>
-                <td>eine Tube Tomatenmark</td>
-              </tr>
-              <tr>
-                <td>das Bund</td>
-                <td>bunch</td>
-                <td>ein Bund Petersilie</td>
-              </tr>
-              <tr>
-                <td>der Kasten</td>
-                <td>crate, box</td>
-                <td>ein Kasten Bier</td>
-              </tr>
-              <tr>
-                <td>(ein) paar</td>
-                <td>a few</td>
-                <td>ein paar Orangen</td>
-              </tr>
-              <tr>
-                <td>das Prozent</td>
-                <td>percent</td>
-                <td>10 Prozent</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Shopping Vocabulary</h3>
-          <p>
-            You use these words when discussing food preferences, reading labels, or talking about
-            eating habits with someone.
-          </p>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>die Abneigung</td>
-                <td>aversion, dislike</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>die Ernährung</td>
-                <td>nutrition, diet</td>
-                <td>die</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Essgewohnheit</td>
-                <td>eating habit</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>das Lebensmittel</td>
-                <td>food item</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Nahrungsmittel</td>
-                <td>food, aliment</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Verpackung</td>
-                <td>packaging, wrapping</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>der Vegetarier</td>
-                <td>vegetarian (male)</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Kunde</td>
-                <td>customer (male)</td>
-                <td>der</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Kundin</td>
-                <td>customer (female)</td>
-                <td>die</td>
-                <td>-nen</td>
-              </tr>
-              <tr>
-                <td>passend</td>
-                <td>exact (of money)</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>sonst</td>
-                <td>otherwise, anything else</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Food Adjectives and Taste</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              Which of these tastes is <em>not</em> a basic food taste: salzig, scharf, sauer, süß,
-              ruhig?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <strong>ruhig</strong> = calm, peaceful. It is not a taste word at all.
-              </p>
-              <p>
-                The four basic food taste adjectives: salzig (salty), scharf (spicy), sauer (sour),
-                süß (sweet).
-              </p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Beispiel</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ausgezeichnet</td>
-                <td>excellent</td>
-                <td>Die Suppe schmeckt ausgezeichnet.</td>
-              </tr>
-              <tr>
-                <td>beliebt</td>
-                <td>popular</td>
-                <td>Äpfel sind sehr beliebt.</td>
-              </tr>
-              <tr>
-                <td>fein</td>
-                <td>fine, delicate</td>
-                <td>feine Erbsen</td>
-              </tr>
-              <tr>
-                <td>fett</td>
-                <td>fat, fatty</td>
-                <td>fettes Fleisch</td>
-              </tr>
-              <tr>
-                <td>frisch</td>
-                <td>fresh</td>
-                <td>Das Brot ist frisch.</td>
-              </tr>
-              <tr>
-                <td>gekocht</td>
-                <td>boiled, cooked</td>
-                <td>gekochtes Ei</td>
-              </tr>
-              <tr>
-                <td>gemischt</td>
-                <td>mixed</td>
-                <td>gemischter Salat</td>
-              </tr>
-              <tr>
-                <td>gesund</td>
-                <td>healthy</td>
-                <td>gesunde Ernährung</td>
-              </tr>
-              <tr>
-                <td>gepresst</td>
-                <td>pressed</td>
-                <td>frisch gepresst</td>
-              </tr>
-              <tr>
-                <td>grün</td>
-                <td>green</td>
-                <td>grüner Salat</td>
-              </tr>
-              <tr>
-                <td>heiß</td>
-                <td>hot</td>
-                <td>heißer Tee</td>
-              </tr>
-              <tr>
-                <td>köstlich</td>
-                <td>delicious</td>
-                <td>Das Essen ist köstlich.</td>
-              </tr>
-              <tr>
-                <td>lecker</td>
-                <td>delicious, tasty</td>
-                <td>Das schmeckt lecker!</td>
-              </tr>
-              <tr>
-                <td>natur</td>
-                <td>plain, natural</td>
-                <td>Joghurt natur</td>
-              </tr>
-              <tr>
-                <td>reichhaltig</td>
-                <td>rich, substantial</td>
-                <td>reichhaltiges Frühstück</td>
-              </tr>
-              <tr>
-                <td>roh</td>
-                <td>raw, uncooked</td>
-                <td>rohes Gemüse</td>
-              </tr>
-              <tr>
-                <td>salzig</td>
-                <td>salty</td>
-                <td>salzige Snacks</td>
-              </tr>
-              <tr>
-                <td>sauer</td>
-                <td>sour</td>
-                <td>Die Milch ist sauer.</td>
-              </tr>
-              <tr>
-                <td>scharf</td>
-                <td>spicy, hot</td>
-                <td>scharfe Salami</td>
-              </tr>
-              <tr>
-                <td>schrecklich</td>
-                <td>terrible, horrible</td>
-                <td>Das Essen ist schrecklich.</td>
-              </tr>
-              <tr>
-                <td>süß</td>
-                <td>sweet</td>
-                <td>süße Pralinen</td>
-              </tr>
-              <tr>
-                <td>toll</td>
-                <td>great, fantastic</td>
-                <td>ein tolles Büffet</td>
-              </tr>
-              <tr>
-                <td>traditionell</td>
-                <td>traditional</td>
-                <td>traditionelle Küche</td>
-              </tr>
-              <tr>
-                <td>unfreundlich</td>
-                <td>unfriendly</td>
-                <td>unfreundlicher Service</td>
-              </tr>
-              <tr>
-                <td>ungenießbar</td>
-                <td>inedible, uneatable</td>
-                <td>Das ist ungenießbar.</td>
-              </tr>
-              <tr>
-                <td>ungesund</td>
-                <td>unhealthy</td>
-                <td>ungesunde Ernährung</td>
-              </tr>
-              <tr>
-                <td>vegetarisch</td>
-                <td>vegetarian</td>
-                <td>vegetarisches Gericht</td>
-              </tr>
-              <tr>
-                <td>warm</td>
-                <td>warm</td>
-                <td>warmes Frühstück</td>
-              </tr>
-              <tr>
-                <td>zart</td>
-                <td>tender, fine</td>
-                <td>zarte Pralinen</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-compare">
-            <p>
-              <strong>lecker</strong> vs. <strong>köstlich</strong>
-            </p>
-            <ul className="lrn-list">
-              <li>
-                <strong>lecker</strong> = casual, everyday "tasty". Use it with friends: Das
-                schmeckt lecker!
-              </li>
-              <li>
-                <strong>köstlich</strong> = more formal or emphatic "delicious". Use it in a
-                restaurant review or formal compliment.
-              </li>
-            </ul>
-          </div>
-
-          <h3>Cooking Verbs</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Notiz</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>bestellen</td>
-                <td>to order</td>
-                <td>im Restaurant</td>
-              </tr>
-              <tr>
-                <td>einkaufen</td>
-                <td>to shop, to buy</td>
-                <td>Nahrungsmittel einkaufen</td>
-              </tr>
-              <tr>
-                <td>mischen</td>
-                <td>to mix</td>
-                <td>den Wein mit Wasser mischen</td>
-              </tr>
-              <tr>
-                <td>schmecken</td>
-                <td>to taste</td>
-                <td>Das schmeckt gut.</td>
-              </tr>
-              <tr>
-                <td>servieren</td>
-                <td>to serve</td>
-                <td>das Essen servieren</td>
-              </tr>
-              <tr>
-                <td>auswählen</td>
-                <td>to choose, to pick</td>
-                <td>Wählen Sie aus.</td>
-              </tr>
-              <tr>
-                <td>bestehen aus</td>
-                <td>to consist of</td>
-                <td>bestehen aus + Dativ</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does <strong>bestehen</strong> take the dative? Think about what the phrase means.
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <em>aus</em> is a preposition that always triggers the dative case in German.
-              </p>
-              <p>Example: Das Frühstück besteht aus Brot, Marmelade und Butter.</p>
-              <p>
-                Rule: <em>aus</em> always takes dative.
-              </p>
-            </details>
-          </div>
-
-          <h3>Sweets and Snacks</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              You know <strong>die Schokolade</strong> = chocolate. What do you think{' '}
-              <strong>die Vollmilchschokolade</strong> is?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>Vollmilch = whole milk. So die Vollmilchschokolade = milk chocolate.</p>
-              <p>
-                German chocolate bars often specify: Vollmilch (milk), Zartbitter (dark), or weiß
-                (white).
-              </p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>das Goldbärchen</td>
-                <td>type of gummy candy</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Nougatpralinen</td>
-                <td>nougat pralines</td>
-                <td>die</td>
-                <td>Pl.</td>
-              </tr>
-              <tr>
-                <td>die Pralinen</td>
-                <td>pralines, chocolates</td>
-                <td>die</td>
-                <td>Pl.</td>
-              </tr>
-              <tr>
-                <td>die Schokolade</td>
-                <td>chocolate</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Süßigkeit</td>
-                <td>sweet, candy</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>die Vollmilchschokolade</td>
-                <td>milk chocolate</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Frequency and Eating Habits</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Beispiel</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>einmal</td>
-                <td>once</td>
-                <td>einmal pro Woche</td>
-              </tr>
-              <tr>
-                <td>zweimal</td>
-                <td>twice</td>
-                <td>zweimal täglich</td>
-              </tr>
-              <tr>
-                <td>dreimal</td>
-                <td>three times</td>
-                <td>dreimal am Tag</td>
-              </tr>
-              <tr>
-                <td>manchmal</td>
-                <td>sometimes</td>
-                <td>manchmal esse ich Pizza.</td>
-              </tr>
-              <tr>
-                <td>nie</td>
-                <td>never</td>
-                <td>Ich esse nie Fleisch.</td>
-              </tr>
-              <tr>
-                <td>normalerweise</td>
-                <td>normally</td>
-                <td>normalerweise esse ich um 12 Uhr.</td>
-              </tr>
-              <tr>
-                <td>selten</td>
-                <td>rarely</td>
-                <td>Ich trinke selten Alkohol.</td>
-              </tr>
-              <tr>
-                <td>wie oft?</td>
-                <td>how often?</td>
-                <td>Wie oft essen Sie aus?</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              <strong>Frequency adverbs in German</strong>
-            </p>
-            <p>
-              German forms "X times" by adding <em>-mal</em> to the number.
-            </p>
-            <ul className="lrn-list">
-              <li>ein + mal = einmal (once)</li>
-              <li>zwei + mal = zweimal (twice)</li>
-              <li>drei + mal = dreimal (three times)</li>
-              <li>fünf + mal = fünfmal (five times)</li>
-            </ul>
-            <p>This pattern is fully regular.</p>
-          </div>
-
-          <h3>Other Food and Culture Words</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>der Hamburger</td>
-                <td>hamburger</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Hunger</td>
-                <td>hunger</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Kochen</td>
-                <td>cooking (the activity)</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Salat</td>
-                <td>salad</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Pizza</td>
-                <td>pizza</td>
-                <td>die</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>die Pommes frites</td>
-                <td>French fries, chips</td>
-                <td>die</td>
-                <td>Pl.</td>
-              </tr>
-              <tr>
-                <td>die Spaghetti</td>
-                <td>spaghetti</td>
-                <td>die</td>
-                <td>Pl.</td>
-              </tr>
-              <tr>
-                <td>das Tomatenmark</td>
-                <td>tomato paste</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Gemeinsamkeit</td>
-                <td>similarity</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>der Gegensatz</td>
-                <td>contrast</td>
-                <td>der</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>die Meinung</td>
-                <td>opinion</td>
-                <td>die</td>
-                <td>-en</td>
-              </tr>
-              <tr>
-                <td>die Sympathie</td>
-                <td>sympathy, liking</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>der Unterschied</td>
-                <td>difference</td>
-                <td>der</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Vorliebe</td>
-                <td>preference</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>ursprünglich</td>
-                <td>originally</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>wirklich</td>
-                <td>really</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>zur Zeit</td>
-                <td>at the moment</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>jung</td>
-                <td>young</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>besonders</td>
-                <td>especially, particularly</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>genug</td>
-                <td>enough</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>früher</td>
-                <td>in the past, formerly</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>früh</td>
-                <td>early</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>richtig</td>
-                <td>really, properly</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>ruhig</td>
-                <td>calm, peaceful</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>seltsam</td>
-                <td>strange, curious</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>schwer</td>
-                <td>difficult, heavy</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>ernst</td>
-                <td>serious (erst mal = first of all)</td>
-                <td>-</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </>,
-
-      <>
-        <div id="lrn-section-19" className="lrn-section">
-          <div className="lrn-header">
-            <h2>Extended Food Culture and Cooking</h2>
-          </div>
-
-          <h3>Cooking Actions and Methods</h3>
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>
-              Look at <strong>frittieren</strong>. Does it look like any word in English?
-            </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <strong>frittieren</strong> = to fry (in deep fat). It looks like "fritter".
-              </p>
-              <p>Pommes frittes (French fries) come from this same root.</p>
-            </details>
-          </div>
-
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Notiz</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>enthalten [er enthält]</td>
-                <td>to contain</td>
-                <td>irregular; Pommes frites enthalten viel Fett.</td>
-              </tr>
-              <tr>
-                <td>frittieren</td>
-                <td>to deep-fry</td>
-                <td>Kartoffelscheiben frittieren</td>
-              </tr>
-              <tr>
-                <td>produzieren</td>
-                <td>to produce</td>
-                <td>Lebensmittel produzieren</td>
-              </tr>
-              <tr>
-                <td>sauber machen</td>
-                <td>to clean</td>
-                <td>die Champignons sauber machen</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Ingredients and Cooking Items</h3>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Artikel</th>
-                <th>Plural</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>die Brühe</td>
-                <td>broth, stock</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>der Champignon</td>
-                <td>mushroom</td>
-                <td>der</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>der/das Curry</td>
-                <td>curry</td>
-                <td>der/das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>das Fett</td>
-                <td>fat (noun)</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>die Gans</td>
-                <td>goose</td>
-                <td>die</td>
-                <td>-"e</td>
-              </tr>
-              <tr>
-                <td>das Gewürz</td>
-                <td>spice</td>
-                <td>das</td>
-                <td>-e</td>
-              </tr>
-              <tr>
-                <td>das Hauptnahrungsmittel</td>
-                <td>staple food</td>
-                <td>das</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>die Kartoffelchips</td>
-                <td>crisps, chips</td>
-                <td>die</td>
-                <td>Pl.</td>
-              </tr>
-              <tr>
-                <td>die Kartoffelscheibe</td>
-                <td>thin potato slice</td>
-                <td>die</td>
-                <td>-n</td>
-              </tr>
-              <tr>
-                <td>die Petersilie</td>
-                <td>parsley</td>
-                <td>die</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Porree</td>
-                <td>leek</td>
-                <td>der</td>
-                <td>-s</td>
-              </tr>
-              <tr>
-                <td>der Safran</td>
-                <td>saffron</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Streifen</td>
-                <td>strip, long slice</td>
-                <td>der</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h3>Food History and Culture Words</h3>
-          <p>Saffron (Safran) followed the spice trade route through Venice (Venedig).</p>
-          <table className="lrn-table">
-            <thead>
-              <tr>
-                <th>Deutsch</th>
-                <th>Englisch</th>
-                <th>Notiz</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ab</td>
-                <td>since (time)</td>
-                <td>ab dem 17. Jahrhundert</td>
-              </tr>
-              <tr>
-                <td>die Ahnung</td>
-                <td>idea, clue</td>
-                <td>Ich habe keine Ahnung. (I have no idea.)</td>
-              </tr>
-              <tr>
-                <td>anders</td>
-                <td>differently, in another way</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>Argentinien</td>
-                <td>Argentina</td>
-                <td>proper noun</td>
-              </tr>
-              <tr>
-                <td>arm</td>
-                <td>poor</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>Asien</td>
-                <td>Asia</td>
-                <td>proper noun</td>
-              </tr>
-              <tr>
-                <td>danach</td>
-                <td>after that, afterwards</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>dazu</td>
-                <td>to it, in addition</td>
-                <td>= hinzu</td>
-              </tr>
-              <tr>
-                <td>dünn</td>
-                <td>thin, fine</td>
-                <td>dünne Scheiben schneiden</td>
-              </tr>
-              <tr>
-                <td>etwa</td>
-                <td>approximately</td>
-                <td>etwa 20 Minuten</td>
-              </tr>
-              <tr>
-                <td>Europa</td>
-                <td>Europe</td>
-                <td>proper noun</td>
-              </tr>
-              <tr>
-                <td>die Form</td>
-                <td>form, shape</td>
-                <td>in Form von Kartoffelchips</td>
-              </tr>
-              <tr>
-                <td>hinzu</td>
-                <td>in addition, to it</td>
-                <td>= dazu</td>
-              </tr>
-              <tr>
-                <td>das Kaffeehaus</td>
-                <td>cafe</td>
-                <td>das Kaffeehaus, -"er</td>
-              </tr>
-              <tr>
-                <td>der Nachteil</td>
-                <td>disadvantage</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>sauber</td>
-                <td>clean, tidy</td>
-                <td>-</td>
-              </tr>
-              <tr>
-                <td>der Seefahrer</td>
-                <td>sailor, seafarer</td>
-                <td>der Seefahrer, -</td>
-              </tr>
-              <tr>
-                <td>sondern</td>
-                <td>but (after a negative)</td>
-                <td>nicht ... sondern ...</td>
-              </tr>
-              <tr>
-                <td>Venedig</td>
-                <td>Venice</td>
-                <td>proper noun</td>
-              </tr>
-              <tr>
-                <td>verschieden</td>
-                <td>various, different</td>
-                <td>auf verschiedene Weise</td>
-              </tr>
-              <tr>
-                <td>die Weise</td>
-                <td>way, manner</td>
-                <td>auf verschiedene Weise</td>
-              </tr>
-              <tr>
-                <td>das Weihnachten</td>
-                <td>Christmas</td>
-                <td>zu Weihnachten = for Christmas</td>
-              </tr>
-              <tr>
-                <td>weltbekannt</td>
-                <td>world-famous</td>
-                <td>-</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does German use <strong>ab</strong> to mean "since" when talking about time?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                <em>ab</em> signals the starting point of something that continues.
-              </p>
-              <p>Example: ab dem 17. Jahrhundert = since the 17th century (and continuing).</p>
-              <p>
-                It is different from <em>seit</em>, which also means "since" but focuses on
-                something still ongoing.
-              </p>
-            </details>
-          </div>
-        </div>
-      </>,
-
-      <>
         <div id="lrn-section-20">
           <h2>Quantities and Prices</h2>
 
@@ -5580,7 +3531,7 @@ const config = {
     },
     {
       q: 'ELABORATE: Why does German use <em>mögen</em> for preferences but <em>möchten</em> for requests? Explain the difference.',
-      a: '<em>Mögen</em> describes a stable feeling or general preference: <em>Ich mag Kaffee</em> = I always like coffee. <em>Möchten</em> is the subjunctive form of <em>mögen</em> and describes a current, specific wish: <em>Ich möchte einen Kaffee</em> = I want a coffee right now. The rule: use <em>mögen</em> to describe how you feel about something in general; use <em>möchten</em> when making a polite request or expressing an immediate desire.'
+      a: '<em>Mögen</em> describes a stable feeling or general preference: <em>Ich mag Kaffee</em> = I always like coffee. <em>Möchten</em> is the polite "would like" form of <em>mögen</em> and describes a current, specific wish: <em>Ich möchte einen Kaffee</em> = I want a coffee right now. The rule: use <em>mögen</em> to describe how you feel about something in general; use <em>möchten</em> when making a polite request or expressing an immediate desire.'
     },
     {
       q: 'Fill in the correct adjective form: "Ich esse ___ Schinken." (roh, masculine accusative, no article)',
@@ -6508,6 +4459,221 @@ const config = {
             </tr>
           </tbody>
         </table>
+      </>,
+      <>
+        <h2>Adjektive für Essen: Food and Taste Adjectives</h2>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Deutsch</th>
+              <th>Englisch</th>
+              <th>Beispiel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ausgezeichnet</td>
+              <td>excellent</td>
+              <td>Die Suppe schmeckt ausgezeichnet.</td>
+            </tr>
+            <tr>
+              <td>beliebt</td>
+              <td>popular</td>
+              <td>Äpfel sind sehr beliebt.</td>
+            </tr>
+            <tr>
+              <td>fein</td>
+              <td>fine, delicate</td>
+              <td>feine Erbsen</td>
+            </tr>
+            <tr>
+              <td>fett</td>
+              <td>fat, fatty</td>
+              <td>fettes Fleisch</td>
+            </tr>
+            <tr>
+              <td>frisch</td>
+              <td>fresh</td>
+              <td>Das Brot ist frisch.</td>
+            </tr>
+            <tr>
+              <td>gekocht</td>
+              <td>boiled, cooked</td>
+              <td>gekochtes Ei</td>
+            </tr>
+            <tr>
+              <td>gemischt</td>
+              <td>mixed</td>
+              <td>gemischter Salat</td>
+            </tr>
+            <tr>
+              <td>gesund</td>
+              <td>healthy</td>
+              <td>gesunde Ernährung</td>
+            </tr>
+            <tr>
+              <td>gepresst</td>
+              <td>pressed</td>
+              <td>frisch gepresst</td>
+            </tr>
+            <tr>
+              <td>grün</td>
+              <td>green</td>
+              <td>grüner Salat</td>
+            </tr>
+            <tr>
+              <td>heiß</td>
+              <td>hot</td>
+              <td>heißer Tee</td>
+            </tr>
+            <tr>
+              <td>köstlich</td>
+              <td>delicious</td>
+              <td>Das Essen ist köstlich.</td>
+            </tr>
+            <tr>
+              <td>lecker</td>
+              <td>delicious, tasty</td>
+              <td>Das schmeckt lecker!</td>
+            </tr>
+            <tr>
+              <td>natur</td>
+              <td>plain, natural</td>
+              <td>Joghurt natur</td>
+            </tr>
+            <tr>
+              <td>reichhaltig</td>
+              <td>rich, substantial</td>
+              <td>reichhaltiges Frühstück</td>
+            </tr>
+            <tr>
+              <td>roh</td>
+              <td>raw, uncooked</td>
+              <td>rohes Gemüse</td>
+            </tr>
+            <tr>
+              <td>salzig</td>
+              <td>salty</td>
+              <td>salzige Snacks</td>
+            </tr>
+            <tr>
+              <td>sauer</td>
+              <td>sour</td>
+              <td>Die Milch ist sauer.</td>
+            </tr>
+            <tr>
+              <td>scharf</td>
+              <td>spicy, hot</td>
+              <td>scharfe Salami</td>
+            </tr>
+            <tr>
+              <td>schrecklich</td>
+              <td>terrible, horrible</td>
+              <td>Das Essen ist schrecklich.</td>
+            </tr>
+            <tr>
+              <td>süß</td>
+              <td>sweet</td>
+              <td>süße Pralinen</td>
+            </tr>
+            <tr>
+              <td>toll</td>
+              <td>great, fantastic</td>
+              <td>ein tolles Büffet</td>
+            </tr>
+            <tr>
+              <td>traditionell</td>
+              <td>traditional</td>
+              <td>traditionelle Küche</td>
+            </tr>
+            <tr>
+              <td>unfreundlich</td>
+              <td>unfriendly</td>
+              <td>unfreundlicher Service</td>
+            </tr>
+            <tr>
+              <td>ungenießbar</td>
+              <td>inedible, uneatable</td>
+              <td>Das ist ungenießbar.</td>
+            </tr>
+            <tr>
+              <td>ungesund</td>
+              <td>unhealthy</td>
+              <td>ungesunde Ernährung</td>
+            </tr>
+            <tr>
+              <td>vegetarisch</td>
+              <td>vegetarian</td>
+              <td>vegetarisches Gericht</td>
+            </tr>
+            <tr>
+              <td>warm</td>
+              <td>warm</td>
+              <td>warmes Frühstück</td>
+            </tr>
+            <tr>
+              <td>zart</td>
+              <td>tender, fine</td>
+              <td>zarte Pralinen</td>
+            </tr>
+          </tbody>
+        </table>
+      </>,
+      <>
+        <h2>Weitere Lebensmittel: More Food Words</h2>
+        <table className="lrn-table">
+          <thead>
+            <tr>
+              <th>Deutsch</th>
+              <th>Englisch</th>
+              <th>Artikel</th>
+              <th>Plural</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>der Quark</td>
+              <td>cottage cheese</td>
+              <td>der</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>der Knoblauch</td>
+              <td>garlic</td>
+              <td>der</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>der Champignon</td>
+              <td>mushroom</td>
+              <td>der</td>
+              <td>-s</td>
+            </tr>
+            <tr>
+              <td>der Porree</td>
+              <td>leek</td>
+              <td>der</td>
+              <td>-s</td>
+            </tr>
+            <tr>
+              <td>der Safran</td>
+              <td>saffron</td>
+              <td>der</td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </>,
+      <>
+        <h2>Häufigkeit: "X mal" (Times)</h2>
+        <p>German forms "X times" by adding -mal to the number.</p>
+        <ul className="lrn-list">
+          <li>ein + mal = einmal (once)</li>
+          <li>zwei + mal = zweimal (twice)</li>
+          <li>drei + mal = dreimal (three times)</li>
+          <li>fünf + mal = fünfmal (five times)</li>
+        </ul>
+        <p>This pattern is fully regular.</p>
       </>
     ]
   },

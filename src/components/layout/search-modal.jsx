@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
 import { topicComponentMap } from '../../config/registry'
 
 function SearchModal({ isOpen, onClose }) {
@@ -73,139 +72,134 @@ function SearchModal({ isOpen, onClose }) {
     setSelectedIndex(0)
   }, [searchTerm])
 
+  // No entry animation. The panel used to mount at opacity 0 and depend on
+  // framer-motion running an enter tween to become visible — so wherever that
+  // tween did not run (LibreWolf's resist-fingerprinting throttles the timing
+  // APIs motion relies on), the backdrop dimmed the page and the panel stayed
+  // invisible at opacity 0. A search box that only appears if an animation
+  // succeeds is a search box that sometimes does not appear. The fade encoded
+  // nothing, and the design system bans decorative motion, so it is gone: the
+  // panel is now painted by CSS and visible the instant it mounts.
   if (!isOpen) return null
 
   return (
-    <AnimatePresence>
-      <motion.div
-        className="search-modal-overlay"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-        onClick={onClose}
-      >
-        <motion.div
-          className="search-modal"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-          onClick={e => e.stopPropagation()}
-        >
-          <div className="search-modal-header">
-            <input
-              ref={inputRef}
-              type="text"
-              className="search-modal-input"
-              placeholder="Search modules..."
-              value={searchTerm}
-              onChange={e => setSearchTerm(e.target.value)}
-            />
-            <kbd className="search-shortcut">⌘K</kbd>
-          </div>
+    <div
+      className="search-modal-overlay"
+      // Close only on a press that BEGINS on the backdrop. Using onClick meant
+      // the very click that opened the modal (on the magnifier, whose mouseup
+      // lands where the backdrop now is) could close it again on the way back
+      // up — the intermittent half of this bug.
+      onMouseDown={e => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+    >
+      <div className="search-modal" onMouseDown={e => e.stopPropagation()}>
+        <div className="search-modal-header">
+          <input
+            ref={inputRef}
+            type="text"
+            className="search-modal-input"
+            placeholder="Search modules..."
+            value={searchTerm}
+            onChange={e => setSearchTerm(e.target.value)}
+          />
+          <kbd className="search-shortcut">⌘K</kbd>
+        </div>
 
-          <div className="search-results">
-            {filteredTopics.length > 0 ? (
-              filteredTopics.map((topic, index) => (
-                <motion.button
-                  key={topic.slug}
-                  className={`search-result-item ${index === selectedIndex ? 'selected' : ''}`}
-                  onClick={() => handleSelect(topic)}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.15, delay: index * 0.02 }}
-                >
-                  <span className="search-result-title">{topic.title}</span>
-                  {topic.parentSlug && (
-                    <span className="search-result-path">{topic.parentSlug}</span>
-                  )}
-                </motion.button>
-              ))
-            ) : (
-              <div className="search-empty-state" role="status">
-                <div className="se-meta">
-                  <span className="se-echo">
-                    No matches for <b>&ldquo;{searchTerm}&rdquo;</b>
-                  </span>
-                  <span className="se-count">0 / {allTopics.length} indexed</span>
+        <div className="search-results">
+          {filteredTopics.length > 0 ? (
+            filteredTopics.map((topic, index) => (
+              <button
+                key={topic.slug}
+                type="button"
+                className={`search-result-item ${index === selectedIndex ? 'selected' : ''}`}
+                onClick={() => handleSelect(topic)}
+              >
+                <span className="search-result-title">{topic.title}</span>
+                {topic.parentSlug && <span className="search-result-path">{topic.parentSlug}</span>}
+              </button>
+            ))
+          ) : (
+            <div className="search-empty-state" role="status">
+              <div className="se-meta">
+                <span className="se-echo">
+                  No matches for <b>&ldquo;{searchTerm}&rdquo;</b>
+                </span>
+                <span className="se-count">0 / {allTopics.length} indexed</span>
+              </div>
+              <div className="se-empty">
+                <div className="se-glyph">
+                  <svg
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    stroke="rgba(240,240,250,0.55)"
+                    strokeWidth="1.2"
+                    aria-hidden="true"
+                  >
+                    <path d="M22 22 Q22 14 32 14 Q42 14 42 22 Q42 28 36 31 Q32 33 32 38 L32 42" />
+                    <circle cx="32" cy="50" r="1.2" fill="rgba(240,240,250,0.55)" />
+                    <rect
+                      x="6"
+                      y="6"
+                      width="52"
+                      height="52"
+                      stroke="rgba(240,240,250,0.12)"
+                      strokeDasharray="2 4"
+                    />
+                  </svg>
                 </div>
-                <div className="se-empty">
-                  <div className="se-glyph">
-                    <svg
-                      viewBox="0 0 64 64"
-                      fill="none"
-                      stroke="rgba(240,240,250,0.55)"
-                      strokeWidth="1.2"
-                      aria-hidden="true"
-                    >
-                      <path d="M22 22 Q22 14 32 14 Q42 14 42 22 Q42 28 36 31 Q32 33 32 38 L32 42" />
-                      <circle cx="32" cy="50" r="1.2" fill="rgba(240,240,250,0.55)" />
-                      <rect
-                        x="6"
-                        y="6"
-                        width="52"
-                        height="52"
-                        stroke="rgba(240,240,250,0.12)"
-                        strokeDasharray="2 4"
-                      />
-                    </svg>
-                  </div>
-                  <h2 className="se-title">Nothing here matched.</h2>
-                  <p className="se-desc">
-                    The index has {allTopics.length.toLocaleString()} cards but none answer to{' '}
-                    <code>{searchTerm}</code>. Try a shorter query or browse a topic.
-                  </p>
+                <h2 className="se-title">Nothing here matched.</h2>
+                <p className="se-desc">
+                  The index has {allTopics.length.toLocaleString()} cards but none answer to{' '}
+                  <code>{searchTerm}</code>. Try a shorter query or browse a topic.
+                </p>
 
-                  {suggestions.length > 0 && (
-                    <div className="se-suggest">
-                      <div className="se-suggest-h">Try instead</div>
-                      <ul className="se-suggest-list">
-                        {suggestions.map(s => (
-                          <li key={s.slug} onClick={() => handleSelect(s)}>
-                            <span className="label">{s.title}</span>
-                            <span className="kind">
-                              {s.parentSlug?.split('/').pop() || 'Topic'}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  <div className="se-actions">
-                    <button className="se-btn" onClick={() => setSearchTerm('')}>
-                      <span className="num">01</span>Clear query
-                    </button>
-                    <button
-                      className="se-btn"
-                      onClick={() => {
-                        navigate('/')
-                        onClose()
-                      }}
-                    >
-                      <span className="num">02</span>Browse topics
-                    </button>
+                {suggestions.length > 0 && (
+                  <div className="se-suggest">
+                    <div className="se-suggest-h">Try instead</div>
+                    <ul className="se-suggest-list">
+                      {suggestions.map(s => (
+                        <li key={s.slug} onClick={() => handleSelect(s)}>
+                          <span className="label">{s.title}</span>
+                          <span className="kind">{s.parentSlug?.split('/').pop() || 'Topic'}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
+                )}
+
+                <div className="se-actions">
+                  <button className="se-btn" onClick={() => setSearchTerm('')}>
+                    <span className="num">01</span>Clear query
+                  </button>
+                  <button
+                    className="se-btn"
+                    onClick={() => {
+                      navigate('/')
+                      onClose()
+                    }}
+                  >
+                    <span className="num">02</span>Browse topics
+                  </button>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
+        </div>
 
-          <div className="search-modal-footer">
-            <span className="search-hint">
-              <kbd>↑</kbd> <kbd>↓</kbd> Navigate
-            </span>
-            <span className="search-hint">
-              <kbd>Enter</kbd> Select
-            </span>
-            <span className="search-hint">
-              <kbd>Esc</kbd> Close
-            </span>
-          </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
+        <div className="search-modal-footer">
+          <span className="search-hint">
+            <kbd>↑</kbd> <kbd>↓</kbd> Navigate
+          </span>
+          <span className="search-hint">
+            <kbd>Enter</kbd> Select
+          </span>
+          <span className="search-hint">
+            <kbd>Esc</kbd> Close
+          </span>
+        </div>
+      </div>
+    </div>
   )
 }
 

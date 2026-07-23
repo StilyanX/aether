@@ -1,20 +1,29 @@
-/* ─── Theme blocks ─── */
+/* Theme blocks */
+/* Dark = maximum-contrast theme: pure white ink on pure black, per request.
+   Surfaces are true #000 (no elevation grays) and ink is #fff at max. This
+   intentionally overrides the earlier "no pure white text" Mach-band rule (§6)
+   in favour of absolute contrast. */
 [data-theme='dark'] {
   --accent: var(--text-primary);
-  --bg: #18181b;
-  --bg-elevated: #1c1c1f;
-  --bg-surface: #202025;
-  --bg-overlay: #1a1a1e;
-  --bg-rgb: 24 24 27;
-  --base-color: rgb(224 224 228);
-  --text-primary: rgba(224, 224, 228, 1);
-  --text-secondary: rgba(224, 224, 228, 0.55);
-  --text-tertiary: rgba(224, 224, 228, 0.28);
-  --text-disabled: rgba(224, 224, 228, 0.18);
-  --border-subtle: rgba(224, 224, 228, 0.06);
-  --border-default: rgba(224, 224, 228, 0.1);
-  --border-interactive: rgba(224, 224, 228, 0.25);
-  --border-active: rgba(224, 224, 228, 0.55);
+  --bg: #000000;
+  --bg-elevated: #000000;
+  --bg-surface: #000000;
+  --bg-overlay: #000000;
+  --bg-rgb: 0 0 0;
+  --base-color: rgb(255 255 255);
+  --text-primary: rgba(255, 255, 255, 1);
+  --text-secondary: rgba(255, 255, 255, 0.72);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --text-disabled: rgba(255, 255, 255, 0.3);
+  --border-subtle: rgba(255, 255, 255, 0.14);
+  --border-default: rgba(255, 255, 255, 0.26);
+  --border-interactive: rgba(255, 255, 255, 0.6);
+  --border-active: rgba(255, 255, 255, 0.95);
+
+  /* Domain colors: tokens.css literals fall below the 3:1 non-text floor
+     against true black. Lightened, same hue family, to clear the floor. */
+  --domain-physics: #a853ff;
+  --domain-books: #d35959;
 }
 
 [data-theme='light'] {
@@ -33,6 +42,16 @@
   --border-default: rgba(26, 26, 30, 0.28);
   --border-interactive: rgba(26, 26, 30, 0.5);
   --border-active: rgba(26, 26, 30, 0.85);
+
+  /* Domain colors: dark-theme literals (tokens.css) are near-white and
+     fall below 4.5:1 against this theme's light --bg/--bg-elevated.
+     Darkened/saturated, same hue family, to clear the contrast floor. */
+  --domain-linguistics: #5a4a8c;
+  --domain-history: #7a522b;
+  --domain-papers: #4a5a68;
+  --domain-mathematics: #7e6a00;
+  --domain-chemistry: #267a42;
+  --domain-films: #88660f;
 }
 
 [data-theme='sepia'] {
@@ -51,24 +70,16 @@
   --border-default: rgba(59, 47, 30, 0.32);
   --border-interactive: rgba(59, 47, 30, 0.55);
   --border-active: rgba(59, 47, 30, 0.88);
-}
 
-[data-theme='high-contrast'] {
-  --accent: var(--text-primary);
-  --bg: #000000;
-  --bg-elevated: #0a0a0a;
-  --bg-surface: #111111;
-  --bg-overlay: #0d0d0d;
-  --bg-rgb: 0 0 0;
-  --base-color: rgb(255 255 255);
-  --text-primary: rgba(255, 255, 255, 1);
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-tertiary: rgba(255, 255, 255, 0.5);
-  --text-disabled: rgba(255, 255, 255, 0.3);
-  --border-subtle: rgba(255, 255, 255, 0.1);
-  --border-default: rgba(255, 255, 255, 0.2);
-  --border-interactive: rgba(255, 255, 255, 0.5);
-  --border-active: rgba(255, 255, 255, 0.9);
+  /* Domain colors: dark-theme literals (tokens.css) are near-white and
+     fall below 4.5:1 against this theme's light --bg/--bg-elevated.
+     Darkened/saturated, same hue family, to clear the contrast floor. */
+  --domain-linguistics: #5a4a8c;
+  --domain-history: #7a522b;
+  --domain-papers: #4a5a68;
+  --domain-mathematics: #7e6a00;
+  --domain-chemistry: #267a42;
+  --domain-films: #88660f;
 }
 
 /* When Windows Contrast Themes are active, defer entirely to the OS */

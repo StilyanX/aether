@@ -4,19 +4,49 @@ const config = {
   cssPrefix: 'ftw',
   documentTitle: 'Free Time, Weather and Clothing: AETHER',
   learning: {
-    category: 'Unit 7',
+    category: 'Unit 8',
     title: 'Freizeit, Wetter und Kleidung',
     subtitle: 'Hobbies, music, weather, clothing, forecasts, and travel planning',
     sections: [
       <>
         <div id="lrn-section-0">
           <div className="lrn-header">
-            <h2>Why This Module Matters</h2>
+            <h2>Why This Unit Matters</h2>
             <p>Weather and clothing are the core of German small talk.</p>
             <p>
-              This module builds vocabulary for both, and teaches three grammar structures:
-              impersonal constructions with <em>es</em>, dative personal pronouns, and separable
-              verbs.
+              This unit builds vocabulary for weather, seasons, clothing, colours, travel, and free
+              time. It also teaches five grammar structures: impersonal constructions with{' '}
+              <em>es</em>, dative personal pronouns, separable verbs, the perfect tense for the
+              past, and modal verbs.
+            </p>
+          </div>
+
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">How to read the verb notes</span>
+            <p>Each verb shows the case it takes and how to build its past. Here is the key:</p>
+            <p>
+              <strong>+A</strong> means the verb takes an accusative object (the object case from
+              Unit 5). <strong>+D</strong> means it takes a dative object (the receiver case from
+              Unit 6).
+            </p>
+            <p>
+              The square brackets give the perfect-tense form, for example{' '}
+              <em>[er hat getragen]</em> or <em>[er ist umgestiegen]</em>. The perfect tense is
+              taught in full later in this unit.
+            </p>
+          </div>
+
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Informal commands (du)</span>
+            <p>
+              Some dialogues give a command to one friend, like{' '}
+              <em>Nimm deinen Regenschirm mit!</em> or <em>Lass den Regenschirm hier!</em>
+            </p>
+            <p>
+              To command a friend, take the <em>du</em>-form and drop the <em>-st</em> ending:{' '}
+              <em>du nimmst</em> → <em>nimm!</em>, <em>du lässt</em> → <em>lass!</em> Verbs that
+              change their vowel from <em>e</em> to <em>i</em> keep that change and add no extra{' '}
+              <em>-e</em>.
             </p>
           </div>
         </div>
@@ -27,8 +57,8 @@ const config = {
           <h2>Weather Phenomena</h2>
           <p>These words describe what the sky and air are doing right now.</p>
           <p>
-            German uses impersonal constructions for weather: the subject is always{' '}
-            <strong>es</strong> (it).
+            Look at <em>Es regnet</em> (It is raining). The subject is <strong>es</strong> (it).
+            German weather sentences always start this way: the subject is always <em>es</em>.
           </p>
 
           <div className="lrn-predict">
@@ -212,13 +242,8 @@ const config = {
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                <em>Der Regen regnet</em> would mean "the rain rains", grammatically forced and
-                semantically wrong.
-              </p>
-              <p>
-                German grammar requires every sentence to have a subject. Weather has no real actor,
-                so <em>es</em> fills that slot as a placeholder, the same role as "it" in "It is
-                raining."
+                <em>Der Regen regnet</em> would mean "the rain rains", which sounds wrong. The rain
+                is not an actor doing something, so <em>es</em> fills the subject slot instead.
               </p>
             </details>
           </div>
@@ -244,20 +269,6 @@ const config = {
                 means heavy or violent.
               </p>
             </details>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Kälte</span>
-            <div className="lrn-definition-desc">
-              <p>cold (feminine noun, no plural)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Hitze</span>
-            <div className="lrn-definition-desc">
-              <p>heat (feminine noun, no plural)</p>
-            </div>
           </div>
 
           <div className="lrn-definition">
@@ -320,9 +331,12 @@ const config = {
           </div>
 
           <div className="lrn-definition">
-            <span className="lrn-definition-term">leicht bewölkt</span>
+            <span className="lrn-definition-term">bewölkt</span>
             <div className="lrn-definition-desc">
-              <p>somewhat cloudy - a set phrase for mild cloud cover</p>
+              <p>
+                cloudy (adjective) - <em>teilweise bewölkt</em> = partly cloudy,{' '}
+                <em>leicht bewölkt</em> = somewhat cloudy
+              </p>
             </div>
           </div>
 
@@ -341,26 +355,6 @@ const config = {
                 Example: <em>Die Kälte im Winter ist extrem.</em>
               </p>
             </div>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              What is the difference between <em>stark</em> and <em>heftig</em> when describing
-              rain?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Both mean the rain is intense, but <em>heftig</em> is stronger and more dramatic.
-              </p>
-              <p>
-                <em>Es regnet stark</em> means it is raining hard.
-              </p>
-              <p>
-                <em>Ein heftiger Regen</em> implies violent, pouring rain.
-              </p>
-            </details>
           </div>
         </div>
       </>,
@@ -388,6 +382,10 @@ const config = {
             Since all four seasons are masculine, learning their articles is simple. To say "in
             summer" or "in winter," German uses <em>im</em> + season: <em>im Sommer</em>,{' '}
             <em>im Winter</em>, <em>im Herbst</em>, <em>im Frühling</em>.
+          </p>
+          <p>
+            <em>im</em> is just short for <em>in dem</em> (in the), using the dative case you met in
+            Unit 6.
           </p>
 
           <div className="lrn-definition">
@@ -548,8 +546,8 @@ const config = {
             <div className="lrn-definition-desc">
               <p>rain jacket (feminine, plural: Regenjacken)</p>
               <p>
-                <em>Regen</em> (rain) + <em>Jacke</em> (jacket) - a compound noun. Gender follows
-                last word.
+                <em>Regen</em> (rain) + <em>Jacke</em> (jacket). It is feminine because the last
+                word, <em>Jacke</em>, is feminine - the compound-gender rule from Unit 5.
               </p>
             </div>
           </div>
@@ -733,8 +731,9 @@ const config = {
               glasses.
             </p>
             <p>
-              The gender of a compound noun always matches the gender of the last word in the
-              compound.
+              As you learned in Unit 5, the gender always comes from the last word: <em>der</em>{' '}
+              Schirm makes <em>der</em> Regenschirm, <em>die</em> Brille makes <em>die</em>{' '}
+              Sonnenbrille.
             </p>
           </div>
         </div>
@@ -745,8 +744,9 @@ const config = {
           <h2>Colors and Descriptive Adjectives</h2>
           <p>These adjectives describe clothing and the sky.</p>
           <p>
-            When an adjective comes before a noun in German, it must match the noun's gender,
-            number, and case.
+            Look at <em>ein grünes Hemd</em> (a green shirt). The adjective gains the ending{' '}
+            <em>-es</em> to match the neuter noun <em>Hemd</em>. As in Unit 5, an adjective before a
+            noun takes an ending for the noun's gender, number, and case.
           </p>
 
           <div className="lrn-predict">
@@ -790,8 +790,8 @@ const config = {
           </div>
 
           <p>
-            These three colors appear in this module's examples. German has a full set of color
-            words; these are the ones you need here.
+            These three colors appear in this unit's examples. German has a full set of color words;
+            these are the ones you need here.
           </p>
 
           <div className="lrn-definition">
@@ -827,12 +827,8 @@ const config = {
                 noun's gender, number, and case.
               </p>
               <p>
-                <em>das Wetter</em> is neuter. Without a definite article, the adjective carries the
-                gender signal itself.
-              </p>
-              <p>
-                This is called strong adjective inflection - the adjective ending is <em>-es</em>{' '}
-                for neuter.
+                <em>das Wetter</em> is neuter. With no article in front, the adjective carries the
+                gender signal itself, and the neuter ending is <em>-es</em>.
               </p>
             </details>
           </div>
@@ -961,16 +957,9 @@ const config = {
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>
-                <em>tragen</em> describes an action you perform on the clothing. You are wearing it.
-              </p>
-              <p>The clothing is the direct object of your action, so it takes accusative.</p>
-              <p>
-                <em>passen</em> and <em>stehen</em> describe a relationship between clothing and
-                person. The clothing fits or suits you.
-              </p>
-              <p>
-                The person is the dative object because they receive the effect, not perform an
-                action.
+                <em>tragen</em> is an action you perform on the clothing, so the clothing is the
+                accusative direct object. <em>passen</em> and <em>stehen</em> describe how the
+                clothing relates to the person, so the person is the dative receiver.
               </p>
             </details>
           </div>
@@ -980,84 +969,30 @@ const config = {
       <>
         <div id="lrn-section-8">
           <h2>Dative Personal Pronouns</h2>
-          <p>Dative pronouns appear whenever a verb takes a dative object.</p>
           <p>
-            The key verbs in this module that use dative are: <em>passen</em>, <em>stehen</em>,{' '}
-            <em>helfen</em>, <em>schmecken</em>.
+            You learned the full dative pronoun table in Unit 6. This unit puts it to work, because{' '}
+            <em>passen</em>, <em>stehen</em>, <em>helfen</em>, and <em>schmecken</em> all take a
+            dative object - the person who receives the effect.
           </p>
 
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Dative pronouns (recap from Unit 6)</span>
+            <p>ich → mir | du → dir | er → ihm | sie (sg) → ihr | es → ihm</p>
+            <p>wir → uns | ihr → euch | sie (pl) → ihnen | Sie → Ihnen</p>
             <p>
-              In English, "it suits me" uses "me" (not "I"). Why do you think German uses a special
-              dative pronoun here?
+              In use: <em>Das Kleid passt mir.</em> (fits me) · <em>Die Brille steht dir nicht.</em>{' '}
+              (suits you)
             </p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>
-                Just like English uses "me" instead of "I" when you are the receiver, German uses
-                the dative form.
-              </p>
-              <p>The person is not doing the action - they are receiving the effect.</p>
-            </details>
           </div>
 
           <div className="lrn-definition">
-            <span className="lrn-definition-term">mir</span>
+            <span className="lrn-definition-term">euch</span>
             <div className="lrn-definition-desc">
               <p>
-                me / for me / to me - dative of <em>ich</em>
+                you all / for you all - dative of <em>ihr</em> (the plural "you")
               </p>
               <p>
-                Example: <em>Das Kleid passt mir.</em> - The dress fits me.
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">dir</span>
-            <div className="lrn-definition-desc">
-              <p>
-                you / for you / to you - dative of <em>du</em> (informal)
-              </p>
-              <p>
-                Example: <em>Die Brille steht dir nicht.</em>
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">ihm</span>
-            <div className="lrn-definition-desc">
-              <p>
-                him / for him / to him - dative of <em>er</em>
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">ihr</span>
-            <div className="lrn-definition-desc">
-              <p>
-                her / for her / to her - dative of <em>sie</em> (singular)
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">uns</span>
-            <div className="lrn-definition-desc">
-              <p>
-                us / for us / to us - dative of <em>wir</em>
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">ihnen</span>
-            <div className="lrn-definition-desc">
-              <p>
-                them / for them / to them - dative of <em>sie</em> (plural)
+                Example: <em>Das Hotel gefällt euch.</em> - You all like the hotel.
               </p>
             </div>
           </div>
@@ -1066,7 +1001,8 @@ const config = {
             <span className="lrn-definition-term">Ihnen</span>
             <div className="lrn-definition-desc">
               <p>
-                you / for you / to you - dative of <em>Sie</em> (formal, always capitalized)
+                you / for you - dative of the formal <em>Sie</em>. Always capitalized, which is the
+                only thing that tells it apart from lowercase <em>ihnen</em> (them).
               </p>
               <p>
                 Example: <em>Kann ich Ihnen helfen?</em> - Can I help you?
@@ -1078,49 +1014,10 @@ const config = {
             <span className="lrn-definition-term">wem?</span>
             <div className="lrn-definition-desc">
               <p>
-                to whom? - dative of <em>wer?</em> (who?)
+                to whom? - the dative of <em>wer?</em> (who?). Use it to ask for a dative object:{' '}
+                <em>Wem hilfst du?</em>
               </p>
             </div>
-          </div>
-
-          <div className="lrn-callout lrn-tip">
-            <span className="lrn-callout-label">Full Dative Pronoun Table</span>
-            <p>ich → mir | du → dir | er → ihm | sie (sg) → ihr | es → ihm</p>
-            <p>wir → uns | ihr → euch | sie (pl) → ihnen | Sie → Ihnen</p>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>Dative pronouns show who receives the action or effect.</p>
-            <p>
-              When you say <em>Kann ich Ihnen helfen?</em>, the helping goes TO you - that is why{' '}
-              <em>Ihnen</em> is dative.
-            </p>
-            <p>
-              The capital letter on <em>Ihnen</em> is the only visual marker that distinguishes
-              formal "you" from "them" in writing.
-            </p>
-          </div>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              <em>Ihnen</em> and <em>ihnen</em> look almost the same. How do you tell them apart?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                Capital <em>Ihnen</em> is the dative form of the formal <em>Sie</em> (you, singular
-                or plural).
-              </p>
-              <p>
-                Lowercase <em>ihnen</em> is the dative form of <em>sie</em> (they).
-              </p>
-              <p>
-                Context usually tells you which is which - if you are addressing someone politely,
-                it is <em>Ihnen</em>.
-              </p>
-            </details>
           </div>
         </div>
       </>,
@@ -1184,8 +1081,24 @@ const config = {
       <>
         <div id="lrn-section-10">
           <h2>Separable Verbs</h2>
-          <p>These verbs have a prefix that splits off and moves to the end of the sentence.</p>
-          <p>The prefix is always stressed when you say the word.</p>
+          <p>
+            You met separable verbs in Unit 7: the prefix splits off and jumps to the end of the
+            clause, while the verb stem stays in second position.
+          </p>
+
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Worked split: mitbringen</span>
+            <p>
+              Start from the infinitive <em>mitbringen</em> (to bring along).
+            </p>
+            <p>
+              In a sentence the prefix <em>mit</em> breaks off and goes to the end:{' '}
+              <em>Ich bringe viele Geschenke mit.</em> - I bring many presents along.
+            </p>
+            <p>
+              The stem <em>bringe</em> stays in position 2; <em>mit</em> closes the sentence.
+            </p>
+          </div>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -1251,65 +1164,148 @@ const config = {
             </div>
           </div>
 
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">
-              abschneiden [er schneidet ab, er hat abgeschnitten]
-            </span>
-            <div className="lrn-definition-desc">
-              <p>to achieve (results) - used figuratively for performance</p>
+          <div className="lrn-elaborate">
+            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+            <p>
+              These prefixes are always separable and always stressed:{' '}
+              <em>hin-, mit-, um-, zurück-, weg-, ab-, an-, auf-</em>.
+            </p>
+            <p>
+              A few prefixes never split off (be-, ver-, ent-, zer-). You will meet those later.
+            </p>
+            <p>
+              The new part for you here is that <em>um-</em> can mean two different things:{' '}
+              <em>umsteigen</em> (change transport, travel) and <em>umtauschen</em> (exchange goods,
+              shopping). Same prefix, different context.
+            </p>
+          </div>
+        </div>
+      </>,
+
+      <>
+        <div id="lrn-section-11">
+          <h2>Talking About the Past: The Perfect Tense</h2>
+          <p>German uses the perfect tense for most everyday talk about the past.</p>
+          <p>It has two parts: a helper verb in position 2, and a past participle at the end.</p>
+          <p>
+            <em>Es hat geregnet.</em> - It rained. (helper <em>hat</em> + participle{' '}
+            <em>geregnet</em>)
+          </p>
+          <p>
+            This is the <em>[hat geregnet]</em> form you have seen in brackets after the verbs in
+            this unit.
+          </p>
+
+          <div className="lrn-predict">
+            <span className="lrn-predict-label">PREDICT</span>
+            <p>
+              The verb <em>spielen</em> (to play) is regular. What do you think its past participle
+              looks like?
+            </p>
+            <details className="lrn-predict-reveal">
+              <summary>Check your thinking</summary>
               <p>
-                Example: <em>Deutschland schneidet beim Test gut ab.</em>
+                <em>gespielt</em>: the prefix <em>ge-</em> plus the stem <em>spiel</em> plus the
+                ending <em>-t</em>. So: <em>Ich habe Klavier gespielt.</em>
               </p>
-            </div>
+            </details>
           </div>
 
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">
-              wegfallen [er fällt weg, er ist weggefallen]
-            </span>
-            <div className="lrn-definition-desc">
-              <p>to be omitted - to drop out or be left off</p>
-              <p>
-                Example: <em>Der Umlaut fällt weg.</em> - The umlaut is omitted.
-              </p>
-            </div>
-          </div>
+          <h3>How to build a past participle</h3>
+          <p>
+            Most regular verbs follow one pattern: <strong>ge-</strong> + stem + <strong>-t</strong>
+            .
+          </p>
+          <ul className="lrn-list">
+            <li>
+              <em>machen</em> → <em>gemacht</em>
+            </li>
+            <li>
+              <em>spielen</em> → <em>gespielt</em>
+            </li>
+            <li>
+              <em>regnen</em> → <em>geregnet</em>
+            </li>
+          </ul>
+          <p>
+            Strong (irregular) verbs use <strong>ge-</strong> + stem + <strong>-en</strong>, and
+            often change the stem vowel. You learn these one by one.
+          </p>
+          <ul className="lrn-list">
+            <li>
+              <em>tragen</em> → <em>getragen</em>
+            </li>
+            <li>
+              <em>schwimmen</em> → <em>geschwommen</em>
+            </li>
+          </ul>
+
+          <h3>Where does ge- go with prefix verbs?</h3>
+          <p>
+            With a separable verb, <em>ge-</em> slips in between the prefix and the stem.
+          </p>
+          <p>
+            <em>mitbringen</em> → <em>mitgebracht</em>. <em>umtauschen</em> → <em>umgetauscht</em>.
+          </p>
+          <p>
+            With an inseparable prefix (be-, ver-, ent-, zer-), there is no <em>ge-</em> at all.
+          </p>
+          <p>
+            <em>bestätigen</em> → <em>bestätigt</em> (not <em>gebestätigt</em>). <em>behalten</em> →{' '}
+            <em>behalten</em>.
+          </p>
+
+          <h3>haben or sein?</h3>
+          <p>
+            Most verbs take <strong>haben</strong> as the helper: <em>Ich habe gespielt.</em>
+          </p>
+          <p>
+            Verbs of movement or a change of state take <strong>sein</strong> instead.
+          </p>
+          <ul className="lrn-list">
+            <li>
+              <em>umsteigen</em> (change trains, a movement) → <em>Ich bin umgestiegen.</em>
+            </li>
+            <li>
+              <em>schwimmen</em> (a movement) → <em>Ich bin geschwommen.</em>
+            </li>
+            <li>
+              <em>fahren</em> (a movement) → <em>Wir sind gefahren.</em>
+            </li>
+          </ul>
+          <p>
+            That is why the brackets in this unit show <em>[ist umgestiegen]</em> for travel verbs
+            but <em>[hat getragen]</em> for most others.
+          </p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              Some German prefixes are always separable:{' '}
-              <em>hin-, mit-, um-, zurück-, weg-, ab-</em>.
+              The helper verb carries the subject ending and tense, so it sits in position 2 like a
+              normal verb.
             </p>
             <p>
-              Other prefixes are never separable: <em>be-, ver-, ent-, zer-</em>.
-            </p>
-            <p>
-              You can identify separable prefixes because the stress falls on the prefix:{' '}
-              <em>MITbringen</em>, <em>UMsteigen</em>.
-            </p>
-            <p>
-              For inseparable verbs, the stress falls on the stem: <em>beHALten</em>,{' '}
-              <em>verFÜgen</em>.
+              The participle holds the real meaning and parks at the end. <em>sein</em> marks verbs
+              where the subject itself moves or changes, a leftover from older German grammar that
+              the language keeps for these verbs.
             </p>
           </div>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>
-              Both <em>umsteigen</em> and <em>umtauschen</em> use <em>um-</em>. Why are they easy to
-              confuse, and how can you tell them apart?
+              Why is the participle of <em>umsteigen</em> built as <em>umgestiegen</em> while{' '}
+              <em>bestätigen</em> gives <em>bestätigt</em> with no <em>ge-</em>?
             </p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
-              <p>Both involve switching from one thing to another - a train or a product.</p>
               <p>
-                <em>umsteigen</em> is specifically for changing transport. The context is always
-                travel.
+                <em>um-</em> is a separable prefix, so <em>ge-</em> slots in behind it: um + ge +
+                stiegen.
               </p>
               <p>
-                <em>umtauschen</em> is specifically for exchanging goods. The context is always
-                shopping.
+                <em>be-</em> is an inseparable prefix. It already sits tight against the stem and
+                takes the spot <em>ge-</em> would fill, so no <em>ge-</em> appears.
               </p>
             </details>
           </div>
@@ -1317,7 +1313,7 @@ const config = {
       </>,
 
       <>
-        <div id="lrn-section-11">
+        <div id="lrn-section-12">
           <h2>Travel and Holiday Vocabulary</h2>
           <p>
             German holiday language covers the whole trip: packing, transport, accommodation, and
@@ -1351,13 +1347,6 @@ const config = {
                 journey, trip (feminine) - <em>eine Reise machen</em> = to go on a trip;{' '}
                 <em>Gute Reise!</em> = Have a good trip!
               </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Reisevorbereitung, -en</span>
-            <div className="lrn-definition-desc">
-              <p>preparations for a journey (feminine)</p>
             </div>
           </div>
 
@@ -1456,20 +1445,19 @@ const config = {
             </div>
           </div>
 
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">das Meer, -e</span>
-            <div className="lrn-definition-desc">
+          <div className="lrn-compare">
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">das Meer (neuter)</span>
+              <p>the sea, the ocean in general</p>
               <p>
-                sea (neuter, plural: Meere) - <em>ans Meer fahren</em> = to go to the seaside
+                <em>ans Meer fahren</em> = to go to the seaside
               </p>
             </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die See, -n</span>
-            <div className="lrn-definition-desc">
+            <div className="lrn-compare-col">
+              <span className="lrn-compare-title">die See (feminine)</span>
+              <p>a named Northern European sea</p>
               <p>
-                sea (feminine) - specifically used for Northern European seas like the North Sea
+                <em>die Nordsee</em>, <em>die Ostsee</em>
               </p>
             </div>
           </div>
@@ -1504,13 +1492,6 @@ const config = {
           </div>
 
           <div className="lrn-definition">
-            <span className="lrn-definition-term">die Staumeldung, -en</span>
-            <div className="lrn-definition-desc">
-              <p>traffic information (feminine)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
             <span className="lrn-definition-term">der Passagier, -e</span>
             <div className="lrn-definition-desc">
               <p>passenger (masculine, plural: Passagiere)</p>
@@ -1521,13 +1502,6 @@ const config = {
             <span className="lrn-definition-term">der Pass, Pässe</span>
             <div className="lrn-definition-desc">
               <p>passport (masculine, plural: Pässe)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Passkontrolle, -n</span>
-            <div className="lrn-definition-desc">
-              <p>passport control (feminine)</p>
             </div>
           </div>
 
@@ -1600,27 +1574,6 @@ const config = {
             <span className="lrn-definition-term">die Übernachtung, -en</span>
             <div className="lrn-definition-desc">
               <p>overnight stay (feminine)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Halbpension, -en</span>
-            <div className="lrn-definition-desc">
-              <p>half board (feminine) - hotel with breakfast and one other meal included</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">das Wellnesshotel, -s</span>
-            <div className="lrn-definition-desc">
-              <p>wellness hotel (neuter)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">der Intercity-Express</span>
-            <div className="lrn-definition-desc">
-              <p>intercity express train (the ICE - Germany's high-speed rail)</p>
             </div>
           </div>
 
@@ -1702,9 +1655,9 @@ const config = {
       </>,
 
       <>
-        <div id="lrn-section-12">
+        <div id="lrn-section-13">
           <h2>Useful Action Verbs</h2>
-          <p>These verbs appear in dialogues, exercises, and reading texts across the module.</p>
+          <p>Use these verbs to talk about everyday actions, travel, and what you want to do.</p>
 
           <div className="lrn-definition">
             <span className="lrn-definition-term">hassen [er hat gehasst] + A</span>
@@ -1763,19 +1716,8 @@ const config = {
             <span className="lrn-definition-term">wollen [er will, er hat gewollt]</span>
             <div className="lrn-definition-desc">
               <p>
-                to want - modal verb with stem change: <em>ich will, du willst, er will</em>
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">
-              sich informieren [er hat sich informiert] (reflexiv)
-            </span>
-            <div className="lrn-definition-desc">
-              <p>to gather information - reflexive verb</p>
-              <p>
-                Example: <em>Ich kann mich am Bahnhof informieren.</em>
+                to want - a modal verb. Its full paradigm and word order are in the modal-verbs
+                section below.
               </p>
             </div>
           </div>
@@ -1788,16 +1730,6 @@ const config = {
               </p>
               <p>
                 Example: <em>Ich träume von Eis und Espresso in Italien.</em>
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">verfügen [er hat verfügt über] + A</span>
-            <div className="lrn-definition-desc">
-              <p>to have, to dispose of - used for features or facilities</p>
-              <p>
-                Example: <em>Das Hotel verfügt über ein Schwimmbad.</em>
               </p>
             </div>
           </div>
@@ -1858,363 +1790,12 @@ const config = {
       </>,
 
       <>
-        <div id="lrn-section-13">
-          <h2>Survey and Opinion Vocabulary</h2>
-          <p>
-            These words appear in reading texts about surveys and values: what people fear, care
-            about, and prioritize in their lives.
-          </p>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">achten [er achtet auf] + A</span>
-            <div className="lrn-definition-desc">
-              <p>to pay attention to something, to care about something</p>
-              <p>
-                Example: <em>auf die Qualität achten</em> - to pay attention to quality
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Angst haben [er hatte Angst vor] + D</span>
-            <div className="lrn-definition-desc">
-              <p>to fear something/someone, to be scared of something</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">ausländisch</span>
-            <div className="lrn-definition-desc">
-              <p>foreign - neutral adjective about things or people from other countries</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">behalten [er behält, er hat behalten] + A</span>
-            <div className="lrn-definition-desc">
-              <p>to keep something (accusative)</p>
-              <p>
-                Example: <em>das Geld behalten</em> - to keep the money
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">befragt- / die befragten Menschen</span>
-            <div className="lrn-definition-desc">
-              <p>
-                interviewed - adjective from <em>befragen</em> (to survey/question)
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">beruflich</span>
-            <div className="lrn-definition-desc">
-              <p>professional, work-related</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">bestätigen [er hat bestätigt] + A</span>
-            <div className="lrn-definition-desc">
-              <p>to confirm something (accusative)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">der Bundesbürger, -</span>
-            <div className="lrn-definition-desc">
-              <p>
-                German citizen (masculine, no plural change) - <em>Bundes-</em> (federal) +{' '}
-                <em>Bürger</em> (citizen)
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Diplomarbeit, -en</span>
-            <div className="lrn-definition-desc">
-              <p>diploma paper (feminine)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">deutlich</span>
-            <div className="lrn-definition-desc">
-              <p>clear, clearly</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Doktorarbeit, -en</span>
-            <div className="lrn-definition-desc">
-              <p>PhD dissertation, thesis (feminine)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">familiär</span>
-            <div className="lrn-definition-desc">
-              <p>family-related</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">finanziell</span>
-            <div className="lrn-definition-desc">
-              <p>financial</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">fremd / fremde Länder</span>
-            <div className="lrn-definition-desc">
-              <p>strange, foreign - emphasises unfamiliarity</p>
-              <p>
-                Example: <em>fremde Länder</em> - foreign/strange countries
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">
-              gesundheitlich / gesundheitliche Probleme haben
-            </span>
-            <div className="lrn-definition-desc">
-              <p>
-                health-related - <em>gesundheitliche Probleme haben</em> = to have health problems
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">gleichzeitig</span>
-            <div className="lrn-definition-desc">
-              <p>at the same time</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">das Interesse, -n</span>
-            <div className="lrn-definition-desc">
-              <p>
-                interest (neuter) - <em>Interesse für fremde Länder haben</em> = to be interested in
-                foreign countries
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Kriminalität</span>
-            <div className="lrn-definition-desc">
-              <p>crime, delinquency (feminine, no plural) - abstract uncountable noun</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Qualität, -en</span>
-            <div className="lrn-definition-desc">
-              <p>quality (feminine)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">das Resultat, -e</span>
-            <div className="lrn-definition-desc">
-              <p>
-                result (neuter) - Example: <em>Deutschland schneidet beim Test gut ab.</em>
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Ruhe</span>
-            <div className="lrn-definition-desc">
-              <p>calm, peace and quiet (feminine, no plural)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Sauberkeit</span>
-            <div className="lrn-definition-desc">
-              <p>cleanliness, tidiness (feminine, no plural)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">der Verkäufer, - / die Verkäuferin, -nen</span>
-            <div className="lrn-definition-desc">
-              <p>
-                seller (masculine) / seller (feminine) - a gendered occupation pair; <em>-in</em>{' '}
-                suffix makes the feminine form
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Meldung, -en</span>
-            <div className="lrn-definition-desc">
-              <p>message, announcement (feminine)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Zeichnung, -en</span>
-            <div className="lrn-definition-desc">
-              <p>drawing (feminine)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">höflich</span>
-            <div className="lrn-definition-desc">
-              <p>polite</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">hart / hart arbeiten</span>
-            <div className="lrn-definition-desc">
-              <p>
-                hard - <em>hart arbeiten</em> = to work hard
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">ausländisch (foreign)</span>
-              <p>Neutral - describes objects or people from another country.</p>
-              <p>
-                Example: <em>ausländische Produkte</em>
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">fremd (strange/foreign)</span>
-              <p>Emphasises unfamiliarity or otherness.</p>
-              <p>
-                Example: <em>fremde Länder</em>
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Angst haben vor + D</span>
-              <p>
-                to fear something - takes dative after <em>vor</em>
-              </p>
-              <p>
-                <em>Angst haben vor der Kriminalität</em>
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">achten auf + A</span>
-              <p>
-                to pay attention to - takes accusative after <em>auf</em>
-              </p>
-              <p>
-                <em>auf die Qualität achten</em>
-              </p>
-            </div>
-          </div>
-        </div>
-      </>,
-
-      <>
         <div id="lrn-section-14">
-          <h2>Miscellaneous Vocabulary</h2>
-          <p>These words appear in exercises and dialogues throughout the module.</p>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">das Licht, -er</span>
-            <div className="lrn-definition-desc">
-              <p>light (neuter, plural: Lichter)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">das Lotto</span>
-            <div className="lrn-definition-desc">
-              <p>
-                lottery - <em>im Lotto 2000 Euro gewinnen</em> = to win 2000 euros at the lottery
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">das Mädchen, -</span>
-            <div className="lrn-definition-desc">
-              <p>
-                girl (neuter, no plural change - unusual because the <em>-chen</em> suffix always
-                makes a noun neuter)
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">die Idee, -n</span>
-            <div className="lrn-definition-desc">
-              <p>idea (feminine, plural: Ideen)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">der Hund, -e</span>
-            <div className="lrn-definition-desc">
-              <p>dog (masculine, plural: Hunde)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">der Kalender, -</span>
-            <div className="lrn-definition-desc">
-              <p>calendar (masculine, no plural change)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">der Kilometer, -</span>
-            <div className="lrn-definition-desc">
-              <p>kilometre (masculine, no plural change)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">der Spielplatz, Spielplätze</span>
-            <div className="lrn-definition-desc">
-              <p>playground (masculine, plural: Spielplätze)</p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">der Opa, -s / die Oma, -s</span>
-            <div className="lrn-definition-desc">
-              <p>grandpa (masculine) / grandma (feminine)</p>
-              <p>
-                Example: <em>zu Opa fahren</em> - to go to see grandpa
-              </p>
-            </div>
-          </div>
-
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">das Menü, -s</span>
-            <div className="lrn-definition-desc">
-              <p>menu (neuter, plural: Menüs)</p>
-            </div>
-          </div>
-        </div>
-      </>,
-
-      <>
-        <div id="lrn-section-15">
           <h2>Leisure, Hobbies and Sports</h2>
-
-          <p>Use this section when talking about free time, hobbies, or weekend activities.</p>
+          <p>These words name free-time activities and the verbs that go with them.</p>
           <p>
-            When to use this: any small talk about what someone does outside work. German uses fixed
-            verb pairings for sports and games.
+            German locks each activity to one fixed verb. You learn the noun and its verb together
+            as a set.
           </p>
 
           <div className="lrn-predict">
@@ -2223,149 +1804,227 @@ const config = {
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>
-                <strong>Ski fahren.</strong> "fahren" (to go by vehicle) pairs with "Ski" because
-                you move on the skis. You never say "Ski spielen" or "Ski machen".
+                <strong>Ski fahren.</strong> <em>fahren</em> (to go by vehicle) pairs with{' '}
+                <em>Ski</em> because you move on the skis. You never say "Ski spielen" or "Ski
+                machen".
               </p>
             </details>
           </div>
 
-          <h3>Leisure Vocabulary</h3>
-          <ul className="lrn-list">
-            <li>
-              <strong>die Freizeit</strong>: free time
-            </li>
-            <li>
-              <strong>die Freizeitaktivität, -en</strong>: free time activity, leisure
-            </li>
-            <li>
-              <strong>das Hobby, -s</strong>: hobby
-            </li>
-            <li>
-              <strong>das Lieblingshobby</strong>: favourite hobby
-            </li>
-          </ul>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">die Freizeit</span>
+            <div className="lrn-definition-desc">
+              <p>free time (feminine)</p>
+            </div>
+          </div>
 
-          <h3>Sports and Activities</h3>
-          <ul className="lrn-list">
-            <li>
-              <strong>das Golf</strong>: golf
-            </li>
-            <li>
-              <strong>die Gymnastik</strong>: gymnastics
-            </li>
-            <li>
-              <strong>das Schach</strong>: chess
-            </li>
-            <li>
-              <strong>der Ski</strong>: ski
-            </li>
-            <li>
-              <strong>die Sporthalle, -n</strong>: sport centre
-            </li>
-            <li>
-              <strong>das Yoga</strong>: yoga
-            </li>
-            <li>
-              <strong>der Fußballspieler, -</strong>: football player
-            </li>
-          </ul>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">die Freizeitaktivität, -en</span>
+            <div className="lrn-definition-desc">
+              <p>free-time activity, leisure activity (feminine)</p>
+            </div>
+          </div>
 
-          <h3>Activity Verbs and Fixed Phrases</h3>
-          <ul className="lrn-list">
-            <li>
-              <strong>schwimmen</strong>: to swim
-            </li>
-            <li>
-              <strong>wandern</strong>: to hike
-            </li>
-            <li>
-              <strong>surfen</strong>: to surf; to browse the internet
-            </li>
-            <li>
-              <strong>reisen</strong>: to travel
-            </li>
-            <li>
-              <strong>tanzen</strong>: to dance
-            </li>
-            <li>
-              <strong>kochen</strong>: to cook
-            </li>
-            <li>
-              <strong>rauchen</strong>: to smoke
-            </li>
-            <li>
-              <strong>Sport treiben</strong>: to do or play sport
-            </li>
-            <li>
-              <strong>Karten spielen</strong>: to play cards
-            </li>
-            <li>
-              <strong>Ski fahren</strong>: to ski
-            </li>
-            <li>
-              <strong>Salsa tanzen</strong>: to dance salsa
-            </li>
-            <li>
-              <strong>im Internet surfen</strong>: to surf the internet
-            </li>
-          </ul>
-
-          <h3>Worked Example: "Sport treiben"</h3>
-          <ol className="lrn-list">
-            <li>
-              Pick the activity: <strong>Sport</strong>.
-            </li>
-            <li>
-              Pair with the fixed verb: <strong>treiben</strong>. ("treiben" here means "to do".)
-            </li>
-            <li>Conjugate for the subject: "ich treibe Sport," "er treibt Sport".</li>
-            <li>Sample sentence: "Ich treibe gern Sport." (I like doing sport.)</li>
-          </ol>
-
-          <h3>Worked Example: "Ski fahren"</h3>
-          <ol className="lrn-list">
-            <li>
-              Pick the noun: <strong>Ski</strong>.
-            </li>
-            <li>
-              Pair with the movement verb: <strong>fahren</strong> (to go by vehicle / on
-              something).
-            </li>
-            <li>Conjugate for the subject: "ich fahre Ski," "er fährt Ski".</li>
-            <li>Sample sentence: "Im Winter fahren wir Ski." (In winter we ski.)</li>
-          </ol>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why do "Sport treiben" and "Ski fahren" use different verbs even though both describe
-              physical activities?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">das Hobby, -s</span>
+            <div className="lrn-definition-desc">
               <p>
-                "treiben" is the fixed verb for general sport activity, with no movement implied.
-                "fahren" pairs with anything that involves a vehicle or rolling movement: a car, a
-                bicycle, skis. Skiing involves sliding on the skis, so it pairs with "fahren". Each
-                German activity has its own locked verb you must memorise.
+                hobby (neuter, plural: Hobbys) - <em>das Lieblingshobby</em> = favourite hobby
               </p>
-            </details>
+            </div>
           </div>
 
-          <div className="lrn-tip">
-            <p>
-              <strong>fahren</strong> covers driving and any vehicle travel: "Auto fahren" (drive a
-              car), "Ski fahren" (ski), "nach München fahren" (go to Munich).
-            </p>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">das Schach</span>
+            <div className="lrn-definition-desc">
+              <p>
+                chess (neuter) - you play it with <em>spielen</em>: <em>Schach spielen</em>
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">der Ski, -er</span>
+            <div className="lrn-definition-desc">
+              <p>
+                ski (masculine) - paired with the movement verb <em>fahren</em>: <em>Ski fahren</em>
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">das Yoga / die Gymnastik / das Golf</span>
+            <div className="lrn-definition-desc">
+              <p>yoga / gymnastics / golf - common leisure activities</p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">die Sporthalle, -n</span>
+            <div className="lrn-definition-desc">
+              <p>sports centre, gym (feminine, plural: Sporthallen)</p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">schwimmen [ist geschwommen]</span>
+            <div className="lrn-definition-desc">
+              <p>to swim - takes sein in the perfect because it is a movement verb</p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">wandern [ist gewandert]</span>
+            <div className="lrn-definition-desc">
+              <p>to hike - also a movement verb, so it takes sein</p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">tanzen [hat getanzt]</span>
+            <div className="lrn-definition-desc">
+              <p>
+                to dance - <em>Salsa tanzen</em> = to dance salsa
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">surfen [hat gesurft]</span>
+            <div className="lrn-definition-desc">
+              <p>
+                to surf; also to browse the internet - <em>im Internet surfen</em>
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">
+              kochen [hat gekocht] / rauchen [hat geraucht]
+            </span>
+            <div className="lrn-definition-desc">
+              <p>to cook / to smoke - everyday activity verbs</p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Sport treiben [er treibt, hat getrieben]</span>
+            <div className="lrn-definition-desc">
+              <p>
+                to do sport - <em>treiben</em> is the fixed verb for sport in general:{' '}
+                <em>Ich treibe gern Sport.</em>
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">Karten spielen</span>
+            <div className="lrn-definition-desc">
+              <p>
+                to play cards - <em>spielen</em> is the fixed verb for games and instruments
+              </p>
+            </div>
           </div>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              German pairs activities with one specific verb because the language treats the verb as
-              part of the activity name itself. Klavier spielen, Sport treiben, Ski fahren are
-              treated like compound expressions. Swapping the verb sounds like calling tennis
-              "tennis-ride" in English.
+              German treats the verb as part of the activity name. <em>Sport treiben</em>,{' '}
+              <em>Karten spielen</em>, <em>Ski fahren</em> work like fixed expressions.
+            </p>
+            <p>
+              <em>treiben</em> covers sport in general. <em>spielen</em> covers games and
+              instruments. <em>fahren</em> covers anything you move on or in: a car, a bicycle,
+              skis. So skiing pairs with <em>fahren</em>, not <em>spielen</em>.
+            </p>
+            <p>Swapping the verb sounds as odd as calling tennis "tennis-ride" in English.</p>
+          </div>
+        </div>
+      </>,
+
+      <>
+        <div id="lrn-section-15">
+          <h2>Modal Verbs and Their Word Order</h2>
+          <p>A modal verb is a helper verb like can, must, or want.</p>
+          <p>It pairs with a second verb that gives the real action. Compare these two:</p>
+          <p>
+            <em>Ich spiele Klavier.</em> - I play the piano. (one verb)
+          </p>
+          <p>
+            <em>Ich kann Klavier spielen.</em> - I can play the piano. (modal + second verb)
+          </p>
+          <p>
+            The modal sits in position 2. The action verb drops to the very end of the clause as an
+            infinitive. Together they form a bracket around the rest of the sentence. You met this
+            bracket with <em>dürfen</em> in Unit 6.
+          </p>
+
+          <div className="lrn-predict">
+            <span className="lrn-predict-label">PREDICT</span>
+            <p>
+              You know <em>spielen</em> means "to play". Where do you think it goes in{' '}
+              <em>Er kann gut Klavier ___</em>?
+            </p>
+            <details className="lrn-predict-reveal">
+              <summary>Check your thinking</summary>
+              <p>
+                At the very end: <em>Er kann gut Klavier spielen.</em> The modal <em>kann</em> opens
+                the bracket; <em>spielen</em> closes it.
+              </p>
+            </details>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">wollen [ich will, du willst, er will]</span>
+            <div className="lrn-definition-desc">
+              <p>to want to - full present tense paradigm:</p>
+              <p>
+                ich <strong>will</strong>, du <strong>willst</strong>, er/sie/es{' '}
+                <strong>will</strong>, wir <strong>wollen</strong>, ihr <strong>wollt</strong>,
+                sie/Sie <strong>wollen</strong>
+              </p>
+              <p>
+                Example: <em>Ich will nach Italien reisen.</em> - I want to travel to Italy.
+              </p>
+              <p>
+                Notice the singular changes <em>o</em> to <em>i</em>, and ich and er look identical
+                (both <em>will</em>). All modals share this pattern.
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">können [ich kann, du kannst, er kann]</span>
+            <div className="lrn-definition-desc">
+              <p>
+                to be able to, can - taught in full in Unit 11. Here you just need <em>kann</em> for
+                sentences like <em>Er kann gut schwimmen.</em>
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">
+              möchte- [ich möchte, du möchtest, er möchte]
+            </span>
+            <div className="lrn-definition-desc">
+              <p>
+                would like to - the polite "want", introduced in Unit 5. Use it for wishes:{' '}
+                <em>Ich möchte am Samstag Schach spielen.</em>
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-elaborate">
+            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+            <p>
+              The modal carries the tense and the subject ending, so it must take position 2 like
+              any normal verb.
+            </p>
+            <p>
+              The action verb has nothing left to mark, so German parks it at the end in its plain
+              infinitive form. The two verbs frame the sentence like brackets: [modal ...
+              infinitive].
             </p>
           </div>
         </div>
@@ -2374,11 +2033,10 @@ const config = {
       <>
         <div id="lrn-section-16">
           <h2>Music and Arts</h2>
-
-          <p>Use this section when talking about instruments, music styles, or arts activities.</p>
+          <p>These words name instruments, music styles, and the people who perform.</p>
           <p>
-            When to use this: any conversation about music or culture. The verb "spielen" pairs with
-            every instrument, and modal verbs join most music sentences.
+            One verb covers all instruments: <em>spielen</em>. You say <em>Klavier spielen</em>,{' '}
+            <em>Violine spielen</em>, <em>Saxofon spielen</em>.
           </p>
 
           <div className="lrn-predict">
@@ -2387,128 +2045,96 @@ const config = {
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
               <p>
-                <strong>spielen</strong>. All instruments pair with "spielen": Violine spielen,
-                Klavier spielen, Saxofon spielen.
+                <strong>spielen</strong>. All instruments pair with <em>spielen</em>: Violine
+                spielen, Klavier spielen, Saxofon spielen.
               </p>
             </details>
           </div>
 
-          <h3>Instruments</h3>
-          <ul className="lrn-list">
-            <li>
-              <strong>das Instrument, -e</strong>: instrument
-            </li>
-            <li>
-              <strong>das Klavier, -e</strong>: piano
-            </li>
-            <li>
-              <strong>das Saxofon, -e</strong>: saxophone
-            </li>
-            <li>
-              <strong>die Violine, -n</strong>: violin
-            </li>
-          </ul>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">das Instrument, -e</span>
+            <div className="lrn-definition-desc">
+              <p>instrument (neuter, plural: Instrumente)</p>
+            </div>
+          </div>
 
-          <h3>Music Styles and Dances</h3>
-          <ul className="lrn-list">
-            <li>
-              <strong>die Rockmusik</strong>: rock music
-            </li>
-            <li>
-              <strong>der Hip-Hop</strong>: hip-hop (music)
-            </li>
-            <li>
-              <strong>klassische Musik</strong>: classical music
-            </li>
-            <li>
-              <strong>der Walzer</strong>: waltz
-            </li>
-            <li>
-              <strong>der Tango</strong>: tango
-            </li>
-            <li>
-              <strong>die Salsa</strong>: salsa
-            </li>
-          </ul>
-
-          <h3>Ensembles and Events</h3>
-          <ul className="lrn-list">
-            <li>
-              <strong>das Orchester, -</strong>: orchestra
-            </li>
-            <li>
-              <strong>das Universitätsorchester, -</strong>: university orchestra
-            </li>
-            <li>
-              <strong>die Sängerin, -nen</strong>: singer (female)
-            </li>
-          </ul>
-
-          <h3>Worked Example: "Er kann gut Klavier spielen."</h3>
-          <ol className="lrn-list">
-            <li>
-              Subject: <strong>Er</strong> (he).
-            </li>
-            <li>
-              Modal verb: <strong>kann</strong> (can), in position 2.
-            </li>
-            <li>
-              Manner adverb: <strong>gut</strong> (well).
-            </li>
-            <li>
-              Object plus infinitive at the end: <strong>Klavier spielen</strong>.
-            </li>
-            <li>Final: "Er kann gut Klavier spielen." (He can play the piano well.)</li>
-          </ol>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does "spielen" come at the end in "Er kann gut Klavier spielen"?</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">das Klavier, -e</span>
+            <div className="lrn-definition-desc">
               <p>
-                Because "kann" is a modal verb in position 2, the main verb has to move to the end
-                of the clause as an infinitive. The modal opens the verb bracket; "spielen" closes
-                it. Everything else (gut, Klavier) sits inside the bracket.
+                piano (neuter, plural: Klaviere) - <em>Klavier spielen</em> = to play the piano
               </p>
-            </details>
-          </div>
-
-          <h3>Worked Example: "Wir suchen noch eine Sängerin."</h3>
-          <ol className="lrn-list">
-            <li>
-              Subject: <strong>Wir</strong> (we).
-            </li>
-            <li>
-              Verb: <strong>suchen</strong> (to look for), conjugated for "wir".
-            </li>
-            <li>
-              Adverb: <strong>noch</strong> (still / yet).
-            </li>
-            <li>
-              Object: <strong>eine Sängerin</strong> (a female singer), feminine, accusative.
-            </li>
-            <li>Final: "Wir suchen noch eine Sängerin." (We are still looking for a singer.)</li>
-          </ol>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <p className="lrn-compare-title">Sänger (male)</p>
-              <p>der Sänger</p>
-            </div>
-            <div className="lrn-compare-col">
-              <p className="lrn-compare-title">Sängerin (female)</p>
-              <p>die Sängerin, -nen</p>
-              <p>"Wir suchen eine Sängerin."</p>
             </div>
           </div>
 
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">das Saxofon, -e / die Violine, -n</span>
+            <div className="lrn-definition-desc">
+              <p>saxophone (neuter) / violin (feminine) - both pair with spielen</p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">
+              die Rockmusik / klassische Musik / der Hip-Hop
+            </span>
+            <div className="lrn-definition-desc">
+              <p>rock music / classical music / hip-hop - common music styles</p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">der Walzer / der Tango / die Salsa</span>
+            <div className="lrn-definition-desc">
+              <p>
+                waltz / tango / salsa - dances you pair with <em>tanzen</em>: <em>Salsa tanzen</em>
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">das Orchester, -</span>
+            <div className="lrn-definition-desc">
+              <p>
+                orchestra (neuter, no plural change) - <em>das Universitätsorchester</em> =
+                university orchestra
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-definition">
+            <span className="lrn-definition-term">der Sänger, - / die Sängerin, -nen</span>
+            <div className="lrn-definition-desc">
+              <p>singer (masculine) / singer (feminine)</p>
+              <p>
+                Example: <em>Wir suchen noch eine Sängerin.</em> - We are still looking for a
+                singer.
+              </p>
+            </div>
+          </div>
+
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Worked Example: a modal sentence</span>
             <p>
-              German marks the gender of professionals with the suffix -in. Sänger becomes Sängerin,
-              Lehrer becomes Lehrerin. The plural adds -nen: Sängerinnen, Lehrerinnen. This rule is
-              one of the most reliable in the whole language.
+              Build "He can play the piano well" with the modal verb <em>können</em>:
+            </p>
+            <p>
+              <em>Er kann gut Klavier spielen.</em>
+            </p>
+            <p>
+              The modal <em>kann</em> sits in position 2. It opens the verb bracket. The main verb{' '}
+              <em>spielen</em> drops to the end as an infinitive and closes the bracket. Everything
+              else (<em>gut</em>, <em>Klavier</em>) sits inside. This is the modal word order you
+              met in the modal-verbs section above.
+            </p>
+          </div>
+
+          <div className="lrn-callout lrn-tip">
+            <span className="lrn-callout-label">Feminine job titles</span>
+            <p>
+              <em>Sänger</em> becomes <em>Sängerin</em> the same way you turned other job titles
+              feminine in Units 1 and 3: add <em>-in</em>, and the plural adds <em>-nen</em>{' '}
+              (Sängerinnen).
             </p>
           </div>
         </div>
@@ -2614,10 +2240,6 @@ const config = {
       a: 'in Urlaub gehen uses accusative (in + accusative = direction, movement toward). im Urlaub sein uses dative (in + dative = location, being somewhere). in Urlaub gehen describes leaving for holiday. im Urlaub sein describes being already on holiday.'
     },
     {
-      q: 'What is the difference between ausländisch and fremd?',
-      a: 'ausländisch means foreign in a neutral factual sense - from another country. fremd means strange or foreign with an emphasis on unfamiliarity. ausländische Produkte = foreign products (neutral). fremde Länder = foreign/strange countries (suggesting unfamiliarity).'
-    },
-    {
       q: 'How do you say "I will exchange the shirt" in German?',
       a: 'Ich tausche das Hemd um. Use umtauschen (separable verb). The prefix um- goes to the end. das Hemd is accusative because umtauschen + A. Full example: Das Hemd ist zu klein, ich tausche es um.'
     },
@@ -2626,16 +2248,8 @@ const config = {
       a: 'German plurals follow different patterns depending on the word. Some nouns add an umlaut (like Mantel, plural: Mäntel). Some do not change at all (like Koffer, plural: Koffer). There is no rule to predict which pattern a noun takes. You must learn each plural form alongside the noun itself.'
     },
     {
-      q: 'TRANSFER: Apply the separable verb pattern to wegfallen. What does it mean in a sentence?',
-      a: 'wegfallen means to be omitted or to drop out. It is separable: weg- is the prefix. Example: Der Umlaut fällt weg - The umlaut is omitted. The prefix fällt stays at second position and weg goes to the end. Past: ist weggefallen (uses sein).'
-    },
-    {
       q: 'COMPARE: wunderbar vs. wunderschön - when do you use each?',
       a: 'wunderbar means wonderful in a general sense - wonderful weather, a wonderful meal, a wonderful time. wunderschön means visually magnificent - a beautiful place, a stunning landscape. Use wunderbar for any quality or experience. Use wunderschön specifically when something is visually beautiful.'
-    },
-    {
-      q: 'What does auf die Qualität achten mean? What case does auf take here?',
-      a: 'auf die Qualität achten means to pay attention to quality or to care about quality. achten auf takes the accusative - auf here expresses direction of attention, which in German uses accusative. Compare: Angst haben vor + D (fear - dative), achten auf + A (attention - accusative).'
     },
     {
       q: 'PREDICT: In "Ich nehme meinen Rucksack in den Urlaub mit," where does the prefix mit go and why?',
@@ -2644,18 +2258,6 @@ const config = {
     {
       q: 'How do you say "to return the new shoes" in German?',
       a: 'die neuen Schuhe zurückgeben - use zurückgeben (separable verb, zurück- prefix). die neuen Schuhe is accusative plural. The prefix zurück goes to the end: Ich gebe die Schuhe zurück.'
-    },
-    {
-      q: 'SELF-EXPLAIN: Why does das Mädchen (girl) have neuter gender?',
-      a: 'das Mädchen is neuter because the suffix -chen always makes a noun neuter in German. The -chen suffix makes a diminutive. The grammatical rule (gender follows suffix) overrides the natural gender (the person is female). When a suffix determines gender, it wins over natural gender - this is a core German rule.'
-    },
-    {
-      q: 'What does gleichzeitig mean? Give an example.',
-      a: 'gleichzeitig means at the same time. Example: Ich kann nicht gleichzeitig essen und lesen - I cannot eat and read at the same time. It is an adverb. The word breaks down as: gleich (same) + zeitig (timely).'
-    },
-    {
-      q: 'TRANSFER: Apply the "compound noun gender = last word gender" rule to Regenjacke, Sonnenbrille, and Staumeldung.',
-      a: 'die Regenjacke - last word: die Jacke (feminine) = feminine. die Sonnenbrille - last word: die Brille (feminine) = feminine. die Staumeldung - last word: die Meldung (feminine) = feminine. The rule is consistent: the gender of a German compound always matches the gender of the final component.'
     },
     {
       q: 'How do you say "The train is delayed by 10 minutes" in German?',
@@ -2668,10 +2270,6 @@ const config = {
     {
       q: 'TRANSFER: Apply the helfen + D pattern to: "Can I help him?" (formal situation)',
       a: 'Kann ich ihm helfen? ihm is the dative of er (he/him). In a question, the modal (Kann) comes first, then the subject (ich), then the dative object (ihm), then the infinitive (helfen). Same structure as Kann ich Ihnen helfen? - just swap Ihnen for ihm.'
-    },
-    {
-      q: 'What does die Halbpension mean?',
-      a: 'die Halbpension means half board - a hotel package that includes breakfast and one other meal (usually dinner). Halb = half, Pension = board (lodging with meals). It appears when booking hotels or holiday accommodation.'
     },
     {
       q: 'SELF-EXPLAIN: Why does umsteigen use sein in the past (ist umgestiegen) while umtauschen uses haben (hat umgetauscht)?',
@@ -2699,11 +2297,11 @@ const config = {
     },
     {
       q: 'ELABORATE: Why does formal Sie always capitalize Ihnen in the dative?',
-      a: 'The formal pronoun Sie (and all its forms) are always capitalized in German as a convention of politeness. This applies to all cases: Sie (nominative), Ihnen (dative), Ihr (possessive). The capitalization signals respect and formal register. Without the capital, Ihnen would look identical to ihnen (dative of sie, they), so the capital both signals respect and avoids ambiguity.'
+      a: 'The formal pronoun Sie and all its forms are always capitalized in German to show politeness. This applies to every case: Sie (nominative), Ihnen (dative), Ihr (possessive). The capital also separates Ihnen from lowercase ihnen (dative of sie, they), so it avoids confusion too.'
     },
     {
       q: 'PREDICT: You know that Regen (rain) + Schirm (screen) = Regenschirm. What gender would Stadtplan (city map) be? Hint: die Stadt (city) + der Plan (plan).',
-      a: 'der Stadtplan - because the last component is der Plan (masculine). The compound takes the gender of the final word, regardless of the first word. die Stadt is feminine, but it does not affect the final gender. This is a reliable rule across all German compound nouns.'
+      a: 'der Stadtplan - because the last component is der Plan (masculine). The compound takes the gender of the final word, no matter what the first word is. die Stadt is feminine, but it does not affect the final gender. This is a reliable rule across all German compound nouns.'
     },
     {
       q: 'What does "Sport treiben" mean and why is it not "Sport machen" or "Sport spielen"?',
@@ -3138,16 +2736,6 @@ const config = {
           </tbody>
         </table>
 
-        <div className="lrn-callout lrn-tip">
-          <span className="lrn-callout-label">When to use: passen vs. stehen</span>
-          <p>
-            <strong>passen + D</strong> - Does it fit? Is the size right? Das Kleid passt mir.
-          </p>
-          <p>
-            <strong>stehen + D</strong> - Does it suit me? Does it look good? Das Kleid steht mir.
-          </p>
-        </div>
-
         <h2>Dative Personal Pronouns</h2>
         <table className="lrn-table">
           <thead>
@@ -3290,18 +2878,6 @@ const config = {
               <td>hin-</td>
               <td>to go there</td>
               <td>Wir gehen hin.</td>
-            </tr>
-            <tr>
-              <td>abschneiden</td>
-              <td>ab-</td>
-              <td>to achieve (results)</td>
-              <td>Gut abschneiden.</td>
-            </tr>
-            <tr>
-              <td>wegfallen</td>
-              <td>weg-</td>
-              <td>to be omitted</td>
-              <td>Der Umlaut fällt weg.</td>
             </tr>
           </tbody>
         </table>
@@ -3500,7 +3076,7 @@ const config = {
           </tbody>
         </table>
 
-        <h2>Part B: Survey Vocabulary</h2>
+        <h2>Survey and Opinion Vocabulary</h2>
         <table className="lrn-table">
           <thead>
             <tr>
@@ -3614,9 +3190,7 @@ const config = {
         </table>
 
         <h2>Hobbies and Sports</h2>
-        <p>
-          When to use: small talk about free time. Each activity has a fixed verb you must memorise.
-        </p>
+        <p>Each activity pairs with one fixed verb you must learn as a set.</p>
         <table className="lrn-table">
           <thead>
             <tr>

@@ -1,31 +1,29 @@
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
 import { CoriolisDrop } from '../../../../../components/viz'
 
-function NonInertialFramesContentInner() {
-
-
+function NonInertialFramesAndCoriolisApplicationsInner() {
   const config = {
     cssPrefix: 'rbd',
-    documentTitle: 'Non-inertial Frames - AETHER',
+    documentTitle: 'Non-Inertial Frames and Coriolis Applications - AETHER',
     learning: {
       groupTitle: 'Newtonian Mechanics',
       category: 'Physics',
-      title: 'Non-inertial Frames',
+      title: 'Non-Inertial Frames and Coriolis Applications',
       subtitle:
         'Rotating and translating reference frames, inertia forces, Coriolis and centrifugal effects',
       sections: [
-        // ── Section 0: Foundations ──────────────────────────────────────────
+        // Section 0: Foundations
         <>
           <div className="lrn-section" id="lrn-section-0" data-section-index="0">
-            <h2>Foundations: Inertial vs. Non-inertial Frames</h2>
+            <h2>Foundations: Inertial vs. Non-Inertial Frames</h2>
             <p>
               Every mechanics problem starts with the same choice: from what vantage point do you
               watch the motion? That vantage point is your <em>reference frame</em>.
             </p>
             <p>
-              An <strong>inertial frame</strong> is one that does not speed up, slow down, or
-              rotate. In a frame like this, Newton's second law holds in its plain form: force
-              equals mass times acceleration, with no extra terms on the right.
+              You already met the <strong>inertial frame</strong> with Newton's laws: a frame that
+              does not speed up, slow down, or rotate. In a frame like this, Newton's second law
+              holds in its plain form, with no extra terms on the right.
             </p>
             <p>
               Most real frames are not inertial. A lab on Earth's surface spins with the planet once
@@ -35,8 +33,8 @@ function NonInertialFramesContentInner() {
             <p>
               These terms are not real forces. Nothing is physically pushing on the object. They are
               bookkeeping for the frame's own motion. Once you know how to write them down, you can
-              solve problems on Earth, on a turntable, or in an accelerating car directly, without
-              first switching back to a stationary frame.
+              solve problems on Earth, on a turntable, or in an accelerating car directly. You never
+              have to switch back to a stationary frame.
             </p>
 
             <div className="lrn-predict">
@@ -63,7 +61,7 @@ function NonInertialFramesContentInner() {
             <div className="lrn-definition">
               <span className="lrn-definition-term">Inertial Frame</span>
               <div className="lrn-definition-desc">
-                <p>{`A reference frame that does not accelerate and does not rotate. Newton's laws hold in their plain form: $\\mathbf{F} = m\\mathbf{a}$. The Lagrangian, the function from which the equations of motion are derived, is $L_0 = \\frac{1}{2}mv_0^2 - U$, where $\\frac{1}{2}mv_0^2$ is the kinetic energy and $U$ is the potential energy.`}</p>
+                <p>{`A reference frame that does not accelerate and does not rotate. Newton's second law holds in its plain form: $\\mathbf{F} = m\\mathbf{a}$, with no extra terms. This is the frame you already know how to solve problems in.`}</p>
               </div>
             </div>
 
@@ -71,14 +69,14 @@ function NonInertialFramesContentInner() {
               <span className="lrn-definition-term">Non-inertial Frame</span>
               <div className="lrn-definition-desc">
                 <p>
-                  A reference frame that accelerates in a straight line, rotates, or both. Its
-                  overall acceleration is written <strong>W</strong>(t), and its rate of rotation is
-                  the angular velocity <strong>Ω</strong>: a vector that points along the rotation
-                  axis with magnitude equal to the spin rate in radians per second.
+                  A reference frame that accelerates in a straight line, rotates, or both. Write its
+                  overall acceleration as <strong>W</strong>(t), and its rate of rotation as the
+                  angular velocity <strong>Ω</strong>: a vector that points along the rotation axis
+                  with magnitude equal to the spin rate in radians per second.
                 </p>
                 <p>
-                  Switching to such a frame inserts extra terms into the Lagrangian. Those terms
-                  show up in the equations of motion as the inertia forces you feel.
+                  Switching to such a frame adds extra terms to Newton's second law. Those terms are
+                  the inertia forces you feel.
                 </p>
               </div>
             </div>
@@ -116,8 +114,8 @@ function NonInertialFramesContentInner() {
                   {`$g$`}, and any accelerating frame is non-inertial by definition.
                 </p>
                 <p>
-                  In general relativity, gravity is not a force at all. It is the curvature of
-                  spacetime. An object in free fall feels no net force, so the falling lift is,
+                  In general relativity, gravity is not a force at all. It is the bending of space
+                  and time. An object in free fall feels no net force, so the falling lift is,
                   locally, an inertial frame.
                 </p>
                 <p>
@@ -130,36 +128,34 @@ function NonInertialFramesContentInner() {
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                The principle of least action holds in every frame, inertial or not. The action is{' '}
-                {`$S = \\int L\\,dt$`}: the time-integral of the Lagrangian along a candidate path.
-                Out of all the paths a particle could take, nature selects the one that makes{' '}
-                {`$S$`} stationary, and that selection rule is what produces Lagrange's equations of
-                motion.
+                {`Newton's law $m\\mathbf{a} = \\mathbf{F}$ is exact only when $\\mathbf{a}$ is measured in an inertial frame. The real forces $\\mathbf{F}$ (gravity, contact, springs) do not care what frame you watch from.`}
               </p>
               <p>
-                None of that depends on the choice of frame. What changes from frame to frame is the
-                Lagrangian {`$L$`} itself.
+                But the acceleration you measure does change with the frame. An object can be moving
+                at a steady velocity, yet appear to accelerate to an observer who is speeding up or
+                turning. That difference in measured acceleration is the whole story.
               </p>
               <p>
-                {`In an inertial frame, $L_0 = \\frac{1}{2}mv_0^2 - U$. To rewrite $L_0$ for a non-inertial frame, we express the inertial-frame velocity $\\mathbf{v}_0$ in terms of the velocity measured in the new frame. New, frame-dependent pieces appear.`}
-              </p>
-              <p>
-                When those pieces are fed back through Lagrange's equations, they emerge as the
-                inertia forces: Coriolis, centrifugal, and the translational {`$-m\\mathbf{W}$`}.
+                {`To get the law your frame sees, take $\\mathbf{a}$ from the inertial frame and rewrite it using the acceleration of your own frame. The leftover pieces, moved across the equation, look exactly like extra forces. They are the inertia forces: Coriolis, centrifugal, Euler, and the translational $-m\\mathbf{W}$. The next section builds each one.`}
               </p>
             </div>
           </div>
         </>,
-        // ── Section 1: Motion in a Non-inertial Frame ───────────────────────
+        // Section 1: Motion in a Non-inertial Frame
         <>
           <div className="lrn-section" id="lrn-section-1" data-section-index="1">
             <h2>Motion in a Non-inertial Frame</h2>
             <p>
-              Some problems carry rotation built in: anything happening on Earth's surface, on a
-              turntable, inside a centrifuge, or aboard a spinning station. Insisting on an inertial
-              frame for these problems forces you to track the rotation by hand at every step. It is
-              far cleaner to sit inside the rotating frame and pay for the convenience with a few
-              extra terms in the equations of motion. This section derives those terms.
+              Some problems carry rotation built in: anything on Earth's surface, on a turntable,
+              inside a centrifuge, or aboard a spinning station. Insisting on an inertial frame
+              forces you to track the rotation by hand at every step. Sitting inside the rotating
+              frame is far cleaner. You pay for it with a few extra terms in the equations of
+              motion.
+            </p>
+            <p>
+              You have already met this trade once: switching into a co-rotating frame to make
+              pseudo-forces appear is the same move that tames the restricted three-body problem.
+              Here we derive those extra terms in general, for any rotating frame.
             </p>
 
             <div className="lrn-predict">
@@ -179,104 +175,100 @@ function NonInertialFramesContentInner() {
               </details>
             </div>
 
-            <h3>Step 1: A Frame That Slides</h3>
+            <h3>Step 1: The Transport Rule</h3>
             <p>
-              We build the result in two stages. First, take an inertial frame {`$K_0$`} and a
-              second frame {`$K'$`} that slides past it: it can speed up or slow down, but it does
-              not rotate. Call its velocity <strong>V</strong>(t).
+              We have just one tool to start from: Newton's second law,{' '}
+              {`$m\\mathbf{a} = \\mathbf{F}$`}, which holds in the inertial frame. To use it inside
+              a rotating frame, we need to connect rates of change measured in one frame to those
+              measured in the other.
             </p>
             <p>
-              A particle's velocity in the inertial frame, {`$\\mathbf{v}_0$`}, and its velocity in
-              the sliding frame, {`$\\mathbf{v}'$`}, are related by simple addition: each observer's
-              velocity equals the other observer's velocity plus the frame's own:
+              Take any vector {`$\\mathbf{A}$`}. Pick the position vector, or the velocity, or
+              anything else. An observer fixed in the inertial frame and an observer riding the
+              rotating frame will disagree on how fast {`$\\mathbf{A}$`} is turning, because the
+              second observer is turning too. The two rates are linked by the{' '}
+              <strong>transport rule</strong>:
             </p>
-            <div className="lrn-eq">
-              <span>{`$$\\mathbf{v}_0 = \\mathbf{v}' + \\mathbf{V}(t)$$`}</span>
+            <div className="lrn-eq lrn-eq-display">
+              <span>{`$$\\left(\\frac{d\\mathbf{A}}{dt}\\right)_{\\text{in}} = \\left(\\frac{d\\mathbf{A}}{dt}\\right)_{\\text{rot}} + \\mathbf{\\Omega}\\times\\mathbf{A}$$`}</span>
             </div>
             <p>
-              Plug this into {`$L_0$`}, expand, and discard the piece that turns out to be a total
-              time derivative. (Total derivatives in a Lagrangian shift the action by a constant and
-              never affect the equations of motion.) What remains is the Lagrangian in the sliding
-              frame:
-            </p>
-            <div className="lrn-eq">
-              <span>{`$$L' = \\frac{1}{2}m v'^2 - m\\mathbf{W}(t)\\cdot\\mathbf{r}' - U$$`}</span>
-            </div>
-            <p>
-              {`Here $\\mathbf{W} = \\dot{\\mathbf{V}}$ is the acceleration of the sliding frame itself, that is, how fast its velocity is changing.`}
-            </p>
-            <p>Lagrange's equations then give:</p>
-            <div className="lrn-eq">
-              <span>{`$$m\\,\\frac{d\\mathbf{v}'}{dt} = -\\frac{\\partial U}{\\partial \\mathbf{r}'} - m\\mathbf{W}(t)$$`}</span>
-            </div>
-            <p>
-              The new term {`$-m\\mathbf{W}$`} is the same at every point in the frame, so it
-              behaves like a uniform pseudo-gravity. The forward jolt that throws you toward the
-              windshield when a bus brakes is exactly this term: the bus's deceleration, dressed up
-              as a force.
+              The first term is the change the rotating observer sees. The extra term{' '}
+              {`$\\mathbf{\\Omega}\\times\\mathbf{A}$`} is the change caused purely by the frame
+              spinning underneath. The cross product, which you met as a vector at right angles to
+              its two inputs, here points along the circle that {`$\\mathbf{A}$`} sweeps as the
+              frame turns.
             </p>
 
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`Square the velocity: $v_0^2 = v'^2 + 2\\mathbf{v}'\\cdot\\mathbf{V} + V^2$. Multiply by $\\frac{1}{2}m$ and substitute into $L_0$. Three pieces appear.`}
+                {`Suppose $\\mathbf{A}$ is frozen in the rotating frame, so $(d\\mathbf{A}/dt)_{\\text{rot}} = 0$. From outside it still turns, because the whole frame turns. A vector of fixed length spinning at rate $\\mathbf{\\Omega}$ changes at rate $\\mathbf{\\Omega}\\times\\mathbf{A}$, the same circular-motion result you have used before.`}
               </p>
               <p>
-                {`The piece $\\frac{1}{2}mV^2$ depends only on time (the frame's velocity), not on the particle's position or its velocity in the new frame. A term like that cannot affect the particle's motion, so we drop it.`}
-              </p>
-              <p>
-                {`The cross-term $m\\mathbf{v}'\\cdot\\mathbf{V}$ does more work. Using $\\mathbf{v}' = \\dot{\\mathbf{r}}'$, rewrite it as $\\frac{d}{dt}(m\\mathbf{r}'\\cdot\\mathbf{V}) - m\\mathbf{r}'\\cdot\\dot{\\mathbf{V}}$.`}
-              </p>
-              <p>
-                {`Total derivatives in a Lagrangian also drop out (they shift the action by a constant). What survives is $-m\\mathbf{r}'\\cdot\\mathbf{W}$, the new potential-like term you see in $L'$ above.`}
+                {`If $\\mathbf{A}$ also changes inside the frame, just add that change on top. The two contributions are independent, which gives the rule above. It works for any vector, so we are free to feed it the position vector twice.`}
               </p>
             </div>
 
-            <h3>Step 2: Add Rotation</h3>
-            <p>Now let the frame rotate as well, with angular velocity {`$\\mathbf{\\Omega}$`}.</p>
+            <h3>Step 2: Apply It Twice to the Position</h3>
             <p>
-              When a frame rotates, a point sitting at position {`$\\mathbf{r}$`} inside it is being
-              carried around at velocity {`$\\mathbf{\\Omega}\\times\\mathbf{r}$`} as seen from
-              outside. (The cross product gives a vector tangent to the circle of radius{' '}
-              {`$|\\mathbf{r}|$`} swept around the rotation axis, with magnitude equal to the
-              circumferential speed.) So the velocity of a particle measured from the inertial frame
-              is its velocity in the rotating frame, {`$\\mathbf{v}$`}, plus the carry-along piece:
+              Feed the position vector {`$\\mathbf{r}$`} into the rule. The left side is the
+              velocity in the inertial frame, {`$\\mathbf{v}_0$`}; the first term on the right is
+              the velocity in the rotating frame, {`$\\mathbf{v}$`}:
             </p>
             <div className="lrn-eq">
               <span>{`$$\\mathbf{v}_0 = \\mathbf{v} + \\mathbf{\\Omega}\\times\\mathbf{r}$$`}</span>
             </div>
             <p>
-              Square this, plug it into the kinetic energy, and fold in the translation we already
-              handled. The Lagrangian in the rotating, translating frame becomes:
+              The carry-along piece {`$\\mathbf{\\Omega}\\times\\mathbf{r}$`} is the speed at which
+              the spot the particle occupies is swept around the axis. Now differentiate once more
+              in the inertial frame. Apply the rule a second time, this time to {`$\\mathbf{v}_0$`},
+              and use it again on the {`$\\mathbf{\\Omega}\\times\\mathbf{r}$`} piece:
             </p>
             <div className="lrn-eq lrn-eq-display">
-              <span>{`$$L = \\frac{1}{2}mv^2 + m\\mathbf{v}\\cdot(\\mathbf{\\Omega}\\times\\mathbf{r}) + \\frac{1}{2}m(\\mathbf{\\Omega}\\times\\mathbf{r})^2 - m\\mathbf{W}\\cdot\\mathbf{r} - U$$`}</span>
+              <span>{`$$\\mathbf{a}_0 = \\mathbf{a} + 2\\,\\mathbf{\\Omega}\\times\\mathbf{v} + \\dot{\\mathbf{\\Omega}}\\times\\mathbf{r} + \\mathbf{\\Omega}\\times(\\mathbf{\\Omega}\\times\\mathbf{r})$$`}</span>
             </div>
             <p>
-              Each new term has a job. The cross product{' '}
-              {`$m\\mathbf{v}\\cdot(\\mathbf{\\Omega}\\times\\mathbf{r})$`} couples velocity to
-              rotation and will produce the Coriolis force. The squared cross product depends only
-              on position and will produce the centrifugal force. The{' '}
-              {`$-m\\mathbf{W}\\cdot\\mathbf{r}$`} term is the translational pseudo-gravity from
-              Step 1, carried along.
+              Here {`$\\mathbf{a}$`} is the acceleration the rotating observer measures and{' '}
+              {`$\\mathbf{a}_0$`} is the acceleration in the inertial frame. If the frame is also
+              sliding with acceleration {`$\\mathbf{W}$`}, add that to {`$\\mathbf{a}_0$`} as well.
             </p>
+
+            <div className="lrn-elaborate">
+              <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
+              <p>
+                {`Write the rule as an operator: $\\left(\\frac{d}{dt}\\right)_{\\text{in}} = \\left(\\frac{d}{dt}\\right)_{\\text{rot}} + \\mathbf{\\Omega}\\times$. Acceleration in the inertial frame is this operator applied to $\\mathbf{v}_0 = \\mathbf{v} + \\mathbf{\\Omega}\\times\\mathbf{r}$.`}
+              </p>
+              <p>
+                {`The $\\mathbf{v}$ part gives $\\mathbf{a} + \\mathbf{\\Omega}\\times\\mathbf{v}$. The $\\mathbf{\\Omega}\\times\\mathbf{r}$ part gives $\\dot{\\mathbf{\\Omega}}\\times\\mathbf{r} + \\mathbf{\\Omega}\\times(\\mathbf{v} + \\mathbf{\\Omega}\\times\\mathbf{r})$, since $\\Omega$ may change and the rule reapplies to $\\mathbf{r}$.`}
+              </p>
+              <p>
+                {`Add the two. The two separate $\\mathbf{\\Omega}\\times\\mathbf{v}$ pieces combine into $2\\,\\mathbf{\\Omega}\\times\\mathbf{v}$, the source of the factor of 2 in the Coriolis term.`}
+              </p>
+            </div>
 
             <h3>The Inertia Forces</h3>
             <p>
-              Feeding the rotating-frame Lagrangian through Lagrange's equations gives the equation
-              of motion:
+              Newton's law in the inertial frame is {`$m\\mathbf{a}_0 = \\mathbf{F}$`}, where{' '}
+              {`$\\mathbf{F} = -\\partial U/\\partial\\mathbf{r}$`} is the real force from the
+              potential. Substitute the acceleration we just found, add the sliding term{' '}
+              {`$\\mathbf{W}$`}, and solve for the acceleration {`$\\mathbf{a}$`} the rotating
+              observer measures:
             </p>
             <div className="lrn-eq lrn-eq-display">
               <span>{`$$m\\frac{d\\mathbf{v}}{dt} = -\\frac{\\partial U}{\\partial \\mathbf{r}} - m\\mathbf{W} + m\\mathbf{r}\\times\\dot{\\mathbf{\\Omega}} + 2m\\mathbf{v}\\times\\mathbf{\\Omega} + m\\mathbf{\\Omega}\\times(\\mathbf{r}\\times\\mathbf{\\Omega})$$`}</span>
             </div>
             <p>
-              The first term on the right is the real force from the potential {`$U$`}. Everything
+              The four extra terms are just the pieces of {`$\\mathbf{a}_0$`} moved to the
+              right-hand side, with signs flipped. Using{' '}
+              {`$\\mathbf{b}\\times\\mathbf{c} = -\\mathbf{c}\\times\\mathbf{b}$`}, each one
+              rewrites into a tidy form. The first term on the right is the real force. Everything
               after it is an <strong>inertia force</strong>: a term that looks like a force on the
               page but exists only because the frame itself is moving. The four are:
             </p>
             <ul className="lrn-list">
               <li>
-                {`$-m\\mathbf{W}$ - the translational inertia force, present whenever the frame's velocity is changing (like the bus example).`}
+                {`$-m\\mathbf{W}$ - the translational inertia force, present whenever the frame's velocity is changing. The forward jolt that throws you at the windshield when a bus brakes is exactly this term.`}
               </li>
               <li>
                 {`$m\\mathbf{r}\\times\\dot{\\mathbf{\\Omega}}$ - the Euler force, present only when the rotation rate itself is changing, as on a turntable that is spinning up.`}
@@ -289,14 +281,56 @@ function NonInertialFramesContentInner() {
               </li>
             </ul>
 
+            <h3>Worked Example: Apparent Weight at the Equator</h3>
+            <p>
+              Put numbers on the centrifugal term. Stand at the equator. Earth spins at{' '}
+              {`$\\Omega \\approx 7.3\\times10^{-5}$`} rad/s, and the equatorial radius is{' '}
+              {`$R \\approx 6.4\\times10^{6}$`} m. You sit still on the ground, so{' '}
+              {`$\\mathbf{v} = 0$`} and there is no Coriolis force; {`$\\Omega$`} is steady, so
+              there is no Euler force. Only the centrifugal force acts.
+            </p>
+            <p>
+              At the equator the rotation axis is horizontal, so the centrifugal force points
+              straight up, directly against gravity. Its size per unit mass is {`$\\Omega^2 R$`}:
+            </p>
+            <div className="lrn-eq">
+              <span>{`$$\\Omega^2 R = (7.3\\times10^{-5})^2 \\times 6.4\\times10^{6} \\approx 0.034\\ \\text{m/s}^2$$`}</span>
+            </div>
+            <p>
+              Compare this with {`$g \\approx 9.8$`} m/s². The fraction is{' '}
+              {`$0.034 / 9.8 \\approx 0.0035$`}, about a third of a percent. So Earth's spin makes
+              you weigh roughly 0.35% less at the equator than you would on a still Earth. Small,
+              but a sensitive scale can measure it.
+            </p>
+
+            <h3>Worked Example: Which Way Does Coriolis Push?</h3>
+            <p>
+              The Coriolis direction trips people up, so work one case fully. A turntable spins
+              counterclockwise seen from above, so {`$\\mathbf{\\Omega}$`} points straight up, along{' '}
+              {`$+\\hat{\\mathbf{z}}$`}. A puck slides outward along the {`$+\\hat{\\mathbf{x}}$`}{' '}
+              axis at speed {`$v$`}, so {`$\\mathbf{v} = v\\,\\hat{\\mathbf{x}}$`}.
+            </p>
+            <p>
+              The Coriolis force is {`$2m\\,\\mathbf{v}\\times\\mathbf{\\Omega}$`}. Cross the two
+              vectors: {`$\\hat{\\mathbf{x}}\\times\\hat{\\mathbf{z}} = -\\hat{\\mathbf{y}}$`}. So
+              the force is {`$2mv\\Omega\\,(-\\hat{\\mathbf{y}})$`}: it points along{' '}
+              {`$-\\hat{\\mathbf{y}}$`}.
+            </p>
+            <p>
+              For a puck heading along {`$+\\hat{\\mathbf{x}}$`}, the {`$-\\hat{\\mathbf{y}}$`}{' '}
+              direction is off to its right. On a counterclockwise turntable, the Coriolis force
+              always shoves a moving object to its right. That right-hand deflection is the same one
+              that organises weather systems in the Northern Hemisphere.
+            </p>
+
             <div className="lrn-compare">
               <div className="lrn-compare-col">
                 <span className="lrn-compare-title">Coriolis Force</span>
                 <p>{`$2m\\,\\mathbf{v}\\times\\mathbf{\\Omega}$`}</p>
                 <p>Depends on how fast the particle is moving in the rotating frame.</p>
                 <p>
-                  Always points perpendicular to the motion, so it does no work. It only bends the
-                  path; it never speeds it up or slows it down.
+                  It vanishes the instant the particle sits still in the frame, since a cross
+                  product with the zero velocity is zero.
                 </p>
                 <p>Sends falling objects eastward and steers the rotation of cyclones.</p>
               </div>
@@ -309,82 +343,60 @@ function NonInertialFramesContentInner() {
                   a merry-go-round.
                 </p>
                 <p>
-                  Has a potential energy{' '}
-                  {`$U_{\\text{cf}} = -\\frac{1}{2}m(\\mathbf{\\Omega}\\times\\mathbf{r})^2$`}, so
-                  it can be folded into an effective potential.
+                  Acts even on a stone glued to a spinning disk; that stone is pushed outward but
+                  never deflected sideways.
                 </p>
               </div>
             </div>
 
-            <div className="lrn-self-explain">
-              <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-              <p>
-                Why does the Coriolis force disappear the moment a particle stops moving in the
-                rotating frame? Try to answer before reading on.
-              </p>
-              <details className="lrn-self-explain-reveal">
-                <summary>Expert explanation</summary>
-                <p>
-                  The Coriolis force is {`$2m\\mathbf{v}\\times\\mathbf{\\Omega}$`}, where{' '}
-                  {`$\\mathbf{v}$`} is the velocity an observer riding inside the rotating frame
-                  would measure.
-                </p>
-                <p>
-                  {`If the particle is at rest in that frame, $\\mathbf{v} = 0$, and any cross product with the zero vector is zero.`}
-                </p>
-                <p>
-                  The same particle still feels the centrifugal force, because that one depends only
-                  on position. So a stone glued to a spinning disk gets pushed outward, but is not
-                  deflected sideways.
-                </p>
-              </details>
-            </div>
-
             <h3>Energy in the Rotating Frame</h3>
             <p>
-              Read off the canonical momentum from the rotating-frame Lagrangian by differentiating
-              with respect to velocity,{' '}
-              {`$\\mathbf{p} = \\dfrac{\\partial L}{\\partial \\mathbf{v}}$`}:
+              Suppose the frame spins at a steady rate, so {`$\\mathbf{\\Omega}$`} is constant. Then
+              two of the inertia forces are easy to account for. The Coriolis force is always at
+              right angles to the velocity, so it does no work. The centrifugal force points
+              straight out from the axis and, like gravity, can be written as the gradient of a
+              potential.
             </p>
-            <div className="lrn-eq">
-              <span>{`$$\\mathbf{p} = m\\mathbf{v} + m\\mathbf{\\Omega}\\times\\mathbf{r}$$`}</span>
-            </div>
             <p>
-              The energy (the Hamiltonian) is then {`$E = \\mathbf{p}\\cdot\\mathbf{v} - L$`}, which
-              works out to:
+              That centrifugal potential is{' '}
+              {`$U_{\\text{cf}} = -\\frac{1}{2}m(\\mathbf{\\Omega}\\times\\mathbf{r})^2$`}. Because
+              only the centrifugal force adds energy bookkeeping, the conserved energy in the
+              rotating frame is the kinetic energy plus the real potential plus this new term:
             </p>
             <div className="lrn-eq">
               <span>{`$$E = \\frac{1}{2}mv^2 - \\frac{1}{2}m(\\mathbf{\\Omega}\\times\\mathbf{r})^2 + U$$`}</span>
             </div>
             <p>
-              Compared with the inertial-frame energy, this version has an extra negative term,{' '}
-              {`$-\\frac{1}{2}m(\\mathbf{\\Omega}\\times\\mathbf{r})^2$`}. That is the centrifugal
-              potential: in the rotating frame, points farther from the axis sit at lower energy.
+              Compared with the inertial-frame energy, this version carries the extra negative term{' '}
+              {`$-\\frac{1}{2}m(\\mathbf{\\Omega}\\times\\mathbf{r})^2$`}. Points farther from the
+              axis sit at lower energy, which is why a free object drifts outward.
             </p>
             <p>
-              When {`$\\mathbf{\\Omega}$`} is constant in time, the two energies are linked by a
-              clean exact relation:
+              {`This is the same outward push you met as the centrifugal barrier $\\frac{l^2}{2\\mu r^2}$ in central-force motion. There it came from conserved angular momentum, dressed up as a radial potential. Here it comes from sitting in the rotating frame. Same physics, two viewpoints.`}
+            </p>
+            <p>
+              There is a clean exact relation between the two energies. Write {`$E_0$`} for the
+              energy in the inertial frame and {`$\\mathbf{M} = \\mathbf{r}\\times m\\mathbf{v}_0$`}{' '}
+              for the angular momentum measured there:
             </p>
             <div className="lrn-eq lrn-eq-display">
               <span>{`$$E = E_0 - \\mathbf{M}\\cdot\\mathbf{\\Omega}$$`}</span>
             </div>
             <p>
-              Here {`$E_0$`} is the energy you would measure in the inertial frame, and{' '}
-              {`$\\mathbf{M} = \\mathbf{r}\\times m\\mathbf{v}_0$`} is the angular momentum (also
-              computed in the inertial frame). The two energies disagree by exactly the part of the
-              angular momentum that lines up with the rotation axis.
+              This relation is exact, not an approximation. The two energies disagree by exactly the
+              part of the angular momentum that lines up with the rotation axis.
             </p>
 
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                {`Start from the inertial-frame energy $E_0 = \\frac{1}{2}mv_0^2 + U$ and expand $v_0^2$ using $\\mathbf{v}_0 = \\mathbf{v} + \\mathbf{\\Omega}\\times\\mathbf{r}$.`}
+                {`Start from $E_0 = \\frac{1}{2}mv_0^2 + U$ and expand $v_0^2$ using $\\mathbf{v}_0 = \\mathbf{v} + \\mathbf{\\Omega}\\times\\mathbf{r}$. Squaring gives $v_0^2 = v^2 + 2\\,\\mathbf{v}\\cdot(\\mathbf{\\Omega}\\times\\mathbf{r}) + (\\mathbf{\\Omega}\\times\\mathbf{r})^2$. So $E_0 = E + m\\,\\mathbf{v}\\cdot(\\mathbf{\\Omega}\\times\\mathbf{r}) + m(\\mathbf{\\Omega}\\times\\mathbf{r})^2$, since the $-\\frac{1}{2}m(\\mathbf{\\Omega}\\times\\mathbf{r})^2$ inside $E$ leaves a single full power behind.`}
               </p>
               <p>
-                {`The cross-term that appears is $m\\,\\mathbf{v}\\cdot(\\mathbf{\\Omega}\\times\\mathbf{r})$. Cycling the dot and the cross (the standard scalar-triple-product identity $\\mathbf{a}\\cdot(\\mathbf{b}\\times\\mathbf{c}) = \\mathbf{b}\\cdot(\\mathbf{c}\\times\\mathbf{a})$), this becomes $\\mathbf{\\Omega}\\cdot(\\mathbf{r}\\times m\\mathbf{v}) = \\mathbf{\\Omega}\\cdot\\mathbf{M}$.`}
+                {`Now take $\\mathbf{M}\\cdot\\mathbf{\\Omega}$ with $\\mathbf{M} = \\mathbf{r}\\times m\\mathbf{v}_0 = \\mathbf{r}\\times m(\\mathbf{v} + \\mathbf{\\Omega}\\times\\mathbf{r})$. A scalar triple product is unchanged when you cycle its three vectors, so $\\mathbf{\\Omega}\\cdot(\\mathbf{r}\\times m\\mathbf{v}) = m\\,\\mathbf{v}\\cdot(\\mathbf{\\Omega}\\times\\mathbf{r})$ and $\\mathbf{\\Omega}\\cdot(\\mathbf{r}\\times m(\\mathbf{\\Omega}\\times\\mathbf{r})) = m(\\mathbf{\\Omega}\\times\\mathbf{r})^2$.`}
               </p>
               <p>
-                {`Collecting the remaining pieces of the kinetic energy gives $E_0 = E + \\mathbf{M}\\cdot\\mathbf{\\Omega}$, which rearranges to the relation above.`}
+                {`Those are exactly the two extra pieces, so $\\mathbf{M}\\cdot\\mathbf{\\Omega} = E_0 - E$, which rearranges to the relation above.`}
               </p>
             </div>
 
@@ -403,7 +415,7 @@ function NonInertialFramesContentInner() {
               <span>{`$$\\omega_{\\text{prec}} = \\Omega\\sin\\lambda$$`}</span>
             </div>
             <p>
-              {`Here $\\Omega$ is Earth's spin rate and $\\lambda$ is the latitude. At the North Pole ($\\lambda = 90°$, $\\sin\\lambda = 1$), the plane makes one full rotation in a sidereal day. At the equator ($\\lambda = 0$, $\\sin\\lambda = 0$), the pendulum does not precess at all.`}
+              {`From here on $\\Omega$ means Earth's own spin rate specifically, and $\\omega_{\\text{prec}}$ is the slower rate at which the swing plane turns. Here $\\lambda$ is the latitude. At the North Pole ($\\lambda = 90°$, $\\sin\\lambda = 1$), the plane makes one full rotation in a sidereal day, one turn of Earth relative to the stars, about 23 h 56 min. At the equator ($\\lambda = 0$, $\\sin\\lambda = 0$), the pendulum does not precess at all.`}
             </p>
 
             <div className="lrn-self-explain">
@@ -496,17 +508,10 @@ function NonInertialFramesContentInner() {
               </div>
             </div>
 
-            <div className="lrn-insight">
-              <strong>Key insight:</strong> The relation{' '}
-              {`$E = E_0 - \\mathbf{M}\\cdot\\mathbf{\\Omega}$`} is exact, not an approximation.
-              Switching from an inertial frame to a uniformly rotating one shifts the energy by
-              exactly the part of the angular momentum that lines up with the rotation axis.
-            </div>
-
             <div className="lrn-compare">
               <div className="lrn-compare-col">
                 <span className="lrn-compare-title">Inertial Frame</span>
-                <p>{`Lagrangian: $L_0 = \\frac{1}{2}mv_0^2 - U$.`}</p>
+                <p>{`Newton's law is plain: $m\\mathbf{a} = \\mathbf{F}$.`}</p>
                 <p>No inertia forces. The equations of motion are as clean as they get.</p>
                 <p>
                   Best when the problem has no built-in rotation: orbits, projectiles, collisions,
@@ -516,9 +521,10 @@ function NonInertialFramesContentInner() {
               <div className="lrn-compare-col">
                 <span className="lrn-compare-title">Rotating Frame</span>
                 <p>
-                  Lagrangian picks up the Coriolis, centrifugal, Euler, and translational terms.
+                  Newton's law picks up the Coriolis, centrifugal, Euler, and translational inertia
+                  forces.
                 </p>
-                <p>Those show up as inertia forces in the equation of motion.</p>
+                <p>They are the price you pay for sitting in a frame that moves.</p>
                 <p>
                   Best for problems on Earth's surface, on a turntable, inside a centrifuge, or
                   wherever the natural setting is itself spinning.
@@ -532,8 +538,8 @@ function NonInertialFramesContentInner() {
 
     practice: [
       {
-        q: 'In a frame rotating at angular velocity Omega, what is the Coriolis force, and when does it disappear?',
-        a: 'The Coriolis force is 2mv cross Omega, where v is the particle velocity measured in the rotating frame. It disappears whenever v = 0, that is, whenever the particle is sitting still in the rotating frame. Because it is always perpendicular to v, it does no work: it bends the path but never changes the speed.'
+        q: 'You stand at the equator, where Earth spins at Omega = 7.3e-5 rad/s and the radius is R = 6.4e6 m. By how much does the centrifugal force lighten your apparent weight, as a fraction of g = 9.8 m/s^2?',
+        a: "The centrifugal acceleration points straight out from the spin axis. At the equator that is straight up, opposite gravity, with size Omega^2 R. Plug in: (7.3e-5)^2 times 6.4e6 = 5.3e-9 times 6.4e6 = 0.034 m/s^2. As a fraction of g that is 0.034 / 9.8 = 0.0035, about 0.35 percent. So Earth's spin makes you weigh roughly a third of a percent less at the equator than you would on a non-spinning Earth."
       },
       {
         q: 'A ball is released on a turntable that is rotating counterclockwise at angular velocity Omega. It slides outward without friction. Which way does it deflect?',
@@ -541,25 +547,25 @@ function NonInertialFramesContentInner() {
       }
     ],
 
-    // ── Reference Mode ──────────────────────────────────────────────────────
+    // Reference Mode
     reference: {
       category: 'Quick Reference',
-      title: 'Non-inertial Frames',
+      title: 'Non-Inertial Frames and Coriolis Applications',
       sections: [
         <>
           <div className="ref">
-            <h2>Non-inertial Frames</h2>
+            <h2>Non-Inertial Frames and Coriolis Applications</h2>
 
             <div className="lrn-definition">
-              <span className="lrn-definition-term">Lagrangian in non-inertial frame</span>
+              <span className="lrn-definition-term">Transport rule (rotating frame)</span>
               <div className="lrn-definition-desc">
                 <div className="lrn-eq lrn-eq-display">
-                  <span>{`$$L = \\tfrac{1}{2}mv^2 + m\\mathbf{v}\\cdot(\\mathbf{\\Omega}\\times\\mathbf{r}) + \\tfrac{1}{2}m(\\mathbf{\\Omega}\\times\\mathbf{r})^2 - m\\mathbf{W}\\cdot\\mathbf{r} - U$$`}</span>
+                  <span>{`$$\\left(\\frac{d\\mathbf{A}}{dt}\\right)_{\\text{in}} = \\left(\\frac{d\\mathbf{A}}{dt}\\right)_{\\text{rot}} + \\mathbf{\\Omega}\\times\\mathbf{A}$$`}</span>
                 </div>
                 <p>
-                  When to use: whenever the reference frame is accelerating in a straight line
-                  (acceleration <strong>W</strong>), rotating (angular velocity <strong>Ω</strong>),
-                  or both.
+                  When to use: to convert the time rate of change of any vector <strong>A</strong>{' '}
+                  from the inertial frame to a frame rotating at angular velocity <strong>Ω</strong>
+                  . Apply it twice to the position to get the acceleration.
                 </p>
               </div>
             </div>
@@ -636,6 +642,6 @@ function NonInertialFramesContentInner() {
   return <LearningTemplate config={config} />
 }
 
-export default function NonInertialFramesContent() {
-  return <NonInertialFramesContentInner />
+export default function NonInertialFramesAndCoriolisApplications() {
+  return <NonInertialFramesAndCoriolisApplicationsInner />
 }

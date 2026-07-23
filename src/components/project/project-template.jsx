@@ -4,71 +4,57 @@ import { useMathJax } from '../../hooks/use-mathjax'
 import { useSettings } from '../../hooks/use-settings'
 import { effectiveCombo, comboTokens } from '../../lib/keybinds'
 import { topicComponentMap } from '../../config/registry'
+import { formatDuration } from '../../utils/format'
 import LearningSidebar from '../learning/learning-sidebar'
 import KeyboardCheatsheet from '../learning/keyboard-cheatsheet'
+import ExamRunner from './exam-runner'
+import { useExam } from './use-exam'
 import './project-template.css'
 import '../learning/learning-template.css'
 import '../learning/learning-sidebar.css'
 import '../learning/topic-page.css'
 
-// ── Answer collapsible ────────────────────────────────────────────────────────
+// Sidebar concepts block
 
-export function Answer({ children }) {
-  const [open, setOpen] = useState(false)
+function ConceptsBlock({ concepts, navigate, last }) {
+  if (!concepts?.length) return null
   return (
-    <div style={{ margin: '8px 0 32px' }}>
-      <button className="project-collapsible" onClick={() => setOpen(!open)}>
-        <span
-          className="project-collapsible-icon"
-          style={{ transform: open ? 'rotate(90deg)' : 'none' }}
-        >
-          ▶
-        </span>
-        ANSWER
-      </button>
-      <div className={`project-collapsible-content${open ? ' visible' : ''}`}>
-        <div className="project-solution-text">{children}</div>
-      </div>
-    </div>
-  )
-}
-
-// ── Concept tags ──────────────────────────────────────────────────────────────
-
-function ConceptTags({ concepts, navigate }) {
-  if (!concepts) return null
-  return (
-    <div className="project-concepts">
-      <span className="project-concepts-label">CONCEPTS USED</span>
-      <div className="project-concepts-list">
+    <section className={`lt-sidebar-block${last ? ' lt-sidebar-block-last' : ''}`}>
+      <header className="lt-sidebar-block-head">
+        <span>CONCEPTS</span>
+      </header>
+      <ul className="lt-sidebar-sections">
         {concepts.map((c, i) => {
           const mapping = topicComponentMap[c]
-          return mapping ? (
-            <button
-              key={i}
-              className="project-concept-tag clickable"
-              onClick={() => navigate(`/${mapping.slug}`)}
-            >
-              {c}
-            </button>
-          ) : (
-            <span key={i} className="project-concept-tag">
-              {c}
-            </span>
+          return (
+            <li key={i}>
+              <button
+                type="button"
+                className="lt-sidebar-section"
+                disabled={!mapping}
+                onClick={() => mapping && navigate(`/${mapping.slug}`)}
+                title={c}
+              >
+                <span className="lt-sidebar-section-bullet" aria-hidden="true">
+                  ◇
+                </span>
+                <span className="lt-sidebar-section-t">{c}</span>
+              </button>
+            </li>
           )
         })}
-      </div>
-    </div>
+      </ul>
+    </section>
   )
 }
 
-// ── Main template ─────────────────────────────────────────────────────────────
+// Main template
 
 function ProjectTemplate({ config }) {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const settings = useSettings()
-  const [activeTab, setActiveTab] = useState('project')
+  const examState = useExam(config.exam ?? null)
   const [copied, setCopied] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [loaded, setLoaded] = useState(false)
@@ -77,9 +63,9 @@ function ProjectTemplate({ config }) {
 
   const { status: mathStatus, typeset, clear } = useMathJax([], true)
 
-  // Force-typeset the content body on every tab switch and once MathJax reports
-  // ready. Project template renders <ExamContent/> and <ProjectContent/> as
-  // unrendered React elements; their math reaches the DOM only after the tab
+  // Force-typeset the content body once MathJax reports ready, and again when the
+  // exam phase changes or an answer reveals new math. The template renders the
+  // exam as an unrendered React element; its math reaches the DOM only after the
   // panel mounts, which can be after MathJax's initial auto-typeset has run.
   useEffect(() => {
     if (mathStatus !== 'ready') return
@@ -87,7 +73,7 @@ function ProjectTemplate({ config }) {
     if (!root) return
     clear(root)
     typeset(root)
-  }, [activeTab, mathStatus, typeset, clear])
+  }, [mathStatus, typeset, clear, examState.phase, examState.revealed])
 
   useEffect(() => {
     document.title = config.documentTitle || 'Project / Aether'
@@ -109,10 +95,6 @@ function ProjectTemplate({ config }) {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [])
-
-  const availableTabs = [['project', 'Project'], config.examContent && ['exam', 'Exam']].filter(
-    Boolean
-  )
 
   const exportMarkdown = () => {
     const panel = document.querySelector('.project-content-body')
@@ -191,15 +173,88 @@ function ProjectTemplate({ config }) {
     return () => window.removeEventListener('aether:action:copy-markdown', onCopyAction)
   })
 
+  const examBlocks = config.exam ? (
+    <>
+      <section className="lt-sidebar-block">
+        <header className="lt-sidebar-block-head">
+          <span>EXAM</span>
+          <span className="lt-sidebar-count">{examState.totalMarks} MARKS</span>
+        </header>
+        <div className="lt-sidebar-meta">
+          <span>{examState.totalQuestions} questions</span>
+          <span>{config.exam.sections.length} sections</span>
+        </div>
+      </section>
+
+      {examState.phase === 'running' && (
+        <section className="lt-sidebar-block">
+          <header className="lt-sidebar-block-head">
+            <span>SECTIONS</span>
+            <span className="lt-sidebar-count">{config.exam.sections.length}</span>
+          </header>
+          <ul className="lt-sidebar-sections">
+            {config.exam.sections.map(s => {
+              const active = s.id === examState.activeSectionId
+              const marks = s.questions.reduce((t, q) => t + q.marks, 0)
+              return (
+                <li key={s.id}>
+                  <button
+                    type="button"
+                    className={`lt-sidebar-section${active ? ' active' : ''}`}
+                    onClick={() => {
+                      examState.scrollToSection(s.id)
+                      setDrawerOpen(false)
+                    }}
+                    title={s.title}
+                  >
+                    <span className="lt-sidebar-section-bullet" aria-hidden="true">
+                      {active ? '◆' : '◇'}
+                    </span>
+                    <span className="lt-sidebar-section-t">
+                      {s.id} · {s.title}
+                    </span>
+                    <span className="lt-sidebar-section-n">{marks}</span>
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+      )}
+
+      {examState.phase !== 'intro' && (
+        <section className="lt-sidebar-block">
+          <header className="lt-sidebar-block-head">
+            <span>PROGRESS</span>
+            <span className="lt-sidebar-count">{formatDuration(examState.elapsedMs)}</span>
+          </header>
+          <div className="lt-sidebar-meta">
+            <span>
+              {examState.earned}/{examState.totalMarks} score
+            </span>
+            <span>
+              {examState.gradedCount}/{examState.totalQuestions} graded
+            </span>
+          </div>
+        </section>
+      )}
+
+      <ConceptsBlock concepts={config.briefing.concepts} navigate={navigate} last />
+    </>
+  ) : (
+    <ConceptsBlock concepts={config.briefing.concepts} navigate={navigate} last />
+  )
+
   const sidebarProps = {
-    tab: activeTab,
-    availableTabs,
-    onTabChange: setActiveTab,
+    tab: 'exam',
+    availableTabs: [],
+    onTabChange: () => {},
     sections: [],
     activeSectionIndex: 0,
     onSectionClick: () => {},
     practiceProgress: { index: 0, total: 0 },
-    fsrs: { reviewCount: 0, learnedCount: 0, totalCardCount: 0 }
+    fsrs: { reviewCount: 0, learnedCount: 0, totalCardCount: 0 },
+    extra: examBlocks
   }
 
   return (
@@ -353,9 +408,7 @@ function ProjectTemplate({ config }) {
                 <button
                   type="button"
                   className="lv-topbar-icon"
-                  onClick={() =>
-                    window.dispatchEvent(new CustomEvent('aether:toggle-pomodoro'))
-                  }
+                  onClick={() => window.dispatchEvent(new CustomEvent('aether:toggle-pomodoro'))}
                   aria-label="Pomodoro timer"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -372,9 +425,7 @@ function ProjectTemplate({ config }) {
                 <button
                   type="button"
                   className="lv-topbar-icon"
-                  onClick={() =>
-                    window.dispatchEvent(new CustomEvent('aether:toggle-settings'))
-                  }
+                  onClick={() => window.dispatchEvent(new CustomEvent('aether:toggle-settings'))}
                   aria-label="Open settings"
                 >
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -388,33 +439,17 @@ function ProjectTemplate({ config }) {
           )}
         </header>
 
-        <div className="project-page">
+        <div className="project-page exam-only">
           <div className="project-container">
-            {activeTab === 'project' && (
-              <>
-                <div className="project-briefing">
-                  <span className="project-tag">{config.label || 'Capstone'}</span>
-                  <h1 className="project-title">{config.briefing.title}</h1>
-                  {config.briefing.subtitle && (
-                    <span className="project-subtitle">{config.briefing.subtitle}</span>
-                  )}
-                  <p className="project-description">{config.briefing.description}</p>
-                  <ConceptTags concepts={config.briefing.concepts} navigate={navigate} />
-                </div>
-                {config.projectContent && (
-                  <div className="project-content-body">{config.projectContent}</div>
-                )}
-              </>
-            )}
-
-            {activeTab === 'exam' && config.examContent && (
+            {(config.exam || config.examContent) && (
               <>
                 <div className="project-briefing">
                   <span className="project-tag">Exam</span>
                   <h1 className="project-title">{config.briefing.title}</h1>
-                  <ConceptTags concepts={config.briefing.concepts} navigate={navigate} />
                 </div>
-                <div className="project-content-body">{config.examContent}</div>
+                <div className="project-content-body">
+                  {config.exam ? <ExamRunner state={examState} /> : config.examContent}
+                </div>
               </>
             )}
           </div>

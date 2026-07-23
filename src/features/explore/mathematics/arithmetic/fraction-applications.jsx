@@ -1,14 +1,438 @@
+import { useState } from 'react'
 import { LearningTemplate } from '../../../../components/learning/learning-template'
 import { useVizColors } from '../../../../hooks/use-viz-colors'
 import { useMathJax } from '../../../../hooks/use-mathjax'
-
+import { VizFigure } from '../../../../components/viz-figure'
+import { FONT_CONTROL, FONT_LABEL, FONT_TEX } from '../../../../components/viz/scale-tokens'
 import {
-  PercentBarVis,
-  RatioBarVis,
-  RateGraphVis,
-  CoopWorkVis,
-  ComplexFractionVis
-} from '../../../../components/viz'
+  Plot,
+  Polyline,
+  Dot,
+  Tex,
+  Label,
+  Slider,
+  KatexInline,
+  OPACITY
+} from '../../../../components/viz/primitives'
+
+function gcd(a, b) {
+  return b === 0 ? a : gcd(b, a % b)
+}
+
+function reduce(n, d) {
+  const g = gcd(Math.abs(n), Math.abs(d)) || 1
+  return [n / g, d / g]
+}
+
+function InlinePercentBarVis() {
+  const C = useVizColors()
+  const [pct, setPct] = useState(35)
+  const W = 480
+  const H = 36
+  const [pn, pd] = reduce(pct, 100)
+  return (
+    <div style={{ width: '100%', color: C.fg }}>
+      <svg
+        viewBox={`0 0 ${W + 40} ${H + 30}`}
+        width="100%"
+        style={{ display: 'block', color: C.fg }}
+        fontFamily="'D-DIN', 'D-DIN-Regular', ui-monospace, monospace"
+      >
+        <g transform="translate(20, 4)">
+          <rect
+            x={0}
+            y={0}
+            width={W}
+            height={H}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1}
+          />
+          <rect
+            x={0}
+            y={0}
+            width={(W * pct) / 100}
+            height={H}
+            fill="currentColor"
+            fillOpacity={OPACITY.dim}
+          />
+          {Array.from({ length: 11 }, (_, i) => (
+            <line
+              key={`t${i}`}
+              x1={(W * i) / 10}
+              y1={H}
+              x2={(W * i) / 10}
+              y2={H + 6}
+              stroke="currentColor"
+              strokeOpacity={OPACITY.dim}
+            />
+          ))}
+          {Array.from({ length: 11 }, (_, i) => (
+            <text
+              key={`l${i}`}
+              x={(W * i) / 10}
+              y={H + 20}
+              fill="currentColor"
+              opacity={OPACITY.dim}
+              fontSize={FONT_LABEL}
+              textAnchor="middle"
+              letterSpacing="0.06em"
+            >
+              {i * 10}
+            </text>
+          ))}
+        </g>
+      </svg>
+      <KatexInline
+        tex={`${pct}\\% = \\tfrac{${pn}}{${pd}} = ${(pct / 100).toFixed(2)}`}
+        display
+        style={{ textAlign: 'center', color: C.fg, marginTop: 8 }}
+      />
+      <Slider
+        label="%"
+        value={pct}
+        min={0}
+        max={100}
+        step={1}
+        onChange={v => setPct(v | 0)}
+        format={v => v.toFixed(0) + '%'}
+      />
+    </div>
+  )
+}
+
+function InlineRatioBarVis() {
+  const C = useVizColors()
+  const [a, setA] = useState(2)
+  const [b, setB] = useState(5)
+  const W = 480
+  const H = 36
+  const wa = (a / (a + b)) * W
+  return (
+    <div style={{ width: '100%', color: C.fg }}>
+      <svg
+        viewBox={`0 0 ${W + 40} ${H + 16}`}
+        width="100%"
+        style={{ display: 'block', color: C.fg }}
+        fontFamily="'D-DIN', 'D-DIN-Regular', ui-monospace, monospace"
+      >
+        <g transform="translate(20, 8)">
+          <rect
+            x={0}
+            y={0}
+            width={wa}
+            height={H}
+            fill="currentColor"
+            fillOpacity={OPACITY.dim}
+            stroke="currentColor"
+          />
+          <rect
+            x={wa}
+            y={0}
+            width={W - wa}
+            height={H}
+            fill="currentColor"
+            fillOpacity={OPACITY.faint}
+            stroke="currentColor"
+          />
+          <text
+            x={wa / 2}
+            y={H / 2 + 5}
+            fill="currentColor"
+            fontSize={FONT_CONTROL}
+            textAnchor="middle"
+          >
+            {a}
+          </text>
+          <text
+            x={wa + (W - wa) / 2}
+            y={H / 2 + 5}
+            fill="currentColor"
+            fontSize={FONT_CONTROL}
+            textAnchor="middle"
+          >
+            {b}
+          </text>
+        </g>
+      </svg>
+      <KatexInline
+        tex={`${a} : ${b} \\;\\longrightarrow\\; \\tfrac{${a}}{${a + b}},\\; \\tfrac{${b}}{${a + b}}`}
+        display
+        style={{ textAlign: 'center', color: C.fg, marginTop: 8 }}
+      />
+      <Slider
+        label="a"
+        value={a}
+        min={1}
+        max={9}
+        step={1}
+        onChange={v => setA(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="b"
+        value={b}
+        min={1}
+        max={9}
+        step={1}
+        onChange={v => setB(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+    </div>
+  )
+}
+
+function InlineRateGraphVis() {
+  const C = useVizColors()
+  const [r, setR] = useState(1.5)
+  const AX = 6
+  const AY = 6
+  const tEnd = Math.min(AX, AY / r)
+  const yEnd = r * tEnd
+  const px = 3
+  const py = r * px
+  const inBounds = py <= AY && px <= AX
+  const xt = [1, 2, 3, 4, 5, 6]
+  const yt = [1, 2, 3, 4, 5, 6]
+  return (
+    <div style={{ width: '100%', color: C.fg }}>
+      <Plot xRange={[-0.9, AX + 0.5]} yRange={[-0.9, AY + 0.5]} width={600} height={600}>
+        {xt.map(t => (
+          <Polyline
+            key={`vg${t}`}
+            points={[
+              [t, 0],
+              [t, AY]
+            ]}
+            opacity={OPACITY.faint}
+            strokeWidth={0.6}
+          />
+        ))}
+        {yt.map(t => (
+          <Polyline
+            key={`hg${t}`}
+            points={[
+              [0, t],
+              [AX, t]
+            ]}
+            opacity={OPACITY.faint}
+            strokeWidth={0.6}
+          />
+        ))}
+        <Polyline
+          points={[
+            [0, 0],
+            [AX, 0]
+          ]}
+          opacity={OPACITY.fg}
+          strokeWidth={1.4}
+        />
+        <Polyline
+          points={[
+            [0, 0],
+            [0, AY]
+          ]}
+          opacity={OPACITY.fg}
+          strokeWidth={1.4}
+        />
+        {xt.map(t => (
+          <Polyline
+            key={`xtk${t}`}
+            points={[
+              [t, 0],
+              [t, -0.12]
+            ]}
+            opacity={OPACITY.dim}
+            strokeWidth={1}
+          />
+        ))}
+        {yt.map(t => (
+          <Polyline
+            key={`ytk${t}`}
+            points={[
+              [0, t],
+              [-0.12, t]
+            ]}
+            opacity={OPACITY.dim}
+            strokeWidth={1}
+          />
+        ))}
+        {xt.map(t => (
+          <Label
+            key={`xl${t}`}
+            at={[t, 0]}
+            upper={false}
+            anchor="middle"
+            size={FONT_LABEL}
+            opacity={OPACITY.dim}
+            dy={20}
+          >
+            {t}
+          </Label>
+        ))}
+        {yt.map(t => (
+          <Label
+            key={`yl${t}`}
+            at={[0, t]}
+            upper={false}
+            anchor="end"
+            size={FONT_LABEL}
+            opacity={OPACITY.dim}
+            dx={-10}
+            dy={4}
+          >
+            {t}
+          </Label>
+        ))}
+        <Tex
+          at={[AX + 0.1, 0]}
+          tex="t"
+          anchor="start"
+          size={FONT_TEX}
+          opacity={OPACITY.dim}
+          dy={6}
+        />
+        <Tex
+          at={[0, AY + 0.15]}
+          tex="y"
+          anchor="middle"
+          size={FONT_TEX}
+          opacity={OPACITY.dim}
+          dy={-6}
+        />
+        <Polyline
+          points={[
+            [0, 0],
+            [tEnd, yEnd]
+          ]}
+          opacity={OPACITY.fg}
+          strokeWidth={2.2}
+        />
+        {inBounds && <Dot x={px} y={py} r={5} opacity={OPACITY.fg} />}
+        {inBounds && (
+          <Tex
+            at={[px, py]}
+            tex={`(3,\\;${py.toFixed(2)})`}
+            anchor="start"
+            dx={12}
+            dy={-10}
+            size={FONT_LABEL}
+            opacity={OPACITY.fg}
+          />
+        )}
+        <Tex
+          at={[AX - 0.2, AY - 0.2]}
+          tex={`y = ${r.toFixed(2)}\\,t`}
+          anchor="end"
+          size={FONT_CONTROL}
+          opacity={OPACITY.fg}
+        />
+      </Plot>
+      <Slider
+        label="rate"
+        value={r}
+        min={0.1}
+        max={2.5}
+        step={0.05}
+        onChange={setR}
+        format={v => v.toFixed(2)}
+      />
+    </div>
+  )
+}
+
+function InlineCoopWorkVis() {
+  const C = useVizColors()
+  const [a, setA] = useState(4)
+  const [b, setB] = useState(6)
+  const ra = 1 / a
+  const rb = 1 / b
+  const total = ra + rb
+  const T = 1 / total
+  const W = 480
+  const wa = (ra / total) * W
+  const wb = (rb / total) * W
+  return (
+    <div style={{ width: '100%', color: C.fg }}>
+      <svg
+        viewBox={`0 0 ${W + 40} 56`}
+        width="100%"
+        style={{ display: 'block', color: C.fg }}
+        fontFamily="'D-DIN', 'D-DIN-Regular', ui-monospace, monospace"
+      >
+        <g transform="translate(20, 8)">
+          <rect
+            x={0}
+            y={0}
+            width={wa}
+            height={28}
+            fill="currentColor"
+            fillOpacity={OPACITY.dim}
+            stroke="currentColor"
+          />
+          <rect
+            x={wa}
+            y={0}
+            width={wb}
+            height={28}
+            fill="currentColor"
+            fillOpacity={OPACITY.faint}
+            stroke="currentColor"
+          />
+          <foreignObject x={wa / 2 - 24} y={2} width={48} height={28}>
+            <div
+              style={{
+                color: C.fg,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%'
+              }}
+            >
+              <KatexInline tex={`\\tfrac{1}{${a}}`} />
+            </div>
+          </foreignObject>
+          <foreignObject x={wa + wb / 2 - 24} y={2} width={48} height={28}>
+            <div
+              style={{
+                color: C.fg,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%'
+              }}
+            >
+              <KatexInline tex={`\\tfrac{1}{${b}}`} />
+            </div>
+          </foreignObject>
+        </g>
+      </svg>
+      <KatexInline
+        tex={`\\text{rate} = \\tfrac{1}{${a}} + \\tfrac{1}{${b}} = ${total.toFixed(3)}\\text{/hr}\\quad\\Rightarrow\\quad T = ${T.toFixed(2)}\\text{ hr}`}
+        display
+        style={{ textAlign: 'center', color: C.fg, marginTop: 8 }}
+      />
+      <Slider
+        label="a"
+        value={a}
+        min={1}
+        max={12}
+        step={1}
+        onChange={v => setA(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+      <Slider
+        label="b"
+        value={b}
+        min={1}
+        max={12}
+        step={1}
+        onChange={v => setB(v | 0)}
+        format={v => v.toFixed(0)}
+      />
+    </div>
+  )
+}
 
 function useConfig() {
   const C = useVizColors()
@@ -22,7 +446,7 @@ function useConfig() {
       subtitle:
         'Complex fractions, percent, ratio, rate, and cooperative work. Fractions in the real world.',
       sections: [
-        /* ═══ COMPLEX FRACTIONS ═══ */
+        /* COMPLEX FRACTIONS */
         <>
           <h2>Complex Fractions</h2>
           <p>
@@ -39,40 +463,36 @@ function useConfig() {
             <p>{`Can you compute $\\frac{0.06}{1.3} + \\frac{0.5}{3.4}$ using ordinary fraction rules?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`Yes. Apply rule (d): $\\frac{AD + BC}{BD}$. Result: $\\frac{0.854}{4.42} = \\frac{854}{4420}$.`}</p>
+              <p>{`Yes. Every complex fraction is an ordinary fraction in disguise, so the normal add rule works. The full computation is worked below.`}</p>
             </details>
           </div>
 
-          <div className="lrn-graph">
-            <ComplexFractionVis C={C} />
-          </div>
-
-          <h3>Rules (a) through (f)</h3>
-          <p>{`For fractions $A$, $B$, $C$, $D$, $E$, $F$ (denominators nonzero):`}</p>
+          <h3>The Six Fraction Rules</h3>
+          <p>{`These work for fractions $A$, $B$, $C$, $D$, $E$, $F$ (bottoms not zero). Each rule has a plain meaning and a number example.`}</p>
           <div className="lrn-steps">
             <div className="lrn-step">
-              <span className="lrn-step-title">(a)</span>
-              <p className="lrn-step-content">{`$A \\times \\frac{B}{C} = \\frac{AB}{C}$`}</p>
+              <span className="lrn-step-title">(a) Times a fraction</span>
+              <p className="lrn-step-content">{`Multiply the top, keep the bottom. $A \\times \\frac{B}{C} = \\frac{AB}{C}$. Example: $3 \\times \\frac{2}{5} = \\frac{6}{5}$.`}</p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">(b) Cancellation</span>
-              <p className="lrn-step-content">{`$\\frac{AC}{BC} = \\frac{A}{B}$ (when $C \\neq 0$)`}</p>
+              <p className="lrn-step-content">{`Cancellation means removing a factor that sits on both the top and the bottom. $\\frac{AC}{BC} = \\frac{A}{B}$. Example: $\\frac{2 \\times 7}{3 \\times 7} = \\frac{2}{3}$.`}</p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">(c) Cross-multiplication</span>
-              <p className="lrn-step-content">{`$\\frac{A}{B} = \\frac{C}{D}$ iff $AD = BC$`}</p>
+              <p className="lrn-step-content">{`Two fractions are equal exactly when their cross-products match. $\\frac{A}{B} = \\frac{C}{D}$ exactly when $AD = BC$. Example: $\\frac{2}{3} = \\frac{4}{6}$ because $2 \\times 6 = 3 \\times 4 = 12$.`}</p>
             </div>
             <div className="lrn-step">
-              <span className="lrn-step-title">(d) Addition/Subtraction</span>
-              <p className="lrn-step-content">{`$\\frac{A}{B} \\pm \\frac{C}{D} = \\frac{AD \\pm BC}{BD}$`}</p>
+              <span className="lrn-step-title">(d) Add or subtract</span>
+              <p className="lrn-step-content">{`Put both fractions over a common bottom, then add or subtract the tops. $\\frac{A}{B} \\pm \\frac{C}{D} = \\frac{AD \\pm BC}{BD}$. Example: $\\frac{1}{2} + \\frac{1}{3} = \\frac{3 + 2}{6} = \\frac{5}{6}$.`}</p>
             </div>
             <div className="lrn-step">
-              <span className="lrn-step-title">(e) Multiplication</span>
-              <p className="lrn-step-content">{`$\\frac{A}{B} \\times \\frac{C}{D} = \\frac{AC}{BD}$`}</p>
+              <span className="lrn-step-title">(e) Multiply</span>
+              <p className="lrn-step-content">{`Multiply the tops together and the bottoms together. $\\frac{A}{B} \\times \\frac{C}{D} = \\frac{AC}{BD}$. Example: $\\frac{2}{3} \\times \\frac{4}{5} = \\frac{8}{15}$.`}</p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">(f) Distributive law</span>
-              <p className="lrn-step-content">{`$\\frac{A}{B}(\\frac{C}{D} \\pm \\frac{E}{F}) = \\frac{A}{B} \\cdot \\frac{C}{D} \\pm \\frac{A}{B} \\cdot \\frac{E}{F}$`}</p>
+              <p className="lrn-step-content">{`The distributive law means a multiplier outside a sum hits each piece inside. $\\frac{A}{B}\\left(\\frac{C}{D} \\pm \\frac{E}{F}\\right) = \\frac{A}{B} \\cdot \\frac{C}{D} \\pm \\frac{A}{B} \\cdot \\frac{E}{F}$. Example: $\\frac{1}{2}\\left(\\frac{1}{3} + \\frac{1}{5}\\right) = \\frac{1}{6} + \\frac{1}{10}$.`}</p>
             </div>
           </div>
           <p>These are the same rules as for ordinary fractions. One set of rules handles both.</p>
@@ -89,8 +509,9 @@ function useConfig() {
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              Invert-and-multiply turns any complex fraction into an ordinary one. Since the rules
-              were proved for all fractions, they cover complex fractions too.
+              Invert-and-multiply (flip the bottom fraction and multiply) turns any complex fraction
+              into an ordinary one. Since the rules were proved for all fractions, they cover
+              complex fractions too.
             </p>
           </div>
 
@@ -106,9 +527,20 @@ function useConfig() {
             <li>Rate problems involve distance/time where both can be fractions.</li>
             <li>Interest rate changes involve complex fractions.</li>
           </ul>
+
+          <h3>The Rules Keep Working on All Numbers</h3>
+          <p>
+            These fraction rules do not stop at fractions. They keep working when the numbers are
+            not whole and not even fractions. We make one assumption to allow this.
+          </p>
+          <p>
+            <strong>The assumption:</strong> every fraction rule also works for all real numbers.
+            {` For example, $\\frac{\\pi}{7} + \\frac{1}{3} = \\frac{3\\pi + 7}{21}$, using the same addition rule, even though $\\pi$ is not a fraction.`}
+          </p>
+          <p>Proving why needs university math. At this level you may use it without proof.</p>
         </>,
 
-        /* ═══ PERCENT ═══ */
+        /* PERCENT */
         <>
           <h2>Percent</h2>
           <p>
@@ -136,9 +568,9 @@ function useConfig() {
             <li>{`$7\\frac{1}{2}\\% = \\frac{3}{40}$`}</li>
           </ul>
 
-          <div className="lrn-graph">
-            <PercentBarVis C={C} />
-          </div>
+          <VizFigure title="Percent Bar" size="body" aspect="5/2">
+            <InlinePercentBarVis />
+          </VizFigure>
 
           <h3>The Three Types of Percent Problems</h3>
           <div className="lrn-definition">
@@ -220,12 +652,16 @@ function useConfig() {
           </p>
         </>,
 
-        /* ═══ RELATIVE ERROR ═══ */
+        /* RELATIVE ERROR */
         <>
           <h2>Relative Error</h2>
           <p>
-            <strong>Relative error</strong> measures approximation quality as a percent of the true
-            value.
+            <strong>Relative error</strong> tells you how good an estimate is, as a fraction of the
+            true value.
+          </p>
+          <p>
+            First you need <strong>absolute error</strong>. That is how far your guess sits from the
+            true value. You always count it as a positive number, ignoring the sign.
           </p>
 
           <div className="lrn-predict">
@@ -233,17 +669,23 @@ function useConfig() {
             <p>{`You approximate $67\\frac{1}{2}\\%$ by $\\frac{2}{3}$. Is this close enough?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`Yes. Relative error is about $1\\frac{19}{81}\\%$, under 2%.`}</p>
+              <p>Yes. The error is under 2% of the true value, which is small.</p>
             </details>
           </div>
 
           <h3>The Formula</h3>
+          <p>
+            The bars in the formula mean &ldquo;take the positive difference,&rdquo; so the error is
+            never negative.
+          </p>
           <div className="lrn-eq lrn-eq-display">{`$$\\text{relative error} = \\frac{|\\text{true} - \\text{approx}|}{\\text{true}} \\times 100\\%$$`}</div>
 
-          <p>
-            <strong>Example:</strong>
-            {` Approximate $67\\frac{1}{2}\\%$ by $\\frac{2}{3}$. Absolute error: $\\frac{5}{6}\\%$. Relative error: $1\\frac{19}{81}\\%$.`}
-          </p>
+          <h3>Worked Example</h3>
+          <p>{`Approximate $67\\frac{1}{2}\\%$ by $\\frac{2}{3}$. Note $\\frac{2}{3} = 66\\frac{2}{3}\\%$.`}</p>
+          <ol className="lrn-list">
+            <li>{`Absolute error: $67\\frac{1}{2}\\% - 66\\frac{2}{3}\\% = \\frac{5}{6}\\%$.`}</li>
+            <li>{`Relative error: $\\frac{\\frac{5}{6}\\%}{67\\frac{1}{2}\\%} \\times 100\\% = \\frac{\\frac{5}{6}}{\\frac{135}{2}} \\times 100\\% = 1\\frac{19}{81}\\%$.`}</li>
+          </ol>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -256,65 +698,9 @@ function useConfig() {
               </p>
             </details>
           </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              Relative error answers "how big is this error compared to what you are measuring?"
-              That comparison is what determines if the error matters in practice.
-            </p>
-          </div>
         </>,
 
-        /* ═══ FASM ═══ */
-        <>
-          <h2>FASM: Fundamental Assumption of School Mathematics</h2>
-          <p>
-            {`You have used $\\pi \\times r^2$ since grade school. But $\\pi$ is not a fraction. Why do fraction rules work on it?`}{' '}
-            <strong>Irrational numbers</strong>
-            {` like $\\pi$ and $\\sqrt{2}$ cannot be written as fractions.`}
-          </p>
-          <p>
-            <strong>FASM states:</strong> All fraction arithmetic rules extend to all real numbers.
-          </p>
-
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`Can you add $\\frac{\\pi}{7} + \\frac{\\sqrt{2}}{3\\sqrt{5}}$ using the addition formula?`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`Yes. FASM guarantees it: $\\frac{3\\pi\\sqrt{5} + 7\\sqrt{2}}{21\\sqrt{5}}$.`}</p>
-            </details>
-          </div>
-
-          <p>This is an important assumption. It lets you write:</p>
-          <div className="lrn-eq">{`$$\\frac{\\pi}{7} + \\frac{\\sqrt{2}}{3\\sqrt{5}} = \\frac{3\\pi\\sqrt{5} + 7\\sqrt{2}}{21\\sqrt{5}}$$`}</div>
-          <p>{`even though $\\pi$ and $\\sqrt{2}$ are not fractions.`}</p>
-          <p>
-            Advanced mathematics proves FASM is true. It justifies using fraction rules for all real
-            numbers.
-          </p>
-
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`Use FASM to simplify $\\frac{\\pi}{7} + \\frac{1}{3}$. Why can you apply the addition formula here?`}</p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>{`$\\frac{\\pi}{7} + \\frac{1}{3} = \\frac{3\\pi + 7}{21}$. FASM says the addition formula works for all real numbers, not just fractions. You can use it without proof at this level.`}</p>
-            </details>
-          </div>
-
-          <div className="lrn-elaborate">
-            <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>
-              The real number system extends fractions while preserving all arithmetic properties.
-              Every rule proved for fractions carries over. The proof requires university-level
-              mathematics.
-            </p>
-          </div>
-        </>,
-
-        /* ═══ RATIO ═══ */
+        /* RATIO */
         <>
           <h2>Ratio</h2>
           <p>
@@ -328,17 +714,17 @@ function useConfig() {
             <p>In a class of 27 students, boys to girls is 4:5. How many boys?</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`$B = 4u$, $G = 5u$, $9u = 27$, $u = 3$. Boys = 12.`}</p>
+              <p>12 boys. Split the 27 students into 9 equal groups, then 4 groups are boys.</p>
             </details>
           </div>
 
           <h3>The Ratio Theorem</h3>
-          <p>{`If $\\frac{M}{N} = \\frac{a}{b}$, then $M = au$ and $N = bu$ for some fraction $u$.`}</p>
+          <p>{`If $\\frac{M}{N} = \\frac{a}{b}$, then $M = au$ and $N = bu$ for some fraction $u$. Here $u$ is the size of one equal group, like the $u = 3$ in the class above.`}</p>
           <p>{`Proof: $\\frac{M}{a} = \\frac{N}{b} = u$. Then $M = au$, $N = bu$.`}</p>
 
-          <div className="lrn-graph">
-            <RatioBarVis C={C} />
-          </div>
+          <VizFigure title="Ratio Bar" size="body" aspect="5/2">
+            <InlineRatioBarVis />
+          </VizFigure>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -360,21 +746,6 @@ function useConfig() {
           </p>
           <p>{`$2k + 5k + 4k = 11k = 440$, $k = 40$. B = 80, C = 200, D = 160.`}</p>
 
-          <div className="lrn-self-explain">
-            <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>
-              Why does subtracting the current ratio from the target give the number of new teachers
-              needed?
-            </p>
-            <details className="lrn-self-explain-reveal">
-              <summary>Expert explanation</summary>
-              <p>
-                The gap between ratios (1:24 to 1:20) gives additional teachers per student.
-                Multiply by student count for the total.
-              </p>
-            </details>
-          </div>
-
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>{`The ratio theorem works for fractional ratios too. $M : N = a : b$ always gives $M = au$ and $N = bu$. The value $u$ adjusts to make the total work out.`}</p>
@@ -384,10 +755,11 @@ function useConfig() {
           <p>
             <strong>Example:</strong> 5 gal/min = ? qt/sec.
           </p>
-          <p>{`$\\frac{5 \\times 4 \\text{ qt}}{60 \\text{ sec}} = \\frac{1}{3}$ qt/sec. Convert each unit, then divide.`}</p>
+          <p>Use the conversion facts: 1 gallon is 4 quarts, and 1 minute is 60 seconds.</p>
+          <p>{`$\\frac{5 \\times 4 \\text{ qt}}{60 \\text{ sec}} = \\frac{20}{60} = \\frac{1}{3}$ qt/sec. Convert each unit, then divide.`}</p>
         </>,
 
-        /* ═══ RATE ═══ */
+        /* RATE */
         <>
           <h2>Rate</h2>
           <p>
@@ -400,7 +772,7 @@ function useConfig() {
             <p>{`A faucet fills $3\\frac{1}{2}$ cu ft in 25 sec. How long for $11\\frac{1}{2}$ cu ft?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`$82\\frac{1}{7}$ seconds. Rate = $\\frac{3.5}{25}$. Time = $\\frac{11.5}{\\frac{3.5}{25}}$.`}</p>
+              <p>About 82 seconds. Find the fill rate first, then divide the new volume by it.</p>
             </details>
           </div>
 
@@ -411,9 +783,9 @@ function useConfig() {
           </p>
           <p>{`Constant speed: $\\frac{D}{T} = v$ for every time interval.`}</p>
 
-          <div className="lrn-graph">
-            <RateGraphVis C={C} />
-          </div>
+          <VizFigure title="Rate Graph" size="body" aspect="auto">
+            <InlineRateGraphVis />
+          </VizFigure>
 
           <h3>Solving Rate Problems</h3>
           <p>
@@ -437,6 +809,7 @@ function useConfig() {
           <p>
             <strong>Reduced rate:</strong> Faucet fills tub in 15 min. Rate drops 15%.
           </p>
+          <p>A slower rate takes longer. So you divide the time by 0.85, which makes it bigger.</p>
           <p>{`New time: $\\frac{15}{0.85} = 17\\frac{11}{17}$ min.`}</p>
 
           <div className="lrn-elaborate">
@@ -444,19 +817,12 @@ function useConfig() {
             <p>{`If rate drops by $N\\%$, new rate is $\\left(1 - \\frac{N}{100}\\right)$ of the original. Time = $\\frac{\\text{work}}{\\text{rate}}$. Smaller rate means more time: $\\frac{k \\times 100}{100 - N}$.`}</p>
           </div>
 
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Mathematical Reasoning</span>
-              <p>Constant rate logically implies the proportion.</p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">&ldquo;Setting Up a Proportion&rdquo;</span>
-              <p>The proportion is a consequence of constant rate, not a starting point.</p>
-            </div>
-          </div>
+          <p>
+            The proportion is not the starting point. It follows from the rate staying constant.
+          </p>
         </>,
 
-        /* ═══ COOPERATIVE WORK ═══ */
+        /* COOPERATIVE WORK */
         <>
           <h2>Cooperative Work</h2>
           <p>
@@ -469,12 +835,13 @@ function useConfig() {
             <p>Regina mows in 10 hours. Eric in 12. How long together?</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`Combined rate: $\\frac{11A}{60}$. Time: $\\frac{60}{11} = 5\\frac{5}{11}$ hours.`}</p>
+              <p>About 5.5 hours. Two workers finish faster than either one alone.</p>
             </details>
           </div>
 
           <h3>The Formula</h3>
           <p>{`Rates add: $R_1 + R_2$. Time: $T = \\frac{A}{R_1 + R_2}$.`}</p>
+          <p>{`A rate is one job divided by the time, so $R = \\frac{1}{t}$. Put $A = 1$ (one whole job) and the formula becomes $T = \\frac{1}{\\frac{1}{t_1} + \\frac{1}{t_2}}$. Both forms give the same answer.`}</p>
 
           <h3>Derivation</h3>
           <ol className="lrn-list">
@@ -482,15 +849,16 @@ function useConfig() {
             <li>{`Regina: $\\frac{A}{10}$. Eric: $\\frac{A}{12}$.`}</li>
             <li>{`Together: $\\frac{6A + 5A}{60} = \\frac{11A}{60}$.`}</li>
             <li>{`Time: $\\frac{A}{\\frac{11A}{60}} = \\frac{60}{11} = 5\\frac{5}{11}$ hours.`}</li>
+            <li>{`In general $T = \\frac{A}{\\frac{A}{t_1} + \\frac{A}{t_2}} = \\frac{1}{\\frac{1}{t_1} + \\frac{1}{t_2}}$. The $A$ divides out.`}</li>
           </ol>
 
-          <div className="lrn-graph">
-            <CoopWorkVis C={C} />
-          </div>
+          <VizFigure title="Cooperative Work" size="body" aspect="5/2">
+            <InlineCoopWorkVis />
+          </VizFigure>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>Why does the total area A cancel out?</p>
+            <p>Why does the total work A cancel out?</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
               <p>{`Both rates are proportional to $A$. Combined rate = $\\frac{11A}{60}$. Time = $\\frac{A}{\\frac{11A}{60}} = \\frac{60}{11}$. The $A$ cancels, leaving a number independent of job size.`}</p>
@@ -543,8 +911,8 @@ function useConfig() {
         a: 'Less than 2%. Absolute error: $\\frac{5}{6}\\%$. Relative: $\\frac{\\frac{5}{6}}{67.5} \\times 100 = 1\\frac{19}{81}\\%$.'
       },
       {
-        q: 'What is the FASM and why does it matter?',
-        a: 'FASM says all fraction rules extend to all real numbers. It matters because students use fraction rules on irrational numbers. FASM says this is valid.'
+        q: 'Why can you use fraction rules on numbers like $\\pi$ that are not fractions?',
+        a: 'There is one assumption: every fraction rule also works for all real numbers. So $\\frac{\\pi}{7} + \\frac{1}{3} = \\frac{3\\pi + 7}{21}$ using the normal addition rule. Proving it needs university math; at this level you use it freely.'
       },
       {
         q: 'In a class of 45, girls to boys is 5:4. How many girls?',
@@ -599,7 +967,7 @@ function useConfig() {
         a: '$\\frac{469.80}{1.08} = 435$ dollars.'
       },
       {
-        q: 'Why do complex fraction rules (a)-(f) match ordinary fraction rules?',
+        q: 'Why do the complex fraction rules match ordinary fraction rules?',
         a: 'A complex fraction $\\frac{A}{C} = \\frac{ad}{bc}$ by invert-and-multiply. Every complex fraction IS an ordinary fraction. Same proofs apply.'
       },
       {
@@ -673,7 +1041,7 @@ function useConfig() {
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">(c)</span>
-              <p className="lrn-step-content">{`$\\frac{A}{B} = \\frac{C}{D}$ iff $AD = BC$`}</p>
+              <p className="lrn-step-content">{`$\\frac{A}{B} = \\frac{C}{D}$ exactly when $AD = BC$`}</p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">(d)</span>
@@ -708,8 +1076,8 @@ function useConfig() {
           <div className="lrn-eq">{`$$\\text{Reduced rate time: } t_{new} = \\frac{k \\times 100}{100 - N}$$`}</div>
           <div className="lrn-eq lrn-eq-display">{`$$\\text{Cooperative work: } T = \\frac{1}{\\frac{1}{t_1} + \\frac{1}{t_2}}$$`}</div>
           <p>
-            <strong>FASM:</strong>
-            {` All fraction rules extend to all real numbers.`}
+            <strong>Rules work on all numbers:</strong>
+            {` every fraction rule also holds for all real numbers (used without proof at this level).`}
           </p>
         </>
       ]

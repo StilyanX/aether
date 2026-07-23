@@ -11,7 +11,7 @@
     <script>
       (function() {
         var t = localStorage.getItem('aether-theme');
-        if (!t) {
+        if (!t || t === 'system') {
           if (window.matchMedia('(prefers-contrast: more)').matches) t = 'high-contrast';
           else if (window.matchMedia('(prefers-color-scheme: light)').matches) t = 'light';
           else t = 'dark';
@@ -37,14 +37,22 @@
     <link rel="preconnect" href="https://covers.openlibrary.org" crossorigin>
     <link rel="dns-prefetch" href="https://covers.openlibrary.org">
 
-    <!-- Preload critical fonts for faster text rendering -->
+    <!-- Preload critical fonts for faster text rendering.
+         JetBrains Mono is a variable-weight latin subset (one file covers
+         both 400 and 700), so a single preload tag covers the metadata
+         register everywhere it appears. -->
     <link rel="preload" href="/assets/fonts/D-DIN-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/assets/fonts/D-DIN-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/JetBrainsMono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-    <!-- Google Fonts fallback -->
+    <!-- Google Fonts fallback — loaded non-render-blocking. D-DIN (primary UI
+         face) is self-hosted and preloaded above, so first paint never waits
+         on this. These secondary/CJK/mono families swap in via `display=swap`
+         without blocking the critical render path (media=print trick). -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"></noscript>
 </head>
 <body>
     <div id="root"></div>

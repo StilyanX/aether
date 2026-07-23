@@ -1,18 +1,18 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
-import { useVizColors } from '../../../../hooks/use-viz-colors'
+import { VizFigure } from '../../../../components/viz-figure'
 
 import {
   PlaceValueNumberLine,
-  WholeDistributiveLawArea as DistributiveLawAreaModel,
+  ExpandedFormDecomposition,
+  WholeDistributiveLawArea,
   AdditionCarryVis,
   SubtractionTradingVis,
-  WholeMultiplicationArea as MultiplicationAreaModel,
+  WholeMultiplicationArea,
+  ColumnMultiplicationVis,
   LongDivisionStepVis
-} from '../../../../components/viz'
+} from '../../../../components/viz/arithmetic'
 
 export default function PlaceValueAndAlgorithms() {
-  const C = useVizColors()
-
   const config = {
     cssPrefix: 'whn',
     documentTitle: 'Place Value and Algorithms - AETHER',
@@ -22,21 +22,20 @@ export default function PlaceValueAndAlgorithms() {
       subtitle:
         'Place value, the number line, laws of arithmetic, and the four standard algorithms. Every concept built from counting.',
       sections: [
-        /* ════════════════════════════════════════════════════════════════════════
-         SECTION 1: PLACE VALUE
-         ════════════════════════════════════════════════════════════════════════ */
+        /* SECTION 1: PLACE VALUE
+         */
         <>
           <h2>Place Value</h2>
 
           <p>
-            Every number you use (prices, scores, distances, ages) depends on place value. Without
-            it, arithmetic would be impossible.
+            Place value is how ten symbols write every whole number. Without it, you cannot add or
+            multiply large numbers.
           </p>
 
           <h3>How to Count</h3>
           <p>
-            Our number system uses exactly ten symbols: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. You count by
-            placing these symbols in different positions.
+            Our number system uses exactly ten symbols: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. Each symbol is
+            called a digit. You count by placing these digits in different positions.
           </p>
 
           <div className="lrn-definition">
@@ -54,14 +53,9 @@ export default function PlaceValueAndAlgorithms() {
           <div className="lrn-eq">{`$$0, 1, 2, \\ldots, 9, 10, 11, \\ldots, 99$$`}</div>
           <p>{`After 9 comes 10, the first number in the tens. After 99 comes 100, the first number in the hundreds. Each new place multiplies the range by 10.`}</p>
 
-          <p>
-            <strong>Real-world connection.</strong> Odometers in cars use place value. The rightmost
-            wheel spins fastest (ones). When it hits 9, the next wheel clicks forward (tens).
-          </p>
-
-          <div className="lrn-graph">
-            <PlaceValueNumberLine C={C} />
-          </div>
+          <VizFigure title="Place Value Number Line" size="body" aspect="5/3">
+            <PlaceValueNumberLine />
+          </VizFigure>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -81,23 +75,20 @@ export default function PlaceValueAndAlgorithms() {
           <h3>Skip-Counting</h3>
           <p>Skip-counting by 10 from 0 lands at 100 after 10 steps:</p>
           <div className="lrn-eq">{`$$0 \\to 10 \\to 20 \\to 30 \\to \\cdots \\to 90 \\to 100$$`}</div>
-          <p>
-            Skip-counting by 100 from 0 lands at 1000 after 10 steps. By 1000, you reach 10000. The
-            pattern holds for any power of 10.
-          </p>
+          <p>{`Whatever step size you skip-count by, 10 steps land you on a number 10 times as big.`}</p>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>{`If you skip-count by $100{,}000$ starting at 0, where do you land after 10 steps?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`At $1{,}000{,}000$. Each skip adds one more zero. 10 steps of skip-counting by $10^n$ produces $10^{n+1}$.`}</p>
+              <p>{`At $1{,}000{,}000$. Each skip adds one more zero. After 10 steps, the landing number is 10 times the step size.`}</p>
             </details>
           </div>
 
           <h3>Addition as Continued Counting</h3>
-          <p>{`The addition $a + b$ means: start at $a$ and count $b$ more steps. For example, $4 + 5 = 9$. Count 5 steps from 4: $4 \\to 5 \\to 6 \\to 7 \\to 8 \\to 9$.`}</p>
-          <p>{`The sum $a + b + c$ means: count $b$ steps from $a$, then count $c$ more steps from where you land.`}</p>
+          <p>{`Counting forward by one step adds 1. Counting forward by $b$ steps adds $b$. That is what $a + b$ means. For example, $4 + 5 = 9$ counts 5 steps from 4: $4 \\to 5 \\to 6 \\to 7 \\to 8 \\to 9$.`}</p>
+          <p>{`The sum $a + b + c$ counts $b$ steps from $a$, then $c$ more steps from where you land.`}</p>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -108,16 +99,15 @@ export default function PlaceValueAndAlgorithms() {
             </details>
           </div>
 
-          <h3>Each Digit's Value</h3>
-          <p>{`Each digit in a number stands for a specific value based on its position. In 38, the 3 does not stand for 3. It stands for 30.`}</p>
-          <p>{`The digit 3 counts three complete groups of ten. Three groups of ten is 30.`}</p>
+          <h3>What Each Digit Stands For</h3>
+          <p>{`Each digit stands for a value set by its position. In 38, the 3 counts three complete groups of ten, so it stands for 30, not 3.`}</p>
 
           <div className="lrn-eq lrn-eq-display">{`$$3728 = 3000 + 700 + 20 + 8$$`}</div>
-          <p>This sum showing each digit with its place value is the expanded form of 3728.</p>
+          <p>This sum, each digit paired with its place value, is the expanded form of 3728.</p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`In Roman numerals, the three X's in XXXIII each stand for 10. Position does not matter. In Hindu-Arabic numerals, the 1's in 111 stand for 100, 10, and 1. Position determines meaning.`}</p>
+            <p>{`In Roman numerals, the three X's in XXXIII each mean 10. Position does not matter. In Hindu-Arabic numerals, the three 1's in 111 mean 100, 10, and 1. Position is the meaning.`}</p>
           </div>
 
           <h3>The Number Line</h3>
@@ -129,27 +119,12 @@ export default function PlaceValueAndAlgorithms() {
             <div className="lrn-definition-desc">{`The length of a segment is the distance between its two endpoints. The segment from 2 to 5 has length 3.`}</div>
           </div>
 
-          <p>{`Addition on the number line means placing one segment right after another. To compute $4 + 7$: place a segment of length 7 right after a segment of length 4. The total length is 11.`}</p>
-          <p>
-            <strong>
-              Addition = place one segment after another, then measure the total length.
-            </strong>
-          </p>
+          <p>{`Addition on the number line places one segment right after another and measures the total length. To compute $4 + 7$: place a segment of length 7 after a segment of length 4. The total length is 11.`}</p>
 
           <h3>Comparing Numbers</h3>
-          <p>{`A number $b$ is bigger than $a$ (written $a < b$) when $a$ comes before $b$ in counting. On the number line, $a < b$ means $a$ is to the left of $b$.`}</p>
+          <p>{`A number $b$ is bigger than $a$ (written $a < b$, which reads "$a$ is less than $b$") when $a$ comes before $b$ in counting. The flipped sign $a > b$ reads "$a$ is greater than $b$." On the number line, $a < b$ means $a$ is to the left of $b$.`}</p>
 
-          <div className="lrn-definition">
-            <span className="lrn-definition-term">Trichotomy Law</span>
-            <div className="lrn-definition-desc">{`For any two whole numbers $a$ and $b$, exactly one holds: $a = b$, $a < b$, or $a > b$.`}</div>
-          </div>
-
-          <p>
-            For example, pick any two whole numbers. One must be larger, or they are equal. No other
-            option exists.
-          </p>
-
-          <p>{`Two quick rules for comparing whole numbers:`}</p>
+          <p>{`For any two whole numbers, exactly one of three things is true: they are equal, the first is less, or the first is greater. A later page studies this rule in full. Here are two quick ways to compare:`}</p>
           <ul className="lrn-list">
             <li>{`If $b$ is in a higher place value range than $a$, then $a < b$. Example: any number in the hundreds is less than any number in the thousands.`}</li>
             <li>{`If $a$ and $b$ are in the same range, compare left to right. The first place where they differ decides.`}</li>
@@ -164,35 +139,41 @@ export default function PlaceValueAndAlgorithms() {
             </details>
           </div>
 
-          <h3>Multiplication and Expanded Form</h3>
-          <p>{`Multiplication is a shorthand for repeated addition. We define $mk$ as the sum of $m$ copies of $k$:`}</p>
+          <h3>Multiplication as Repeated Addition</h3>
+          <p>{`Multiplication is shorthand for repeated addition. You can show "multiply" three ways: a cross $\\times$, a raised dot $\\cdot$, or two letters or numbers written right next to each other. The symbol $\\neq$ means "not equal." The product $mk$ is the sum of $m$ copies of $k$:`}</p>
           <div className="lrn-eq lrn-eq-display">{`$$mk = \\underbrace{k + k + \\cdots + k}_{m} \\quad (m \\neq 0), \\qquad 0 \\cdot k = 0$$`}</div>
 
-          <p>{`This leads to powers of 10: $10^n$ means $n$ copies of 10 multiplied together.`}</p>
+          <p>{`Powers of 10 follow the same idea: $10^n$ is $n$ copies of 10 multiplied together.`}</p>
           <div className="lrn-eq">{`$$10^n = \\underbrace{10 \\times 10 \\times \\cdots \\times 10}_{n}, \\qquad 10^0 = 1$$`}</div>
 
-          <p>{`Using exponents, the expanded form of any number is precise. For example:`}</p>
-          <div className="lrn-eq">{`$$298{,}534{,}453 = (2 \\times 10^8) + (9 \\times 10^7) + (8 \\times 10^6) + \\cdots + (3 \\times 10^0)$$`}</div>
-          <p>{`Each digit is the multiplier for its matching power of 10. The digit 9 in $298{,}534{,}453$ multiplies $10^7$, contributing $90{,}000{,}000$.`}</p>
+          <h3>Expanded Form with Powers of 10</h3>
+          <p>{`Powers of 10 make the expanded form precise. The sum $3728 = 3000 + 700 + 20 + 8$ becomes:`}</p>
+          <div className="lrn-eq">{`$$3728 = (3 \\times 10^3) + (7 \\times 10^2) + (2 \\times 10^1) + (8 \\times 10^0)$$`}</div>
+          <p>{`Each digit is the multiplier for its matching power of 10. The same rule scales: the digit 9 in $298{,}534{,}453$ multiplies $10^7$, contributing $90{,}000{,}000$.`}</p>
 
-          <h3>All About Zero</h3>
-          <p>{`Multiplying by a power of 10 appends zeros. Write $k$ zeros after the last digit of $N$ to get $N \\times 10^k$.`}</p>
+          <VizFigure title="Expanded Form Decomposition" size="body" aspect="auto">
+            <ExpandedFormDecomposition />
+          </VizFigure>
+
+          <h3>Multiplying by Powers of Ten</h3>
+          <p>{`Multiplying by $10^k$ appends $k$ zeros to the right of the last digit of $N$.`}</p>
           <div className="lrn-eq">{`$$37 \\times 1000 = 37000$$`}</div>
-          <p>
-            Leading zeros do not change a number. The expanded form shows why: each leading zero
-            adds a term equal to 0.
-          </p>
+          <p>{`The expanded form shows why: multiplying every term of $N$ by $10^k$ shifts every digit $k$ places to the left, and zeros fill the new positions on the right.`}</p>
         </>,
 
-        /* ════════════════════════════════════════════════════════════════════════
-         SECTION 2: THE BASIC LAWS OF OPERATIONS
-         ════════════════════════════════════════════════════════════════════════ */
+        /* SECTION 2: THE BASIC LAWS OF OPERATIONS
+         */
         <>
           <h2>The Basic Laws of Operations</h2>
 
+          <p>
+            Place value lets you write numbers. The next layer is the laws that govern how those
+            numbers combine under {`$+$`} and {`$\\times$`}.
+          </p>
+
           <h3>The Equal Sign</h3>
           <p>{`Two whole numbers $a$ and $b$ are equal ($a = b$) if they are the same number. On the number line, $a = b$ means the same point.`}</p>
-          <p>{`The equal sign does not mean "compute." It means "both sides name the same number." Counting 5 steps from 4 lands on the same point as 9.`}</p>
+          <p>{`The equal sign does not mean "compute." It means "both sides name the same number."`}</p>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -204,11 +185,11 @@ export default function PlaceValueAndAlgorithms() {
           </div>
 
           <h3>Associative and Commutative Laws of Addition</h3>
-          <p>{`For any whole numbers $\\ell$, $m$, and $n$:`}</p>
-          <div className="lrn-eq">{`$$(\\ell + m) + n = \\ell + (m + n) \\qquad \\text{(Associative Law)}$$`}</div>
-          <div className="lrn-eq">{`$$m + n = n + m \\qquad \\text{(Commutative Law)}$$`}</div>
+          <p>{`Letters like $a$, $b$, and $c$ stand for any whole number. Start with real numbers. Grouping does not change a sum: $(2 + 3) + 4 = 2 + (3 + 4) = 9$. Order does not change it either: $3 + 5 = 5 + 3 = 8$. In general, for any whole numbers $a$, $b$, and $c$:`}</p>
+          <div className="lrn-eq">{`$$(a + b) + c = a + (b + c) \\qquad \\text{(Associative Law)}$$`}</div>
+          <div className="lrn-eq">{`$$a + b = b + a \\qquad \\text{(Commutative Law)}$$`}</div>
 
-          <p>Together these imply a powerful result:</p>
+          <p>Together these imply:</p>
           <div className="lrn-definition">
             <span className="lrn-definition-term">Addition Order Rule</span>
             <div className="lrn-definition-desc">
@@ -229,9 +210,9 @@ export default function PlaceValueAndAlgorithms() {
           </div>
 
           <h3>Associative and Commutative Laws of Multiplication</h3>
-          <p>{`For any whole numbers $\\ell$, $m$, and $n$:`}</p>
-          <div className="lrn-eq">{`$$(\\ell m)n = \\ell(mn) \\qquad \\text{(Associative Law)}$$`}</div>
-          <div className="lrn-eq">{`$$mn = nm \\qquad \\text{(Commutative Law)}$$`}</div>
+          <p>{`Numbers first. Grouping does not change a product: $(2 \\times 3) \\times 4 = 2 \\times (3 \\times 4) = 24$. Order does not change it either: $3 \\times 5 = 5 \\times 3 = 15$. In general, for any whole numbers $a$, $b$, and $c$:`}</p>
+          <div className="lrn-eq">{`$$(ab)c = a(bc) \\qquad \\text{(Associative Law)}$$`}</div>
+          <div className="lrn-eq">{`$$ab = ba \\qquad \\text{(Commutative Law)}$$`}</div>
           <p>{`These laws mean you can compute products in any order.`}</p>
           <div className="lrn-definition">
             <span className="lrn-definition-term">Multiplication Order Rule</span>
@@ -244,72 +225,58 @@ export default function PlaceValueAndAlgorithms() {
             For example, to show that {`$5 \\times 8 \\times 2 = 80$`}, compute in any order:{' '}
             {`$(5 \\times 2) \\times 8 = 10 \\times 8 = 80$`}.
           </p>
-          <p>{`The commutative law halves the table. Knowing $3 \\times 7$ gives you $7 \\times 3$ for free.`}</p>
 
           <h3>The Distributive Law</h3>
-          <p>{`The distributive law connects addition and multiplication:`}</p>
+          <p>{`Start with numbers. To find $3 \\times (2 + 4)$, you can add first: $3 \\times 6 = 18$. Or you can split the 3 across each part: $3 \\times 2 + 3 \\times 4 = 6 + 12 = 18$. Both give 18.`}</p>
+          <div className="lrn-eq lrn-eq-display">{`$$3 \\times (2 + 4) = 3 \\times 2 + 3 \\times 4 = 18$$`}</div>
+          <p>{`A number written right against a parenthesis, like $3(2 + 4)$, also means multiply. The distributive law states this splitting in general:`}</p>
           <div className="lrn-eq lrn-eq-display">{`$$m(n + \\ell) = mn + m\\ell$$`}</div>
-          <p>{`It is the only law that involves both operations. It is the glue that binds $+$ and $\\times$ together.`}</p>
+          <p>{`It is the only law that links both operations. Every algorithm for multiplying large numbers rests on it.`}</p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>{`The area model makes this visual. Split a rectangle with sides $m$ and $n + \\ell$ into two parts: $m \\times n$ and $m \\times \\ell$. The total area is $mn + m\\ell$.`}</p>
           </div>
 
-          <div className="lrn-graph">
-            <DistributiveLawAreaModel C={C} />
-          </div>
+          <VizFigure title="Distributive Law Area" size="body" aspect="5/3">
+            <WholeDistributiveLawArea />
+          </VizFigure>
 
-          <p>{`The distributive law enables mental math. To compute $43 \\times 6$:`}</p>
-          <div className="lrn-eq">{`$$43 \\times 6 = (40 + 3) \\times 6 = 240 + 18 = 258$$`}</div>
-
-          <p>It also generalizes to more numbers:</p>
+          <p>{`The law generalizes to longer sums, splitting one factor across every term:`}</p>
           <div className="lrn-eq">{`$$m(a + b + c + d) = ma + mb + mc + md$$`}</div>
 
-          <div className="lrn-predict">
-            <span className="lrn-predict-label">PREDICT</span>
-            <p>{`Use the distributive law to compute $53 \\times 7$ mentally.`}</p>
-            <details className="lrn-predict-reveal">
-              <summary>Check your thinking</summary>
-              <p>{`$53 \\times 7 = (50 + 3) \\times 7 = 350 + 21 = 371$.`}</p>
-            </details>
-          </div>
-
           <h3>Inequalities</h3>
-          <p>{`Inequalities interact with addition and multiplication in predictable ways. For all whole numbers $a$, $b$, $c$, $d$:`}</p>
+          <p>{`Inequalities behave in steady ways under addition and multiplication. The sign $\\leq$ reads "less than or equal to." For all whole numbers $a$, $b$, $c$, $d$:`}</p>
           <ul className="lrn-list">
-            <li>{`$b < c$ is equivalent to $a + b < a + c$`}</li>
-            <li>{`If $a > 0$, then $b < c$ is equivalent to $ab < ac$`}</li>
-            <li>{`$a < b$ and $c < d$ implies $a + c < b + d$`}</li>
-            <li>{`$a < b$ and $c < d$ implies $ac < bd$`}</li>
+            <li>{`Add the same number to both sides and the smaller side stays smaller. Since $3 < 5$, you also get $4 + 3 < 4 + 5$.`}</li>
+            <li>{`Multiply both sides by the same positive number and the smaller side stays smaller. Since $2 < 6$, you also get $3 \\times 2 < 3 \\times 6$.`}</li>
+            <li>{`Add two smaller-than pairs and the totals keep the order. Since $2 < 3$ and $4 < 5$, you get $2 + 4 < 3 + 5$.`}</li>
+            <li>{`Multiply two smaller-than pairs and the products keep the order. Since $2 < 3$ and $4 < 5$, you get $2 \\times 4 < 3 \\times 5$.`}</li>
           </ul>
-          <p>{`The second fact holds only when $a > 0$. If $a = 0$, both sides become 0 and the strict inequality becomes an equality.`}</p>
         </>,
 
-        /* ════════════════════════════════════════════════════════════════════════
-         SECTION 3: THE ADDITION ALGORITHM
-         ════════════════════════════════════════════════════════════════════════ */
+        /* SECTION 3: THE ADDITION ALGORITHM
+         */
         <>
           <h2>The Standard Algorithms and Addition</h2>
 
           <h3>The Core Idea</h3>
           <p>
-            An algorithm is a list of clearly defined steps. The four standard algorithms (addition,
-            subtraction, multiplication, division) are the workhorses of arithmetic.
+            An algorithm is a list of clearly defined steps. Four standard algorithms cover every
+            whole-number computation: addition, subtraction, multiplication, division.
           </p>
 
           <div className="lrn-definition">
             <span className="lrn-definition-term">The Principle</span>
             <div className="lrn-definition-desc">
-              To compute with multidigit numbers, break the problem into steps where each step
-              involves only a single digit.
+              To compute with large numbers, break the problem into steps that each use one place
+              value at a time.
             </div>
           </div>
 
           <p>
-            This idea shows up in every algorithm you learn here. No matter how large the numbers,
-            you only need single-digit computations. The algorithms turn hard problems into easy
-            ones.
+            Every algorithm below uses this idea: however large the numbers, every step works with
+            one digit at a time.
           </p>
 
           <div className="lrn-predict">
@@ -329,11 +296,7 @@ export default function PlaceValueAndAlgorithms() {
 
           <h3>The Basic Idea of Addition</h3>
           <p>{`Consider $34 + 25$. By definition, this means counting 25 steps from 34. Place value offers a shortcut.`}</p>
-          <p>{`Think of 34 as 3 groups of 10 plus 4 loose ones. Think of 25 as 2 groups plus 5 loose ones. Combine the groups: $3 + 2 = 5$ groups of ten. Combine the ones: $4 + 5 = 9$. Total: 50 + 9 = 59.`}</p>
-          <p>
-            This is exactly what the addition algorithm does. Each digit comes prepackaged with its
-            place value.
-          </p>
+          <p>{`Think of 34 as 3 groups of 10 plus 4 loose ones. Think of 25 as 2 groups plus 5 loose ones. Combine the groups: $3 + 2 = 5$ groups of ten. Combine the ones: $4 + 5 = 9$. Total: $50 + 9 = 59$.`}</p>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -362,13 +325,13 @@ export default function PlaceValueAndAlgorithms() {
           <p>Why does this work? Using expanded form:</p>
           <div className="lrn-eq">{`$$438 + 51 = (400 + 30 + 8) + (0 + 50 + 1) = (400 + 0) + (30 + 50) + (8 + 1) = 489$$`}</div>
           <p>
-            Addition Order Rule justifies rearranging the terms. Column-wise addition is just adding
-            digits with the same place value.
+            The Addition Order Rule justifies rearranging the terms. Each column sums the digits at
+            one place value.
           </p>
 
-          <div className="lrn-graph">
-            <AdditionCarryVis C={C} />
-          </div>
+          <VizFigure title="Addition with Carry" size="body" aspect="auto">
+            <AdditionCarryVis />
+          </VizFigure>
 
           <h3>Carrying</h3>
           <p>{`When a column sum exceeds 9, the algorithm carries to the next column.`}</p>
@@ -390,14 +353,13 @@ export default function PlaceValueAndAlgorithms() {
 
           <div className="lrn-warning">
             <p>
-              <strong>Common mistake:</strong> Adding left to right. If you start from the left, a
-              carry from a later column forces you to go back and change digits you already wrote.
-              Always go right to left.
+              <strong>Common mistake:</strong> Always add right to left. A carry from a later column
+              would otherwise force you to revise digits you already wrote.
             </p>
           </div>
 
           <h3>Adding Multiple Numbers</h3>
-          <p>{`The algorithm extends to adding many numbers at once. Add digits in each column. If the sum exceeds 9, record the ones digit and carry the tens digit.`}</p>
+          <p>{`When adding many numbers, the carry can exceed 1. Record the ones digit of the column sum and carry the rest.`}</p>
           <p>
             <strong>{`Example: $165 + 27 + 83 + 829$`}</strong>
           </p>
@@ -416,7 +378,7 @@ export default function PlaceValueAndAlgorithms() {
               </p>
               <p>{`Ones: $2 + 3 = 5$. Tens: $0 + 6 = 6$. Hundreds: $5 + 2 = 7$. Thousands: $4 + 0 = 4$. Answer: $4765$.`}</p>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>
                 <strong>{`$7831 + 456$`}</strong>
@@ -430,24 +392,18 @@ export default function PlaceValueAndAlgorithms() {
               </p>
             </div>
           </div>
+
+          <p>{`You can now add any whole numbers, however large, by working one column at a time.`}</p>
         </>,
 
-        /* ════════════════════════════════════════════════════════════════════════
-         SECTION 4: THE SUBTRACTION ALGORITHM
-         ════════════════════════════════════════════════════════════════════════ */
+        /* SECTION 4: THE SUBTRACTION ALGORITHM
+         */
         <>
           <h2>The Subtraction Algorithm</h2>
 
-          <p>
-            <strong>Real-world connection.</strong> Making change at a store uses subtraction. If
-            something costs \$3.47 and you pay \$5.00, the cashier trades: break the \$5 into
-            smaller bills, then subtract.
-          </p>
-
           <h3>What Subtraction Means</h3>
-          <p>{`Subtraction is the reverse of addition. The number $a - b$ is the whole number $c$ that makes $a = b + c$ true.`}</p>
-          <p>{`Think of it this way. You know that $5 + 3 = 8$. So $8 - 3$ must equal 5. The subtraction undoes what the addition did.`}</p>
-          <p>{`This means subtraction only works when $a \\geq b$. There is no whole number $c$ where $3 = 7 + c$. So $3 - 7$ has no answer in whole numbers.`}</p>
+          <p>{`Subtraction is the reverse of addition. The number $a - b$ is the whole number $c$ that makes $a = b + c$ true. Since $5 + 3 = 8$, you get $8 - 3 = 5$. The subtraction undoes the addition.`}</p>
+          <p>{`So $a - b$ exists only when $a \\geq b$. The sign $\\geq$ reads "greater than or equal to." There is no whole number $c$ with $3 = 7 + c$, so $3 - 7$ has no answer in whole numbers.`}</p>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -482,16 +438,16 @@ export default function PlaceValueAndAlgorithms() {
             column.
           </p>
 
-          <div className="lrn-graph">
-            <SubtractionTradingVis C={C} />
-          </div>
+          <VizFigure title="Subtraction by Trading" size="body" aspect="auto">
+            <SubtractionTradingVis />
+          </VizFigure>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
             <p>{`In $756 - 389$, the ones column has $6 - 9$. What do you think happens?`}</p>
             <details className="lrn-predict-reveal">
               <summary>Check your thinking</summary>
-              <p>{`You trade 1 ten from the tens column, turning the 6 into 16. Then $16 - 9 = 7$. The tens digit drops by 1 to compensate.`}</p>
+              <p>{`You trade 1 ten from the tens column, turning the 6 into 16. Then $16 - 9 = 7$. The tens digit drops by 1 to balance it.`}</p>
             </details>
           </div>
 
@@ -518,6 +474,8 @@ export default function PlaceValueAndAlgorithms() {
             </details>
           </div>
 
+          <p>{`You can now subtract any whole number from a number at least as big, trading whenever a top digit is too small.`}</p>
+
           <h3>Trading Across Zeros</h3>
           <p>
             <strong>{`Example: $50003 - 465$`}</strong>
@@ -527,9 +485,9 @@ export default function PlaceValueAndAlgorithms() {
             column. But where do you trade from? The tens, hundreds, and thousands digits are all 0.
           </p>
           <p>
-            The trick: trade from the ten-thousands place. One ten-thousand becomes 10 thousands.
-            One of those thousands becomes 10 hundreds. One hundred becomes 10 tens. One ten becomes
-            10 ones added to the 3.
+            Trade from the first nonzero place to the left: the ten-thousands. One ten-thousand
+            becomes 10 thousands. One of those thousands becomes 10 hundreds. One hundred becomes 10
+            tens. One ten becomes 10 ones added to the 3.
           </p>
           <p>
             {`After all the trading: $50003 = 49000 + 900 + 90 + 13$.`} Now subtract column by
@@ -547,30 +505,26 @@ export default function PlaceValueAndAlgorithms() {
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              What pattern do you see when you trade across a row of zeros? The zeros all become 9s,
-              and the last digit gets 10 added to it. This always happens because each zero must
-              pass the trade through to the next column.
+              Trading across a row of zeros turns every zero into a 9 and adds 10 to the rightmost
+              digit. Each zero passes the trade through to the next column.
             </p>
           </div>
 
           <h3>A Special Shortcut</h3>
           <p>When the top number is slightly bigger than a power of 10, rewrite it.</p>
           <div className="lrn-eq">{`$$50003 - 465 = (49999 + 4) - (465 + 0) = (49999 - 465) + (4 - 0) = 49534 + 4 = 49538$$`}</div>
-          <p>{`This works because you can subtract group-by-group when each part of the top number is at least as large as the matching part of the bottom. No trading needed. See the proof below.`}</p>
 
           <div className="lrn-faded">
-            <div className="lrn-faded-phase">
-              <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
-              <p>{`$50003 - 465 = (49999 + 4) - 465 = (49999 - 465) + 4 = 49534 + 4 = 49538$`}</p>
-            </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>{`Try $30024 - 8697$. Rewrite $30024$ as $29999 + \\rule{1cm}{0.5pt}$. Then compute $29999 - 8697 + \\rule{1cm}{0.5pt} = \\rule{1cm}{0.5pt}$.`}</p>
             </div>
           </div>
 
           <h3>A Property of Subtraction</h3>
-          <p>{`Here is the proof that this works, given $\\ell \\geq a$, $m \\geq b$, and $n \\geq c$:`}</p>
+          <p>{`Here is a useful rule. You can subtract two sums by pairing up their parts and subtracting each pair. For example:`}</p>
+          <div className="lrn-eq">{`$$(5 + 8 + 2) - (3 + 1 + 1) = (5 - 3) + (8 - 1) + (2 - 1) = 2 + 7 + 1 = 10$$`}</div>
+          <p>{`Both sides give 10. The rule holds as long as each top part is at least as big as its bottom part. Here is the proof, given $\\ell \\geq a$, $m \\geq b$, and $n \\geq c$:`}</p>
 
           <div className="lrn-proof">
             <span className="lrn-proof-label">WHY IT WORKS</span>
@@ -581,42 +535,19 @@ export default function PlaceValueAndAlgorithms() {
               <li>{`Apply the definition of subtraction again: $(\\ell + m + n) - (a + b + c) = x + y + z$.`}</li>
             </ol>
           </div>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">{`"Borrowing"`}</span>
-              <p>
-                Suggests you take something and must return it. Misleading. Nothing is owed back.
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">{`"Trading"`}</span>
-              <p>
-                Accurate. You exchange 1 ten for 10 ones. Equal value, different form. No debt
-                involved.
-              </p>
-            </div>
-          </div>
         </>,
 
-        /* ════════════════════════════════════════════════════════════════════════
-         SECTION 5: THE MULTIPLICATION ALGORITHM
-         ════════════════════════════════════════════════════════════════════════ */
+        /* SECTION 5: THE MULTIPLICATION ALGORITHM
+         */
         <>
           <h2>The Multiplication Algorithm</h2>
 
           <h3>The Algorithm</h3>
           <p>The multiplication algorithm has two parts:</p>
           <ol className="lrn-list">
-            <li>
-              Multiply a multi-digit number by a single digit (using the table for each step).
-            </li>
-            <li>Multiply two multi-digit numbers (by applying Part 1 once per digit).</li>
+            <li>Multiply a large number by one digit (using the table for each step).</li>
+            <li>Multiply two large numbers (by applying Part 1 once per digit).</li>
           </ol>
-          <p>
-            You must know the single-digit multiplication table by heart. The algorithm depends on
-            it.
-          </p>
 
           <div className="lrn-callout">
             <p>{`You must memorize the multiplication table (up to $9 \\times 9$). Everything else you can figure out. Understand the algorithm; do not memorize it.`}</p>
@@ -624,8 +555,10 @@ export default function PlaceValueAndAlgorithms() {
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-            <p>{`The table is $9 \\times 9$, not $10 \\times 10$, because $0$ times anything is 0. You never need to look up a product involving 0. The table only stores the non-trivial facts.`}</p>
+            <p>{`The table is $9 \\times 9$, not $10 \\times 10$, because $0$ times anything is 0. You never need to look up a product involving 0. The table only stores the facts you cannot guess.`}</p>
           </div>
+
+          <p>{`To read the table, pick a row and a column. The cell where they meet is their product.`}</p>
 
           <table className="lrn-table">
             <thead>
@@ -650,12 +583,12 @@ export default function PlaceValueAndAlgorithms() {
             </tbody>
           </table>
 
-          <div className="lrn-graph">
-            <MultiplicationAreaModel C={C} />
-          </div>
+          <VizFigure title="Multiplication Area Model" size="body" aspect="5/3">
+            <WholeMultiplicationArea />
+          </VizFigure>
 
           <p>
-            <strong>Part 1: Multi-digit times single digit.</strong>
+            <strong>Part 1: A large number times one digit.</strong>
             {` Example: $852 \\times 3$. Work right to left.`}
           </p>
           <ul className="lrn-list">
@@ -666,7 +599,7 @@ export default function PlaceValueAndAlgorithms() {
           <p>{`Answer: $2556$.`}</p>
 
           <p>
-            <strong>Part 2: Multi-digit times multi-digit.</strong>
+            <strong>Part 2: A large number times another large number.</strong>
             {` Example: $852 \\times 73$. Break 73 into its digits: 7 and 3.`}
           </p>
           <ul className="lrn-list">
@@ -688,16 +621,20 @@ export default function PlaceValueAndAlgorithms() {
             </details>
           </div>
 
+          <VizFigure title="Column Multiplication Step-Through" size="body" aspect="auto">
+            <ColumnMultiplicationVis />
+          </VizFigure>
+
           <h3>Why the Algorithm Works</h3>
-          <p>The distributive law is the engine behind multiplication.</p>
+          <p>The distributive law drives every step of the algorithm.</p>
           <div className="lrn-eq lrn-eq-display">{`$$852 \\times 73 = 852 \\times (70 + 3) = (852 \\times 70) + (852 \\times 3)$$`}</div>
           <p>{`And $852 \\times 70 = (852 \\times 7) \\times 10$. Multiplying by 10 shifts all digits one place left. That is why you shift the second row.`}</p>
           <p>
-            <strong>For single-digit times multi-digit:</strong>
+            <strong>For one digit times a large number:</strong>
           </p>
           <div className="lrn-eq">{`$$852 \\times 3 = (800 + 50 + 2) \\times 3 = (8 \\times 3) \\times 100 + (5 \\times 3) \\times 10 + (2 \\times 3)$$`}</div>
           <p>
-            The distributive law breaks the problem into single-digit multiplications. The carrying
+            The distributive law breaks the problem into one-digit multiplications. The carrying
             handles the overflow when a product exceeds 9.
           </p>
 
@@ -710,33 +647,31 @@ export default function PlaceValueAndAlgorithms() {
             </details>
           </div>
 
-          <h3>Why Common Textbook Explanations Fail</h3>
-          <p>{`Many textbooks say "$3 \\times 5$ means 3 groups of 5." That works for small numbers. But it does not explain why $35 \\times 27$ equals $(35 \\times 7) + (35 \\times 20)$.`}</p>
-          <p>{`Without the distributive law, multi-digit multiplication is just a trick. The algorithm is not magic. Each step follows from one rule: $a \\times (b + c) = (a \\times b) + (a \\times c)$. A student who knows this rule can rebuild the algorithm from scratch.`}</p>
+          <h3>Why the Distributive Law, Not Just Repeated Addition</h3>
+          <p>{`"Three groups of five" explains $3 \\times 5$ but not $35 \\times 27$. The distributive law does. Every step of the multiplication algorithm follows from one rule: $a \\times (b + c) = (a \\times b) + (a \\times c)$. A student who knows that rule can rebuild the algorithm.`}</p>
 
           <h3>The General Multiplication Algorithm</h3>
           <p>{`Here is a concrete example first. Take $852 \\times 473$. Write $473 = 4 \\times 100 + 7 \\times 10 + 3$. Apply the distributive law:`}</p>
           <div className="lrn-eq">{`$$852 \\times 473 = (852 \\times 4) \\times 100 + (852 \\times 7) \\times 10 + (852 \\times 3)$$`}</div>
-          <p>{`Each term is a single-digit-times-multi-digit problem. You already know how those work. Go one level deeper. Take $852 \\times 4$:`}</p>
+          <p>{`Each term is a one-digit-times-a-large-number problem. You already know how those work. Go one level deeper. Take $852 \\times 4$:`}</p>
           <div className="lrn-eq">{`$$852 \\times 4 = (8 \\times 4) \\times 100 + (5 \\times 4) \\times 10 + (2 \\times 4)$$`}</div>
           <p>
-            Every multiplication reduces to single-digit times single-digit. The distributive law
-            does all the work.
+            Every multiplication reduces to one digit times one digit. The distributive law does all
+            the work.
           </p>
 
           <p>
             <strong>The general pattern.</strong>
-            {` This works for any two numbers, no matter how many places they have. The double sum notation writes it compactly:`}
+            {` This works for any two numbers, no matter how many places they have. You multiply each digit of one number by each digit of the other. You shift every product to its correct place. Then you add the products and let carrying handle any overflow.`}
           </p>
-          <div className="lrn-eq lrn-eq-display">{`$$A \\times B = \\sum_{i} \\sum_{j} (a_i \\times b_j) \\times 10^{i+j}$$`}</div>
-          <p>{`The $\\sum$ symbol means "add up all terms." Each $a_i \\times b_j$ is a single-digit product. Each $10^{i+j}$ is a shift. The carrying handles overflow.`}</p>
+          <p>{`The commutative law halves the work: knowing $3 \\times 7$ gives you $7 \\times 3$ for free, so the $9 \\times 9$ table is symmetric.`}</p>
 
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-            <p>{`In the product $852 \\times 473$, the term $(5 \\times 7) \\times 10^2$ comes from which digit of 852 and which digit of 473? What power of 10 does it contribute to?`}</p>
+            <p>{`In the product $852 \\times 473$, the term $(5 \\times 7) \\times 100$ comes from which digit of 852 and which digit of 473? What place value does it land in?`}</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
-              <p>{`The 5 is in the tens place of 852 (index $i = 1$). The 7 is in the tens place of 473 (index $j = 1$). The product contributes to $10^{1+1} = 10^2$, the hundreds place. So $(5 \\times 7) \\times 100 = 3500$.`}</p>
+              <p>{`The 5 is in the tens place of 852. The 7 is in the tens place of 473. Tens times tens lands in the hundreds: $10 \\times 10 = 100$. So $(5 \\times 7) \\times 100 = 3500$.`}</p>
             </details>
           </div>
 
@@ -752,7 +687,7 @@ export default function PlaceValueAndAlgorithms() {
                 <li>{`Add: $2082 + 6940 = 9022$`}</li>
               </ul>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>
                 <strong>{`$529 \\times 43$`}</strong>
@@ -778,19 +713,21 @@ export default function PlaceValueAndAlgorithms() {
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Expanded Form</span>
-              <p>{`Writes $852 \\times 70 = 59640$ with the zero shown. Both give the same result. The shift IS the zero.`}</p>
+              <p>{`Writes $852 \\times 70 = 59640$ with the trailing zero shown. Same result, longer notation.`}</p>
             </div>
           </div>
+
+          <p>{`You can now multiply any two whole numbers, since every product breaks down into one-digit times one-digit steps.`}</p>
         </>,
 
-        /* ════════════════════════════════════════════════════════════════════════
-         SECTION 6: THE LONG DIVISION ALGORITHM
-         ════════════════════════════════════════════════════════════════════════ */
+        /* SECTION 6: THE LONG DIVISION ALGORITHM
+         */
         <>
           <h2>The Long Division Algorithm</h2>
 
           <h3>Division as Multiplication in Reverse</h3>
-          <p>{`Division reverses multiplication. The statement $24 \\div 3 = 8$ means the same as $24 = 8 \\times 3$. If $m$ is a multiple of a nonzero number $n$, then $m \\div n$ is the whole number $k$ where $m = kn$.`}</p>
+          <p>{`Division reverses multiplication. The statement $24 \\div 3 = 8$ means the same as $24 = 8 \\times 3$. A multiple of $n$ is a number you reach by skip-counting by $n$. If $m$ is a multiple of a nonzero number $n$, then $m \\div n$ is the whole number $k$ where $m = kn$.`}</p>
+          <p>{`You cannot divide by 0. No number times 0 gives a nonzero result, so $m \\div 0$ has no answer.`}</p>
           <p>
             {`The number $k$ is the `}
             <strong>quotient</strong>
@@ -811,7 +748,7 @@ export default function PlaceValueAndAlgorithms() {
             <div className="lrn-definition-desc">{`$m \\div n$ finds the size of each group when $m$ is split into $n$ equal groups. Example: 48 ounces shared among 8 guests. How much each? $48 \\div 8 = 6$.`}</div>
           </div>
 
-          <p>Both give the same number. This works because multiplication is commutative.</p>
+          <p>Both give the same number, since multiplication is commutative.</p>
 
           <div className="lrn-predict">
             <span className="lrn-predict-label">PREDICT</span>
@@ -829,7 +766,7 @@ export default function PlaceValueAndAlgorithms() {
           </div>
 
           <h3>Division-with-Remainder</h3>
-          <p>{`What if $m$ is not a multiple of $n$? Example: $25 \\div 6$. No multiple of 6 equals 25. But $4 \\times 6 = 24$ is the largest multiple of 6 that fits inside 25. The leftover is $25 - 24 = 1$.`}</p>
+          <p>{`What if $m$ is not a multiple of $n$? Example: $25 \\div 6$. The largest multiple of 6 that fits in 25 is $4 \\times 6 = 24$. The leftover is $25 - 24 = 1$.`}</p>
           <p>{`We write: $25 = (4 \\times 6) + 1$. The quotient is 4. The remainder is 1.`}</p>
           <p>
             <strong>Division-with-Remainder Theorem.</strong>
@@ -850,8 +787,8 @@ export default function PlaceValueAndAlgorithms() {
               <span className="lrn-proof-step-num">1.</span>
               <div className="lrn-proof-step-content">
                 <p>
-                  <strong>Existence.</strong>
-                  {` List the multiples of $d$: $0, d, 2d, 3d, \\ldots$ This list grows without bound. So at some point a multiple exceeds $a$. Let $qd$ be the last multiple that does not exceed $a$. Set $r = a - qd$. Then $a = qd + r$. Because $qd \\leq a < (q+1)d$, we get $0 \\leq r < d$.`}
+                  <strong>The pair exists.</strong>
+                  {` List the multiples of $d$: $0, d, 2d, 3d, \\ldots$ This list keeps growing forever. So at some point a multiple passes $a$. Let $qd$ be the last multiple that does not pass $a$. Set $r = a - qd$. Then $a = qd + r$. Because $qd \\leq a < (q+1)d$, you get $0 \\leq r < d$.`}
                 </p>
               </div>
             </div>
@@ -859,20 +796,22 @@ export default function PlaceValueAndAlgorithms() {
               <span className="lrn-proof-step-num">2.</span>
               <div className="lrn-proof-step-content">
                 <p>
-                  <strong>Uniqueness.</strong>
-                  {` Suppose $a = q_1 d + r_1$ and $a = q_2 d + r_2$ with $0 \\leq r_1, r_2 < d$. Then $q_1 d + r_1 = q_2 d + r_2$. Rearrange: $(q_1 - q_2)d = r_2 - r_1$. The right side satisfies $|r_2 - r_1| < d$. The left side is a multiple of $d$. The only multiple of $d$ with absolute value less than $d$ is 0. So $q_1 = q_2$ and $r_1 = r_2$.`}
+                  <strong>The pair is the only one.</strong>
+                  {` The number $a$ sits between two side-by-side multiples of $d$. Only one multiple, $qd$, is the last one at or below $a$. That fixes the quotient $q$. The remainder is then forced: $r = a - qd$, the gap from $qd$ up to $a$. So no other pair can work.`}
                 </p>
               </div>
             </div>
             <div className="lrn-qed">Q.E.D.</div>
           </div>
 
+          <p>{`You can now divide any whole number by any nonzero whole number. You always get one quotient and one remainder, and they are the only pair that fits.`}</p>
+
           <div className="lrn-self-explain">
             <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
             <p>{`The existence proof finds $q$ by listing multiples of $d$. Why does this list always reach past $a$?`}</p>
             <details className="lrn-self-explain-reveal">
               <summary>Expert explanation</summary>
-              <p>{`The multiples $0, d, 2d, 3d, \\ldots$ increase without bound. For any finite $a$, eventually $kd > a$ for some $k$. This is because $d \\geq 1$, so the multiples grow at least as fast as $0, 1, 2, 3, \\ldots$`}</p>
+              <p>{`The multiples $0, d, 2d, 3d, \\ldots$ keep growing forever. For any number $a$, you eventually reach a multiple $kd > a$. This is because $d \\geq 1$, so the multiples grow at least as fast as $0, 1, 2, 3, \\ldots$`}</p>
             </details>
           </div>
 
@@ -897,9 +836,9 @@ export default function PlaceValueAndAlgorithms() {
           </div>
           <p>{`Quotient: 185. Remainder: 2. Check: $(185 \\times 4) + 2 = 740 + 2 = 742$.`}</p>
 
-          <div className="lrn-graph">
-            <LongDivisionStepVis C={C} />
-          </div>
+          <VizFigure title="Long Division Steps" size="body" aspect="auto">
+            <LongDivisionStepVis />
+          </VizFigure>
 
           <div className="lrn-faded">
             <div className="lrn-faded-phase">
@@ -908,13 +847,13 @@ export default function PlaceValueAndAlgorithms() {
                 <strong>{`$742 \\div 4$`}</strong>
               </p>
               <ul className="lrn-list">
-                <li>{`Step 1: $7 \\div 4 = 1$ R $3$`}</li>
-                <li>{`Step 2: $34 \\div 4 = 8$ R $2$`}</li>
-                <li>{`Step 3: $22 \\div 4 = 5$ R $2$`}</li>
-                <li>Answer: 185 R 2</li>
+                <li>{`Step 1: $7 = (1 \\times 4) + 3$`}</li>
+                <li>{`Step 2: $34 = (8 \\times 4) + 2$`}</li>
+                <li>{`Step 3: $22 = (5 \\times 4) + 2$`}</li>
+                <li>{`Answer: $742 = (185 \\times 4) + 2$`}</li>
               </ul>
             </div>
-            <div className="lrn-faded-phase">
+            <div className="lrn-faded-phase lrn-faded-partial">
               <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
               <p>
                 <strong>{`$1295 \\div 35$`}</strong>
@@ -946,10 +885,6 @@ export default function PlaceValueAndAlgorithms() {
           <p>Using the expanded form of 742:</p>
           <div className="lrn-eq">{`$$742 = (1 \\times 10^2 + 8 \\times 10 + 5) \\times 4 + 2 = (1 \\times 10^2) \\times 4 + (8 \\times 10) \\times 4 + (5 \\times 4) + 2$$`}</div>
           <p>
-            The algorithm breaks a hard division into a sequence of easy ones. Each easy division
-            has a single-digit quotient.
-          </p>
-          <p>
             <strong>Why quotients are always single digits.</strong>
             {` At each step, the dividend is at most $10 \\times (d - 1) + 9 = 10d - 1$. The tenth multiple of $d$ is $10d$, which exceeds $10d - 1$. So the quotient must be less than 10.`}
           </p>
@@ -963,39 +898,24 @@ export default function PlaceValueAndAlgorithms() {
             </details>
           </div>
 
-          <h3>The Money Interpretation</h3>
-          <p>{`Think of $742 \\div 4$ as splitting \\$742 into 4 equal stacks. You have 7 hundred-dollar bills, 4 tens, and 2 ones.`}</p>
+          <p>{`You can now divide any whole number by any nonzero whole number, finding the quotient one digit at a time.`}</p>
+
+          <h3>The Bundle Interpretation</h3>
+          <p>{`Picture $647 \\div 3$ as 647 sheets of paper to share among 3 friends. The sheets come pre-bundled: 6 packs of 100, 4 packs of 10, and 7 singles.`}</p>
           <ul className="lrn-list">
-            <li>Distribute the 7 hundreds among 4 stacks: 1 each, 3 left over.</li>
-            <li>{`Convert 3 hundreds to 30 tens. Total tens: $30 + 4 = 34$. Distribute: 8 each, 2 left over.`}</li>
-            <li>{`Convert 2 tens to 20 ones. Total ones: $20 + 2 = 22$. Distribute: 5 each, 2 left over.`}</li>
+            <li>Hand out the 6 packs of 100 evenly: 2 per friend, 0 packs left over.</li>
+            <li>{`Hand out the 4 packs of 10 evenly: 1 per friend, 1 pack left over. Break that pack into 10 singles. Total singles now: $10 + 7 = 17$.`}</li>
+            <li>{`Hand out the 17 singles evenly: 5 per friend, 2 sheets left over.`}</li>
           </ul>
-          <p>{`Each stack: 1 hundred + 8 tens + 5 ones = \\$185. Remainder: \\$2.`}</p>
+          <p>{`Each friend gets: 2 packs of 100 + 1 pack of 10 + 5 singles = 215 sheets. Remainder: 2 sheets. This matches $647 = 215 \\times 3 + 2$.`}</p>
 
           <div className="lrn-elaborate">
             <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
             <p>
-              The money model works when each denomination matches a place value. It breaks for
-              multi-digit divisors, because no bill denomination represents 47. The mathematical
-              explanation works in all cases because it treats each step the same way, regardless of
-              place value.
+              The bundle model works only when each bundle size matches a place value. For a divisor
+              like 47, no bundle size represents 47, so the model breaks. The algorithm itself
+              handles every divisor the same way.
             </p>
-          </div>
-
-          <div className="lrn-compare">
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Money Interpretation</span>
-              <p>
-                Ties each step to a denomination (hundreds, tens, ones). Intuitive but does not
-                generalize.
-              </p>
-            </div>
-            <div className="lrn-compare-col">
-              <span className="lrn-compare-title">Mathematical Explanation</span>
-              <p>
-                Treats each step the same way regardless of place value. Generalizes to any number.
-              </p>
-            </div>
           </div>
         </>
       ]
@@ -1028,12 +948,8 @@ export default function PlaceValueAndAlgorithms() {
         a: 'The associative law of addition: $(\\ell + m) + n = \\ell + (m + n)$. Here $\\ell = 25$, $m = 55$, $n = 28$.'
       },
       {
-        q: 'Use the distributive law to compute $79 \\times 5$ mentally.',
-        a: '$79 \\times 5 = (80 - 1) \\times 5 = 400 - 5 = 395$. Or: $(70 + 9) \\times 5 = 350 + 45 = 395$. Both use $m(n + \\ell) = mn + m\\ell$.'
-      },
-      {
         q: 'The associative law fails for subtraction. Show why with an example.',
-        a: '$(10 - 5) - 2 = 3$. But $10 - (5 - 2) = 10 - 3 = 7$. The results differ: $3 \\neq 7$. Subtraction is not associative because it is not a commutative operation.'
+        a: '$(10 - 5) - 2 = 3$. But $10 - (5 - 2) = 10 - 3 = 7$. The results differ: $3 \\neq 7$. So grouping changes the answer for subtraction.'
       },
       {
         q: 'Predict: does $7 \\times (8 + 3)$ equal $7 \\times 8 + 7 \\times 3$?',
@@ -1057,7 +973,7 @@ export default function PlaceValueAndAlgorithms() {
         a: 'Carries flow leftward. Adding left to right would require backtracking: a carry from a later column forces changes to already-computed digits. Right to left ensures each column is finalized in one pass.'
       },
       {
-        q: 'Explain how the addition algorithm applies the core idea of single-digit steps.',
+        q: 'Explain how the addition algorithm applies the core idea of one-digit steps.',
         a: 'Each column adds at most two numbers below 10 (plus a possible carry of 1). The algorithm reduces $438 + 51$ to three column additions: $4+0$, $3+5$, $8+1$. Place value makes this breakdown possible.'
       },
       {
@@ -1137,8 +1053,8 @@ export default function PlaceValueAndAlgorithms() {
         a: 'The commutative law of multiplication: $mn = nm$. It says the order of factors does not change the product.'
       },
       {
-        q: 'Compute $165 + 27 + 83 + 829$ using the addition algorithm.',
-        a: 'Ones: $5 + 7 + 3 + 9 = 24$. Record 4, carry 2. Tens: $6 + 2 + 8 + 2 + 2 = 20$. Record 0, carry 2. Hundreds: $1 + 0 + 0 + 8 + 2 = 11$. Record 1, carry 1. Thousands: $0 + 0 + 0 + 0 + 1 = 1$. Answer: $1104$.'
+        q: 'Compute $248 + 76 + 95 + 617$ using the addition algorithm.',
+        a: 'Ones: $8 + 6 + 5 + 7 = 26$. Record 6, carry 2. Tens: $4 + 7 + 9 + 1 + 2 = 23$. Record 3, carry 2. Hundreds: $2 + 0 + 0 + 6 + 2 = 10$. Record 0, carry 1. Thousands: $1$. Answer: $1036$.'
       },
       {
         q: 'Compute $60005 - 12348$ using mental math by rewriting 60005.',
@@ -1217,8 +1133,8 @@ export default function PlaceValueAndAlgorithms() {
         a: '$84 \\div 7 = 12$. The other side is 12 units. This is the geometric interpretation: division finds the missing side of a rectangle when you know the area and one side.'
       },
       {
-        q: 'Why is the notation $25 \\div 6 = 4$ R $1$ mathematically incorrect, but $21 \\div 5 = 4$ R $1$ is equally incorrect?',
-        a: 'Both set a non-whole-number expression equal to a symbol that is not a number. The notation suggests $25 \\div 6 = 21 \\div 5$ since both "equal" $4$ R $1$. But "4 groups of 6 with 1 left" is not the same as "4 groups of 5 with 1 left."'
+        q: 'Why is the notation $25 \\div 6 = 4$ R $1$ mathematically incorrect, and equally incorrect for $21 \\div 5 = 4$ R $1$?',
+        a: 'Both equations set a non-number expression equal to a non-number symbol. Worse, the notation would imply $25 \\div 6 = 21 \\div 5$, since both "equal" $4$ R $1$. But four sixes plus one is not four fives plus one.'
       }
     ],
     reference: {
@@ -1254,7 +1170,7 @@ export default function PlaceValueAndAlgorithms() {
           </div>
           <div className="lrn-definition">
             <span className="lrn-definition-term">Multiplication</span>
-            <div className="lrn-definition-desc">{`$mk = k + k + \\cdots + k$ ($m$ copies) for $m \\neq 0$; $0 \\cdot k = 0$. On the number line, the area of a rectangle with sides $m$ and $k$.`}</div>
+            <div className="lrn-definition-desc">{`$mk = k + k + \\cdots + k$ ($m$ copies) for $m \\neq 0$; $0 \\cdot k = 0$. Geometrically, the area of a rectangle with sides $m$ and $k$.`}</div>
           </div>
           <div className="lrn-definition">
             <span className="lrn-definition-term">Subtraction</span>
@@ -1319,17 +1235,12 @@ export default function PlaceValueAndAlgorithms() {
           <div className="lrn-eq">
             <span>{`$$m(n + \\ell) = mn + m\\ell$$`}</span>
           </div>
-          <p>Distributive law: the glue binding addition and multiplication.</p>
+          <p>Distributive law: the only law that links addition and multiplication.</p>
 
           <div className="lrn-eq">
             <span>{`$$a - b = c \\iff a = b + c$$`}</span>
           </div>
           <p>Definition of subtraction.</p>
-
-          <div className="lrn-eq">
-            <span>{`$$(\\ell + m + n) - (a + b + c) = (\\ell - a) + (m - b) + (n - c)$$`}</span>
-          </div>
-          <p>{`Mental subtraction near powers of 10. Requires $\\ell \\geq a$, $m \\geq b$, $n \\geq c$.`}</p>
 
           <div className="lrn-eq">
             <span>{`$$(a + b) - b = a$$`}</span>
@@ -1344,7 +1255,7 @@ export default function PlaceValueAndAlgorithms() {
           <div className="lrn-eq">
             <span>{`$$a \\times (b + c) = (a \\times b) + (a \\times c)$$`}</span>
           </div>
-          <p>Distributive law: engine of the multiplication algorithm.</p>
+          <p>Distributive law: the rule that makes multiplication of large numbers possible.</p>
 
           <div className="lrn-eq">
             <span>{`$$a = qd + r, \\quad 0 \\leq r < d$$`}</span>
@@ -1459,7 +1370,7 @@ export default function PlaceValueAndAlgorithms() {
           <div className="lrn-compare">
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Memorization</span>
-              <p>{`Required for: single-digit multiplication table (up to $9 \\times 9$).`}</p>
+              <p>{`Required for: the multiplication table of the digits 1 to 9 (up to $9 \\times 9$).`}</p>
             </div>
             <div className="lrn-compare-col">
               <span className="lrn-compare-title">Understanding</span>
@@ -1488,7 +1399,7 @@ export default function PlaceValueAndAlgorithms() {
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">"Bringing down" without understanding</span>
-              <p className="lrn-step-content">{`Each "bring down" forms a new dividend: $10 \\times \\text{remainder} + \\text{next digit}$.`}</p>
+              <p className="lrn-step-content">{`Each "bring down" forms a new dividend $10 \\times \\text{remainder} + \\text{next digit}$. It is a division-with-remainder on a smaller number, not a clerical move.`}</p>
             </div>
             <div className="lrn-step">
               <span className="lrn-step-title">Assuming division by 0 equals 0</span>

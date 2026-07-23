@@ -3,10 +3,36 @@
 // Coords: math (x right, y up). Internally flips y for SVG.
 
 import React from 'react'
+import { createPortal } from 'react-dom'
+import { VizControlsCtx } from '../viz-controls-ctx'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
 import './viz.css'
 import { FG, OPACITY } from './theme'
+import {
+  ARROW_HEAD,
+  ARROW_STROKE,
+  FONT_FAMILY,
+  FONT_LABEL,
+  FONT_SMALL,
+  FONT_TEX,
+  GRID_STEP,
+  LS_COMPACT,
+  LS_CONTROL,
+  LS_LABEL,
+  LS_TIGHT,
+  LS_TITLE,
+  PLOT_PAD,
+  POINT_HANDLE,
+  POINT_ORIGIN,
+  POINT_STATIC,
+  STROKE_EMPHASIS,
+  STROKE_GUIDE,
+  STROKE_HAIR,
+  STROKE_PRIMARY,
+  STROKE_SECONDARY,
+  TICK_HALF
+} from './scale-tokens'
 
 export { FG, OPACITY }
 
@@ -44,11 +70,11 @@ export function Plot({
   yRange = [-5, 5],
   width = 640,
   height: heightIn = 360,
-  pad = 16,
+  pad = PLOT_PAD,
+  color = 'var(--text-primary)',
   children
 }) {
-  // Squash card height to ~80% of design while keeping width full.
-  const height = heightIn * 0.8
+  const height = heightIn
   const [xMin, xMax] = xRange
   const [yMin, yMax] = yRange
   const ctx = React.useMemo(() => {
@@ -63,10 +89,10 @@ export function Plot({
   return (
     <PlotContext.Provider value={ctx}>
       <svg
+        className="viz-plot"
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMid meet"
         width="100%"
-        height="auto"
         overflow="hidden"
         style={{
           display: 'block',
@@ -74,9 +100,9 @@ export function Plot({
           height: 'auto',
           margin: '0 auto',
           overflow: 'hidden',
-          color: 'var(--text-primary)'
+          color: color
         }}
-        fontFamily="'D-DIN', 'D-DIN-Regular', ui-monospace, monospace"
+        fontFamily={FONT_FAMILY}
       >
         {children}
       </svg>
@@ -87,7 +113,13 @@ export function Plot({
 export const usePlot = () => React.useContext(PlotContext)
 
 // Axes
-export function Axes({ step = 1, showGrid = true, showTicks = true, showOrigin = true }) {
+export function Axes({
+  step = 1,
+  showGrid = true,
+  showTicks = true,
+  showOrigin = true,
+  color = FG
+}) {
   const p = usePlot()
   const xs = []
   for (let x = Math.ceil(p.xMin / step) * step; x <= p.xMax; x += step) xs.push(+x.toFixed(6))
@@ -98,36 +130,98 @@ export function Axes({ step = 1, showGrid = true, showTicks = true, showOrigin =
   return (
     <g>
       {showGrid && (
-        <g stroke={FG} strokeWidth={1} opacity={OPACITY.faint * 0.55}>
+        <g stroke={color} strokeWidth={STROKE_SECONDARY} opacity={OPACITY.faint * 0.55}>
           {xs.map(x => (
-            <line key={`vg${x}`} x1={p.sx(x)} y1={0} x2={p.sx(x)} y2={p.height} />
+            <line key={`vg${x}`} x1={p.sx(x)} y1={-p.height * 20} x2={p.sx(x)} y2={p.height * 21} />
           ))}
           {ys.map(y => (
-            <line key={`hg${y}`} x1={0} y1={p.sy(y)} x2={p.width} y2={p.sy(y)} />
+            <line key={`hg${y}`} x1={-p.width * 20} y1={p.sy(y)} x2={p.width * 21} y2={p.sy(y)} />
           ))}
         </g>
       )}
-      <g stroke={FG} strokeWidth={1} opacity={OPACITY.dim}>
-        {p.yMin <= 0 && p.yMax >= 0 && <line x1={0} y1={y0} x2={p.width} y2={y0} />}
-        {p.xMin <= 0 && p.xMax >= 0 && <line x1={x0} y1={0} x2={x0} y2={p.height} />}
+      <g stroke={color} strokeWidth={STROKE_SECONDARY} opacity={OPACITY.dim}>
+        {p.yMin <= 0 && p.yMax >= 0 && (
+          <line x1={-p.width * 20} y1={y0} x2={p.width * 21} y2={y0} />
+        )}
+        {p.xMin <= 0 && p.xMax >= 0 && (
+          <line x1={x0} y1={-p.height * 20} x2={x0} y2={p.height * 21} />
+        )}
       </g>
       {showTicks && (
-        <g stroke={FG} strokeWidth={1} opacity={OPACITY.dim}>
+        <g stroke={color} strokeWidth={STROKE_SECONDARY} opacity={OPACITY.dim}>
           {xs.map(x =>
             x !== 0 && p.yMin <= 0 && p.yMax >= 0 ? (
-              <line key={`xt${x}`} x1={p.sx(x)} y1={y0 - 3} x2={p.sx(x)} y2={y0 + 3} />
+              <line
+                key={`xt${x}`}
+                x1={p.sx(x)}
+                y1={y0 - TICK_HALF}
+                x2={p.sx(x)}
+                y2={y0 + TICK_HALF}
+              />
             ) : null
           )}
           {ys.map(y =>
             y !== 0 && p.xMin <= 0 && p.xMax >= 0 ? (
-              <line key={`yt${y}`} x1={x0 - 3} y1={p.sy(y)} x2={x0 + 3} y2={p.sy(y)} />
+              <line
+                key={`yt${y}`}
+                x1={x0 - TICK_HALF}
+                y1={p.sy(y)}
+                x2={x0 + TICK_HALF}
+                y2={p.sy(y)}
+              />
             ) : null
           )}
         </g>
       )}
       {showOrigin && p.xMin <= 0 && p.xMax >= 0 && p.yMin <= 0 && p.yMax >= 0 && (
-        <circle cx={x0} cy={y0} r={1.5} fill={FG} opacity={OPACITY.dim} />
+        <circle cx={x0} cy={y0} r={POINT_ORIGIN} fill={color} opacity={OPACITY.dim} />
       )}
+    </g>
+  )
+}
+
+// Grid: background grid lines only (no axes, ticks, origin, or labels).
+// Graph-paper backdrop matched to the Mafs cartesian grid (--mafs-line-color is
+// base-color at 20%), so it reads as a clearly-visible grid, not a ghost. When
+// `step` is omitted it auto-picks a "nice" step per axis (~range/8) so density
+// is consistent regardless of the plot's coordinate scale.
+function niceGridStep(range) {
+  const raw = range / 8
+  const pow = Math.pow(10, Math.floor(Math.log10(raw)))
+  const n = raw / pow
+  const m = n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10
+  return m * pow
+}
+export function Grid({ step, color = FG, opacity = 0.2 }) {
+  const p = usePlot()
+  const sxu = step || niceGridStep(p.xMax - p.xMin)
+  const syu = step || niceGridStep(p.yMax - p.yMin)
+  // Tile the grid across 3× the viewBox, aligned to the coordinate origin. The
+  // overflow that pokes past the viewBox is clipped to the svg inline (so it
+  // simply fills the figure), and allowed to bleed in fullscreen (viz-figure.css
+  // sets the .viz-plot overflow visible there) so the grid fills the whole frame
+  // even though the viz is max-width-capped, centred, and letterboxed: matching
+  // how the Mafs grid fills its frame.
+  const dx = sxu * p.ux
+  const dy = syu * p.uy
+  const x0 = p.sx(0)
+  const y0 = p.sy(0)
+  const X0 = -p.width,
+    X1 = 2 * p.width
+  const Y0 = -p.height,
+    Y1 = 2 * p.height
+  const verts = []
+  for (let x = x0 - Math.ceil((x0 - X0) / dx) * dx; x <= X1; x += dx) verts.push(+x.toFixed(2))
+  const horizs = []
+  for (let y = y0 - Math.ceil((y0 - Y0) / dy) * dy; y <= Y1; y += dy) horizs.push(+y.toFixed(2))
+  return (
+    <g stroke={color} strokeWidth={STROKE_SECONDARY} opacity={opacity}>
+      {verts.map((x, i) => (
+        <line key={`v${i}`} x1={x} y1={Y0} x2={x} y2={Y1} />
+      ))}
+      {horizs.map((y, i) => (
+        <line key={`h${i}`} x1={X0} y1={y} x2={X1} y2={y} />
+      ))}
     </g>
   )
 }
@@ -139,7 +233,8 @@ export const Parametric = React.memo(function Parametric({
   samples = 256,
   opacity = OPACITY.fg,
   dash,
-  strokeWidth = 1
+  strokeWidth = STROKE_SECONDARY,
+  color = FG
 }) {
   const p = usePlot()
   const [t0, t1] = t
@@ -159,7 +254,13 @@ export const Parametric = React.memo(function Parametric({
   }
   if (cur) segs.push(cur)
   return (
-    <g fill="none" stroke={FG} strokeWidth={strokeWidth} opacity={opacity} strokeDasharray={dash}>
+    <g
+      fill="none"
+      stroke={color}
+      strokeWidth={strokeWidth}
+      opacity={opacity}
+      strokeDasharray={dash}
+    >
       {segs.map((d, i) => (
         <path key={i} d={d} />
       ))}
@@ -171,10 +272,11 @@ export const Polyline = React.memo(function Polyline({
   points,
   opacity = OPACITY.fg,
   dash,
-  strokeWidth = 1,
+  strokeWidth = STROKE_SECONDARY,
   closed = false,
   fill,
-  fillOpacity = 0
+  fillOpacity = 0,
+  color = FG
 }) {
   const p = usePlot()
   if (points.length < 2) return null
@@ -188,9 +290,9 @@ export const Polyline = React.memo(function Polyline({
   return (
     <path
       d={d}
-      fill={fill || (fillOpacity ? FG : 'none')}
+      fill={fill || (fillOpacity ? color : 'none')}
       fillOpacity={fillOpacity}
-      stroke={FG}
+      stroke={color}
       strokeWidth={strokeWidth}
       strokeDasharray={dash}
       opacity={opacity}
@@ -201,32 +303,41 @@ export const Polyline = React.memo(function Polyline({
 })
 
 // Marks
-export function Dot({ x, y, r = 3, opacity = OPACITY.fg, fill = true }) {
+export function Dot({ x, y, r = POINT_STATIC, opacity = OPACITY.fg, fill = true, color = FG }) {
   const p = usePlot()
   return (
     <circle
       cx={p.sx(x)}
       cy={p.sy(y)}
       r={r}
-      fill={fill ? FG : 'none'}
-      stroke={FG}
-      strokeWidth={1}
+      fill={fill ? color : 'none'}
+      stroke={color}
+      strokeWidth={STROKE_SECONDARY}
       opacity={opacity}
     />
   )
 }
 
-export function CircleSh({ cx = 0, cy = 0, r, opacity = OPACITY.fg, dash, fill, fillOpacity = 0 }) {
+export function CircleSh({
+  cx = 0,
+  cy = 0,
+  r,
+  opacity = OPACITY.fg,
+  dash,
+  fill,
+  fillOpacity = 0,
+  color = FG
+}) {
   const p = usePlot()
   return (
     <circle
       cx={p.sx(cx)}
       cy={p.sy(cy)}
       r={r * p.ux}
-      fill={fill || (fillOpacity ? FG : 'none')}
+      fill={fill || (fillOpacity ? color : 'none')}
       fillOpacity={fillOpacity}
-      stroke={FG}
-      strokeWidth={1}
+      stroke={color}
+      strokeWidth={STROKE_SECONDARY}
       strokeDasharray={dash}
       opacity={opacity}
     />
@@ -234,7 +345,15 @@ export function CircleSh({ cx = 0, cy = 0, r, opacity = OPACITY.fg, dash, fill, 
 }
 
 // Arrow with proper arrowhead in screen space
-export function Arrow({ from, to, opacity = OPACITY.fg, head = 6, strokeWidth = 1, dash }) {
+export function Arrow({
+  from,
+  to,
+  opacity = OPACITY.fg,
+  head = ARROW_HEAD,
+  strokeWidth = ARROW_STROKE,
+  dash,
+  color = FG
+}) {
   const p = usePlot()
   const x1 = p ? p.sx(from[0]) : from[0],
     y1 = p ? p.sy(from[1]) : from[1]
@@ -257,7 +376,7 @@ export function Arrow({ from, to, opacity = OPACITY.fg, head = 6, strokeWidth = 
   const wyL = wx * Math.sin(-ang) + wy * Math.cos(-ang)
   return (
     <g
-      stroke={FG}
+      stroke={color}
       strokeWidth={strokeWidth}
       opacity={opacity}
       fill="none"
@@ -278,7 +397,8 @@ export function Tex({
   anchor = 'start',
   dy = 0,
   dx = 0,
-  size = 13
+  size = FONT_TEX,
+  color = FG
 }) {
   const p = usePlot()
   const [x, y] = at
@@ -343,10 +463,9 @@ export function Tex({
           display: 'flex',
           alignItems: 'center',
           justifyContent: justify,
-          color: FG,
+          color: color,
           opacity,
           fontSize: size + 'px',
-          fontFamily: "'D-DIN', ui-monospace, monospace",
           lineHeight: 1
         }}
       >
@@ -368,9 +487,10 @@ export function Label({
   anchor = 'start',
   dy = 0,
   dx = 0,
-  size = 11,
+  size = FONT_LABEL,
   upper = true,
-  weight = 'normal'
+  weight = 'normal',
+  color = FG
 }) {
   const p = usePlot()
   let X, Y
@@ -385,15 +505,14 @@ export function Label({
     <text
       x={X + dx}
       y={Y + dy}
-      fill={FG}
+      fill={color}
       opacity={opacity}
       fontSize={size}
       textAnchor={anchor === 'end' ? 'end' : anchor === 'middle' ? 'middle' : 'start'}
-      letterSpacing="0.08em"
+      letterSpacing={LS_LABEL}
       fontWeight={weight}
       style={{
-        textTransform: upper ? 'uppercase' : 'none',
-        fontFamily: "'D-DIN', ui-monospace, monospace"
+        textTransform: upper ? 'uppercase' : 'none'
       }}
     >
       {children}
@@ -411,7 +530,9 @@ export function Slider({
   onChange,
   format = v => v.toFixed(2)
 }) {
-  return (
+  const target = React.useContext(VizControlsCtx)
+  const isMath = typeof label === 'string' && label.startsWith('$') && label.endsWith('$')
+  const content = (
     <div
       style={{
         marginTop: 16,
@@ -419,14 +540,17 @@ export function Slider({
         display: 'flex',
         alignItems: 'center',
         gap: 16,
-        fontSize: 11,
-        letterSpacing: '0.18em',
+        fontSize: FONT_LABEL,
+        letterSpacing: LS_CONTROL,
         textTransform: 'uppercase',
-        color: FG,
-        fontFamily: "'D-DIN', ui-monospace, monospace"
+        color: FG
       }}
     >
-      <span style={{ opacity: OPACITY.dim, minWidth: 60 }}>{label}</span>
+      <span
+        style={{ opacity: OPACITY.dim, minWidth: 60, textTransform: isMath ? 'none' : undefined }}
+      >
+        {isMath ? <KatexInline tex={label.slice(1, -1)} /> : label}
+      </span>
       <input
         type="range"
         className="viz-range"
@@ -449,6 +573,7 @@ export function Slider({
       </span>
     </div>
   )
+  return target ? createPortal(content, target) : content
 }
 
 // prefers-reduced-motion
@@ -467,12 +592,19 @@ export function useReducedMotion() {
   return r
 }
 
-// Animation frame hook
+// HOUSE RULE (reduced motion): prefers-reduced-motion suppresses SELF-STARTING
+// motion only - a viz that mounts with running=true stays frozen at t=0. The
+// moment the caller changes `running` (i.e. the user pressed PLAY/PAUSE), the
+// explicit gesture overrides the preference and the animation runs normally.
 export function useAnimationTime(running = false, speed = 1) {
   const [t, setT] = React.useState(0)
   const reduced = useReducedMotion()
+  const mountRunningRef = React.useRef(running)
+  const userActedRef = React.useRef(false)
+  if (running !== mountRunningRef.current) userActedRef.current = true
+  const frozen = reduced && !userActedRef.current
   React.useEffect(() => {
-    if (!running || reduced) return
+    if (!running || frozen) return
     let raf = 0
     let t0 = 0
     const loop = ts => {
@@ -482,22 +614,22 @@ export function useAnimationTime(running = false, speed = 1) {
     }
     raf = requestAnimationFrame(loop)
     return () => cancelAnimationFrame(raf)
-  }, [running, reduced, speed])
+  }, [running, frozen, speed])
   return t
 }
 
 // PlayPause control
 export function PlayPause({ playing, onToggle, onReset, label = '' }) {
-  return (
+  const target = React.useContext(VizControlsCtx)
+  const content = (
     <div
       style={{
         marginTop: 12,
         display: 'flex',
         gap: 8,
         alignItems: 'center',
-        fontFamily: "'D-DIN', ui-monospace, monospace",
-        fontSize: 10,
-        letterSpacing: '0.18em',
+        fontSize: FONT_SMALL,
+        letterSpacing: LS_CONTROL,
         textTransform: 'uppercase',
         color: FG
       }}
@@ -541,87 +673,7 @@ export function PlayPause({ playing, onToggle, onReset, label = '' }) {
       {label && <span style={{ opacity: 0.4, marginLeft: 8 }}>{label}</span>}
     </div>
   )
-}
-
-// Card frame
-// Wraps a viz with a card: section ID + title header, then a framed area with
-// faint grid background. Matches the showcase's `.card`/`.frame` style.
-export function VizCard({ id, title, caption, children }) {
-  return (
-    <div
-      style={{
-        fontFamily: "'D-DIN', 'D-DIN-Regular', ui-monospace, monospace",
-        color: 'var(--text-primary)'
-      }}
-    >
-      {(id || title) && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: 16,
-            marginBottom: 16
-          }}
-        >
-          {id && (
-            <div
-              style={{
-                fontSize: 20,
-                letterSpacing: '0.18em',
-                color: FG,
-                opacity: OPACITY.dim,
-                textTransform: 'uppercase'
-              }}
-            >
-              {id}
-            </div>
-          )}
-          {title && (
-            <h3
-              style={{
-                margin: 0,
-                fontSize: 24,
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase'
-              }}
-            >
-              {title}
-            </h3>
-          )}
-        </div>
-      )}
-      <div
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, var(--border-subtle) 1px, transparent 1px), linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px)',
-          backgroundSize: '50px 50px',
-          backgroundPosition: 'center',
-          border: '1px solid var(--border-default)',
-          padding: '24px 16px 32px',
-          minHeight: 300,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          justifyContent: 'center'
-        }}
-      >
-        {children}
-      </div>
-      {caption && (
-        <p
-          style={{
-            margin: '14px 2px 0',
-            fontSize: 12,
-            opacity: OPACITY.dim,
-            lineHeight: 1.5
-          }}
-        >
-          {caption}
-        </p>
-      )}
-    </div>
-  )
+  return target ? createPortal(content, target) : content
 }
 
 // Like Tex but accepts raw SVG pixel coordinates (no Plot context required)
@@ -631,7 +683,7 @@ export function TexPx({
   tex,
   opacity = OPACITY.fg,
   anchor = 'start',
-  size = 13,
+  size = FONT_TEX,
   width: foW = 200
 }) {
   const ref = React.useRef(null)
@@ -663,7 +715,6 @@ export function TexPx({
           color: FG,
           opacity,
           fontSize: size + 'px',
-          fontFamily: "'D-DIN', ui-monospace, monospace",
           lineHeight: 1
         }}
       >
@@ -674,7 +725,15 @@ export function TexPx({
 }
 
 // Draggable handle
-export function DragHandle({ x, y, onChange, r = 7, constrain, opacity = OPACITY.fg, label }) {
+export function DragHandle({
+  x,
+  y,
+  onChange,
+  r = POINT_HANDLE,
+  constrain,
+  opacity = OPACITY.fg,
+  label
+}) {
   const p = usePlot()
   const [hover, setHover] = React.useState(false)
   const [drag, setDrag] = React.useState(false)
@@ -714,10 +773,11 @@ export function DragHandle({ x, y, onChange, r = 7, constrain, opacity = OPACITY
   }
 
   const onPointerDown = e => {
-    e.target.setPointerCapture(e.pointerId)
+    e.stopPropagation()
+    e.currentTarget.setPointerCapture(e.pointerId)
     dragRef.current = true
     setDrag(true)
-    svgRectRef.current = e.target.ownerSVGElement.getBoundingClientRect()
+    svgRectRef.current = e.currentTarget.ownerSVGElement.getBoundingClientRect()
     const m = clientToMath(e.clientX, e.clientY)
     offsetRef.current = m ? { x: x - m.x, y: y - m.y } : { x: 0, y: 0 }
   }
@@ -766,7 +826,7 @@ export function DragHandle({ x, y, onChange, r = 7, constrain, opacity = OPACITY
     offsetRef.current = { x: 0, y: 0 }
     setDrag(false)
     try {
-      e.target.releasePointerCapture(e.pointerId)
+      e.currentTarget.releasePointerCapture(e.pointerId)
     } catch {
       /* noop */
     }
@@ -776,7 +836,7 @@ export function DragHandle({ x, y, onChange, r = 7, constrain, opacity = OPACITY
       <circle
         cx={0}
         cy={0}
-        r={r + 8}
+        r={r + 16}
         fill="transparent"
         stroke="none"
         style={{ cursor: drag ? 'grabbing' : 'grab', touchAction: 'none' }}
@@ -793,7 +853,7 @@ export function DragHandle({ x, y, onChange, r = 7, constrain, opacity = OPACITY
         fill={FG}
         fillOpacity={hover || drag ? 1 : 0.85}
         stroke={FG}
-        strokeWidth={1}
+        strokeWidth={STROKE_SECONDARY}
         opacity={opacity}
         style={{ pointerEvents: 'none' }}
       />
@@ -803,27 +863,40 @@ export function DragHandle({ x, y, onChange, r = 7, constrain, opacity = OPACITY
         r={r + 4}
         fill="none"
         stroke={FG}
-        strokeWidth={1}
+        strokeWidth={STROKE_SECONDARY}
         opacity={hover || drag ? 0.4 : 0}
         style={{ pointerEvents: 'none' }}
       />
-      {label && (
-        <text
-          x={r + 6}
-          y={-(r + 4)}
-          fill={FG}
-          opacity={0.7}
-          fontSize={10}
-          style={{
-            pointerEvents: 'none',
-            fontFamily: "'D-DIN', ui-monospace, monospace",
-            letterSpacing: '0.18em',
-            textTransform: 'uppercase'
-          }}
-        >
-          {label}
-        </text>
-      )}
+      {label &&
+        (label.startsWith('$') && label.endsWith('$') ? (
+          <foreignObject
+            x={r + 6}
+            y={-(r + 4) - 14}
+            width={80}
+            height={20}
+            style={{ pointerEvents: 'none', overflow: 'visible' }}
+          >
+            <KatexInline
+              tex={label.slice(1, -1)}
+              style={{ color: FG, opacity: 0.7, fontSize: FONT_LABEL }}
+            />
+          </foreignObject>
+        ) : (
+          <text
+            x={r + 6}
+            y={-(r + 4)}
+            fill={FG}
+            opacity={0.7}
+            fontSize={FONT_SMALL}
+            style={{
+              pointerEvents: 'none',
+              letterSpacing: LS_CONTROL,
+              textTransform: 'uppercase'
+            }}
+          >
+            {label}
+          </text>
+        ))}
     </g>
   )
 }
@@ -853,19 +926,52 @@ export function Canvas({ w = 800, h = 500, children, ...rest }) {
       viewBox={`0 0 ${w} ${h}`}
       preserveAspectRatio="xMidYMid meet"
       width="100%"
-      height="auto"
       style={{
         display: 'block',
         maxWidth: '100%',
+        height: 'auto',
         margin: '0 auto',
         overflow: 'visible',
-        color: 'var(--text-primary)',
-        fontFamily: "'D-DIN', ui-monospace, Menlo, monospace"
+        color: 'var(--text-primary)'
       }}
       {...rest}
     >
       {children}
     </svg>
+  )
+}
+
+// Multi-line text block
+export function MultiLine({
+  x,
+  y,
+  lines,
+  opacity = OPACITY.fg,
+  anchor = 'middle',
+  size = FONT_SMALL,
+  lineHeight = 14,
+  upper = false
+}) {
+  return (
+    <g>
+      {lines.map((ln, i) => (
+        <text
+          key={i}
+          x={x}
+          y={y + i * lineHeight}
+          fill={FG}
+          opacity={opacity}
+          fontSize={size}
+          textAnchor={anchor === 'end' ? 'end' : anchor === 'middle' ? 'middle' : 'start'}
+          letterSpacing={LS_COMPACT}
+          style={{
+            textTransform: upper ? 'uppercase' : 'none'
+          }}
+        >
+          {ln}
+        </text>
+      ))}
+    </g>
   )
 }
 
@@ -890,22 +996,21 @@ export function Tooltip({ tip, w = 240 }) {
         y={ty}
         width={w}
         height={h}
-        fill="#000"
+        fill="var(--bg)"
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
       {title && (
         <text
           x={tx + 12}
           y={ty + 18}
           fill={FG}
-          fontSize="10"
+          fontSize={FONT_SMALL}
           opacity={OPACITY.fg}
-          letterSpacing="0.16em"
+          letterSpacing={LS_TITLE}
           style={{
-            textTransform: 'uppercase',
-            fontFamily: "'D-DIN', ui-monospace, monospace"
+            textTransform: 'uppercase'
           }}
         >
           {title}
@@ -917,9 +1022,8 @@ export function Tooltip({ tip, w = 240 }) {
           x={tx + 12}
           y={ty + (title ? 36 : 20) + i * 14}
           fill={FG}
-          fontSize="11"
+          fontSize={FONT_LABEL}
           opacity={OPACITY.dim}
-          style={{ fontFamily: "'D-DIN', ui-monospace, monospace" }}
         >
           {ln}
         </text>
@@ -929,12 +1033,11 @@ export function Tooltip({ tip, w = 240 }) {
           x={tx + 12}
           y={ty + h - 8}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           opacity={OPACITY.dim}
-          letterSpacing="0.16em"
+          letterSpacing={LS_TITLE}
           style={{
-            textTransform: 'uppercase',
-            fontFamily: "'D-DIN', ui-monospace, monospace"
+            textTransform: 'uppercase'
           }}
         >
           {cite}
@@ -971,10 +1074,10 @@ export function Node({
         cx={x}
         cy={y}
         r={r}
-        fill="#000"
+        fill="var(--bg)"
         stroke={FG}
         strokeOpacity={accent || active ? OPACITY.fg : OPACITY.dim}
-        strokeWidth={accent || active ? 1.4 : 1}
+        strokeWidth={accent || active ? STROKE_PRIMARY : STROKE_SECONDARY}
       />
       {label && inside && (
         <text
@@ -982,10 +1085,9 @@ export function Node({
           y={y + (sub ? -2 : 4)}
           fill={FG}
           opacity={op}
-          fontSize="10"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.06em"
-          style={{ fontFamily: "'D-DIN', ui-monospace, monospace" }}
+          letterSpacing={LS_TIGHT}
         >
           {label}
         </text>
@@ -996,9 +1098,8 @@ export function Node({
           y={y + 11}
           fill={FG}
           opacity={OPACITY.dim}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          style={{ fontFamily: "'D-DIN', ui-monospace, monospace" }}
         >
           {sub}
         </text>
@@ -1009,10 +1110,9 @@ export function Node({
           y={y + r + 14}
           fill={FG}
           opacity={op}
-          fontSize="10"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          letterSpacing="0.04em"
-          style={{ fontFamily: "'D-DIN', ui-monospace, monospace" }}
+          letterSpacing={LS_COMPACT}
         >
           {label}
         </text>
@@ -1023,9 +1123,8 @@ export function Node({
           y={y + r + 28}
           fill={FG}
           opacity={OPACITY.dim}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           textAnchor="middle"
-          style={{ fontFamily: "'D-DIN', ui-monospace, monospace" }}
         >
           {sub}
         </text>
@@ -1041,7 +1140,7 @@ export function Edge({
   b,
   dash,
   opacity = OPACITY.faint,
-  strokeWidth = 0.8,
+  strokeWidth = STROKE_GUIDE,
   label,
   onEnter,
   onLeave,
@@ -1053,7 +1152,7 @@ export function Edge({
     x2 = b[0],
     y2 = b[1]
   const op = active ? OPACITY.fg : opacity
-  const sw = active ? Math.max(strokeWidth, 1.2) : strokeWidth
+  const sw = active ? Math.max(strokeWidth, STROKE_PRIMARY) : strokeWidth
   const mx = (x1 + x2) / 2,
     my = (y1 + y2) / 2
   let d = `M ${x1} ${y1} L ${x2} ${y2}`
@@ -1087,13 +1186,12 @@ export function Edge({
           x={mx}
           y={my - 4}
           fill={FG}
-          fontSize="9"
+          fontSize={FONT_SMALL}
           opacity={OPACITY.fg}
           textAnchor="middle"
-          letterSpacing="0.08em"
+          letterSpacing={LS_LABEL}
           style={{
-            textTransform: 'uppercase',
-            fontFamily: "'D-DIN', ui-monospace, monospace"
+            textTransform: 'uppercase'
           }}
         >
           {label}
@@ -1105,7 +1203,8 @@ export function Edge({
 
 // Toggle button (for filterable clusters)
 export function Toggle({ on, onChange, label }) {
-  return (
+  const target = React.useContext(VizControlsCtx)
+  const content = (
     <button
       onClick={() => onChange(!on)}
       style={{
@@ -1114,10 +1213,9 @@ export function Toggle({ on, onChange, label }) {
         border: '1px solid ' + (on ? 'var(--border-default)' : 'var(--border-subtle)'),
         padding: '5px 10px',
         cursor: 'pointer',
-        fontSize: 10,
-        letterSpacing: '0.16em',
+        fontSize: FONT_SMALL,
+        letterSpacing: LS_TITLE,
         textTransform: 'uppercase',
-        fontFamily: "'D-DIN', ui-monospace, monospace",
         opacity: on ? 1 : 0.6
       }}
     >
@@ -1125,11 +1223,12 @@ export function Toggle({ on, onChange, label }) {
       {label}
     </button>
   )
+  return target ? createPortal(content, target) : content
 }
 
-// Chapter timeline (clickable + draggable scrubber with optional mood curve)
-export function ChapterTimeline({
-  chapters,
+// Section timeline (clickable + draggable scrubber with optional mood curve)
+export function ModuleTimeline({
+  sections,
   width = 780,
   height = 220,
   current,
@@ -1138,7 +1237,7 @@ export function ChapterTimeline({
   beats = [],
   topLabel
 }) {
-  const N = chapters.length
+  const N = sections.length
   const PAD_L = 36,
     PAD_R = 24,
     PAD_T = 36,
@@ -1183,15 +1282,17 @@ export function ChapterTimeline({
           y={20}
           fill={FG}
           opacity={OPACITY.dim}
-          fontSize="10"
-          letterSpacing="0.18em"
+          fontSize={FONT_SMALL}
+          letterSpacing={LS_CONTROL}
           style={{ textTransform: 'uppercase' }}
         >
           {topLabel}
         </text>
       )}
 
-      {moodPts && <Polyline points={moodPts} opacity={OPACITY.accent} strokeWidth={1.2} />}
+      {moodPts && (
+        <Polyline points={moodPts} opacity={OPACITY.accent} strokeWidth={STROKE_PRIMARY} />
+      )}
       {moodPts &&
         moodPts.map(([cx, cy], i) => (
           <circle key={`mood-${i}`} cx={cx} cy={cy} r="2.5" fill={FG} opacity={OPACITY.dim} />
@@ -1204,10 +1305,10 @@ export function ChapterTimeline({
         y2={yLine}
         stroke={FG}
         strokeOpacity={OPACITY.dim}
-        strokeWidth="1"
+        strokeWidth={STROKE_SECONDARY}
       />
 
-      {chapters.map((c, i) => {
+      {sections.map((c, i) => {
         const x = xOf(i)
         const isCurrent = i === current
         return (
@@ -1219,7 +1320,7 @@ export function ChapterTimeline({
               y2={yLine + 5}
               stroke={FG}
               strokeOpacity={isCurrent ? OPACITY.fg : OPACITY.dim}
-              strokeWidth={isCurrent ? 1.6 : 0.8}
+              strokeWidth={isCurrent ? STROKE_EMPHASIS : STROKE_GUIDE}
             />
             <circle
               cx={x}
@@ -1234,9 +1335,9 @@ export function ChapterTimeline({
                 y={yLine + 22}
                 fill={FG}
                 opacity={isCurrent ? OPACITY.fg : OPACITY.dim}
-                fontSize="9"
+                fontSize={FONT_SMALL}
                 textAnchor="middle"
-                letterSpacing="0.04em"
+                letterSpacing={LS_COMPACT}
               >
                 {c.n ?? i + 1}
               </text>
@@ -1250,6 +1351,10 @@ export function ChapterTimeline({
         const above = i % 2 === 0
         const y0 = above ? yLine - 14 : yLine + 26
         const y1 = above ? y0 - 18 : y0 + 16
+        // Clamp the centered label so it never extends past the viewBox
+        // (beats at the first/last section would otherwise overhang the edge).
+        const halfW = b.label.length * FONT_SMALL * 0.31
+        const lx = Math.max(halfW + 2, Math.min(width - halfW - 2, x))
         return (
           <g key={`b-${i}`} pointerEvents="none">
             <line
@@ -1259,16 +1364,16 @@ export function ChapterTimeline({
               y2={y0 + (above ? -2 : 2)}
               stroke={FG}
               strokeOpacity={OPACITY.faint}
-              strokeWidth="0.6"
+              strokeWidth={STROKE_HAIR}
             />
             <text
-              x={x}
+              x={lx}
               y={y1}
               fill={FG}
               opacity={OPACITY.dim}
-              fontSize="9"
+              fontSize={FONT_SMALL}
               textAnchor="middle"
-              letterSpacing="0.04em"
+              letterSpacing={LS_COMPACT}
             >
               {b.label}
             </text>
@@ -1276,28 +1381,60 @@ export function ChapterTimeline({
         )
       })}
 
-      {current != null && chapters[current] && (
+      {current != null && sections[current] && (
         <g pointerEvents="none">
           <text
             x={PAD_L}
             y={height - 28}
             fill={FG}
             opacity={OPACITY.fg}
-            fontSize="11"
-            letterSpacing="0.16em"
+            fontSize={FONT_LABEL}
+            letterSpacing={LS_TITLE}
             style={{ textTransform: 'uppercase' }}
           >
-            Ch {chapters[current].n ?? current + 1} · {chapters[current].label}
+            § {sections[current].n ?? current + 1} · {sections[current].label}
           </text>
-          {chapters[current].sub && (
-            <text x={PAD_L} y={height - 12} fill={FG} opacity={OPACITY.dim} fontSize="10">
-              {chapters[current].sub}
+          {sections[current].sub && (
+            <text x={PAD_L} y={height - 12} fill={FG} opacity={OPACITY.dim} fontSize={FONT_SMALL}>
+              {sections[current].sub}
             </text>
           )}
         </g>
       )}
     </svg>
   )
+}
+
+// Grid backdrop (used only when a viz renders outside a card frame)
+export function GridBg({ w, h, step = GRID_STEP }) {
+  const lines = []
+  for (let x = 0; x <= w; x += step)
+    lines.push(
+      <line
+        key={`v${x}`}
+        x1={x}
+        y1={0}
+        x2={x}
+        y2={h}
+        stroke={FG}
+        strokeOpacity={OPACITY.hair * 0.4}
+        strokeWidth={STROKE_SECONDARY}
+      />
+    )
+  for (let y = 0; y <= h; y += step)
+    lines.push(
+      <line
+        key={`h${y}`}
+        x1={0}
+        y1={y}
+        x2={w}
+        y2={y}
+        stroke={FG}
+        strokeOpacity={OPACITY.hair * 0.4}
+        strokeWidth={STROKE_SECONDARY}
+      />
+    )
+  return <g>{lines}</g>
 }
 
 // Hatching pattern (use as fill="url(#id)")
@@ -1374,6 +1511,40 @@ export function Stipple({ x, y, w, h, n = 80, seed = 1, opacity = 0.4, r = 0.6 }
 }
 
 // Radial spokes
+// VizCaption - caption line below a viz canvas.
+// In fullscreen it portals into vizfig-controls-bar (outside the transform layer)
+// so it is never zoomed/panned with the canvas. In normal view it renders inline.
+export function VizCaption({ children }) {
+  const target = React.useContext(VizControlsCtx)
+  const content = (
+    <div
+      style={{
+        padding: '6px 12px',
+        fontSize: FONT_LABEL,
+        letterSpacing: '0.14em',
+        textTransform: 'uppercase',
+        color: FG,
+        opacity: OPACITY.dim,
+        textAlign: 'center'
+      }}
+    >
+      {children}
+    </div>
+  )
+  return target ? createPortal(content, target) : content
+}
+
+// VizControls - generic escape hatch for custom controls (hand-rolled buttons,
+// steppers, pickers) that have no dedicated primitive. Portals its children
+// into the VizFigure controls bar - below the frame, outside the zoom/pan
+// layer - exactly like Slider/PlayPause/Toggle, so control placement stays
+// consistent across every viz. Renders inline when there is no VizFigure
+// ancestor (e.g. an unwrapped inline viz), matching the other primitives.
+export function VizControls({ children }) {
+  const target = React.useContext(VizControlsCtx)
+  return target ? createPortal(children, target) : children
+}
+
 export function Rays({ cx, cy, r0, r1, count = 16, opacity = 0.4, strokeWidth = 0.6 }) {
   return (
     <g>

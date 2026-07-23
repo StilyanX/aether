@@ -1,10 +1,10 @@
-# Aether — Dual License
+# Aether: Dual License
 
 Copyright (c) 2026 Stilyan Stoyanov
 
 ---
 
-## Platform Code — MIT License
+## Platform Code: MIT License
 
 The source code of the Aether platform (everything except the learning content
 in `src/features/`) is licensed under the MIT License.
@@ -29,20 +29,20 @@ SOFTWARE.
 
 ---
 
-## Learning Content — Creative Commons BY-NC-SA 4.0
+## Learning Content: Creative Commons BY-NC-SA 4.0
 
 The learning content in `src/features/` (all educational modules, curriculum
 structure, and written material) is licensed under the Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0 International License.
 
 You are free to:
-- Share — copy and redistribute the material in any medium or format
-- Adapt — remix, transform, and build upon the material
+- Share: copy and redistribute the material in any medium or format
+- Adapt: remix, transform, and build upon the material
 
 Under the following terms:
-- Attribution — You must give appropriate credit to Aether and its contributors
-- NonCommercial — You may not use the material for commercial purposes
-- ShareAlike — If you remix or build upon the material, you must distribute
+- Attribution: you must give appropriate credit to Aether and its contributors
+- NonCommercial: you may not use the material for commercial purposes
+- ShareAlike: if you remix or build upon the material, you must distribute
   your contributions under the same CC BY-NC-SA 4.0 license
 
 Full license text: https://creativecommons.org/licenses/by-nc-sa/4.0/

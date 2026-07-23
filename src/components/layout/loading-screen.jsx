@@ -10,19 +10,18 @@ const CSS = `
   place-items: center;
   background: var(--bg);
   will-change: opacity;
-  transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.ascent[data-done] {
-  opacity: 0;
-  pointer-events: none;
-}
+.ascent[data-done] { opacity: 0; pointer-events: none; }
 
 .ascent .center {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 64px;
+  gap: 0;
   animation: ascent-rise 1200ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  position: relative;
+  z-index: 1;
 }
 @keyframes ascent-rise {
   from { opacity: 0; transform: translateY(8px); }
@@ -31,32 +30,20 @@ const CSS = `
 
 .ascent .mark {
   position: relative;
-  width: 132px;
-  height: 132px;
-  display: grid;
-  place-items: center;
+  width: 132px; height: 132px;
+  display: grid; place-items: center;
+  margin-bottom: 36px;
 }
-.ascent .mark svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
+.ascent .mark svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .ascent .mark .frame {
-  fill: none;
-  stroke: var(--text-primary);
-  stroke-width: 1;
-  stroke-dasharray: 374;
-  stroke-dashoffset: 374;
+  fill: none; stroke: var(--text-primary); stroke-width: 1;
+  stroke-dasharray: 374; stroke-dashoffset: 374;
   animation: ascent-draw 1400ms cubic-bezier(0.65, 0, 0.35, 1) 100ms forwards;
 }
 @keyframes ascent-draw { to { stroke-dashoffset: 0; } }
 
 .ascent .mark .halo {
-  position: absolute;
-  inset: -28px;
-  border-radius: 50%;
+  position: absolute; inset: -28px; border-radius: 50%;
   background: radial-gradient(closest-side, var(--border-default), transparent 70%);
   opacity: 0;
   animation: ascent-bloom 4s ease-in-out 1300ms infinite;
@@ -69,11 +56,8 @@ const CSS = `
 .ascent .mark .glyph {
   position: relative;
   font-family: 'D-DIN', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  font-size: 56px;
-  line-height: 1;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
+  font-weight: 700; font-size: 56px; line-height: 1;
+  color: var(--text-primary); letter-spacing: -0.02em;
   opacity: 0;
   animation: ascent-glyph-in 700ms cubic-bezier(0.16, 1, 0.3, 1) 1100ms forwards;
 }
@@ -83,10 +67,7 @@ const CSS = `
 }
 
 .ascent .below {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
   opacity: 0;
   animation: ascent-settle 700ms cubic-bezier(0.16, 1, 0.3, 1) 1500ms forwards;
 }
@@ -96,67 +77,56 @@ const CSS = `
 }
 
 .ascent .wordmark {
+  display: flex;
   font-family: 'D-DIN', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.62em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--text-primary);
-  padding-left: 0.62em;
+  font-size: 12px; letter-spacing: 0.62em; text-transform: uppercase;
+  font-weight: 700; color: var(--text-primary);
 }
+.ascent .wm-char {
+  display: inline-block; padding-left: 0.62em;
+  opacity: 0; filter: blur(8px);
+  animation: wm-char-in 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes wm-char-in { to { opacity: 1; filter: blur(0); } }
 
 .ascent .track {
-  width: 220px;
-  height: 1px;
-  background: var(--border-default);
-  position: relative;
-  overflow: hidden;
+  width: 220px; height: 1px; background: var(--border-default);
+  position: relative; overflow: hidden;
 }
 .ascent .track .fill {
-  position: absolute;
-  top: 0; bottom: 0;
-  left: 0;
-  width: 0%;
+  position: absolute; top: 0; bottom: 0; left: 0; width: 0%;
   background: var(--text-primary);
   transition: width 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .ascent .track .fill::after {
-  content: '';
-  position: absolute;
-  right: 0; top: -2px; bottom: -2px;
-  width: 1px;
+  content: ''; position: absolute;
+  right: 0; top: -2px; bottom: -2px; width: 1px;
   background: var(--text-primary);
   box-shadow: 0 0 8px var(--text-secondary);
 }
 
+
 .ascent-sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0,0,0,0);
-  white-space: nowrap; border-width: 0;
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ascent .center,
-  .ascent .mark .frame,
-  .ascent .mark .halo,
-  .ascent .mark .glyph,
-  .ascent .below {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
+  .ascent .center, .ascent .mark .frame, .ascent .mark .halo,
+  .ascent .mark .glyph, .ascent .below, .ascent .wm-char {
+    animation: none !important; opacity: 1 !important;
+    transform: none !important; filter: none !important;
     stroke-dashoffset: 0 !important;
   }
 }
 `
 
-const HOLD_MS = 1500 // mark + glyph land before the bar moves
-const FILL_MS = 600 // progress fill duration
-const SETTLE_MS = 220 // pause after fill before fade
-const FADE_MS = 800 // .ascent fade-out
-const REDUCED_FADE_MS = 200 // reduced-motion shortcut
+const HOLD_MS = 0
+const FILL_MS = 200
+const SETTLE_MS = 80
+const FADE_MS = 300
+const REDUCED_FADE_MS = 200
 
 export default function LoadingScreen({ open, onDone }) {
   const [done, setDone] = useState(false)
@@ -173,16 +143,20 @@ export default function LoadingScreen({ open, onDone }) {
       document.documentElement.getAttribute('data-reduced-motion') === 'on'
   }, [])
 
-  // Drive a slow background fill while waiting for `open` so the bar isn't frozen at 0
+  // Indeterminate progress: ease asymptotically toward a ceiling instead of
+  // hard-stopping. A hard cap froze the bar at exactly 70% whenever readiness
+  // took longer than the fill (heavy typeset/cover loads now legitimately do),
+  // which reads as "stuck". Easing keeps it perceptibly moving until ready snaps
+  // it to 100%.
   useEffect(() => {
     if (open || fadeStarted.current) return
-    const id = setInterval(() => {
-      setFillPct(p => (p < 70 ? p + 2 : p))
-    }, 120)
+    const id = setInterval(
+      () => setFillPct(p => (p < 90 ? p + Math.max(0.3, (90 - p) * 0.08) : p)),
+      120
+    )
     return () => clearInterval(id)
   }, [open])
 
-  // When content is ready, complete the fill and fade out
   useEffect(() => {
     if (!open || fadeStarted.current) return
     fadeStarted.current = true
@@ -196,17 +170,14 @@ export default function LoadingScreen({ open, onDone }) {
     }
 
     setFillPct(100)
-    const settleTimer = setTimeout(() => {
-      setDone(true)
-    }, FILL_MS + SETTLE_MS)
-    const doneTimer = setTimeout(() => onDoneRef.current?.(), FILL_MS + SETTLE_MS + FADE_MS)
+    const s = setTimeout(() => setDone(true), FILL_MS + SETTLE_MS)
+    const d = setTimeout(() => onDoneRef.current?.(), FILL_MS + SETTLE_MS + FADE_MS)
     return () => {
-      clearTimeout(settleTimer)
-      clearTimeout(doneTimer)
+      clearTimeout(s)
+      clearTimeout(d)
     }
   }, [open])
 
-  // Esc to skip
   useEffect(() => {
     const onKey = e => {
       if (e.key !== 'Escape' || fadeStarted.current) return
@@ -219,14 +190,12 @@ export default function LoadingScreen({ open, onDone }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  // After fade-out finishes, unmount entirely
   useEffect(() => {
     if (!done) return
     const t = setTimeout(() => setSrMessage(''), reducedMotion.current ? REDUCED_FADE_MS : FADE_MS)
     return () => clearTimeout(t)
   }, [done])
 
-  // Initial hold delay while entrance animations play
   useEffect(() => {
     if (open) return
     const t = setTimeout(() => {}, HOLD_MS)
@@ -251,13 +220,26 @@ export default function LoadingScreen({ open, onDone }) {
             <div className="halo" />
             <div className="glyph">Æ</div>
           </div>
+
           <div className="below">
-            <div className="wordmark">Æther</div>
+            <div className="wordmark" aria-label="Æther">
+              {['Æ', 'T', 'H', 'E', 'R'].map((ch, i) => (
+                <span
+                  key={i}
+                  className="wm-char"
+                  style={{ animationDelay: `${1500 + i * 100}ms` }}
+                  aria-hidden="true"
+                >
+                  {ch}
+                </span>
+              ))}
+            </div>
             <div className="track" aria-hidden="true">
               <div className="fill" style={{ width: `${fillPct}%` }} />
             </div>
           </div>
         </div>
+
         <span className="ascent-sr-only">{srMessage}</span>
       </div>
     </>,

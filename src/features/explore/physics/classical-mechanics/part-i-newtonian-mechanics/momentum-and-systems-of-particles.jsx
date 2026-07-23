@@ -1,17 +1,366 @@
+import React from 'react'
+import { createPortal } from 'react-dom'
+import 'mafs/core.css'
+import 'katex/dist/katex.min.css'
+import { Mafs, Coordinates, Plot, Point, Line, Polygon, LaTeX, useMovablePoint } from 'mafs'
 import { LearningTemplate } from '../../../../../components/learning/learning-template'
+import { VizFigure } from '../../../../../components/viz-figure'
+import { Slider } from '../../../../../components/viz/primitives'
+import { useVizColors } from '../../../../../hooks/use-viz-colors'
+import { VizControlsCtx } from '../../../../../components/viz-controls-ctx'
 import {
   MomentumAddition,
   CMTwo,
+  BatonCMParabola,
   CMRod,
   CMTriangle,
   SpringGunRecoil,
-  ImpulseVsTime,
-  Tsiolkovsky,
   MomentumFlux,
-  MomentumVsForce,
-  DragCenterOfMass,
   ElasticCollisionCalc
 } from '../../../../../components/viz'
+import { FONT_TEX } from '../../../../../components/viz/scale-tokens'
+
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v))
+
+// Axis grid with no numeric tick labels: matches the house monochrome style.
+
+// 01.3.6 Impulse & Contact Time (mafs)
+// Same impulse J (area under F·t), variable contact time σ. Stretching the
+// collision in time drops the peak force: the airbag / pulled-back-hands lesson.
+export function Msp_ImpulseInline() {
+  const C = useVizColors()
+  const J = 6 // fixed impulse (area held constant): J = ∫F dt = Δp
+  const t0 = 5 // pulse centred in the time window
+  const [sigma, setSigma] = React.useState(0.95)
+  // Gaussian pulse F(t) = Fpk·exp(-((t-t0)/σ)²); ∫ = Fpk·σ·√π ≡ J ⇒ Fpk = J/(σ√π).
+  // σ ∈ [0.7, 2.0] caps the peak at ≈4.84 so it never enters the y≥5.5 readout band.
+  const sMin = 0.7
+  const sMax = 2.0
+  const peakOf = s => J / (s * Math.sqrt(Math.PI))
+  const Fpk = peakOf(sigma)
+  const F = t => Fpk * Math.exp(-(((t - t0) / sigma) ** 2))
+  // Contact window Δt = 2σ. The average-force box (width Δt, height Fav) holds
+  // area Fav·Δt = J: identical to the bump. Width and height move oppositely as
+  // you drag: the geometric face of F_av = J/Δt.
+  const dt = 2 * sigma
+  const Fav = J / dt
+  return (
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12
+      }}
+    >
+      <Mafs viewBox={{ x: [0, 10], y: [-1.0, 8] }} pan={false} zoom={false} height={500}>
+        <Coordinates.Cartesian />
+        {/* Shaded impulse = area under the live F(t). Held constant as σ varies. */}
+        <Plot.Inequality
+          y={{ '<=': F, '>=': () => 0 }}
+          fillColor={C.accent}
+          fillOpacity={0.16}
+          weight={0}
+        />
+        {/* Average-force rectangle: width Δt = 2σ, height Fav. Same area as the bump. */}
+        <Line.Segment
+          point1={[t0 - sigma, 0]}
+          point2={[t0 - sigma, Fav]}
+          color={C.dim}
+          style="dashed"
+        />
+        <Line.Segment
+          point1={[t0 + sigma, 0]}
+          point2={[t0 + sigma, Fav]}
+          color={C.dim}
+          style="dashed"
+        />
+        <Line.Segment
+          point1={[t0 - sigma, Fav]}
+          point2={[t0 + sigma, Fav]}
+          color={C.dim}
+          style="dashed"
+        />
+        {/* Live pulse + peak marker (primary weight). */}
+        <Plot.OfX y={F} color={C.fg} weight={2.5} />
+        <Point x={t0} y={Fpk} color={C.accent} />
+        {/* Δt brace label under the rectangle, below the x = 5 axis-tick band */}
+        <LaTeX at={[t0, -0.72]} tex={`\\Delta t`} color={C.dim} />
+        {/* Top readout strip: well clear of the curve (peak ≤ 4.84), colour-coded. */}
+        <LaTeX
+          at={[5, 7.3]}
+          tex={`J = \\int F\\,dt = \\Delta p = ${J.toFixed(1)}\\ \\text{(fixed)}`}
+          color={C.fg}
+        />
+        <LaTeX at={[2.7, 6.2]} tex={`F_{\\text{peak}} = ${Fpk.toFixed(2)}`} color={C.accent} />
+        <LaTeX at={[7.6, 6.2]} tex={`F_{\\text{avg}} = ${Fav.toFixed(2)}`} color={C.dim} />
+        {/* Axis labels: F on the mid y-axis (top band holds the wide equation), t at the
+            right end. Both clear of every readout. */}
+        <LaTeX at={[0.45, 4.5]} tex={`F`} color={C.dim} />
+        <LaTeX at={[9.6, 0.5]} tex={`t`} color={C.dim} />
+      </Mafs>
+      <Slider
+        label="Δt"
+        value={sigma}
+        min={sMin}
+        max={sMax}
+        step={0.02}
+        onChange={setSigma}
+        format={v => (2 * v).toFixed(2)}
+      />
+    </div>
+  )
+}
+
+// 01.3.7 Tsiolkovsky Rocket Equation (mafs)
+// Δv = u·ln(M0/Mf). Drag the mass ratio along the curve, scale the exhaust
+// speed: the logarithm flattens, so each extra ton of fuel buys less Δv. The
+// shaded band is the gravity penalty g·t_f the real liftoff pays vs free space.
+export function Msp_TsiolkovskyInline() {
+  const C = useVizColors()
+  const [u, setU] = React.useState(3) // exhaust speed (km/s), ~4.5 for chemical
+  const [loss, setLoss] = React.useState(1.5) // gravity-drag term g·t_f scale; 0 = free space
+  const ratioPt = useMovablePoint([3, 0], {
+    color: C.accent,
+    constrain: ([x]) => [clamp(x, 1, 9), 0]
+  })
+  const ratio = ratioPt.point[0]
+  // Free-space ideal vs liftoff with gravity loss. Constant burn ⇒ t_f ∝ (1−1/R),
+  // so the gravity penalty is loss·(1−1/R) and grows with the mass ratio. A rocket
+  // never reaches negative Δv (it simply never leaves), so the liftoff curve floors at 0.
+  const ideal = x => u * Math.log(x)
+  const gravity = x => Math.max(0, u * Math.log(x) - loss * (1 - 1 / x))
+  const dvIdeal = ideal(ratio)
+  const dvGrav = gravity(ratio)
+  const dvLoss = dvIdeal - dvGrav // gravity penalty at the chosen ratio
+  // Curve labels track the curve height at a fixed x so they never drift off-screen.
+  const labX = 7.4
+  return (
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12
+      }}
+    >
+      <Mafs viewBox={{ x: [-0.7, 9.8], y: [-1.9, 12.6] }} pan={false} zoom={false} height={460}>
+        <Coordinates.Cartesian xAxis={{ lines: 2 }} yAxis={{ lines: 2 }} />
+        {/* Free-space ideal Δv: primary, solid. */}
+        <Plot.OfX y={ideal} domain={[1, 9]} color={C.fg} weight={2.5} />
+        {/* Real liftoff Δv after gravity loss: accent, dashed. */}
+        <Plot.OfX y={gravity} domain={[1, 9]} color={C.accent} style="dashed" weight={2} />
+        {/* Read-off at the chosen mass ratio: dim guide up to liftoff, accent chunk = loss. */}
+        <Line.Segment point1={[ratio, 0]} point2={[ratio, dvGrav]} color={C.dim} style="dashed" />
+        <Line.Segment
+          point1={[ratio, dvGrav]}
+          point2={[ratio, dvIdeal]}
+          color={C.accent}
+          weight={2}
+        />
+        <Point x={ratio} y={dvIdeal} color={C.fg} />
+        <Point x={ratio} y={dvGrav} color={C.accent} />
+        {ratioPt.element}
+        {/* Equation: one clean line, lifted into the empty top band, clear of the
+            top y-tick and every curve. Its leading Δv also names the vertical axis. */}
+        <LaTeX
+          at={[5.4, 11.7]}
+          tex={`\\Delta v = u\\,\\ln\\!\\frac{M_0}{M_f} - g\\,t_f`}
+          color={C.fg}
+        />
+        {/* Curve labels, riding each curve at x = labX. */}
+        <LaTeX at={[labX, ideal(labX) + 0.85]} tex={`\\text{free space}`} color={C.fg} />
+        <LaTeX at={[labX, gravity(labX) - 0.85]} tex={`\\text{liftoff}`} color={C.accent} />
+        {/* x-axis title, low and right, clear of the curves overhead. */}
+        <LaTeX at={[8.4, -1.3]} tex={`M_0/M_f`} color={C.dim} />
+      </Mafs>
+      {/* Live numeric readout: moved out of the canvas so nothing collides. */}
+      <div
+        style={{
+          fontFamily: 'D-DIN, sans-serif',
+          fontSize: FONT_TEX,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+          display: 'flex',
+          gap: 18,
+          flexWrap: 'wrap',
+          justifyContent: 'center'
+        }}
+      >
+        <span style={{ color: C.dim }}>
+          mass ratio <span style={{ color: C.fg }}>{ratio.toFixed(2)}</span>
+        </span>
+        <span style={{ color: C.dim }}>
+          free Δv <span style={{ color: C.fg }}>{dvIdeal.toFixed(2)}</span>
+        </span>
+        <span style={{ color: C.dim }}>
+          gravity loss <span style={{ color: C.accent }}>{dvLoss.toFixed(2)}</span>
+        </span>
+        <span style={{ color: C.dim }}>
+          liftoff Δv <span style={{ color: C.accent }}>{dvGrav.toFixed(2)} km/s</span>
+        </span>
+      </div>
+      <Slider
+        label="u (km/s)"
+        value={u}
+        min={1}
+        max={4.5}
+        step={0.05}
+        onChange={setU}
+        format={v => v.toFixed(2)}
+      />
+      <Slider
+        label="gravity loss"
+        value={loss}
+        min={0}
+        max={3}
+        step={0.05}
+        onChange={setLoss}
+        format={v => (v === 0 ? 'free space' : v.toFixed(2))}
+      />
+    </div>
+  )
+}
+
+// 01.3.9 Momentum Form vs Force Form (mafs)
+// The variable-mass law drawn as a literal sum. A fixed external push F acts on
+// a cart that is, at this instant, mass m moving at speed v. The momentum form
+//   F = d(mv)/dt = m v̇ + ṁ v
+// forces the push to divide between two jobs: accelerating the mass already on
+// board (m v̇) and dragging newly-caught mass up to speed (ṁ v). The x-axis
+// sweeps the mass-gain rate ṁ; at every ṁ the fixed-height F box splits along
+// the line m v̇ = F − ṁ v into two regions that tile it exactly. The slider
+// drops a vertical cursor: its lower part IS m v̇, its upper part IS ṁ v, and
+// they stack to F. Drag ṁ → 0 and the whole box is m v̇: the F = ma limit.
+// Drag ṁ → F/v and the push is fully spent catching mass: the cart cannot
+// accelerate at all. F = 100 N, m = 20 kg, v = 5 m/s held fixed; ṁ explored.
+export function Msp_MomentumVsForceInline() {
+  const FORCE = 100 // constant external push (N): the fixed total being split
+  const MASS = 20 // instantaneous mass (kg)
+  const SPEED = 5 // instantaneous speed (m/s)
+  const MDOT_MAX = FORCE / SPEED // = 20 kg/s: ṁ that spends the whole push on flux
+
+  const C = useVizColors()
+  const controlsBar = React.useContext(VizControlsCtx)
+  const [mdot, setMdot] = React.useState(4) // mass-gain rate ṁ (kg/s): the slider
+
+  const SX = 10.5 / MDOT_MAX // ṁ ∈ [0, 20] → x ∈ [0, 10.5], fills the canvas wide
+  const SY = 4.0 / FORCE // force ∈ [0, 100] → y ∈ [0, 4.0], fills the canvas tall
+
+  // The two terms as functions of ṁ, with F, m, v fixed. The identity F = m v̇ + ṁ v
+  // fixes v̇: more ṁ steals from the acceleration term, so m v̇ = F − ṁ v (linear down).
+  const fluxN = mdot * SPEED // ṁ v: mass-flux term (N), 0 → F as ṁ → F/v
+  const accelN = FORCE - fluxN // m v̇: acceleration term (N), F → 0
+  const vdot = accelN / MASS // resulting acceleration v̇ (m/s²); = F/m at ṁ = 0
+
+  const fluxPct = Math.round((fluxN / FORCE) * 100)
+  const accelPct = 100 - fluxPct
+
+  const xMax = MDOT_MAX * SX // right edge of the F box
+  const yTop = FORCE * SY // top edge = the fixed total F
+  const cx = mdot * SX // cursor x at current ṁ
+  const cyBound = accelN * SY // boundary height at the cursor (= m v̇)
+
+  // m v̇ region: triangle under the descending boundary line (0,F)→(ṁmax,0).
+  const accelTri = [
+    [0, 0],
+    [xMax, 0],
+    [0, yTop]
+  ]
+  // ṁ v region: complementary triangle above the boundary up to the F lid.
+  const fluxTri = [
+    [0, yTop],
+    [xMax, yTop],
+    [xMax, 0]
+  ]
+
+  return (
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 12
+      }}
+    >
+      <Mafs viewBox={{ x: [-1.3, 11.7], y: [-0.95, 4.85] }} pan={false} zoom={false} height={440}>
+        {/* The two terms tile the fixed F box: m v̇ below the diagonal, ṁ v above. */}
+        <Polygon points={accelTri} color={C.fg} fillOpacity={0.14} weight={0} />
+        <Polygon points={fluxTri} color={C.accent} fillOpacity={0.13} weight={0} />
+        {/* Split boundary m v̇ = F − ṁ v (secondary weight). */}
+        <Line.Segment point1={[0, yTop]} point2={[xMax, 0]} color={C.dim} weight={2} />
+        {/* The fixed total: F = dP/dt, the constant push (primary weight). */}
+        <Line.Segment point1={[0, yTop]} point2={[xMax, yTop]} color={C.fg} weight={3} />
+        {/* Slider cursor: lower segment = m v̇, upper segment = ṁ v, stacking to F. */}
+        <Line.Segment point1={[cx, 0]} point2={[cx, cyBound]} color={C.fg} weight={3} />
+        <Line.Segment point1={[cx, cyBound]} point2={[cx, yTop]} color={C.accent} weight={3} />
+        <Point x={cx} y={cyBound} color={C.fg} />
+        {/* Region labels ride their own triangle, color-matched, kept well apart. */}
+        <LaTeX at={[6.7, 4.5]} tex={`F = \\dfrac{dP}{dt}`} color={C.fg} />
+        <LaTeX at={[2.0, 0.85]} tex={`m\\dot v`} color={C.fg} />
+        <LaTeX at={[8.4, 3.05]} tex={`\\dot m\\,v`} color={C.accent} />
+        {/* Axes: ṁ along x, F up y. */}
+        <LaTeX at={[10.9, -0.55]} tex={`\\dot m`} color={C.dim} />
+        <LaTeX at={[-0.7, 4.5]} tex={`F`} color={C.dim} />
+        {/* The "force form" lives at the left edge: ṁ=0 collapses the box to m v̇ = F=ma. */}
+        <LaTeX at={[1.4, -0.62]} tex={`\\dot m{=}0:\\ F{=}ma`} color={C.dim} />
+      </Mafs>
+      {/* Live readout: the split in real units, geometrically tied to the cursor. */}
+      {(() => {
+        const panel = (
+          <div
+            style={{
+              fontFamily: 'D-DIN, sans-serif',
+              fontSize: FONT_TEX,
+              letterSpacing: '0.04em',
+              textTransform: 'uppercase',
+              display: 'flex',
+              gap: 18,
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}
+          >
+            <span style={{ color: C.dim }}>
+              accel term{' '}
+              <span style={{ color: C.fg }}>
+                {accelN.toFixed(0)} N · {accelPct}%
+              </span>
+            </span>
+            <span style={{ color: C.dim }}>
+              mass-flux term{' '}
+              <span style={{ color: C.accent }}>
+                {fluxN.toFixed(0)} N · {fluxPct}%
+              </span>
+            </span>
+            <span style={{ color: C.dim }}>
+              resulting accel <span style={{ color: C.fg }}>{vdot.toFixed(2)} m/s²</span>
+            </span>
+            <span style={{ color: C.dim }}>
+              {mdot < 0.05
+                ? 'constant mass : F = ma'
+                : fluxN > FORCE - 0.5
+                  ? 'push fully spent on mass : no acceleration'
+                  : 'gaining mass : both terms act'}
+            </span>
+          </div>
+        )
+        return controlsBar ? createPortal(panel, controlsBar) : panel
+      })()}
+      <Slider
+        label="mass gain"
+        value={mdot}
+        min={0}
+        max={MDOT_MAX}
+        step={0.25}
+        onChange={setMdot}
+        format={v => (v < 0.05 ? '0 kg/s' : `${v.toFixed(2)} kg/s`)}
+      />
+    </div>
+  )
+}
 
 export default function MomentumAndSystemsOfParticles() {
   const SEC1 = (
@@ -21,33 +370,25 @@ export default function MomentumAndSystemsOfParticles() {
       <div className="lrn-predict">
         <span className="lrn-predict-label">PREDICT</span>
         <p>
-          A loaded freight car coasts down a track. Sand pours into it from a stationary hopper. The
-          car keeps moving but slows down. Why does it slow without any obvious force?
+          An open trolley coasts along level rails at steady speed. A steady downpour fills it with
+          rainwater. The trolley keeps rolling but slows down. Why does it slow with no push acting
+          against it?
         </p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
-          <p>The sand arrives with no forward speed. The car must drag it up to its own speed.</p>
-          <p>No outside force pushes the car forward, so the car's forward momentum cannot grow.</p>
+          <p>The rain falls straight down, so it lands with no forward speed.</p>
+          <p>The trolley must drag each drop up to its own speed.</p>
+          <p>No outside force pushes the trolley forward, so its forward momentum cannot grow.</p>
           <p>
-            Mass keeps rising while momentum is fixed. The only way out is for the speed to drop.
+            Mass keeps rising while momentum stays fixed. The only way out is for the speed to drop.
           </p>
         </details>
       </div>
 
       <p>
-        Newton wrote his second law as a statement about momentum, not acceleration. The original
-        form is {`$\\vec{F} = \\frac{d}{dt}(M\\vec{v})$`}. For constant mass this reduces to{' '}
-        {`$\\vec{F} = M\\vec{a}$`}, the version you already know.
-      </p>
-
-      <p>
-        Momentum is {`$\\vec{p} = m\\vec{v}$`} (defined formally in the next section). Newton's
-        second law then takes the equivalent form {`$\\vec{F} = \\frac{d\\vec{p}}{dt}$`}.
-      </p>
-
-      <p>
-        When mass changes with time, the two forms split. Only the momentum form gives the right
-        answer.
+        Newton wrote his second law as a statement about momentum, not acceleration. The next
+        section defines momentum and states that form. For now, hold one fact: when mass changes
+        with time, only the momentum form gives the right answer.
       </p>
       <p>
         Rockets burn fuel. Cars scoop up sand. Streams hit walls. Each of these breaks{' '}
@@ -60,8 +401,7 @@ export default function MomentumAndSystemsOfParticles() {
         detail.
       </p>
 
-      <h3>What This Module Delivers</h3>
-      <p>By the end you can do six things:</p>
+      <p>Work through this page and you can do six things:</p>
       <ul className="lrn-list">
         <li>Apply Newton's second law in momentum form to any system.</li>
         <li>Find the center of mass of a discrete or continuous body.</li>
@@ -70,10 +410,6 @@ export default function MomentumAndSystemsOfParticles() {
         <li>Derive the rocket equation and predict final speeds.</li>
         <li>Calculate forces from momentum-carrying streams and gas pressure.</li>
       </ul>
-
-      <div className="lrn-callout">
-        <p>Conservation of momentum survives where Newton's third law fails.</p>
-      </div>
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -90,8 +426,6 @@ export default function MomentumAndSystemsOfParticles() {
           crawls and the other races.
         </p>
       </div>
-
-      <MomentumAddition />
     </>
   )
   const SEC2 = (
@@ -107,7 +441,7 @@ export default function MomentumAndSystemsOfParticles() {
         </p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
-          <p>You cannot. The mass changes, so the product rule on {`$M\\vec{v}$`} matters.</p>
+          <p>You cannot, because the mass changes during the burn.</p>
           <p>The right form is always {`$\\vec{F} = \\frac{d\\vec{p}}{dt}$`}.</p>
           <p>This single change opens up every variable-mass problem.</p>
         </details>
@@ -165,7 +499,7 @@ export default function MomentumAndSystemsOfParticles() {
           <p>Works only when mass is constant.</p>
           <p>One particle, fixed mass, simple geometry.</p>
           <p>The classic textbook form.</p>
-          <p>Fails for rockets, accreting cars, streams.</p>
+          <p>Fails for rockets, mass-gathering cars, streams.</p>
         </div>
         <div className="lrn-compare-col">
           <span className="lrn-compare-title">{`F = dp/dt`}</span>
@@ -176,12 +510,14 @@ export default function MomentumAndSystemsOfParticles() {
         </div>
       </div>
 
-      <MomentumVsForce />
+      <VizFigure title="Momentum Form vs Force Form" size="body" aspect="auto">
+        <Msp_MomentumVsForceInline />
+      </VizFigure>
 
       <h3>Setup for Many Particles</h3>
 
       <p>
-        Real systems are rarely a single particle. To extend the law, label every particle in the
+        Real systems are rarely a single particle. Extend the law by labeling every particle in the
         system with an index {`$j$`}. Particle {`$j$`} has position {`$\\vec{r}_j$`} and momentum{' '}
         {`$\\vec{p}_j = m_j \\vec{v}_j$`}.
       </p>
@@ -270,6 +606,8 @@ export default function MomentumAndSystemsOfParticles() {
 
       <div className="lrn-eq">{`$$\\vec{F}_{\\text{ext}} = \\sum_j \\vec{f}_j^{\\,\\text{ext}}, \\qquad \\vec{P} = \\sum_j \\vec{p}_j$$`}</div>
 
+      <MomentumAddition />
+
       <p>The system's total momentum then obeys a clean equation of motion.</p>
 
       <div className="lrn-eq lrn-eq-display">{`$$\\vec{F}_{\\text{ext}} = \\frac{d\\vec{P}}{dt}$$`}</div>
@@ -318,27 +656,11 @@ export default function MomentumAndSystemsOfParticles() {
         </div>
       </div>
 
-      <div className="lrn-self-explain">
-        <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>Why don't the spinning ropes change the total momentum?</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Expert explanation</summary>
-          <p>
-            Each rope tension is internal. It comes paired with an equal opposite tension on the
-            other end.
-          </p>
-          <p>
-            Both tensions live inside the system, so they cancel in the total. Internal twist energy
-            stays internal.
-          </p>
-        </details>
-      </div>
-
       <h3>The Center of Mass</h3>
 
       <p>
-        The total momentum equation hints that the system behaves like one big particle. To make
-        that explicit, define a single point that moves the way the system moves on average.
+        The total momentum equation hints that the system behaves like one big particle. Define a
+        single point that moves the way the system moves on average.
       </p>
 
       <div className="lrn-definition">
@@ -366,8 +688,12 @@ export default function MomentumAndSystemsOfParticles() {
         it. Internal motion happens around this point, but does not move it.
       </p>
 
+      <p>
+        One clean takeaway falls out at once. If the total external force is zero, the CM moves at
+        constant velocity, no matter how violently the parts move inside.
+      </p>
+
       <CMTwo />
-      <DragCenterOfMass />
 
       <h3>Worked Example: Drum Major's Baton</h3>
 
@@ -395,16 +721,7 @@ export default function MomentumAndSystemsOfParticles() {
         </div>
       </div>
 
-      <div className="lrn-self-explain">
-        <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>Why does R follow a parabola even when the heads spin wildly?</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Expert explanation</summary>
-          <p>The rod tension is internal. Internal forces cannot move the system's CM.</p>
-          <p>Only gravity acts externally. It pulls the same way on every gram of mass.</p>
-          <p>So the CM responds as a single point under gravity, no matter how the heads spin.</p>
-        </details>
-      </div>
+      <BatonCMParabola />
 
       <h3>Continuous Mass Distributions</h3>
 
@@ -421,6 +738,12 @@ export default function MomentumAndSystemsOfParticles() {
       </p>
 
       <div className="lrn-eq">{`$$\\vec{R} = \\frac{1}{M} \\int \\vec{r}\\,\\rho(\\vec{r})\\, dV$$`}</div>
+
+      <p>
+        Thin shapes use the matching density. For a thin rod use linear density {`$\\lambda$`} with{' '}
+        {`$dm = \\lambda\\,ds$`}. For a flat sheet use surface density {`$\\sigma$`} with{' '}
+        {`$dm = \\sigma\\,dA$`}.
+      </p>
 
       <div className="lrn-compare">
         <div className="lrn-compare-col">
@@ -482,25 +805,33 @@ export default function MomentumAndSystemsOfParticles() {
 
       <p>
         A uniform right-triangular sheet has base {`$b$`} along the x-axis and height {`$h$`} along
-        the y-axis. Find its center of mass.
+        the y-axis. Find its center of mass. The rod showed every step. Now take the wheel.
       </p>
 
-      <div className="lrn-steps">
-        <div className="lrn-step">
-          <span className="lrn-step-title">Set up the area element</span>
-          <p className="lrn-step-content">{`The hypotenuse has equation $\\frac{y}{h} + \\frac{x}{b} = 1$. So $y$ runs from $0$ to $h\\!\\left(1 - \\frac{x}{b}\\right)$ at each $x$. Use $dm = \\sigma\\,dx\\,dy$ with constant $\\sigma$.`}</p>
+      <div className="lrn-faded">
+        <div className="lrn-faded-phase">
+          <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
+          <p>{`Set up the area element. The hypotenuse has equation $\\frac{y}{h} + \\frac{x}{b} = 1$, so at each $x$ the strip runs from $y = 0$ to $y = h\\!\\left(1 - \\frac{x}{b}\\right)$. Use $dm = \\sigma\\,dx\\,dy$ with constant $\\sigma$.`}</p>
+          <p>{`Total mass is the area times density: $M = \\frac{\\sigma b h}{2}$.`}</p>
         </div>
-        <div className="lrn-step">
-          <span className="lrn-step-title">Integrate for X</span>
-          <p className="lrn-step-content">{`$M X = \\sigma \\int_0^b x\\,h\\!\\left(1 - \\frac{x}{b}\\right)\\,dx = \\frac{\\sigma h\\,b^2}{6}$. With $M = \\frac{\\sigma b h}{2}$, this gives $X = \\frac{b}{3}$.`}</p>
+        <div className="lrn-faded-phase lrn-faded-partial">
+          <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
+          <p>{`Find $X$. Integrate $x$ over the triangle: $M X = \\sigma \\int_0^b x\\,h\\!\\left(1 - \\frac{x}{b}\\right)\\,dx$.`}</p>
+          <ol className="lrn-list">
+            <li>{`Expand the integrand to $x - \\frac{x^2}{b}$ and integrate from $0$ to $b$.`}</li>
+            <li>{`You should get $M X = \\frac{\\sigma h\\,b^2}{6}$. Divide by $M$.`}</li>
+          </ol>
         </div>
-        <div className="lrn-step">
-          <span className="lrn-step-title">Integrate for Y</span>
-          <p className="lrn-step-content">{`By the same method $Y = \\frac{h}{3}$. The result is symmetric in the two legs.`}</p>
-        </div>
-        <div className="lrn-step">
-          <span className="lrn-step-title">Final position</span>
-          <p className="lrn-step-content">{`$\\vec{R} = \\frac{b}{3}\\hat{x} + \\frac{h}{3}\\hat{y}$. Each coordinate is one third of its leg.`}</p>
+        <div className="lrn-faded-phase">
+          <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
+          <p>
+            Now find {`$X$`} and {`$Y$`} on your own, then read the result.
+          </p>
+          <details>
+            <summary>Reveal solution</summary>
+            <p>{`$X = \\dfrac{\\frac{\\sigma h\\,b^2}{6}}{\\frac{\\sigma b h}{2}} = \\frac{b}{3}$. By the same method $Y = \\frac{h}{3}$.`}</p>
+            <p>{`$\\vec{R} = \\frac{b}{3}\\hat{x} + \\frac{h}{3}\\hat{y}$. Each coordinate is one third of its leg.`}</p>
+          </details>
         </div>
       </div>
 
@@ -508,13 +839,16 @@ export default function MomentumAndSystemsOfParticles() {
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>Why does each coordinate end up at one third of its leg, not one half?</p>
+        <p>The density is uniform here. So why is the CM at one third, not at the middle?</p>
         <details className="lrn-self-explain-reveal">
           <summary>Expert explanation</summary>
-          <p>The triangle has more area near its short corner side than near the far corner.</p>
           <p>
-            The mass-weighted average drags the CM toward the dense corner. The exact factor of one
-            third comes out of the integral.
+            This is geometry, not density. The triangle is wide near the right-angle corner and
+            narrows to a point at the far tip.
+          </p>
+          <p>
+            More area, and so more mass, sits near the wide corner. Even with the same density
+            everywhere, the mass-weighted average lands one third of the way along each leg.
           </p>
         </details>
       </div>
@@ -561,46 +895,6 @@ export default function MomentumAndSystemsOfParticles() {
         </details>
       </div>
 
-      <h3>Worked Example: Nonuniform Rectangular Plate</h3>
-
-      <p>
-        A thin rectangular plate has sides {`$a$`} along x and {`$b$`} along y. The surface density
-        grows toward the far corner: {`$\\sigma(x, y) = \\frac{\\sigma_0\\,xy}{ab}$`}. Find its
-        center of mass.
-      </p>
-
-      <div className="lrn-steps">
-        <div className="lrn-step">
-          <span className="lrn-step-title">Total mass</span>
-          <p className="lrn-step-content">{`$M = \\int_0^a \\int_0^b \\sigma_0 \\frac{xy}{ab}\\,dy\\,dx = \\frac{\\sigma_0}{ab} \\cdot \\frac{a^2}{2}\\cdot\\frac{b^2}{2} = \\frac{\\sigma_0 a b}{4}$.`}</p>
-        </div>
-        <div className="lrn-step">
-          <span className="lrn-step-title">Moment in x</span>
-          <p className="lrn-step-content">{`$M X = \\int_0^a \\int_0^b x\\,\\sigma_0 \\frac{xy}{ab}\\,dy\\,dx = \\frac{\\sigma_0}{ab}\\cdot\\frac{a^3}{3}\\cdot\\frac{b^2}{2} = \\frac{\\sigma_0 a^2 b}{6}$.`}</p>
-        </div>
-        <div className="lrn-step">
-          <span className="lrn-step-title">Solve for X</span>
-          <p className="lrn-step-content">{`$X = \\dfrac{\\frac{\\sigma_0 a^2 b}{6}}{\\frac{\\sigma_0 a b}{4}} = \\frac{2a}{3}$. By symmetry of the density formula, $Y = \\frac{2b}{3}$.`}</p>
-        </div>
-        <div className="lrn-step">
-          <span className="lrn-step-title">Read the result</span>
-          <p className="lrn-step-content">{`The CM sits at $\\vec{R} = \\frac{2a}{3}\\hat{x} + \\frac{2b}{3}\\hat{y}$. It is biased toward the dense far corner. A uniform plate would put the CM at the geometric center $\\bigl(\\frac{a}{2},\\,\\frac{b}{2}\\bigr)$.`}</p>
-        </div>
-      </div>
-
-      <div className="lrn-self-explain">
-        <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>{`Why does the CM end up at $\\frac{2a}{3}$ rather than $\\frac{a}{2}$?`}</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Expert explanation</summary>
-          <p>
-            The density grows linearly with x, so most of the mass sits in the right half of the
-            plate.
-          </p>
-          <p>{`The mass-weighted average drags the CM past the geometric midpoint toward the heavy corner. The factor of $\\frac{2}{3}$ comes straight from the integral $\\dfrac{\\int_0^a x^2\\,dx}{\\int_0^a x\\,dx}$.`}</p>
-        </details>
-      </div>
-
       <h3>Worked Example: Solid Hemisphere</h3>
 
       <p>
@@ -633,15 +927,17 @@ export default function MomentumAndSystemsOfParticles() {
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>{`Why is the CM at $\\frac{3R}{8}$, not at the geometric midpoint $\\frac{R}{2}$?`}</p>
+        <p>Why slice into flat disks here, instead of into curved shells?</p>
         <details className="lrn-self-explain-reveal">
           <summary>Expert explanation</summary>
           <p>
-            Disks near the flat face are wide and heavy. Disks near the top are narrow and light.
+            You want the CM height {`$Z$`}. Flat disks stacked along z each sit at one clean height,
+            so {`$z$`} is constant across a disk and the moment integral is a single sum over{' '}
+            {`$z$`}.
           </p>
           <p>
-            The mass-weighted average sits closer to the wide base. The exact factor of
-            three-eighths comes from the disk-radius integral.
+            A curved shell spans many heights at once, so {`$z$`} is not constant over it. Picking
+            slices that match the axis you are measuring keeps the integral one-dimensional.
           </p>
         </details>
       </div>
@@ -685,17 +981,60 @@ export default function MomentumAndSystemsOfParticles() {
         conserved even if {`$P_y$`} is not.
       </p>
 
+      <h3>Center of Mass Coordinates</h3>
+
+      <p>
+        The worked examples below use a frame that rides with the center of mass. Set it up now.
+        Move the origin to the system's center of mass, so new positions are{' '}
+        {`$\\vec{r}_j' = \\vec{r}_j - \\vec{R}$`}. By definition of CM, the mass-weighted sum of
+        these new positions is zero.
+      </p>
+
+      <div className="lrn-eq">{`$$\\sum_j m_j \\vec{r}_j' = 0$$`}</div>
+
+      <p>For two particles this gives a tight relation between their CM-frame positions.</p>
+
+      <div className="lrn-eq">{`$$m_1 \\vec{r}_1' + m_2 \\vec{r}_2' = 0$$`}</div>
+
+      <p>
+        Now define the relative coordinate {`$\\vec{r} = \\vec{r}_1 - \\vec{r}_2$`}, the vector from
+        particle 2 to particle 1. Combine it with the relation above to place each particle relative
+        to the CM. With {`$M = m_1 + m_2$`}:
+      </p>
+
+      <div className="lrn-eq">{`$$\\vec{r}_1' = \\frac{m_2}{M}\\,\\vec{r},\\qquad \\vec{r}_2' = -\\frac{m_1}{M}\\,\\vec{r}$$`}</div>
+
+      <p>
+        Each particle sits a mass-fraction of the separation away from the CM, on opposite sides.
+        The lighter particle swings farther. This single relative coordinate {`$\\vec{r}$`} captures
+        all the internal motion of the pair.
+      </p>
+
+      <p>
+        The CM frame strips away uniform translation. Internal motion stands out clearly. This trick
+        simplifies many two-body problems.
+      </p>
+
+      <div className="lrn-compare">
+        <div className="lrn-compare-col">
+          <span className="lrn-compare-title">Lab Frame</span>
+          <p>Origin fixed in the lab.</p>
+          <p>System has both translation and internal motion.</p>
+          <p>Best for measuring what observers see.</p>
+        </div>
+        <div className="lrn-compare-col">
+          <span className="lrn-compare-title">CM Frame</span>
+          <p>Origin moves with the CM.</p>
+          <p>Translation removed; only internal motion remains.</p>
+          <p>Best for analyzing collisions and oscillations.</p>
+        </div>
+      </div>
+
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
         <p>
-          Conservation follows directly from {`$\\vec{F}_{\\text{ext}} = \\frac{d\\vec{P}}{dt}$`}.
-          Set the left side to zero and integrate.
-        </p>
-        <p>
-          The deeper reason is a symmetry of nature: the laws of physics give the same answer no
-          matter where in space you do the experiment. Newton's third law fails in some quantum,
-          relativistic, and field-theory settings, but this symmetry holds everywhere, and momentum
-          conservation holds with it.
+          The deeper reason is a symmetry of nature. The laws of physics give the same answer no
+          matter where in space you run the experiment.
         </p>
         <p>
           If the laws changed from one spot to the next, momentum could shift for free. They do not
@@ -737,7 +1076,6 @@ export default function MomentumAndSystemsOfParticles() {
       </details>
 
       <SpringGunRecoil />
-      <ElasticCollisionCalc />
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -753,6 +1091,31 @@ export default function MomentumAndSystemsOfParticles() {
           </p>
         </details>
       </div>
+
+      <h3>Elastic Collisions</h3>
+
+      <p>
+        A head-on collision where the two bodies bounce apart and keep all their kinetic energy is
+        called elastic. Two rules now hold at once. Momentum is conserved, and kinetic energy is
+        conserved.
+      </p>
+
+      <div className="lrn-eq">{`$$m_1 u_1 + m_2 u_2 = m_1 v_1 + m_2 v_2$$`}</div>
+      <div className="lrn-eq">{`$$\\tfrac{1}{2}m_1 u_1^2 + \\tfrac{1}{2}m_2 u_2^2 = \\tfrac{1}{2}m_1 v_1^2 + \\tfrac{1}{2}m_2 v_2^2$$`}</div>
+
+      <p>
+        Solving the two together gives each body's final velocity from the masses and the incoming
+        speeds {`$u_1$`} and {`$u_2$`}.
+      </p>
+
+      <div className="lrn-eq lrn-eq-display">{`$$v_1 = \\frac{(m_1 - m_2)u_1 + 2 m_2 u_2}{m_1 + m_2},\\qquad v_2 = \\frac{(m_2 - m_1)u_2 + 2 m_1 u_1}{m_1 + m_2}$$`}</div>
+
+      <p>
+        Try the masses and speeds yourself. The readout confirms that total momentum and total
+        kinetic energy both come out unchanged, and that the CM speed never shifts.
+      </p>
+
+      <ElasticCollisionCalc />
 
       <h3>Worked Example: Earth, Moon, and Sun</h3>
 
@@ -776,6 +1139,12 @@ export default function MomentumAndSystemsOfParticles() {
         </div>
       </div>
 
+      <p>
+        Here we track the pair's center of mass. The internal Earth-Moon orbit is a separate problem
+        we do not solve here. It uses the reduced mass {`$\\mu = \\frac{m_1 m_2}{m_1 + m_2}$`},
+        which turns the two-body motion into one equivalent particle.
+      </p>
+
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
         <p>
@@ -792,41 +1161,6 @@ export default function MomentumAndSystemsOfParticles() {
             Internal pulls do not move the CM; only external pulls do.
           </p>
         </details>
-      </div>
-
-      <h3>Center of Mass Coordinates</h3>
-
-      <p>
-        Move the origin to the system's center of mass. New positions{' '}
-        {`$\\vec{r}_j' = \\vec{r}_j -
-        \\vec{R}$`}
-        . By definition of CM, the mass-weighted sum of these new positions is zero.
-      </p>
-
-      <div className="lrn-eq">{`$$\\sum_j m_j \\vec{r}_j' = 0$$`}</div>
-
-      <p>For two particles this gives a tight relation between their CM-frame positions.</p>
-
-      <div className="lrn-eq">{`$$m_1 \\vec{r}_1' + m_2 \\vec{r}_2' = 0$$`}</div>
-
-      <p>
-        The CM frame strips away uniform translation. Internal motion stands out clearly. This trick
-        simplifies many two-body problems.
-      </p>
-
-      <div className="lrn-compare">
-        <div className="lrn-compare-col">
-          <span className="lrn-compare-title">Lab Frame</span>
-          <p>Origin fixed in the lab.</p>
-          <p>System has both translation and internal motion.</p>
-          <p>Best for measuring what observers see.</p>
-        </div>
-        <div className="lrn-compare-col">
-          <span className="lrn-compare-title">CM Frame</span>
-          <p>Origin moves with the CM.</p>
-          <p>Translation removed; only internal motion remains.</p>
-          <p>Best for analyzing collisions and oscillations.</p>
-        </div>
       </div>
 
       <h3>Worked Example: The Push Me-Pull You</h3>
@@ -848,7 +1182,7 @@ export default function MomentumAndSystemsOfParticles() {
         </div>
         <div className="lrn-step">
           <span className="lrn-step-title">Get the equation of motion for u</span>
-          <p className="lrn-step-content">{`$m\\ddot{u} + 2ku = 0$. This is simple harmonic motion with angular frequency $\\omega = \\sqrt{\\frac{2k}{m}}$.`}</p>
+          <p className="lrn-step-content">{`Newton's law on mass $a$ in the CM frame: $m\\ddot{r}_a' = -k\\cdot(\\text{stretch})$. With $r_a' = -r_b'$ the stretch past natural length is $2r_a' = u$, so the spring force is $-ku = -2k r_a'$. That gives $m\\ddot{u} + 2ku = 0$. This is simple harmonic motion (a back-and-forth wiggle at a steady rate) with angular frequency $\\omega = \\sqrt{\\frac{2k}{m}}$.`}</p>
         </div>
         <div className="lrn-step">
           <span className="lrn-step-title">Read the lab-frame motion</span>
@@ -884,15 +1218,14 @@ export default function MomentumAndSystemsOfParticles() {
       <div className="lrn-predict">
         <span className="lrn-predict-label">PREDICT</span>
         <p>
-          A {`$0.2$`} kg rubber ball drops to the floor at {`$8$`} m/s, bounces, and leaves at{' '}
-          {`$8$`} m/s. The contact lasts about {`$0.001$`} s. How big is the average force from the
-          floor?
+          You catch a fast tennis ball two ways: hands held stiff, or hands pulled back as the ball
+          arrives. The ball loses the same speed both ways. Which way stings less?
         </p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
-          <p>The momentum change is {`$\\Delta p = 0.2 \\times 16 = 3.2$`} kg m/s.</p>
-          <p>Average force = {`$\\frac{\\Delta p}{\\Delta t} = 3200$`} N.</p>
-          <p>Three thousand newtons during a brief bounce.</p>
+          <p>Pulling your hands back stings less.</p>
+          <p>The ball's momentum change is the same either way.</p>
+          <p>But pulling back stretches the stopping time, so the average force drops.</p>
         </details>
       </div>
 
@@ -928,7 +1261,9 @@ export default function MomentumAndSystemsOfParticles() {
         body felt overall.
       </p>
 
-      <ImpulseVsTime />
+      <VizFigure title="Impulse and Contact Time" size="body" aspect="auto">
+        <Msp_ImpulseInline />
+      </VizFigure>
 
       <div className="lrn-elaborate">
         <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
@@ -938,8 +1273,7 @@ export default function MomentumAndSystemsOfParticles() {
         </p>
         <p>
           The average force scales inversely with collision time. Halve the time, double the average
-          force. This is why hammers work, why helmets save lives, and why seat belts must be
-          padded.
+          force.
         </p>
       </div>
 
@@ -1012,45 +1346,6 @@ export default function MomentumAndSystemsOfParticles() {
         </div>
       </div>
 
-      <div className="lrn-self-explain">
-        <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>
-          Why does the formula say {`$F = \\frac{Mgh}{s}$`} rather than {`$F = Mg$`}?
-        </p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Expert explanation</summary>
-          <p>
-            The body must lose all of its falling momentum {`$M\\sqrt{2gh}$`} during a stop of
-            length {`$s$`}.
-          </p>
-          <p>
-            Stopping in a shorter distance means a higher average force. The ratio{' '}
-            {`$\\frac{h}{s}$`} is the multiplier above your weight.
-          </p>
-        </details>
-      </div>
-
-      <div className="lrn-compare">
-        <div className="lrn-compare-col">
-          <span className="lrn-compare-title">Quick Collision</span>
-          <p>
-            Small {`$\\Delta t$`}, huge {`$F_{\\text{av}}$`}.
-          </p>
-          <p>Hammer hitting a nail; rigid landing.</p>
-          <p>Useful for transferring force.</p>
-          <p>Dangerous for bodies.</p>
-        </div>
-        <div className="lrn-compare-col">
-          <span className="lrn-compare-title">Slow Collision</span>
-          <p>
-            Large {`$\\Delta t$`}, small {`$F_{\\text{av}}$`}.
-          </p>
-          <p>Cushioned landing; padded seat belt.</p>
-          <p>Same {`$\\Delta P$`} as a quick collision.</p>
-          <p>Safe for bodies.</p>
-        </div>
-      </div>
-
       <div className="lrn-callout">
         <p>A quick collision is more violent than a slow one with the same momentum change.</p>
         <p>This is why we use hammers, helmets, and seat belts.</p>
@@ -1091,8 +1386,8 @@ export default function MomentumAndSystemsOfParticles() {
           product rule.
         </p>
         <p>
-          This is wrong for accretion problems. The reason is that {`$m$`} alone is not a closed
-          system.
+          This is wrong for mass-gathering problems. The reason is that {`$m$`} alone is not a
+          closed system.
         </p>
         <p>New mass enters with its own velocity. Always isolate a fixed set of particles first.</p>
       </div>
@@ -1113,7 +1408,7 @@ export default function MomentumAndSystemsOfParticles() {
 
       <p>
         <strong>When to use this:</strong> Use the {`$\\Delta t$`} method on every problem with mass
-        flow: rockets, accreting cars, leaky cars, streams, and gas pressure.
+        flow: rockets, mass-gathering cars, leaky cars, streams, and gas pressure.
       </p>
 
       <div className="lrn-elaborate">
@@ -1147,9 +1442,9 @@ export default function MomentumAndSystemsOfParticles() {
           <p>{`Define the system at time $t$. The system is the body of mass $M(t)$ at velocity $\\vec{v}(t)$, plus a small parcel $\\Delta m$ at velocity $\\vec{u}(t)$.`}</p>
           <p>{`Total momentum: $\\vec{P}(t) = M\\vec{v} + \\Delta m\\,\\vec{u}$.`}</p>
         </div>
-        <div className="lrn-faded-phase">
+        <div className="lrn-faded-phase lrn-faded-partial">
           <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
-          <p>{`Define the system at time $t + \\Delta t$. The parcel has been absorbed (or expelled). Body now has mass $M + \\Delta m$ at velocity $\\vec{v} + \\Delta\\vec{v}$.`}</p>
+          <p>{`Define the system at time $t + \\Delta t$. The body has absorbed (or expelled) the parcel. Body now has mass $M + \\Delta m$ at velocity $\\vec{v} + \\Delta\\vec{v}$.`}</p>
           <p>{`Total momentum: $\\vec{P}(t + \\Delta t) = (M + \\Delta m)(\\vec{v} + \\Delta\\vec{v})$. Hint: expand the product, keep first-order terms only.`}</p>
           <ol className="lrn-list">
             <li>{`Expand: $M\\vec{v} + M\\,\\Delta\\vec{v} + \\Delta m\\,\\vec{v} + \\Delta m\\,\\Delta\\vec{v}$.`}</li>
@@ -1170,12 +1465,13 @@ export default function MomentumAndSystemsOfParticles() {
 
       <div className="lrn-eq">{`$$\\frac{d\\vec{P}}{dt} = (\\vec{v} - \\vec{u})\\frac{dm}{dt}$$`}</div>
 
-      <h3>Worked Example: Spacecraft Accreting Dust</h3>
+      <h3>Worked Example: Spacecraft Scooping Up Dust</h3>
 
       <p>
         A spacecraft of mass {`$m$`} cruises through interstellar dust at velocity {`$\\vec{v}$`}.
-        Dust is at rest in the lab. The spacecraft scoops up dust at rate {`$\\frac{dm}{dt}$`}. Find
-        the force needed to keep {`$\\vec{v}$`} constant.
+        Dust is at rest in the lab. The spacecraft scoops up dust at rate {`$\\frac{dm}{dt}$`}.
+        Gathering mass while moving like this is called accretion. Find the force needed to keep{' '}
+        {`$\\vec{v}$`} constant.
       </p>
 
       <div className="lrn-steps">
@@ -1227,20 +1523,6 @@ export default function MomentumAndSystemsOfParticles() {
         </div>
       </div>
 
-      <div className="lrn-self-explain">
-        <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-        <p>The sand falls vertically. Why is a horizontal force needed at all?</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Expert explanation</summary>
-          <p>The sand has zero horizontal speed when it lands. The car has speed {`$v$`}.</p>
-          <p>
-            Friction inside the car must speed each grain up sideways to {`$v$`}. That friction
-            pushes the car backward in reaction.
-          </p>
-          <p>Something outside the car must push forward to cancel that backward kick.</p>
-        </details>
-      </div>
-
       <h3>Worked Example: Leaky Freight Car</h3>
 
       <p>
@@ -1285,7 +1567,7 @@ export default function MomentumAndSystemsOfParticles() {
 
       <div className="lrn-compare">
         <div className="lrn-compare-col">
-          <span className="lrn-compare-title">Accreting Car</span>
+          <span className="lrn-compare-title">Mass-Gathering Car</span>
           <p>Sand arrives at rest.</p>
           <p>Car must drag it up to speed.</p>
           <p>{`$F = v\\,\\frac{dm}{dt}$ to maintain speed.`}</p>
@@ -1307,34 +1589,27 @@ export default function MomentumAndSystemsOfParticles() {
       </p>
 
       <div className="lrn-faded">
-        <span className="lrn-faded-label">DERIVATION: ROCKET EQUATION</span>
-        <p>
-          <strong>Phase 1 (complete): Set up the system.</strong>
-        </p>
-        <p>{`At time $t$, the rocket has mass $M$ at velocity $\\vec{v}$.`}</p>
-        <p>
-          {`In time $\\Delta t$ it ejects mass $|dM|$ at lab-frame velocity $\\vec{v} - \\vec{u}$.`}
-        </p>
-        <p>
-          {`At time $t + \\Delta t$, the rocket has mass $M + dM$ at velocity $\\vec{v} + d\\vec{v}$. Note that $dM < 0$.`}
-        </p>
-        <p>
-          <strong>Phase 2 (partial): Compute ΔP.</strong>
-        </p>
-        <p>{`Start with $P(t) = M\\vec{v}$.`}</p>
-        <p>
-          {`Then $P(t + \\Delta t) = (M + dM)(\\vec{v} + d\\vec{v}) + (-dM)(\\vec{v} - \\vec{u})$. Expand and drop second-order terms.`}
-        </p>
-        <p>{`$\\Delta P = M\\,d\\vec{v} + \\vec{u}\\,dM$.`}</p>
-        <p>
-          <strong>Phase 3 (independent): Equate to F_ext Δt and divide.</strong>
-        </p>
-        <p>You should now derive the rocket equation on your own.</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Check your work</summary>
-          <p>{`$\\vec{F}_{\\text{ext}} = M\\,\\frac{d\\vec{v}}{dt} + \\vec{u}\\,\\frac{dM}{dt}$. Rearranging gives $\\vec{F}_{\\text{ext}} - \\vec{u}\\,\\frac{dM}{dt} = M\\,\\frac{d\\vec{v}}{dt}$.`}</p>
-          <p>{`The term $-\\vec{u}\\,\\frac{dM}{dt}$ has $\\frac{dM}{dt} < 0$ and $\\vec{u}$ pointing backward, so the product is forward. This is thrust.`}</p>
-        </details>
+        <div className="lrn-faded-phase">
+          <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
+          <p>{`Set up the system. At time $t$, the rocket has mass $M$ at velocity $\\vec{v}$.`}</p>
+          <p>{`In time $\\Delta t$ it ejects mass $|dM|$ at lab-frame velocity $\\vec{v} - \\vec{u}$.`}</p>
+          <p>{`At time $t + \\Delta t$, the rocket has mass $M + dM$ at velocity $\\vec{v} + d\\vec{v}$. Note that $dM < 0$.`}</p>
+        </div>
+        <div className="lrn-faded-phase lrn-faded-partial">
+          <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
+          <p>{`Compute $\\Delta P$. Start with $P(t) = M\\vec{v}$.`}</p>
+          <p>{`Then $P(t + \\Delta t) = (M + dM)(\\vec{v} + d\\vec{v}) + (-dM)(\\vec{v} - \\vec{u})$. Expand and drop second-order terms.`}</p>
+          <p>{`$\\Delta P = M\\,d\\vec{v} + \\vec{u}\\,dM$.`}</p>
+        </div>
+        <div className="lrn-faded-phase">
+          <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
+          <p>{`Equate $\\Delta P$ to $\\vec{F}_{\\text{ext}}\\,\\Delta t$ and divide by $\\Delta t$. Derive the rocket equation on your own.`}</p>
+          <details>
+            <summary>Reveal solution</summary>
+            <p>{`$\\vec{F}_{\\text{ext}} = M\\,\\frac{d\\vec{v}}{dt} + \\vec{u}\\,\\frac{dM}{dt}$. Rearranging gives $\\vec{F}_{\\text{ext}} - \\vec{u}\\,\\frac{dM}{dt} = M\\,\\frac{d\\vec{v}}{dt}$.`}</p>
+            <p>{`The term $-\\vec{u}\\,\\frac{dM}{dt}$ has $\\frac{dM}{dt} < 0$ and $\\vec{u}$ pointing backward, so the product is forward. This is thrust.`}</p>
+          </details>
+        </div>
       </div>
 
       <div className="lrn-eq lrn-eq-display">{`$$\\vec{F} = M\\frac{d\\vec{v}}{dt} - \\vec{u}\\frac{dM}{dt}$$`}</div>
@@ -1372,7 +1647,9 @@ export default function MomentumAndSystemsOfParticles() {
 
       <div className="lrn-eq lrn-eq-display">{`$$v_f - v_0 = u\\,\\ln\\!\\left(\\frac{M_0}{M_f}\\right)$$`}</div>
 
-      <Tsiolkovsky />
+      <VizFigure title="Tsiolkovsky Rocket Equation" size="body" aspect="auto">
+        <Msp_TsiolkovskyInline />
+      </VizFigure>
 
       <div className="lrn-self-explain">
         <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -1411,7 +1688,7 @@ export default function MomentumAndSystemsOfParticles() {
         </div>
         <div className="lrn-step">
           <span className="lrn-step-title">Read the lesson</span>
-          <p className="lrn-step-content">{`Slow burns lose speed to gravity. Fast burns minimize $g\\,t_f$. This is why real rockets blast off as quickly as their engines allow.`}</p>
+          <p className="lrn-step-content">{`The gravity loss is the $g\\,t_f$ term: longer burn time, larger loss.`}</p>
         </div>
       </div>
 
@@ -1457,7 +1734,7 @@ export default function MomentumAndSystemsOfParticles() {
           <span className="lrn-compare-title">Variable-Mass System</span>
           <p>Use the {`$\\Delta t$`} method on a fixed particle set.</p>
           <p>Mass enters or leaves the body.</p>
-          <p>Examples: rockets, accreting cars, leaky cars.</p>
+          <p>Examples: rockets, mass-gathering cars, leaky cars.</p>
         </div>
       </div>
     </>
@@ -1469,8 +1746,9 @@ export default function MomentumAndSystemsOfParticles() {
       <div className="lrn-predict">
         <span className="lrn-predict-label">PREDICT</span>
         <p>
-          A garden hose blasts water against a wall. In one case the water sticks. In another case
-          the water bounces back at the same speed. Which case pushes the wall harder?
+          A pressure washer blasts a jet of water against a wall. In one case the water sticks. In
+          another the water bounces straight back at the same speed. Which case pushes the wall
+          harder?
         </p>
         <details className="lrn-predict-reveal">
           <summary>Check your thinking</summary>
@@ -1594,21 +1872,6 @@ export default function MomentumAndSystemsOfParticles() {
         </details>
       </div>
 
-      <div className="lrn-compare">
-        <div className="lrn-compare-col">
-          <span className="lrn-compare-title">Stream Without Rebound</span>
-          <p>Stream sticks to wall.</p>
-          <p>{`$F = \\lambda v^2$`}</p>
-          <p>Each particle's momentum goes to zero.</p>
-        </div>
-        <div className="lrn-compare-col">
-          <span className="lrn-compare-title">Stream With Elastic Rebound</span>
-          <p>Stream bounces back at the same speed.</p>
-          <p>{`$F = 2\\lambda v^2$`}</p>
-          <p>Each particle's momentum reverses.</p>
-        </div>
-      </div>
-
       <h3>Worked Example: Dike at the Bend of a River</h3>
 
       <p>
@@ -1623,12 +1886,16 @@ export default function MomentumAndSystemsOfParticles() {
           <p className="lrn-step-content">{`The dike covers a small angle $d\\phi$ of arc, length $R\\,d\\phi$. The flow rate of water past it is $\\frac{dm}{dt} = \\rho v h \\cdot w$, with cross-section $w h$.`}</p>
         </div>
         <div className="lrn-step">
+          <span className="lrn-step-title">Turn the velocity vector</span>
+          <p className="lrn-step-content">{`The water keeps speed $v$ but its direction turns. Over the small arc the velocity vector swings through the same angle $d\\phi$, so its direction changes by $v\\,d\\phi$. The flow covers the arc $R\\,d\\phi$ in time $dt = \\frac{R\\,d\\phi}{v}$. Dividing, each bit of water turns at rate $\\frac{d\\phi}{dt} = \\frac{v}{R}$, giving a sideways (centripetal) acceleration $v\\cdot\\frac{d\\phi}{dt} = \\frac{v^2}{R}$.`}</p>
+        </div>
+        <div className="lrn-step">
           <span className="lrn-step-title">Momentum change rate</span>
-          <p className="lrn-step-content">{`Bending the velocity vector through $d\\phi$ changes momentum direction. Force per unit length on dike: $\\frac{\\rho v^2 (w h)}{R}$.`}</p>
+          <p className="lrn-step-content">{`Multiply that $\\frac{v^2}{R}$ acceleration by the mass in the strip. Force per unit length on dike: $\\frac{\\rho v^2 (w h)}{R}$.`}</p>
         </div>
         <div className="lrn-step">
           <span className="lrn-step-title">Static pressure for comparison</span>
-          <p className="lrn-step-content">{`Hydrostatic pressure averages $\\frac{\\rho g h}{2}$. Force per unit length: $\\frac{\\rho g h^2}{2}$.`}</p>
+          <p className="lrn-step-content">{`Still-water (hydrostatic) pressure averages $\\frac{\\rho g h}{2}$. Force per unit length: $\\frac{\\rho g h^2}{2}$.`}</p>
         </div>
         <div className="lrn-step">
           <span className="lrn-step-title">Compute the ratio</span>
@@ -1663,33 +1930,28 @@ export default function MomentumAndSystemsOfParticles() {
       </p>
 
       <div className="lrn-faded">
-        <span className="lrn-faded-label">DERIVATION: GAS PRESSURE</span>
-        <p>
-          <strong>Phase 1 (complete): One axis at a time.</strong>
-        </p>
-        <p>{`Consider molecules moving along the x-axis with speed component $v_x$.`}</p>
-        <p>
-          {`In time $dt$, those within distance $v_x\\,dt$ of the wall reach the wall. The number hitting is $\\tfrac{1}{2} n v_x\\,dt\\,A$. The factor of $\\tfrac{1}{2}$ counts only molecules moving toward the wall.`}
-        </p>
-        <p>{`Each one delivers momentum $2m v_x$ on elastic rebound.`}</p>
-        <p>
-          <strong>Phase 2 (partial): Average over speed.</strong>
-        </p>
-        <p>
-          {`Force per unit area: $P = \\frac{1}{A}\\,\\frac{dp}{dt} = n m \\langle v_x^2 \\rangle$. The three directions share the speed equally, so $\\langle v_x^2 \\rangle = \\frac{\\langle v^2 \\rangle}{3}$.`}
-        </p>
-        <p>
-          <strong>Phase 3 (independent): Combine.</strong>
-        </p>
-        <p>You should now write the final pressure formula.</p>
-        <details className="lrn-self-explain-reveal">
-          <summary>Check your work</summary>
-          <p>{`$P = \\tfrac{1}{3} n m \\langle v^2 \\rangle$.`}</p>
+        <div className="lrn-faded-phase">
+          <span className="lrn-faded-label">COMPLETE EXAMPLE</span>
+          <p>{`One axis at a time. Consider molecules moving along the x-axis with speed component $v_x$.`}</p>
           <p>
-            The factor of one third comes from splitting the speed equally among three perpendicular
-            directions.
+            {`In time $dt$, those within distance $v_x\\,dt$ of the wall reach the wall. The number hitting is $\\tfrac{1}{2} n v_x\\,dt\\,A$. The factor of $\\tfrac{1}{2}$ counts only molecules moving toward the wall.`}
           </p>
-        </details>
+          <p>{`Each one delivers momentum $2m v_x$ on elastic rebound.`}</p>
+        </div>
+        <div className="lrn-faded-phase lrn-faded-partial">
+          <span className="lrn-faded-label">YOUR TURN: PARTIAL</span>
+          <p>
+            {`Average over speed. Force per unit area: $P = \\frac{1}{A}\\,\\frac{dp}{dt} = n m \\langle v_x^2 \\rangle$. The three directions share the speed equally, so $\\langle v_x^2 \\rangle = \\frac{\\langle v^2 \\rangle}{3}$.`}
+          </p>
+        </div>
+        <div className="lrn-faded-phase">
+          <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
+          <p>Combine the two results and write the final pressure formula.</p>
+          <details className="lrn-self-explain-reveal">
+            <summary>Check your work</summary>
+            <p>{`$P = \\tfrac{1}{3} n m \\langle v^2 \\rangle$.`}</p>
+          </details>
+        </div>
       </div>
 
       <div className="lrn-eq lrn-eq-display">{`$$P = \\tfrac{1}{3} n m \\langle v^2 \\rangle$$`}</div>
@@ -1710,7 +1972,8 @@ export default function MomentumAndSystemsOfParticles() {
       <div className="lrn-callout">
         <p>The pressure formula connects mechanics to thermodynamics.</p>
         <p>
-          Combine it with the ideal gas law {`$PV = NkT$`} to get the equipartition theorem:{' '}
+          Combine it with the ideal gas law {`$PV = NkT$`} to get the equipartition theorem (energy
+          shared equally among the motions):{' '}
           {`$\\tfrac{1}{2} m \\langle v^2 \\rangle = \\tfrac{3}{2} k T$`}.
         </p>
         <p>
@@ -1815,7 +2078,11 @@ export default function MomentumAndSystemsOfParticles() {
       <p>When to use: accretion or ejection of mass at relative velocity {`$v - u$`}.</p>
 
       <div className="lrn-eq">{`$$\\frac{dP}{dt} = M\\frac{dv}{dt} + u\\frac{dm}{dt}$$`}</div>
-      <p>When to use: alternative form including mass flow rate {`$\\frac{dm}{dt}$`}.</p>
+      <p>
+        When to use: alternative form including mass flow rate {`$\\frac{dm}{dt}$`}. The exhaust
+        mass {`$dm$`} and the rocket mass {`$dM$`} satisfy {`$dM = -dm$`}, which flips the sign
+        between this form and the rocket equation below.
+      </p>
 
       <div className="lrn-eq lrn-eq-display">{`$$F = M\\frac{dv}{dt} - u\\frac{dM}{dt}$$`}</div>
       <p>When to use: fundamental rocket equation with thrust term {`$-u\\,\\frac{dM}{dt}$`}.</p>
@@ -1848,7 +2115,8 @@ export default function MomentumAndSystemsOfParticles() {
 
       <div className="lrn-eq lrn-eq-display">{`$$P = \\tfrac{1}{3} n m \\langle v^2 \\rangle$$`}</div>
       <p>
-        When to use: gas pressure from kinetic theory; the factor of one third is from isotropy.
+        When to use: gas pressure from kinetic theory; the factor of one third appears because speed
+        splits equally among the three directions.
       </p>
     </>
   )
@@ -1859,16 +2127,16 @@ export default function MomentumAndSystemsOfParticles() {
       a: 'Momentum is mass times velocity, $\\vec{p} = m\\vec{v}$. It is a vector that points in the same direction as the velocity. Its magnitude equals $mv$.'
     },
     {
-      q: 'Write the discrete formula for center of mass.',
-      a: '$\\vec{R} = \\frac{1}{M} \\sum_j m_j \\vec{r}_j$ where $M$ is total mass. The CM is the mass-weighted average of all particle positions. Heavier particles pull R toward themselves.'
+      q: 'Three 1 kg masses sit at $x = 0$, $x = 2$ m, and $x = 4$ m. Find the center of mass.',
+      a: 'Use $\\vec{R} = \\frac{1}{M} \\sum_j m_j \\vec{r}_j = \\frac{1(0) + 1(2) + 1(4)}{3} = 2$ m. With equal masses the CM is the plain average of the positions, here the middle one.'
     },
     {
       q: 'State conservation of momentum and the condition for it to apply.',
       a: 'If the total external force on a system is zero, $\\vec{P}$ stays constant. This follows from $\\vec{F}_{\\text{ext}} = \\frac{d\\vec{P}}{dt}$. Each component is independent: $P_x$ can be conserved while $P_y$ changes.'
     },
     {
-      q: 'Define impulse and write its key relation to momentum.',
-      a: "Impulse is the time integral of force, $\\vec{J} = \\int \\vec{F}\\,dt$. By integrating Newton's second law it equals the momentum change: $\\vec{J} = \\Delta \\vec{P}$. Useful for collisions where forces vary fast."
+      q: 'A 0.5 kg ball speeds up from rest to 6 m/s. What impulse did it receive, and how does impulse relate to momentum?',
+      a: 'Impulse is the time integral of force, $\\vec{J} = \\int \\vec{F}\\,dt$, and it equals the momentum change $\\Delta \\vec{P}$. Here $J = m\\,\\Delta v = 0.5 \\times 6 = 3$ kg m/s. The exact force shape does not matter, only its time integral.'
     },
     {
       q: 'PREDICT: Sand drops vertically into a moving freight car. What force keeps the car at constant speed?',
@@ -1883,8 +2151,8 @@ export default function MomentumAndSystemsOfParticles() {
       a: "Use $F = \\lambda v^2 = 2 \\times 25 = 50$ N. The wall absorbs all the stream's forward momentum at rate $\\lambda v^2$. By Newton's third law, the stream pushes the wall with the same force."
     },
     {
-      q: "What is Newton's second law in momentum form?",
-      a: 'Newton wrote it as $\\vec{F} = \\frac{d\\vec{p}}{dt}$. Force equals the rate of change of momentum. For constant mass it reduces to $\\vec{F} = m\\vec{a}$, but the momentum form is more general.'
+      q: 'A 3 kg cart speeds up from 2 m/s to 5 m/s in 0.5 s under a steady force. Use the momentum form to find that force.',
+      a: 'Newton in momentum form: $\\vec{F} = \\frac{d\\vec{p}}{dt}$. With fixed mass, $F = \\frac{\\Delta p}{\\Delta t} = \\frac{3(5 - 2)}{0.5} = 18$ N. For constant mass the momentum form reduces to $F = ma$, which gives the same $18$ N.'
     },
     {
       q: 'Two masses $m_1 = 2$ kg and $m_2 = 1$ kg sit at $x = 0$ and $x = 6$ m. Find the CM.',
@@ -1899,12 +2167,12 @@ export default function MomentumAndSystemsOfParticles() {
       a: "$\\Delta p = 0.2 \\times 20 = 4$ kg m/s. $F_{\\text{av}} = \\frac{\\Delta p}{\\Delta t} = \\frac{4}{0.001} = 4000$ N. The collision force is enormous because the contact time is tiny. Gravity's impulse is negligible by comparison."
     },
     {
-      q: 'COMPARE: Accreting freight car vs leaking freight car. Why does only one need a force?',
-      a: "Accreting: sand starts at rest, must be sped up, requires force $F = v\\,\\frac{dm}{dt}$. Leaking: sand leaves at the car's own speed, taking its momentum with it. The leaving sand requires no horizontal force."
+      q: 'COMPARE: Mass-gathering freight car vs leaking freight car. Why does only one need a force?',
+      a: "Gathering: sand starts at rest, must be sped up, requires force $F = v\\,\\frac{dm}{dt}$. Leaking: sand leaves at the car's own speed, taking its momentum with it. The leaving sand requires no horizontal force."
     },
     {
       q: 'A free-space rocket burns half its mass at exhaust speed $u = 2000$ m/s. Find $\\Delta v$.',
-      a: 'Apply the Tsiolkovsky equation in free space: $\\Delta v = u\\,\\ln\\!\\left(\\frac{M_0}{M_f}\\right)$. Burning half the mass means $\\frac{M_0}{M_f} = 2$, so $\\Delta v = 2000 \\times \\ln 2 \\approx 1386$ m/s. The log makes the gain diminish: doubling the fuel burned (mass ratio of 4) adds only another $u\\,\\ln 2$, not double the speed.'
+      a: 'Apply the Tsiolkovsky equation in free space: $\\Delta v = u\\,\\ln\\!\\left(\\frac{M_0}{M_f}\\right)$. Burning half the mass means $\\frac{M_0}{M_f} = 2$, so $\\Delta v = 2000 \\times \\ln 2 \\approx 1386$ m/s. The log makes the gain diminish. Doubling the fuel burned (mass ratio of 4) adds only another $u\\,\\ln 2$, not double the speed.'
     },
     {
       q: 'TRANSFER: Why does an elastic rebound double the force on a wall?',
@@ -1935,7 +2203,7 @@ export default function MomentumAndSystemsOfParticles() {
       a: 'In gravity, $v_f = u\\,\\ln\\!\\left(\\frac{M_0}{M_f}\\right) - g t_f$. The $g t_f$ term subtracts speed during the burn. Slow burns lose more to gravity. Fast burns minimize the gravity loss and maximize liftoff speed.'
     },
     {
-      q: 'PREDICT: A garden hose sprays water that bounces off a wall. The wall has area $A = 0.01$ m^2. Stream speed $v = 20$ m/s, water density $\\rho = 1000$ kg/m^3. Estimate the force.',
+      q: 'PREDICT: A pressure washer sprays water that bounces off a wall. The wall has area $A = 0.01$ m^2. Stream speed $v = 20$ m/s, water density $\\rho = 1000$ kg/m^3. Estimate the force.',
       a: 'Treat as elastic rebound for upper bound: $F = 2\\rho A v^2 = 2 \\times 1000 \\times 0.01 \\times 400 = 8000$ N. Realistic rebound is partial, so the force is somewhere between $\\rho A v^2 = 4000$ N and $8000$ N.'
     },
     {
@@ -1964,7 +2232,7 @@ export default function MomentumAndSystemsOfParticles() {
     },
     {
       q: 'Derive the gas pressure formula and explain the factor of one third.',
-      a: 'Each molecule moving toward a wall with speed $v_x$ delivers momentum $2m v_x$ on elastic rebound. Multiply by the rate of arrivals to get force per area: $P = nm\\langle v_x^2 \\rangle$. By isotropy, the three axes share the kinetic energy equally, so $\\langle v_x^2 \\rangle = \\frac{\\langle v^2 \\rangle}{3}$. Result: $P = \\tfrac{1}{3} n m \\langle v^2 \\rangle$. Only motion along x pushes a wall perpendicular to x, which is why one third appears.'
+      a: 'Each molecule moving toward a wall with speed $v_x$ delivers momentum $2m v_x$ on elastic rebound. Multiply by the rate of arrivals to get force per area: $P = nm\\langle v_x^2 \\rangle$. Because the gas looks the same in every direction, the three axes share the kinetic energy equally, so $\\langle v_x^2 \\rangle = \\frac{\\langle v^2 \\rangle}{3}$. Result: $P = \\tfrac{1}{3} n m \\langle v^2 \\rangle$. Only motion along x pushes a wall perpendicular to x, which is why one third appears.'
     },
     {
       q: 'PREDICT: A bola (three weighted ropes) is thrown into the air. What path does its center of mass follow?',
@@ -2000,15 +2268,15 @@ export default function MomentumAndSystemsOfParticles() {
     },
     {
       q: 'TRANSFER: A golf club delivers a 70 m/s impulse to a 0.05 kg ball over 0.5 ms. If the F(t) profile is roughly triangular (zero, peak, zero), estimate the peak force and compare it to the average.',
-      a: 'The impulse is $J = \\Delta p = (0.05)(70) = 3.5$ kg$\\cdot$m/s. Average force $F_\\text{avg} = \\frac{J}{\\Delta t} = \\frac{3.5}{0.5 \\times 10^{-3}} = 7000$ N. For a triangular profile, the area under F(t) equals $\\frac{1}{2}\\cdot$peak$\\cdot$duration, so peak $= 2 F_\\text{avg} = 14{,}000$ N. The peak is twice the average because triangle area scales with half the base times height.'
+      a: 'The impulse is $J = \\Delta p = (0.05)(70) = 3.5$ kg$\\cdot$m/s. Average force $F_\\text{avg} = \\frac{J}{\\Delta t} = \\frac{3.5}{0.5 \\times 10^{-3}} = 7000$ N. For a triangular profile, the area under F(t) equals $\\frac{1}{2}\\cdot$peak$\\cdot$duration. So peak $= 2 F_\\text{avg} = 14{,}000$ N. The peak is twice the average. Triangle area scales with half the base times height.'
     },
     {
       q: 'TRANSFER: Pellets in a hailstorm hit a flat roof at speed $v$. The pellets bounce back at half their incoming speed. How does the force compare to fully sticking pellets?',
       a: 'Sticking gives $F = \\lambda v^2$. Half-rebound changes momentum by $v + \\frac{v}{2} = 1.5 v$, so $F = 1.5\\,\\lambda v^2$. Partial bounce sits between absorbed ($\\lambda v^2$) and elastic ($2\\lambda v^2$).'
     },
     {
-      q: 'TRANSFER: A photon of energy $E$ is absorbed by a black wall. Use the photon momentum $p = \\frac{E}{c}$ to find the average force from a beam of power $P$.',
-      a: 'Mass flow language carries over: rate of momentum delivery is $\\frac{dp}{dt} = \\frac{1}{c}\\,\\frac{dE}{dt} = \\frac{P}{c}$. So $F = \\frac{P}{c}$. The same momentum-transport idea predicts radiation pressure on solar sails.'
+      q: 'CHALLENGE: A chain hangs with its bottom just touching a scale. You release it from rest. It falls and piles up on the scale. What does the scale read compared with the weight of chain already resting on it?',
+      a: 'Three times as much. The piled chain presses down with its own weight $\\lambda g x$, where $\\lambda$ is the mass per length and $x$ is the piled length. The arriving links also dump momentum at rate $\\lambda v^2$. A link landing now has fallen a height $x$, so $v^2 = 2gx$ and the rate is $2\\lambda g x$. Adding the two gives $3\\lambda g x$, three times the resting weight.'
     },
     {
       q: "TRANSFER: Why is conservation of momentum more fundamental than Newton's third law?",
@@ -2051,8 +2319,8 @@ export default function MomentumAndSystemsOfParticles() {
       a: '$\\Delta p = 0.15 \\times (50 - (-40)) = 0.15 \\times 90 = 13.5$ kg m/s. Average force $F_{\\text{av}} = \\frac{13.5}{0.001} = 13{,}500$ N. The bat exerts about 13,500 N during the brief hit.'
     },
     {
-      q: 'PREDICT: Two skaters on frictionless ice push off each other from rest. What does total momentum do?',
-      a: "Total momentum stays at zero. The pushes are internal to the two-skater system, so they cancel by Newton's third law. The skaters move apart with equal and opposite momenta."
+      q: 'TRANSFER: A 2 kg cart rolls at 3 m/s into a stationary 1 kg cart, and the two stick together. Find their common speed afterward.',
+      a: 'Conserve momentum: $2 \\times 3 + 1 \\times 0 = (2 + 1)V$, so $V = 2$ m/s. The combined cart moves slower because the same momentum now carries more mass. This is a perfectly inelastic collision: the carts stick, so the collision does not conserve kinetic energy, but it still conserves momentum.'
     },
     {
       q: 'TRANSFER: A rocket has the same mass ratio $\\frac{M_0}{M_f} = 4$ and $u = 2500$ m/s, but burns fuel in $t_f = 60$ s under gravity. Find $v_f$.',
@@ -2066,11 +2334,11 @@ export default function MomentumAndSystemsOfParticles() {
 
   const config = {
     cssPrefix: 'msp',
-    documentTitle: 'Momentum and Systems of Particles - AETHER',
+    documentTitle: 'Momentum, Systems of Particles, and Variable-Mass Dynamics - AETHER',
     learning: {
       category: 'Module 3',
       groupTitle: 'Newtonian Mechanics',
-      title: 'Momentum and Systems of Particles',
+      title: 'Momentum, Systems of Particles, and Variable-Mass Dynamics',
       subtitle:
         'One simple idea, the product mv, lets you predict rockets, recoil, dikes, and gas pressure. You will also learn the trick that turns any cluster of particles into a single point: the center of mass.',
       sections: [SEC1, SEC2, SEC3, SEC4, SEC5, SEC6, SEC7]
@@ -2078,7 +2346,7 @@ export default function MomentumAndSystemsOfParticles() {
     practice: PRACTICE,
     reference: {
       category: 'Quick Reference',
-      title: 'Momentum and Systems of Particles',
+      title: 'Momentum, Systems of Particles, and Variable-Mass Dynamics',
       sections: [REF]
     },
     customCss: null

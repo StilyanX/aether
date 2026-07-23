@@ -1,4 +1,5 @@
 import { LearningTemplate } from '../../../../components/learning/learning-template'
+import { VizFigure } from '../../../../components/viz-figure'
 
 const config = {
   cssPrefix: 'eoh',
@@ -9,13 +10,16 @@ const config = {
     subtitle:
       'From the first upright walkers in Africa to the peopling of the Americas. Six million years of human evolution.',
     sections: [
-      // ── SECTION 0 ──────────────────────────────────────────────────────────
+      // SECTION 0
       <section key="s0" id="lrn-section-0">
         <h2>The First Hominins (7 to 4 Ma)</h2>
         <p>
           Every person alive today descends from a line of African apes that learned to walk upright
-          on two legs. That change happened roughly 6 to 7 million years ago. The whole human line
-          then stayed in Africa for the next several million years.
+          on two legs. That line split from the ancestors of chimpanzees roughly 6 to 7 million
+          years ago. Everything after that split, all of it, is the story of the{' '}
+          <strong>hominins</strong> (the group you met in the previous page: humans and all our
+          extinct relatives). The whole human line then stayed in Africa for the next several
+          million years.
         </p>
         <p>
           The oldest hominin candidate is <em>Sahelanthropus tchadensis</em>, found in Chad and
@@ -23,18 +27,30 @@ const config = {
           Its foramen magnum sits forward under the skull, hinting at upright walking. Scientists
           still debate whether it really walked on two legs.
         </p>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Sahelanthropus_tchadensis_-_TM_266-01-060-1.jpg"
-            alt="Cast of the Sahelanthropus tchadensis skull TM 266-01-060-1, lateral view"
-          />
-          <figcaption>
-            Cast of the <em>Sahelanthropus tchadensis</em> holotype skull (Toumai), Chad, ~6.7 Ma.
-            Photo: Didier Descouens, CC BY-SA 4.0.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Sahelanthropus_tchadensis_-_TM_266-01-060-1.jpg">
-              Source
-            </a>
-          </figcaption>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="compact" title="Sahelanthropus (Toumaï)">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Sahelanthropus_tchadensis_%28Touma%C3%AF%29.JPG"
+              alt="Cranium of Sahelanthropus tchadensis, the Toumaï fossil"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'Toumaï, the ~7-million-year-old skull of Sahelanthropus tchadensis, one of the oldest known hominins. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Sahelanthropus_tchadensis_(Touma%C3%AF).JPG"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY-SA 4.0.'}
+            </figcaption>
+          </VizFigure>
         </figure>
         <p>Two other early hominins fill in the 6 to 4 Ma gap:</p>
         <ul className="lrn-list">
@@ -46,15 +62,6 @@ const config = {
             Ardi (ARA-VP-6/500) shows a grasping big toe for tree climbing.
           </li>
         </ul>
-        <div className="lrn-definition">
-          <div className="lrn-definition-term">Hominin</div>
-          <div className="lrn-definition-desc">
-            <p>
-              Humans and all extinct relatives after the split from chimpanzees. The word replaced
-              the older term "hominid," which now refers to all great apes including humans.
-            </p>
-          </div>
-        </div>
         <div className="lrn-definition">
           <div className="lrn-definition-term">Foramen magnum</div>
           <div className="lrn-definition-desc">
@@ -73,54 +80,150 @@ const config = {
             in from behind. The hole points backward to meet it.
           </p>
         </div>
+        <p>
+          The whole story on this page spans six million years. Use this timeline as your map. Each
+          section below fills in one stretch of it.
+        </p>
+        <div className="lrn-timeline">
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~7 to 4 Ma</span>
+            <p className="lrn-timeline-content">
+              First hominins in Africa. The line splits from chimpanzees and starts walking upright.
+            </p>
+          </div>
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~4 to 2 Ma</span>
+            <p className="lrn-timeline-content">
+              Australopithecus walks fully upright. Brains stay small, near a chimpanzee's.
+            </p>
+          </div>
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~2.6 Ma</span>
+            <p className="lrn-timeline-content">
+              First stone tools at Gona, Ethiopia. The Oldowan industry begins.
+            </p>
+          </div>
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~1.8 Ma</span>
+            <p className="lrn-timeline-content">
+              Homo leaves Africa for the first time. Dmanisi, Georgia, holds the oldest evidence.
+            </p>
+          </div>
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~430 ka</span>
+            <p className="lrn-timeline-content">
+              Sima de los Huesos. Early Neanderthal bones carry Denisovan mitochondrial DNA.
+            </p>
+          </div>
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~195 ka</span>
+            <p className="lrn-timeline-content">
+              First anatomically modern humans appear in Africa (Omo Kibish, Ethiopia).
+            </p>
+          </div>
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~45 ka</span>
+            <p className="lrn-timeline-content">
+              Modern humans reach Europe. Cave art and blade tools spread fast.
+            </p>
+          </div>
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~14,600 BP</span>
+            <p className="lrn-timeline-content">
+              Monte Verde, Chile. The oldest well-dated site in the Americas.
+            </p>
+          </div>
+          <div className="lrn-timeline-item">
+            <div className="lrn-timeline-marker" />
+            <span className="lrn-timeline-title">~11,600 BP</span>
+            <p className="lrn-timeline-content">
+              The Younger Dryas ends. The Pleistocene closes and the warm Holocene begins.
+            </p>
+          </div>
+        </div>
       </section>,
 
-      // ── SECTION 1 ──────────────────────────────────────────────────────────
+      // SECTION 1
       <section key="s1" id="lrn-section-1">
         <h2>Walking Upright: Australopithecus (4 to 2 Ma)</h2>
         <p>
           The genus <em>Australopithecus</em> lived in Africa from ~4.2 to 1.2 Ma. These hominins
-          walked upright on two legs but had brains only slightly larger than a chimpanzee's (380 to
-          550 cc).
+          walked upright on two legs. Walking on two legs is called <strong>bipedalism</strong>, and
+          it is the oldest human trait. Their brains were only slightly larger than a chimpanzee's
+          (380 to 550 cc).
         </p>
         <p>
           <em>Australopithecus anamensis</em> (~4.2 to 3.9 Ma, Kenya and Ethiopia) is the oldest
           well-known australopith. It gave rise to <em>A. afarensis</em> (~3.9 to 2.9 Ma), which is
           one of the best-documented early hominins.
         </p>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/d/da/Squelette_de_Lucy.JPG"
-            alt="Cast of the Lucy skeleton, Australopithecus afarensis, AL 288-1"
-          />
-          <figcaption>
-            Cast of Lucy (AL 288-1), <em>Australopithecus afarensis</em>, discovered in Ethiopia in
-            1974. About 40% of her skeleton survived. American Museum of Natural History.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Squelette_de_Lucy.JPG">Source</a>
-          </figcaption>
-        </figure>
         <p>
           Lucy (AL 288-1) was found in the Hadar region of Ethiopia in 1974 and dated to ~3.2 Ma.
           Her knee joint confirms she walked fully upright on two legs. Her brain was small and her
           arms were still long for climbing trees.
         </p>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="body" title="Lucy (AL 288-1)">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/3/31/Lucy_blackbg.jpg"
+              alt="Reconstructed skeleton of Lucy, an Australopithecus afarensis"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'Reconstructed skeleton of Lucy, an Australopithecus afarensis who walked upright ~3.2 million years ago. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Lucy_blackbg.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY 2.5.'}
+            </figcaption>
+          </VizFigure>
+        </figure>
         <p>
           The Laetoli site in Tanzania preserves footprints of three <em>A. afarensis</em>{' '}
           individuals walking across fresh volcanic ash ~3.5 Ma. These are the oldest direct
           evidence of bipedalism.
         </p>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/6/61/Laetoli_footprints_replica.jpg"
-            alt="Replica of the Laetoli hominin footprints, 3.5 Ma, Tanzania"
-          />
-          <figcaption>
-            Replica of the Laetoli footprint trackway, Tanzania, ~3.5 Ma. Hominins walked upright
-            across volcanic ash. National Museum of Nature and Science, Tokyo.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Laetoli_footprints_replica.jpg">
-              Source
-            </a>
-          </figcaption>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="wide" title="Laetoli footprint trackway">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/61/Laetoli_footprints_replica.jpg"
+              alt="Replica of the Laetoli footprint trackway"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'Replica of the Laetoli footprints, left by upright walkers crossing wet volcanic ash ~3.5 million years ago. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Laetoli_footprints_replica.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY-SA 3.0.'}
+            </figcaption>
+          </VizFigure>
         </figure>
         <p>
           <em>Australopithecus africanus</em> (~3 to 2.4 Ma, South Africa) includes the Taung Child,
@@ -128,22 +231,45 @@ const config = {
         </p>
         <p>
           The <em>Paranthropus</em> line (2.7 to 1.2 Ma) branched off from australopiths. These
-          hominins had massive jaws, thick tooth enamel, and a bony ridge along the top of the skull
-          (the sagittal crest, which modern humans do not have) for anchoring huge chewing muscles.
-          That kit let them grind tough roots, tubers, and hard seeds. The diet stayed stable for
-          1.5 million years, so the line survived a long time without ever growing a bigger brain.
-          Three species are known: <em>P. aethiopicus</em>, <em>P. boisei</em> (East Africa), and{' '}
-          <em>P. robustus</em> (South Africa). All went extinct by 1.2 Ma.
+          hominins had massive jaws and thick tooth enamel. They also had a bony ridge along the top
+          of the skull, called the sagittal crest. The crest anchored huge chewing muscles. Modern
+          humans lack it because we do not chew tough plant food all day. That kit let{' '}
+          <em>Paranthropus</em> grind tough roots, tubers, and hard seeds. The diet stayed stable
+          for 1.5 million years, so the line survived a long time without ever growing a bigger
+          brain. Three species are known: <em>P. aethiopicus</em>, <em>P. boisei</em> (East Africa),
+          and <em>P. robustus</em> (South Africa). All went extinct by 1.2 Ma.
         </p>
-        <div className="lrn-insight">
-          <p>
-            Bipedalism came first. Big brains came millions of years later. Walking upright did not
-            require a large brain.
-          </p>
-        </div>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="compact" title="Paranthropus boisei">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Paranthropus_boisei_IMG_2933-black.jpg"
+              alt="Cranium of Paranthropus boisei showing sagittal crest and massive jaw"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'Paranthropus boisei. The bony crest along the skull top anchored muscles for chewing tough plants. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Paranthropus_boisei_IMG_2933-black.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY-SA 3.0.'}
+            </figcaption>
+          </VizFigure>
+        </figure>
         <div className="lrn-elaborate">
           <span className="lrn-elaborate-label">WHY DOES THIS MATTER?</span>
-          <p>Why does it matter that bipedalism came first and big brains came later?</p>
+          <p>
+            Bipedalism came first. Big brains came millions of years later. Why does that order
+            matter?
+          </p>
           <p>
             Big brains are expensive to grow and feed. If walking upright could evolve in a
             small-brained ape, then bipedalism was not driven by intelligence. Simpler forces
@@ -153,27 +279,17 @@ const config = {
         </div>
       </section>,
 
-      // ── SECTION 2 ──────────────────────────────────────────────────────────
+      // SECTION 2
       <section key="s2" id="lrn-section-2">
         <h2>The First Stone Tools and Early Homo (2.6 to 1.6 Ma)</h2>
         <p>
           The earliest stone tools appear at ~2.6 Ma at Gona, Ethiopia. They belong to the{' '}
-          <strong>Oldowan industry</strong> (Mode 1). Toolmakers knocked flakes off river cobbles to
-          produce sharp edges for cutting. The tools are simple but took real skill to make.
+          <strong>Oldowan industry</strong> (Mode 1). Toolmakers struck flakes off river cobbles to
+          produce sharp edges for cutting. This striking of flakes off stone is called{' '}
+          <strong>knapping</strong>. The tools are simple but knapping took real skill. The "Mode"
+          numbers (Mode 1 to Mode 4) simply rank how complex a tool tradition is, from the simplest
+          to the most refined.
         </p>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Olduvai_stone_chopping_tool_british_museum.JPG"
-            alt="Oldowan stone chopping tool from Olduvai Gorge, British Museum"
-          />
-          <figcaption>
-            Oldowan stone chopping tool from Olduvai Gorge, Tanzania. These are the world's oldest
-            known tools. British Museum.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Olduvai_stone_chopping_tool_british_museum.JPG">
-              Source
-            </a>
-          </figcaption>
-        </figure>
         <p>
           Early members of the genus <em>Homo</em> appear at ~2.4 Ma. Two species are debated:
         </p>
@@ -194,32 +310,60 @@ const config = {
           distances across open ground, a smaller gut (the sign of a meatier diet), and a brain of
           ~900 cc. Ergaster looked like a person, not an ape.
         </p>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/6/69/Fossil_KNM-ER_3733.JPG"
-            alt="Replica of the KNM-ER 3733 skull, Homo ergaster/erectus, Senckenberg Museum"
-          />
-          <figcaption>
-            KNM-ER 3733, replica of an early <em>Homo ergaster</em> skull, Kenya, ~1.7 Ma.
-            Senckenberg Museum, Frankfurt. Photo: CC BY-SA 3.0.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Fossil_KNM-ER_3733.JPG">Source</a>
-          </figcaption>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="body" title="Turkana Boy (KNM-WT 15000)">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Turkana_Boy.jpg"
+              alt="Skeleton of Turkana Boy, a young Homo ergaster"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'Turkana Boy, a nearly complete Homo ergaster skeleton with an almost modern, long-limbed body plan. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Turkana_Boy.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY-SA 2.0.'}
+            </figcaption>
+          </VizFigure>
         </figure>
         <p>
           <em>Homo ergaster</em> made the <strong>Acheulean handaxe</strong>. This was a
           teardrop-shaped bifacial tool flaked on both sides to a sharp edge all around. The
           Acheulean industry (Mode 2) appears ~1.76 Ma at Kokiselei, Kenya.
         </p>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Acheulean_handaxe.png"
-            alt="Drawing of an Acheulean handaxe from Spain"
-          />
-          <figcaption>
-            Acheulean handaxe, Spain. Bifacially worked to a symmetrical teardrop shape. These tools
-            appeared ~1.76 Ma and were made for over a million years.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Acheulean_handaxe.png">Source</a>
-          </figcaption>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '960px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="body" title="Acheulean handaxe">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/7/75/Palaeolithic_handaxe_%28FindID_411393%29.jpg"
+              alt="A Palaeolithic Acheulean bifacial handaxe"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'An Acheulean handaxe, flaked on both sides to a shaped edge. Making one meant planning ahead. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Palaeolithic_handaxe_(FindID_411393).jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY-SA 2.0.'}
+            </figcaption>
+          </VizFigure>
         </figure>
         <div className="lrn-compare">
           <div className="lrn-compare-item">
@@ -265,7 +409,7 @@ const config = {
         </div>
       </section>,
 
-      // ── SECTION 3 ──────────────────────────────────────────────────────────
+      // SECTION 3
       <section key="s3" id="lrn-section-3">
         <h2>Out of Africa: The First Dispersals (1.8 to 500 ka)</h2>
         <p>
@@ -273,10 +417,34 @@ const config = {
           Georgia provides the best evidence. Fossils there date to ~1.77 Ma and show a
           small-brained hominin with a mix of primitive and advanced features.
         </p>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="compact" title="Dmanisi Skull 5">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/9/95/Dmanisi_fossils_D4500_%2B_D2600.jpg"
+              alt="Dmanisi Skull 5, fossils D4500 and D2600"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'Skull 5 from Dmanisi, Georgia, records the first known human dispersal out of Africa. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Dmanisi_fossils_D4500_%2B_D2600.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY-SA 4.0.'}
+            </figcaption>
+          </VizFigure>
+        </figure>
         <p>
           The Dmanisi hominins had brains of ~600 to 775 cc. This was smaller than African hominins
-          of the same age. One individual was elderly and toothless yet survived for years,
-          suggesting the group cared for its members.
+          of the same age.
         </p>
         <p>
           A toothless old individual at Dmanisi survived for years even though they could not chew
@@ -284,14 +452,9 @@ const config = {
           good evidence of early <em>Homo</em> caring for its weaker members.
         </p>
         <p>
-          East Asia was reached by ~1.6 Ma. <em>Homo erectus</em> fossils appear in Java (Trinil)
-          and later at Zhoukoudian near Beijing ("Peking Man", ~780 to 400 ka). Zhoukoudian
+          Hominins reached East Asia by ~1.6 Ma. <em>Homo erectus</em> fossils appear in Java
+          (Trinil) and later at Zhoukoudian near Beijing ("Peking Man", ~780 to 400 ka). Zhoukoudian
           preserves hearth evidence, suggesting controlled fire use by ~500 ka.
-        </p>
-        <p>
-          East of a boundary called the <strong>Movius Line</strong>, hominins used simpler chopper
-          tools instead of handaxes. Africa, Europe, and West Asia have Acheulean handaxes; South
-          and East Asia do not. The reason is still debated (see below).
         </p>
         <div className="lrn-callout">
           <p>
@@ -336,7 +499,7 @@ const config = {
         </div>
       </section>,
 
-      // ── SECTION 4 ──────────────────────────────────────────────────────────
+      // SECTION 4
       <section key="s4" id="lrn-section-4">
         <h2>Homo heidelbergensis and the Neanderthals (700 to 40 ka)</h2>
         <p>
@@ -345,12 +508,58 @@ const config = {
           sites include Boxgrove, England, and Mauer, Germany (jaw).
         </p>
         <p>
-          The site of Atapuerca in northern Spain contains the Sima de los Huesos ("Pit of Bones"),
-          where at least 28 individuals were deposited ~430 ka. Their skulls looked like early
-          Neanderthals, but their mitochondrial DNA matched Denisovans, not Neanderthals. Anatomy
-          and genetics told different stories. The family tree of these groups is more tangled than
-          a simple set of branches.
+          The site of Atapuerca in northern Spain contains the Sima de los Huesos ("Pit of Bones").
+          You met it in the previous page as an example of uranium-series dating. At least 28
+          individuals fell or were placed into the pit ~430 ka. Their skulls looked like early
+          Neanderthals. But their mitochondrial DNA matched the Denisovans instead.
         </p>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="compact" title="Skull 5, Sima de los Huesos">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/2/28/Skull5_complete_right_Sima_de_los_Huesos.jpg"
+              alt="Skull 5 'Miguelón' from Sima de los Huesos"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'Skull 5 from the Sima de los Huesos pit in Spain, an early Neanderthal from ~430,000 years ago. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Skull5_complete_right_Sima_de_los_Huesos.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY-SA 4.0.'}
+            </figcaption>
+          </VizFigure>
+        </figure>
+        <p>
+          <strong>Mitochondrial DNA</strong> (mtDNA) is a tiny loop of DNA inside the cell's energy
+          factories. A child gets it only from the mother, never the father. So it traces a pure
+          maternal line back through time. The <strong>Denisovans</strong> are a third human group,
+          cousins of the Neanderthals, who you will meet fully later. At Sima, the bones say one
+          thing and the genes say another. The family tree of these groups is more tangled than a
+          simple set of branches.
+        </p>
+        <div className="lrn-definition">
+          <div className="lrn-definition-term">How to read a family tree</div>
+          <div className="lrn-definition-desc">
+            <p>
+              A family tree shows how species are related. Each tip is one species. Where two lines
+              join is a shared ancestor. The closer two tips join, the closer the kinship.
+            </p>
+            <p>
+              A clean tree assumes branches split and never touch again. But humans, Neanderthals,
+              and Denisovans had children together after they split. Their lines crossed back over.
+              So the real picture is a web, not a tidy tree.
+            </p>
+          </div>
+        </div>
         <p>
           The Neanderthals (<em>Homo neanderthalensis</em>) lived in Europe and western Asia ~250 to
           40 ka. Their anatomy was built for cold climates:
@@ -364,22 +573,12 @@ const config = {
           <li>Prominent brow ridges and a chin that slopes back instead of jutting forward.</li>
           <li>Brain ~1,200 to 1,750 cc, overlapping the modern human range.</li>
         </ul>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Boule1912.png"
-            alt="Historical reconstruction of the Neanderthal skeleton from La Chapelle-aux-Saints by Marcellin Boule, 1912"
-          />
-          <figcaption>
-            Marcellin Boule's 1912 reconstruction of the La Chapelle-aux-Saints Neanderthal. Boule
-            incorrectly portrayed a stooped posture; Neanderthals actually walked fully upright.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Boule1912.png">Source</a>
-          </figcaption>
-        </figure>
         <p>
           Neanderthals made the <strong>Mousterian industry</strong> (Mode 3), using the Levallois
           technique to produce standardized flakes from a carefully prepared core. They buried their
-          dead (Shanidar Cave, Iraq; La Chapelle-aux-Saints, France) and used ochre, suggesting
-          symbolic behavior.
+          dead (Shanidar Cave, Iraq; La Chapelle-aux-Saints, France) and used ochre. Ochre is a
+          natural earth pigment, red or yellow. Using it for colour points to symbolic thinking,
+          because the pigment serves no practical survival need.
         </p>
         <div className="lrn-compare">
           <div className="lrn-compare-item">
@@ -410,7 +609,7 @@ const config = {
         </div>
       </section>,
 
-      // ── SECTION 5 ──────────────────────────────────────────────────────────
+      // SECTION 5
       <section key="s5" id="lrn-section-5">
         <h2>Origins of Anatomically Modern Humans (200 to 50 ka)</h2>
         <p>
@@ -420,39 +619,51 @@ const config = {
           anatomy: a rounded skull, a vertical forehead, small brow ridges, and a true chin (jutting
           out below the front teeth instead of sloping back).
         </p>
-        <p>Four hypotheses compete to explain where and how modern humans came to be:</p>
+        <p>
+          Where and how did modern humans arise? The deciding evidence is ancient DNA. People with
+          ancestry outside Africa carry a small slice of Neanderthal genes, and some Pacific
+          populations carry Denisovan genes (you meet these figures in detail later). So modern
+          humans did not simply replace everyone. They mixed with the archaic groups they met.
+        </p>
+        <p>Two main models explain this:</p>
         <div className="lrn-steps">
           <ol className="lrn-list">
             <li>
-              <strong>Recent African Origin:</strong> All modern humans descend from one African
-              population that expanded ~60 to 70 ka and replaced archaic hominins elsewhere with
-              little or no interbreeding.
+              <strong>Recent African Origin (replacement):</strong> All modern humans descend from
+              one African population that expanded ~60 to 70 ka and largely replaced archaic
+              hominins elsewhere.
             </li>
             <li>
-              <strong>Assimilation:</strong> A mainly African population spread outward and absorbed
-              genes from local archaic populations as it went.
-            </li>
-            <li>
-              <strong>Multiregional Evolution:</strong> Modern humans evolved at the same time in
-              Africa, Europe, and Asia from local populations connected by gene flow. Most
-              geneticists reject the strong version of this.
-            </li>
-            <li>
-              <strong>Hybridization and Replacement:</strong> Modern humans replaced archaic
-              hominins but interbred with them at contact zones.
+              <strong>Assimilation:</strong> A mainly African population spread outward but absorbed
+              genes from the local archaic groups it met. The DNA evidence now favours this version.
             </li>
           </ol>
         </div>
         <p>
-          Ancient DNA from Neanderthal and Denisovan genomes now supports a version of the
-          Assimilation model. Non-African modern humans carry 1 to 4% Neanderthal DNA. Some
-          Melanesian populations carry up to 5% Denisovan DNA.
+          Two older models go further. Multiregional Evolution claimed modern humans arose at once
+          across Africa, Europe, and Asia. Genetics has falsified the strong form of it. A
+          hybridization model is really just a name for assimilation with interbreeding at contact
+          zones.
         </p>
         <div className="lrn-insight">
           <p>
             The mitochondrial DNA of every living person traces back to one woman in Africa ~200 ka,
             often called "mitochondrial Eve." This does not mean only one woman lived then. It means
             every other female line from her time has since died out.
+          </p>
+        </div>
+        <p>
+          Modern humans did not have Africa to themselves. <em>Homo naledi</em>, found in the Rising
+          Star Cave in South Africa, had a tiny brain of only ~465 to 610 cc, no bigger than early{' '}
+          <em>Homo</em>. Yet it lived as recently as ~236 to 335 ka, right alongside large-brained{' '}
+          <em>Homo sapiens</em>. Its bones lie deep in a hard-to-reach chamber, which suggests its
+          own kind carried the dead inside on purpose.
+        </p>
+        <div className="lrn-insight">
+          <p>
+            <em>Homo naledi</em> breaks the rule that a big brain must come before complex
+            behaviour. A small-brained species may have deliberately placed its dead. Brain size
+            alone does not decide what a hominin can do.
           </p>
         </div>
         <div className="lrn-predict">
@@ -472,12 +683,14 @@ const config = {
         </div>
       </section>,
 
-      // ── SECTION 6 ──────────────────────────────────────────────────────────
+      // SECTION 6
       <section key="s6" id="lrn-section-6">
         <h2>Behavioural Modernity (100 to 30 ka)</h2>
         <p>
-          Modern anatomy preceded modern behaviour by tens of thousands of years. The earliest
-          evidence for symbolic thinking comes from South Africa:
+          <strong>Behavioural modernity</strong> means acting the way living humans do. It covers
+          symbolic art, body ornaments, planned long-distance trade, and complex tools. Modern
+          anatomy came first. Modern behaviour followed tens of thousands of years later. The
+          earliest evidence for symbolic thinking comes from South Africa:
         </p>
         <ul className="lrn-list">
           <li>
@@ -518,8 +731,8 @@ const config = {
               purpose-made weapons.
             </p>
             <p>
-              Evidence: cut marks over carnivore marks, embedded points in bone, Schoningen wooden
-              spears (~320 ka).
+              Evidence: carnivore tooth marks sit on top of the cut marks (the hominin cut first),
+              weapon points stuck in prey bone, and purpose-made wooden spears.
             </p>
           </div>
           <div className="lrn-compare-item">
@@ -529,14 +742,24 @@ const config = {
               competes with hyenas and lions.
             </p>
             <p>
-              Evidence: cut marks under carnivore marks, low-utility bone parts processed. Probably
-              both strategies were used.
+              Evidence: cut marks sit on top of the carnivore tooth marks (the carnivore fed first),
+              and mostly low-meat bone parts get processed.
             </p>
           </div>
         </div>
+        <div className="lrn-callout">
+          <p>
+            <strong>Read one bone.</strong> A zebra leg bone shows a stone cut mark and a hyena
+            tooth mark that cross each other. Look at which mark runs over the other. Here the hyena
+            tooth mark lies on top of the cut mark. The mark on top was made last. So the hominin
+            cut the bone first, before the hyena chewed it. The hominin reached the carcass first.
+            That points to hunting or early access, not scavenging the hyena's leftovers. You can
+            now read order of access from two crossing marks on a single bone.
+          </p>
+        </div>
       </section>,
 
-      // ── SECTION 7 ──────────────────────────────────────────────────────────
+      // SECTION 7
       <section key="s7" id="lrn-section-7">
         <h2>The Neanderthal Genome and Interbreeding</h2>
         <p>
@@ -550,22 +773,14 @@ const config = {
           The <strong>Denisovans</strong> were identified from a single finger bone at Denisova Cave
           in the Altai Mountains, Russia (~48,000 to 30,000 BP). Ancient DNA identified them as a
           separate group that shared a common ancestor with Neanderthals. Melanesian and Aboriginal
-          Australian populations carry up to 4 to 5% Denisovan DNA.
+          Australian populations carry up to 5% Denisovan DNA.
         </p>
-        <ul className="lrn-list">
-          <li>
-            Neanderthals and Denisovans shared Denisova Cave at different times. One individual
-            ("Denny") had a Neanderthal mother and Denisovan father.
-          </li>
-          <li>
-            Neanderthals carried the <em>FOXP2</em> gene variant found in modern humans. FOXP2 is
-            linked to speech and language production.
-          </li>
-          <li>
-            Neanderthal gene variants now in modern humans include immune-related genes (HLA), skin
-            genes, and variants that affect COVID-19 severity.
-          </li>
-        </ul>
+        <p>
+          Neanderthals and Denisovans shared Denisova Cave at different times. One individual
+          ("Denny") had a Neanderthal mother and a Denisovan father. So at least three kinds of
+          humans lived in Asia at once and sometimes had children together. A few of their genes
+          still survive in people today, including some that shape the immune system.
+        </p>
         <div className="lrn-insight">
           <p>
             Non-African modern humans carry 1 to 4% Neanderthal DNA. The Neanderthal line ended, but
@@ -590,7 +805,7 @@ const config = {
         </div>
       </section>,
 
-      // ── SECTION 8 ──────────────────────────────────────────────────────────
+      // SECTION 8
       <section key="s8" id="lrn-section-8">
         <h2>The Upper Palaeolithic Revolution (50 to 10 ka)</h2>
         <p>
@@ -610,22 +825,61 @@ const config = {
           <li>Lascaux, France: ~17,000 BP. "Hall of the Bulls" with aurochs, horses, deer.</li>
           <li>Altamira, Spain: ~14,000 BP. Polychrome bison painted on ceiling.</li>
         </ul>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Lascaux_painting.jpg"
-            alt="Upper Palaeolithic cave painting from Lascaux, France, c. 17,300 years old, showing aurochs, horses, and deer"
-          />
-          <figcaption>
-            Cave paintings from Lascaux, Dordogne, France, ~17,300 BP. Aurochs, horses, and deer.
-            Public domain.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Lascaux_painting.jpg">Source</a>
-          </figcaption>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="wide" title="Altamira cave bison">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Altamira%2C_bison.jpg"
+              alt="A bison painted on the ceiling of Altamira cave"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'A bison painted on the ceiling of Altamira cave in Spain, roughly 14,000 years old. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Altamira,_bison.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · Public domain.'}
+            </figcaption>
+          </VizFigure>
         </figure>
         <p>
           <strong>Venus figurines</strong> (~30,000 to 20,000 BP) are small carvings of female
           figures found across Europe from France to Siberia. The Venus of Willendorf (Austria) and
           Venus of Dolni Vestonice (Czech Republic) are the best known.
         </p>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="compact" title="Venus of Willendorf">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/9/94/NHM_Venus_of_Willendorf_detail.jpg"
+              alt="The Venus of Willendorf limestone figurine"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'The Venus of Willendorf, a small carved female figure made in Europe ~30,000 years ago. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:NHM_Venus_of_Willendorf_detail.jpg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC BY 4.0.'}
+            </figcaption>
+          </VizFigure>
+        </figure>
         <p>
           The <strong>Magdalenian</strong> (~17,000 to 12,000 BP) is the richest Upper Palaeolithic
           culture. It takes its name from La Madeleine rock shelter in the Dordogne, France. Key
@@ -668,7 +922,7 @@ const config = {
         </div>
       </section>,
 
-      // ── SECTION 9 ──────────────────────────────────────────────────────────
+      // SECTION 9
       <section key="s9" id="lrn-section-9">
         <h2>Peopling the Americas (32,000 to 11,600 BP)</h2>
         <p>
@@ -681,6 +935,31 @@ const config = {
           largest it was ~1,000 km wide. Sea levels dropped ~134 m during the Last Glacial Maximum
           (~21,000 BP), exposing the land. Beringia remained dry from ~30,000 to 12,500 BP.
         </p>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="wide" title="The Beringia land bridge">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/5/52/Beringia_land_bridge-noaagov.gif"
+              alt="Map of the Beringia land bridge connecting Siberia and Alaska"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'Beringia, the dry land bridge that linked Siberia to Alaska when sea levels dropped. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Beringia_land_bridge-noaagov.gif"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · Public domain.'}
+            </figcaption>
+          </VizFigure>
+        </figure>
         <p>Key pre-Clovis and early American sites:</p>
         <ul className="lrn-list">
           <li>
@@ -706,23 +985,51 @@ const config = {
           points. Clovis spread rapidly across North America and reached Panama. Over 12 Clovis
           caches are known, some with dozens of points and exotic raw materials.
         </p>
-        <figure className="lrn-figure">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Punta_Clovis_Nicaragua.JPG"
-            alt="Clovis fluted projectile point from Nicaragua"
-          />
-          <figcaption>
-            Clovis fluted projectile point, Nicaragua. The channel flute runs up the base of the
-            point. These appeared in North America ~13,400 BP.{' '}
-            <a href="https://commons.wikimedia.org/wiki/File:Punta_Clovis_Nicaragua.JPG">Source</a>
-          </figcaption>
+        <figure
+          className="lrn-figure"
+          style={{ maxWidth: '675px', marginLeft: 'auto', marginRight: 'auto' }}
+        >
+          <VizFigure aspect="auto" size="compact" title="Clovis fluted point">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/8/84/Clovis_point%2C_11500-9000_BC%2C_Sevier_County%2C_Utah%2C_chert_-_Natural_History_Museum_of_Utah_-_DSC07376.JPG"
+              alt="A fluted Clovis stone projectile point"
+              style={{ width: '100%', display: 'block' }}
+            />
+            <figcaption>
+              {
+                'A fluted Clovis spear point from Utah, the signature tool of early hunters in North America. '
+              }
+              <a
+                href="https://commons.wikimedia.org/wiki/File:Clovis_point,_11500-9000_BC,_Sevier_County,_Utah,_chert_-_Natural_History_Museum_of_Utah_-_DSC07376.JPG"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Wikimedia Commons
+              </a>
+              {' · CC0.'}
+            </figcaption>
+          </VizFigure>
         </figure>
         <p>
           The <strong>Beringian Standstill hypothesis</strong> says that the ancestors of every
           Native American sat on Beringia for 10,000 to 15,000 years before moving south. Ice sheets
-          blocked the way. During the wait the population grew genetically distinct from East Asians
-          and lost diversity (a founder effect). When the ice melted, that small group spread fast
-          across two continents.
+          blocked the way. During the wait the population grew genetically distinct from East
+          Asians. When the ice melted, that small group spread fast across two continents.
+        </p>
+        <p>
+          A <strong>founder effect</strong> happens when a small group splits off from a larger
+          parent population. That small group carries only a fraction of the parent's genes by pure
+          chance. Their descendants stay low in genetic diversity. Native Americans show exactly
+          this pattern, which fits a small founding band passing through Beringia.
+        </p>
+        <p>
+          Geneticists test the idea using the <strong>TMRCA</strong>, the "time to the most recent
+          common ancestor." This is the age of the shared ancestor that all branches of a gene tree
+          trace back to. The TMRCA of Native American maternal DNA is ~18,400 to 24,900 BP. That is
+          thousands of years older than the oldest American sites (~14,600 BP). The gap is the time
+          the founders spent waiting in Beringia. Native Americans carry just five maternal
+          lineages, called mitochondrial haplogroups A, B, C, D, and X. All five come from Northeast
+          Asia, the source of the founding population.
         </p>
         <div className="lrn-compare">
           <div className="lrn-compare-item">
@@ -775,11 +1082,16 @@ const config = {
         </div>
       </section>,
 
-      // ── SECTION 10 ──────────────────────────────────────────────────────────
+      // SECTION 10
       <section key="s10" id="lrn-section-10">
-        <h2>The End of the Pleistocene (12,800 to 11,600 BP)</h2>
+        <h2>The End of the Pleistocene (12,900 to 11,600 BP)</h2>
         <p>
-          The Younger Dryas (12,800 to 11,600 BP) was a sudden cold reversal after a warming period.
+          The <strong>Pleistocene</strong> is the Ice Age epoch that ran from ~2.6 million years ago
+          to 11,600 years ago. During it, ice sheets grew and shrank many times. Everything on this
+          page happened inside the Pleistocene. It ended with the warm Holocene we still live in.
+        </p>
+        <p>
+          The Younger Dryas (12,900 to 11,600 BP) was a sudden cold reversal after a warming period.
           Temperatures in the North Atlantic region dropped ~15°C within decades. It ended abruptly
           ~11,600 BP, marking the start of the Holocene.
         </p>
@@ -846,7 +1158,7 @@ const config = {
           <div className="lrn-definition-term">Younger Dryas</div>
           <div className="lrn-definition-desc">
             <p>
-              A period of sudden cooling 12,800 to 11,600 BP. Named after the arctic flower{' '}
+              A period of sudden cooling 12,900 to 11,600 BP. Named after the arctic flower{' '}
               <em>Dryas octopetala</em>, whose pollen spikes in sediment cores from this time. Its
               end marks the start of the Holocene and the modern world.
             </p>
@@ -877,9 +1189,9 @@ const config = {
             <summary>Expert explanation</summary>
             <p>
               The Younger Dryas was a sharp climate flip back to cold. When it ended at 11,600 BP,
-              the world warmed quickly and stayed warm. This stable warm period (the Holocene)
-              allowed farming, settlement, and civilization. Without it, human history would look
-              very different.
+              the world warmed quickly and stayed warm. That moment marks the end of the Pleistocene
+              and the start of the Holocene. It is the natural stopping point for the story of human
+              evolution, with our species now spread across every habitable continent.
             </p>
           </details>
         </div>
@@ -888,7 +1200,7 @@ const config = {
   },
 
   practice: [
-    // ── BASIC ──────────────────────────────────────────────────────────────
+    // BASIC
     {
       type: 'basic',
       q: 'What is the name of the oldest known hominin candidate, and where was it found?',
@@ -982,7 +1294,7 @@ const config = {
     {
       type: 'basic',
       q: 'What is the Younger Dryas, and when did it end?',
-      a: 'The Younger Dryas was a sudden cold reversal lasting 12,800 to 11,600 BP, when temperatures in the North Atlantic region dropped sharply. It ended abruptly ~11,600 BP, marking the beginning of the Holocene and the modern warm period.'
+      a: 'The Younger Dryas was a sudden cold reversal lasting 12,900 to 11,600 BP, when temperatures in the North Atlantic region dropped sharply. It ended abruptly ~11,600 BP, marking the beginning of the Holocene and the modern warm period.'
     },
     {
       type: 'basic',
@@ -990,7 +1302,7 @@ const config = {
       a: 'The Aurignacian (~43 to 26 ka) is the earliest Upper Palaeolithic blade tool industry in Europe, made by anatomically modern humans. It includes long thin blades, bone and antler tools, and personal ornaments such as perforated shells and carved ivory figurines.'
     },
 
-    // ── TRANSFER ───────────────────────────────────────────────────────────
+    // TRANSFER
     {
       type: 'transfer',
       q: 'A fossil jaw is found in Africa, dated to 2.5 Ma. The individual has a brain of ~650 cc, rounded skull, reduced face, and was found near Oldowan tools. Which genus does it likely belong to, and why?',
@@ -1022,7 +1334,7 @@ const config = {
       a: 'Paranthropus occupied a niche requiring processing of hard or tough foods like roots, tubers, or seeds. Strong chewing muscles anchored by the sagittal crest and thick enamel were highly adaptive for that diet. Larger brains are metabolically expensive. If the dietary niche is stable, investing in brain tissue offers less survival benefit than investing in chewing apparatus.'
     },
 
-    // ── ELABORATE ──────────────────────────────────────────────────────────
+    // ELABORATE
     {
       type: 'elaborate',
       q: 'Why does bipedalism come before enlarged brains in human evolution? What might have driven upright walking?',
@@ -1041,7 +1353,7 @@ const config = {
     {
       type: 'elaborate',
       q: 'How does the overkill hypothesis explain Pleistocene extinctions, and what is the main weakness of the argument?',
-      a: 'The overkill hypothesis (Paul Martin) argues that Clovis hunters drove North American megafauna extinct by hunting naive animals that had no experience of human predators. The main weakness: only 5 of the 37 extinct genera appear at verified kill sites. The other 32 disappeared with no archaeological connection to humans. Ancient DNA also shows population decline in some taxa before Clovis arrived, suggesting climate played a role independent of hunting.'
+      a: 'The overkill hypothesis argues that Clovis hunters drove North American megafauna extinct by hunting naive animals that had no experience of human predators. The main weakness: only 5 of the 37 extinct genera appear at verified kill sites. The other 32 disappeared with no archaeological connection to humans. Ancient DNA also shows population decline in some taxa before Clovis arrived, suggesting climate played a role independent of hunting.'
     },
     {
       type: 'elaborate',
@@ -1054,7 +1366,7 @@ const config = {
       a: 'Modern humans crossed to Australia by sea ~60 ka, at a time when sea levels were lower but still required boat crossings. Yet they did not enter the Americas until ~15 to 14 ka despite a land route existing. The barrier was not just distance. It was the extreme Arctic environment of the northeast Asian corridor and the time needed to develop cold-adapted technology, diet, and physiology. Reaching Beringia required first settling the high-latitude Arctic, which is a very different challenge from island-hopping to Australia.'
     },
 
-    // ── PREDICT ────────────────────────────────────────────────────────────
+    // PREDICT
     {
       type: 'predict',
       q: 'Predict: if future ancient DNA confirms interbreeding between Homo heidelbergensis and an early modern human population in Africa before 200 ka, how would that change the origins hypotheses?',
@@ -1076,7 +1388,7 @@ const config = {
       a: 'Africa should show fewer extinctions despite humans evolving there millions of years earlier, because African megafauna co-evolved with human hunters and adapted behaviourally. The Americas should show extinctions timed to human arrival but also correlated with rapid climate shifts. If climate drove extinctions, you would expect non-hunting taxa (birds, reptiles, small mammals) to also go extinct in large numbers. Indeed about 20 genera of birds did go extinct in North America at the same time.'
     },
 
-    // ── SELF-EXPLAIN ────────────────────────────────────────────────────────
+    // SELF-EXPLAIN
     {
       type: 'self-explain',
       q: 'Explain in your own words why the discovery of Neanderthal DNA in modern non-Africans matters for the debate about human origins.',
@@ -1108,7 +1420,7 @@ const config = {
       a: 'Before Dart, scientists expected the "missing link" to have a large brain with an ape face. The Taung Child (Australopithecus africanus, ~2.5 Ma) showed the opposite: a small ape-sized brain but a face and teeth pointing toward humans. This was the first evidence that bipedalism and the human face evolved before large brains did. It also confirmed that Africa, not Asia or Europe, was the cradle of human evolution, supporting Darwin\'s original prediction.'
     },
 
-    // ── ADDITIONAL BASIC ───────────────────────────────────────────────────
+    // ADDITIONAL BASIC
     {
       type: 'basic',
       q: 'What is the Sima de los Huesos, and why is it important?',
@@ -1240,7 +1552,7 @@ const config = {
               Yana, Russia (32,000 BP rhinoceros artifacts); Diuktai Cave, Siberia (16,800 BP
               microblades); Swan Point, Alaska (14,400 BP); Monte Verde, Chile (14,600 BP mastodon,
               plants); Blackwater Draw, New Mexico (Clovis type site, 13,400 to 12,600 BP);
-              Olsen-Chubbuck, Colorado (Folsom bison drive site, ~10,000 BP).
+              Olsen-Chubbuck, Colorado (Folsom bison drive site, ~12,500 BP).
             </p>
           </div>
         </div>
@@ -1394,7 +1706,7 @@ const config = {
           <li>~16,000 BP: Pacific coastal route opens; deglaciation begins</li>
           <li>~14,600 BP: Monte Verde occupied (oldest dated Americas site)</li>
           <li>~13,400 to 12,600 BP: Clovis flourishes in North America</li>
-          <li>~12,800 to 11,600 BP: Younger Dryas cold reversal</li>
+          <li>~12,900 to 11,600 BP: Younger Dryas cold reversal</li>
           <li>~11,600 BP: Holocene begins; end of Pleistocene megafauna extinctions</li>
         </ul>
       </section>

@@ -2,31 +2,45 @@ import { LearningTemplate } from '../../../../../components/learning/learning-te
 import { useVizColors } from '../../../../../hooks/use-viz-colors'
 import { Mafs, Coordinates, Point, Line, Text } from 'mafs'
 import 'mafs/core.css'
+import { FONT_VALUE } from '../../../../../components/viz/scale-tokens'
 
-// ─── Static Mafs diagram: Contact plane field on ℝ³ ───────────────────────
+// Static Mafs diagram: Contact plane field on ℝ³
+// ω = x dy + dz: the kernel plane at a point with coordinate x meets the (y,z)
+// plane in a line of slope dz/dy = −x. Sampling along the x-axis shows the
+// field TWISTING: flat at x = 0, tilting ever more steeply with |x|, the
+// nonintegrability the section computes via ω ∧ dω ≠ 0.
 function ContactPlaneFieldDiagram({ C }) {
+  const SLOPE = 0.35 // drawn slope per unit x (display scaling of −x)
+  const HW = 0.85 // segment half-width
   return (
     <div className="lrn-graph" style={{ height: 220 }}>
       <Mafs viewBox={{ x: [-6, 6], y: [-2.5, 2.5] }} preserveAspectRatio={false}>
-        <Coordinates.Cartesian subdivisions={2} />
-        {/* Sample hyperplane segments at various x positions */}
+        {/* y tick labels suppressed: y is schematic here, and the "±2" labels
+            collided with the caption rows at x = 0 */}
+        <Coordinates.Cartesian subdivisions={2} yAxis={{ labels: false }} />
+        {/* kernel-plane traces at sample x: slope −x (scaled), twisting along the axis */}
         {[-4, -2, 0, 2, 4].map(x => (
           <Line.Segment
             key={x}
-            point1={[x - 0.9, -x * 0.4 - 0.5]}
-            point2={[x + 0.9, -x * 0.4 + 0.5]}
+            point1={[x - HW, SLOPE * x * HW]}
+            point2={[x + HW, -SLOPE * x * HW]}
             color={C.accent}
-            opacity={0.7}
+            opacity={0.85}
           />
         ))}
-        <Text x={0} y={2.2} size={24} color={C.fg}>{`ω = x dy + dz`}</Text>
-        <Text x={0} y={-2.2} size={24} color={C.dim}>{`contact field on ℝ³`}</Text>
+        {[-4, -2, 0, 2, 4].map(x => (
+          <Point key={`p${x}`} x={x} y={0} color={C.fg} />
+        ))}
+        <Text x={0} y={2.2} size={FONT_VALUE} color={C.fg}>{`ω = x dy + dz`}</Text>
+        <Text x={0} y={-2.2} size={FONT_VALUE} color={C.dim}>
+          {`kernel planes ω = 0 twist with x: slope −x in (y,z)`}
+        </Text>
       </Mafs>
     </div>
   )
 }
 
-// ─── Static Mafs diagram: Symplectification tower ──────────────────────────
+// Static Mafs diagram: Symplectification tower
 function SymplectificationDiagram({ C }) {
   const xs = [-3, -1.5, 0, 1.5, 3]
   return (
@@ -52,14 +66,24 @@ function SymplectificationDiagram({ C }) {
             color={C.accent}
           />
         ))}
-        <Text x={0} y={2.1} size={24} color={C.fg}>{`Symplectification M̃ (dim N+1, even)`}</Text>
-        <Text x={0} y={-2.1} size={24} color={C.accent}>{`Contact manifold M (dim N, odd)`}</Text>
+        <Text
+          x={0}
+          y={2.1}
+          size={FONT_VALUE}
+          color={C.fg}
+        >{`Symplectification M̃ (dim N+1, even)`}</Text>
+        <Text
+          x={0}
+          y={-2.1}
+          size={FONT_VALUE}
+          color={C.accent}
+        >{`Contact manifold M (dim N, odd)`}</Text>
       </Mafs>
     </div>
   )
 }
 
-// ─── Main component ────────────────────────────────────────────────────────
+// Main component
 export default function SymplecticContactStructuresSymmetries() {
   const C = useVizColors()
 
@@ -73,7 +97,7 @@ export default function SymplecticContactStructuresSymmetries() {
       title: 'Symplectic and Contact Structures with Symmetries',
       subtitle: 'Kähler geometry, contact topology, momentum maps, and symmetry reduction',
       sections: [
-        // ── SECTION 0: Hermitian Structure of Complex Projective Space ──
+        // SECTION 0: Hermitian Structure of Complex Projective Space
         <>
           <div id="lrn-section-0" data-section-index="0">
             <h2>Hermitian Structure of Complex Projective Space</h2>
@@ -97,9 +121,10 @@ export default function SymplecticContactStructuresSymmetries() {
             </div>
 
             <p>
-              Classical phase spaces are cotangent bundles. Algebraic geometry produces a completely
-              different family: any smooth manifold defined by polynomial equations in{' '}
-              {`$\\mathbb{CP}^n$`} carries a natural symplectic structure.
+              Classical phase spaces are cotangent bundles: a configuration space together with all
+              possible momenta at each point. Algebraic geometry produces a completely different
+              family. Any smooth manifold (a space that looks flat up close) defined by polynomial
+              equations in {`$\\mathbb{CP}^n$`} carries a natural symplectic structure.
             </p>
 
             <div className="lrn-definition">
@@ -134,7 +159,10 @@ export default function SymplecticContactStructuresSymmetries() {
               The hermitian product splits into two real parts. Writing{' '}
               {`$\\langle \\zeta, \\eta \\rangle = (\\zeta, \\eta) + i[\\zeta, \\eta]$`}, you get a
               euclidean structure {`$(\\cdot,\\cdot)$`} and a symplectic structure{' '}
-              {`$[\\cdot,\\cdot]$`}.
+              {`$[\\cdot,\\cdot]$`}. A <strong>symplectic structure</strong> is a rule for measuring
+              signed area between two directions: a closed, nondegenerate 2-form. You built this
+              object in the spine of Part III; here it appears as the imaginary part of a hermitian
+              product.
             </p>
             <p>The key relation connecting them is:</p>
             <div className="lrn-eq lrn-eq-display">{`$$[\\zeta, \\eta] = (\\zeta, i\\eta)$$`}</div>
@@ -168,10 +196,10 @@ export default function SymplecticContactStructuresSymmetries() {
               circles on the unit sphere.
             </p>
 
-            <div className="lrn-insight">
+            <p>
               The riemannian metric on {`$\\mathbb{CP}^n$`} comes from the hermitian structure. For
               a tangent vector {`$\\tilde{\\zeta}$`} at the class of {`$z$`}, the formula is:
-            </div>
+            </p>
 
             <div className="lrn-eq">{`$$ds^2(\\tilde{\\zeta}) = \\frac{\\langle \\tilde{\\zeta}, \\tilde{\\zeta} \\rangle \\langle z, z \\rangle - \\langle \\tilde{\\zeta}, z \\rangle \\langle z, \\tilde{\\zeta} \\rangle}{\\langle z, z \\rangle^2}$$`}</div>
 
@@ -215,26 +243,18 @@ export default function SymplecticContactStructuresSymmetries() {
             <div className="lrn-elaborate">
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
-                You need to check {`$d\\Omega = 0$`}. Unitary transformations preserve the hermitian
+                You need to check {`$d\\Omega = 0$`} (closed, in the exterior-derivative sense you
+                built in the spine of Part III). Unitary transformations preserve the hermitian
                 structure and hence {`$\\Omega$`}. Any triple of tangent vectors can be rotated so
                 at least one is hermitian-orthogonal to {`$z$`}. Then the antisymmetry of{' '}
                 {`$\\Omega$`} forces {`$d\\Omega$`} to equal its own negative, so {`$d\\Omega = 0$`}
                 .
               </p>
             </div>
-
-            <div className="lrn-callout">
-              <span className="lrn-callout-label">Remark</span>
-              <p>
-                {`$\\mathbb{CP}^n$`} is also an orbit of the co-adjoint representation of the
-                unitary group {`$U(n+1)$`}. This gives an independent construction of its symplectic
-                structure.
-              </p>
-            </div>
           </div>
         </>,
 
-        // ── SECTION 1: Symplectic Structure on Algebraic Manifolds ──
+        // SECTION 1: Symplectic Structure on Algebraic Manifolds
         <>
           <div id="lrn-section-1" data-section-index="1">
             <h2>Symplectic Structure on Algebraic Manifolds</h2>
@@ -259,6 +279,25 @@ export default function SymplecticContactStructuresSymmetries() {
               When to use: any smooth complex algebraic manifold (defined by polynomial equations in{' '}
               {`$\\mathbb{CP}^n$`}) automatically inherits a symplectic structure.
             </p>
+
+            <div className="lrn-definition">
+              <span className="lrn-definition-term">Pullback of a Form</span>
+              <div className="lrn-definition-desc">
+                <p>
+                  When a map {`$f$`} sends one manifold into another, you can carry a form backward
+                  along {`$f$`}. This is the <strong>pullback</strong> {`$f^*$`}. To pull a form{' '}
+                  {`$\\Omega$`} back, you feed your tangent vectors through {`$f$`} first, then
+                  measure them with {`$\\Omega$`}. For a submanifold sitting inside a bigger space,
+                  the inclusion map {`$j$`} just restricts the form to the smaller space, so{' '}
+                  {`$j^*\\Omega$`} is "{`$\\Omega$`} seen only on {`$M$`}".
+                </p>
+                <p>
+                  The key fact you will use: pullback commutes with the exterior derivative {`$d$`}
+                  you built in the spine. In symbols, {`$d(f^*\\Omega) = f^*(d\\Omega)$`}. So if a
+                  form is closed upstairs, its pullback is closed downstairs.
+                </p>
+              </div>
+            </div>
 
             <div className="lrn-definition">
               <span className="lrn-definition-term">
@@ -342,10 +381,12 @@ export default function SymplecticContactStructuresSymmetries() {
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
                 Kähler requires the complex structure, the metric, and the symplectic form to all be
-                compatible. Some symplectic manifolds (like certain solvmanifolds) have no
-                compatible complex structure at all. Compact Kähler manifolds satisfy strong
-                topological constraints - for instance, all their odd Betti numbers must be even -
-                that many symplectic manifolds violate.
+                compatible. Some symplectic manifolds have no compatible complex structure at all.
+                Compact Kähler manifolds obey strong shape rules that many symplectic manifolds
+                break. One such rule uses Betti numbers, which count the independent holes of each
+                dimension in a space. For a compact Kähler manifold, every odd-dimensional Betti
+                number must be an even number. A symplectic manifold that breaks this rule cannot be
+                Kähler.
               </p>
             </div>
 
@@ -365,8 +406,10 @@ export default function SymplecticContactStructuresSymmetries() {
 
             <p>
               Here {`$d' = \\partial$`} (holomorphic derivative) and {`$d'' = \\bar{\\partial}$`}{' '}
-              (anti-holomorphic derivative). These split the exterior derivative: {`$d = d' + d''$`}
-              .
+              (anti-holomorphic derivative). Holomorphic means it depends only on {`$w$`}, not its
+              conjugate {`$\\bar{w}$`}. These split the exterior derivative: {`$d = d' + d''$`}. One
+              fact you will use below: {`$dw \\wedge d\\bar{w} = -2i\\, dx \\wedge dy$`} when{' '}
+              {`$w = x + iy$`}.
             </p>
 
             <div className="lrn-faded">
@@ -400,7 +443,8 @@ export default function SymplecticContactStructuresSymmetries() {
               <div className="lrn-faded-phase">
                 <span className="lrn-faded-label">INDEPENDENT PRACTICE</span>
                 <p>
-                  Derive the {`$\\mathbb{CP}^2$`} formula directly from Problem 2: show that{' '}
+                  Derive the {`$\\mathbb{CP}^2$`} formula directly from the general formula{' '}
+                  {`$\\Omega = \\frac{i}{2\\pi} d'd'' \\ln \\sum|w_k|^2$`}: show that{' '}
                   {`$\\Omega = \\frac{\\frac{i}{2\\pi} \\sum_{0 \\leq k < l \\leq 2} (w_k d\\bar{w}_l - w_l d\\bar{w}_k)(\\bar{w}_k dw_l - \\bar{w}_l dw_k)}{(\\sum|w_k|^2)^2}$`}
                   .
                 </p>
@@ -409,7 +453,7 @@ export default function SymplecticContactStructuresSymmetries() {
           </div>
         </>,
 
-        // ── SECTION 2: Contact Structures ──
+        // SECTION 2: Contact Structures
         <>
           <div id="lrn-section-2" data-section-index="2">
             <h2>Contact Structures</h2>
@@ -461,7 +505,7 @@ export default function SymplecticContactStructuresSymmetries() {
                 <p>Nondegenerate field of hyperplanes.</p>
                 <p>Source: manifolds of contact elements.</p>
                 <p>Odd-dimensional manifolds only.</p>
-                <p>Nondegeneracy: {`$\\omega \\wedge d\\omega^n \\neq 0$`}.</p>
+                <p>Nondegeneracy: {`$\\omega \\wedge (d\\omega)^m \\neq 0$`}.</p>
               </div>
             </div>
 
@@ -528,23 +572,6 @@ export default function SymplecticContactStructuresSymmetries() {
               <div className="lrn-qed">Q.E.D.</div>
             </div>
 
-            <div className="lrn-self-explain">
-              <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-              <p>
-                Why does the proof use a parallelogram and not a triangle? Form your answer before
-                reading on.
-              </p>
-              <details className="lrn-self-explain-reveal">
-                <summary>Expert explanation</summary>
-                <p>
-                  Stokes' theorem relates a line integral around a boundary to a surface integral of
-                  the exterior derivative. A parallelogram has four sides whose line integrals
-                  combine to form the boundary of the enclosed area. Triangles work too, but
-                  parallelograms arise naturally from following two flows forward then backward.
-                </p>
-              </details>
-            </div>
-
             <h3>The Nonintegrable Example {`$\\omega = x\\,dy + dz$`}</h3>
 
             <p>
@@ -608,7 +635,7 @@ export default function SymplecticContactStructuresSymmetries() {
           </div>
         </>,
 
-        // ── SECTION 3: Manifold of Contact Elements ──
+        // SECTION 3: Manifold of Contact Elements
         <>
           <div id="lrn-section-3" data-section-index="3">
             <h2>Manifold of Contact Elements</h2>
@@ -655,6 +682,19 @@ export default function SymplecticContactStructuresSymmetries() {
             </p>
             <p>Its dimension is {`$n + (n-1) = 2n-1$`} (odd).</p>
 
+            <div className="lrn-callout">
+              <span className="lrn-callout-label">Small Example</span>
+              <p>
+                Take the plane {`$M = \\mathbb{R}^2$`} ({`$n = 2$`}). A contact element at a point
+                is a line through that point, fixed by an angle. So the data is a point (two
+                coordinates) plus a line direction (one angle), giving a {`$3$`}-dimensional
+                manifold. Concretely it is {`$\\mathbb{R}^2 \\times \\mathbb{RP}^1$`}: a plane
+                carrying a circle of line directions at each point. Here {`$\\mathbb{RP}^1$`} is the
+                set of lines through the origin, which forms a circle. This matches {`$2n - 1 = 3$`}
+                .
+              </p>
+            </div>
+
             <div className="lrn-definition">
               <span className="lrn-definition-term">Contact Hyperplane on {`$PT^*M$`}</span>
               <div className="lrn-definition-desc">
@@ -670,10 +710,10 @@ export default function SymplecticContactStructuresSymmetries() {
               <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
               <p>
                 The contact condition says: when you move in the manifold of contact elements, your
-                motion in the base manifold must be tangent to the current hyperplane. This is
-                exactly the condition that defines holonomic contact: the hyperplane "rolls" along
-                its own edges. It is the natural contact structure because it encodes the geometric
-                constraint that the contact element and its motion are consistent.
+                motion down in the base manifold must stay tangent to the hyperplane you are
+                carrying. Picture the hyperplane rolling along its own edges, never tipping off the
+                surface it touches. This rolling-without-slipping rule is what "holonomic" means
+                here: the element and its motion never contradict each other.
               </p>
             </div>
 
@@ -688,15 +728,16 @@ export default function SymplecticContactStructuresSymmetries() {
               (non-oriented) one. Both carry natural contact structures.
             </p>
             <p>
-              The geodesic flow on a Riemannian manifold consists of contact diffeomorphisms of the
-              manifold of oriented contact elements. A moving geodesic carries its tangent
-              hyperplane along with it in exactly the contact sense - this is why geodesic flow is
-              the prototypical example of a contact flow.
+              The geodesic flow on a Riemannian manifold moves through the manifold of oriented
+              contact elements while preserving the contact structure (Section 5 names such a map a
+              contact diffeomorphism). A moving geodesic carries its tangent hyperplane along with
+              it in exactly the contact sense. This is why geodesic flow is the prototypical example
+              of a contact flow.
             </p>
           </div>
         </>,
 
-        // ── SECTION 4: Symplectification ──
+        // SECTION 4: Symplectification
         <>
           <div id="lrn-section-4" data-section-index="4">
             <h2>Symplectification of a Contact Manifold</h2>
@@ -789,38 +830,19 @@ export default function SymplecticContactStructuresSymmetries() {
               <div className="lrn-qed">Q.E.D.</div>
             </div>
 
-            <div className="lrn-self-explain">
-              <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
-              <p>
-                Why does step 2 produce two terms instead of one? Form your answer before reading
-                on.
-              </p>
-              <details className="lrn-self-explain-reveal">
-                <summary>Expert explanation</summary>
-                <p>
-                  The product rule for exterior derivatives:{' '}
-                  {`$d(\\lambda \\cdot \\pi^*\\omega) = d\\lambda \\wedge \\pi^*\\omega + \\lambda \\cdot d(\\pi^*\\omega)$`}
-                  . The first term handles variation in the "fiber" direction (changing{' '}
-                  {`$\\lambda$`}). The second term handles variation in the "base" direction (moving
-                  on the contact manifold).
-                </p>
-              </details>
-            </div>
-
             <div className="lrn-callout">
               <span className="lrn-callout-label">Key Example</span>
               <p>
                 The manifold of all contact elements of an {`$n$`}-manifold has dimension {`$2n-1$`}
                 . Its symplectification is the cotangent bundle {`$T^*M$`} without the zero section:
-                a {`$2n$`}-dimensional symplectic manifold. The canonical 1-form{' '}
-                {`$\\alpha = \\lambda \\pi^*\\omega$`} is exactly "p dq" in cotangent bundle
-                coordinates.
+                a {`$2n$`}-dimensional symplectic manifold, with canonical 1-form{' '}
+                {`$\\alpha = \\lambda \\pi^*\\omega$`}.
               </p>
             </div>
           </div>
         </>,
 
-        // ── SECTION 5: Contact Diffeomorphisms and Darboux Theorem ──
+        // SECTION 5: Contact Diffeomorphisms and Darboux Theorem
         <>
           <div id="lrn-section-5" data-section-index="5">
             <h2>Contact Diffeomorphisms and Darboux's Theorem</h2>
@@ -835,10 +857,8 @@ export default function SymplecticContactStructuresSymmetries() {
               <details className="lrn-predict-reveal">
                 <summary>Check your thinking</summary>
                 <p>
-                  Yes. All contact manifolds of the same odd dimension are locally
-                  contact-diffeomorphic. The local normal form is{' '}
-                  {`$\\omega = x_1\\,dy_1 + \\cdots + x_n\\,dy_n + dz$`} in coordinates{' '}
-                  {`$(x_1,\\ldots,x_n, y_1,\\ldots,y_n, z)$`}.
+                  Yes. All contact manifolds of the same odd dimension are locally identical. The
+                  normal form is stated below.
                 </p>
               </details>
             </div>
@@ -864,8 +884,8 @@ export default function SymplecticContactStructuresSymmetries() {
               <div className="lrn-definition-desc">
                 <p>
                   A <strong>contact vector field</strong> is the velocity field of a one-parameter
-                  group of contact diffeomorphisms. The Lie bracket of two contact vector fields is
-                  again a contact vector field.
+                  group of contact diffeomorphisms. The Lie bracket of two such fields (which
+                  measures how their flows fail to commute) is again a contact vector field.
                 </p>
               </div>
             </div>
@@ -885,15 +905,6 @@ export default function SymplecticContactStructuresSymmetries() {
               This map commutes with multiplication by real scalars and preserves the canonical
               1-form {`$\\alpha$`}.
             </p>
-
-            <div className="lrn-callout">
-              <span className="lrn-callout-label">Remark</span>
-              <p>
-                Symplectification of contact vector fields is an isomorphism of Lie algebras: from
-                contact vector fields to locally Hamiltonian fields whose Hamiltonians are
-                homogeneous of degree 1.
-              </p>
-            </div>
 
             <div className="lrn-compare">
               <div className="lrn-compare-col">
@@ -976,7 +987,7 @@ export default function SymplecticContactStructuresSymmetries() {
           </div>
         </>,
 
-        // ── SECTION 6: Contact Hamiltonians and Legendre Manifolds ──
+        // SECTION 6: Contact Hamiltonians and Legendre Manifolds
         <>
           <div id="lrn-section-6" data-section-index="6">
             <h2>Contact Hamiltonians and Legendre Manifolds</h2>
@@ -1028,16 +1039,47 @@ export default function SymplecticContactStructuresSymmetries() {
 
             <div className="lrn-eq">{`$$\\dot{x} = -K_y + x K_z, \\quad \\dot{y} = K_x, \\quad \\dot{z} = K - x K_x$$`}</div>
 
-            <div className="lrn-elaborate">
-              <span className="lrn-elaborate-label">WHY IS THIS TRUE?</span>
-              <p>
-                Lift to the symplectification. Use momentum variables{' '}
-                {`$(P_y, P_z) = (\\lambda x, \\lambda)$`} conjugate to {`$(y, z)$`}. The canonical
-                1-form is {`$\\alpha = \\lambda x\\,dy + \\lambda\\,dz$`}. The Hamiltonian lifts to{' '}
-                {`$H = \\lambda K(x,y,z)$`}, homogeneous of degree 1 in {`$\\lambda$`}. Write
-                Hamilton's equations for {`$H$`} on the symplectification, then restrict to the
-                surface {`$\\lambda = 1$`} to recover the three contact equations.
-              </p>
+            <div className="lrn-proof">
+              <span className="lrn-proof-header">Deriving the three contact equations</span>
+              <div className="lrn-proof-step">
+                <span className="lrn-proof-step-num">1.</span>
+                <div className="lrn-proof-step-content">
+                  Lift to the symplectification. Use momentum variables{' '}
+                  {`$(P_y, P_z) = (\\lambda x, \\lambda)$`} conjugate to {`$(y, z)$`}. So{' '}
+                  {`$x = P_y / P_z$`} and {`$\\lambda = P_z$`}. The Hamiltonian lifts to{' '}
+                  {`$H = \\lambda K = P_z\\, K(P_y/P_z,\\, y,\\, z)$`}.
+                </div>
+              </div>
+              <div className="lrn-proof-step">
+                <span className="lrn-proof-step-num">2.</span>
+                <div className="lrn-proof-step-content">
+                  Hamilton's equation {`$\\dot{y} = \\partial H / \\partial P_y$`} gives{' '}
+                  {`$\\dot{y} = P_z \\cdot K_x \\cdot (1/P_z) = K_x$`}.
+                </div>
+              </div>
+              <div className="lrn-proof-step">
+                <span className="lrn-proof-step-num">3.</span>
+                <div className="lrn-proof-step-content">
+                  {`$\\dot{z} = \\partial H / \\partial P_z = K + P_z K_x \\cdot (-P_y/P_z^2) = K - x K_x$`}
+                  .
+                </div>
+              </div>
+              <div className="lrn-proof-step">
+                <span className="lrn-proof-step-num">4.</span>
+                <div className="lrn-proof-step-content">
+                  For {`$\\dot{x}$`}, use {`$\\dot{P}_y = -\\partial H/\\partial y = -P_z K_y$`} and{' '}
+                  {`$\\dot{P}_z = -\\partial H/\\partial z = -P_z K_z$`}. Then{' '}
+                  {`$\\dot{x} = \\dot{P}_y/P_z - (P_y/P_z^2)\\dot{P}_z = -K_y + x K_z$`}.
+                </div>
+              </div>
+              <div className="lrn-proof-step">
+                <span className="lrn-proof-step-num">5.</span>
+                <div className="lrn-proof-step-content">
+                  Restrict to {`$\\lambda = P_z = 1$`}. The three results are exactly the contact
+                  equations above.
+                </div>
+              </div>
+              <div className="lrn-qed">Q.E.D.</div>
             </div>
 
             <h3>Poisson Bracket of Contact Fields</h3>
@@ -1049,9 +1091,32 @@ export default function SymplecticContactStructuresSymmetries() {
             <div className="lrn-eq">{`$$\\{K, K'\\} = (K, K') + K_z \\cdot EK' - K'_z \\cdot EK$$`}</div>
 
             <p>
-              Here {`$(K, K')$`} is the ordinary Poisson bracket in {`$(x,y)$`} variables, and{' '}
-              {`$E$`} is the Euler operator {`$EF = F - x F_x$`}.
+              Here {`$(K, K')$`} is the ordinary Poisson bracket in {`$(x,y)$`} variables, written{' '}
+              {`$(K, K') = K_x K'_y - K_y K'_x$`}, and {`$E$`} is the Euler operator{' '}
+              {`$EF = F - x F_x$`}.
             </p>
+
+            <div className="lrn-callout">
+              <span className="lrn-callout-label">Worked Example</span>
+              <p>
+                Compute {`$\\{K, K'\\}$`} for {`$K = y$`} and {`$K' = x$`}.
+              </p>
+              <ul className="lrn-list">
+                <li>
+                  Partial derivatives: {`$K_x = 0$`}, {`$K_y = 1$`}, {`$K_z = 0$`}; {`$K'_x = 1$`},{' '}
+                  {`$K'_y = 0$`}, {`$K'_z = 0$`}.
+                </li>
+                <li>Poisson part: {`$(K, K') = K_x K'_y - K_y K'_x = 0 - 1 = -1$`}.</li>
+                <li>
+                  Euler corrections: {`$K_z \\cdot EK' = 0$`} and {`$K'_z \\cdot EK = 0$`}, since
+                  both {`$z$`}-derivatives vanish.
+                </li>
+              </ul>
+              <p>
+                So {`$\\{y, x\\} = -1$`}. With no {`$z$`}-dependence the bracket reduces to the
+                plain Poisson bracket, as expected.
+              </p>
+            </div>
 
             <div className="lrn-compare">
               <div className="lrn-compare-col">
@@ -1081,6 +1146,13 @@ export default function SymplecticContactStructuresSymmetries() {
                   every point it is tangent to the contact hyperplane.
                 </p>
                 <p>This is the contact analogue of a Lagrangian submanifold.</p>
+                <p>
+                  A <strong>Lagrangian submanifold</strong> {`$L$`} sits inside a {`$2n$`}
+                  -dimensional symplectic manifold. It has exactly half the dimension ({`$n$`}), and
+                  the symplectic form vanishes on it: {`$\\omega|_L = 0$`}. Half is the most you can
+                  reach, since nondegeneracy blocks any larger surface from killing the form. A
+                  Legendre manifold is the odd-dimensional version of this idea.
+                </p>
               </div>
             </div>
 
@@ -1128,12 +1200,33 @@ export default function SymplecticContactStructuresSymmetries() {
               This is the geometric version of the Legendre transform from convex analysis. When{' '}
               {`$f = \\varphi(x)$`} is convex, the projection of the resulting Legendre manifold is
               the graph of the convex dual {`$\\Phi$`}. When {`$\\varphi$`} is not convex,
-              singularities (cusps, swallowtails) appear.
+              singularities (cusps, swallowtails) appear. The same swap drives the
+              canonical-transformations Legendre exchange in Part III.
             </p>
+
+            <div className="lrn-callout">
+              <span className="lrn-callout-label">Worked Example</span>
+              <p>
+                Take {`$f = \\varphi(x) = \\tfrac{1}{2}x^2$`}. Its slope is{' '}
+                {`$p = \\varphi'(x) = x$`}. Feed this into the involution{' '}
+                {`$(p, x, f) \\mapsto (P = x,\\, X = p,\\, F = px - f)$`}:
+              </p>
+              <ul className="lrn-list">
+                <li>{`$X = p = x$`}.</li>
+                <li>{`$F = p x - f = x \\cdot x - \\tfrac{1}{2}x^2 = \\tfrac{1}{2}x^2$`}.</li>
+                <li>
+                  Write {`$F$`} in the new variable {`$X = x$`}: {`$\\Phi(X) = \\tfrac{1}{2}X^2$`}.
+                </li>
+              </ul>
+              <p>
+                So {`$\\tfrac{1}{2}x^2$`} is its own Legendre dual. The parabola maps to a parabola,
+                which matches the convex-duality result.
+              </p>
+            </div>
           </div>
         </>,
 
-        // ── SECTION 7: Legendre Fibration and Wave Front Singularities ──
+        // SECTION 7: Legendre Fibration and Wave Front Singularities
         <>
           <div id="lrn-section-7" data-section-index="7">
             <h2>Legendre Fibration and Wave Front Singularities</h2>
@@ -1174,11 +1267,9 @@ export default function SymplecticContactStructuresSymmetries() {
             <h3>Wave Front Singularity Types</h3>
 
             <p>
-              The singularities of a Legendre mapping for {`$n < 6$`} in general position are
-              approximated by maps with singularities from the list {`$A_k$`} (
-              {`$1 \\leq k \\leq 6$`}), {`$D_k$`} ({`$4 \\leq k \\leq 6$`}), and {`$E_6$`}.
+              In {`$\\mathbb{R}^3$`}, a generic wave front has only three local shapes. Each is set
+              by a simple generating function {`$S$`}:
             </p>
-            <p>In {`$\\mathbb{R}^3$`}, the generic wave front singularity types are:</p>
 
             <ul className="lrn-list">
               <li>{`$A_1: S = \\pm x_1^2$`} (smooth fold)</li>
@@ -1186,14 +1277,10 @@ export default function SymplecticContactStructuresSymmetries() {
               <li>{`$A_3: S = \\pm x_1^4 + x_1^2 y_2$`} (swallowtail)</li>
             </ul>
 
-            <div className="lrn-callout">
-              <span className="lrn-callout-label">Note</span>
-              <p>
-                Wave fronts in general position in {`$\\mathbb{R}^3$`} have only cusps and
-                swallowtail points. At isolated moments in time, transitions of types{' '}
-                {`$A_4, D_4, D_4^*$`} occur.
-              </p>
-            </div>
+            <p>
+              So a moving wave front in space shows cusps and swallowtail points. Folds are smooth
+              and not true singularities.
+            </p>
 
             <div className="lrn-self-explain">
               <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -1215,7 +1302,7 @@ export default function SymplecticContactStructuresSymmetries() {
           </div>
         </>,
 
-        // ── SECTION 8: Contactification ──
+        // SECTION 8: Contactification
         <>
           <div id="lrn-section-8" data-section-index="8">
             <h2>Contactification</h2>
@@ -1231,7 +1318,8 @@ export default function SymplecticContactStructuresSymmetries() {
                 <p>
                   You also add one dimension. The contactification of a {`$2n$`}-dimensional
                   symplectic manifold is a {`$(2n+1)$`}-dimensional contact manifold. They are
-                  inverse operations when the cohomology class of {`$\\omega^2$`} is integral.
+                  inverse operations when the total area each closed surface measures with{' '}
+                  {`$\\omega^2$`} comes out to a whole number.
                 </p>
               </details>
             </div>
@@ -1272,7 +1360,7 @@ export default function SymplecticContactStructuresSymmetries() {
                   Takes {`$2n$`}-dim symplectic manifold to {`$(2n+1)$`}-dim contact manifold.
                 </p>
                 <p>Adds one dimension via {`$\\mathbb{R}$`}-fiber.</p>
-                <p>Requires {`$[\\omega^2]$`} integral (cohomology condition).</p>
+                <p>Requires every closed surface to measure a whole-number total area.</p>
               </div>
             </div>
 
@@ -1280,7 +1368,9 @@ export default function SymplecticContactStructuresSymmetries() {
 
             <p>
               The equation {`$\\Phi(x, \\frac{\\partial u}{\\partial x}, u) = 0$`} defines a
-              hypersurface {`$E = \\Phi^{-1}(0)$`} in the space of 1-jets of functions.
+              hypersurface {`$E = \\Phi^{-1}(0)$`} in the space of 1-jets of functions. A 1-jet
+              records a function's value and its first derivatives at a point. The Hamilton-Jacobi
+              equation is the most famous first-order PDE solved this way.
             </p>
             <p>
               The space of 1-jets has coordinates {`$(x_1,\\ldots,x_n, p_1,\\ldots,p_n, u)$`} with
@@ -1291,6 +1381,40 @@ export default function SymplecticContactStructuresSymmetries() {
               the intersection of the tangent plane to {`$E$`} with the contact plane such that{' '}
               {`$d\\Phi(\\xi) = 0$`}.
             </p>
+
+            <div className="lrn-definition">
+              <span className="lrn-definition-term">
+                Three Operators: {`$i_\\xi$`}, {`$\\mathcal{L}_\\xi$`}, and Cartan's Formula
+              </span>
+              <div className="lrn-definition-desc">
+                <p>
+                  The proof below needs three tools. The first two act on any form along a vector
+                  field {`$\\xi$`}.
+                </p>
+                <ul className="lrn-list">
+                  <li>
+                    The <strong>interior product</strong> {`$i_\\xi$`} plugs {`$\\xi$`} into the
+                    first slot of a form. It drops the degree by one: a 1-form becomes a number, a
+                    2-form becomes a 1-form. So {`$i_\\xi \\alpha = \\alpha(\\xi)$`}.
+                  </li>
+                  <li>
+                    The <strong>Lie derivative</strong> {`$\\mathcal{L}_\\xi$`} drags a form along
+                    the flow of {`$\\xi$`} and measures how fast it changes. It keeps the degree the
+                    same.
+                  </li>
+                </ul>
+                <p>
+                  <strong>Cartan's formula</strong> links the two through the exterior derivative{' '}
+                  {`$d$`} you built in the spine:
+                </p>
+                <div className="lrn-eq lrn-eq-display">{`$$\\mathcal{L}_\\xi \\alpha = d(i_\\xi \\alpha) + i_\\xi(d\\alpha)$$`}</div>
+                <p>
+                  Read it as: dragging a form along {`$\\xi$`} splits into a part that comes from
+                  how {`$\\alpha(\\xi)$`} varies, plus a part that comes from the form's own twist{' '}
+                  {`$d\\alpha$`} felt along {`$\\xi$`}.
+                </p>
+              </div>
+            </div>
 
             <div className="lrn-proof">
               <span className="lrn-proof-header">Why characteristics give the solution</span>
@@ -1303,7 +1427,7 @@ export default function SymplecticContactStructuresSymmetries() {
               <div className="lrn-proof-step">
                 <span className="lrn-proof-step-num">2.</span>
                 <div className="lrn-proof-step-content">
-                  The homotopy formula gives{' '}
+                  Cartan's formula gives{' '}
                   {`$\\mathcal{L}_\\xi \\alpha = d(i_\\xi \\alpha) + i_\\xi(d\\alpha)$`}.
                 </div>
               </div>
@@ -1350,7 +1474,7 @@ export default function SymplecticContactStructuresSymmetries() {
           </div>
         </>,
 
-        // ── SECTION 9: Dynamical Systems with Symmetries ──
+        // SECTION 9: Dynamical Systems with Symmetries
         <>
           <div id="lrn-section-9" data-section-index="9">
             <h2>Dynamical Systems with Symmetries</h2>
@@ -1462,10 +1586,32 @@ export default function SymplecticContactStructuresSymmetries() {
             <p>
               Rotations have Hamiltonians {`$M_1 = q_2 p_3 - q_3 p_2$`},{' '}
               {`$M_2 = q_3 p_1 - q_1 p_3$`}, {`$M_3 = q_1 p_2 - q_2 p_1$`} (angular momentum
-              components).
+              components). These are the same conserved quantities Noether's theorem ties to
+              rotational symmetry; the momentum map packages them into one geometric object.
             </p>
 
             <h3>Equivariance of the Momentum Mapping</h3>
+
+            <div className="lrn-definition">
+              <span className="lrn-definition-term">Adjoint and Co-adjoint Action</span>
+              <div className="lrn-definition-desc">
+                <p>
+                  A group element {`$g$`} reshapes its own Lie algebra {`$\\mathfrak{g}$`} by
+                  conjugation. This is the <strong>adjoint action</strong> {`$\\mathrm{Ad}_g$`}:
+                  push a Lie algebra element {`$a$`} through {`$g a g^{-1}$`} and read off the
+                  result as a new Lie algebra element.
+                </p>
+                <p>
+                  The dual space {`$\\mathfrak{g}^*$`} holds momenta (linear functions on{' '}
+                  {`$\\mathfrak{g}$`}). The <strong>co-adjoint action</strong>{' '}
+                  {`$\\mathrm{Ad}^*_{g^{-1}}$`} is how {`$g$`} reshuffles these momenta: it is the
+                  matching action on {`$\\mathfrak{g}^*$`} that keeps every pairing intact, so{' '}
+                  {`$\\langle \\mathrm{Ad}^*_{g^{-1}} p,\\, a \\rangle = \\langle p,\\, \\mathrm{Ad}_{g^{-1}} a \\rangle$`}
+                  . The {`$g^{-1}$`} placement makes {`$g \\mapsto \\mathrm{Ad}^*_{g^{-1}}$`} a left
+                  action of {`$G$`} on {`$\\mathfrak{g}^*$`}.
+                </p>
+              </div>
+            </div>
 
             <p>
               The momentum mapping {`$P$`} commutes with the Poisson action of {`$G$`} on {`$M$`}{' '}
@@ -1502,7 +1648,7 @@ export default function SymplecticContactStructuresSymmetries() {
           </div>
         </>,
 
-        // ── SECTION 10: Reduced Phase Space ──
+        // SECTION 10: Reduced Phase Space
         <>
           <div id="lrn-section-10" data-section-index="10">
             <h2>Reduced Phase Space</h2>
@@ -1599,12 +1745,8 @@ export default function SymplecticContactStructuresSymmetries() {
             </div>
 
             <div className="lrn-callout">
-              <span className="lrn-callout-label">Historical Note</span>
-              <p>
-                The theorem on the symplectic structure of the reduced phase space was first stated
-                by Marsden and Weinstein. Special cases were found by Jacobi, Poincaré, Kirillov,
-                Kostant, and Faddeev.
-              </p>
+              <span className="lrn-callout-label">Name</span>
+              <p>This is the Marsden-Weinstein theorem.</p>
             </div>
 
             <h3>Three Key Examples of Reduction</h3>
@@ -1615,8 +1757,8 @@ export default function SymplecticContactStructuresSymmetries() {
                 <p className="lrn-step-content">
                   {`$M = \\mathbb{R}^{2n}$`}, {`$G = S^1$`} acting by phase rotation,{' '}
                   {`$H = \\frac{1}{2}\\sum(p_k^2 + q_k^2)$`}. Momentum level {`$M_p = S^{2n-1}$`}.
-                  Reduced phase space {`$= \\mathbb{CP}^{n-1}$`} with the symplectic structure from
-                  Appendix 3.
+                  Reduced phase space {`$= \\mathbb{CP}^{n-1}$`} with the hermitian (Kähler)
+                  symplectic structure built in Section 0.
                 </p>
               </div>
               <div className="lrn-step">
@@ -1679,7 +1821,7 @@ export default function SymplecticContactStructuresSymmetries() {
           </div>
         </>,
 
-        // ── SECTION 11: Relative Equilibria ──
+        // SECTION 11: Relative Equilibria
         <>
           <div id="lrn-section-11" data-section-index="11">
             <h2>Stationary Rotations and Relative Equilibria</h2>
@@ -1764,16 +1906,16 @@ export default function SymplecticContactStructuresSymmetries() {
 
             <div className="lrn-callout">
               <span className="lrn-callout-label">Euler-Poisson Equations</span>
-              <p>
-                Poisson found the equations of the asymmetric rigid body in remarkably simple form:
-              </p>
+              <p>The equations of the asymmetric rigid body take a simple form:</p>
               <div className="lrn-eq">{`$$\\frac{dM}{dt} - [M, \\omega] = \\mu g[\\gamma, I], \\quad \\frac{d\\gamma}{dt} = [\\gamma, \\omega]$$`}</div>
-              <p>
-                Here {`$M$`} is angular momentum, {`$\\omega$`} is angular velocity, {`$\\gamma$`}{' '}
-                is the unit vertical vector, {`$\\mu$`} is mass, {`$g$`} is gravitational
-                acceleration, and {`$I$`} is the position vector of the center of mass from the
-                fixed point.
-              </p>
+              <ul className="lrn-list">
+                <li>{`$M$`} is angular momentum.</li>
+                <li>{`$\\omega$`} is angular velocity.</li>
+                <li>{`$\\gamma$`} is the unit vertical vector.</li>
+                <li>{`$\\mu$`} is mass.</li>
+                <li>{`$g$`} is gravitational acceleration.</li>
+                <li>{`$I$`} is the position vector of the center of mass from the fixed point.</li>
+              </ul>
             </div>
 
             <h3>Energy-Momentum Mapping</h3>
@@ -1788,13 +1930,6 @@ export default function SymplecticContactStructuresSymmetries() {
               Critical points of {`$H$`} restricted to a regular momentum level are exactly the
               relative equilibria.
             </p>
-
-            <div className="lrn-insight">
-              The nonsingular energy level manifolds in the reduced phase space {`$T^*S^2$`} for an
-              asymmetric rigid body take four topological forms: {`$S^3$`}, {`$S^2 \\times S^1$`},{' '}
-              {`$\\mathbb{RP}^3$`}, and the "pretzel" ({`$S^3$`} with two {`$S^1 \\times D^2$`}{' '}
-              handles).
-            </div>
 
             <div className="lrn-self-explain">
               <span className="lrn-self-explain-label">SELF-EXPLAIN</span>
@@ -1818,7 +1953,7 @@ export default function SymplecticContactStructuresSymmetries() {
       ]
     },
 
-    // ── PRACTICE ────────────────────────────────────────────────────────────
+    // PRACTICE
     practice: [
       // Interleaved across all sections
       {
@@ -1911,7 +2046,7 @@ export default function SymplecticContactStructuresSymmetries() {
       },
       {
         q: `[ELABORATE] Why is every Kähler manifold symplectic, but not every symplectic manifold Kähler?`,
-        a: `Every Kähler manifold is symplectic: the imaginary part of the hermitian metric is a closed nondegenerate 2-form by definition. Going the other way fails because Kähler requires three mutually compatible structures: a Riemannian metric, a complex structure, and a symplectic form. Compatibility forces strong topological constraints - for instance, compact Kähler manifolds must have even odd Betti numbers - that many symplectic manifolds violate. The Kodaira-Thurston manifold is symplectic but not Kähler for exactly this reason.`
+        a: `Every Kähler manifold is symplectic: the imaginary part of the hermitian metric is a closed nondegenerate 2-form by definition. Going the other way fails because Kähler requires three mutually compatible structures: a Riemannian metric, a complex structure, and a symplectic form. Compatibility forces strong shape rules that many symplectic manifolds break. One such rule: a compact Kähler manifold must have every odd-dimensional Betti number even (Betti numbers count the independent holes of each dimension). There are compact symplectic manifolds with an odd Betti number that is odd, so they cannot be Kähler.`
       },
       {
         q: `[SELF-EXPLAIN] In the PDE integration proof, why does $\\mathcal{L}_\\xi \\alpha = c\\alpha$ preserve integral manifolds?`,
@@ -1931,7 +2066,7 @@ export default function SymplecticContactStructuresSymmetries() {
       }
     ],
 
-    // ── REFERENCE ────────────────────────────────────────────────────────────
+    // REFERENCE
     reference: {
       category: 'Quick Reference',
       title: 'Symplectic and Contact Structures with Symmetries',
@@ -2121,7 +2256,7 @@ export default function SymplecticContactStructuresSymmetries() {
       ]
     },
 
-    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: rgba(240,240,250,1); --mafs-line-color: rgba(240,240,250,0.15); }`
+    customCss: `.MafsView { --mafs-bg: transparent; --mafs-fg: var(--ink-default); --mafs-line-color: var(--ink-hairline); }`
   }
 
   return <LearningTemplate config={config} />
